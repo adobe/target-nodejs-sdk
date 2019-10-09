@@ -275,7 +275,7 @@ describe("Target Helper", () => {
       ObjectSerializer.serialize(result, "DeliveryRequest")
     );
     expect(serializedResult).toEqual(
-      '{"requestId":"12345678-abcd-1234-efgh-000000000000","id":{"marketingCloudVisitorId":"mid","customerIds":[{"id":"67312378756723456","integrationCode":"userid","authenticatedState":"authenticated"},{"id":"550e8400-e29b-41d4-a716-446655440000","integrationCode":"puuid","authenticatedState":"unknown"}]},"context":{"channel":"web","timeOffsetInMinutes":180},"experienceCloud":{"audienceManager":{"locationHint":22,"blob":"aamb"},"analytics":{"supplementalDataId":"sdid","logging":"server_side"}},"execute":{"pageLoad":{"address":{"url":"http://test.com"},"parameters":{"a":1},"profileParameters":{"b":2},"order":{"id":"1234"},"product":{"id":"5678"}},"mboxes":[{"index":1,"name":"mbox1"}]}}'
+      '{"requestId":"12345678-abcd-1234-efgh-000000000000","id":{"marketingCloudVisitorId":"mid","customerIds":[{"id":"67312378756723456","integrationCode":"userid","authenticatedState":"authenticated"},{"id":"550e8400-e29b-41d4-a716-446655440000","integrationCode":"puuid","authenticatedState":"unknown"}]},"context":{"channel":"web","timeOffsetInMinutes":0},"experienceCloud":{"audienceManager":{"locationHint":22,"blob":"aamb"},"analytics":{"supplementalDataId":"sdid","logging":"server_side"}},"execute":{"pageLoad":{"address":{"url":"http://test.com"},"parameters":{"a":1},"profileParameters":{"b":2},"order":{"id":"1234"},"product":{"id":"5678"}},"mboxes":[{"index":1,"name":"mbox1"}]}}'
     );
 
     request = {
@@ -315,7 +315,7 @@ describe("Target Helper", () => {
       ObjectSerializer.serialize(result, "DeliveryRequest")
     );
     expect(serializedResult).toEqual(
-      '{"requestId":"12345678-abcd-1234-efgh-000000000000","property":{"token":"at_property1"},"trace":{"authorizationToken":"authorizationToken"},"context":{"channel":"web","timeOffsetInMinutes":180},"experienceCloud":{"analytics":{"supplementalDataId":null,"logging":"server_side","trackingServer":"trackingServer","trackingServerSecure":"trackingServerSecure"}},"prefetch":{"views":[{"name":"view1","key":"viewkey1"}],"pageLoad":{},"mboxes":[{"index":1,"name":"mbox1"}]}}'
+      '{"requestId":"12345678-abcd-1234-efgh-000000000000","property":{"token":"at_property1"},"trace":{"authorizationToken":"authorizationToken"},"context":{"channel":"web","timeOffsetInMinutes":0},"experienceCloud":{"analytics":{"supplementalDataId":null,"logging":"server_side","trackingServer":"trackingServer","trackingServerSecure":"trackingServerSecure"}},"prefetch":{"views":[{"name":"view1","key":"viewkey1"}],"pageLoad":{},"mboxes":[{"index":1,"name":"mbox1"}]}}'
     );
 
     request = {
@@ -372,7 +372,7 @@ describe("Target Helper", () => {
       ObjectSerializer.serialize(result, "DeliveryRequest")
     );
     expect(serializedResult).toEqual(
-      '{"requestId":"12345678-abcd-1234-efgh-000000000000","context":{"channel":"web","timeOffsetInMinutes":180},"experienceCloud":{"analytics":{"supplementalDataId":null,"logging":"server_side"}},"notifications":[{"id":"id","impressionId":"impressionId","type":"display","timestamp":1570092933750,"tokens":["token1"],"mbox":{"name":"mbox1","state":"mboxstate1"}},{"id":"id","type":"click","timestamp":1570092933755,"tokens":["token1","token2"],"view":{"name":"view1","key":"viewkey1","state":"viewstate1"}}]}'
+      '{"requestId":"12345678-abcd-1234-efgh-000000000000","context":{"channel":"web","timeOffsetInMinutes":0},"experienceCloud":{"analytics":{"supplementalDataId":null,"logging":"server_side"}},"notifications":[{"id":"id","impressionId":"impressionId","type":"display","timestamp":1570092933750,"tokens":["token1"],"mbox":{"name":"mbox1","state":"mboxstate1"}},{"id":"id","type":"click","timestamp":1570092933755,"tokens":["token1","token2"],"view":{"name":"view1","key":"viewkey1","state":"viewstate1"}}]}'
     );
 
     request = {

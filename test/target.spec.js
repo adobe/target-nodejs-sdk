@@ -79,7 +79,7 @@ describe("Target Delivery API client", () => {
     let result = await target.executeDelivery(options);
     let serializedResult = JSON.stringify(result);
     expect(serializedResult).toEqual(
-      '{"visitorState":{"B8A054D958807F770A495DD6@AdobeOrg":{}},"request":{"requestId":"123","id":{"tntId":"08210e2d751a44779b8313e2d2692b96.21_27"},"context":{"channel":"web","timeOffsetInMinutes":180},"experienceCloud":{"analytics":{"logging":"server_side","supplementalDataId":null}},"execute":{"pageLoad":{}}},"targetCookie":{"name":"mbox","value":"session#a0bb222be4154f3f97e20dfa1c1d1750#1570321860","maxAge":1860},"targetLocationHintCookie":{"name":"mboxEdgeCluster","value":"21","maxAge":1860},"response":"responseBody"}'
+      '{"visitorState":{"B8A054D958807F770A495DD6@AdobeOrg":{}},"request":{"requestId":"123","id":{"tntId":"08210e2d751a44779b8313e2d2692b96.21_27"},"context":{"channel":"web","timeOffsetInMinutes":0},"experienceCloud":{"analytics":{"logging":"server_side","supplementalDataId":null}},"execute":{"pageLoad":{}}},"targetCookie":{"name":"mbox","value":"session#a0bb222be4154f3f97e20dfa1c1d1750#1570321860","maxAge":1860},"targetLocationHintCookie":{"name":"mboxEdgeCluster","value":"21","maxAge":1860},"response":"responseBody"}'
     );
     expect(EMPTY_VISITOR.getState.calls.count()).toBe(2);
     expect(testLogger.debug.calls.count()).toBe(2);
@@ -94,7 +94,7 @@ describe("Target Delivery API client", () => {
     result = await target.executeDelivery(options);
     serializedResult = JSON.stringify(result);
     expect(serializedResult).toEqual(
-      '{"visitorState":{"B8A054D958807F770A495DD6@AdobeOrg":{}},"request":{"requestId":"123","id":{"tntId":"08210e2d751a44779b8313e2d2692b96.21_27"},"context":{"channel":"web","timeOffsetInMinutes":180},"experienceCloud":{"analytics":{"logging":"server_side","supplementalDataId":null}},"execute":{"pageLoad":{}}},"targetCookie":{"name":"mbox","value":"session#a0bb222be4154f3f97e20dfa1c1d1750#1570321860","maxAge":1860},"targetLocationHintCookie":{"name":"mboxEdgeCluster","value":"21","maxAge":1860},"response":{}}'
+      '{"visitorState":{"B8A054D958807F770A495DD6@AdobeOrg":{}},"request":{"requestId":"123","id":{"tntId":"08210e2d751a44779b8313e2d2692b96.21_27"},"context":{"channel":"web","timeOffsetInMinutes":0},"experienceCloud":{"analytics":{"logging":"server_side","supplementalDataId":null}},"execute":{"pageLoad":{}}},"targetCookie":{"name":"mbox","value":"session#a0bb222be4154f3f97e20dfa1c1d1750#1570321860","maxAge":1860},"targetLocationHintCookie":{"name":"mboxEdgeCluster","value":"21","maxAge":1860},"response":{}}'
     );
   });
 });
