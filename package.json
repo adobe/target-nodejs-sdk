@@ -1,0 +1,73 @@
+{
+  "name": "@adobe/target-nodejs-sdk",
+  "version": "1.0.0",
+  "description": "Adobe Target Node.js SDK, Delivery API client",
+  "main": "lib/index.js",
+  "engines": {
+    "node": ">=8.16.0"
+  },
+  "scripts": {
+    "clean": "rimraf lib",
+    "prebuild": "npm run clean && npm run format && npm run lint",
+    "build": "rollup -c rollup.config.js",
+    "www": "npm run build && node ./sample/server.js",
+    "pretest": "npm run lint-test",
+    "test": "jasmine test/*.spec.js",
+    "coverage": "nyc --reporter=lcov --reporter=text-summary npm run test",
+    "testdebug": "node --inspect-brk node_modules/jasmine/bin/jasmine.js test/*.spec.js",
+    "lint-src": "eslint src/**",
+    "lint-test": "eslint test/**",
+    "lint": "npm run lint-src && npm run lint-test",
+    "format": "prettier --write {src,test}/**/*.js",
+    "prepublishOnly": "echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc"
+  },
+  "pre-commit": [
+    "precommit-msg",
+    "format",
+    "lint",
+    "test"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:adobe/target-nodejs-sdk.git"
+  },
+  "keywords": [
+    "NodeJS",
+    "Server",
+    "API",
+    "Adobe",
+    "Target",
+    "MCID",
+    "Visitor",
+    "Delivery"
+  ],
+  "author": "Adobe Systems Inc.",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "ajv": "^5.5.2",
+    "cookie-parser": "^1.4.4",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jasmine": "^2.10.1",
+    "eslint-plugin-prettier": "^3.1.0",
+    "express": "^4.17.1",
+    "jasmine": "^3.5.0",
+    "jasmine-console-reporter": "^3.1.0",
+    "mockdate": "^2.0.5",
+    "nyc": "^14.1.1",
+    "prettier": "^1.18.2",
+    "rimraf": "^2.6.1",
+    "rollup": "^1.17.0",
+    "rollup-plugin-commonjs": "^10.0.1",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-license": "^0.12.1",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-terser": "^5.1.1"
+  },
+  "dependencies": {
+    "@adobe-mcid/visitor-js-server": "^2.0.0",
+    "request": "^2.81.0"
+  }
+}
