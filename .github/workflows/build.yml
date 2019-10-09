@@ -1,27 +1,21 @@
 name: CI
-
 on: [push, pull_request]
-
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@master
-
+      - uses: actions/checkout@v1
       - name: Use Node.js 10.x
-        uses: actions/setup-node@master
+        uses: actions/setup-node@v1
         with:
-          node-version: 10.x
-
+          node-version: '10.x'
       - name: build, test, generate coverage
         run: |
           npm i
           npm run build
           npm run coverage
-
       - name: coveralls
         uses: coverallsapp/github-action@master
         with:
-          github-token: ${{ secrets.github_token }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
