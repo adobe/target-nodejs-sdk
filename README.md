@@ -5,8 +5,8 @@
 ![coveralls](https://img.shields.io/coveralls/github/adobe/target-nodejs-sdk)
 ![license](https://img.shields.io/npm/l/@adobe/target-nodejs-sdk)
 
-The Adobe Target Node.js SDK uses the [Target View Delivery API] to retrieve and deliver personalized experiences.
-Furthermore, the Node,js SDK helps manage integrations with Experience Cloud solutions using the Experience Cloud
+The Adobe Target Node.js SDK uses the [Target Delivery API] to retrieve and deliver personalized experiences.
+Furthermore, the Node.js SDK helps manage integrations with Experience Cloud solutions using the Experience Cloud
 Identity library (ECID).
 
 ## Getting started
@@ -26,7 +26,7 @@ npm i @adobe/target-nodejs-sdk -P
 
 ## Super Simple to Use
 
-The Target Node.js SDK has been designed to facilitate interaction with Adobe [Target View Delivery API] 
+The Target Node.js SDK has been designed to facilitate interaction with Adobe [Target Delivery API] 
 in server-side Node.js environments.
 
 ```js
@@ -1077,7 +1077,7 @@ The `options` object has the following structure:
 
 | Name                     | Type     | Required  | Default | Description                                      |
 |--------------------------|----------|-----------|---------|--------------------------------------------------|
-| request                  | Object   |  Yes      | None    | [Target View Delivery API] request               |
+| request                  | Object   |  Yes      | None    | [Target Delivery API] request               |
 | sessionId                | String   |  No       | None    | Used for linking multiple Target requests        |
 | visitorCookie            | String   |  No       | None    | ECID (VisitorId) cookie                          |
 | targetCookie             | String   |  No       | None    | Target cookie                                    |
@@ -1086,15 +1086,15 @@ The `options` object has the following structure:
 | customerIds              | Array    |  No       | None    | Customer Ids in VisitorId-compatible format      |
 | visitor                  | Object   |  No       | new VisitorId | Supply an external VisitorId instance      |
 
-The `request` object should conform to [Target View Delivery API] request specification. 
-To learn more about the [Target View Delivery API], see http://developers.adobetarget.com/api/#view-delivery-overview
+The `request` object should conform to [Target Delivery API] request specification. 
+To learn more about the [Target Delivery API], see http://developers.adobetarget.com/api/#view-delivery-overview
 
 The Promise returned by `TargetClient.getOffers()` has the following structure:
 
 | Name                     | Type              | Description                                                 |
 |--------------------------|-------------------|-------------------------------------------------------------|
-| request                  | Object            | [Target View Delivery API] request                          |
-| response                 | Object            | [Target View Delivery API] response                         |
+| request                  | Object            | [Target Delivery API] request                          |
+| response                 | Object            | [Target Delivery API] response                         |
 | visitorState             | Object            | Object that should be passed to Visitor API `getInstance()` |
 | targetCookie             | Object            | Target cookie                                               |
 | targetLocationHintCookie | Object            | Target location hint cookie                                 |
@@ -1117,7 +1117,7 @@ The `targetCookie` and `targetLocationHintCookie` objects used for passing data 
 for previously prefetched mboxes/views.  
 **Note:** this API should only be used when the prefetched Target content is displayed in non-browser environments/devices, where at.js cannot be deployed. For content displayed in supported browsers, at.js will handle sending of notifications for content prefetched on the server-side and delivered via serverState.  
 The arguments and return value are the same as for [TargetClient.getOffers](#targetclientgetoffers). 
-Note that `notifications` array must be present in the provided [Target View Delivery API] request (`request` option).  
+Note that `notifications` array must be present in the provided [Target Delivery API] request (`request` option).  
 
 #### TargetClient utility accessors
 
@@ -1199,4 +1199,4 @@ Production dependencies include:
 
 [back to top](#table-of-contents)
 
-[Target View Delivery API]: https://developers.adobetarget.com/api/delivery-api/
+[Target Delivery API]: https://developers.adobetarget.com/api/delivery-api/
