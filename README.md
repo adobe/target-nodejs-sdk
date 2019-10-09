@@ -1,9 +1,9 @@
 # Adobe Target Node.js SDK
-![npm](https://img.shields.io/npm/v/@adobe/target-nodejs-sdk)
-![npm](https://img.shields.io/npm/dm/@adobe/target-nodejs-sdk)
-![build](https://github.com/adobe/target-nodejs-sdk/workflows/build/badge.svg)
-![coveralls](https://img.shields.io/coveralls/github/adobe/target-nodejs-sdk)
-![license](https://img.shields.io/npm/l/@adobe/target-nodejs-sdk)
+[![npm](https://img.shields.io/npm/v/@adobe/target-nodejs-sdk)](https://www.npmjs.com/package/@adobe/target-nodejs-sdk)
+[![npm](https://img.shields.io/npm/dm/@adobe/target-nodejs-sdk)](https://www.npmjs.com/package/@adobe/target-nodejs-sdk)
+[![build](https://github.com/adobe/target-nodejs-sdk/workflows/CI/badge.svg)](https://github.com/adobe/target-nodejs-sdk/actions)
+[![coveralls](https://img.shields.io/coveralls/github/adobe/target-nodejs-sdk)](https://coveralls.io/github/adobe/target-nodejs-sdk?branch=HEAD)
+[![license](https://img.shields.io/npm/l/@adobe/target-nodejs-sdk.svg)](https://github.com/adobe/target-nodejs-sdk/blob/master/LICENSE)
 
 The Adobe Target Node.js SDK uses the [Target Delivery API] to retrieve and deliver personalized experiences.
 Furthermore, the Node.js SDK helps manage integrations with Experience Cloud solutions using the Experience Cloud

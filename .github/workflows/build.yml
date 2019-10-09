@@ -13,7 +13,7 @@ jobs:
       - name: Use Node.js 10.x
         uses: actions/setup-node@master
         with:
-          version: 10.x
+          node-version: 10.x
 
       - name: build, test, generate coverage
         run: |

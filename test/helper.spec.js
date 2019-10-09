@@ -335,7 +335,7 @@ describe("Target Helper", () => {
       ObjectSerializer.serialize(result, "DeliveryRequest")
     );
     expect(serializedResult).toEqual(
-      '{"requestId":"12345678-abcd-1234-efgh-000000000000","context":{"channel":"web","timeOffsetInMinutes":180},"experienceCloud":{"analytics":{"supplementalDataId":null,"logging":"server_side"}}}'
+      '{"requestId":"12345678-abcd-1234-efgh-000000000000","context":{"channel":"web","timeOffsetInMinutes":0},"experienceCloud":{"analytics":{"supplementalDataId":null,"logging":"server_side"}}}'
     );
 
     request = {
@@ -400,7 +400,7 @@ describe("Target Helper", () => {
       ObjectSerializer.serialize(result, "DeliveryRequest")
     );
     expect(serializedResult).toEqual(
-      '{"requestId":"12345678-abcd-1234-efgh-000000000000","context":{"channel":"web","timeOffsetInMinutes":180},"experienceCloud":{"analytics":{"supplementalDataId":null,"logging":"server_side"}}}'
+      '{"requestId":"12345678-abcd-1234-efgh-000000000000","context":{"channel":"web","timeOffsetInMinutes":0},"experienceCloud":{"analytics":{"supplementalDataId":null,"logging":"server_side"}}}'
     );
   });
 
