@@ -6,8 +6,8 @@
 [![license](https://img.shields.io/npm/l/@adobe/target-nodejs-sdk.svg)](https://github.com/adobe/target-nodejs-sdk/blob/master/LICENSE)
 
 The Adobe Target Node.js SDK uses the [Target Delivery API] to retrieve and deliver personalized experiences.
-Furthermore, the Node.js SDK helps manage integrations with Experience Cloud solutions using the Experience Cloud
-Identity library (ECID).
+Furthermore, the Node.js SDK helps manage integrations with Experience Cloud solutions using the [Experience Cloud Identity](https://docs.adobe.com/content/help/en/id-service/using/intro/overview.html)
+library (ECID).
 
 ## Getting started
 
@@ -62,7 +62,7 @@ try {
   * [ECID Integration](#ecid-integration)
   * [ECID with Customer IDs Integration](#ecid-with-customer-ids-integration)
   * [ECID and Analytics Integration](#ecid-and-analytics-integration)
-  * [ECID, Analytics and at.js Integration](#ecid--analytics-and-atjs-integration)
+  * [ECID, Analytics and at.js Integration](#ecid-analytics-and-atjs-integration)
   * [Advanced at.js integration via serverState](#advanced-atjs-integration-via-serverstate)
   * [Shared ECID and Analytics Integration](#shared-ecid-and-analytics-integration)
   * [Custom rendering of Target offers](#custom-rendering-of-target-offers)
@@ -177,7 +177,7 @@ app.listen(3000, function () {
 });
 ```
 
-Full sample: https://github.com/Adobe-Marketing-Cloud/target-node-client-samples/tree/master/target-only
+Full sample: https://github.com/adobe/target-nodejs-sdk-samples/tree/master/target-only
 
 ---
 
@@ -284,14 +284,14 @@ The biggest benefit of using ECID integration is that it allows you to share Aud
 Note that as this is a server-side integration for first-time visitors, you might not have any Audience Manager 
 related data.
 
-Full sample: https://github.com/Adobe-Marketing-Cloud/target-node-client-samples/tree/master/ecid-integration
+Full sample: https://github.com/adobe/target-nodejs-sdk-samples/tree/master/ecid-integration
 
 ---
 
 ## ECID with Customer IDs Integration
 
 In order to track visitor user accounts and logon status details, `customerIds` may be passed to Target.   
-The `customerIds` object is similar to the ECID functionality described here: https://marketing.adobe.com/resources/help/en_US/mcvid/mcvid-authenticated-state.htmlocs.adobe.com/content/help/en/id-service/using/reference/authenticated-state.html
+The `customerIds` object is similar to the ECID functionality described here: https://docs.adobe.com/content/help/en/id-service/using/reference/authenticated-state.html
 
 Here is the `Express` application that showcases `customerIds` integration:
 
@@ -388,7 +388,7 @@ app.listen(3000, function () {
 });
 ```
 
-Full sample: https://github.com/Adobe-Marketing-Cloud/target-node-client-samples/tree/master/ecid-customer-ids-integration
+Full sample: https://github.com/adobe/target-nodejs-sdk-samples/tree/master/ecid-customer-ids-integration
 
 ---
 
@@ -496,7 +496,7 @@ app.listen(3000, function () {
 });
 ```
 
-Full sample: https://github.com/Adobe-Marketing-Cloud/target-node-client-samples/tree/master/ecid-analytics-integration
+Full sample: https://github.com/adobe/target-nodejs-sdk-samples/tree/master/ecid-analytics-integration
 
 ---
 
@@ -627,7 +627,7 @@ on the client-side by `at.js`, also known as "hybrid" testing. The downside of t
 performance degradation may be observed when a NodeJS application that uses the Target Node.js SDK is not geo-distributed
 (as are Target edge clusters).
 
-Full sample: https://github.com/Adobe-Marketing-Cloud/target-node-client-samples/tree/master/ecid-analytics-atjs-integration
+Full sample: https://github.com/adobe/target-nodejs-sdk-samples/tree/master/ecid-analytics-atjs-integration
 
 ---
 
@@ -762,8 +762,8 @@ triggered via `triggerView()`, again without firing any additional content-fetch
 - When applying `serverState` offers, at.js takes into consideration `pageLoadEnabled` and `viewsEnabled` settings, e.g.
 Page Load offers will not be applied if `pageLoadEnabled` setting is `false`
 
-Check out the full sample here: https://github.com/Adobe-Marketing-Cloud/target-node-client-samples/tree/master/advanced-atjs-integration-serverstate
-See also a SPA demo using `serverState` here: https://github.com/Adobe-Marketing-Cloud/target-node-client-samples/tree/master/react-shopping-cart-demo
+Check out the full sample here: https://github.com/adobe/target-nodejs-sdk-samples/tree/master/advanced-atjs-integration-serverstate
+See also a SPA demo using `serverState` here: https://github.com/adobe/target-nodejs-sdk-samples/tree/master/react-shopping-cart-demo
 
 ---
 
@@ -832,7 +832,7 @@ app.get("/", async (req, res) => {
 });
 ```
 
-Check out the full sample here: https://github.com/Adobe-Marketing-Cloud/target-node-client-samples/tree/master/shared-ecid-analytics-integration
+Check out the full sample here: https://github.com/adobe/target-nodejs-sdk-samples/tree/master/shared-ecid-analytics-integration
 
 ---
 
@@ -1048,7 +1048,7 @@ app.get("/", async (req, res) => {
 });
 ```
 
-Check out the full sample here: https://github.com/Adobe-Marketing-Cloud/target-node-client-samples/tree/master/target-traces
+Check out the full sample here: https://github.com/adobe/target-nodejs-sdk-samples/tree/master/target-traces
 
 ---
 
@@ -1087,7 +1087,6 @@ The `options` object has the following structure:
 | visitor                  | Object   |  No       | new VisitorId | Supply an external VisitorId instance      |
 
 The `request` object should conform to [Target Delivery API] request specification. 
-To learn more about the [Target Delivery API], see http://developers.adobetarget.com/api/#view-delivery-overview
 
 The Promise returned by `TargetClient.getOffers()` has the following structure:
 
@@ -1099,7 +1098,7 @@ The Promise returned by `TargetClient.getOffers()` has the following structure:
 | targetCookie             | Object            | Target cookie                                               |
 | targetLocationHintCookie | Object            | Target location hint cookie                                 |
 | analyticsDetails         | Array             | Analytics payload, in case of client side Analytics usage   |
-| responseTokens           | Array             | A list of Response Tokens (see https://docs.adobe.com/help/en/target/using/administer/response-tokens.html) |
+| responseTokens           | Array             | A list of [Response Tokens](https://docs.adobe.com/help/en/target/using/administer/response-tokens.html) |
 | trace                    | Array             | Aggregated trace data for all request mboxes/views          |
 | timing                   | Object            | An object containing the durations of each request phase    |
 
@@ -1115,7 +1114,9 @@ The `targetCookie` and `targetLocationHintCookie` objects used for passing data 
 
 `TargetClient.sendNotifications(options: Object): Promise` is used to send display/click notifications to Target,
 for previously prefetched mboxes/views.  
-**Note:** this API should only be used when the prefetched Target content is displayed in non-browser environments/devices, where at.js cannot be deployed. For content displayed in supported browsers, at.js will handle sending of notifications for content prefetched on the server-side and delivered via serverState.  
+**Note:** this API should only be used when the prefetched Target content is displayed in non-browser environments/devices,
+where at.js cannot be deployed. For content displayed in supported browsers, at.js will handle sending of notifications
+for content prefetched on the server-side and delivered via serverState.  
 The arguments and return value are the same as for [TargetClient.getOffers](#targetclientgetoffers). 
 Note that `notifications` array must be present in the provided [Target Delivery API] request (`request` option).  
 
