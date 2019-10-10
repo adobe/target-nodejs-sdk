@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.0.2] - 2019-10-10
+## [1.0.3] - 2019-10-10
 ### Changed
 - Minor [README](README.md) updates
 
@@ -47,5 +47,5 @@ method declaration [here](https://www.npmjs.com/package/@adobe/target-node-clien
 use [getOffers() API method](README.md#targetclientgetoffers) instead 
 
 [Unreleased]: https://github.com/adobe/target-nodejs-sdk/compare/v1.0.1...HEAD
-[1.0.2]: https://github.com/adobe/target-nodejs-sdk/compare/v1.0.1...v1.0.2
+[1.0.3]: https://github.com/adobe/target-nodejs-sdk/compare/v1.0.1...v1.0.3
 [1.0.1]: https://github.com/adobe/target-nodejs-sdk/releases/tag/v1.0.1
