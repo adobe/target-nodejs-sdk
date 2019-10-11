@@ -22,3 +22,13 @@ jobs:
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel: true
+  coverage:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: coveralls report
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel-finished: true
