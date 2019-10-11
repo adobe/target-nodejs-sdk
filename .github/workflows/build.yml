@@ -4,12 +4,15 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x, 12.x]
     steps:
       - uses: actions/checkout@v1
-      - name: Use Node.js 10.x
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
-          node-version: '10.x'
+          node-version: ${{ matrix.node-version }}
       - name: build, test, generate coverage
         run: |
           npm i
