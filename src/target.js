@@ -10,6 +10,11 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
+const {
+  executeSendBeacon,
+  isBeaconSupported,
+  stringifyQueryString
+} = require("./utils");
 const { parseCookies } = require("./cookies");
 const {
   getDeviceId,
@@ -23,7 +28,7 @@ const {
 } = require("./helper");
 const { REQUEST_SENT, RESPONSE_RECEIVED } = require("./messages");
 
-function executeDelivery(options) {
+function executeDelivery(options, useBeacon = false) {
   const {
     visitor,
     config,
@@ -55,10 +60,28 @@ function executeDelivery(options) {
 
   logger.debug(REQUEST_SENT, JSON.stringify(deliveryRequest, null, 2));
 
-  return createDeliveryApiMethod(host, timeout)
-    .execute(client, sessionId, deliveryRequest, { headers })
+  if (useBeacon && isBeaconSupported()) {
+    const query = {
+      client,
+      sessionId
+    };
+
+    if (typeof config.version !== "undefined") {
+      query.version = config.version;
+    }
+
+    const queryString = stringifyQueryString(query);
+    const success = executeSendBeacon(
+      `${host}/rest/v1/delivery?${queryString}`,
+      JSON.stringify(deliveryRequest)
+    );
+    return success ? Promise.resolve() : Promise.reject();
+  }
+
+  return createDeliveryApiMethod(config.fetchApi, host, headers, timeout)
+    .execute(client, sessionId, deliveryRequest, config.version)
     .then((response = {}) => {
-      logger.debug(RESPONSE_RECEIVED, JSON.stringify(response.body, null, 2));
+      logger.debug(RESPONSE_RECEIVED, JSON.stringify(response, null, 2));
       return Object.assign(
         { visitorState: visitor.getState(), request: deliveryRequest },
         processResponse(sessionId, cluster, response)

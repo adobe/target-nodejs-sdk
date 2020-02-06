@@ -60,6 +60,6 @@ describe("Cookies utility", () => {
 
     expect(result.name).toEqual(TARGET_COOKIE);
     expect(result.value).toEqual("a#1#9296233214");
-    expect(result.maxAge).toEqual(jasmine.any(Number));
+    expect(result.maxAge).toEqual(expect.any(Number));
   });
 });

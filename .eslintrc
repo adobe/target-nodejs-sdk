@@ -1,21 +1,22 @@
 {
-  "extends": ["airbnb-base", "prettier", "plugin:jasmine/recommended"],
+  "extends": ["airbnb-base", "prettier", "plugin:jest/recommended"],
   "env": {
     "es6": true,
     "node": true,
-    "jasmine": true
+    "jest/globals": true
   },
-  "plugins": ["prettier", "jasmine"],
+  "plugins": ["prettier", "jest"],
   "rules": {
     "prettier/prettier": "error",
-    "jasmine/new-line-before-expect": "off",
     "no-underscore-dangle": "off"
   },
   "overrides": [
     {
       "files": [ "test/*.spec.js" ],
       "globals": {
-        "expectAsync": "readonly"
+        "expectAsync": "readonly",
+        "fetch": true,
+        "window": true
       },
       "rules": {
       }

@@ -10,27 +10,17 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const api = require("../generated-delivery-api-client/api");
+const api = require("../generated-delivery-api-client");
 const uuid = require("./uuid");
 const { MBOX_INVALID, NOTIFICATION_INVALID } = require("./messages");
 
 const {
   AuthenticatedState,
-  CustomerId,
-  VisitorId,
-  Trace,
+  Configuration,
   ChannelType,
-  Context,
   LoggingType,
-  AnalyticsRequest,
-  AudienceManager,
-  ExperienceCloud,
-  ExecuteRequest,
-  PrefetchRequest,
   MetricType,
-  ObjectSerializer,
-  DeliveryRequest,
-  TargetDeliveryApi
+  DeliveryAPIApi
 } = api;
 const {
   createTargetCookie,
@@ -122,12 +112,12 @@ function getSessionId(cookies, userSessionId, uuidMethod = uuid) {
 function getTargetHost(serverDomain, cluster, client, secure) {
   const schemePrefix = secure === false ? SCHEME.HTTP : SCHEME.HTTPS;
 
-  if (isNonEmptyString(serverDomain)) {
-    return `${schemePrefix}${serverDomain}`;
-  }
-
   if (isNonEmptyString(cluster)) {
     return `${schemePrefix}${EDGE_CLUSTER_PREFIX}${cluster}.${HOST}`;
+  }
+
+  if (isNonEmptyString(serverDomain)) {
+    return `${schemePrefix}${serverDomain}`;
   }
 
   return `${schemePrefix}${client}.${HOST}`;
@@ -163,24 +153,27 @@ function getCustomerIds(customerIds, visitor) {
   }
 
   const convertedIds = Object.keys(visitorCustomerIds).reduce((acc, key) => {
-    const item = new CustomerId();
     const value = visitorCustomerIds[key];
 
-    if (!value) {
-      return acc;
-    }
+    if (value) {
+      let item;
 
-    if (isObject(value)) {
-      item.id = value.id || undefined;
-      item.integrationCode = key || undefined;
-      item.authenticatedState = AUTH_STATE[value.authState] || undefined;
-    } else {
-      item.id = value;
-      item.integrationCode = key || undefined;
-      item.authenticatedState = AUTH_STATE["0"];
-    }
+      if (isObject(value)) {
+        item = api.CustomerIdFromJSON({
+          id: value.id || undefined,
+          integrationCode: key || undefined,
+          authenticatedState: AUTH_STATE[value.authState] || undefined
+        });
+      } else {
+        item = api.CustomerIdFromJSON({
+          id: value,
+          integrationCode: key || undefined,
+          authenticatedState: AUTH_STATE["0"]
+        });
+      }
 
-    acc.push(item);
+      acc.push(item);
+    }
 
     return acc;
   }, []);
@@ -203,46 +196,40 @@ function createVisitorId(id = {}, options) {
 
   const mergedCustomerIds = getCustomerIds(customerIds, visitor);
 
-  const result = new VisitorId();
-
-  if (isNonEmptyString(tntId)) {
-    result.tntId = tntId;
-  }
-
-  if (isNonEmptyString(thirdPartyId)) {
-    result.thirdPartyId = thirdPartyId;
-  }
-
-  if (isNonEmptyString(marketingCloudVisitorId)) {
-    result.marketingCloudVisitorId = marketingCloudVisitorId;
-  }
-
-  if (isNonEmptyArray(mergedCustomerIds)) {
-    result.customerIds = mergedCustomerIds;
-  }
+  const result = api.VisitorIdFromJSON({
+    tntId: isNonEmptyString(tntId) ? tntId : undefined,
+    thirdPartyId: isNonEmptyString(thirdPartyId) ? thirdPartyId : undefined,
+    marketingCloudVisitorId: isNonEmptyString(marketingCloudVisitorId)
+      ? marketingCloudVisitorId
+      : undefined,
+    customerIds: isNonEmptyArray(mergedCustomerIds)
+      ? mergedCustomerIds
+      : undefined
+  });
 
   return isNonEmptyObject(result) ? result : undefined;
 }
 
-function createTrace(trace = new Trace()) {
-  const { authorizationToken } = trace;
-  if (isNonEmptyString(authorizationToken)) {
-    return trace;
+function createTrace(trace) {
+  const result = api.TraceFromJSON(trace);
+
+  if (trace && isNonEmptyString(trace.authorizationToken)) {
+    return result;
   }
 
   return undefined;
 }
 
 function createContext(context = {}) {
-  const { channel, timeOffsetInMinutes = getTimezoneOffset() } = context;
+  const result = api.ContextFromJSON({
+    timeOffsetInMinutes: getTimezoneOffset(),
+    ...context
+  });
 
-  if (Object.keys(ChannelType).includes(channel)) {
+  if (Object.keys(ChannelType).includes(result.channel)) {
     return context;
   }
-
-  const result = new Context();
   result.channel = ChannelType.Web;
-  result.timeOffsetInMinutes = timeOffsetInMinutes;
 
   return result;
 }
@@ -254,27 +241,16 @@ function createSupplementalDataId(options) {
 }
 
 function createAnalytics(analytics = {}, options) {
-  const {
-    supplementalDataId = createSupplementalDataId(options),
-    logging = LoggingType.ServerSide,
-    trackingServer,
-    trackingServerSecure
-  } = analytics;
-
-  const result = new AnalyticsRequest();
-
-  result.logging = logging;
-  result.supplementalDataId = supplementalDataId;
-
-  if (isNonEmptyString(trackingServer)) {
-    result.trackingServer = trackingServer;
-  }
-
-  if (isNonEmptyString(trackingServerSecure)) {
-    result.trackingServerSecure = trackingServerSecure;
-  }
-
-  return result;
+  return api.AnalyticsRequestFromJSON({
+    logging: LoggingType.ServerSide,
+    supplementalDataId: createSupplementalDataId(options),
+    trackingServer: isNonEmptyString(analytics.trackingServer)
+      ? analytics.trackingServer
+      : undefined,
+    trackingServerSecure: isNonEmptyString(analytics.trackingServerSecure)
+      ? analytics.trackingServerSecure
+      : undefined
+  });
 }
 
 function getLocationHint(locationHintString) {
@@ -290,15 +266,10 @@ function createAudienceManager(audienceManager = {}, options) {
     blob = visitorValues.MCAAMB
   } = audienceManager;
 
-  const result = new AudienceManager();
-
-  if (locationHint) {
-    result.locationHint = locationHint;
-  }
-
-  if (blob) {
-    result.blob = blob;
-  }
+  const result = api.AudienceManagerFromJSON({
+    locationHint,
+    blob
+  });
 
   return isNonEmptyObject(result) ? result : undefined;
 }
@@ -306,48 +277,19 @@ function createAudienceManager(audienceManager = {}, options) {
 function createExperienceCloud(experienceCloud = {}, options) {
   const { analytics, audienceManager } = experienceCloud;
 
-  const result = new ExperienceCloud();
-  result.analytics = createAnalytics(analytics, options);
-
   const createdAudienceManager = createAudienceManager(
     audienceManager,
     options
   );
-  if (createdAudienceManager) {
-    result.audienceManager = createdAudienceManager;
-  }
 
-  return result;
+  return api.ExperienceCloudFromJSON({
+    analytics: createAnalytics(analytics, options),
+    audienceManager: createdAudienceManager || undefined
+  });
 }
 
 function createParams(resultClass, entity = {}) {
-  const result = new api[resultClass]();
-
-  const parameters = Object.assign({}, entity.parameters);
-  if (isNonEmptyObject(parameters)) {
-    result.parameters = parameters;
-  }
-
-  const profileParameters = Object.assign({}, entity.profileParameters);
-  if (isNonEmptyObject(profileParameters)) {
-    result.profileParameters = profileParameters;
-  }
-
-  const order = Object.assign({}, entity.order);
-  if (isNonEmptyObject(order)) {
-    result.order = order;
-  }
-
-  const product = Object.assign({}, entity.product);
-  if (isNonEmptyObject(product)) {
-    result.product = product;
-  }
-
-  if (isNonEmptyObject(entity.address)) {
-    result.address = entity.address;
-  }
-
-  return result;
+  return api[`${resultClass}FromJSON`].call(null, entity);
 }
 
 const validMbox = (mbox, logger) => {
@@ -412,17 +354,12 @@ function createExecute(execute, logger) {
     return undefined;
   }
 
-  const result = new ExecuteRequest();
-
-  if (isObject(pageLoad)) {
-    result.pageLoad = createParams("RequestDetails", pageLoad);
-  }
-
-  if (isNonEmptyArray(mboxes)) {
-    result.mboxes = createMboxes(mboxes, logger);
-  }
-
-  return result;
+  return new api.ExecuteRequestFromJSON({
+    pageLoad: isObject(pageLoad)
+      ? createParams("RequestDetails", pageLoad)
+      : undefined,
+    mboxes: isNonEmptyArray(mboxes) ? createMboxes(mboxes, logger) : undefined
+  });
 }
 
 function createPrefetch(prefetch, logger) {
@@ -436,21 +373,13 @@ function createPrefetch(prefetch, logger) {
     return undefined;
   }
 
-  const result = new PrefetchRequest();
-
-  if (isObject(pageLoad)) {
-    result.pageLoad = createParams("RequestDetails", pageLoad);
-  }
-
-  if (isNonEmptyArray(views)) {
-    result.views = createViews(views);
-  }
-
-  if (isNonEmptyArray(mboxes)) {
-    result.mboxes = createMboxes(mboxes, logger);
-  }
-
-  return result;
+  return api.PrefetchRequestFromJSON({
+    pageLoad: isObject(pageLoad)
+      ? createParams("RequestDetails", pageLoad)
+      : undefined,
+    views: isNonEmptyArray(views) ? createViews(views) : undefined,
+    mboxes: isNonEmptyArray(mboxes) ? createMboxes(mboxes, logger) : undefined
+  });
 }
 
 const validNotification = (notification, logger) => {
@@ -458,7 +387,7 @@ const validNotification = (notification, logger) => {
     isNonEmptyObject(notification) &&
     isNonEmptyString(notification.id) &&
     isNumber(notification.timestamp) &&
-    Object.keys(MetricType).includes(notification.type);
+    Object.values(MetricType).includes(notification.type);
   if (!result) {
     logger.error(NOTIFICATION_INVALID, notification);
   }
@@ -514,55 +443,48 @@ function createProperty(property = {}) {
   const { token } = property;
 
   if (isNonEmptyString(token)) {
-    return property;
+    return api.PropertyFromJSON(property);
   }
 
   return undefined;
 }
 
 function createDeliveryRequest(requestParam, options) {
-  const request = ObjectSerializer.deserialize(requestParam, "DeliveryRequest");
-
   const { logger, uuidMethod = uuid } = options;
-  const {
-    requestId = uuidMethod(),
-    impressionId,
-    id,
-    environmentId,
-    property,
-    trace,
-    context,
-    experienceCloud,
-    execute,
-    prefetch,
-    notifications,
-    qaMode
-  } = request;
 
-  const result = new DeliveryRequest();
+  const result = api.DeliveryRequestFromJSON({
+    requestId: uuidMethod(),
+    ...requestParam
+  });
 
-  result.requestId = requestId;
-  result.impressionId = impressionId;
-  result.id = createVisitorId(id, options);
-  result.environmentId = environmentId;
-  result.property = createProperty(property);
-  result.trace = createTrace(trace);
-  result.context = createContext(context);
-  result.experienceCloud = createExperienceCloud(experienceCloud, options);
+  result.id = createVisitorId(result.id, options);
+  result.property = createProperty(result.property);
+  result.trace = createTrace(result.trace);
+  result.context = createContext(result.context);
+  result.experienceCloud = createExperienceCloud(
+    result.experienceCloud,
+    options
+  );
 
-  result.execute = createExecute(execute, logger);
-  result.prefetch = createPrefetch(prefetch, logger);
-  result.notifications = createNotifications(notifications, logger);
-  result.qaMode = qaMode;
+  result.execute = createExecute(result.execute, logger);
+  result.prefetch = createPrefetch(result.prefetch, logger);
+  result.notifications = createNotifications(result.notifications, logger);
 
   removeEmptyKeys(result);
 
   return result;
 }
 
-function createDeliveryApi(host, timeout) {
-  const deliveryApi = new TargetDeliveryApi(host);
-  deliveryApi.timeout = timeout;
+// eslint-disable-next-line no-unused-vars
+function createDeliveryApi(fetchApi, host, headers, timeout) {
+  const deliveryApi = new DeliveryAPIApi(
+    new Configuration({
+      basePath: host,
+      fetchApi,
+      headers
+    })
+  );
+  // deliveryApi.timeout = timeout; // TODO: add support for timeout in the openapi fetch implementation (fetch does not support it natively)
 
   return deliveryApi;
 }
@@ -726,17 +648,15 @@ function getResponseTokens(response) {
 }
 
 function processResponse(sessionId, cluster, response = {}) {
-  const { timing, body = {} } = response;
-  const { id = {}, edgeHost } = body;
+  const { id = {}, edgeHost } = response;
 
   const result = {
     targetCookie: getTargetCookie(sessionId, id),
     targetLocationHintCookie: getTargetLocationHintCookie(cluster, edgeHost),
-    analyticsDetails: getAnalyticsDetails(body),
-    trace: getTraceDetails(body),
-    responseTokens: getResponseTokens(body),
-    response: body,
-    timing
+    analyticsDetails: getAnalyticsDetails(response),
+    trace: getTraceDetails(response),
+    responseTokens: getResponseTokens(response),
+    response
   };
 
   removeEmptyKeys(result);

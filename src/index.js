@@ -37,12 +37,14 @@ class TargetClient {
   /**
    * The TargetClient creation factory method
    * @param {Object} options Options map, required
+   * @param {Function }options.fetchApi Fetch Implementation, optional
    * @param {String} options.client Target Client Id, required
    * @param {String} options.organizationId Target Organization Id, required
    * @param {Number} options.timeout Target request timeout in ms, default: 3000
    * @param {String} options.serverDomain Server domain, optional
    * @param {boolean} options.secure Unset to enforce HTTP scheme, default: true
    * @param {Object} options.logger Replaces the default noop logger, optional
+   * @param {String} options.version The version number of at.js, optional
    */
   static create(options) {
     const error = validateClientOptions(options);
@@ -111,7 +113,7 @@ class TargetClient {
       options
     );
 
-    return executeDelivery(targetOptions);
+    return executeDelivery(targetOptions, true);
   }
 
   static getVisitorCookieName(orgId) {

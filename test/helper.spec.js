@@ -9,13 +9,11 @@ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTA
 OF ANY KIND, either express or implied. See the License for the specific language
 governing permissions and limitations under the License.
 */
-
+require("jest-fetch-mock").enableMocks();
 const MockDate = require("mockdate");
 const { version } = require("../package");
-const {
-  ObjectSerializer,
-  TargetDeliveryApi
-} = require("../generated-delivery-api-client/api");
+const api = require("../generated-delivery-api-client");
+
 const {
   createVisitorId,
   getDeviceId,
@@ -109,7 +107,7 @@ describe("Target Helper", () => {
     };
     result = createVisitorId(REQUEST_ID, { visitor: EMPTY_VISITOR });
 
-    expect(ObjectSerializer.serialize(result, "VisitorId")).toEqual(
+    expect(api.VisitorIdFromJSON(result)).toEqual(
       Object.assign({ customerIds: undefined }, REQUEST_ID)
     );
 
@@ -134,8 +132,8 @@ describe("Target Helper", () => {
     );
 
     expect(result.customerIds.length).toEqual(3);
-    result.customerIds.every((customerId, index) =>
-      expect(ObjectSerializer.serialize(customerId, "CustomerId")).toEqual(
+    result.customerIds.forEach((customerId, index) =>
+      expect(api.CustomerIdFromJSON(customerId)).toEqual(
         MERGED_CUSTOMER_IDS[index]
       )
     );
@@ -215,7 +213,7 @@ describe("Target Helper", () => {
     expect(result).toBe("https://test.com");
 
     result = getTargetHost("test.com", "21");
-    expect(result).toBe("https://test.com");
+    expect(result).toBe("https://mboxedge21.tt.omtrdc.net"); // for parity with at.js, if a cluster is provided, always derive the host based on it
 
     result = getTargetHost("", "21");
     expect(result).toBe("https://mboxedge21.tt.omtrdc.net");
@@ -271,12 +269,40 @@ describe("Target Helper", () => {
       visitor: VISITOR,
       uuidMethod: uuidMock
     });
-    let serializedResult = JSON.stringify(
-      ObjectSerializer.serialize(result, "DeliveryRequest")
-    );
-    expect(serializedResult).toEqual(
-      '{"requestId":"12345678-abcd-1234-efgh-000000000000","id":{"marketingCloudVisitorId":"mid","customerIds":[{"id":"67312378756723456","integrationCode":"userid","authenticatedState":"authenticated"},{"id":"550e8400-e29b-41d4-a716-446655440000","integrationCode":"puuid","authenticatedState":"unknown"}]},"context":{"channel":"web","timeOffsetInMinutes":0},"experienceCloud":{"audienceManager":{"locationHint":22,"blob":"aamb"},"analytics":{"supplementalDataId":"sdid","logging":"server_side"}},"execute":{"pageLoad":{"address":{"url":"http://test.com"},"parameters":{"a":1},"profileParameters":{"b":2},"order":{"id":"1234"},"product":{"id":"5678"}},"mboxes":[{"index":1,"name":"mbox1"}]}}'
-    );
+    let serializedResult = api.DeliveryRequestFromJSON(result);
+    expect(serializedResult).toMatchObject({
+      requestId: "12345678-abcd-1234-efgh-000000000000",
+      id: {
+        marketingCloudVisitorId: "mid",
+        customerIds: [
+          {
+            id: "67312378756723456",
+            integrationCode: "userid",
+            authenticatedState: "authenticated"
+          },
+          {
+            id: "550e8400-e29b-41d4-a716-446655440000",
+            integrationCode: "puuid",
+            authenticatedState: "unknown"
+          }
+        ]
+      },
+      context: { channel: "web", timeOffsetInMinutes: expect.any(Number) },
+      experienceCloud: {
+        audienceManager: { locationHint: 22, blob: "aamb" },
+        analytics: { supplementalDataId: "sdid", logging: "server_side" }
+      },
+      execute: {
+        pageLoad: {
+          address: { url: "http://test.com" },
+          parameters: { a: 1 },
+          profileParameters: { b: 2 },
+          order: { id: "1234" },
+          product: { id: "5678" }
+        },
+        mboxes: [{ index: 1, name: "mbox1" }]
+      }
+    });
 
     request = {
       property: {
@@ -311,12 +337,26 @@ describe("Target Helper", () => {
       visitor: EMPTY_VISITOR,
       uuidMethod: uuidMock
     });
-    serializedResult = JSON.stringify(
-      ObjectSerializer.serialize(result, "DeliveryRequest")
-    );
-    expect(serializedResult).toEqual(
-      '{"requestId":"12345678-abcd-1234-efgh-000000000000","property":{"token":"at_property1"},"trace":{"authorizationToken":"authorizationToken"},"context":{"channel":"web","timeOffsetInMinutes":0},"experienceCloud":{"analytics":{"supplementalDataId":null,"logging":"server_side","trackingServer":"trackingServer","trackingServerSecure":"trackingServerSecure"}},"prefetch":{"views":[{"name":"view1","key":"viewkey1"}],"pageLoad":{},"mboxes":[{"index":1,"name":"mbox1"}]}}'
-    );
+    serializedResult = api.DeliveryRequestFromJSON(result);
+    expect(serializedResult).toMatchObject({
+      requestId: "12345678-abcd-1234-efgh-000000000000",
+      property: { token: "at_property1" },
+      trace: { authorizationToken: "authorizationToken" },
+      context: { channel: "web", timeOffsetInMinutes: expect.any(Number) },
+      experienceCloud: {
+        analytics: {
+          supplementalDataId: undefined,
+          logging: "server_side",
+          trackingServer: "trackingServer",
+          trackingServerSecure: "trackingServerSecure"
+        }
+      },
+      prefetch: {
+        views: [{ name: "view1", key: "viewkey1" }],
+        pageLoad: {},
+        mboxes: [{ index: 1, name: "mbox1" }]
+      }
+    });
 
     request = {
       execute: {
@@ -331,12 +371,14 @@ describe("Target Helper", () => {
       visitor: EMPTY_VISITOR,
       uuidMethod: uuidMock
     });
-    serializedResult = JSON.stringify(
-      ObjectSerializer.serialize(result, "DeliveryRequest")
-    );
-    expect(serializedResult).toEqual(
-      '{"requestId":"12345678-abcd-1234-efgh-000000000000","context":{"channel":"web","timeOffsetInMinutes":0},"experienceCloud":{"analytics":{"supplementalDataId":null,"logging":"server_side"}}}'
-    );
+    serializedResult = api.DeliveryRequestFromJSON(result);
+    expect(serializedResult).toMatchObject({
+      requestId: "12345678-abcd-1234-efgh-000000000000",
+      context: { channel: "web", timeOffsetInMinutes: expect.any(Number) },
+      experienceCloud: {
+        analytics: { supplementalDataId: undefined, logging: "server_side" }
+      }
+    });
 
     request = {
       notifications: [
@@ -368,12 +410,31 @@ describe("Target Helper", () => {
       visitor: EMPTY_VISITOR,
       uuidMethod: uuidMock
     });
-    serializedResult = JSON.stringify(
-      ObjectSerializer.serialize(result, "DeliveryRequest")
-    );
-    expect(serializedResult).toEqual(
-      '{"requestId":"12345678-abcd-1234-efgh-000000000000","context":{"channel":"web","timeOffsetInMinutes":0},"experienceCloud":{"analytics":{"supplementalDataId":null,"logging":"server_side"}},"notifications":[{"id":"id","impressionId":"impressionId","type":"display","timestamp":1570092933750,"tokens":["token1"],"mbox":{"name":"mbox1","state":"mboxstate1"}},{"id":"id","type":"click","timestamp":1570092933755,"tokens":["token1","token2"],"view":{"name":"view1","key":"viewkey1","state":"viewstate1"}}]}'
-    );
+    serializedResult = api.DeliveryRequestFromJSON(result);
+    expect(serializedResult).toMatchObject({
+      requestId: "12345678-abcd-1234-efgh-000000000000",
+      context: { channel: "web", timeOffsetInMinutes: expect.any(Number) },
+      experienceCloud: {
+        analytics: { supplementalDataId: undefined, logging: "server_side" }
+      },
+      notifications: [
+        {
+          id: "id",
+          impressionId: "impressionId",
+          type: "display",
+          timestamp: 1570092933750,
+          tokens: ["token1"],
+          mbox: { name: "mbox1", state: "mboxstate1" }
+        },
+        {
+          id: "id",
+          type: "click",
+          timestamp: 1570092933755,
+          tokens: ["token1", "token2"],
+          view: { name: "view1", key: "viewkey1", state: "viewstate1" }
+        }
+      ]
+    });
 
     request = {
       notifications: [
@@ -386,7 +447,7 @@ describe("Target Helper", () => {
     const loggerSpy = {
       error: () => {}
     };
-    spyOn(loggerSpy, "error");
+    jest.spyOn(loggerSpy, "error").mockImplementation(() => {});
     result = createDeliveryRequest(request, {
       logger: loggerSpy,
       visitor: EMPTY_VISITOR,
@@ -394,32 +455,147 @@ describe("Target Helper", () => {
     });
     expect(loggerSpy.error).toHaveBeenCalledWith(
       "Notification validation failed for: ",
-      jasmine.any(Object)
+      expect.any(Object)
     );
-    serializedResult = JSON.stringify(
-      ObjectSerializer.serialize(result, "DeliveryRequest")
-    );
-    expect(serializedResult).toEqual(
-      '{"requestId":"12345678-abcd-1234-efgh-000000000000","context":{"channel":"web","timeOffsetInMinutes":0},"experienceCloud":{"analytics":{"supplementalDataId":null,"logging":"server_side"}}}'
-    );
+    serializedResult = api.DeliveryRequestFromJSON(result);
+    expect(serializedResult).toMatchObject({
+      requestId: "12345678-abcd-1234-efgh-000000000000",
+      context: { channel: "web", timeOffsetInMinutes: expect.any(Number) },
+      experienceCloud: {
+        analytics: { supplementalDataId: undefined, logging: "server_side" }
+      }
+    });
   });
 
   it("processResponse should process response", () => {
     let response = {};
     let result = processResponse("sessionId", undefined, response);
-    let serializedResult = JSON.stringify(result);
-    expect(serializedResult).toEqual(
-      '{"targetCookie":{"name":"mbox","value":"session#sessionId#1570321860","maxAge":1860},"response":{}}'
-    );
+    expect(result).toMatchObject({
+      targetCookie: {
+        name: "mbox",
+        value: "session#sessionId#1570321860",
+        maxAge: 1860
+      },
+      response: {}
+    });
 
     response = {
-      timing: {
-        firstByte: 123456
+      id: {
+        tntId: "tntId"
       },
-      body: {
-        id: {
-          tntId: "tntId"
-        },
+      client: "testclient",
+      edgeHost: "mboxedge21.tt.omtrdc.net",
+      prefetch: {
+        views: [
+          {
+            name: "view1",
+            key: "viewkey1",
+            options: [
+              {
+                type: "actions",
+                content: "content1",
+                eventToken: "token1",
+                responseTokens: {
+                  "profile.token1": "token1",
+                  token2: "token2"
+                }
+              }
+            ],
+            state: "viewstate1",
+            analytics: {
+              payload: {
+                pe: "pe1",
+                tnta: "tnta1"
+              }
+            },
+            trace: {
+              tracekey1: "traceval1"
+            }
+          },
+          {
+            name: "view2",
+            key: "viewkey2",
+            options: [
+              {
+                type: "actions",
+                content: "content2",
+                eventToken: "token2",
+                responseTokens: {
+                  "profile.token21": "token21",
+                  token22: "token22"
+                }
+              }
+            ],
+            state: "viewstate2",
+            analytics: {
+              payload: {
+                pe: "pe2",
+                tnta: "tnta2"
+              }
+            },
+            trace: {
+              tracekey2: "traceval2"
+            }
+          }
+        ],
+        mboxes: [
+          {
+            name: "mbox1",
+            index: "mboxidx1",
+            options: [
+              {
+                type: "actions",
+                content: "content3",
+                eventToken: "token3",
+                responseTokens: {
+                  "profile.token31": "token31",
+                  token32: "token32"
+                }
+              }
+            ],
+            state: "mboxstate2",
+            analytics: {
+              payload: {
+                pe: "pe3",
+                tnta: "tnta3"
+              }
+            },
+            trace: {
+              tracekey3: "traceval3"
+            }
+          }
+        ]
+      }
+    };
+    result = processResponse("sessionId", "21", response);
+    expect(result).toMatchObject({
+      targetCookie: {
+        name: "mbox",
+        value: "session#sessionId#1570321860|PC#tntId#1633564800",
+        maxAge: 63244800
+      },
+      targetLocationHintCookie: {
+        name: "mboxEdgeCluster",
+        value: "21",
+        maxAge: 1860
+      },
+      analyticsDetails: [
+        { payload: { pe: "pe1", tnta: "tnta1" } },
+        { payload: { pe: "pe2", tnta: "tnta2" } },
+        { payload: { pe: "pe3", tnta: "tnta3" } }
+      ],
+      trace: [
+        { tracekey1: "traceval1" },
+        { tracekey2: "traceval2" },
+        { tracekey3: "traceval3" }
+      ],
+      responseTokens: [
+        { "profile.token1": "token1", token2: "token2" },
+        { "profile.token21": "token21", token22: "token22" },
+        { "profile.token31": "token31", token32: "token32" }
+      ],
+      response: {
+        id: { tntId: "tntId" },
         client: "testclient",
         edgeHost: "mboxedge21.tt.omtrdc.net",
         prefetch: {
@@ -439,15 +615,8 @@ describe("Target Helper", () => {
                 }
               ],
               state: "viewstate1",
-              analytics: {
-                payload: {
-                  pe: "pe1",
-                  tnta: "tnta1"
-                }
-              },
-              trace: {
-                tracekey1: "traceval1"
-              }
+              analytics: { payload: { pe: "pe1", tnta: "tnta1" } },
+              trace: { tracekey1: "traceval1" }
             },
             {
               name: "view2",
@@ -464,15 +633,8 @@ describe("Target Helper", () => {
                 }
               ],
               state: "viewstate2",
-              analytics: {
-                payload: {
-                  pe: "pe2",
-                  tnta: "tnta2"
-                }
-              },
-              trace: {
-                tracekey2: "traceval2"
-              }
+              analytics: { payload: { pe: "pe2", tnta: "tnta2" } },
+              trace: { tracekey2: "traceval2" }
             }
           ],
           mboxes: [
@@ -491,31 +653,63 @@ describe("Target Helper", () => {
                 }
               ],
               state: "mboxstate2",
-              analytics: {
-                payload: {
-                  pe: "pe3",
-                  tnta: "tnta3"
-                }
-              },
-              trace: {
-                tracekey3: "traceval3"
-              }
+              analytics: { payload: { pe: "pe3", tnta: "tnta3" } },
+              trace: { tracekey3: "traceval3" }
             }
           ]
         }
       }
-    };
-    result = processResponse("sessionId", "21", response);
-    serializedResult = JSON.stringify(result);
-    expect(serializedResult).toEqual(
-      '{"targetCookie":{"name":"mbox","value":"session#sessionId#1570321860|PC#tntId#1633564800","maxAge":63244800},"targetLocationHintCookie":{"name":"mboxEdgeCluster","value":"21","maxAge":1860},"analyticsDetails":[{"payload":{"pe":"pe1","tnta":"tnta1"}},{"payload":{"pe":"pe2","tnta":"tnta2"}},{"payload":{"pe":"pe3","tnta":"tnta3"}}],"trace":[{"tracekey1":"traceval1"},{"tracekey2":"traceval2"},{"tracekey3":"traceval3"}],"responseTokens":[{"profile.token1":"token1","token2":"token2"},{"profile.token21":"token21","token22":"token22"},{"profile.token31":"token31","token32":"token32"}],"response":{"id":{"tntId":"tntId"},"client":"testclient","edgeHost":"mboxedge21.tt.omtrdc.net","prefetch":{"views":[{"name":"view1","key":"viewkey1","options":[{"type":"actions","content":"content1","eventToken":"token1","responseTokens":{"profile.token1":"token1","token2":"token2"}}],"state":"viewstate1","analytics":{"payload":{"pe":"pe1","tnta":"tnta1"}},"trace":{"tracekey1":"traceval1"}},{"name":"view2","key":"viewkey2","options":[{"type":"actions","content":"content2","eventToken":"token2","responseTokens":{"profile.token21":"token21","token22":"token22"}}],"state":"viewstate2","analytics":{"payload":{"pe":"pe2","tnta":"tnta2"}},"trace":{"tracekey2":"traceval2"}}],"mboxes":[{"name":"mbox1","index":"mboxidx1","options":[{"type":"actions","content":"content3","eventToken":"token3","responseTokens":{"profile.token31":"token31","token32":"token32"}}],"state":"mboxstate2","analytics":{"payload":{"pe":"pe3","tnta":"tnta3"}},"trace":{"tracekey3":"traceval3"}}]}},"timing":{"firstByte":123456}}'
-    );
+    });
 
     response = {
-      body: {
-        id: {
-          tntId: "tntId"
-        },
+      id: {
+        tntId: "tntId"
+      },
+      client: "testclient",
+      edgeHost: "mboxedge21.tt.omtrdc.net",
+      execute: {
+        pageLoad: {
+          options: [
+            {
+              type: "actions",
+              content: "content1",
+              eventToken: "token1",
+              responseTokens: {
+                "profile.token1": "token1",
+                token2: "token2"
+              }
+            }
+          ],
+          state: "pageloadstate1",
+          analytics: {
+            payload: {
+              pe: "pe1",
+              tnta: "tnta1"
+            }
+          },
+          trace: {
+            tracekey1: "traceval1"
+          }
+        }
+      }
+    };
+    result = processResponse("sessionId", undefined, response);
+    expect(result).toMatchObject({
+      targetCookie: {
+        name: "mbox",
+        value: "session#sessionId#1570321860|PC#tntId#1633564800",
+        maxAge: 63244800
+      },
+      targetLocationHintCookie: {
+        name: "mboxEdgeCluster",
+        value: "21",
+        maxAge: 1860
+      },
+      analyticsDetails: [{ payload: { pe: "pe1", tnta: "tnta1" } }],
+      trace: [{ tracekey1: "traceval1" }],
+      responseTokens: [{ "profile.token1": "token1", token2: "token2" }],
+      response: {
+        id: { tntId: "tntId" },
         client: "testclient",
         edgeHost: "mboxedge21.tt.omtrdc.net",
         execute: {
@@ -532,32 +726,17 @@ describe("Target Helper", () => {
               }
             ],
             state: "pageloadstate1",
-            analytics: {
-              payload: {
-                pe: "pe1",
-                tnta: "tnta1"
-              }
-            },
-            trace: {
-              tracekey1: "traceval1"
-            }
+            analytics: { payload: { pe: "pe1", tnta: "tnta1" } },
+            trace: { tracekey1: "traceval1" }
           }
         }
       }
-    };
-    result = processResponse("sessionId", undefined, response);
-    serializedResult = JSON.stringify(result);
-    expect(serializedResult).toEqual(
-      '{"targetCookie":{"name":"mbox","value":"session#sessionId#1570321860|PC#tntId#1633564800","maxAge":63244800},"targetLocationHintCookie":{"name":"mboxEdgeCluster","value":"21","maxAge":1860},"analyticsDetails":[{"payload":{"pe":"pe1","tnta":"tnta1"}}],"trace":[{"tracekey1":"traceval1"}],"responseTokens":[{"profile.token1":"token1","token2":"token2"}],"response":{"id":{"tntId":"tntId"},"client":"testclient","edgeHost":"mboxedge21.tt.omtrdc.net","execute":{"pageLoad":{"options":[{"type":"actions","content":"content1","eventToken":"token1","responseTokens":{"profile.token1":"token1","token2":"token2"}}],"state":"pageloadstate1","analytics":{"payload":{"pe":"pe1","tnta":"tnta1"}},"trace":{"tracekey1":"traceval1"}}}}}'
-    );
+    });
   });
 
-  it("createDeliveryApi should create TargetDeliveryApi", () => {
+  it("createDeliveryApi should create DeliveryAPIApi", () => {
     const URL = "http://target.host.com";
-    const TIMEOUT = 2000;
-    const result = createDeliveryApi(URL, TIMEOUT);
-    expect(result).toEqual(jasmine.any(TargetDeliveryApi));
-    expect(result.basePath).toEqual(URL);
-    expect(result.timeout).toEqual(TIMEOUT);
+    const result = createDeliveryApi(fetch, URL);
+    expect(result instanceof api.DeliveryAPIApi).toBe(true);
   });
 });

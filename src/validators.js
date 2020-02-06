@@ -55,7 +55,7 @@ function validateGetOffersOptions(options) {
 
   if (
     isNonEmptyObject(execute) &&
-    isEmptyObject(execute.pageLoad) &&
+    typeof execute.pageLoad === "undefined" &&
     isEmptyArray(execute.mboxes)
   ) {
     return Messages.EXECUTE_FIELDS_REQUIRED;
@@ -63,7 +63,7 @@ function validateGetOffersOptions(options) {
 
   if (
     isNonEmptyObject(prefetch) &&
-    isEmptyObject(prefetch.pageLoad) &&
+    typeof prefetch.pageLoad === "undefined" &&
     isEmptyArray(prefetch.views) &&
     isEmptyArray(prefetch.mboxes)
   ) {

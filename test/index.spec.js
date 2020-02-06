@@ -10,7 +10,7 @@ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTA
 OF ANY KIND, either express or implied. See the License for the specific language
 governing permissions and limitations under the License.
 */
-
+require("jest-fetch-mock").enableMocks();
 const Visitor = require("@adobe-mcid/visitor-js-server");
 const target = require("../src/target");
 const utils = require("../src/utils");
@@ -28,22 +28,26 @@ const testLogger = {
   debug: message => message,
   error: message => message
 };
+
 let TargetClient;
 
 describe("Target Client factory", () => {
   beforeAll(() => {
-    spyOn(target, "executeDelivery").and.returnValue(
-      Promise.resolve({ response: "response" })
-    );
-    spyOn(utils, "createVisitor").and.callThrough();
-    spyOn(utils, "getLogger").and.callThrough();
-    TargetClient = require("../src/index"); // eslint-disable-line global-require
+    jest
+      .spyOn(target, "executeDelivery")
+      .mockImplementation(() => Promise.resolve({ response: "response" }));
+
+    jest.spyOn(utils, "createVisitor");
+    jest.spyOn(utils, "getLogger");
+
+    // eslint-disable-next-line global-require
+    TargetClient = require("../src/index");
   });
 
   afterEach(() => {
-    target.executeDelivery.calls.reset();
-    utils.createVisitor.calls.reset();
-    utils.getLogger.calls.reset();
+    target.executeDelivery.mockClear();
+    utils.createVisitor.mockClear();
+    utils.getLogger.mockClear();
   });
 
   it("should throw when instantiated via new", () => {
@@ -70,9 +74,13 @@ describe("Target Client factory", () => {
     );
   });
 
-  it("should not throw when client and orgId are present", () => {
+  it("should not throw when client, orgId and fetchApi are present", () => {
     expect(() =>
-      TargetClient.create({ client: "client", organizationId: "orgId" })
+      TargetClient.create({
+        client: "client",
+        organizationId: "orgId",
+        fetchApi: fetch
+      })
     ).not.toThrow();
   });
 
@@ -81,13 +89,15 @@ describe("Target Client factory", () => {
       TargetClient.create({
         client: "client",
         organizationId: "orgId",
+        fetchApi: fetch,
         logger: testLogger
       })
     ).not.toThrow();
-    expect(utils.getLogger.calls.any()).toBe(true);
-    const logger = utils.getLogger.calls.mostRecent().returnValue;
-    expect(logger.debug).toEqual(jasmine.any(Function));
-    expect(logger.error).toEqual(jasmine.any(Function));
+    expect(utils.getLogger).toHaveBeenCalledTimes(1);
+    const logger =
+      utils.getLogger.mock.results[utils.getLogger.mock.calls.length - 1].value;
+    expect(logger.debug).toEqual(expect.any(Function));
+    expect(logger.error).toEqual(expect.any(Function));
   });
 
   it("should return Target cookie name", () => {
@@ -111,10 +121,11 @@ describe("Target Client factory", () => {
   it("getOffers should throw when options are missing", async () => {
     const client = TargetClient.create({
       client: "client",
-      organizationId: "orgId"
+      organizationId: "orgId",
+      fetchApi: fetch
     });
 
-    await expectAsync(client.getOffers({})).toBeRejectedWith(
+    await expect(client.getOffers({})).rejects.toEqual(
       new Error(Messages.OPTIONS_REQUIRED)
     );
   });
@@ -122,67 +133,76 @@ describe("Target Client factory", () => {
   it("getOffers should throw when request is missing", async () => {
     const client = TargetClient.create({
       client: "client",
-      organizationId: "orgId"
+      organizationId: "orgId",
+      fetchApi: fetch
     });
 
-    await expectAsync(
-      client.getOffers({ consumerId: "test123" })
-    ).toBeRejectedWith(new Error(Messages.REQUEST_REQUIRED));
+    await expect(client.getOffers({ consumerId: "test123" })).rejects.toEqual(
+      new Error(Messages.REQUEST_REQUIRED)
+    );
   });
 
   it("getOffers should throw when prefetch/execute is missing", async () => {
     const client = TargetClient.create({
       client: "client",
-      organizationId: "orgId"
+      organizationId: "orgId",
+      fetchApi: fetch
     });
 
-    await expectAsync(
-      client.getOffers({ request: { trace: {} } })
-    ).toBeRejectedWith(new Error(Messages.EXECUTE_OR_PREFETCH_REQUIRED));
+    await expect(client.getOffers({ request: { trace: {} } })).rejects.toEqual(
+      new Error(Messages.EXECUTE_OR_PREFETCH_REQUIRED)
+    );
   });
 
   it("getOffers should throw when execute fields are missing", async () => {
     const client = TargetClient.create({
       client: "client",
-      organizationId: "orgId"
+      organizationId: "orgId",
+      fetchApi: fetch
     });
 
-    await expectAsync(
+    await expect(
       client.getOffers({ request: { execute: { badField: "bad" } } })
-    ).toBeRejectedWith(new Error(Messages.EXECUTE_FIELDS_REQUIRED));
+    ).rejects.toEqual(new Error(Messages.EXECUTE_FIELDS_REQUIRED));
   });
 
   it("getOffers should throw when prefetch fields are missing", async () => {
     const client = TargetClient.create({
       client: "client",
-      organizationId: "orgId"
+      organizationId: "orgId",
+      fetchApi: fetch
     });
 
-    await expectAsync(
+    await expect(
       client.getOffers({ request: { prefetch: { badField: "bad" } } })
-    ).toBeRejectedWith(new Error(Messages.PREFETCH_FIELDS_REQUIRED));
+    ).rejects.toEqual(new Error(Messages.PREFETCH_FIELDS_REQUIRED));
   });
 
   it("should return Promise response on getOffers call", async () => {
     const client = TargetClient.create({
       client: "client",
-      organizationId: "orgId"
+      organizationId: "orgId",
+      fetchApi: fetch
     });
     const request = {
       execute: {
         mboxes: [{ name: "testmbox" }]
       }
     };
-    await expectAsync(
+
+    await expect(
       client.getOffers({ request, customerIds: VISITOR_CUSTOMER_IDS })
-    ).toBeResolvedTo({
+    ).resolves.toEqual({
       response: "response"
     });
-    expect(target.executeDelivery.calls.count()).toBe(1);
-    expect(utils.createVisitor.calls.count()).toBe(1);
-    const visitor = utils.createVisitor.calls.mostRecent().returnValue;
+    expect(target.executeDelivery.mock.calls.length).toBe(1);
+    expect(utils.createVisitor.mock.calls.length).toBe(1);
+    const visitor =
+      utils.createVisitor.mock.results[
+        utils.createVisitor.mock.calls.length - 1
+      ].value;
 
-    expect(visitor).toEqual(jasmine.any(Visitor));
+    expect(visitor).toEqual(expect.any(Visitor));
     const visitorState = JSON.stringify(visitor.getState());
     expect(visitorState).toEqual(
       '{"orgId@AdobeOrg":{"customerIDs":{"userid":{"id":"67312378756723456","authState":1},"puuid":"550e8400-e29b-41d4-a716-446655440000"}}}'
@@ -192,10 +212,11 @@ describe("Target Client factory", () => {
   it("sendNotifications should throw when options are missing", async () => {
     const client = TargetClient.create({
       client: "client",
-      organizationId: "orgId"
+      organizationId: "orgId",
+      fetchApi: fetch
     });
 
-    await expectAsync(client.sendNotifications({})).toBeRejectedWith(
+    await expect(client.sendNotifications({})).rejects.toEqual(
       new Error(Messages.OPTIONS_REQUIRED)
     );
   });
@@ -203,29 +224,32 @@ describe("Target Client factory", () => {
   it("sendNotifications should throw when request is missing", async () => {
     const client = TargetClient.create({
       client: "client",
-      organizationId: "orgId"
+      organizationId: "orgId",
+      fetchApi: fetch
     });
 
-    await expectAsync(
+    await expect(
       client.sendNotifications({ consumerId: "test123" })
-    ).toBeRejectedWith(new Error(Messages.REQUEST_REQUIRED));
+    ).rejects.toEqual(new Error(Messages.REQUEST_REQUIRED));
   });
 
   it("sendNotifications should throw when notifications are missing", async () => {
     const client = TargetClient.create({
       client: "client",
-      organizationId: "orgId"
+      organizationId: "orgId",
+      fetchApi: fetch
     });
 
-    await expectAsync(
+    await expect(
       client.sendNotifications({ request: { trace: {} } })
-    ).toBeRejectedWith(new Error(Messages.NOTIFICATIONS_REQUIRED));
+    ).rejects.toEqual(new Error(Messages.NOTIFICATIONS_REQUIRED));
   });
 
   it("should return Promise response on sendNotifications call", async () => {
     const client = TargetClient.create({
       client: "client",
-      organizationId: "orgId"
+      organizationId: "orgId",
+      fetchApi: fetch
     });
     const request = {
       notifications: [
@@ -236,16 +260,19 @@ describe("Target Client factory", () => {
       ]
     };
 
-    await expectAsync(client.sendNotifications({ request })).toBeResolvedTo({
+    await expect(client.sendNotifications({ request })).resolves.toEqual({
       response: "response"
     });
-    expect(target.executeDelivery.calls.count()).toBe(1);
-    expect(utils.createVisitor.calls.count()).toBe(1);
-    const visitor = utils.createVisitor.calls.mostRecent().returnValue;
+    expect(target.executeDelivery.mock.calls.length).toBe(1);
+    expect(utils.createVisitor.mock.calls.length).toBe(1);
+    const visitor =
+      utils.createVisitor.mock.results[
+        utils.createVisitor.mock.calls.length - 1
+      ].value;
 
-    expect(visitor).toEqual(jasmine.any(Visitor));
+    expect(visitor).toEqual(expect.any(Visitor));
     expect(visitor.getState()).toEqual(
-      jasmine.objectContaining({ "orgId@AdobeOrg": {} })
+      expect.objectContaining({ "orgId@AdobeOrg": {} })
     );
   });
 });

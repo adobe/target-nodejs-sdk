@@ -17,7 +17,7 @@ describe("UUID utility", () => {
     const uuid1 = uuid();
     const uuid2 = uuid();
 
-    expect(uuid1).toEqual(jasmine.any(String));
+    expect(uuid1).toEqual(expect.any(String));
     expect(uuid1.length).toEqual(32);
     expect(uuid1).not.toEqual(uuid2);
   });

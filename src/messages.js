@@ -13,6 +13,7 @@ governing permissions and limitations under the License.
 module.exports = {
   PRIVATE_CONSTRUCTOR: "Please use TargetClient.create static method instead",
   ORG_ID_REQUIRED: "Organization Id is required",
+  FETCH_API_REQUIRED: "Fetch API is required",
   REQUEST_REQUIRED: "Request object is required",
   EXECUTE_OR_PREFETCH_REQUIRED:
     "Either execute or prefetch is required in request",

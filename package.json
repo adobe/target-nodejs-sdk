@@ -6,15 +6,17 @@
   "engines": {
     "node": ">=8.16.0"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "clean": "rimraf lib",
     "prebuild": "npm run clean && npm run format && npm run lint",
     "build": "rollup -c rollup.config.js",
     "www": "npm run build && node ./sample/server.js",
     "pretest": "npm run lint-test",
-    "test": "jasmine test/*.spec.js",
+    "test": "jest",
     "coverage": "nyc --reporter=lcov --reporter=text-summary npm run test",
-    "testdebug": "node --inspect-brk node_modules/jasmine/bin/jasmine.js test/*.spec.js",
     "lint-src": "eslint src/**",
     "lint-test": "eslint test/**",
     "lint": "npm run lint-src && npm run lint-test",
@@ -44,30 +46,36 @@
   "author": "Adobe Systems Inc.",
   "license": "Apache-2.0",
   "devDependencies": {
+    "@babel/preset-env": "^7.8.4",
+    "@rollup/plugin-commonjs": "^11.0.1",
+    "@rollup/plugin-json": "^4.0.1",
+    "@rollup/plugin-node-resolve": "^7.0.0",
     "ajv": "^5.5.2",
     "cookie-parser": "^1.4.4",
+    "core-js": "^3.6.4",
     "eslint": "^5.3.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jasmine": "^2.10.1",
+    "eslint-plugin-jest": "^23.6.0",
     "eslint-plugin-prettier": "^3.1.0",
     "express": "^4.17.1",
-    "jasmine": "^3.5.0",
-    "jasmine-console-reporter": "^3.1.0",
+    "form-data": "^3.0.0",
+    "jest": "^25.1.0",
+    "jest-fetch-mock": "^3.0.1",
     "mockdate": "^2.0.5",
+    "node-fetch": "^2.6.0",
     "nyc": "^14.1.1",
     "prettier": "^1.18.2",
     "rimraf": "^2.6.1",
     "rollup": "^1.17.0",
-    "rollup-plugin-commonjs": "^10.0.1",
-    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-license": "^0.12.1",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-terser": "^5.1.1"
+    "rollup-plugin-terser": "^5.1.1",
+    "whatwg-fetch": "^3.0.0"
   },
   "dependencies": {
     "@adobe-mcid/visitor-js-server": "^2.0.0",
-    "request": "^2.81.0"
+    "@adobe/reactor-query-string": "^1.0.0"
   }
 }

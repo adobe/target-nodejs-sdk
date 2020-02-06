@@ -28,24 +28,32 @@ const targetCookie =
   "session#a0bb222be4154f3f97e20dfa1c1d1750#9596233214|PC#08210e2d751a44779b8313e2d2692b96.21_27#9596233214";
 let createDeliveryApiSpy;
 
+function spyOnAllFunctions(obj) {
+  Object.keys(obj).forEach(prop => {
+    if (
+      Object.prototype.hasOwnProperty.call(obj, prop) &&
+      obj[prop] instanceof Function
+    ) {
+      const descriptor = Object.getOwnPropertyDescriptor(obj, prop);
+      if ((descriptor.writable || descriptor.set) && descriptor.configurable) {
+        jest.spyOn(obj, prop);
+      }
+    }
+  });
+}
+
 describe("Target Delivery API client", () => {
   beforeAll(() => {
     MockDate.set("2019-10-06");
-    createDeliveryApiSpy = jasmine
-      .createSpy("createDeliveryApiSpy")
-      .and.returnValue({
-        execute: () =>
-          Promise.resolve({
-            status: 200,
-            body: "responseBody"
-          })
-      });
-    spyOnAllFunctions(EMPTY_VISITOR); // eslint-disable-line no-undef
-    EMPTY_VISITOR.getVisitorValues.and.callThrough();
-    EMPTY_VISITOR.getSupplementalDataID.and.callThrough();
-    EMPTY_VISITOR.getState.and.callThrough();
-    spyOnAllFunctions(testLogger); // eslint-disable-line no-undef
-    testLogger.debug.and.callThrough();
+    createDeliveryApiSpy = jest.fn(() => ({
+      execute: () =>
+        Promise.resolve({
+          status: 200,
+          body: "responseBody"
+        })
+    }));
+    spyOnAllFunctions(EMPTY_VISITOR);
+    spyOnAllFunctions(testLogger);
   });
 
   afterAll(() => {
@@ -53,7 +61,7 @@ describe("Target Delivery API client", () => {
   });
 
   afterEach(() => {
-    createDeliveryApiSpy.calls.reset();
+    createDeliveryApiSpy.mockClear();
   });
 
   it("executeDelivery should execute Delivery API call", async () => {
@@ -76,25 +84,68 @@ describe("Target Delivery API client", () => {
       createDeliveryApiMethod: createDeliveryApiSpy
     };
 
-    let result = await target.executeDelivery(options);
-    let serializedResult = JSON.stringify(result);
+    const serializedResult = await target.executeDelivery(options);
     expect(serializedResult).toEqual(
-      '{"visitorState":{"B8A054D958807F770A495DD6@AdobeOrg":{}},"request":{"requestId":"123","id":{"tntId":"08210e2d751a44779b8313e2d2692b96.21_27"},"context":{"channel":"web","timeOffsetInMinutes":0},"experienceCloud":{"analytics":{"logging":"server_side","supplementalDataId":null}},"execute":{"pageLoad":{}}},"targetCookie":{"name":"mbox","value":"session#a0bb222be4154f3f97e20dfa1c1d1750#1570321860","maxAge":1860},"targetLocationHintCookie":{"name":"mboxEdgeCluster","value":"21","maxAge":1860},"response":"responseBody"}'
+      expect.objectContaining({
+        visitorState: { "B8A054D958807F770A495DD6@AdobeOrg": {} },
+        request: {
+          requestId: "123",
+          id: { tntId: "08210e2d751a44779b8313e2d2692b96.21_27" },
+          context: { channel: "web", timeOffsetInMinutes: expect.any(Number) },
+          experienceCloud: {
+            analytics: { logging: "server_side", supplementalDataId: undefined }
+          },
+          execute: { pageLoad: {} }
+        },
+        targetCookie: {
+          name: "mbox",
+          value: "session#a0bb222be4154f3f97e20dfa1c1d1750#1570321860",
+          maxAge: 1860
+        },
+        targetLocationHintCookie: {
+          name: "mboxEdgeCluster",
+          value: "21",
+          maxAge: 1860
+        },
+        response: {
+          status: 200,
+          body: "responseBody"
+        }
+      })
     );
-    expect(EMPTY_VISITOR.getState.calls.count()).toBe(2);
-    expect(testLogger.debug.calls.count()).toBe(2);
+    expect(EMPTY_VISITOR.getState.mock.calls.length).toBe(2);
+    expect(testLogger.debug.mock.calls.length).toBe(2);
 
-    createDeliveryApiSpy = jasmine
-      .createSpy("createDeliveryApiSpy")
-      .and.returnValue({
-        execute: () => Promise.resolve(undefined)
-      });
+    createDeliveryApiSpy = jest.fn(() => ({
+      execute: () => Promise.resolve(undefined)
+    }));
     options.createDeliveryApiMethod = createDeliveryApiSpy;
 
-    result = await target.executeDelivery(options);
-    serializedResult = JSON.stringify(result);
-    expect(serializedResult).toEqual(
-      '{"visitorState":{"B8A054D958807F770A495DD6@AdobeOrg":{}},"request":{"requestId":"123","id":{"tntId":"08210e2d751a44779b8313e2d2692b96.21_27"},"context":{"channel":"web","timeOffsetInMinutes":0},"experienceCloud":{"analytics":{"logging":"server_side","supplementalDataId":null}},"execute":{"pageLoad":{}}},"targetCookie":{"name":"mbox","value":"session#a0bb222be4154f3f97e20dfa1c1d1750#1570321860","maxAge":1860},"targetLocationHintCookie":{"name":"mboxEdgeCluster","value":"21","maxAge":1860},"response":{}}'
+    const result = await target.executeDelivery(options);
+    expect(result).toEqual(
+      expect.objectContaining({
+        visitorState: { "B8A054D958807F770A495DD6@AdobeOrg": {} },
+        request: {
+          requestId: "123",
+          id: { tntId: "08210e2d751a44779b8313e2d2692b96.21_27" },
+          context: { channel: "web", timeOffsetInMinutes: expect.any(Number) },
+          experienceCloud: {
+            analytics: { logging: "server_side", supplementalDataId: undefined }
+          },
+          execute: { pageLoad: {} }
+        },
+        targetCookie: {
+          name: "mbox",
+          value: "session#a0bb222be4154f3f97e20dfa1c1d1750#1570321860",
+          maxAge: 1860
+        },
+        targetLocationHintCookie: {
+          name: "mboxEdgeCluster",
+          value: "21",
+          maxAge: 1860
+        },
+        response: {}
+      })
     );
   });
 });
