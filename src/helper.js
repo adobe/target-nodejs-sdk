@@ -476,17 +476,18 @@ function createDeliveryRequest(requestParam, options) {
 }
 
 // eslint-disable-next-line no-unused-vars
-function createDeliveryApi(fetchApi, host, headers, timeout) {
-  const deliveryApi = new DeliveryAPIApi(
-    new Configuration({
-      basePath: host,
-      fetchApi,
-      headers
-    })
-  );
+function createConfiguration(fetchApi, host, headers, timeout) {
   // deliveryApi.timeout = timeout; // TODO: add support for timeout in the openapi fetch implementation (fetch does not support it natively)
 
-  return deliveryApi;
+  return new Configuration({
+    basePath: host,
+    fetchApi,
+    headers
+  });
+}
+
+function createDeliveryApi(configuration) {
+  return new DeliveryAPIApi(configuration);
 }
 
 function getTargetCookie(sessionId, id) {
@@ -672,6 +673,7 @@ module.exports = {
   extractClusterFromDeviceId,
   createHeaders,
   createDeliveryRequest,
+  createConfiguration,
   createDeliveryApi,
   processResponse,
   createVisitorId

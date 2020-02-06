@@ -109,11 +109,11 @@ class TargetClient {
     const visitor = createVisitor(options, this.config);
 
     const targetOptions = Object.assign(
-      { visitor, config: this.config, logger: this.logger },
+      { visitor, config: this.config, logger: this.logger, useBeacon: true },
       options
     );
 
-    return executeDelivery(targetOptions, true);
+    return executeDelivery(targetOptions);
   }
 
   static getVisitorCookieName(orgId) {

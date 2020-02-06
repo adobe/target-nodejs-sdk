@@ -75,7 +75,6 @@
     "whatwg-fetch": "^3.0.0"
   },
   "dependencies": {
-    "@adobe-mcid/visitor-js-server": "^2.0.0",
-    "@adobe/reactor-query-string": "^1.0.0"
+    "@adobe-mcid/visitor-js-server": "^2.0.0"
   }
 }

@@ -10,7 +10,6 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const queryString = require("@adobe/reactor-query-string");
 const Visitor = require("@adobe-mcid/visitor-js-server");
 
 const NOOP_LOGGER = {
@@ -108,14 +107,6 @@ function executeSendBeacon(url, data) {
   return window[NAVIGATOR][SEND_BEACON](url, data);
 }
 
-function stringifyQueryString(value) {
-  try {
-    return queryString.stringify(value);
-  } catch (e) {
-    return "";
-  }
-}
-
 module.exports = {
   isNonEmptyObject,
   isEmptyObject,
@@ -132,6 +123,5 @@ module.exports = {
   createVisitor,
   isBrowser,
   isBeaconSupported,
-  executeSendBeacon,
-  stringifyQueryString
+  executeSendBeacon
 };

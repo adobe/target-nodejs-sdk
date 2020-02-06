@@ -10,11 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const {
-  executeSendBeacon,
-  isBeaconSupported,
-  stringifyQueryString
-} = require("./utils");
+const { executeSendBeacon, isBeaconSupported } = require("./utils");
 const { parseCookies } = require("./cookies");
 const {
   getDeviceId,
@@ -23,12 +19,13 @@ const {
   getTargetHost,
   createHeaders,
   createDeliveryRequest,
+  createConfiguration,
   createDeliveryApi,
   processResponse
 } = require("./helper");
 const { REQUEST_SENT, RESPONSE_RECEIVED } = require("./messages");
 
-function executeDelivery(options, useBeacon = false) {
+function executeDelivery(options) {
   const {
     visitor,
     config,
@@ -37,6 +34,7 @@ function executeDelivery(options, useBeacon = false) {
     targetCookie,
     consumerId,
     request,
+    useBeacon,
     createDeliveryApiMethod = createDeliveryApi
   } = options;
 
@@ -60,6 +58,13 @@ function executeDelivery(options, useBeacon = false) {
 
   logger.debug(REQUEST_SENT, JSON.stringify(deliveryRequest, null, 2));
 
+  const configuration = createConfiguration(
+    config.fetchApi,
+    host,
+    headers,
+    timeout
+  );
+
   if (useBeacon && isBeaconSupported()) {
     const query = {
       client,
@@ -70,7 +75,8 @@ function executeDelivery(options, useBeacon = false) {
       query.version = config.version;
     }
 
-    const queryString = stringifyQueryString(query);
+    const queryString = configuration.queryParamsStringify(query);
+
     const success = executeSendBeacon(
       `${host}/rest/v1/delivery?${queryString}`,
       JSON.stringify(deliveryRequest)
@@ -78,7 +84,7 @@ function executeDelivery(options, useBeacon = false) {
     return success ? Promise.resolve() : Promise.reject();
   }
 
-  return createDeliveryApiMethod(config.fetchApi, host, headers, timeout)
+  return createDeliveryApiMethod(configuration)
     .execute(client, sessionId, deliveryRequest, config.version)
     .then((response = {}) => {
       logger.debug(RESPONSE_RECEIVED, JSON.stringify(response, null, 2));
