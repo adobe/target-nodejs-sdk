@@ -34,6 +34,7 @@ export interface ConfigurationParameters {
     accessToken?: string | ((name?: string, scopes?: string[]) => string);
     headers?: HTTPHeaders;
     credentials?: RequestCredentials;
+    timeout?: number;
 }
 export declare class Configuration {
     private configuration;
@@ -48,6 +49,7 @@ export declare class Configuration {
     readonly accessToken: ((name: string, scopes?: string[]) => string) | undefined;
     readonly headers: HTTPHeaders | undefined;
     readonly credentials: RequestCredentials | undefined;
+    readonly timeout: number;
 }
 export declare type Json = any;
 export declare type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS';

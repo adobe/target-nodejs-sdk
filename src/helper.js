@@ -477,12 +477,11 @@ function createDeliveryRequest(requestParam, options) {
 
 // eslint-disable-next-line no-unused-vars
 function createConfiguration(fetchApi, host, headers, timeout) {
-  // deliveryApi.timeout = timeout; // TODO: add support for timeout in the openapi fetch implementation (fetch does not support it natively)
-
   return new Configuration({
     basePath: host,
     fetchApi,
-    headers
+    headers,
+    timeout
   });
 }
 

@@ -11,8 +11,7 @@
   <script type="text/javascript">
     const client = window.TargetClient.create({
       client: "adobesummit2018",
-      organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
-      version: 3
+      organizationId: "65453EA95A70434F0A495D34@AdobeOrg"
     });
 
     const targetRequest = {
@@ -29,8 +28,11 @@
     client.getOffers({
       request: targetRequest,
       sessionId: "dummy_session"
-    }).then(function(something) {
-    });
+    }).then(function(res) {
+      console.log("success", res);
+    }).catch(function(err) {
+      console.log("error", err);
+    })
   </script>
 </head>
 <body>
