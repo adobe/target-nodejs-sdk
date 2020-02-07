@@ -42,8 +42,7 @@ export default [
     output: {
       name: "TargetClient",
       file: pkg.browser,
-      format: "umd",
-      sourcemap: true
+      format: "umd"
     },
     external: [],
     plugins: getPlugins({
@@ -53,6 +52,8 @@ export default [
         [
           "@babel/preset-env",
           {
+            useBuiltIns: "usage",
+            corejs: 3,
             modules: false,
             targets: {
               browsers: [
@@ -73,8 +74,7 @@ export default [
     output: {
       name: "TargetClient",
       file: pkg.main,
-      format: "cjs",
-      sourcemap: true
+      format: "cjs"
     },
     external: [...Object.keys(pkg.dependencies || {})],
     plugins: getPlugins({

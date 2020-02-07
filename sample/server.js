@@ -13,7 +13,7 @@ governing permissions and limitations under the License.
 const fs = require("fs");
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const TargetClient = require("../lib/index");
+const TargetClient = require("../lib/targetclient.server");
 const TEMPLATE = fs.readFileSync(__dirname + "/templates/index.tpl").toString();
 const CONFIG = require("./config.json");
 

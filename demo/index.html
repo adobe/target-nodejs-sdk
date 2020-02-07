@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Test</title>
-  <!--  [needed for ie11] -->
-<!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.4/bluebird.min.js"></script>-->
-<!--  <script src="fetch.umd.js"></script>-->
-  <!--  [/needed for ie11] -->
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script type="text/javascript" src="script.js"></script>
   <script type="text/javascript" src="../lib/targetclient.browser.js"></script>
+</head>
+<body>
+  <div id="result"></div>
   <script type="text/javascript">
     const client = window.TargetClient.create({
       client: "adobesummit2018",
@@ -29,13 +30,10 @@
       request: targetRequest,
       sessionId: "dummy_session"
     }).then(function(res) {
-      console.log("success", res);
+      showResult("Result: Success", JSON.stringify(res, null, 4));
     }).catch(function(err) {
-      console.log("error", err);
+      showResult("Result: Error", err.description);
     })
   </script>
-</head>
-<body>
-
 </body>
 </html>
