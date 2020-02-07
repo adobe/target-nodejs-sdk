@@ -4,7 +4,11 @@ const globals = global;
 
 globals.FormData = FormData;
 
-const fetch = require("node-fetch");
-const TargetClient = require("./index").bootstrap(fetch);
+const nodeFetch = require("node-fetch");
+
+const TargetClient = require("./index").bootstrap(
+  // eslint-disable-next-line no-undef
+  typeof fetch !== "undefined" ? fetch : nodeFetch.default
+);
 
 module.exports = TargetClient;

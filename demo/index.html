@@ -7,7 +7,7 @@
 <!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.4/bluebird.min.js"></script>-->
 <!--  <script src="fetch.umd.js"></script>-->
   <!--  [/needed for ie11] -->
-  <script type="text/javascript" src="../lib/index.browser.js"></script>
+  <script type="text/javascript" src="../lib/targetclient.browser.js"></script>
   <script type="text/javascript">
     const client = window.TargetClient.create({
       client: "adobesummit2018",
@@ -16,34 +16,13 @@
     });
 
     const targetRequest = {
-      "context": {
-        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
-        "timeOffsetInMinutes": -480,
-        "channel": "web",
-        "screen": {
-          "width": 1680,
-          "height": 1050,
-          "orientation": "landscape",
-          "colorDepth": 24,
-          "pixelRatio": 2
-        },
-        "window": {
-          "width": 1680,
-          "height": 164
-        },
-        "browser": {
-          "host": "local-target-test"
-        },
-        "address": {
-          "url": "http://local-target-test/#/",
-          "referringUrl": "http://local-target-test/"
-        }
-      },
-      "execute": {
-        "pageLoad": {}
-      },
-      "prefetch": {
-        "views": [{}]
+      prefetch: {
+        mboxes: [
+          {
+            name: "mbox-waters",
+            index: 1
+          }
+        ]
       }
     };
 
