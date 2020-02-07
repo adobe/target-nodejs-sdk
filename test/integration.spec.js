@@ -1,19 +1,10 @@
-const FormData = require("form-data");
-
-const globals = global;
-
-globals.FormData = FormData;
-
-const fetch = require("node-fetch");
-
-const TargetClient = require("../src/index");
+const TargetClient = require("../src/index.server");
 
 describe("Requests to target delivery API", () => {
   it("Makes a request to the target API", async () => {
     const client = TargetClient.create({
       client: "adobesummit2018",
-      organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
-      fetchApi: fetch
+      organizationId: "65453EA95A70434F0A495D34@AdobeOrg"
     });
 
     const targetRequest = {

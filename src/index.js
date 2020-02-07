@@ -24,113 +24,121 @@ const { TARGET_COOKIE, LOCATION_HINT_COOKIE } = require("./cookies");
 const AMCV_PREFIX = "AMCV_";
 const DEFAULT_TIMEOUT = 3000;
 
-class TargetClient {
-  constructor(options) {
-    if (!options || !options.internal) {
-      throw new Error(Messages.PRIVATE_CONSTRUCTOR);
-    }
-    this.config = options;
-    this.config.timeout = options.timeout || DEFAULT_TIMEOUT;
-    this.logger = getLogger(options);
-  }
-
-  /**
-   * The TargetClient creation factory method
-   * @param {Object} options Options map, required
-   * @param {Function }options.fetchApi Fetch Implementation, optional
-   * @param {String} options.client Target Client Id, required
-   * @param {String} options.organizationId Target Organization Id, required
-   * @param {Number} options.timeout Target request timeout in ms, default: 3000
-   * @param {String} options.serverDomain Server domain, optional
-   * @param {boolean} options.secure Unset to enforce HTTP scheme, default: true
-   * @param {Object} options.logger Replaces the default noop logger, optional
-   * @param {String} options.version The version number of at.js, optional
-   */
-  static create(options) {
-    const error = validateClientOptions(options);
-
-    if (error) {
-      throw new Error(error);
+function bootstrap(defaultFetchApi) {
+  class TargetClient {
+    constructor(options) {
+      if (!options || !options.internal) {
+        throw new Error(Messages.PRIVATE_CONSTRUCTOR);
+      }
+      this.config = options;
+      this.config.timeout = options.timeout || DEFAULT_TIMEOUT;
+      this.logger = getLogger(options);
     }
 
-    return new TargetClient(Object.assign({ internal: true }, options));
-  }
+    /**
+     * The TargetClient creation factory method
+     * @param {Object} options Options map, required
+     * @param {Function }options.fetchApi Fetch Implementation, optional
+     * @param {String} options.client Target Client Id, required
+     * @param {String} options.organizationId Target Organization Id, required
+     * @param {Number} options.timeout Target request timeout in ms, default: 3000
+     * @param {String} options.serverDomain Server domain, optional
+     * @param {boolean} options.secure Unset to enforce HTTP scheme, default: true
+     * @param {Object} options.logger Replaces the default noop logger, optional
+     * @param {String} options.version The version number of at.js, optional
+     */
+    static create(options) {
+      const error = validateClientOptions(options);
 
-  /**
-   * The TargetClient get offers method
-   * @param {Object} options
-   * @param {Object} options.request Target View Delivery API request, required
-   * @param {String} options.visitorCookie VisitorId cookie, optional
-   * @param {String} options.targetCookie Target cookie, optional
-   * @param {String} options.targetLocationHintCookie Target Location Hint cookie, optional
-   * @param {String} options.consumerId When stitching multiple calls, different consumerIds should be provided, optional
-   * @param {Array} options.customerIds An array of Customer Ids in VisitorId-compatible format, optional
-   * @param {String} options.sessionId Session Id, used for linking multiple requests, optional
-   * @param {Object} options.visitor Supply an external VisitorId instance, optional
-   */
+      if (error) {
+        throw new Error(error);
+      }
 
-  getOffers(options) {
-    const error = validateGetOffersOptions(options);
-
-    if (error) {
-      return Promise.reject(new Error(error));
+      return new TargetClient(
+        Object.assign({ internal: true }, options, {
+          fetchApi: options.fetchApi || defaultFetchApi
+        })
+      );
     }
 
-    const visitor = createVisitor(options, this.config);
+    /**
+     * The TargetClient get offers method
+     * @param {Object} options
+     * @param {Object} options.request Target View Delivery API request, required
+     * @param {String} options.visitorCookie VisitorId cookie, optional
+     * @param {String} options.targetCookie Target cookie, optional
+     * @param {String} options.targetLocationHintCookie Target Location Hint cookie, optional
+     * @param {String} options.consumerId When stitching multiple calls, different consumerIds should be provided, optional
+     * @param {Array} options.customerIds An array of Customer Ids in VisitorId-compatible format, optional
+     * @param {String} options.sessionId Session Id, used for linking multiple requests, optional
+     * @param {Object} options.visitor Supply an external VisitorId instance, optional
+     */
 
-    const targetOptions = Object.assign(
-      { visitor, config: this.config, logger: this.logger },
-      options
-    );
+    getOffers(options) {
+      const error = validateGetOffersOptions(options);
 
-    return executeDelivery(targetOptions);
-  }
+      if (error) {
+        return Promise.reject(new Error(error));
+      }
 
-  /**
-   * The TargetClient send notifications method
-   * @param {Object} options
-   * @param {Object} options.request Target View Delivery API request, required
-   * @param {String} options.visitorCookie VisitorId cookie, optional
-   * @param {String} options.targetCookie Target cookie, optional
-   * @param {String} options.targetLocationHintCookie Target Location Hint cookie, optional
-   * @param {String} options.consumerId When stitching multiple calls, different consumerIds should be provided, optional
-   * @param {Array} options.customerIds An array of Customer Ids in VisitorId-compatible format, optional
-   * @param {String} options.sessionId Session Id, used for linking multiple requests, optional
-   * @param {Object} options.visitor Supply an external VisitorId instance, optional
-   */
+      const visitor = createVisitor(options, this.config);
 
-  sendNotifications(options) {
-    const error = validateSendNotificationsOptions(options);
+      const targetOptions = Object.assign(
+        { visitor, config: this.config, logger: this.logger },
+        options
+      );
 
-    if (error) {
-      return Promise.reject(new Error(error));
+      return executeDelivery(targetOptions);
     }
 
-    const visitor = createVisitor(options, this.config);
+    /**
+     * The TargetClient send notifications method
+     * @param {Object} options
+     * @param {Object} options.request Target View Delivery API request, required
+     * @param {String} options.visitorCookie VisitorId cookie, optional
+     * @param {String} options.targetCookie Target cookie, optional
+     * @param {String} options.targetLocationHintCookie Target Location Hint cookie, optional
+     * @param {String} options.consumerId When stitching multiple calls, different consumerIds should be provided, optional
+     * @param {Array} options.customerIds An array of Customer Ids in VisitorId-compatible format, optional
+     * @param {String} options.sessionId Session Id, used for linking multiple requests, optional
+     * @param {Object} options.visitor Supply an external VisitorId instance, optional
+     */
 
-    const targetOptions = Object.assign(
-      { visitor, config: this.config, logger: this.logger, useBeacon: true },
-      options
-    );
+    sendNotifications(options) {
+      const error = validateSendNotificationsOptions(options);
 
-    return executeDelivery(targetOptions);
+      if (error) {
+        return Promise.reject(new Error(error));
+      }
+
+      const visitor = createVisitor(options, this.config);
+
+      const targetOptions = Object.assign(
+        { visitor, config: this.config, logger: this.logger, useBeacon: true },
+        options
+      );
+
+      return executeDelivery(targetOptions);
+    }
+
+    static getVisitorCookieName(orgId) {
+      return AMCV_PREFIX + orgId;
+    }
+
+    static get TargetCookieName() {
+      return TARGET_COOKIE;
+    }
+
+    static get TargetLocationHintCookieName() {
+      return LOCATION_HINT_COOKIE;
+    }
+
+    static get AuthState() {
+      return Visitor.AuthState;
+    }
   }
 
-  static getVisitorCookieName(orgId) {
-    return AMCV_PREFIX + orgId;
-  }
-
-  static get TargetCookieName() {
-    return TARGET_COOKIE;
-  }
-
-  static get TargetLocationHintCookieName() {
-    return LOCATION_HINT_COOKIE;
-  }
-
-  static get AuthState() {
-    return Visitor.AuthState;
-  }
+  return TargetClient;
 }
 
-module.exports = TargetClient;
+module.exports = { bootstrap };
