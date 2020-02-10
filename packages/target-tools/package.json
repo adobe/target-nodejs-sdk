@@ -1,0 +1,12 @@
+{
+  "name": "@adobe/target-tools",
+  "version": "1.0.0",
+  "description": "",
+  "files": [
+    "eslint.config.js",
+    "jest.config.js"
+  ],
+  "main": "src/index.js",
+  "author": "",
+  "license": "ISC"
+}
