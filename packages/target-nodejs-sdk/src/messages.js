@@ -9,10 +9,14 @@ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTA
 OF ANY KIND, either express or implied. See the License for the specific language
 governing permissions and limitations under the License.
 */
+const { EVALUATION_MODE } = require("./enums");
 
 module.exports = {
   PRIVATE_CONSTRUCTOR: "Please use TargetClient.create static method instead",
   ORG_ID_REQUIRED: "Organization Id is required",
+  EVALUATION_MODE_INVALID: `Invalid Evaluation Mode.  Must be set to one of: ${Object.values(
+    EVALUATION_MODE
+  ).join(",")}`,
   FETCH_API_REQUIRED: "Fetch API is required",
   REQUEST_REQUIRED: "Request object is required",
   EXECUTE_OR_PREFETCH_REQUIRED:

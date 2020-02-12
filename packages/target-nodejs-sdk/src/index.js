@@ -20,6 +20,7 @@ const {
 const { executeDelivery } = require("./target");
 const Messages = require("./messages");
 const { TARGET_COOKIE, LOCATION_HINT_COOKIE } = require("./cookies");
+const { EVALUATION_MODE } = require("./enums");
 
 const AMCV_PREFIX = "AMCV_";
 const DEFAULT_TIMEOUT = 3000;
@@ -45,6 +46,7 @@ function bootstrap(defaultFetchApi) {
      * @param {String} options.serverDomain Server domain, optional
      * @param {boolean} options.secure Unset to enforce HTTP scheme, default: true
      * @param {Object} options.logger Replaces the default noop logger, optional
+     * @param {('local'|'remote'|'hybrid')} options.evaluationMode The evaluation mode, defaults to remote, optional
      * @param {Number} options.environmentId The environment ID, defaults to prod, optional
      * @param {String} options.version The version number of at.js, optional
      */
@@ -56,9 +58,14 @@ function bootstrap(defaultFetchApi) {
       }
 
       return new TargetClient(
-        Object.assign({ internal: true }, options, {
-          fetchApi: options.fetchApi || defaultFetchApi
-        })
+        Object.assign(
+          {
+            internal: true,
+            evaluationMode: EVALUATION_MODE.REMOTE,
+            fetchApi: defaultFetchApi
+          },
+          options
+        )
       );
     }
 

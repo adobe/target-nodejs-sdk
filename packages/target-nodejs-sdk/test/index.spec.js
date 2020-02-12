@@ -74,6 +74,16 @@ describe("Target Client factory", () => {
     );
   });
 
+  it("should throw if an invalid evaluation mode is given", () => {
+    expect(() =>
+      TargetClient.create({
+        client: "client",
+        organizationId: "orgId",
+        evaluationMode: "wicked"
+      })
+    ).toThrow(new Error(Messages.EVALUATION_MODE_INVALID));
+  });
+
   it("should not throw when client, orgId and fetchApi are present", () => {
     expect(() =>
       TargetClient.create({
