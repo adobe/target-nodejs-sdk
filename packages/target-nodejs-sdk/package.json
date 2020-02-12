@@ -74,8 +74,8 @@
     "rollup-plugin-terser": "^5.1.1"
   },
   "dependencies": {
-    "@adobe/target-decisioning-engine": "^1.0.0",
     "@adobe-mcid/visitor-js-server": "^2.0.0",
+    "@adobe/target-decisioning-engine": "^1.0.0",
     "form-data": "^3.0.0",
     "node-fetch": "^2.6.0",
     "whatwg-fetch": "^3.0.0"

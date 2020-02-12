@@ -1,23 +1,36 @@
 {
-  "name": "@adobe/target-decisioning-engine",
-  "version": "1.0.0",
-  "description": "Adobe Target JavaScript decisioning engine",
-  "main": "src/index.js",
-  "scripts": {
-    "lint-src": "eslint src/**",
-    "lint-test": "eslint test/**",
-    "lint": "npm run lint-src && npm run lint-test"
-  },
-  "devDependencies": {
-    "eslint": "^5.3.0",
-    "eslint-config-airbnb-base": "^13.2.0",
-    "eslint-config-prettier": "^6.0.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jest": "^23.6.0",
-    "eslint-plugin-prettier": "^3.1.0",
-    "jest": "^25.1.0",
-    "prettier": "^1.18.2"
-  },
-  "author": "",
-  "license": "ISC"
+		"name": "@adobe/target-decisioning-engine",
+		"version": "1.0.0",
+		"description": "Adobe Target JavaScript decisioning engine",
+		"main": "lib/index.js",
+		"scripts": {
+				"build": "NODE_ENV=production rollup -c",
+				"test": "NODE_ENV=development jest"
+		},
+		"dependencies": {
+				"json-logic-js": "^1.2.2"
+		},
+		"devDependencies": {
+				"@adobe/target-tools": "^1.0.0",
+				"@babel/preset-env": "^7.8.4",
+				"@rollup/plugin-commonjs": "^11.0.1",
+				"@rollup/plugin-json": "^4.0.1",
+				"@rollup/plugin-node-resolve": "^7.0.0",
+				"eslint": "^5.3.0",
+				"eslint-config-airbnb-base": "^13.2.0",
+				"eslint-config-prettier": "^6.0.0",
+				"eslint-plugin-import": "^2.18.2",
+				"eslint-plugin-jest": "^23.6.0",
+				"eslint-plugin-prettier": "^3.1.0",
+				"jest": "^25.1.0",
+				"jest-fetch-mock": "^3.0.1",
+				"prettier": "^1.18.2",
+				"rimraf": "^2.6.1",
+				"rollup": "^1.17.0",
+				"rollup-plugin-babel": "^4.3.3",
+				"rollup-plugin-license": "^0.12.1",
+				"rollup-plugin-terser": "^5.1.1"
+		},
+		"author": "",
+		"license": "ISC"
 }
