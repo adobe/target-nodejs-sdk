@@ -45,6 +45,7 @@ function bootstrap(defaultFetchApi) {
      * @param {String} options.serverDomain Server domain, optional
      * @param {boolean} options.secure Unset to enforce HTTP scheme, default: true
      * @param {Object} options.logger Replaces the default noop logger, optional
+     * @param {Number} options.environmentId The environment ID, defaults to prod, optional
      * @param {String} options.version The version number of at.js, optional
      */
     static create(options) {

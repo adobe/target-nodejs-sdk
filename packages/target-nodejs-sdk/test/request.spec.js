@@ -1,55 +1,57 @@
 require("jest-fetch-mock").enableMocks();
 const TargetClient = require("../src/index.server");
 
-describe("Requests to target delivery API", () => {
-  it("Makes a request to the target API", async () => {
-    fetch.mockResponseOnce(
-      JSON.stringify({
-        status: 200,
-        requestId: "3a129512b421419eac736120c607e5b9",
-        client: "adobesummit2018",
-        id: { tntId: "dummy_session.28_0" },
-        edgeHost: "mboxedge28.tt.omtrdc.net",
-        prefetch: {
-          mboxes: [
-            {
-              index: 1,
-              name: "mbox-waters",
-              options: [
-                {
-                  content: { browserName: "Google Chrome" },
-                  type: "json",
-                  eventToken:
-                    "hi+ys8FLH8AC6VEf02b7k5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-                }
-              ],
-              metrics: [
-                { type: "click", eventToken: "YkhqwhXNq2tRoWQ/jt8MZw==" }
-              ]
-            }
-          ]
-        }
-      })
-    );
+const RESPONSE_PAYLOAD = {
+  status: 200,
+  requestId: "3a129512b421419eac736120c607e5b9",
+  client: "adobesummit2018",
+  id: { tntId: "dummy_session.28_0" },
+  edgeHost: "mboxedge28.tt.omtrdc.net",
+  prefetch: {
+    mboxes: [
+      {
+        index: 1,
+        name: "mbox-something",
+        options: [
+          {
+            content: { browserName: "Google Chrome" },
+            type: "json",
+            eventToken:
+              "hi+ys8FLH8AC6VEf02b7k5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+          }
+        ],
+        metrics: [{ type: "click", eventToken: "YkhqwhXNq2tRoWQ/jt8MZw==" }]
+      }
+    ]
+  }
+};
 
+const TARGET_REQUEST = {
+  prefetch: {
+    mboxes: [
+      {
+        name: "mbox-something",
+        index: 1
+      }
+    ]
+  }
+};
+
+describe("Requests to target delivery API", () => {
+  beforeAll(() => {
+    fetch.resetMocks();
+
+    fetch.mockResponse(JSON.stringify(RESPONSE_PAYLOAD));
+  });
+
+  it("Makes a request to the target API", async () => {
     const client = TargetClient.create({
       client: "adobesummit2018",
       organizationId: "65453EA95A70434F0A495D34@AdobeOrg"
     });
 
-    const targetRequest = {
-      prefetch: {
-        mboxes: [
-          {
-            name: "mbox-waters",
-            index: 1
-          }
-        ]
-      }
-    };
-
     const result = await client.getOffers({
-      request: targetRequest,
+      request: TARGET_REQUEST,
       sessionId: "dummy_session"
     });
     expect(result).not.toBeUndefined();
@@ -70,7 +72,7 @@ describe("Requests to target delivery API", () => {
           mboxes: [
             {
               index: 1,
-              name: "mbox-waters"
+              name: "mbox-something"
             }
           ]
         }
@@ -87,7 +89,7 @@ describe("Requests to target delivery API", () => {
           mboxes: [
             {
               index: 1,
-              name: "mbox-waters",
+              name: "mbox-something",
               options: [
                 {
                   type: "json",
@@ -103,5 +105,42 @@ describe("Requests to target delivery API", () => {
       }
     });
     expect(fetch.mock.calls.length).toEqual(1);
+  });
+
+  it("includes environmentID in request if specified", async () => {
+    const client = TargetClient.create({
+      client: "adobesummit2018",
+      organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
+      environmentId: 12345
+    });
+
+    const result = await client.getOffers({
+      request: TARGET_REQUEST,
+      sessionId: "dummy_session"
+    });
+    expect(result).not.toBeUndefined();
+
+    expect(fetch.mock.calls.length).toEqual(1);
+    const fetchRequestBody = JSON.parse(fetch.mock.calls[0][1].body);
+
+    expect(fetchRequestBody.environmentId).toEqual(12345);
+  });
+
+  it("does not include environmentID in request if not specified", async () => {
+    const client = TargetClient.create({
+      client: "adobesummit2018",
+      organizationId: "65453EA95A70434F0A495D34@AdobeOrg"
+    });
+
+    const result = await client.getOffers({
+      request: TARGET_REQUEST,
+      sessionId: "dummy_session"
+    });
+    expect(result).not.toBeUndefined();
+
+    expect(fetch.mock.calls.length).toEqual(1);
+    const fetchRequestBody = JSON.parse(fetch.mock.calls[0][1].body);
+
+    expect(fetchRequestBody.environmentId).toBeUndefined();
   });
 });

@@ -454,6 +454,7 @@ function createDeliveryRequest(requestParam, options) {
 
   const result = api.DeliveryRequestFromJSON({
     requestId: uuidMethod(),
+    environmentId: options.environmentId,
     ...requestParam
   });
 

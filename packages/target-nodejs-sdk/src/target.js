@@ -38,7 +38,7 @@ function executeDelivery(options) {
     createDeliveryApiMethod = createDeliveryApi
   } = options;
 
-  const { serverDomain, client, timeout, secure } = config;
+  const { serverDomain, client, timeout, secure, environmentId } = config;
 
   const cookies = parseCookies(targetCookie);
   const deviceId = getDeviceId(cookies);
@@ -51,7 +51,8 @@ function executeDelivery(options) {
     logger,
     visitor,
     deviceId,
-    consumerId
+    consumerId,
+    environmentId
   };
 
   const deliveryRequest = createDeliveryRequest(request, requestOptions);
