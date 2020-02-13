@@ -13,8 +13,8 @@ describe("target local decisioning", () => {
   it("creates an instance of target-decisioning-engine if evaluation mode is local", () => {
     return new Promise(done => {
       const client = TargetClient.create({
-        client: "adobesummit2018",
-        organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
+        client: "someClientId",
+        organizationId: "someOrgId",
         evaluationMode: EVALUATION_MODE.LOCAL,
         pollingInterval: 0,
         clientReadyCallback: () => {
@@ -29,8 +29,8 @@ describe("target local decisioning", () => {
   it("does not create an instance of target-decisioning-engine if evaluation mode is remote", () => {
     return new Promise(done => {
       const client = TargetClient.create({
-        client: "adobesummit2018",
-        organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
+        client: "someClientId",
+        organizationId: "someOrgId",
         evaluationMode: EVALUATION_MODE.REMOTE,
         pollingInterval: 0,
         clientReadyCallback: () => {

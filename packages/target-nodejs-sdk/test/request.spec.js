@@ -4,7 +4,7 @@ const TargetClient = require("../src/index.server");
 const RESPONSE_PAYLOAD = {
   status: 200,
   requestId: "3a129512b421419eac736120c607e5b9",
-  client: "adobesummit2018",
+  client: "someClientId",
   id: { tntId: "dummy_session.28_0" },
   edgeHost: "mboxedge28.tt.omtrdc.net",
   prefetch: {
@@ -46,8 +46,8 @@ describe("Requests to target delivery API", () => {
 
   it("Makes a request to the target API", async () => {
     const client = TargetClient.create({
-      client: "adobesummit2018",
-      organizationId: "65453EA95A70434F0A495D34@AdobeOrg"
+      client: "someClientId",
+      organizationId: "someOrgId"
     });
 
     const result = await client.getOffers({
@@ -83,7 +83,7 @@ describe("Requests to target delivery API", () => {
         id: {
           tntId: "dummy_session.28_0"
         },
-        client: "adobesummit2018",
+        client: "someClientId",
         edgeHost: "mboxedge28.tt.omtrdc.net",
         prefetch: {
           mboxes: [
@@ -109,8 +109,8 @@ describe("Requests to target delivery API", () => {
 
   it("includes environmentID in request if specified", async () => {
     const client = TargetClient.create({
-      client: "adobesummit2018",
-      organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
+      client: "someClientId",
+      organizationId: "someOrgId",
       environmentId: 12345
     });
 
@@ -128,8 +128,8 @@ describe("Requests to target delivery API", () => {
 
   it("does not include environmentID in request if not specified", async () => {
     const client = TargetClient.create({
-      client: "adobesummit2018",
-      organizationId: "65453EA95A70434F0A495D34@AdobeOrg"
+      client: "someClientId",
+      organizationId: "someOrgId"
     });
 
     const result = await client.getOffers({
