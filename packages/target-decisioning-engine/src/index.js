@@ -8,8 +8,6 @@ import ArtifactProvider from "./artifactProvider";
  * @param {String} config.client Target Client Id, required
  * @param {String} config.organizationId Target Organization Id, required
  * @param {Number} config.pollingInterval Polling interval in ms, default: 30000
- * @param {String} config.serverDomain Server domain, optional
- * @param {boolean} config.secure Unset to enforce HTTP scheme, default: true
  * @param {Object} config.logger Replaces the default noop logger, optional
  */
 async function initialize(config) {

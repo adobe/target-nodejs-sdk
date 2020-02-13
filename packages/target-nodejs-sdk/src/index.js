@@ -11,6 +11,7 @@ governing permissions and limitations under the License.
 */
 
 const Visitor = require("@adobe-mcid/visitor-js-server");
+const TargetDecisioningEngine = require("@adobe/target-decisioning-engine");
 const { getLogger, createVisitor } = require("./utils");
 const {
   validateClientOptions,
@@ -26,6 +27,12 @@ const AMCV_PREFIX = "AMCV_";
 const DEFAULT_TIMEOUT = 3000;
 
 function bootstrap(defaultFetchApi) {
+  function emitClientReady(config) {
+    if (typeof config.clientReadyCallback === "function") {
+      config.clientReadyCallback();
+    }
+  }
+
   class TargetClient {
     constructor(options) {
       if (!options || !options.internal) {
@@ -34,6 +41,20 @@ function bootstrap(defaultFetchApi) {
       this.config = options;
       this.config.timeout = options.timeout || DEFAULT_TIMEOUT;
       this.logger = getLogger(options);
+
+      if (options.evaluationMode === EVALUATION_MODE.LOCAL) {
+        TargetDecisioningEngine.initialize({
+          client: options.client,
+          organizationId: options.organizationId,
+          pollingInterval: options.pollingInterval,
+          logger: this.logger
+        }).then(decisioningEngine => {
+          this.decisioningEngine = decisioningEngine;
+          emitClientReady(options);
+        });
+      } else {
+        setTimeout(() => emitClientReady(options), 100);
+      }
     }
 
     /**
@@ -49,6 +70,7 @@ function bootstrap(defaultFetchApi) {
      * @param {('local'|'remote'|'hybrid')} options.evaluationMode The evaluation mode, defaults to remote, optional
      * @param {Number} options.environmentId The environment ID, defaults to prod, optional
      * @param {String} options.version The version number of at.js, optional
+     * @param {String} options.clientReadyCallback A callback that is called when the TargetClient is ready, optional
      */
     static create(options) {
       const error = validateClientOptions(options);
