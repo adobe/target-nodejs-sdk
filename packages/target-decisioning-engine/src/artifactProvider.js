@@ -8,6 +8,15 @@ function fetchArtifact(artifactUrl) {
   return fetch(artifactUrl).then(res => res.json());
 }
 
+function getPollingInterval(config) {
+  return Math.max(
+    0,
+    typeof config.pollingInterval === "number"
+      ? config.pollingInterval
+      : DEFAULT_POLLING_INTERVAL
+  );
+}
+
 /**
  * The ArtifactProvider initialize method
  * @param {Object} config Options map, required
@@ -18,7 +27,8 @@ function fetchArtifact(artifactUrl) {
  * @param {String} config.artifactPayload A pre-fetched artifact, optional
  */
 async function initialize(config) {
-  const pollingInterval = config.pollingInterval || DEFAULT_POLLING_INTERVAL;
+  const pollingInterval = getPollingInterval(config);
+
   let pollingHalted = false;
   let pollingTimer;
 

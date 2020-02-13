@@ -12,7 +12,7 @@ describe("target local decisioning", () => {
 
   it("creates an instance of target-decisioning-engine if evaluation mode is local", () => {
     return new Promise(done => {
-      let client = TargetClient.create({
+      const client = TargetClient.create({
         client: "adobesummit2018",
         organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
         evaluationMode: EVALUATION_MODE.LOCAL,
@@ -20,8 +20,6 @@ describe("target local decisioning", () => {
         clientReadyCallback: () => {
           expect(client.decisioningEngine).not.toBeUndefined();
           expect(typeof client.decisioningEngine.getOffers).toEqual("function");
-          client.decisioningEngine.stopPolling();
-          client = undefined;
           done();
         }
       });
@@ -30,18 +28,16 @@ describe("target local decisioning", () => {
 
   it("does not create an instance of target-decisioning-engine if evaluation mode is remote", () => {
     return new Promise(done => {
-      let client = TargetClient.create({
+      const client = TargetClient.create({
         client: "adobesummit2018",
         organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
         evaluationMode: EVALUATION_MODE.REMOTE,
         pollingInterval: 0,
         clientReadyCallback: () => {
-          // eslint-disable-next-line no-prototype-builtins
           expect(client).toBeDefined();
           expect(
             Object.prototype.hasOwnProperty.call(client, "decisioningEngine")
           ).toEqual(false);
-          client = undefined;
           done();
         }
       });
