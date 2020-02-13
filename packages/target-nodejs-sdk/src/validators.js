@@ -10,7 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { EVALUATION_MODE } = require("./enums");
+const { EXECUTION_MODE } = require("./enums");
 const Messages = require("./messages");
 const {
   isNonEmptyObject,
@@ -24,7 +24,7 @@ function validateClientOptions(options) {
     return Messages.OPTIONS_REQUIRED;
   }
 
-  const { client, organizationId, evaluationMode } = options;
+  const { client, organizationId, executionMode } = options;
 
   if (isEmptyString(client)) {
     return Messages.CLIENT_REQUIRED;
@@ -35,10 +35,10 @@ function validateClientOptions(options) {
   }
 
   if (
-    typeof evaluationMode !== "undefined" &&
-    !Object.values(EVALUATION_MODE).includes(evaluationMode)
+    typeof executionMode !== "undefined" &&
+    !Object.values(EXECUTION_MODE).includes(executionMode)
   ) {
-    return Messages.EVALUATION_MODE_INVALID;
+    return Messages.EXECUTION_MODE_INVALID;
   }
 
   return null;

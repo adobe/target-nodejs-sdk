@@ -79,9 +79,9 @@ describe("Target Client factory", () => {
       TargetClient.create({
         client: "client",
         organizationId: "orgId",
-        evaluationMode: "wicked"
+        executionMode: "wicked"
       })
-    ).toThrow(new Error(Messages.EVALUATION_MODE_INVALID));
+    ).toThrow(new Error(Messages.EXECUTION_MODE_INVALID));
   });
 
   it("should not throw when client, orgId and fetchApi are present", () => {

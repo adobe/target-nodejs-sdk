@@ -9,13 +9,13 @@ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTA
 OF ANY KIND, either express or implied. See the License for the specific language
 governing permissions and limitations under the License.
 */
-const { EVALUATION_MODE } = require("./enums");
+const { EXECUTION_MODE } = require("./enums");
 
 module.exports = {
   PRIVATE_CONSTRUCTOR: "Please use TargetClient.create static method instead",
   ORG_ID_REQUIRED: "Organization Id is required",
-  EVALUATION_MODE_INVALID: `Invalid Evaluation Mode.  Must be set to one of: ${Object.values(
-    EVALUATION_MODE
+  EXECUTION_MODE_INVALID: `Invalid Execution Mode.  Must be set to one of: ${Object.values(
+    EXECUTION_MODE
   ).join(",")}`,
   FETCH_API_REQUIRED: "Fetch API is required",
   REQUEST_REQUIRED: "Request object is required",
@@ -30,5 +30,7 @@ module.exports = {
   CLIENT_REQUIRED: "Client is required",
   OPTIONS_REQUIRED: "Options map is required",
   REQUEST_SENT: "Request sent",
-  RESPONSE_RECEIVED: "Response received"
+  RESPONSE_RECEIVED: "Response received",
+  PENDING_ARTIFACT_RETRIEVAL:
+    "Unable to fulfill getOffers request. PENDING artifact retrieval."
 };

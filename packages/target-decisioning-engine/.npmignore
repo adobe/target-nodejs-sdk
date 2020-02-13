@@ -7,14 +7,8 @@
 /webpack.*
 *.iws
 src/
-sample/
 coverage/
-checkstyle/
-spec/
-test/
-generated-delivery-api-client/
 *.spec.js
 *.config.js
 *.tgz
 *.map
-

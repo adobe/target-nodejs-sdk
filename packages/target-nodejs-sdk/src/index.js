@@ -21,7 +21,7 @@ const {
 const { executeDelivery } = require("./target");
 const Messages = require("./messages");
 const { TARGET_COOKIE, LOCATION_HINT_COOKIE } = require("./cookies");
-const { EVALUATION_MODE } = require("./enums");
+const { EXECUTION_MODE } = require("./enums");
 
 const AMCV_PREFIX = "AMCV_";
 const DEFAULT_TIMEOUT = 3000;
@@ -42,7 +42,7 @@ function bootstrap(defaultFetchApi) {
       this.config.timeout = options.timeout || DEFAULT_TIMEOUT;
       this.logger = getLogger(options);
 
-      if (options.evaluationMode === EVALUATION_MODE.LOCAL) {
+      if (options.executionMode === EXECUTION_MODE.LOCAL) {
         TargetDecisioningEngine.initialize({
           client: options.client,
           organizationId: options.organizationId,
@@ -67,7 +67,7 @@ function bootstrap(defaultFetchApi) {
      * @param {String} options.serverDomain Server domain, optional
      * @param {boolean} options.secure Unset to enforce HTTP scheme, default: true
      * @param {Object} options.logger Replaces the default noop logger, optional
-     * @param {('local'|'remote'|'hybrid')} options.evaluationMode The evaluation mode, defaults to remote, optional
+     * @param {('local'|'remote'|'hybrid')} options.executionMode The evaluation mode, defaults to remote, optional
      * @param {Number} options.environmentId The environment ID, defaults to prod, optional
      * @param {String} options.version The version number of at.js, optional
      * @param {String} options.clientReadyCallback A callback that is called when the TargetClient is ready, optional
@@ -83,7 +83,7 @@ function bootstrap(defaultFetchApi) {
         Object.assign(
           {
             internal: true,
-            evaluationMode: EVALUATION_MODE.REMOTE,
+            executionMode: EXECUTION_MODE.REMOTE,
             fetchApi: defaultFetchApi
           },
           options
@@ -117,6 +117,13 @@ function bootstrap(defaultFetchApi) {
         { visitor, config: this.config, logger: this.logger },
         options
       );
+
+      if (this.config.executionMode === EXECUTION_MODE.LOCAL) {
+        if (typeof this.decisioningEngine === "undefined") {
+          return Promise.reject(new Error(Messages.PENDING_ARTIFACT_RETRIEVAL));
+        }
+        return this.decisioningEngine.getOffers(targetOptions);
+      }
 
       return executeDelivery(targetOptions);
     }
