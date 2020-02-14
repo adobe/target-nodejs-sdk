@@ -11,6 +11,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 require("jest-fetch-mock").enableMocks();
+const TargetTools = require("@adobe/target-tools");
 const Visitor = require("@adobe-mcid/visitor-js-server");
 const target = require("../src/target");
 const utils = require("../src/utils");
@@ -38,7 +39,7 @@ describe("Target Client factory", () => {
       .mockImplementation(() => Promise.resolve({ response: "response" }));
 
     jest.spyOn(utils, "createVisitor");
-    jest.spyOn(utils, "getLogger");
+    jest.spyOn(TargetTools, "getLogger");
 
     // eslint-disable-next-line global-require
     TargetClient = require("../src/index.server");
@@ -47,7 +48,7 @@ describe("Target Client factory", () => {
   afterEach(() => {
     target.executeDelivery.mockClear();
     utils.createVisitor.mockClear();
-    utils.getLogger.mockClear();
+    TargetTools.getLogger.mockClear();
   });
 
   it("should throw when instantiated via new", () => {
@@ -103,9 +104,11 @@ describe("Target Client factory", () => {
         logger: testLogger
       })
     ).not.toThrow();
-    expect(utils.getLogger).toHaveBeenCalledTimes(1);
+    expect(TargetTools.getLogger).toHaveBeenCalledTimes(1);
     const logger =
-      utils.getLogger.mock.results[utils.getLogger.mock.calls.length - 1].value;
+      TargetTools.getLogger.mock.results[
+        TargetTools.getLogger.mock.calls.length - 1
+      ].value;
     expect(logger.debug).toEqual(expect.any(Function));
     expect(logger.error).toEqual(expect.any(Function));
   });

@@ -14,7 +14,7 @@ module.exports = {
       ]
     },
     production: {
-      exclude: "node_modules/**",
+      exclude: [/\/core-js\//],
 
       presets: [
         [

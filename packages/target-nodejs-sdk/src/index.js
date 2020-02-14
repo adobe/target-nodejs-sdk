@@ -10,9 +10,12 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
+const TargetTools = require("@adobe/target-tools");
+
 const Visitor = require("@adobe-mcid/visitor-js-server");
 const TargetDecisioningEngine = require("@adobe/target-decisioning-engine");
-const { getLogger, createVisitor } = require("./utils");
+const { createVisitor } = require("./utils");
+
 const {
   validateClientOptions,
   validateGetOffersOptions,
@@ -40,7 +43,7 @@ function bootstrap(defaultFetchApi) {
       }
       this.config = options;
       this.config.timeout = options.timeout || DEFAULT_TIMEOUT;
-      this.logger = getLogger(options);
+      this.logger = TargetTools.getLogger(options.logger);
 
       if (options.executionMode === EXECUTION_MODE.LOCAL) {
         TargetDecisioningEngine.initialize({

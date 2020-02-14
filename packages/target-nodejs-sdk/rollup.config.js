@@ -46,7 +46,7 @@ export default [
     },
     external: [],
     plugins: getPlugins({
-      exclude: "node_modules/**",
+      exclude: [/\/core-js\//],
 
       presets: [
         [

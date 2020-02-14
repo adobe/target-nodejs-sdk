@@ -12,15 +12,8 @@ governing permissions and limitations under the License.
 
 const Visitor = require("@adobe-mcid/visitor-js-server");
 
-const NOOP_LOGGER = {
-  debug() {},
-  error() {}
-};
-
 const NAVIGATOR = "navigator";
 const SEND_BEACON = "sendBeacon";
-
-const AT_PREFIX = "AT:";
 
 const isObject = value => value instanceof Object;
 const isString = value => typeof value === "string" || value instanceof String;
@@ -54,27 +47,6 @@ const removeEmptyKeys = object =>
 const flatten = (array = []) => [].concat(...array);
 
 const getTimezoneOffset = () => -new Date().getTimezoneOffset();
-
-function getLogger(options) {
-  const { logger = {} } = options;
-  const { debug, error } = logger;
-
-  const targetLogger = Object.assign({}, NOOP_LOGGER);
-
-  if (typeof debug === "function") {
-    targetLogger.debug = (...messages) => {
-      logger.debug.apply(null, [AT_PREFIX, ...messages]);
-    };
-  }
-
-  if (typeof error === "function") {
-    targetLogger.error = (...messages) => {
-      logger.error.apply(null, [AT_PREFIX, ...messages]);
-    };
-  }
-
-  return targetLogger;
-}
 
 function createVisitor(options, config) {
   const { organizationId } = config;
@@ -119,7 +91,6 @@ module.exports = {
   removeEmptyKeys,
   flatten,
   getTimezoneOffset,
-  getLogger,
   createVisitor,
   isBrowser,
   isBeaconSupported,

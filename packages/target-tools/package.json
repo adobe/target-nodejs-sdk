@@ -3,11 +3,38 @@
   "version": "1.0.0",
   "description": "",
   "files": [
-    "eslint.config.js",
+    ".eslintrc.js",
     "jest.config.js",
-    "babel.config.js"
+    "babel.config.js",
+    "lib"
   ],
-  "main": "src/index.js",
+  "scripts": {
+    "build": "NODE_ENV=production rollup -c",
+    "test": "NODE_ENV=development jest"
+  },
+  "main": "lib/index.js",
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/plugin-transform-regenerator": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/runtime": "^7.8.4",
+    "@rollup/plugin-commonjs": "^11.0.1",
+    "@rollup/plugin-json": "^4.0.1",
+    "@rollup/plugin-node-resolve": "^7.0.0",
+    "core-js": "^3.6.4",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^23.6.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "jest": "^25.1.0",
+    "prettier": "^1.18.2",
+    "rollup": "^1.17.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-license": "^0.12.1",
+    "rollup-plugin-terser": "^5.1.1"
+  },
   "author": "",
   "license": "ISC"
 }

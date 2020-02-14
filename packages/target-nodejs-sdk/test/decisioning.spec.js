@@ -1,3 +1,5 @@
+const HttpStatus = require("http-status-codes");
+
 require("jest-fetch-mock").enableMocks();
 const TargetClient = require("../src/index.server");
 const { EXECUTION_MODE } = require("../src/enums");
@@ -82,5 +84,47 @@ describe("target local decisioning", () => {
         sessionId: "dummy_session"
       })
     ).rejects.toEqual(new Error(PENDING_ARTIFACT_RETRIEVAL));
+  });
+
+  // eslint-disable-next-line jest/no-test-callback
+  it("getOffers provides an error if the artifact could not be retrieved", async done => {
+    fetch.mockResponses(
+      ["", { status: HttpStatus.UNAUTHORIZED }],
+      ["", { status: HttpStatus.NOT_FOUND }],
+      ["", { status: HttpStatus.NOT_ACCEPTABLE }],
+      ["", { status: HttpStatus.NOT_IMPLEMENTED }],
+      ["", { status: HttpStatus.FORBIDDEN }],
+      ["", { status: HttpStatus.SERVICE_UNAVAILABLE }],
+      ["", { status: HttpStatus.BAD_REQUEST }],
+      ["", { status: HttpStatus.BAD_GATEWAY }],
+      ["", { status: HttpStatus.TOO_MANY_REQUESTS }],
+      ["", { status: HttpStatus.GONE }],
+      ["", { status: HttpStatus.INTERNAL_SERVER_ERROR }]
+    );
+
+    const client = TargetClient.create({
+      client: "someClientId",
+      organizationId: "someOrgId",
+      executionMode: EXECUTION_MODE.LOCAL,
+      pollingInterval: 0
+    });
+
+    await expect(
+      client.getOffers({
+        request: TARGET_REQUEST,
+        sessionId: "dummy_session"
+      })
+    ).rejects.toEqual(new Error(PENDING_ARTIFACT_RETRIEVAL));
+
+    setTimeout(async () => {
+      await expect(
+        client.getOffers({
+          request: TARGET_REQUEST,
+          sessionId: "dummy_session"
+        })
+      ).rejects.toEqual(new Error("The decisioning artifact is not available"));
+
+      done();
+    }, 500);
   });
 });

@@ -1,16 +1,39 @@
-const DEFAULT_POLLING_INTERVAL = 300000; // five minutes (in milliseconds)
+import Messages from "./messages";
+import {
+  DEFAULT_POLLING_INTERVAL,
+  MINIMUM_POLLING_INTERVAL,
+  NUM_FETCH_RETRIES
+} from "./constants";
+
+function fetchWithRetry(url, options, numRetries) {
+  return fetch(url, options)
+    .then(res => {
+      if (!res.ok) {
+        throw Error(res.statusText);
+      }
+      return res;
+    })
+    .catch(err => {
+      if (numRetries < 1) {
+        throw err;
+      }
+      return fetchWithRetry(url, options, numRetries - 1);
+    });
+}
 
 function determineArtifactLocation(clientId, organizationId) {
   return `${clientId}__${organizationId}`;
 }
 
 function fetchArtifact(artifactUrl) {
-  return fetch(artifactUrl).then(res => res.json());
+  return fetchWithRetry(artifactUrl, undefined, NUM_FETCH_RETRIES).then(res =>
+    res.json()
+  );
 }
 
 function getPollingInterval(config) {
   return Math.max(
-    0,
+    MINIMUM_POLLING_INTERVAL,
     typeof config.pollingInterval === "number"
       ? config.pollingInterval
       : DEFAULT_POLLING_INTERVAL
@@ -25,10 +48,11 @@ function getPollingInterval(config) {
  * @param {Number} config.pollingInterval Polling interval in ms, optional, default: 30000
  * @param {String} config.artifactLocation Fully qualified url to the location of the artifact, optional
  * @param {String} config.artifactPayload A pre-fetched artifact, optional
+ * @param {Object} config.logger Replaces the default noop logger, optional
  */
 async function initialize(config) {
   const pollingInterval = getPollingInterval(config);
-
+  const { logger } = config;
   let pollingHalted = false;
   let pollingTimer;
 
@@ -73,7 +97,7 @@ async function initialize(config) {
         artifact = await fetchArtifact(artifactLocation);
         emit(artifact);
       } catch (err) {
-        console.log(`Error fetching artifact: ${err.toString()}`);
+        logger.error(`Error fetching artifact: ${err.toString()}`);
       }
       scheduleNextUpdate();
     }, pollingInterval);
@@ -98,7 +122,7 @@ async function initialize(config) {
     try {
       artifact = await fetchArtifact(artifactLocation);
     } catch (err) {
-      console.log(`Error fetching artifact: ${err.toString()}`);
+      logger.error(Messages.ERROR_MAX_RETRY(NUM_FETCH_RETRIES, err.toString()));
     }
     scheduleNextUpdate();
   }

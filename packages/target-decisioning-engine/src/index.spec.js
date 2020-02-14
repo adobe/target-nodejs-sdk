@@ -1,4 +1,5 @@
 import TargetDecisioningEngine from "./index";
+import * as constants from "./constants";
 
 require("jest-fetch-mock").enableMocks();
 
@@ -6,8 +7,9 @@ describe("TargetDecisioningEngine", () => {
   const DUMMY_ARTIFACT_PAYLOAD = { version: "1.0.0", meta: {}, rules: [] };
   let decisioning;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     fetch.resetMocks();
+    constants.MINIMUM_POLLING_INTERVAL = 0;
   });
 
   afterEach(() => {
