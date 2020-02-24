@@ -70,7 +70,7 @@ describe("artifactProvider", () => {
       provider = await ArtifactProvider.initialize({
         client: "clientId",
         organizationId: "orgId",
-        artifactPayload: { version: "1.0.0", meta: {}, rules: [] },
+        artifactPayload: DUMMY_ARTIFACT_PAYLOAD,
         pollingInterval: 10
       });
 

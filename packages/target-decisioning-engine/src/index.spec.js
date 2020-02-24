@@ -1,10 +1,23 @@
+import * as HttpStatus from "http-status-codes";
 import TargetDecisioningEngine from "./index";
 import * as constants from "./constants";
+import Messages from "./messages";
 
 require("jest-fetch-mock").enableMocks();
 
+const DUMMY_ARTIFACT_PAYLOAD = { version: "1.0.0", meta: {}, rules: [] };
+const TARGET_REQUEST = {
+  prefetch: {
+    mboxes: [
+      {
+        name: "mbox-something",
+        index: 1
+      }
+    ]
+  }
+};
+
 describe("TargetDecisioningEngine", () => {
-  const DUMMY_ARTIFACT_PAYLOAD = { version: "1.0.0", meta: {}, rules: [] };
   let decisioning;
 
   beforeEach(async () => {
@@ -66,5 +79,51 @@ describe("TargetDecisioningEngine", () => {
         done();
       }
     }, 7);
+  });
+
+  it("getOffers provides an error if the artifact is not available", async () => {
+    fetch.mockResponses(
+      ["", { status: HttpStatus.UNAUTHORIZED }],
+      ["", { status: HttpStatus.NOT_FOUND }],
+      ["", { status: HttpStatus.NOT_ACCEPTABLE }],
+      ["", { status: HttpStatus.NOT_IMPLEMENTED }],
+      ["", { status: HttpStatus.FORBIDDEN }],
+      ["", { status: HttpStatus.SERVICE_UNAVAILABLE }],
+      ["", { status: HttpStatus.BAD_REQUEST }],
+      ["", { status: HttpStatus.BAD_GATEWAY }],
+      ["", { status: HttpStatus.TOO_MANY_REQUESTS }],
+      ["", { status: HttpStatus.GONE }],
+      ["", { status: HttpStatus.INTERNAL_SERVER_ERROR }]
+    );
+
+    decisioning = await TargetDecisioningEngine.initialize({
+      client: "someClientId",
+      organizationId: "someOrgId",
+      pollingInterval: 0
+    });
+
+    await expect(
+      decisioning.getOffers({
+        request: TARGET_REQUEST,
+        sessionId: "dummy_session"
+      })
+    ).rejects.toEqual(new Error(Messages.ARTIFACT_NOT_AVAILABLE));
+  });
+
+  it("getOffers resolves", async () => {
+    fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
+
+    decisioning = await TargetDecisioningEngine.initialize({
+      client: "someClientId",
+      organizationId: "someOrgId",
+      pollingInterval: 0
+    });
+
+    await expect(
+      decisioning.getOffers({
+        request: TARGET_REQUEST,
+        sessionId: "dummy_session"
+      })
+    ).resolves.not.toBeUndefined();
   });
 });

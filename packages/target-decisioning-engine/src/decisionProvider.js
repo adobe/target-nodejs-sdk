@@ -12,7 +12,6 @@ import jsonLogic from "json-logic-js";
  * @param {String} options.sessionId Session Id, used for linking multiple requests, optional
  * @param {Object} options.visitor Supply an external VisitorId instance, optional
  */
-// eslint-disable-next-line no-unused-vars
 export function getOffers(context, rules) {
   // need a mechanism for processing rules based on version number
   const consequences = rules.reduce((result, rule) => {
@@ -21,7 +20,7 @@ export function getOffers(context, rules) {
     }
     return result;
   }, []);
-  return consequences;
+  return Promise.resolve(consequences);
 }
 
 export function getRules(definition) {
