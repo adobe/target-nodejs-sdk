@@ -13,6 +13,7 @@
     "test": "NODE_ENV=development jest"
   },
   "main": "lib/index.js",
+  "module": "src/index.js",
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/plugin-transform-regenerator": "^7.8.3",
