@@ -145,6 +145,25 @@ describe("artifactProvider", () => {
     expect(provider.getArtifact()).toBeUndefined();
     expect(fetch.mock.calls.length).toEqual(11);
   });
+
+  it("uses the artifactLocation if one is provided", async () => {
+    const artifactURL =
+      "https://target-local-decisioning-test.s3.us-west-2.amazonaws.com/adobesummit2018/waters_test/rules.json";
+
+    fetch
+      .mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD))
+      .doMockIf(artifactURL);
+
+    provider = await ArtifactProvider.initialize({
+      client: "clientId",
+      organizationId: "orgId",
+      pollingInterval: 0,
+      artifactLocation: artifactURL
+    });
+
+    expect(provider.getArtifact()).toEqual(DUMMY_ARTIFACT_PAYLOAD);
+    expect(fetch.mock.calls[0][0]).toEqual(artifactURL);
+  });
 });
 
 // TODO: test ["", { status: HttpStatus.NOT_MODIFIED }],

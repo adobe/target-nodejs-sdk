@@ -5,8 +5,21 @@ import Messages from "./messages";
 
 require("jest-fetch-mock").enableMocks();
 
-const DUMMY_ARTIFACT_PAYLOAD = { version: "1.0.0", meta: {}, rules: [] };
+const DUMMY_ARTIFACT_PAYLOAD = {version: "1.0.0", meta: {}, rules: []};
 const TARGET_REQUEST = {
+  context: {
+    channel: "web",
+    browser: null,
+    address: {
+      url: "http://local-target-test:8080/",
+      referringUrl: null
+    },
+    geo: null,
+    timeOffsetInMinutes: null,
+    userAgent:
+      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0",
+    beacon: false
+  },
   prefetch: {
     mboxes: [
       {
@@ -48,9 +61,9 @@ describe("TargetDecisioningEngine", () => {
     for (let i = 1; i < 50; i++) {
       responses.push([
         JSON.stringify(
-          Object.assign({}, DUMMY_ARTIFACT_PAYLOAD, { version: i })
+          Object.assign({}, DUMMY_ARTIFACT_PAYLOAD, {version: i})
         ),
-        { status: 200 }
+        {status: 200}
       ]);
     }
 
@@ -83,17 +96,17 @@ describe("TargetDecisioningEngine", () => {
 
   it("getOffers provides an error if the artifact is not available", async () => {
     fetch.mockResponses(
-      ["", { status: HttpStatus.UNAUTHORIZED }],
-      ["", { status: HttpStatus.NOT_FOUND }],
-      ["", { status: HttpStatus.NOT_ACCEPTABLE }],
-      ["", { status: HttpStatus.NOT_IMPLEMENTED }],
-      ["", { status: HttpStatus.FORBIDDEN }],
-      ["", { status: HttpStatus.SERVICE_UNAVAILABLE }],
-      ["", { status: HttpStatus.BAD_REQUEST }],
-      ["", { status: HttpStatus.BAD_GATEWAY }],
-      ["", { status: HttpStatus.TOO_MANY_REQUESTS }],
-      ["", { status: HttpStatus.GONE }],
-      ["", { status: HttpStatus.INTERNAL_SERVER_ERROR }]
+      ["", {status: HttpStatus.UNAUTHORIZED}],
+      ["", {status: HttpStatus.NOT_FOUND}],
+      ["", {status: HttpStatus.NOT_ACCEPTABLE}],
+      ["", {status: HttpStatus.NOT_IMPLEMENTED}],
+      ["", {status: HttpStatus.FORBIDDEN}],
+      ["", {status: HttpStatus.SERVICE_UNAVAILABLE}],
+      ["", {status: HttpStatus.BAD_REQUEST}],
+      ["", {status: HttpStatus.BAD_GATEWAY}],
+      ["", {status: HttpStatus.TOO_MANY_REQUESTS}],
+      ["", {status: HttpStatus.GONE}],
+      ["", {status: HttpStatus.INTERNAL_SERVER_ERROR}]
     );
 
     decisioning = await TargetDecisioningEngine.initialize({
@@ -125,5 +138,21 @@ describe("TargetDecisioningEngine", () => {
         sessionId: "dummy_session"
       })
     ).resolves.not.toBeUndefined();
+  });
+
+  it("fetches a json artifact", async () => {
+    fetch.dontMock();
+
+    decisioning = await TargetDecisioningEngine.initialize({
+      client: "someClientId",
+      organizationId: "someOrgId",
+      pollingInterval: 0,
+      artifactLocation:
+        "https://target-local-decisioning-test.s3.us-west-2.amazonaws.com/adobesummit2018/waters_test/rules.json"
+    });
+
+    expect(decisioning.getRawArtifact()).not.toBeUndefined();
+
+    // await expect(decisioning.getOffers(TARGET_REQUEST)).resolves.toEqual({});
   });
 });
