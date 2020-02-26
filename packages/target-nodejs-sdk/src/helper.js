@@ -10,8 +10,8 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
+const TargetTools = require("@adobe/target-tools");
 const api = require("../generated-delivery-api-client");
-const uuid = require("./uuid");
 const { MBOX_INVALID, NOTIFICATION_INVALID } = require("./messages");
 
 const {
@@ -94,7 +94,11 @@ function getDeviceId(cookies) {
   return value;
 }
 
-function getSessionId(cookies, userSessionId, uuidMethod = uuid) {
+function getSessionId(
+  cookies,
+  userSessionId,
+  uuidMethod = TargetTools.createUUID
+) {
   const cookie = cookies[SESSION_ID_COOKIE] || {};
   const { value } = cookie;
 
@@ -123,7 +127,7 @@ function getTargetHost(serverDomain, cluster, client, secure) {
   return `${schemePrefix}${client}.${HOST}`;
 }
 
-function createHeaders(uuidMethod = uuid) {
+function createHeaders(uuidMethod = TargetTools.createUUID) {
   return {
     "Content-Type": "application/json",
     "X-EXC-SDK": "AdobeTargetNode",
@@ -450,7 +454,7 @@ function createProperty(property = {}) {
 }
 
 function createDeliveryRequest(requestParam, options) {
-  const { logger, uuidMethod = uuid } = options;
+  const { logger, uuidMethod = TargetTools.createUUID } = options;
 
   const result = api.DeliveryRequestFromJSON({
     requestId: uuidMethod(),

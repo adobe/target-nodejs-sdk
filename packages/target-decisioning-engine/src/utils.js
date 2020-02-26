@@ -1,17 +1,26 @@
 /* eslint-disable prefer-destructuring,import/prefer-default-export */
-const parseUrl = require("parse-url");
+const Url = require("url-parse");
+
+function caseSensitiveVersion(caseSenstiveString, lowercaseString) {
+  const start = caseSenstiveString.toLowerCase().indexOf(lowercaseString);
+  const end = start + lowercaseString.length;
+
+  return caseSenstiveString.substring(start, end);
+}
 
 export function parseURL(url) {
-  const parsed = parseUrl(url);
+  const parsed = new Url(url);
 
   const result = {
-    url: parsed.href,
+    url,
     path: parsed.pathname,
-    query: parsed.search,
-    fragment: parsed.hash
+    query: parsed.query.replace("?", ""),
+    fragment: parsed.hash.replace("#", "")
   };
 
-  const domainParts = parsed.resource.split(".");
+  const hostnameCaseSensitive = caseSensitiveVersion(url, parsed.hostname);
+
+  const domainParts = hostnameCaseSensitive.split(".");
 
   switch (domainParts.length) {
     case 1:

@@ -35,23 +35,26 @@ async function initialize(config) {
 
   /**
    * The get offers method
-   * @param {Object} options
-   * @param {Object} options.request Target View Delivery API request, required
-   * @param {String} options.visitorCookie VisitorId cookie, optional
-   * @param {String} options.targetCookie Target cookie, optional
-   * @param {String} options.targetLocationHintCookie Target Location Hint cookie, optional
-   * @param {String} options.consumerId When stitching multiple calls, different consumerIds should be provided, optional
-   * @param {Array}  options.customerIds An array of Customer Ids in VisitorId-compatible format, optional
-   * @param {String} options.sessionId Session Id, used for linking multiple requests, optional
-   * @param {Object} options.visitor Supply an external VisitorId instance, optional
+   * @param {Object} targetOptions
+   * @param {import("../../target-nodejs-sdk/generated-delivery-api-client/models/DeliveryRequest").DeliveryRequest} targetOptions.request Target View Delivery API request, required
+   * @param {String} targetOptions.visitorCookie VisitorId cookie, optional
+   * @param {String} targetOptions.targetCookie Target cookie, optional
+   * @param {String} targetOptions.targetLocationHintCookie Target Location Hint cookie, optional
+   * @param {String} targetOptions.consumerId When stitching multiple calls, different consumerIds should be provided, optional
+   * @param {Array}  targetOptions.customerIds An array of Customer Ids in VisitorId-compatible format, optional
+   * @param {String} targetOptions.sessionId Session Id, used for linking multiple requests, optional
+   * @param {Object} targetOptions.visitor Supply an external VisitorId instance, optional
    */
   function getOffers(targetOptions) {
     if (typeof artifact === "undefined") {
       return Promise.reject(new Error(Messages.ARTIFACT_NOT_AVAILABLE));
     }
     return getDecisions(
+      config.client,
+      targetOptions.request.id,
       createDecisioningContext(targetOptions.request),
-      getRules(artifact)
+      getRules(artifact),
+      targetOptions.request
     );
   }
 

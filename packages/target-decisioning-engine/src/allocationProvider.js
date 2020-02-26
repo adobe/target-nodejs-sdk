@@ -1,16 +1,21 @@
 import MurmurHash3 from "imurmurhash";
+import TargetTools from "@adobe/target-tools";
 
 /**
  *
  * @param { import("../../target-nodejs-sdk/generated-delivery-api-client/models/VisitorId").VisitorId } visitorId
  * @returns {string} first non-blank marketingCloudVisitorId, tntId, thirdPartyId
  */
-export function bestVisitorId(visitorId) {
-  return (
-    visitorId.marketingCloudVisitorId ||
-    visitorId.tntId ||
-    visitorId.thirdPartyId
-  );
+export function getOrCreateVisitorId(visitorId) {
+  if (visitorId) {
+    return (
+      visitorId.marketingCloudVisitorId ||
+      visitorId.tntId ||
+      visitorId.thirdPartyId ||
+      TargetTools.createUUID()
+    );
+  }
+  return TargetTools.createUUID();
 }
 
 /**
@@ -22,8 +27,10 @@ export function bestVisitorId(visitorId) {
  * @param {String} salt salt value, optional
  */
 export function computeAllocation(clientId, activityId, visitorId, salt = "") {
+  // TODO: may want to memoize this
+
   // Generate a unique visitor ID and persist it.
-  const vid = bestVisitorId(visitorId); // first non-blank marketingCloudVisitorId, tntId, thirdPartyId
+  const vid = getOrCreateVisitorId(visitorId); // first non-blank marketingCloudVisitorId, tntId, thirdPartyId
 
   // Generate a device id based on visitorId, clientCode, campaignId and a salt value
   const deviceId = `${clientId}.${activityId}.${vid}.${salt}`;

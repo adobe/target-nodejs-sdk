@@ -4,7 +4,6 @@
   "description": "Adobe Target Node.js SDK, Delivery API client",
   "main": "lib/targetclient.server.js",
   "browser": "lib/targetclient.browser.js",
-  "module": "src/index.js",
   "engines": {
     "node": ">=8.16.0"
   },
