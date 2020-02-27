@@ -108,7 +108,7 @@ const DECISIONING_PAYLOAD = {
   ]
 };
 
-describe("decisioning outcomes", () => {
+describe("decisioning outcomes - single activity", () => {
   let decisioning;
 
   beforeEach(async () => {
@@ -250,8 +250,4 @@ describe("decisioning outcomes", () => {
       })
     );
   });
-
-  // it("handles a multiple ab form-based activities", async () => {
-  //   expect(true).toEqual(true);
-  // });
 });

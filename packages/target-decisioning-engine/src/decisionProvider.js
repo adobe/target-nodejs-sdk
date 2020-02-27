@@ -49,6 +49,10 @@ function getRequestDecisions(
         Array.prototype.push.apply(
           result[key],
           rule.consequence[key]
+            .filter(item => {
+              // filter out items that are not part of the execute request
+              return requestedMboxNames.indexOf(item.name) > -1;
+            })
             .map(item => {
               const value = {
                 ...item,
@@ -56,10 +60,6 @@ function getRequestDecisions(
               };
 
               return mboxPostProcess(value);
-            })
-            .filter(item => {
-              // filter out items that are not part of the execute request
-              return requestedMboxNames.indexOf(item.name) > -1;
             })
         );
       });
