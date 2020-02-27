@@ -1,6 +1,6 @@
 import jsonLogic from "json-logic-js";
 import { computeAllocation } from "./allocationProvider";
-import {createMboxContext, createPageContext} from "./contextProvider";
+import { createMboxContext, createPageContext } from "./contextProvider";
 
 /**
  *
@@ -31,15 +31,20 @@ function getRequestDecisions(
         .filter(rule => rule.meta.mboxes.indexOf(requestDetail.name) > -1) // only evaluate rules that pertain to this mbox
         .reduce(
           (requestResult, rule) => {
-            const page =
+            let { page, referring } = context;
+
+            if (
               rule.meta.mboxes.indexOf(requestDetail.name) > -1 &&
               typeof requestDetail.address !== "undefined"
-                ? createPageContext(requestDetail.address)
-                : context.page;
+            ) {
+              page = createPageContext(requestDetail.address) || page;
+              referring = createPageContext(requestDetail.address) || referring;
+            }
 
             const ruleContext = {
               ...context,
               page,
+              referring,
               mbox: createMboxContext(requestDetail),
               allocation: computeAllocation(
                 clientId,

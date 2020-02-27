@@ -87,7 +87,7 @@ describe("contextProvider", () => {
       expect.objectContaining({
         browserType: "firefox",
         locale: "en",
-        version: 73
+        browserVersion: 73
       })
     );
   });
@@ -110,6 +110,44 @@ describe("contextProvider", () => {
     });
 
     expect(context.page).toEqual(
+      expect.objectContaining({
+        url: "http://My.Web-Site.net:8080/About?m=1&t=5&name=Jimmy#home",
+        url_lc: "http://my.web-site.net:8080/about?m=1&t=5&name=jimmy#home",
+        path: "/About",
+        path_lc: "/about",
+        domain: "Web-Site",
+        domain_lc: "web-site",
+        subdomain: "My",
+        subdomain_lc: "my",
+        topLevelDomain: "net",
+        topLevelDomain_lc: "net",
+        query: "m=1&t=5&name=Jimmy",
+        query_lc: "m=1&t=5&name=jimmy",
+        fragment: "home",
+        fragment_lc: "home"
+      })
+    );
+  });
+
+  it("has referring context", () => {
+    const context = createDecisioningContext({
+      context: {
+        channel: "web",
+        browser: null,
+        address: {
+          url: "http://apple.com",
+          referringUrl:
+            "http://My.Web-Site.net:8080/About?m=1&t=5&name=Jimmy#home"
+        },
+        geo: null,
+        timeOffsetInMinutes: null,
+        userAgent:
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0",
+        beacon: false
+      }
+    });
+
+    expect(context.referring).toEqual(
       expect.objectContaining({
         url: "http://My.Web-Site.net:8080/About?m=1&t=5&name=Jimmy#home",
         url_lc: "http://my.web-site.net:8080/about?m=1&t=5&name=jimmy#home",

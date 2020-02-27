@@ -26,20 +26,36 @@ function createBrowserContext(deliveryRequest) {
   return {
     browserType: (userAgent.browser.name || "unknown").toLowerCase(),
     locale: "en", // TODO: determine where this comes from
-    version: parseInt(userAgent.browser.major, 10)
+    browserVersion: parseInt(userAgent.browser.major, 10)
   };
 }
 
 /**
- * @param { import("../../target-nodejs-sdk/generated-delivery-api-client/models/Address").Address } deliveryRequest
+ * @param { string } deliveryRequest
  */
-export function createPageContext(address) {
-  const urlAttributes = parseURL(address.url);
+function createUrlContext(url) {
+  if (!url || typeof url !== "string") return undefined;
+
+  const urlAttributes = parseURL(url);
 
   return {
     ...urlAttributes,
     ...getLowerCaseAttributes(urlAttributes)
   };
+}
+
+/**
+ * @param { import("../../target-nodejs-sdk/generated-delivery-api-client/models/Address").Address } address
+ */
+export function createPageContext(address) {
+  return createUrlContext(address.url);
+}
+
+/**
+ * @param { import("../../target-nodejs-sdk/generated-delivery-api-client/models/Address").Address } address
+ */
+export function createReferringContext(address) {
+  return createUrlContext(address.referringUrl);
 }
 
 /**
@@ -59,12 +75,7 @@ export function createMboxContext(mboxRequest) {
 /**
  * @param { import("../../target-nodejs-sdk/generated-delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
  */
-function createParamsContext(deliveryRequest) {}
-
-/**
- * @param { import("../../target-nodejs-sdk/generated-delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
- */
-function createTimingContext(deliveryRequest) {
+function createTimingContext() {
   const now = new Date();
 
   const currentHours = String(now.getUTCHours()).padStart(2, "0");
@@ -90,9 +101,9 @@ export function createDecisioningContext(deliveryRequest) {
     throw new Error("Undefined context.");
 
   return {
-    ...createTimingContext(deliveryRequest),
+    ...createTimingContext(),
     user: createBrowserContext(deliveryRequest),
     page: createPageContext(deliveryRequest.context.address),
-    ...createParamsContext(deliveryRequest)
+    referring: createReferringContext(deliveryRequest.context.address)
   };
 }

@@ -9,6 +9,8 @@ function caseSensitiveVersion(caseSenstiveString, lowercaseString) {
 }
 
 export function parseURL(url) {
+  if (!url || typeof url !== "string") return undefined;
+
   const parsed = new Url(url);
 
   const result = {
