@@ -1,7 +1,17 @@
-import MurmurHash3 from "imurmurhash";
 import { parseURL } from "./utils";
 
 const UAParser = require("ua-parser-js");
+
+function getLowerCaseAttributes(obj) {
+  const result = {};
+
+  Object.keys(obj).forEach(key => {
+    result[`${key}_lc`] =
+      typeof obj[key] === "string" ? obj[key].toLowerCase() : obj[key];
+  });
+
+  return result;
+}
 
 /**
  * @param { import("../../target-nodejs-sdk/generated-delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
@@ -21,19 +31,29 @@ function createBrowserContext(deliveryRequest) {
 }
 
 /**
- * @param { import("../../target-nodejs-sdk/generated-delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
+ * @param { import("../../target-nodejs-sdk/generated-delivery-api-client/models/Address").Address } deliveryRequest
  */
-function createPageContext(deliveryRequest) {
-  const { context } = deliveryRequest;
+export function createPageContext(address) {
+  const urlAttributes = parseURL(address.url);
 
-  const result = parseURL(context.address.url);
+  return {
+    ...urlAttributes,
+    ...getLowerCaseAttributes(urlAttributes)
+  };
+}
 
-  Object.keys(result).forEach(key => {
-    result[`${key}_lc`] =
-      typeof result[key] === "string" ? result[key].toLowerCase() : result[key];
-  });
+/**
+ * @param { import("../../target-nodejs-sdk/generated-delivery-api-client/models/MboxRequest").MboxRequest } mboxRequest
+ */
+export function createMboxContext(mboxRequest) {
+  if (!mboxRequest) return {};
 
-  return result;
+  const parameters = mboxRequest.parameters || {};
+
+  return {
+    ...parameters,
+    ...getLowerCaseAttributes(parameters)
+  };
 }
 
 /**
@@ -72,18 +92,7 @@ export function createDecisioningContext(deliveryRequest) {
   return {
     ...createTimingContext(deliveryRequest),
     user: createBrowserContext(deliveryRequest),
-    page: createPageContext(deliveryRequest),
+    page: createPageContext(deliveryRequest.context.address),
     ...createParamsContext(deliveryRequest)
   };
-
-  // return {
-  //   allocation: 10, // 0 - 99.99
-  //   mbox: {
-  //     // custom params
-  //     foo: "4.9",
-  //     foo_lc: "4.9",
-  //     bar: "BAZ",
-  //     bar_lc: "baz"
-  //   }
-  // };
 }

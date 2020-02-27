@@ -1,5 +1,6 @@
 import jsonLogic from "json-logic-js";
 import { computeAllocation } from "./allocationProvider";
+import {createMboxContext, createPageContext} from "./contextProvider";
 
 /**
  *
@@ -22,50 +23,66 @@ function getRequestDecisions(
 ) {
   if (typeof deliveryRequest[mode] === "undefined") return undefined;
 
-  const requestedMboxes = (deliveryRequest[mode].mboxes || []).reduce(
-    (result, mbox) => {
-      // eslint-disable-next-line no-param-reassign
-      result[mbox.name] = mbox;
+  const mboxes = deliveryRequest[mode].mboxes || [];
+
+  return mboxes.reduce(
+    (result, requestDetail) => {
+      const rulesResult = rules
+        .filter(rule => rule.meta.mboxes.indexOf(requestDetail.name) > -1) // only evaluate rules that pertain to this mbox
+        .reduce(
+          (requestResult, rule) => {
+            const page =
+              rule.meta.mboxes.indexOf(requestDetail.name) > -1 &&
+              typeof requestDetail.address !== "undefined"
+                ? createPageContext(requestDetail.address)
+                : context.page;
+
+            const ruleContext = {
+              ...context,
+              page,
+              mbox: createMboxContext(requestDetail),
+              allocation: computeAllocation(
+                clientId,
+                rule.meta.activityId,
+                visitorId
+              )
+            };
+
+            if (jsonLogic.apply(rule.condition, ruleContext)) {
+              Object.keys(rule.consequence).forEach(key => {
+                if (typeof requestResult[key] === "undefined") {
+                  // eslint-disable-next-line no-param-reassign
+                  requestResult[key] = [];
+                }
+
+                Array.prototype.push.apply(
+                  requestResult[key],
+                  rule.consequence[key]
+                    .filter(item => requestDetail.name === item.name) // filter out items that do not pertain to this mbox
+                    .map(item => {
+                      const value = {
+                        ...item,
+                        index: requestDetail.index
+                      };
+
+                      return mboxPostProcess(value);
+                    })
+                );
+              });
+            }
+            return requestResult;
+          },
+          { mboxes: [] }
+        );
+
+      Object.keys(rulesResult).forEach(key =>
+        Array.prototype.push.apply(result[key], rulesResult[key])
+      );
+
       return result;
     },
-    {}
+    { mboxes: [] }
   );
-
-  const requestedMboxNames = Object.keys(requestedMboxes);
-
-  return rules.reduce((result, rule) => {
-    const ruleContext = {
-      allocation: computeAllocation(clientId, rule.meta.activityId, visitorId),
-      ...context
-    };
-
-    if (jsonLogic.apply(rule.condition, ruleContext)) {
-      Object.keys(rule.consequence).forEach(key => {
-        if (typeof result[key] === "undefined") {
-          // eslint-disable-next-line no-param-reassign
-          result[key] = [];
-        }
-
-        Array.prototype.push.apply(
-          result[key],
-          rule.consequence[key]
-            .filter(item => {
-              // filter out items that are not part of the execute request
-              return requestedMboxNames.indexOf(item.name) > -1;
-            })
-            .map(item => {
-              const value = {
-                ...item,
-                index: requestedMboxes[item.name].index
-              };
-
-              return mboxPostProcess(value);
-            })
-        );
-      });
-    }
-    return result;
-  }, {});
 }
 
 /**

@@ -1,5 +1,5 @@
 import * as MockDate from "mockdate";
-import { createDecisioningContext } from "./contextProvider";
+import { createDecisioningContext, createMboxContext } from "./contextProvider";
 
 const DELIVERY_REQUEST = {
   context: {
@@ -155,5 +155,32 @@ describe("contextProvider", () => {
         current_day: 2
       })
     );
+  });
+
+  it("produces mbox context", () => {
+    expect(
+      createMboxContext({
+        index: 10,
+        name: "foo_mbox",
+        parameters: {
+          one: 1,
+          pizza: "PEPPERONI",
+          truthy: true,
+          kitty: "MeoW"
+        }
+      })
+    ).toEqual({
+      one: 1,
+      one_lc: 1,
+      pizza: "PEPPERONI",
+      pizza_lc: "pepperoni",
+      truthy: true,
+      truthy_lc: true,
+      kitty: "MeoW",
+      kitty_lc: "meow"
+    });
+
+    expect(createMboxContext({})).toEqual({});
+    expect(createMboxContext(undefined)).toEqual({});
   });
 });
