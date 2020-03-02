@@ -12,9 +12,39 @@ const TEST_CONF = {
 const DECISIONING_PAYLOAD = {
   version: "1.0.0",
   meta: {
-    generatedAt: "2020-02-28T19:43:44.476Z"
+    generatedAt: "2020-02-28T22:20:01.614Z"
   },
   rules: [
+    {
+      condition: true,
+      consequence: {
+        mboxes: [
+          {
+            options: [
+              {
+                content: "<strong>default result</strong>",
+                type: "html"
+              }
+            ],
+            metrics: [
+              {
+                type: "display",
+                eventToken:
+                  "wQY/V1IOYec8T4fAT5ww7mqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+              }
+            ],
+            name: "daterange-mbox"
+          }
+        ]
+      },
+      meta: {
+        activityId: 334853,
+        experienceId: 0,
+        type: "xt",
+        mboxes: ["daterange-mbox"],
+        views: []
+      }
+    },
     {
       condition: {
         and: [
@@ -42,7 +72,7 @@ const DECISIONING_PAYLOAD = {
               {
                 type: "display",
                 eventToken:
-                  "wQY/V1IOYec8T4fAT5ww7mqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "wQY/V1IOYec8T4fAT5ww7unJlneZxJu5VqGhXCosHhWCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             name: "daterange-mbox"
@@ -51,7 +81,7 @@ const DECISIONING_PAYLOAD = {
       },
       meta: {
         activityId: 334853,
-        experienceId: 0,
+        experienceId: 5,
         type: "xt",
         mboxes: ["daterange-mbox"],
         views: []
@@ -103,20 +133,28 @@ const DECISIONING_PAYLOAD = {
       condition: {
         and: [
           {
-            "==": [
+            and: [
               {
-                var: "current_day"
+                or: [
+                  {
+                    "==": [
+                      {
+                        var: "current_day"
+                      },
+                      "1"
+                    ]
+                  }
+                ]
               },
-              "1"
-            ]
-          },
-          {
-            "<=": [
-              "0000",
               {
-                var: "current_time"
-              },
-              "2359"
+                "<=": [
+                  "0000",
+                  {
+                    var: "current_time"
+                  },
+                  "2359"
+                ]
+              }
             ]
           }
         ]
@@ -134,7 +172,7 @@ const DECISIONING_PAYLOAD = {
               {
                 type: "display",
                 eventToken:
-                  "wQY/V1IOYec8T4fAT5ww7greqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "wQY/V1IOYec8T4fAT5ww7hB3JWElmEno9qwHyGr0QvSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             name: "daterange-mbox"
@@ -143,7 +181,7 @@ const DECISIONING_PAYLOAD = {
       },
       meta: {
         activityId: 334853,
-        experienceId: 2,
+        experienceId: 4,
         type: "xt",
         mboxes: ["daterange-mbox"],
         views: []
@@ -176,7 +214,7 @@ const TARGET_REQUEST = {
   }
 };
 
-describe("decisioning outcomes - timeframe", () => {
+describe.skip("decisioning outcomes - timeframe", () => {
   let decisioning;
 
   beforeEach(async () => {
@@ -189,7 +227,7 @@ describe("decisioning outcomes - timeframe", () => {
     decisioning = undefined;
   });
 
-  it("targets date range 1", async () => {
+  it("targets date range 1 (feb 27 - feb 29 2020)", async () => {
     fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD));
     MockDate.set(new Date("2020-02-28T01:05:00"));
 
@@ -216,7 +254,7 @@ describe("decisioning outcomes - timeframe", () => {
                   type: "html",
                   content: "<strong>date range 1</strong>",
                   eventToken:
-                    "wQY/V1IOYec8T4fAT5ww7mqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                    "wQY/V1IOYec8T4fAT5ww7unJlneZxJu5VqGhXCosHhWCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
                 }
               ]
             }
@@ -226,7 +264,7 @@ describe("decisioning outcomes - timeframe", () => {
     );
   });
 
-  it("targets date range 2", async () => {
+  it("targets date range 2 (mar 2 - mar 6 2020)", async () => {
     fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD));
     MockDate.set(new Date("2020-03-04T01:05:00"));
 
@@ -263,7 +301,7 @@ describe("decisioning outcomes - timeframe", () => {
     );
   });
 
-  it("targets monday", async () => {
+  it("targets monday out of range", async () => {
     fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD));
     MockDate.set(new Date("2020-03-09T01:05:00"));
 
@@ -290,7 +328,44 @@ describe("decisioning outcomes - timeframe", () => {
                   type: "html",
                   content: "<strong>it's monday</strong>",
                   eventToken:
-                    "wQY/V1IOYec8T4fAT5ww7greqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                    "wQY/V1IOYec8T4fAT5ww7hB3JWElmEno9qwHyGr0QvSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                }
+              ]
+            }
+          ]
+        }
+      })
+    );
+  });
+
+  it("matches two rules date range 2 and on monday", async () => {
+    fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD));
+    MockDate.set(new Date("2020-03-02T14:05:00"));
+
+    decisioning = await TargetDecisioningEngine.initialize(TEST_CONF);
+
+    expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD);
+
+    const result = await decisioning.getOffers({
+      request: {
+        ...TARGET_REQUEST
+      },
+      sessionId: "dummy_session"
+    });
+
+    expect(result).toEqual(
+      expect.objectContaining({
+        prefetch: {
+          mboxes: [
+            {
+              index: 1,
+              name: "daterange-mbox",
+              options: [
+                {
+                  type: "html",
+                  content: "<strong>it's monday</strong>",
+                  eventToken:
+                    "wQY/V1IOYec8T4fAT5ww7hB3JWElmEno9qwHyGr0QvSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
                 }
               ]
             }
@@ -318,7 +393,20 @@ describe("decisioning outcomes - timeframe", () => {
     expect(result).toEqual(
       expect.objectContaining({
         prefetch: {
-          mboxes: []
+          mboxes: [
+            {
+              index: 1,
+              name: "daterange-mbox",
+              options: [
+                {
+                  type: "html",
+                  content: "<strong>default result</strong>",
+                  eventToken:
+                    "wQY/V1IOYec8T4fAT5ww7mqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                }
+              ]
+            }
+          ]
         }
       })
     );
