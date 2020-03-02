@@ -181,7 +181,7 @@ export function getDecisions(
   rules,
   deliveryRequest
 ) {
-  const result = {
+  const response = {
     execute: getExecuteDecisions(
       clientId,
       visitorId,
@@ -198,7 +198,16 @@ export function getDecisions(
     )
   };
 
-  return Promise.resolve(result);
+  return Promise.resolve({
+    status: 200,
+    requestId: deliveryRequest.requestId,
+    id: {
+      ...deliveryRequest.id
+    },
+    client: clientId,
+    edgeHost: undefined,
+    ...response
+  });
 }
 
 export function getRules(definition) {

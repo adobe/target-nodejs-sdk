@@ -124,10 +124,13 @@ describe("decisioning outcomes - single activity", () => {
       fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_AB_SIMPLE));
       decisioning = await TargetDecisioningEngine.initialize(TEST_CONF);
 
-      expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD_AB_SIMPLE);
+      expect(decisioning.getRawArtifact()).toEqual(
+        DECISIONING_PAYLOAD_AB_SIMPLE
+      );
 
       const result = await decisioning.getOffers({
         request: {
+          requestId: "request123456",
           id: {
             tntId: "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
             marketingCloudVisitorId: "07327024324407615852294135870030620007"
@@ -164,6 +167,13 @@ describe("decisioning outcomes - single activity", () => {
 
       expect(result).toEqual(
         expect.objectContaining({
+          status: 200,
+          requestId: "request123456",
+          id: {
+            tntId: "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
+            marketingCloudVisitorId: "07327024324407615852294135870030620007"
+          },
+          client: "someClientId",
           execute: {
             mboxes: [
               {
@@ -191,7 +201,9 @@ describe("decisioning outcomes - single activity", () => {
       fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_AB_SIMPLE));
       decisioning = await TargetDecisioningEngine.initialize(TEST_CONF);
 
-      expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD_AB_SIMPLE);
+      expect(decisioning.getRawArtifact()).toEqual(
+        DECISIONING_PAYLOAD_AB_SIMPLE
+      );
 
       const result = await decisioning.getOffers({
         request: {
