@@ -121,14 +121,7 @@ function bootstrap(defaultFetchApi) {
         options
       );
 
-      if (this.config.executionMode === EXECUTION_MODE.LOCAL) {
-        if (typeof this.decisioningEngine === "undefined") {
-          return Promise.reject(new Error(Messages.PENDING_ARTIFACT_RETRIEVAL));
-        }
-        return this.decisioningEngine.getOffers(targetOptions);
-      }
-
-      return executeDelivery(targetOptions);
+      return executeDelivery(targetOptions, this.decisioningEngine);
     }
 
     /**

@@ -25,7 +25,7 @@ const {
 } = require("./helper");
 const { REQUEST_SENT, RESPONSE_RECEIVED } = require("./messages");
 
-function executeDelivery(options) {
+function executeDelivery(options, decisioningEngine) {
   const {
     visitor,
     config,
@@ -85,7 +85,11 @@ function executeDelivery(options) {
     return success ? Promise.resolve() : Promise.reject();
   }
 
-  return createDeliveryApiMethod(configuration)
+  return createDeliveryApiMethod(
+    configuration,
+    options.config.executionMode,
+    decisioningEngine
+  )
     .execute(client, sessionId, deliveryRequest, config.version)
     .then((response = {}) => {
       logger.debug(RESPONSE_RECEIVED, JSON.stringify(response, null, 2));

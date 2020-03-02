@@ -1,4 +1,5 @@
 import jsonLogic from "json-logic-js";
+import TargetTools from "@adobe/target-tools/src";
 import { computeAllocation } from "./allocationProvider";
 import { createMboxContext, createPageContext } from "./contextProvider";
 
@@ -181,21 +182,14 @@ export function getDecisions(
   rules,
   deliveryRequest
 ) {
+  const request = {
+    ...deliveryRequest,
+    requestId: deliveryRequest.requestId || TargetTools.createUUID()
+  };
+
   const response = {
-    execute: getExecuteDecisions(
-      clientId,
-      visitorId,
-      context,
-      rules,
-      deliveryRequest
-    ),
-    prefetch: getPrefetchDecisions(
-      clientId,
-      visitorId,
-      context,
-      rules,
-      deliveryRequest
-    )
+    execute: getExecuteDecisions(clientId, visitorId, context, rules, request),
+    prefetch: getPrefetchDecisions(clientId, visitorId, context, rules, request)
   };
 
   return Promise.resolve({

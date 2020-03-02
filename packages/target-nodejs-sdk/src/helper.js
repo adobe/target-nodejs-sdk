@@ -11,7 +11,9 @@ governing permissions and limitations under the License.
 */
 
 const TargetTools = require("@adobe/target-tools");
+const { EXECUTION_MODE } = require("./enums");
 const api = require("../generated-delivery-api-client");
+const Messages = require("./messages");
 const { MBOX_INVALID, NOTIFICATION_INVALID } = require("./messages");
 
 const {
@@ -490,8 +492,30 @@ function createConfiguration(fetchApi, host, headers, timeout) {
   });
 }
 
-function createDeliveryApi(configuration) {
-  return new DeliveryAPIApi(configuration);
+function createLocalDeliveryApi(decisioningEngine) {
+  return {
+    // eslint-disable-next-line no-unused-vars
+    execute: (client, sessionId, deliveryRequest, atjsVersion) => {
+      if (typeof decisioningEngine === "undefined") {
+        return Promise.reject(new Error(Messages.PENDING_ARTIFACT_RETRIEVAL));
+      }
+
+      return decisioningEngine.getOffers({
+        request: deliveryRequest,
+        sessionId
+      });
+    }
+  };
+}
+
+function createDeliveryApi(
+  configuration,
+  executionMode = EXECUTION_MODE.REMOTE,
+  decisioningEngine = undefined
+) {
+  return executionMode === EXECUTION_MODE.LOCAL
+    ? createLocalDeliveryApi(decisioningEngine)
+    : new DeliveryAPIApi(configuration);
 }
 
 function getTargetCookie(sessionId, id) {

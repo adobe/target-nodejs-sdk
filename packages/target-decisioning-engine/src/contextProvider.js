@@ -1,4 +1,5 @@
 import { parseURL } from "./utils";
+import Messages from "./messages";
 
 const UAParser = require("ua-parser-js");
 
@@ -98,7 +99,7 @@ function createTimingContext() {
  */
 export function createDecisioningContext(deliveryRequest) {
   if (typeof deliveryRequest.context === "undefined")
-    throw new Error("Undefined context.");
+    throw new Error(Messages.CONTEXT_UNDEFINED);
 
   return {
     ...createTimingContext(),
