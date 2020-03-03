@@ -32,5 +32,7 @@ module.exports = {
   REQUEST_SENT: "Request sent",
   RESPONSE_RECEIVED: "Response received",
   PENDING_ARTIFACT_RETRIEVAL:
-    "Unable to fulfill getOffers request. PENDING artifact retrieval."
+    "Unable to fulfill getOffers request. PENDING artifact retrieval.",
+  ATTRIBUTE_NOT_EXIST: (keyName, mboxName) =>
+    `Attribute '${keyName}' does not exist for mbox '${mboxName}'`
 };

@@ -25,6 +25,7 @@ const { executeDelivery } = require("./target");
 const Messages = require("./messages");
 const { TARGET_COOKIE, LOCATION_HINT_COOKIE } = require("./cookies");
 const { EXECUTION_MODE } = require("./enums");
+const attributesProvider = require("./attributesProvider");
 
 const AMCV_PREFIX = "AMCV_";
 const DEFAULT_TIMEOUT = 3000;
@@ -95,18 +96,17 @@ function bootstrap(defaultFetchApi) {
     }
 
     /**
-     * The TargetClient get offers method
+     * The TargetClient getOffers method
      * @param {Object} options
-     * @param {Object} options.request Target View Delivery API request, required
+     * @param {import("../generated-delivery-api-client/models/DeliveryRequest").DeliveryRequest} options.request Target View Delivery API request, required
      * @param {String} options.visitorCookie VisitorId cookie, optional
      * @param {String} options.targetCookie Target cookie, optional
      * @param {String} options.targetLocationHintCookie Target Location Hint cookie, optional
      * @param {String} options.consumerId When stitching multiple calls, different consumerIds should be provided, optional
-     * @param {Array} options.customerIds An array of Customer Ids in VisitorId-compatible format, optional
+     * @param {Array}  options.customerIds An array of Customer Ids in VisitorId-compatible format, optional
      * @param {String} options.sessionId Session Id, used for linking multiple requests, optional
      * @param {Object} options.visitor Supply an external VisitorId instance, optional
      */
-
     getOffers(options) {
       const error = validateGetOffersOptions(options);
 
@@ -125,7 +125,26 @@ function bootstrap(defaultFetchApi) {
     }
 
     /**
-     * The TargetClient send notifications method
+     * The TargetClient getAttributes method
+     * @param {String} mbox The name of an mbox that contains JSON content attributes, required
+     * @param {Object} options, required
+     * @param {import("../generated-delivery-api-client/models/DeliveryRequest").DeliveryRequest} options.request Target View Delivery API request, required
+     * @param {String} options.visitorCookie VisitorId cookie, optional
+     * @param {String} options.targetCookie Target cookie, optional
+     * @param {String} options.targetLocationHintCookie Target Location Hint cookie, optional
+     * @param {String} options.consumerId When stitching multiple calls, different consumerIds should be provided, optional
+     * @param {Array}  options.customerIds An array of Customer Ids in VisitorId-compatible format, optional
+     * @param {String} options.sessionId Session Id, used for linking multiple requests, optional
+     * @param {Object} options.visitor Supply an external VisitorId instance, optional
+     */
+    getAttributes(mbox, options) {
+      return this.getOffers(options).then(res =>
+        attributesProvider(mbox, res.response)
+      );
+    }
+
+    /**
+     * The TargetClient sendNotifications method
      * @param {Object} options
      * @param {Object} options.request Target View Delivery API request, required
      * @param {String} options.visitorCookie VisitorId cookie, optional

@@ -1,3 +1,4 @@
+/* eslint-disable jest/no-test-callback */
 const HttpStatus = require("http-status-codes");
 
 require("jest-fetch-mock").enableMocks();
@@ -19,8 +20,13 @@ const TARGET_REQUEST = {
 };
 
 describe("target local decisioning", () => {
+  let client;
+
   beforeEach(() => {
     fetch.resetMocks();
+    if (client) {
+      client = undefined;
+    }
   });
 
   describe("initializes", () => {
@@ -28,7 +34,7 @@ describe("target local decisioning", () => {
       fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
 
       return new Promise(done => {
-        const client = TargetClient.create({
+        client = TargetClient.create({
           client: "someClientId",
           organizationId: "someOrgId",
           executionMode: EXECUTION_MODE.LOCAL,
@@ -44,38 +50,38 @@ describe("target local decisioning", () => {
       });
     });
 
-    it("does not create an instance of target-decisioning-engine if evaluation mode is remote", () => {
+    it("does not create an instance of target-decisioning-engine if evaluation mode is remote", async done => {
       fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
 
-      return new Promise(done => {
-        const client = TargetClient.create({
-          client: "someClientId",
-          organizationId: "someOrgId",
-          executionMode: EXECUTION_MODE.REMOTE,
-          pollingInterval: 0,
-          clientReadyCallback: () => {
-            expect(client).toBeDefined();
-            expect(
-              Object.prototype.hasOwnProperty.call(client, "decisioningEngine")
-            ).toEqual(false);
-            done();
-          }
-        });
+      client = TargetClient.create({
+        client: "someClientId",
+        organizationId: "someOrgId",
+        executionMode: EXECUTION_MODE.REMOTE,
+        pollingInterval: 0,
+        clientReadyCallback: () => {
+          expect(client).toBeDefined();
+          expect(
+            Object.prototype.hasOwnProperty.call(client, "decisioningEngine")
+          ).toEqual(false);
+          done();
+        }
       });
     });
   });
 
   describe("throws an error", () => {
-    it("if a getOffers request is made before the decisioning artifact is available", async () => {
+    it("if a getOffers request is made before the decisioning artifact is available", async done => {
+      let timer;
+
       fetch.mockResponse(() => {
         return new Promise(resolve => {
-          setTimeout(() => {
+          timer = setTimeout(() => {
             resolve(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
           }, 100);
         });
       });
 
-      const client = TargetClient.create({
+      client = TargetClient.create({
         client: "someClientId",
         organizationId: "someOrgId",
         executionMode: EXECUTION_MODE.LOCAL,
@@ -89,6 +95,9 @@ describe("target local decisioning", () => {
           sessionId: "dummy_session"
         })
       ).rejects.toEqual(new Error(PENDING_ARTIFACT_RETRIEVAL));
+
+      if (timer) clearTimeout(timer);
+      done();
     });
 
     // eslint-disable-next-line jest/no-test-callback
@@ -107,7 +116,7 @@ describe("target local decisioning", () => {
         ["", { status: HttpStatus.INTERNAL_SERVER_ERROR }]
       );
 
-      const client = TargetClient.create({
+      client = TargetClient.create({
         client: "someClientId",
         organizationId: "someOrgId",
         executionMode: EXECUTION_MODE.LOCAL,
@@ -121,7 +130,7 @@ describe("target local decisioning", () => {
         })
       ).rejects.toEqual(new Error(PENDING_ARTIFACT_RETRIEVAL));
 
-      setTimeout(async () => {
+      const timer = setTimeout(async () => {
         await expect(
           client.getOffers({
             request: TARGET_REQUEST,
@@ -131,6 +140,7 @@ describe("target local decisioning", () => {
           new Error("The decisioning artifact is not available")
         );
 
+        clearTimeout(timer);
         done();
       }, 500);
     });
@@ -378,8 +388,6 @@ describe("target local decisioning", () => {
     it("produces a valid response in local execution mode", async done => {
       fetch.mockResponse(JSON.stringify(LOCAL_DECISIONING_ARTIFACT));
 
-      let client;
-
       async function onClientReady() {
         const result = await client.getOffers(requestOptions);
 
@@ -390,6 +398,7 @@ describe("target local decisioning", () => {
       client = TargetClient.create({
         ...targetClientOptions,
         executionMode: EXECUTION_MODE.LOCAL,
+        pollingInterval: 0,
         clientReadyCallback: onClientReady
       });
     });
@@ -397,8 +406,6 @@ describe("target local decisioning", () => {
     // eslint-disable-next-line jest/no-test-callback
     it("produces a valid response in remote execution mode", async done => {
       fetch.mockResponse(JSON.stringify(DELIVERY_API_RESPONSE));
-
-      let client;
 
       async function onClientReady() {
         const result = await client.getOffers(requestOptions);

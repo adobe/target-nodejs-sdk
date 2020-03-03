@@ -32,6 +32,14 @@ function fetchArtifact(artifactUrl) {
 }
 
 function getPollingInterval(config) {
+  if (
+    // allow polling to be set to 0
+    typeof config.pollingInterval === "number" &&
+    config.pollingInterval === 0
+  ) {
+    return 0;
+  }
+
   return Math.max(
     MINIMUM_POLLING_INTERVAL,
     typeof config.pollingInterval === "number"
