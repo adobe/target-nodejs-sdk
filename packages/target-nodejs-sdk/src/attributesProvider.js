@@ -1,7 +1,7 @@
 /**
  * @param {import("../generated-delivery-api-client/models/DeliveryResponse").DeliveryResponse} response
  */
-const {ATTRIBUTE_NOT_EXIST} = require("./messages");
+const { ATTRIBUTE_NOT_EXIST } = require("./messages");
 
 function createIndexed(response) {
   const result = {};

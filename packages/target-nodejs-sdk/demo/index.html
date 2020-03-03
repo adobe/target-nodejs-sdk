@@ -10,30 +10,76 @@
 <body>
   <div id="result"></div>
   <script type="text/javascript">
-    const client = window.TargetClient.create({
-      client: "adobesummit2018",
-      organizationId: "65453EA95A70434F0A495D34@AdobeOrg"
-    });
 
-    const targetRequest = {
-      prefetch: {
-        mboxes: [
-          {
-            name: "mbox-waters",
-            index: 1
-          }
-        ]
-      }
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    var doLocalDecisioning = urlParams.get('local') !== null;
+
+    var client;
+
+    function getOffers() {
+      var targetRequest = {
+        "id": {
+          "tntId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
+          "marketingCloudVisitorId": "07327024324407615852294135870030620007",
+        },
+        "context": {
+          "channel": "web",
+          "mobilePlatform": null,
+          "application": null,
+          "screen": null,
+          "window": null,
+          "browser": null,
+          "address": {
+            "url": "http://adobe.com",
+            "referringUrl": null
+          },
+          "geo": null,
+          "timeOffsetInMinutes": null,
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0",
+          "beacon": false
+        },
+        prefetch: {
+          mboxes: [
+            {
+              name: "jason-flags",
+              index: 2
+            }
+          ]
+        }
+      };
+
+      client.getOffers({
+        request: targetRequest,
+        sessionId: "dummy_session"
+      }).then(function(res) {
+        showResult("Result: Success", JSON.stringify(res, null, 4));
+      }).catch(function(err) {
+        showResult("Result: Error", err.toString());
+      });
+
+
+      client.getAttributes('jason-flags', {
+        request: targetRequest,
+        sessionId: "dummy_session"
+      }).then(function(flags) {
+        console.log(flags.asObject());
+        console.log('paymentExperience', flags.getValue('paymentExperience'));
+
+      });
+    }
+
+    var targetClientOptions = {
+      client: "adobesummit2018",
+      organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
+      clientReadyCallback: getOffers
     };
 
-    client.getOffers({
-      request: targetRequest,
-      sessionId: "dummy_session"
-    }).then(function(res) {
-      showResult("Result: Success", JSON.stringify(res, null, 4));
-    }).catch(function(err) {
-      showResult("Result: Error", err.description);
-    })
+    client = window.TargetClient.create(Object.assign({}, targetClientOptions, doLocalDecisioning ? {
+      executionMode: "local",
+      artifactLocation: "https://target-local-decisioning-test.s3.us-west-2.amazonaws.com/adobesummit2018/waters_test/jasonsflags-rules.json",
+    } : {}));
   </script>
 </body>
 </html>

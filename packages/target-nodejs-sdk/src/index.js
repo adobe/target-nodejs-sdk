@@ -51,6 +51,8 @@ function bootstrap(defaultFetchApi) {
           client: options.client,
           organizationId: options.organizationId,
           pollingInterval: options.pollingInterval,
+          artifactLocation: options.artifactLocation,
+          artifactPayload: options.artifactPayload,
           logger: this.logger
         }).then(decisioningEngine => {
           this.decisioningEngine = decisioningEngine;
@@ -72,6 +74,9 @@ function bootstrap(defaultFetchApi) {
      * @param {boolean} options.secure Unset to enforce HTTP scheme, default: true
      * @param {Object} options.logger Replaces the default noop logger, optional
      * @param {('local'|'remote'|'hybrid')} options.executionMode The evaluation mode, defaults to remote, optional
+     * @param {Number} options.pollingInterval (Local Decisioning) Polling interval in ms, default: 30000
+     * @param {String} options.artifactLocation (Local Decisioning) Fully qualified url to the location of the artifact, optional
+     * @param {String} options.artifactPayload (Local Decisioning) A pre-fetched artifact, optional
      * @param {Number} options.environmentId The environment ID, defaults to prod, optional
      * @param {String} options.version The version number of at.js, optional
      * @param {String} options.clientReadyCallback A callback that is called when the TargetClient is ready, optional
