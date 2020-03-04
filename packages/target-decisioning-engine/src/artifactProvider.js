@@ -1,3 +1,5 @@
+import * as HttpStatus from "http-status-codes";
+import TargetTools from "@adobe/target-tools/src";
 import Messages from "./messages";
 import {
   DEFAULT_POLLING_INTERVAL,
@@ -5,10 +7,13 @@ import {
   NUM_FETCH_RETRIES
 } from "./constants";
 
+let lastEtag;
+let lastResponse;
+
 function fetchWithRetry(url, options, numRetries) {
   return fetch(url, options)
     .then(res => {
-      if (!res.ok) {
+      if (!res.ok && res.status !== HttpStatus.NOT_MODIFIED) {
         throw Error(res.statusText);
       }
       return res;
@@ -26,9 +31,37 @@ function determineArtifactLocation(clientId, organizationId) {
 }
 
 function fetchArtifact(artifactUrl) {
-  return fetchWithRetry(artifactUrl, undefined, NUM_FETCH_RETRIES).then(res =>
-    res.json()
-  );
+  const headers = {
+    "Access-Control-Expose-Headers": "Etag"
+  };
+
+  if (lastEtag) {
+    headers["If-None-Match"] = lastEtag;
+  }
+
+  return fetchWithRetry(
+    artifactUrl,
+    {
+      headers,
+      cache: "default"
+    },
+    NUM_FETCH_RETRIES
+  )
+    .then(res => {
+      if (res.status === HttpStatus.NOT_MODIFIED && lastResponse) {
+        return lastResponse.clone();
+      }
+
+      if (res.status === HttpStatus.OK) {
+        const etag = res.headers.get("Etag");
+        if (etag != null && typeof etag !== "undefined") {
+          lastResponse = res.clone();
+          lastEtag = etag;
+        }
+      }
+      return res;
+    })
+    .then(res => res.json());
 }
 
 function getPollingInterval(config) {
@@ -60,7 +93,8 @@ function getPollingInterval(config) {
  */
 async function initialize(config) {
   const pollingInterval = getPollingInterval(config);
-  const { logger } = config;
+  const logger = TargetTools.getLogger(config.logger);
+
   let pollingHalted = false;
   let pollingTimer;
 
@@ -105,7 +139,8 @@ async function initialize(config) {
         artifact = await fetchArtifact(artifactLocation);
         emit(artifact);
       } catch (err) {
-        logger.error(`Error fetching artifact: ${err.toString()}`);
+        const reason = err ? err.toString() : "unknown reason";
+        logger.error(`Error fetching artifact: ${reason}`);
       }
       scheduleNextUpdate();
     }, pollingInterval);

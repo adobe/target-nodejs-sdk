@@ -8,6 +8,7 @@
     "test": "lerna run test --stream"
   },
   "devDependencies": {
-    "lerna": "^3.20.2"
+    "lerna": "^3.20.2",
+    "prettier": "^1.19.1"
   }
 }

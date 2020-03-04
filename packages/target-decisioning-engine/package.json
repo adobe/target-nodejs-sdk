@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@adobe/target-tools": "^1.0.0",
+    "http-status-codes": "^1.4.0",
     "imurmurhash": "^0.1.4",
     "json-logic-js": "^1.2.2",
     "ua-parser-js": "^0.7.21",
@@ -29,7 +30,6 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "^23.6.0",
     "eslint-plugin-prettier": "^3.1.0",
-    "http-status-codes": "^1.4.0",
     "jest": "^25.1.0",
     "jest-fetch-mock": "^3.0.1",
     "mockdate": "^2.0.5",

@@ -5,7 +5,7 @@ import Messages from "./messages";
 
 require("jest-fetch-mock").enableMocks();
 
-const DUMMY_ARTIFACT_PAYLOAD = {version: "1.0.0", meta: {}, rules: []};
+const DUMMY_ARTIFACT_PAYLOAD = { version: "1.0.0", meta: {}, rules: [] };
 const TARGET_REQUEST = {
   context: {
     channel: "web",
@@ -61,9 +61,9 @@ describe("TargetDecisioningEngine", () => {
     for (let i = 1; i < 50; i++) {
       responses.push([
         JSON.stringify(
-          Object.assign({}, DUMMY_ARTIFACT_PAYLOAD, {version: i})
+          Object.assign({}, DUMMY_ARTIFACT_PAYLOAD, { version: i })
         ),
-        {status: 200}
+        { status: 200 }
       ]);
     }
 
@@ -96,17 +96,17 @@ describe("TargetDecisioningEngine", () => {
 
   it("getOffers provides an error if the artifact is not available", async () => {
     fetch.mockResponses(
-      ["", {status: HttpStatus.UNAUTHORIZED}],
-      ["", {status: HttpStatus.NOT_FOUND}],
-      ["", {status: HttpStatus.NOT_ACCEPTABLE}],
-      ["", {status: HttpStatus.NOT_IMPLEMENTED}],
-      ["", {status: HttpStatus.FORBIDDEN}],
-      ["", {status: HttpStatus.SERVICE_UNAVAILABLE}],
-      ["", {status: HttpStatus.BAD_REQUEST}],
-      ["", {status: HttpStatus.BAD_GATEWAY}],
-      ["", {status: HttpStatus.TOO_MANY_REQUESTS}],
-      ["", {status: HttpStatus.GONE}],
-      ["", {status: HttpStatus.INTERNAL_SERVER_ERROR}]
+      ["", { status: HttpStatus.UNAUTHORIZED }],
+      ["", { status: HttpStatus.NOT_FOUND }],
+      ["", { status: HttpStatus.NOT_ACCEPTABLE }],
+      ["", { status: HttpStatus.NOT_IMPLEMENTED }],
+      ["", { status: HttpStatus.FORBIDDEN }],
+      ["", { status: HttpStatus.SERVICE_UNAVAILABLE }],
+      ["", { status: HttpStatus.BAD_REQUEST }],
+      ["", { status: HttpStatus.BAD_GATEWAY }],
+      ["", { status: HttpStatus.TOO_MANY_REQUESTS }],
+      ["", { status: HttpStatus.GONE }],
+      ["", { status: HttpStatus.INTERNAL_SERVER_ERROR }]
     );
 
     decisioning = await TargetDecisioningEngine.initialize({

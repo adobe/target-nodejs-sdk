@@ -1,3 +1,4 @@
+/* eslint-disable jest/no-test-callback */
 import * as HttpStatus from "http-status-codes";
 import ArtifactProvider from "./artifactProvider";
 import * as constants from "./constants";
@@ -11,7 +12,6 @@ describe("artifactProvider", () => {
 
   beforeEach(() => {
     fetch.resetMocks();
-    fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
     constants.MINIMUM_POLLING_INTERVAL = 0;
   });
 
@@ -21,6 +21,8 @@ describe("artifactProvider", () => {
   });
 
   it("initializes", async () => {
+    fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
+
     provider = await ArtifactProvider.initialize({
       client: "clientId",
       organizationId: "orgId",
@@ -30,59 +32,62 @@ describe("artifactProvider", () => {
     expect(provider.getArtifact()).toEqual(DUMMY_ARTIFACT_PAYLOAD);
   });
 
-  it("subscribes", async () => {
+  it("subscribes", async done => {
+    fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
+
     provider = await ArtifactProvider.initialize({
       client: "clientId",
       organizationId: "orgId",
-      pollingInterval: 100
+      pollingInterval: 10
     });
 
     const subscriptionId = provider.subscribe(data => {
       expect(data).toEqual(DUMMY_ARTIFACT_PAYLOAD);
 
       provider.unsubscribe(subscriptionId);
+      done();
     });
 
     expect(subscriptionId).toEqual(expect.any(Number));
   });
 
-  it("polls", () => {
-    return new Promise(async done => {
-      provider = await ArtifactProvider.initialize({
-        client: "clientId",
-        organizationId: "orgId",
-        pollingInterval: 10
-      });
+  it("polls", async done => {
+    fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
 
-      const mockListener = jest.fn();
-
-      provider.subscribe(mockListener);
-
-      setTimeout(() => {
-        expect(mockListener.mock.calls.length).toBeGreaterThanOrEqual(3);
-        done();
-      }, 100);
+    provider = await ArtifactProvider.initialize({
+      client: "clientId",
+      organizationId: "orgId",
+      pollingInterval: 10
     });
+
+    const mockListener = jest.fn();
+
+    provider.subscribe(mockListener);
+
+    setTimeout(() => {
+      expect(mockListener.mock.calls.length).toBeGreaterThanOrEqual(3);
+      done();
+    }, 100);
   });
 
-  it("does not poll if artifact payload is provided", () => {
-    return new Promise(async done => {
-      provider = await ArtifactProvider.initialize({
-        client: "clientId",
-        organizationId: "orgId",
-        artifactPayload: DUMMY_ARTIFACT_PAYLOAD,
-        pollingInterval: 10
-      });
+  it("does not poll if artifact payload is provided", async done => {
+    fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
 
-      const mockListener = jest.fn();
-
-      provider.subscribe(mockListener);
-
-      setTimeout(() => {
-        expect(mockListener.mock.calls.length).toBe(0);
-        done();
-      }, 100);
+    provider = await ArtifactProvider.initialize({
+      client: "clientId",
+      organizationId: "orgId",
+      artifactPayload: DUMMY_ARTIFACT_PAYLOAD,
+      pollingInterval: 10
     });
+
+    const mockListener = jest.fn();
+
+    provider.subscribe(mockListener);
+
+    setTimeout(() => {
+      expect(mockListener.mock.calls.length).toBe(0);
+      done();
+    }, 100);
   });
 
   it("retries failed artifact request 10 times", async () => {
@@ -127,9 +132,8 @@ describe("artifactProvider", () => {
     );
 
     const logger = {
-      debug: () => {},
-      error: err => {
-        expect(err).toEqual(
+      error: (prefix, message) => {
+        expect(message).toEqual(
           Messages.ERROR_MAX_RETRY(10, "Error: Internal Server Error")
         );
       }
@@ -164,6 +168,113 @@ describe("artifactProvider", () => {
     expect(provider.getArtifact()).toEqual(DUMMY_ARTIFACT_PAYLOAD);
     expect(fetch.mock.calls[0][0]).toEqual(artifactURL);
   });
-});
 
-// TODO: test ["", { status: HttpStatus.NOT_MODIFIED }],
+  it("gets a cached version based on ETag", async done => {
+    const eTagIdentifier = "the_original_eTag";
+    const eTagIdentifierNew = "the_new_eTag";
+
+    const IRRELEVANT_PAYLOAD = Object.assign({}, DUMMY_ARTIFACT_PAYLOAD, {
+      meta: {
+        message: "if this is delivered, caching is not working properly."
+      }
+    });
+
+    const FIRST_PAYLOAD = Object.assign({}, DUMMY_ARTIFACT_PAYLOAD, {
+      meta: {
+        message: "this is the original"
+      }
+    });
+
+    const NEW_VERSION_PAYLOAD = Object.assign({}, DUMMY_ARTIFACT_PAYLOAD, {
+      meta: {
+        message: "this is a new version"
+      }
+    });
+
+    fetch
+      .once(JSON.stringify(FIRST_PAYLOAD), {
+        status: HttpStatus.OK,
+        headers: {
+          ETag: eTagIdentifier,
+          "Content-Type": "application/json"
+        }
+      })
+      .once(
+        req => {
+          expect(req.headers.get("If-None-Match")).toEqual(eTagIdentifier);
+
+          return Promise.resolve(JSON.stringify(IRRELEVANT_PAYLOAD));
+        },
+        {
+          status: HttpStatus.NOT_MODIFIED,
+          headers: {
+            ETag: eTagIdentifier,
+            "Content-Type": "application/json"
+          }
+        }
+      )
+      .once(
+        req => {
+          expect(req.headers.get("If-None-Match")).toEqual(eTagIdentifier);
+
+          return Promise.resolve(JSON.stringify(NEW_VERSION_PAYLOAD));
+        },
+        {
+          status: HttpStatus.OK,
+          headers: {
+            ETag: eTagIdentifierNew,
+            "Content-Type": "application/json"
+          }
+        }
+      )
+      .once(
+        req => {
+          expect(req.headers.get("If-None-Match")).toEqual(eTagIdentifierNew);
+
+          return Promise.resolve(JSON.stringify(IRRELEVANT_PAYLOAD));
+        },
+        {
+          status: HttpStatus.NOT_MODIFIED,
+          headers: {
+            ETag: eTagIdentifierNew,
+            "Content-Type": "application/json"
+          }
+        }
+      );
+
+    provider = await ArtifactProvider.initialize({
+      client: "clientId",
+      organizationId: "orgId",
+      pollingInterval: 500,
+      artifactLocation: "rules.json"
+    });
+
+    // here's what we expect...
+    // 1. first request is an original artifact
+    // 2. second request is a cached artifact
+    // 3. third request is a new artifact
+    // 4. fourth request is a cached artifact
+
+    expect(provider.getArtifact()).toEqual(FIRST_PAYLOAD); // first time getting artifact on ArtifactProvider#initialize
+
+    provider.subscribe(artifact => {
+      switch (fetch.mock.calls.length) {
+        case 2: // second time getting artifact, should be cached
+          expect(artifact).not.toEqual(IRRELEVANT_PAYLOAD);
+          expect(artifact).toEqual(FIRST_PAYLOAD); // this is the cached response body
+          break;
+        case 3: // third time getting artifact is new version
+          expect(artifact).toEqual(NEW_VERSION_PAYLOAD);
+          break;
+        case 4: // fourth time getting artifact, should be cached new version
+          expect(artifact).not.toEqual(IRRELEVANT_PAYLOAD);
+          expect(artifact).toEqual(NEW_VERSION_PAYLOAD); // this is the cached response body
+          done();
+          break;
+        default:
+          done.fail();
+          break;
+      }
+    });
+  });
+});

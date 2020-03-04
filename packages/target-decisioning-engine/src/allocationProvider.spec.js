@@ -35,9 +35,16 @@ describe("allocationProvider", () => {
   });
 
   it("computes allocation with generated uuid", () => {
-    const allocation = computeAllocation("someClientId", "123456", {}, "salty");
-    expect(allocation).toEqual(expect.any(Number));
-    expect(allocation).toBeGreaterThanOrEqual(0);
-    expect(allocation).toBeLessThanOrEqual(100);
+    [{}, undefined].forEach(visitorId => {
+      const allocation = computeAllocation(
+        "someClientId",
+        "123456",
+        visitorId,
+        "salty"
+      );
+      expect(allocation).toEqual(expect.any(Number));
+      expect(allocation).toBeGreaterThanOrEqual(0);
+      expect(allocation).toBeLessThanOrEqual(100);
+    });
   });
 });
