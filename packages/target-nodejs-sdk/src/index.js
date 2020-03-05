@@ -26,6 +26,7 @@ const Messages = require("./messages");
 const { TARGET_COOKIE, LOCATION_HINT_COOKIE } = require("./cookies");
 const { EXECUTION_MODE } = require("./enums");
 const attributesProvider = require("./attributesProvider");
+const { addMboxesToRequest } = require("./helper");
 
 const AMCV_PREFIX = "AMCV_";
 const DEFAULT_TIMEOUT = 3000;
@@ -133,7 +134,7 @@ function bootstrap(defaultFetchApi) {
 
     /**
      * The TargetClient getAttributes method
-     * @param {String} mbox The name of an mbox that contains JSON content attributes, required
+     * @param {Array<String>} mboxNames A list of mbox names that contains JSON content attributes, required
      * @param {Object} options, required
      * @param {import("../generated-delivery-api-client/models/DeliveryRequest").DeliveryRequest} options.request Target View Delivery API request, required
      * @param {String} options.visitorCookie VisitorId cookie, optional
@@ -144,10 +145,11 @@ function bootstrap(defaultFetchApi) {
      * @param {String} options.sessionId Session Id, used for linking multiple requests, optional
      * @param {Object} options.visitor Supply an external VisitorId instance, optional
      */
-    getAttributes(mbox, options) {
-      return this.getOffers(options).then(res =>
-        attributesProvider(mbox, res.response)
-      );
+    getAttributes(mboxNames, options) {
+      return this.getOffers({
+        ...options,
+        request: addMboxesToRequest(mboxNames, options.request, "execute")
+      }).then(res => attributesProvider(mboxNames, res.response));
     }
 
     /**

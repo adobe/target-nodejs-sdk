@@ -1,4 +1,5 @@
 require("jest-fetch-mock").enableMocks();
+const HttpStatus = require("http-status-codes");
 
 const TargetClient = require("../src/index.server");
 
@@ -112,62 +113,117 @@ const targetResponse = {
 
 describe("attributes", () => {
   describe("attributesProvider", () => {
-    it("gets value", () => {
+    it("gets value for a single mbox", () => {
       const featureA = attributesProvider(
-        "feature-flag-a",
+        ["feature-flag-a"],
         targetResponse.response
       );
 
-      expect(featureA.getValue("paymentExperience")).toEqual("legacy");
-      expect(featureA.getValue("showFeatureX")).toEqual(false);
-      expect(featureA.getValue("paymentGatewayVersion")).toEqual(2.3);
-      expect(featureA.getValue("customerFeedbackValue")).toEqual(10);
+      expect(featureA.getValue("feature-flag-a", "paymentExperience")).toEqual(
+        "legacy"
+      );
+      expect(featureA.getValue("feature-flag-a", "showFeatureX")).toEqual(
+        false
+      );
+      expect(
+        featureA.getValue("feature-flag-a", "paymentGatewayVersion")
+      ).toEqual(2.3);
+      expect(
+        featureA.getValue("feature-flag-a", "customerFeedbackValue")
+      ).toEqual(10);
 
       const featureB = attributesProvider(
-        "feature-flag-b",
+        ["feature-flag-b"],
         targetResponse.response
       );
 
-      expect(featureB.getValue("purchaseExperience")).toEqual("beta2");
-      expect(featureB.getValue("showFeatureY")).toEqual(true);
-      expect(featureB.getValue("cartVersion")).toEqual(1.3);
-      expect(featureB.getValue("customerSurveyValue")).toEqual(102);
+      expect(featureB.getValue("feature-flag-b", "purchaseExperience")).toEqual(
+        "beta2"
+      );
+      expect(featureB.getValue("feature-flag-b", "showFeatureY")).toEqual(true);
+      expect(featureB.getValue("feature-flag-b", "cartVersion")).toEqual(1.3);
+      expect(
+        featureB.getValue("feature-flag-b", "customerSurveyValue")
+      ).toEqual(102);
+    });
+
+    it("gets value for multiple mboxes at once", () => {
+      const features = attributesProvider(
+        ["feature-flag-a", "feature-flag-b"],
+        targetResponse.response
+      );
+
+      expect(features.getValue("feature-flag-a", "paymentExperience")).toEqual(
+        "legacy"
+      );
+      expect(features.getValue("feature-flag-a", "showFeatureX")).toEqual(
+        false
+      );
+      expect(
+        features.getValue("feature-flag-a", "paymentGatewayVersion")
+      ).toEqual(2.3);
+      expect(
+        features.getValue("feature-flag-a", "customerFeedbackValue")
+      ).toEqual(10);
+
+      expect(features.getValue("feature-flag-b", "purchaseExperience")).toEqual(
+        "beta2"
+      );
+      expect(features.getValue("feature-flag-b", "showFeatureY")).toEqual(true);
+      expect(features.getValue("feature-flag-b", "cartVersion")).toEqual(1.3);
+      expect(
+        features.getValue("feature-flag-b", "customerSurveyValue")
+      ).toEqual(102);
     });
 
     it("gets as object", () => {
-      const featureA = attributesProvider(
-        "feature-flag-a",
+      const features = attributesProvider(
+        ["feature-flag-a", "feature-flag-b"],
         targetResponse.response
       );
 
-      expect(featureA.asObject()).toMatchObject({
+      expect(features.asObject("feature-flag-a")).toMatchObject({
         paymentExperience: "legacy",
         showFeatureX: false,
         paymentGatewayVersion: 2.3,
         customerFeedbackValue: 10
       });
 
-      const featureB = attributesProvider(
-        "feature-flag-b",
-        targetResponse.response
-      );
-
-      expect(featureB.asObject()).toMatchObject({
+      expect(features.asObject("feature-flag-b")).toMatchObject({
         purchaseExperience: "beta2",
         showFeatureY: true,
         cartVersion: 1.3,
         customerSurveyValue: 102
       });
+
+      expect(features.asObject()).toMatchObject({
+        "feature-flag-a": {
+          paymentExperience: "legacy",
+          showFeatureX: false,
+          paymentGatewayVersion: 2.3,
+          customerFeedbackValue: 10
+        },
+        "feature-flag-b": {
+          purchaseExperience: "beta2",
+          showFeatureY: true,
+          cartVersion: 1.3,
+          customerSurveyValue: 102
+        }
+      });
     });
 
     it("throws an error if an attribute does not exist", () => {
-      const attributes = attributesProvider(
-        "feature-flag-a",
+      const features = attributesProvider(
+        ["feature-flag-a", "feature-flag-b"],
         targetResponse.response
       );
 
-      expect(attributes.getValue("myPropertyName")).toEqual(
+      expect(features.getValue("feature-flag-a", "myPropertyName")).toEqual(
         new Error(ATTRIBUTE_NOT_EXIST("myPropertyName", "feature-flag-a"))
+      );
+
+      expect(features.getValue("feature-flag-xyz", "myPropertyName")).toEqual(
+        new Error(ATTRIBUTE_NOT_EXIST("myPropertyName", "feature-flag-xyz"))
       );
     });
   });
@@ -276,34 +332,49 @@ describe("attributes", () => {
         organizationId: " someOrgId"
       });
 
-      const featureA = await client.getAttributes("feature-flag-a", {
+      const featureA = await client.getAttributes(["feature-flag-a"], {
         request: targetRequest,
         sessionId: "dummy_session"
       });
 
-      expect(featureA.getValue("paymentExperience")).toEqual("legacy");
-      expect(featureA.getValue("showFeatureX")).toEqual(false);
-      expect(featureA.getValue("paymentGatewayVersion")).toEqual(2.3);
-      expect(featureA.getValue("customerFeedbackValue")).toEqual(10);
+      expect(featureA.getValue("feature-flag-a", "paymentExperience")).toEqual(
+        "legacy"
+      );
+      expect(featureA.getValue("feature-flag-a", "showFeatureX")).toEqual(
+        false
+      );
+      expect(
+        featureA.getValue("feature-flag-a", "paymentGatewayVersion")
+      ).toEqual(2.3);
+      expect(
+        featureA.getValue("feature-flag-a", "customerFeedbackValue")
+      ).toEqual(10);
 
-      expect(featureA.asObject()).toMatchObject({
+      expect(featureA.asObject("feature-flag-a")).toMatchObject({
         paymentExperience: "legacy",
         showFeatureX: false,
         paymentGatewayVersion: 2.3,
         customerFeedbackValue: 10
       });
 
-      const featureB = await client.getAttributes("feature-flag-b", {
-        request: targetRequest,
-        sessionId: "dummy_session"
-      });
+      const features = await client.getAttributes(
+        ["feature-flag-a", "feature-flag-b"],
+        {
+          request: targetRequest,
+          sessionId: "dummy_session"
+        }
+      );
 
-      expect(featureB.getValue("purchaseExperience")).toEqual("beta2");
-      expect(featureB.getValue("showFeatureY")).toEqual(true);
-      expect(featureB.getValue("cartVersion")).toEqual(1.3);
-      expect(featureB.getValue("customerSurveyValue")).toEqual(102);
+      expect(features.getValue("feature-flag-b", "purchaseExperience")).toEqual(
+        "beta2"
+      );
+      expect(features.getValue("feature-flag-b", "showFeatureY")).toEqual(true);
+      expect(features.getValue("feature-flag-b", "cartVersion")).toEqual(1.3);
+      expect(
+        features.getValue("feature-flag-b", "customerSurveyValue")
+      ).toEqual(102);
 
-      expect(featureB.asObject()).toMatchObject({
+      expect(features.asObject("feature-flag-b")).toMatchObject({
         purchaseExperience: "beta2",
         showFeatureY: true,
         cartVersion: 1.3,
@@ -343,6 +414,14 @@ describe("attributes", () => {
               index: 2
             }
           ]
+        },
+        execute: {
+          mboxes: [
+            {
+              name: "feature-flag-b",
+              index: 2
+            }
+          ]
         }
       };
 
@@ -351,16 +430,95 @@ describe("attributes", () => {
         organizationId: " someOrgId"
       });
 
-      const attributes = await client.getAttributes("unknown-flag", {
+      const attributes = await client.getAttributes(["unknown-flag"], {
         request: targetRequest,
         sessionId: "dummy_session"
       });
 
-      expect(attributes.getValue("paymentExperience")).toEqual(
+      expect(attributes.getValue("unknown-flag", "paymentExperience")).toEqual(
         new Error(ATTRIBUTE_NOT_EXIST("paymentExperience", "unknown-flag"))
       );
 
-      expect(attributes.asObject()).toMatchObject({});
+      expect(attributes.asObject("unknown-flag")).toMatchObject({});
+    });
+
+    it("adds mbox names to the delivery request as needed", async () => {
+      fetch.mockResponse(
+        async req => {
+          const payload = await req.json();
+          expect(payload.execute).toMatchObject({
+            mboxes: [
+              {
+                name: "feature-flag-b"
+              }
+            ]
+          });
+          expect(payload.prefetch).toMatchObject({
+            mboxes: [
+              {
+                name: "feature-flag-a",
+                index: 2
+              }
+            ]
+          });
+
+          return Promise.resolve(JSON.stringify(DELIVERY_API_RESPONSE));
+        },
+        {
+          status: HttpStatus.OK,
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      );
+
+      const targetRequest = {
+        id: {
+          tntId: "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
+          marketingCloudVisitorId: "07327024324407615852294135870030620007"
+        },
+        context: {
+          channel: "web",
+          mobilePlatform: null,
+          application: null,
+          screen: null,
+          window: null,
+          browser: null,
+          address: {
+            url: "http://adobe.com",
+            referringUrl: null
+          },
+          geo: null,
+          timeOffsetInMinutes: null,
+          userAgent:
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0",
+          beacon: false
+        },
+        prefetch: {
+          mboxes: [
+            {
+              name: "feature-flag-a",
+              index: 2
+            }
+          ]
+        }
+      };
+
+      const client = TargetClient.create({
+        client: "someClientId",
+        organizationId: " someOrgId"
+      });
+
+      const attributes = await client.getAttributes(["feature-flag-b"], {
+        request: targetRequest,
+        sessionId: "dummy_session"
+      });
+
+      expect(attributes.getValue("feature-flag-b", "showFeatureY")).toEqual(
+        true
+      );
+
+      expect(attributes.asObject("feature-flag-b")).toMatchObject({});
     });
   });
 });

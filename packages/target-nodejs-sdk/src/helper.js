@@ -728,6 +728,54 @@ function processResponse(sessionId, cluster, response = {}) {
   return result;
 }
 
+/**
+ * addMboxesToRequest method.  Ensures the mboxes specified are part of the returned delivery request
+ * @param {Array<String>} mboxNames A list of mbox names that contains JSON content attributes, required
+ * @param {import("../generated-delivery-api-client/models/DeliveryRequest").DeliveryRequest} request Target View Delivery API request, required
+ * @param { 'execute'|'prefetch' } requestType
+ */
+function addMboxesToRequest(mboxNames, request, requestType = "execute") {
+  const requestedMboxes = {};
+
+  ["prefetch", "execute"].forEach(type => {
+    const mboxes =
+      request && request[type] && request[type].mboxes instanceof Array
+        ? request[type].mboxes
+        : [];
+    mboxes.forEach(mbox => {
+      requestedMboxes[mbox.name] = true;
+    });
+  });
+
+  const mboxes = [];
+  if (
+    request &&
+    request[requestType] &&
+    request[requestType].mboxes instanceof Array
+  ) {
+    Array.prototype.push.apply(mboxes, request[requestType].mboxes);
+  }
+
+  mboxNames
+    .filter(mboxName => !requestedMboxes[mboxName])
+    .forEach(mboxName => {
+      mboxes.push({
+        name: mboxName
+      });
+    });
+
+  const result = {
+    ...request
+  };
+
+  result[requestType] = {
+    ...request[requestType],
+    mboxes
+  };
+
+  return result;
+}
+
 module.exports = {
   getDeviceId,
   getCluster,
@@ -739,5 +787,6 @@ module.exports = {
   createConfiguration,
   createDeliveryApi,
   processResponse,
+  addMboxesToRequest,
   createVisitorId
 };

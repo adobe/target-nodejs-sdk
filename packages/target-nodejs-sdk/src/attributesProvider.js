@@ -27,33 +27,39 @@ function createIndexed(response) {
 }
 
 /**
- * @param {String} mbox The name of an mbox that contains JSON content attributes, required
+ * @param {Array<String>} mboxNames A list of mbox names that contains JSON content attributes, required
  * @param {import("../generated-delivery-api-client/models/DeliveryResponse").DeliveryResponse} deliveryResponse
  */
-function AttributesProvider(mbox, deliveryResponse) {
+function AttributesProvider(mboxNames, deliveryResponse) {
   const indexed = createIndexed(deliveryResponse);
 
-  function getValue(key) {
-    // console.log(mbox, key, indexed, indexed['jason-flags']);
+  function getValue(mboxName, key) {
     if (
-      !Object.prototype.hasOwnProperty.call(indexed, mbox) ||
-      !Object.prototype.hasOwnProperty.call(indexed[mbox], key)
+      !Object.prototype.hasOwnProperty.call(indexed, mboxName) ||
+      !Object.prototype.hasOwnProperty.call(indexed[mboxName], key)
     ) {
-      return new Error(ATTRIBUTE_NOT_EXIST(key, mbox));
+      return new Error(ATTRIBUTE_NOT_EXIST(key, mboxName));
     }
 
-    return indexed[mbox][key];
+    return indexed[mboxName][key];
   }
 
-  function getAsObject() {
+  /**
+   * @param {string} mboxName
+   */
+  function getAsObject(mboxName) {
+    if (typeof mboxName === "undefined") {
+      return { ...indexed };
+    }
+
     return {
-      ...indexed[mbox]
+      ...indexed[mboxName]
     };
   }
 
   return {
-    getValue: key => getValue(key),
-    asObject: key => getAsObject(key)
+    getValue: (mboxName, key) => getValue(mboxName, key),
+    asObject: mboxName => getAsObject(mboxName)
   };
 }
 

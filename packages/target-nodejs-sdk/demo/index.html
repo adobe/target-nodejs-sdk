@@ -66,21 +66,12 @@
         showResult("Result: Error", err.toString());
       });
 
-      client.getAttributes('jason-flags', {
-        request: {
-          ...targetRequest,
-          execute: {
-            mboxes: [
-              {
-                name: "jason-flags",
-                index: 2
-              }
-            ]
-          }},
+      client.getAttributes(['jason-flags'], {
+        request: targetRequest,
         sessionId: "dummy_session"
-      }).then(function(flags) {
-        console.log(flags.asObject());
-        console.log('paymentExperience', flags.getValue('paymentExperience'));
+      }).then(function(features) {
+        console.log(features.asObject('jason-flags'));
+        console.log(features.getValue('jason-flags', 'paymentExperience'));
       });
 
     }
