@@ -1,6 +1,7 @@
 /* eslint-disable jest/no-test-callback */
 const HttpStatus = require("http-status-codes");
 
+const MockDate = require("mockdate");
 require("jest-fetch-mock").enableMocks();
 const TargetClient = require("../src/index.server");
 const { EXECUTION_MODE } = require("../src/enums");
@@ -23,6 +24,7 @@ describe("target local decisioning", () => {
   let client;
 
   beforeEach(() => {
+    MockDate.reset();
     fetch.resetMocks();
     if (client) {
       client = undefined;
@@ -100,7 +102,6 @@ describe("target local decisioning", () => {
       done();
     });
 
-    // eslint-disable-next-line jest/no-test-callback
     it("if getOffers is called, but the artifact could not be retrieved", async done => {
       fetch.mockResponses(
         ["", { status: HttpStatus.UNAUTHORIZED }],
@@ -271,33 +272,42 @@ describe("target local decisioning", () => {
       },
       context: {
         channel: "web",
-        mobilePlatform: null,
-        application: null,
-        screen: null,
-        window: null,
-        browser: null,
         address: {
-          url: "http://adobe.com",
-          referringUrl: null
+          url: "http://adobe.com"
         },
-        geo: null,
-        timeOffsetInMinutes: null,
         userAgent:
           "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0",
         beacon: false
-      },
-      prefetch: {
-        mboxes: [
-          {
-            name: "superfluous-mbox",
-            index: 2
-          }
-        ]
       }
     };
 
-    const requestOptions = {
-      request: targetRequest,
+    const prefetchRequestOptions = {
+      request: {
+        ...targetRequest,
+        prefetch: {
+          mboxes: [
+            {
+              name: "superfluous-mbox",
+              index: 2
+            }
+          ]
+        }
+      },
+      sessionId: "dummy_session"
+    };
+
+    const executeRequestOptions = {
+      request: {
+        ...targetRequest,
+        execute: {
+          mboxes: [
+            {
+              name: "superfluous-mbox",
+              index: 2
+            }
+          ]
+        }
+      },
       sessionId: "dummy_session"
     };
 
@@ -384,12 +394,11 @@ describe("target local decisioning", () => {
       }
     };
 
-    // eslint-disable-next-line jest/no-test-callback
     it("produces a valid response in local execution mode", async done => {
       fetch.mockResponse(JSON.stringify(LOCAL_DECISIONING_ARTIFACT));
 
       async function onClientReady() {
-        const result = await client.getOffers(requestOptions);
+        const result = await client.getOffers(prefetchRequestOptions);
 
         expect(result).toEqual(expect.objectContaining(targetResult));
         done();
@@ -403,12 +412,59 @@ describe("target local decisioning", () => {
       });
     });
 
-    // eslint-disable-next-line jest/no-test-callback
+    it("emits notifications for local decision outcomes; execute request", async done => {
+      const now = new Date("2020-02-25T01:05:00");
+      MockDate.set(now);
+
+      fetch.once(JSON.stringify(LOCAL_DECISIONING_ARTIFACT)).once(
+        async req => {
+          expect(req).not.toBeUndefined();
+          expect(req.method).toEqual("POST");
+          const requestBody = await req.json();
+          expect(requestBody).toMatchObject({
+            ...targetRequest,
+            notifications: [
+              {
+                id: "superfluous-mbox_notification",
+                timestamp: now.getTime(),
+                type: "display",
+                mbox: {
+                  name: "superfluous-mbox"
+                },
+                tokens: [
+                  "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                ]
+              }
+            ]
+          });
+
+          return Promise.resolve("");
+        },
+        {
+          status: HttpStatus.NO_CONTENT
+        }
+      );
+      jest.mock("../src/index.server");
+
+      async function onClientReady() {
+        await client.getOffers(executeRequestOptions);
+        expect(fetch.mock.calls.length).toEqual(2);
+        done();
+      }
+
+      client = TargetClient.create({
+        ...targetClientOptions,
+        executionMode: EXECUTION_MODE.LOCAL,
+        pollingInterval: 0,
+        clientReadyCallback: onClientReady
+      });
+    });
+
     it("produces a valid response in remote execution mode", async done => {
       fetch.mockResponse(JSON.stringify(DELIVERY_API_RESPONSE));
 
       async function onClientReady() {
-        const result = await client.getOffers(requestOptions);
+        const result = await client.getOffers(prefetchRequestOptions);
 
         expect(result).toEqual(
           expect.objectContaining({

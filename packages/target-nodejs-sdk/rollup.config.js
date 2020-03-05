@@ -42,10 +42,13 @@ export default [
     output: {
       name: "TargetClient",
       file: pkg.browser,
-      format: "umd"
+      format: "umd",
+      sourcemap: true
     },
     external: [],
     plugins: getPlugins({
+      inputSourceMap: true,
+      sourceMaps: true,
       exclude: [/\/core-js\//],
 
       presets: [

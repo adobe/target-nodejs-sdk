@@ -46,7 +46,7 @@ describe("TargetDecisioningEngine", () => {
   it("initializes", async () => {
     fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
 
-    decisioning = await TargetDecisioningEngine.initialize({
+    decisioning = await TargetDecisioningEngine({
       client: "clientId",
       organizationId: "orgId",
       pollingInterval: 0 // do not poll
@@ -69,7 +69,7 @@ describe("TargetDecisioningEngine", () => {
 
     fetch.mockResponses(...responses);
 
-    decisioning = await TargetDecisioningEngine.initialize({
+    decisioning = await TargetDecisioningEngine({
       client: "clientId",
       organizationId: "orgId",
       pollingInterval: 5
@@ -109,7 +109,7 @@ describe("TargetDecisioningEngine", () => {
       ["", { status: HttpStatus.INTERNAL_SERVER_ERROR }]
     );
 
-    decisioning = await TargetDecisioningEngine.initialize({
+    decisioning = await TargetDecisioningEngine({
       client: "someClientId",
       organizationId: "someOrgId",
       pollingInterval: 0
@@ -126,7 +126,7 @@ describe("TargetDecisioningEngine", () => {
   it("getOffers resolves", async () => {
     fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
 
-    decisioning = await TargetDecisioningEngine.initialize({
+    decisioning = await TargetDecisioningEngine({
       client: "someClientId",
       organizationId: "someOrgId",
       pollingInterval: 0
@@ -143,7 +143,7 @@ describe("TargetDecisioningEngine", () => {
   it("fetches a json artifact", async () => {
     fetch.dontMock();
 
-    decisioning = await TargetDecisioningEngine.initialize({
+    decisioning = await TargetDecisioningEngine({
       client: "someClientId",
       organizationId: "someOrgId",
       pollingInterval: 0,

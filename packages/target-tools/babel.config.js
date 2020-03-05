@@ -1,4 +1,6 @@
 module.exports = {
+  inputSourceMap: true,
+  sourceMaps: true,
   ignore: ["node_modules/**"],
   env: {
     development: {

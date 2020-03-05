@@ -10,7 +10,6 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { executeSendBeacon, isBeaconSupported } = require("./utils");
 const { parseCookies } = require("./cookies");
 const {
   getDeviceId,
@@ -66,27 +65,9 @@ function executeDelivery(options, decisioningEngine) {
     timeout
   );
 
-  if (useBeacon && isBeaconSupported()) {
-    const query = {
-      client,
-      sessionId
-    };
-
-    if (typeof config.version !== "undefined") {
-      query.version = config.version;
-    }
-
-    const queryString = configuration.queryParamsStringify(query);
-
-    const success = executeSendBeacon(
-      `${host}/rest/v1/delivery?${queryString}`,
-      JSON.stringify(deliveryRequest)
-    );
-    return success ? Promise.resolve() : Promise.reject();
-  }
-
   return createDeliveryApiMethod(
     configuration,
+    useBeacon,
     options.config.executionMode,
     decisioningEngine
   )

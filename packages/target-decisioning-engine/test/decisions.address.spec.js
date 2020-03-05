@@ -135,7 +135,7 @@ describe("decisioning outcomes - url params", () => {
 
   it("keys off of the url provided in the base context", async () => {
     fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_ADDRESS));
-    decisioning = await TargetDecisioningEngine.initialize(TEST_CONF);
+    decisioning = await TargetDecisioningEngine(TEST_CONF);
 
     expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD_ADDRESS);
 
@@ -199,7 +199,7 @@ describe("decisioning outcomes - url params", () => {
 
   it("address attributes override context url", async () => {
     fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_ADDRESS));
-    decisioning = await TargetDecisioningEngine.initialize(TEST_CONF);
+    decisioning = await TargetDecisioningEngine(TEST_CONF);
 
     expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD_ADDRESS);
 
@@ -266,7 +266,7 @@ describe("decisioning outcomes - url params", () => {
 
   it("address attributes override context url return empty", async () => {
     fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_ADDRESS));
-    decisioning = await TargetDecisioningEngine.initialize(TEST_CONF);
+    decisioning = await TargetDecisioningEngine(TEST_CONF);
 
     expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD_ADDRESS);
 

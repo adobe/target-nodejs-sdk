@@ -231,7 +231,7 @@ describe.skip("decisioning outcomes - timeframe", () => {
     fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD));
     MockDate.set(new Date("2020-02-28T01:05:00"));
 
-    decisioning = await TargetDecisioningEngine.initialize(TEST_CONF);
+    decisioning = await TargetDecisioningEngine(TEST_CONF);
 
     expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD);
 
@@ -268,7 +268,7 @@ describe.skip("decisioning outcomes - timeframe", () => {
     fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD));
     MockDate.set(new Date("2020-03-04T01:05:00"));
 
-    decisioning = await TargetDecisioningEngine.initialize(TEST_CONF);
+    decisioning = await TargetDecisioningEngine(TEST_CONF);
 
     expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD);
 
@@ -305,7 +305,7 @@ describe.skip("decisioning outcomes - timeframe", () => {
     fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD));
     MockDate.set(new Date("2020-03-09T01:05:00"));
 
-    decisioning = await TargetDecisioningEngine.initialize(TEST_CONF);
+    decisioning = await TargetDecisioningEngine(TEST_CONF);
 
     expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD);
 
@@ -342,7 +342,7 @@ describe.skip("decisioning outcomes - timeframe", () => {
     fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD));
     MockDate.set(new Date("2020-03-02T14:05:00"));
 
-    decisioning = await TargetDecisioningEngine.initialize(TEST_CONF);
+    decisioning = await TargetDecisioningEngine(TEST_CONF);
 
     expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD);
 
@@ -379,7 +379,7 @@ describe.skip("decisioning outcomes - timeframe", () => {
     fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD));
     MockDate.set(new Date("2020-03-10T01:05:00")); // tuesday out of bounds
 
-    decisioning = await TargetDecisioningEngine.initialize(TEST_CONF);
+    decisioning = await TargetDecisioningEngine(TEST_CONF);
 
     expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD);
 

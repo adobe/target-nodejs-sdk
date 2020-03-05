@@ -3,6 +3,7 @@ import { createDecisioningContext } from "./contextProvider";
 import { getDecisions, getRules } from "./decisionProvider";
 import ArtifactProvider from "./artifactProvider";
 import Messages from "./messages";
+import NotificationProvider from "./notificationProvider";
 
 /**
  * The TargetDecisioningEngine initialize method
@@ -13,11 +14,12 @@ import Messages from "./messages";
  * @param {String} config.artifactLocation Fully qualified url to the location of the artifact, optional
  * @param {String} config.artifactPayload A pre-fetched artifact, optional
  * @param {Object} config.logger Replaces the default noop logger, optional
+ * @param {Function} config.sendNotificationFunc Function used to send notifications, optional
  */
-async function initialize(config) {
+async function TargetDecisioningEngine(config) {
   const logger = TargetTools.getLogger(config.logger);
 
-  const artifactProvider = await ArtifactProvider.initialize({
+  const artifactProvider = await ArtifactProvider({
     client: config.client,
     organizationId: config.organizationId,
     pollingInterval: config.pollingInterval,
@@ -49,12 +51,18 @@ async function initialize(config) {
     if (typeof artifact === "undefined") {
       return Promise.reject(new Error(Messages.ARTIFACT_NOT_AVAILABLE));
     }
+    const notificationProvider = NotificationProvider(
+      targetOptions.request,
+      config.sendNotificationFunc
+    );
+
     return getDecisions(
       config.client,
       targetOptions.request.id,
       createDecisioningContext(targetOptions.request),
       getRules(artifact),
-      targetOptions.request
+      targetOptions.request,
+      notificationProvider
     );
   }
 
@@ -64,9 +72,5 @@ async function initialize(config) {
     getOffers: targetOptions => getOffers(targetOptions)
   });
 }
-
-const TargetDecisioningEngine = {
-  initialize
-};
 
 export default TargetDecisioningEngine;

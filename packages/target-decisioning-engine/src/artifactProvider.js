@@ -91,7 +91,7 @@ function getPollingInterval(config) {
  * @param {String} config.artifactPayload A pre-fetched artifact, optional
  * @param {Object} config.logger Replaces the default noop logger, optional
  */
-async function initialize(config) {
+async function ArtifactProvider(config) {
   const pollingInterval = getPollingInterval(config);
   const logger = TargetTools.getLogger(config.logger);
 
@@ -140,7 +140,7 @@ async function initialize(config) {
         emit(artifact);
       } catch (err) {
         const reason = err ? err.toString() : "unknown reason";
-        logger.error(`Error fetching artifact: ${reason}`);
+        logger.error(Messages.ARTIFACT_FETCH_ERROR(reason));
       }
       scheduleNextUpdate();
     }, pollingInterval);
@@ -178,9 +178,5 @@ async function initialize(config) {
     resumePolling: () => resumePolling()
   });
 }
-
-const ArtifactProvider = {
-  initialize
-};
 
 export default ArtifactProvider;

@@ -3,7 +3,8 @@ import { uuid } from "./lodash";
 
 const TargetTools = {
   getLogger,
-  createUUID: () => uuid()
+  createUUID: () => uuid(),
+  noop: () => undefined
 };
 
 export default TargetTools;

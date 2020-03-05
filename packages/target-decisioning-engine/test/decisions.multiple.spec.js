@@ -206,9 +206,11 @@ describe("decisioning outcomes - multiple activities", () => {
   describe("execute", () => {
     it("only returns for the mbox requested", async () => {
       fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_AB_MULTI_SIMPLE));
-      decisioning = await TargetDecisioningEngine.initialize(TEST_CONF);
+      decisioning = await TargetDecisioningEngine(TEST_CONF);
 
-      expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD_AB_MULTI_SIMPLE);
+      expect(decisioning.getRawArtifact()).toEqual(
+        DECISIONING_PAYLOAD_AB_MULTI_SIMPLE
+      );
 
       const result = await decisioning.getOffers({
         request: {
@@ -271,9 +273,11 @@ describe("decisioning outcomes - multiple activities", () => {
 
     it("returns results for multiple mboxes", async () => {
       fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_AB_MULTI_SIMPLE));
-      decisioning = await TargetDecisioningEngine.initialize(TEST_CONF);
+      decisioning = await TargetDecisioningEngine(TEST_CONF);
 
-      expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD_AB_MULTI_SIMPLE);
+      expect(decisioning.getRawArtifact()).toEqual(
+        DECISIONING_PAYLOAD_AB_MULTI_SIMPLE
+      );
 
       const result = await decisioning.getOffers({
         request: {
@@ -352,9 +356,11 @@ describe("decisioning outcomes - multiple activities", () => {
   describe("prefetch", () => {
     it("only returns for the mbox requested", async () => {
       fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_AB_MULTI_SIMPLE));
-      decisioning = await TargetDecisioningEngine.initialize(TEST_CONF);
+      decisioning = await TargetDecisioningEngine(TEST_CONF);
 
-      expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD_AB_MULTI_SIMPLE);
+      expect(decisioning.getRawArtifact()).toEqual(
+        DECISIONING_PAYLOAD_AB_MULTI_SIMPLE
+      );
 
       const result = await decisioning.getOffers({
         request: {
@@ -419,9 +425,11 @@ describe("decisioning outcomes - multiple activities", () => {
 
     it("returns results for multiple mboxes", async () => {
       fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_AB_MULTI_SIMPLE));
-      decisioning = await TargetDecisioningEngine.initialize(TEST_CONF);
+      decisioning = await TargetDecisioningEngine(TEST_CONF);
 
-      expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD_AB_MULTI_SIMPLE);
+      expect(decisioning.getRawArtifact()).toEqual(
+        DECISIONING_PAYLOAD_AB_MULTI_SIMPLE
+      );
 
       const result = await decisioning.getOffers({
         request: {

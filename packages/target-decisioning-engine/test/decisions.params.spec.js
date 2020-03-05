@@ -139,7 +139,7 @@ describe("decisioning outcomes - params", () => {
 
   it("provides decisions based on mbox parameters", async () => {
     fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_PARAMS));
-    decisioning = await TargetDecisioningEngine.initialize(TEST_CONF);
+    decisioning = await TargetDecisioningEngine(TEST_CONF);
 
     expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD_PARAMS);
 
@@ -209,7 +209,7 @@ describe("decisioning outcomes - params", () => {
 
   it("only returns decisions if match params", async () => {
     fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_PARAMS));
-    decisioning = await TargetDecisioningEngine.initialize(TEST_CONF);
+    decisioning = await TargetDecisioningEngine(TEST_CONF);
 
     expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD_PARAMS);
 

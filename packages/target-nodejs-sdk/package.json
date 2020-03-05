@@ -14,7 +14,7 @@
     "clean": "rimraf lib",
     "prebuild": "npm run clean && npm run format && npm run lint",
     "build": "rollup -c rollup.config.js",
-    "postbuild": "cp lib/targetclient.browser.js demo",
+    "postbuild": "cp lib/targetclient.browser* demo",
     "www": "npm run build && node ./sample/server.js",
     "pretest": "npm run lint-test",
     "test": "jest",

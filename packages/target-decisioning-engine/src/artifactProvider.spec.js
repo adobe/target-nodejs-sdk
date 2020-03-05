@@ -23,7 +23,7 @@ describe("artifactProvider", () => {
   it("initializes", async () => {
     fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
 
-    provider = await ArtifactProvider.initialize({
+    provider = await ArtifactProvider({
       client: "clientId",
       organizationId: "orgId",
       artifactPayload: DUMMY_ARTIFACT_PAYLOAD
@@ -35,7 +35,7 @@ describe("artifactProvider", () => {
   it("subscribes", async done => {
     fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
 
-    provider = await ArtifactProvider.initialize({
+    provider = await ArtifactProvider({
       client: "clientId",
       organizationId: "orgId",
       pollingInterval: 10
@@ -54,7 +54,7 @@ describe("artifactProvider", () => {
   it("polls", async done => {
     fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
 
-    provider = await ArtifactProvider.initialize({
+    provider = await ArtifactProvider({
       client: "clientId",
       organizationId: "orgId",
       pollingInterval: 10
@@ -73,7 +73,7 @@ describe("artifactProvider", () => {
   it("does not poll if artifact payload is provided", async done => {
     fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
 
-    provider = await ArtifactProvider.initialize({
+    provider = await ArtifactProvider({
       client: "clientId",
       organizationId: "orgId",
       artifactPayload: DUMMY_ARTIFACT_PAYLOAD,
@@ -105,7 +105,7 @@ describe("artifactProvider", () => {
       [JSON.stringify(DUMMY_ARTIFACT_PAYLOAD), { status: HttpStatus.OK }]
     );
     // HttpStatus.NOT_MODIFIED
-    provider = await ArtifactProvider.initialize({
+    provider = await ArtifactProvider({
       client: "clientId",
       organizationId: "orgId",
       pollingInterval: 0
@@ -139,7 +139,7 @@ describe("artifactProvider", () => {
       }
     };
 
-    provider = await ArtifactProvider.initialize({
+    provider = await ArtifactProvider({
       client: "clientId",
       organizationId: "orgId",
       pollingInterval: 0,
@@ -158,7 +158,7 @@ describe("artifactProvider", () => {
       .mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD))
       .doMockIf(artifactURL);
 
-    provider = await ArtifactProvider.initialize({
+    provider = await ArtifactProvider({
       client: "clientId",
       organizationId: "orgId",
       pollingInterval: 0,
@@ -242,7 +242,7 @@ describe("artifactProvider", () => {
         }
       );
 
-    provider = await ArtifactProvider.initialize({
+    provider = await ArtifactProvider({
       client: "clientId",
       organizationId: "orgId",
       pollingInterval: 500,

@@ -122,7 +122,7 @@ describe("decisioning outcomes - single activity", () => {
   describe("execute", () => {
     it("simple ab form-based activity", async () => {
       fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_AB_SIMPLE));
-      decisioning = await TargetDecisioningEngine.initialize(TEST_CONF);
+      decisioning = await TargetDecisioningEngine(TEST_CONF);
 
       expect(decisioning.getRawArtifact()).toEqual(
         DECISIONING_PAYLOAD_AB_SIMPLE
@@ -199,7 +199,7 @@ describe("decisioning outcomes - single activity", () => {
   describe("prefetch", () => {
     it("simple ab form-based activity", async () => {
       fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_AB_SIMPLE));
-      decisioning = await TargetDecisioningEngine.initialize(TEST_CONF);
+      decisioning = await TargetDecisioningEngine(TEST_CONF);
 
       expect(decisioning.getRawArtifact()).toEqual(
         DECISIONING_PAYLOAD_AB_SIMPLE

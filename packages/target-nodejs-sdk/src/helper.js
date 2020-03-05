@@ -14,6 +14,7 @@ const TargetTools = require("@adobe/target-tools");
 const { EXECUTION_MODE } = require("./enums");
 const api = require("../generated-delivery-api-client");
 const Messages = require("./messages");
+const { executeSendBeacon, isBeaconSupported } = require("./utils");
 const { MBOX_INVALID, NOTIFICATION_INVALID } = require("./messages");
 
 const {
@@ -508,13 +509,47 @@ function createLocalDeliveryApi(decisioningEngine) {
   };
 }
 
+function createBeaconDeliveryApi(configuration) {
+  return {
+    execute: (client, sessionId, deliveryRequest, atjsVersion) => {
+      const query = {
+        client,
+        sessionId
+      };
+
+      if (typeof configuration.version !== "undefined") {
+        query.version = atjsVersion;
+      }
+
+      const queryString = configuration.queryParamsStringify(query);
+
+      const success = executeSendBeacon(
+        `${configuration.basePath}/rest/v1/delivery?${queryString}`,
+        JSON.stringify({
+          ...deliveryRequest,
+          context: {
+            ...deliveryRequest.context,
+            beacon: true
+          }
+        })
+      );
+      return success ? Promise.resolve() : Promise.reject();
+    }
+  };
+}
+
 function createDeliveryApi(
   configuration,
+  useBeacon = false,
   executionMode = EXECUTION_MODE.REMOTE,
   decisioningEngine = undefined
 ) {
-  return executionMode === EXECUTION_MODE.LOCAL
-    ? createLocalDeliveryApi(decisioningEngine)
+  if (executionMode === EXECUTION_MODE.LOCAL) {
+    return createLocalDeliveryApi(decisioningEngine);
+  }
+
+  return useBeacon && isBeaconSupported()
+    ? createBeaconDeliveryApi(configuration)
     : new DeliveryAPIApi(configuration);
 }
 

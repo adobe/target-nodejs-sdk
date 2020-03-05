@@ -104,15 +104,21 @@ function getExecuteDecisions(
   visitorId,
   context,
   rules,
-  deliveryRequest
+  deliveryRequest,
+  notificationProvider
 ) {
+  /**
+   * @param {import("../../target-nodejs-sdk/generated-delivery-api-client/models/MboxResponse").MboxResponse} item
+   */
   function postProcess(item) {
+    notificationProvider.addNotification(item);
+
     const result = { ...item };
     delete result.metrics;
     return result;
   }
 
-  return getRequestDecisions(
+  const decisions = getRequestDecisions(
     "execute",
     clientId,
     visitorId,
@@ -121,6 +127,10 @@ function getExecuteDecisions(
     deliveryRequest,
     postProcess
   );
+
+  notificationProvider.sendNotifications();
+
+  return decisions;
 }
 /**
  *
@@ -180,7 +190,8 @@ export function getDecisions(
   visitorId,
   context,
   rules,
-  deliveryRequest
+  deliveryRequest,
+  notificationProvider
 ) {
   const request = {
     ...deliveryRequest,
@@ -188,7 +199,14 @@ export function getDecisions(
   };
 
   const response = {
-    execute: getExecuteDecisions(clientId, visitorId, context, rules, request),
+    execute: getExecuteDecisions(
+      clientId,
+      visitorId,
+      context,
+      rules,
+      request,
+      notificationProvider
+    ),
     prefetch: getPrefetchDecisions(clientId, visitorId, context, rules, request)
   };
 

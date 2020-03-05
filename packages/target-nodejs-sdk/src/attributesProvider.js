@@ -30,7 +30,7 @@ function createIndexed(response) {
  * @param {String} mbox The name of an mbox that contains JSON content attributes, required
  * @param {import("../generated-delivery-api-client/models/DeliveryResponse").DeliveryResponse} deliveryResponse
  */
-function initialize(mbox, deliveryResponse) {
+function AttributesProvider(mbox, deliveryResponse) {
   const indexed = createIndexed(deliveryResponse);
 
   function getValue(key) {
@@ -57,4 +57,4 @@ function initialize(mbox, deliveryResponse) {
   };
 }
 
-module.exports = initialize;
+module.exports = AttributesProvider;

@@ -47,13 +47,15 @@ function bootstrap(defaultFetchApi) {
       this.logger = TargetTools.getLogger(options.logger);
 
       if (options.executionMode === EXECUTION_MODE.LOCAL) {
-        TargetDecisioningEngine.initialize({
+        TargetDecisioningEngine({
           client: options.client,
           organizationId: options.organizationId,
           pollingInterval: options.pollingInterval,
           artifactLocation: options.artifactLocation,
           artifactPayload: options.artifactPayload,
-          logger: this.logger
+          logger: this.logger,
+          sendNotificationFunc: notificationOptions =>
+            this.sendNotifications(notificationOptions)
         }).then(decisioningEngine => {
           this.decisioningEngine = decisioningEngine;
           emitClientReady(options);
@@ -151,7 +153,7 @@ function bootstrap(defaultFetchApi) {
     /**
      * The TargetClient sendNotifications method
      * @param {Object} options
-     * @param {Object} options.request Target View Delivery API request, required
+     * @param {import("../generated-delivery-api-client/models/DeliveryRequest").DeliveryRequest} options.request Target View Delivery API request, required
      * @param {String} options.visitorCookie VisitorId cookie, optional
      * @param {String} options.targetCookie Target cookie, optional
      * @param {String} options.targetLocationHintCookie Target Location Hint cookie, optional
@@ -170,10 +172,16 @@ function bootstrap(defaultFetchApi) {
 
       const visitor = createVisitor(options, this.config);
 
-      const targetOptions = Object.assign(
-        { visitor, config: this.config, logger: this.logger, useBeacon: true },
-        options
-      );
+      const targetOptions = {
+        visitor,
+        config: {
+          ...this.config,
+          executionMode: EXECUTION_MODE.REMOTE // execution mode for sending notifications must always be remote
+        },
+        logger: this.logger,
+        useBeacon: true,
+        ...options
+      };
 
       return executeDelivery(targetOptions);
     }

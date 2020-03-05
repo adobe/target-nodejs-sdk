@@ -249,7 +249,7 @@ describe("decisioning outcomes - browser", () => {
 
   it("can identify chrome outcomes", async () => {
     fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD));
-    decisioning = await TargetDecisioningEngine.initialize(TEST_CONF);
+    decisioning = await TargetDecisioningEngine(TEST_CONF);
 
     expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD);
 
@@ -289,7 +289,7 @@ describe("decisioning outcomes - browser", () => {
 
   it("can identify firefox outcomes", async () => {
     fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD));
-    decisioning = await TargetDecisioningEngine.initialize(TEST_CONF);
+    decisioning = await TargetDecisioningEngine(TEST_CONF);
 
     expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD);
 
@@ -329,7 +329,7 @@ describe("decisioning outcomes - browser", () => {
 
   it("can identify safari outcomes", async () => {
     fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD));
-    decisioning = await TargetDecisioningEngine.initialize(TEST_CONF);
+    decisioning = await TargetDecisioningEngine(TEST_CONF);
 
     expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD);
 
@@ -369,7 +369,7 @@ describe("decisioning outcomes - browser", () => {
 
   it("can identify internet explorer outcomes", async () => {
     fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD));
-    decisioning = await TargetDecisioningEngine.initialize(TEST_CONF);
+    decisioning = await TargetDecisioningEngine(TEST_CONF);
 
     expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD);
 
