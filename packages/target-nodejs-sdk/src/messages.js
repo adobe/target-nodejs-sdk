@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 /*
 Copyright 2019 Adobe. All rights reserved.
 This file is licensed to you under the Apache License, Version 2.0 (the "License");
@@ -9,9 +10,10 @@ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTA
 OF ANY KIND, either express or implied. See the License for the specific language
 governing permissions and limitations under the License.
 */
-const { EXECUTION_MODE } = require("./enums");
 
-module.exports = {
+import { EXECUTION_MODE } from "./enums";
+
+export const Messages = {
   PRIVATE_CONSTRUCTOR: "Please use TargetClient.create static method instead",
   ORG_ID_REQUIRED: "Organization Id is required",
   EXECUTION_MODE_INVALID: `Invalid Execution Mode.  Must be set to one of: ${Object.values(

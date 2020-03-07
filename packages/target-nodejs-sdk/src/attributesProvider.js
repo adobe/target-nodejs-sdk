@@ -1,7 +1,9 @@
+/* eslint-disable import/prefer-default-export */
 /**
  * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryResponse").DeliveryResponse} response
  */
-const { ATTRIBUTE_NOT_EXIST } = require("./messages");
+
+import { Messages } from "./messages";
 
 function createIndexed(response) {
   const result = {};
@@ -30,7 +32,7 @@ function createIndexed(response) {
  * @param {Array<String>} mboxNames A list of mbox names that contains JSON content attributes, required
  * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryResponse").DeliveryResponse} deliveryResponse
  */
-function AttributesProvider(mboxNames, deliveryResponse) {
+export function AttributesProvider(mboxNames, deliveryResponse) {
   const indexed = createIndexed(deliveryResponse);
 
   function getValue(mboxName, key) {
@@ -38,7 +40,7 @@ function AttributesProvider(mboxNames, deliveryResponse) {
       !Object.prototype.hasOwnProperty.call(indexed, mboxName) ||
       !Object.prototype.hasOwnProperty.call(indexed[mboxName], key)
     ) {
-      return new Error(ATTRIBUTE_NOT_EXIST(key, mboxName));
+      return new Error(Messages.ATTRIBUTE_NOT_EXIST(key, mboxName));
     }
 
     return indexed[mboxName][key];
@@ -62,5 +64,3 @@ function AttributesProvider(mboxNames, deliveryResponse) {
     asObject: mboxName => getAsObject(mboxName)
   };
 }
-
-module.exports = AttributesProvider;

@@ -1,5 +1,5 @@
 require("jest-fetch-mock").enableMocks();
-const TargetClient = require("../src/index.server");
+const TargetClient = require("../src/index.server").default;
 
 const RESPONSE_PAYLOAD = {
   status: 200,

@@ -16,7 +16,7 @@ import NotificationProvider from "./notificationProvider";
  * @param {Object} config.logger Replaces the default noop logger, optional
  * @param {Function} config.sendNotificationFunc Function used to send notifications, optional
  */
-async function TargetDecisioningEngine(config) {
+export default async function TargetDecisioningEngine(config) {
   const logger = getLogger(config.logger);
 
   const artifactProvider = await ArtifactProvider({
@@ -72,5 +72,3 @@ async function TargetDecisioningEngine(config) {
     getOffers: targetOptions => getOffers(targetOptions)
   });
 }
-
-export default TargetDecisioningEngine;

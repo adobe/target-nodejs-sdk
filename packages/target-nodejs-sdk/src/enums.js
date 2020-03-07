@@ -1,9 +1,7 @@
-const EXECUTION_MODE = {
+/* eslint-disable import/prefer-default-export */
+
+export const EXECUTION_MODE = {
   LOCAL: "local",
   REMOTE: "remote",
   HYBRID: "hybrid"
-};
-
-module.exports = {
-  EXECUTION_MODE
 };

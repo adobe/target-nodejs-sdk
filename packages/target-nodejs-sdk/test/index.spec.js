@@ -15,7 +15,7 @@ const TargetTools = require("@adobe/target-tools");
 const Visitor = require("@adobe-mcid/visitor-js-server");
 const target = require("../src/target");
 const utils = require("../src/utils");
-const Messages = require("../src/messages");
+const { Messages } = require("../src/messages");
 
 const AUTH_STATE = { UNKNOWN: 0, AUTHENTICATED: 1, LOGGED_OUT: 2 };
 const VISITOR_CUSTOMER_IDS = {
@@ -42,7 +42,7 @@ describe("Target Client factory", () => {
     jest.spyOn(TargetTools, "getLogger");
 
     // eslint-disable-next-line global-require
-    TargetClient = require("../src/index.server");
+    TargetClient = require("../src/index.server").default;
   });
 
   afterEach(() => {

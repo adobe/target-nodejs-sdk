@@ -3,9 +3,9 @@ const HttpStatus = require("http-status-codes");
 
 const MockDate = require("mockdate");
 require("jest-fetch-mock").enableMocks();
-const TargetClient = require("../src/index.server");
+const TargetClient = require("../src/index.server").default;
 const { EXECUTION_MODE } = require("../src/enums");
-const { PENDING_ARTIFACT_RETRIEVAL } = require("../src/messages");
+const { Messages } = require("../src/messages");
 
 const DUMMY_ARTIFACT_PAYLOAD = { version: "1.0.0", meta: {}, rules: [] };
 
@@ -96,7 +96,7 @@ describe("target local decisioning", () => {
           request: TARGET_REQUEST,
           sessionId: "dummy_session"
         })
-      ).rejects.toEqual(new Error(PENDING_ARTIFACT_RETRIEVAL));
+      ).rejects.toEqual(new Error(Messages.PENDING_ARTIFACT_RETRIEVAL));
 
       if (timer) clearTimeout(timer);
       done();
@@ -129,7 +129,7 @@ describe("target local decisioning", () => {
           request: TARGET_REQUEST,
           sessionId: "dummy_session"
         })
-      ).rejects.toEqual(new Error(PENDING_ARTIFACT_RETRIEVAL));
+      ).rejects.toEqual(new Error(Messages.PENDING_ARTIFACT_RETRIEVAL));
 
       const timer = setTimeout(async () => {
         await expect(

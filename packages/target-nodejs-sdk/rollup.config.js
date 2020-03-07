@@ -22,7 +22,7 @@ import pkg from "./package.json";
 function getPlugins(babelConfig) {
   return [
     json(),
-    resolve({ preferBuiltins: false }),
+    resolve({ mainFields: ["main", "module"], preferBuiltins: false }),
     commonjs(),
     license({
       banner: {
@@ -49,7 +49,7 @@ export default [
     plugins: getPlugins({
       inputSourceMap: true,
       sourceMaps: true,
-      exclude: [/\/core-js\//],
+      exclude: ["node_modules/**", /\/core-js\//],
 
       presets: [
         [

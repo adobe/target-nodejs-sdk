@@ -13,11 +13,11 @@
   "scripts": {
     "clean": "rimraf lib",
     "prebuild": "npm run clean && npm run format && npm run lint",
-    "build": "rollup -c rollup.config.js",
+    "build": "NODE_ENV=production rollup -c rollup.config.js",
     "postbuild": "cp lib/targetclient.browser* demo",
     "www": "npm run build && node ./sample/server.js",
     "pretest": "npm run lint-test",
-    "test": "jest",
+    "test": "NODE_ENV=development jest",
     "coverage": "nyc --reporter=lcov --reporter=text-summary npm run test",
     "lint-src": "eslint src/**",
     "lint-test": "eslint test/**",

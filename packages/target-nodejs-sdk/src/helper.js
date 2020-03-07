@@ -10,32 +10,23 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const {
+import {
   createUUID,
   getMboxNames,
   DeliveryApiClient
-} = require("@adobe/target-tools");
-const { EXECUTION_MODE } = require("./enums");
-const Messages = require("./messages");
-const { executeSendBeacon, isBeaconSupported } = require("./utils");
-const { MBOX_INVALID, NOTIFICATION_INVALID } = require("./messages");
-
-const {
-  AuthenticatedState,
-  Configuration,
-  ChannelType,
-  LoggingType,
-  MetricType,
-  DeliveryAPIApi
-} = DeliveryApiClient;
-const {
+} from "@adobe/target-tools";
+import { EXECUTION_MODE } from "./enums";
+import { Messages } from "./messages";
+import {
   createTargetCookie,
   DEVICE_ID_COOKIE,
   LOCATION_HINT_COOKIE,
   SESSION_ID_COOKIE
-} = require("./cookies");
-const { version } = require("../package");
-const {
+} from "./cookies";
+
+import { version } from "../package.json";
+
+import {
   isObject,
   isNumber,
   isNonEmptyObject,
@@ -46,8 +37,19 @@ const {
   isEmptyArray,
   removeEmptyKeys,
   flatten,
-  getTimezoneOffset
-} = require("./utils");
+  getTimezoneOffset,
+  executeSendBeacon,
+  isBeaconSupported
+} from "./utils";
+
+const {
+  AuthenticatedState,
+  Configuration,
+  ChannelType,
+  LoggingType,
+  MetricType,
+  DeliveryAPIApi
+} = DeliveryApiClient;
 
 const SCHEME = {
   HTTP: "http://",
@@ -65,7 +67,7 @@ const SESSION_ID_MAX_AGE = 1860;
 const DEVICE_ID_MAX_AGE = 63244800;
 const LOCATION_HINT_MAX_AGE = 1860;
 
-function extractClusterFromDeviceId(id) {
+export function extractClusterFromDeviceId(id) {
   if (isEmptyString(id)) {
     return null;
   }
@@ -85,11 +87,11 @@ function extractClusterFromDeviceId(id) {
   return nodeDetails[0];
 }
 
-function getCluster(deviceId, cluster) {
+export function getCluster(deviceId, cluster) {
   return extractClusterFromDeviceId(deviceId) || cluster;
 }
 
-function getDeviceId(cookies) {
+export function getDeviceId(cookies) {
   const cookie = cookies[DEVICE_ID_COOKIE] || {};
   const { value } = cookie;
 
@@ -100,7 +102,7 @@ function getDeviceId(cookies) {
   return value;
 }
 
-function getSessionId(cookies, userSessionId, uuidMethod = createUUID) {
+export function getSessionId(cookies, userSessionId, uuidMethod = createUUID) {
   const cookie = cookies[SESSION_ID_COOKIE] || {};
   const { value } = cookie;
 
@@ -115,7 +117,7 @@ function getSessionId(cookies, userSessionId, uuidMethod = createUUID) {
   return uuidMethod();
 }
 
-function getTargetHost(serverDomain, cluster, client, secure) {
+export function getTargetHost(serverDomain, cluster, client, secure) {
   const schemePrefix = secure === false ? SCHEME.HTTP : SCHEME.HTTPS;
 
   if (isNonEmptyString(cluster)) {
@@ -129,7 +131,7 @@ function getTargetHost(serverDomain, cluster, client, secure) {
   return `${schemePrefix}${client}.${HOST}`;
 }
 
-function createHeaders(uuidMethod = createUUID) {
+export function createHeaders(uuidMethod = createUUID) {
   return {
     "Content-Type": "application/json",
     "X-EXC-SDK": "AdobeTargetNode",
@@ -191,7 +193,7 @@ function getCustomerIds(customerIds, visitor) {
   return convertedIds.concat(customerIds || []);
 }
 
-function createVisitorId(id = {}, options) {
+export function createVisitorId(id = {}, options) {
   const { deviceId, visitor } = options;
   const {
     tntId = deviceId,
@@ -301,7 +303,7 @@ function createParams(resultClass, entity = {}) {
 const validMbox = (mbox, logger) => {
   const result = isNonEmptyObject(mbox) && isNonEmptyString(mbox.name);
   if (!result) {
-    logger.error(MBOX_INVALID, mbox);
+    logger.error(Messages.MBOX_INVALID, mbox);
   }
   return result;
 };
@@ -395,7 +397,7 @@ const validNotification = (notification, logger) => {
     isNumber(notification.timestamp) &&
     Object.values(MetricType).includes(notification.type);
   if (!result) {
-    logger.error(NOTIFICATION_INVALID, notification);
+    logger.error(Messages.NOTIFICATION_INVALID, notification);
   }
   return result;
 };
@@ -455,7 +457,7 @@ function createProperty(property = {}) {
   return undefined;
 }
 
-function createDeliveryRequest(requestParam, options) {
+export function createDeliveryRequest(requestParam, options) {
   const { logger, uuidMethod = createUUID } = options;
 
   const result = DeliveryApiClient.DeliveryRequestFromJSON({
@@ -482,8 +484,7 @@ function createDeliveryRequest(requestParam, options) {
   return result;
 }
 
-// eslint-disable-next-line no-unused-vars
-function createConfiguration(fetchApi, host, headers, timeout) {
+export function createConfiguration(fetchApi, host, headers, timeout) {
   return new Configuration({
     basePath: host,
     fetchApi,
@@ -537,7 +538,7 @@ function createBeaconDeliveryApi(configuration) {
   };
 }
 
-function createDeliveryApi(
+export function createDeliveryApi(
   configuration,
   useBeacon = false,
   executionMode = EXECUTION_MODE.REMOTE,
@@ -717,7 +718,7 @@ function getResponseTokens(response) {
   return isNonEmptyArray(result) ? result : undefined;
 }
 
-function processResponse(sessionId, cluster, response = {}) {
+export function processResponse(sessionId, cluster, response = {}) {
   const { id = {}, edgeHost } = response;
 
   const result = {
@@ -741,7 +742,11 @@ function processResponse(sessionId, cluster, response = {}) {
  * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} request Target View Delivery API request, required
  * @param { 'execute'|'prefetch' } requestType
  */
-function addMboxesToRequest(mboxNames, request, requestType = "execute") {
+export function addMboxesToRequest(
+  mboxNames,
+  request,
+  requestType = "execute"
+) {
   const requestedMboxes = getMboxNames(request); // returns a set
 
   const mboxes = [];
@@ -772,18 +777,3 @@ function addMboxesToRequest(mboxNames, request, requestType = "execute") {
 
   return result;
 }
-
-module.exports = {
-  getDeviceId,
-  getCluster,
-  getSessionId,
-  getTargetHost,
-  extractClusterFromDeviceId,
-  createHeaders,
-  createDeliveryRequest,
-  createConfiguration,
-  createDeliveryApi,
-  processResponse,
-  addMboxesToRequest,
-  createVisitorId
-};

@@ -1,10 +1,10 @@
 require("jest-fetch-mock").enableMocks();
 const HttpStatus = require("http-status-codes");
 
-const TargetClient = require("../src/index.server");
+const TargetClient = require("../src/index.server").default;
 
-const attributesProvider = require("../src/attributesProvider");
-const { ATTRIBUTE_NOT_EXIST } = require("../src/messages");
+const { AttributesProvider } = require("../src/attributesProvider");
+const { Messages } = require("../src/messages");
 
 const targetResponse = {
   visitorState: {
@@ -114,7 +114,7 @@ const targetResponse = {
 describe("attributes", () => {
   describe("attributesProvider", () => {
     it("gets value for a single mbox", () => {
-      const featureA = attributesProvider(
+      const featureA = AttributesProvider(
         ["feature-flag-a"],
         targetResponse.response
       );
@@ -132,7 +132,7 @@ describe("attributes", () => {
         featureA.getValue("feature-flag-a", "customerFeedbackValue")
       ).toEqual(10);
 
-      const featureB = attributesProvider(
+      const featureB = AttributesProvider(
         ["feature-flag-b"],
         targetResponse.response
       );
@@ -148,7 +148,7 @@ describe("attributes", () => {
     });
 
     it("gets value for multiple mboxes at once", () => {
-      const features = attributesProvider(
+      const features = AttributesProvider(
         ["feature-flag-a", "feature-flag-b"],
         targetResponse.response
       );
@@ -177,7 +177,7 @@ describe("attributes", () => {
     });
 
     it("gets as object", () => {
-      const features = attributesProvider(
+      const features = AttributesProvider(
         ["feature-flag-a", "feature-flag-b"],
         targetResponse.response
       );
@@ -213,17 +213,21 @@ describe("attributes", () => {
     });
 
     it("throws an error if an attribute does not exist", () => {
-      const features = attributesProvider(
+      const features = AttributesProvider(
         ["feature-flag-a", "feature-flag-b"],
         targetResponse.response
       );
 
       expect(features.getValue("feature-flag-a", "myPropertyName")).toEqual(
-        new Error(ATTRIBUTE_NOT_EXIST("myPropertyName", "feature-flag-a"))
+        new Error(
+          Messages.ATTRIBUTE_NOT_EXIST("myPropertyName", "feature-flag-a")
+        )
       );
 
       expect(features.getValue("feature-flag-xyz", "myPropertyName")).toEqual(
-        new Error(ATTRIBUTE_NOT_EXIST("myPropertyName", "feature-flag-xyz"))
+        new Error(
+          Messages.ATTRIBUTE_NOT_EXIST("myPropertyName", "feature-flag-xyz")
+        )
       );
     });
   });
@@ -436,7 +440,9 @@ describe("attributes", () => {
       });
 
       expect(attributes.getValue("unknown-flag", "paymentExperience")).toEqual(
-        new Error(ATTRIBUTE_NOT_EXIST("paymentExperience", "unknown-flag"))
+        new Error(
+          Messages.ATTRIBUTE_NOT_EXIST("paymentExperience", "unknown-flag")
+        )
       );
 
       expect(attributes.asObject("unknown-flag")).toMatchObject({});

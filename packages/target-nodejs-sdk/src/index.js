@@ -10,28 +10,27 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { getLogger } = require("@adobe/target-tools");
+import { getLogger } from "@adobe/target-tools";
+import Visitor from "@adobe-mcid/visitor-js-server";
+import TargetDecisioningEngine from "@adobe/target-decisioning-engine";
+import { createVisitor } from "./utils";
+import { Messages } from "./messages";
+import { EXECUTION_MODE } from "./enums";
+import { LOCATION_HINT_COOKIE, TARGET_COOKIE } from "./cookies";
+import { executeDelivery } from "./target";
+import { AttributesProvider } from "./attributesProvider";
+import { addMboxesToRequest } from "./helper";
 
-const Visitor = require("@adobe-mcid/visitor-js-server");
-const TargetDecisioningEngine = require("@adobe/target-decisioning-engine");
-const { createVisitor } = require("./utils");
-
-const {
+import {
   validateClientOptions,
   validateGetOffersOptions,
   validateSendNotificationsOptions
-} = require("./validators");
-const { executeDelivery } = require("./target");
-const Messages = require("./messages");
-const { TARGET_COOKIE, LOCATION_HINT_COOKIE } = require("./cookies");
-const { EXECUTION_MODE } = require("./enums");
-const attributesProvider = require("./attributesProvider");
-const { addMboxesToRequest } = require("./helper");
+} from "./validators";
 
 const AMCV_PREFIX = "AMCV_";
 const DEFAULT_TIMEOUT = 3000;
 
-function bootstrap(defaultFetchApi) {
+export default function bootstrap(defaultFetchApi) {
   function emitClientReady(config) {
     if (typeof config.clientReadyCallback === "function") {
       config.clientReadyCallback();
@@ -149,7 +148,7 @@ function bootstrap(defaultFetchApi) {
       return this.getOffers({
         ...options,
         request: addMboxesToRequest(mboxNames, options.request, "execute")
-      }).then(res => attributesProvider(mboxNames, res.response));
+      }).then(res => AttributesProvider(mboxNames, res.response));
     }
 
     /**
@@ -207,5 +206,3 @@ function bootstrap(defaultFetchApi) {
 
   return TargetClient;
 }
-
-module.exports = { bootstrap };

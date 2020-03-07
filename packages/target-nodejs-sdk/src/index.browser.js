@@ -1,5 +1,7 @@
-const whatwfFetch = require("whatwg-fetch");
-const TargetClient = require("./index").bootstrap(
+import { fetch as whatwfFetch } from "whatwg-fetch";
+import bootstrap from "./index";
+
+const TargetClient = bootstrap(
   // eslint-disable-next-line no-undef
   typeof window.fetch !== "undefined"
     ? // eslint-disable-next-line no-undef
@@ -7,4 +9,4 @@ const TargetClient = require("./index").bootstrap(
     : whatwfFetch.fetch
 );
 
-module.exports = TargetClient;
+export default TargetClient;

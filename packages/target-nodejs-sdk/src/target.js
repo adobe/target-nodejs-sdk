@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 /*
 Copyright 2019 Adobe. All rights reserved.
 This file is licensed to you under the Apache License, Version 2.0 (the "License");
@@ -10,8 +11,8 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { parseCookies } = require("./cookies");
-const {
+import { Messages } from "./messages";
+import {
   getDeviceId,
   getCluster,
   getSessionId,
@@ -21,10 +22,10 @@ const {
   createConfiguration,
   createDeliveryApi,
   processResponse
-} = require("./helper");
-const { REQUEST_SENT, RESPONSE_RECEIVED } = require("./messages");
+} from "./helper";
+import { parseCookies } from "./cookies";
 
-function executeDelivery(options, decisioningEngine) {
+export function executeDelivery(options, decisioningEngine) {
   const {
     visitor,
     config,
@@ -56,7 +57,7 @@ function executeDelivery(options, decisioningEngine) {
 
   const deliveryRequest = createDeliveryRequest(request, requestOptions);
 
-  logger.debug(REQUEST_SENT, JSON.stringify(deliveryRequest, null, 2));
+  logger.debug(Messages.REQUEST_SENT, JSON.stringify(deliveryRequest, null, 2));
 
   const configuration = createConfiguration(
     config.fetchApi,
@@ -73,14 +74,13 @@ function executeDelivery(options, decisioningEngine) {
   )
     .execute(client, sessionId, deliveryRequest, config.version)
     .then((response = {}) => {
-      logger.debug(RESPONSE_RECEIVED, JSON.stringify(response, null, 2));
+      logger.debug(
+        Messages.RESPONSE_RECEIVED,
+        JSON.stringify(response, null, 2)
+      );
       return Object.assign(
         { visitorState: visitor.getState(), request: deliveryRequest },
         processResponse(sessionId, cluster, response)
       );
     });
 }
-
-module.exports = {
-  executeDelivery
-};

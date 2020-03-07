@@ -10,16 +10,17 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { EXECUTION_MODE } = require("./enums");
-const Messages = require("./messages");
-const {
+import { Messages } from "./messages";
+import { EXECUTION_MODE } from "./enums";
+
+import {
   isNonEmptyObject,
   isEmptyObject,
   isEmptyArray,
   isEmptyString
-} = require("./utils");
+} from "./utils";
 
-function validateClientOptions(options) {
+export function validateClientOptions(options) {
   if (isEmptyObject(options)) {
     return Messages.OPTIONS_REQUIRED;
   }
@@ -44,7 +45,7 @@ function validateClientOptions(options) {
   return null;
 }
 
-function validateGetOffersOptions(options) {
+export function validateGetOffersOptions(options) {
   if (isEmptyObject(options)) {
     return Messages.OPTIONS_REQUIRED;
   }
@@ -81,7 +82,7 @@ function validateGetOffersOptions(options) {
   return null;
 }
 
-function validateSendNotificationsOptions(options) {
+export function validateSendNotificationsOptions(options) {
   if (isEmptyObject(options)) {
     return Messages.OPTIONS_REQUIRED;
   }
@@ -100,9 +101,3 @@ function validateSendNotificationsOptions(options) {
 
   return null;
 }
-
-module.exports = {
-  validateClientOptions,
-  validateGetOffersOptions,
-  validateSendNotificationsOptions
-};

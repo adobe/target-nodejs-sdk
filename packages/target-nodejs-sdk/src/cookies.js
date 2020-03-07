@@ -10,10 +10,10 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const TARGET_COOKIE = "mbox";
-const SESSION_ID_COOKIE = "session";
-const DEVICE_ID_COOKIE = "PC";
-const LOCATION_HINT_COOKIE = "mboxEdgeCluster";
+export const TARGET_COOKIE = "mbox";
+export const SESSION_ID_COOKIE = "session";
+export const DEVICE_ID_COOKIE = "PC";
+export const LOCATION_HINT_COOKIE = "mboxEdgeCluster";
 
 function createInternalCookie(name, value, expires) {
   return { name, value, expires };
@@ -58,7 +58,7 @@ function getMaxExpires(cookies) {
   return Math.max.apply(null, cookies.map(getExpires));
 }
 
-function parseCookies(targetCookie) {
+export function parseCookies(targetCookie) {
   const result = {};
 
   if (!targetCookie) {
@@ -79,7 +79,7 @@ function parseCookies(targetCookie) {
   return result;
 }
 
-function createTargetCookie(cookies) {
+export function createTargetCookie(cookies) {
   const now = Date.now();
   const maxAge = Math.abs(getMaxExpires(cookies) * 1000 - now);
   const serializedCookies = cookies.map(x => serializeCookie(x));
@@ -90,12 +90,3 @@ function createTargetCookie(cookies) {
     maxAge: Math.ceil(maxAge / 1000)
   };
 }
-
-module.exports = {
-  parseCookies,
-  createTargetCookie,
-  TARGET_COOKIE,
-  SESSION_ID_COOKIE,
-  DEVICE_ID_COOKIE,
-  LOCATION_HINT_COOKIE
-};
