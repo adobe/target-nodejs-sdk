@@ -30,7 +30,7 @@ export default [
     },
     plugins: [
       json(),
-      resolve({ preferBuiltins: false }),
+      resolve(),
       commonjs(),
       license({
         banner: {

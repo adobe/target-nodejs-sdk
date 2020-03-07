@@ -22,7 +22,7 @@ import pkg from "./package.json";
 function getPlugins(babelConfig) {
   return [
     json(),
-    resolve({ mainFields: ["main", "module"], preferBuiltins: false }),
+    resolve(),
     commonjs(),
     license({
       banner: {

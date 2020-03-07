@@ -2,19 +2,19 @@
   "name": "@adobe/target-nodejs-sdk",
   "version": "1.1.0",
   "description": "Adobe Target Node.js SDK, Delivery API client",
-  "main": "lib/targetclient.server.js",
-  "browser": "lib/targetclient.browser.js",
+  "main": "dist/targetclient.server.js",
+  "browser": "dist/targetclient.browser.js",
   "engines": {
     "node": ">=8.16.0"
   },
   "files": [
-    "lib"
+    "dist"
   ],
   "scripts": {
-    "clean": "rimraf lib",
+    "clean": "rimraf dist",
     "prebuild": "npm run clean && npm run format && npm run lint",
     "build": "NODE_ENV=production rollup -c rollup.config.js",
-    "postbuild": "cp lib/targetclient.browser* demo",
+    "postbuild": "cp dist/targetclient.browser* demo",
     "www": "npm run build && node ./sample/server.js",
     "pretest": "npm run lint-test",
     "test": "NODE_ENV=development jest",

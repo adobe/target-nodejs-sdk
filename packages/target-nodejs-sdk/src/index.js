@@ -30,179 +30,181 @@ import {
 const AMCV_PREFIX = "AMCV_";
 const DEFAULT_TIMEOUT = 3000;
 
-export default function bootstrap(defaultFetchApi) {
-  function emitClientReady(config) {
-    if (typeof config.clientReadyCallback === "function") {
-      config.clientReadyCallback();
-    }
+function emitClientReady(config) {
+  if (typeof config.clientReadyCallback === "function") {
+    config.clientReadyCallback();
   }
+}
 
-  class TargetClient {
-    constructor(options) {
-      if (!options || !options.internal) {
-        throw new Error(Messages.PRIVATE_CONSTRUCTOR);
-      }
-      this.config = options;
-      this.config.timeout = options.timeout || DEFAULT_TIMEOUT;
-      this.logger = getLogger(options.logger);
+const defaultFetchApi =
+  typeof global !== "undefined" && typeof global.fetch === "function"
+    ? global.fetch
+    : // eslint-disable-next-line no-undef
+      fetch;
 
-      if (options.executionMode === EXECUTION_MODE.LOCAL) {
-        TargetDecisioningEngine({
-          client: options.client,
-          organizationId: options.organizationId,
-          pollingInterval: options.pollingInterval,
-          artifactLocation: options.artifactLocation,
-          artifactPayload: options.artifactPayload,
-          logger: this.logger,
-          sendNotificationFunc: notificationOptions =>
-            this.sendNotifications(notificationOptions)
-        }).then(decisioningEngine => {
-          this.decisioningEngine = decisioningEngine;
-          emitClientReady(options);
-        });
-      } else {
-        setTimeout(() => emitClientReady(options), 100);
-      }
+export default class TargetClient {
+  constructor(options) {
+    if (!options || !options.internal) {
+      throw new Error(Messages.PRIVATE_CONSTRUCTOR);
     }
+    this.config = options;
+    this.config.timeout = options.timeout || DEFAULT_TIMEOUT;
+    this.logger = getLogger(options.logger);
 
-    /**
-     * The TargetClient creation factory method
-     * @param {Object} options Options map, required
-     * @param {Function }options.fetchApi Fetch Implementation, optional
-     * @param {String} options.client Target Client Id, required
-     * @param {String} options.organizationId Target Organization Id, required
-     * @param {Number} options.timeout Target request timeout in ms, default: 3000
-     * @param {String} options.serverDomain Server domain, optional
-     * @param {boolean} options.secure Unset to enforce HTTP scheme, default: true
-     * @param {Object} options.logger Replaces the default noop logger, optional
-     * @param {('local'|'remote'|'hybrid')} options.executionMode The evaluation mode, defaults to remote, optional
-     * @param {Number} options.pollingInterval (Local Decisioning) Polling interval in ms, default: 30000
-     * @param {String} options.artifactLocation (Local Decisioning) Fully qualified url to the location of the artifact, optional
-     * @param {String} options.artifactPayload (Local Decisioning) A pre-fetched artifact, optional
-     * @param {Number} options.environmentId The environment ID, defaults to prod, optional
-     * @param {String} options.version The version number of at.js, optional
-     * @param {String} options.clientReadyCallback A callback that is called when the TargetClient is ready, optional
-     */
-    static create(options) {
-      const error = validateClientOptions(options);
-
-      if (error) {
-        throw new Error(error);
-      }
-
-      return new TargetClient(
-        Object.assign(
-          {
-            internal: true,
-            executionMode: EXECUTION_MODE.REMOTE,
-            fetchApi: defaultFetchApi
-          },
-          options
-        )
-      );
-    }
-
-    /**
-     * The TargetClient getOffers method
-     * @param {Object} options
-     * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} options.request Target View Delivery API request, required
-     * @param {String} options.visitorCookie VisitorId cookie, optional
-     * @param {String} options.targetCookie Target cookie, optional
-     * @param {String} options.targetLocationHintCookie Target Location Hint cookie, optional
-     * @param {String} options.consumerId When stitching multiple calls, different consumerIds should be provided, optional
-     * @param {Array}  options.customerIds An array of Customer Ids in VisitorId-compatible format, optional
-     * @param {String} options.sessionId Session Id, used for linking multiple requests, optional
-     * @param {Object} options.visitor Supply an external VisitorId instance, optional
-     */
-    getOffers(options) {
-      const error = validateGetOffersOptions(options);
-
-      if (error) {
-        return Promise.reject(new Error(error));
-      }
-
-      const visitor = createVisitor(options, this.config);
-
-      const targetOptions = Object.assign(
-        { visitor, config: this.config, logger: this.logger },
-        options
-      );
-
-      return executeDelivery(targetOptions, this.decisioningEngine);
-    }
-
-    /**
-     * The TargetClient getAttributes method
-     * @param {Array<String>} mboxNames A list of mbox names that contains JSON content attributes, required
-     * @param {Object} options, required
-     * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} options.request Target View Delivery API request, required
-     * @param {String} options.visitorCookie VisitorId cookie, optional
-     * @param {String} options.targetCookie Target cookie, optional
-     * @param {String} options.targetLocationHintCookie Target Location Hint cookie, optional
-     * @param {String} options.consumerId When stitching multiple calls, different consumerIds should be provided, optional
-     * @param {Array}  options.customerIds An array of Customer Ids in VisitorId-compatible format, optional
-     * @param {String} options.sessionId Session Id, used for linking multiple requests, optional
-     * @param {Object} options.visitor Supply an external VisitorId instance, optional
-     */
-    getAttributes(mboxNames, options) {
-      return this.getOffers({
-        ...options,
-        request: addMboxesToRequest(mboxNames, options.request, "execute")
-      }).then(res => AttributesProvider(mboxNames, res.response));
-    }
-
-    /**
-     * The TargetClient sendNotifications method
-     * @param {Object} options
-     * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} options.request Target View Delivery API request, required
-     * @param {String} options.visitorCookie VisitorId cookie, optional
-     * @param {String} options.targetCookie Target cookie, optional
-     * @param {String} options.targetLocationHintCookie Target Location Hint cookie, optional
-     * @param {String} options.consumerId When stitching multiple calls, different consumerIds should be provided, optional
-     * @param {Array} options.customerIds An array of Customer Ids in VisitorId-compatible format, optional
-     * @param {String} options.sessionId Session Id, used for linking multiple requests, optional
-     * @param {Object} options.visitor Supply an external VisitorId instance, optional
-     */
-
-    sendNotifications(options) {
-      const error = validateSendNotificationsOptions(options);
-
-      if (error) {
-        return Promise.reject(new Error(error));
-      }
-
-      const visitor = createVisitor(options, this.config);
-
-      const targetOptions = {
-        visitor,
-        config: {
-          ...this.config,
-          executionMode: EXECUTION_MODE.REMOTE // execution mode for sending notifications must always be remote
-        },
+    if (options.executionMode === EXECUTION_MODE.LOCAL) {
+      TargetDecisioningEngine({
+        client: options.client,
+        organizationId: options.organizationId,
+        pollingInterval: options.pollingInterval,
+        artifactLocation: options.artifactLocation,
+        artifactPayload: options.artifactPayload,
         logger: this.logger,
-        useBeacon: true,
-        ...options
-      };
-
-      return executeDelivery(targetOptions);
-    }
-
-    static getVisitorCookieName(orgId) {
-      return AMCV_PREFIX + orgId;
-    }
-
-    static get TargetCookieName() {
-      return TARGET_COOKIE;
-    }
-
-    static get TargetLocationHintCookieName() {
-      return LOCATION_HINT_COOKIE;
-    }
-
-    static get AuthState() {
-      return Visitor.AuthState;
+        sendNotificationFunc: notificationOptions =>
+          this.sendNotifications(notificationOptions)
+      }).then(decisioningEngine => {
+        this.decisioningEngine = decisioningEngine;
+        emitClientReady(options);
+      });
+    } else {
+      setTimeout(() => emitClientReady(options), 100);
     }
   }
 
-  return TargetClient;
+  /**
+   * The TargetClient creation factory method
+   * @param {Object} options Options map, required
+   * @param {Function }options.fetchApi Fetch Implementation, optional
+   * @param {String} options.client Target Client Id, required
+   * @param {String} options.organizationId Target Organization Id, required
+   * @param {Number} options.timeout Target request timeout in ms, default: 3000
+   * @param {String} options.serverDomain Server domain, optional
+   * @param {boolean} options.secure Unset to enforce HTTP scheme, default: true
+   * @param {Object} options.logger Replaces the default noop logger, optional
+   * @param {('local'|'remote'|'hybrid')} options.executionMode The evaluation mode, defaults to remote, optional
+   * @param {Number} options.pollingInterval (Local Decisioning) Polling interval in ms, default: 30000
+   * @param {String} options.artifactLocation (Local Decisioning) Fully qualified url to the location of the artifact, optional
+   * @param {String} options.artifactPayload (Local Decisioning) A pre-fetched artifact, optional
+   * @param {Number} options.environmentId The environment ID, defaults to prod, optional
+   * @param {String} options.version The version number of at.js, optional
+   * @param {String} options.clientReadyCallback A callback that is called when the TargetClient is ready, optional
+   */
+  static create(options) {
+    const error = validateClientOptions(options);
+
+    if (error) {
+      throw new Error(error);
+    }
+
+    return new TargetClient(
+      Object.assign(
+        {
+          internal: true,
+          executionMode: EXECUTION_MODE.REMOTE,
+          fetchApi: defaultFetchApi
+        },
+        options
+      )
+    );
+  }
+
+  /**
+   * The TargetClient getOffers method
+   * @param {Object} options
+   * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} options.request Target View Delivery API request, required
+   * @param {String} options.visitorCookie VisitorId cookie, optional
+   * @param {String} options.targetCookie Target cookie, optional
+   * @param {String} options.targetLocationHintCookie Target Location Hint cookie, optional
+   * @param {String} options.consumerId When stitching multiple calls, different consumerIds should be provided, optional
+   * @param {Array}  options.customerIds An array of Customer Ids in VisitorId-compatible format, optional
+   * @param {String} options.sessionId Session Id, used for linking multiple requests, optional
+   * @param {Object} options.visitor Supply an external VisitorId instance, optional
+   */
+  getOffers(options) {
+    const error = validateGetOffersOptions(options);
+
+    if (error) {
+      return Promise.reject(new Error(error));
+    }
+
+    const visitor = createVisitor(options, this.config);
+
+    const targetOptions = Object.assign(
+      { visitor, config: this.config, logger: this.logger },
+      options
+    );
+
+    return executeDelivery(targetOptions, this.decisioningEngine);
+  }
+
+  /**
+   * The TargetClient getAttributes method
+   * @param {Array<String>} mboxNames A list of mbox names that contains JSON content attributes, required
+   * @param {Object} options, required
+   * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} options.request Target View Delivery API request, required
+   * @param {String} options.visitorCookie VisitorId cookie, optional
+   * @param {String} options.targetCookie Target cookie, optional
+   * @param {String} options.targetLocationHintCookie Target Location Hint cookie, optional
+   * @param {String} options.consumerId When stitching multiple calls, different consumerIds should be provided, optional
+   * @param {Array}  options.customerIds An array of Customer Ids in VisitorId-compatible format, optional
+   * @param {String} options.sessionId Session Id, used for linking multiple requests, optional
+   * @param {Object} options.visitor Supply an external VisitorId instance, optional
+   */
+  getAttributes(mboxNames, options) {
+    return this.getOffers({
+      ...options,
+      request: addMboxesToRequest(mboxNames, options.request, "execute")
+    }).then(res => AttributesProvider(mboxNames, res.response));
+  }
+
+  /**
+   * The TargetClient sendNotifications method
+   * @param {Object} options
+   * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} options.request Target View Delivery API request, required
+   * @param {String} options.visitorCookie VisitorId cookie, optional
+   * @param {String} options.targetCookie Target cookie, optional
+   * @param {String} options.targetLocationHintCookie Target Location Hint cookie, optional
+   * @param {String} options.consumerId When stitching multiple calls, different consumerIds should be provided, optional
+   * @param {Array} options.customerIds An array of Customer Ids in VisitorId-compatible format, optional
+   * @param {String} options.sessionId Session Id, used for linking multiple requests, optional
+   * @param {Object} options.visitor Supply an external VisitorId instance, optional
+   */
+
+  sendNotifications(options) {
+    const error = validateSendNotificationsOptions(options);
+
+    if (error) {
+      return Promise.reject(new Error(error));
+    }
+
+    const visitor = createVisitor(options, this.config);
+
+    const targetOptions = {
+      visitor,
+      config: {
+        ...this.config,
+        executionMode: EXECUTION_MODE.REMOTE // execution mode for sending notifications must always be remote
+      },
+      logger: this.logger,
+      useBeacon: true,
+      ...options
+    };
+
+    return executeDelivery(targetOptions);
+  }
+
+  static getVisitorCookieName(orgId) {
+    return AMCV_PREFIX + orgId;
+  }
+
+  static get TargetCookieName() {
+    return TARGET_COOKIE;
+  }
+
+  static get TargetLocationHintCookieName() {
+    return LOCATION_HINT_COOKIE;
+  }
+
+  static get AuthState() {
+    return Visitor.AuthState;
+  }
 }

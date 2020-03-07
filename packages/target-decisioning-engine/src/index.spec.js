@@ -152,7 +152,5 @@ describe("TargetDecisioningEngine", () => {
     });
 
     expect(decisioning.getRawArtifact()).not.toBeUndefined();
-
-    // await expect(decisioning.getOffers(TARGET_REQUEST)).resolves.toEqual({});
   });
 });

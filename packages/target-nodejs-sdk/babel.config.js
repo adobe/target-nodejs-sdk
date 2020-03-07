@@ -4,6 +4,4 @@ const config = {
   ...baseConfig
 };
 
-// config.env.production.plugins.push("@babel/plugin-transform-regenerator");
-
 module.exports = config;

@@ -13,7 +13,7 @@ governing permissions and limitations under the License.
 const fs = require("fs");
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const TargetClient = require("../lib/targetclient.server");
+const TargetClient = require("../dist/targetclient.server");
 const TEMPLATE = fs.readFileSync(__dirname + "/templates/index.tpl").toString();
 const CONFIG = require("./config.json");
 
@@ -29,7 +29,7 @@ function saveCookie(res, cookie) {
     return;
   }
 
-  res.cookie(cookie.name, cookie.value, {maxAge: cookie.maxAge * 1000});
+  res.cookie(cookie.name, cookie.value, { maxAge: cookie.maxAge * 1000 });
 }
 
 function sendHtml(res, response) {
@@ -38,12 +38,11 @@ function sendHtml(res, response) {
     response: response.response
   };
 
-  let result = TEMPLATE
-  .replace(/\$\{organizationId\}/g, CONFIG.organizationId)
-  .replace("${clientCode}", CONFIG.client)
-  .replace("${visitorState}", JSON.stringify(response.visitorState))
-  .replace("${content}", JSON.stringify(response.response, null, ' '))
-  .replace("${serverState}", JSON.stringify(serverState, null, ' '));
+  let result = TEMPLATE.replace(/\$\{organizationId\}/g, CONFIG.organizationId)
+    .replace("${clientCode}", CONFIG.client)
+    .replace("${visitorState}", JSON.stringify(response.visitorState))
+    .replace("${content}", JSON.stringify(response.response, null, " "))
+    .replace("${serverState}", JSON.stringify(serverState, null, " "));
 
   if (CONFIG.serverDomain) {
     result = result.replace("${serverDomain}", CONFIG.serverDomain);
@@ -56,7 +55,7 @@ function sendHtml(res, response) {
 
 const getResponseHeaders = () => ({
   "Content-Type": "text/html",
-  "Expires": new Date().toUTCString()
+  Expires: new Date().toUTCString()
 });
 
 function sendResponse(res, response) {
@@ -76,8 +75,9 @@ function sendErrorResponse(res, error) {
 function getCommonTargetOptions(req) {
   return {
     targetCookie: req.cookies[TargetClient.TargetCookieName],
-    targetLocationHintCookie: req.cookies[TargetClient.TargetLocationHintCookieName]
-  }
+    targetLocationHintCookie:
+      req.cookies[TargetClient.TargetLocationHintCookieName]
+  };
 }
 
 function setTraceToken(trace = {}, req) {
@@ -103,62 +103,70 @@ async function processTargetRequest(request, req, res) {
   }
 }
 
-app.get('/executembox', function (req, res) {
+app.get("/executembox", function(req, res) {
   const executeMboxRequest = {
     execute: {
       mboxes: [{ name: "a1-serverside-ab" }]
-    }};
+    }
+  };
 
   processTargetRequest(executeMboxRequest, req, res);
 });
 
-app.get('/executemboxes', function (req, res) {
+app.get("/executemboxes", function(req, res) {
   const executeMboxesRequest = {
     execute: {
       mboxes: [
         { name: "first-multi-mbox" },
         { name: "second-multi-mbox" },
-        { name: "single-mbox" }]
-    }};
+        { name: "single-mbox" }
+      ]
+    }
+  };
 
   processTargetRequest(executeMboxesRequest, req, res);
 });
 
-app.get('/prefetchmbox', function (req, res) {
+app.get("/prefetchmbox", function(req, res) {
   const prefetchMboxRequest = {
     prefetch: {
       mboxes: [{ name: "a1-serverside-ab" }]
-    }};
+    }
+  };
 
   processTargetRequest(prefetchMboxRequest, req, res);
 });
 
-app.get('/prefetchmboxes', function (req, res) {
+app.get("/prefetchmboxes", function(req, res) {
   const prefetchMboxesRequest = {
     prefetch: {
       mboxes: [
         { name: "first-multi-mbox" },
         { name: "second-multi-mbox" },
-        { name: "single-mbox" }]
-    }};
+        { name: "single-mbox" }
+      ]
+    }
+  };
 
   processTargetRequest(prefetchMboxesRequest, req, res);
 });
 
-app.get('/executepageload', function (req, res) {
+app.get("/executepageload", function(req, res) {
   const executePageLoadRequest = {
     execute: {
-      pageLoad: { address: { url: req.headers.host + req.originalUrl }}
-    }};
+      pageLoad: { address: { url: req.headers.host + req.originalUrl } }
+    }
+  };
 
   processTargetRequest(executePageLoadRequest, req, res);
 });
 
-app.get('/prefetchpageload', function (req, res) {
+app.get("/prefetchpageload", function(req, res) {
   const prefetchPageLoadRequest = {
     prefetch: {
-      pageLoad: { address: { url: req.headers.host + req.originalUrl }}
-    }};
+      pageLoad: { address: { url: req.headers.host + req.originalUrl } }
+    }
+  };
 
   processTargetRequest(prefetchPageLoadRequest, req, res);
 });

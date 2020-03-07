@@ -1,7 +1,6 @@
+import UAParser from "ua-parser-js";
 import { parseURL } from "./utils";
 import Messages from "./messages";
-
-const UAParser = require("ua-parser-js");
 
 function getLowerCaseAttributes(obj) {
   const result = {};

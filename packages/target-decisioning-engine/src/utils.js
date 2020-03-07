@@ -1,5 +1,5 @@
 /* eslint-disable prefer-destructuring,import/prefer-default-export */
-const Url = require("url-parse");
+import Url from "url-parse";
 
 function caseSensitiveVersion(caseSenstiveString, lowercaseString) {
   const start = caseSenstiveString.toLowerCase().indexOf(lowercaseString);

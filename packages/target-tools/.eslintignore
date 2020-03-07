@@ -1,3 +1,4 @@
+dist/**
 lib/**
 delivery-api-client/**
 node_modules/**
