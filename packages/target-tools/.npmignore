@@ -7,13 +7,10 @@
 /webpack.*
 *.iws
 src/
-sample/
 coverage/
 checkstyle/
 spec/
 test/
 *.spec.js
-*.config.js
-*.tgz
 *.map
 

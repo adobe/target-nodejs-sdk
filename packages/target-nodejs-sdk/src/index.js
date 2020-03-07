@@ -10,7 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const TargetTools = require("@adobe/target-tools");
+const { getLogger } = require("@adobe/target-tools");
 
 const Visitor = require("@adobe-mcid/visitor-js-server");
 const TargetDecisioningEngine = require("@adobe/target-decisioning-engine");
@@ -45,7 +45,7 @@ function bootstrap(defaultFetchApi) {
       }
       this.config = options;
       this.config.timeout = options.timeout || DEFAULT_TIMEOUT;
-      this.logger = TargetTools.getLogger(options.logger);
+      this.logger = getLogger(options.logger);
 
       if (options.executionMode === EXECUTION_MODE.LOCAL) {
         TargetDecisioningEngine({
@@ -106,7 +106,7 @@ function bootstrap(defaultFetchApi) {
     /**
      * The TargetClient getOffers method
      * @param {Object} options
-     * @param {import("../generated-delivery-api-client/models/DeliveryRequest").DeliveryRequest} options.request Target View Delivery API request, required
+     * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} options.request Target View Delivery API request, required
      * @param {String} options.visitorCookie VisitorId cookie, optional
      * @param {String} options.targetCookie Target cookie, optional
      * @param {String} options.targetLocationHintCookie Target Location Hint cookie, optional
@@ -136,7 +136,7 @@ function bootstrap(defaultFetchApi) {
      * The TargetClient getAttributes method
      * @param {Array<String>} mboxNames A list of mbox names that contains JSON content attributes, required
      * @param {Object} options, required
-     * @param {import("../generated-delivery-api-client/models/DeliveryRequest").DeliveryRequest} options.request Target View Delivery API request, required
+     * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} options.request Target View Delivery API request, required
      * @param {String} options.visitorCookie VisitorId cookie, optional
      * @param {String} options.targetCookie Target cookie, optional
      * @param {String} options.targetLocationHintCookie Target Location Hint cookie, optional
@@ -155,7 +155,7 @@ function bootstrap(defaultFetchApi) {
     /**
      * The TargetClient sendNotifications method
      * @param {Object} options
-     * @param {import("../generated-delivery-api-client/models/DeliveryRequest").DeliveryRequest} options.request Target View Delivery API request, required
+     * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} options.request Target View Delivery API request, required
      * @param {String} options.visitorCookie VisitorId cookie, optional
      * @param {String} options.targetCookie Target cookie, optional
      * @param {String} options.targetLocationHintCookie Target Location Hint cookie, optional

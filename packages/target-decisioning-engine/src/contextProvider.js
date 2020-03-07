@@ -15,7 +15,7 @@ function getLowerCaseAttributes(obj) {
 }
 
 /**
- * @param { import("../../target-nodejs-sdk/generated-delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
+ * @param { import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
  */
 function createBrowserContext(deliveryRequest) {
   const { context } = deliveryRequest;
@@ -46,21 +46,21 @@ function createUrlContext(url) {
 }
 
 /**
- * @param { import("../../target-nodejs-sdk/generated-delivery-api-client/models/Address").Address } address
+ * @param { import("@adobe/target-tools/delivery-api-client/models/Address").Address } address
  */
 export function createPageContext(address) {
   return createUrlContext(address.url);
 }
 
 /**
- * @param { import("../../target-nodejs-sdk/generated-delivery-api-client/models/Address").Address } address
+ * @param { import("@adobe/target-tools/delivery-api-client/models/Address").Address } address
  */
 export function createReferringContext(address) {
   return createUrlContext(address.referringUrl);
 }
 
 /**
- * @param { import("../../target-nodejs-sdk/generated-delivery-api-client/models/MboxRequest").MboxRequest } mboxRequest
+ * @param { import("@adobe/target-tools/delivery-api-client/models/MboxRequest").MboxRequest } mboxRequest
  */
 export function createMboxContext(mboxRequest) {
   if (!mboxRequest) return {};
@@ -74,7 +74,7 @@ export function createMboxContext(mboxRequest) {
 }
 
 /**
- * @param { import("../../target-nodejs-sdk/generated-delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
+ * @param { import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
  */
 function createTimingContext() {
   const now = new Date();
@@ -95,7 +95,7 @@ function createTimingContext() {
 /**
  *
  * The TargetDecisioningEngine initialize method
- * @param { import("../../target-nodejs-sdk/generated-delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
+ * @param { import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
  */
 export function createDecisioningContext(deliveryRequest) {
   if (typeof deliveryRequest.context === "undefined")

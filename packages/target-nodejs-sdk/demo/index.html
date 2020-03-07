@@ -54,6 +54,9 @@
             mboxes: [
               {
                 name: "jason-flags",
+                index: 1
+              }, {
+                name: "remote-only-mbox-a",
                 index: 2
               }
             ]
@@ -66,13 +69,13 @@
         showResult("Result: Error", err.toString());
       });
 
-      client.getAttributes(['jason-flags'], {
-        request: targetRequest,
-        sessionId: "dummy_session"
-      }).then(function(features) {
-        console.log(features.asObject('jason-flags'));
-        console.log(features.getValue('jason-flags', 'paymentExperience'));
-      });
+      // client.getAttributes(['jason-flags'], {
+      //   request: targetRequest,
+      //   sessionId: "dummy_session"
+      // }).then(function(features) {
+      //   console.log(features.asObject('jason-flags'));
+      //   console.log(features.getValue('jason-flags', 'paymentExperience'));
+      // });
 
     }
 
@@ -84,7 +87,8 @@
 
     client = window.TargetClient.create(Object.assign({}, targetClientOptions, doLocalDecisioning ? {
       executionMode: "local",
-      artifactLocation: "https://target-local-decisioning-test.s3.us-west-2.amazonaws.com/adobesummit2018/waters_test/jasonsflags-rules.json",
+      // artifactLocation: "https://target-local-decisioning-test.s3.us-west-2.amazonaws.com/adobesummit2018/waters_test/jasonsflags-rules.json",
+      artifactLocation: "https://target-local-decisioning-test.s3.us-west-2.amazonaws.com/adobesummit2018/waters_test/rules.json"
     } : {}));
   </script>
 </body>

@@ -1,22 +1,19 @@
-import TargetTools from "@adobe/target-tools/src";
+import { noop } from "@adobe/target-tools";
 
 /**
  * The get NotificationProvider initialize method
- * @param {import("../../target-nodejs-sdk/generated-delivery-api-client/models/DeliveryRequest").DeliveryRequest} request Target View Delivery API request, required
+ * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} request Target View Delivery API request, required
  * @param {function} sendNotificationFunc function used to send the notification, required
  */
 
-function NotificationProvider(
-  request,
-  sendNotificationFunc = TargetTools.noop
-) {
+function NotificationProvider(request, sendNotificationFunc = noop) {
   const now = new Date();
   const timestamp = now.getTime();
   let notifications = [];
 
   /**
    * The get NotificationProvider initialize method
-   * @param {import("../../target-nodejs-sdk/generated-delivery-api-client/models/MboxResponse").MboxResponse} mbox
+   * @param {import("@adobe/target-tools/delivery-api-client/models/MboxResponse").MboxResponse} mbox
    */
   function addNotification(mbox) {
     const notification = {

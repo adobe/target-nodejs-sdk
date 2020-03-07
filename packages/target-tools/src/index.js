@@ -1,10 +1,7 @@
-import { getLogger } from "./logger";
 import { uuid } from "./lodash";
 
-const TargetTools = {
-  getLogger,
-  createUUID: () => uuid(),
-  noop: () => undefined
-};
-
-export default TargetTools;
+export { default as DeliveryApiClient } from "../delivery-api-client";
+export { getMboxNames } from "./utils";
+export { getLogger } from "./logger";
+export const createUUID = () => uuid();
+export const noop = () => undefined;

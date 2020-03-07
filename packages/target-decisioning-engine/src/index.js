@@ -1,4 +1,4 @@
-import TargetTools from "@adobe/target-tools";
+import { getLogger } from "@adobe/target-tools";
 import { createDecisioningContext } from "./contextProvider";
 import { getDecisions, getRules } from "./decisionProvider";
 import ArtifactProvider from "./artifactProvider";
@@ -17,7 +17,7 @@ import NotificationProvider from "./notificationProvider";
  * @param {Function} config.sendNotificationFunc Function used to send notifications, optional
  */
 async function TargetDecisioningEngine(config) {
-  const logger = TargetTools.getLogger(config.logger);
+  const logger = getLogger(config.logger);
 
   const artifactProvider = await ArtifactProvider({
     client: config.client,
@@ -38,7 +38,7 @@ async function TargetDecisioningEngine(config) {
   /**
    * The get offers method
    * @param {Object} targetOptions
-   * @param {import("../../target-nodejs-sdk/generated-delivery-api-client/models/DeliveryRequest").DeliveryRequest} targetOptions.request Target View Delivery API request, required
+   * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} targetOptions.request Target View Delivery API request, required
    * @param {String} targetOptions.visitorCookie VisitorId cookie, optional
    * @param {String} targetOptions.targetCookie Target cookie, optional
    * @param {String} targetOptions.targetLocationHintCookie Target Location Hint cookie, optional

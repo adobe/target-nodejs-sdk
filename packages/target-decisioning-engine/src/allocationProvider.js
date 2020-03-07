@@ -1,9 +1,9 @@
 import MurmurHash3 from "imurmurhash";
-import TargetTools from "@adobe/target-tools";
+import { createUUID } from "@adobe/target-tools";
 
 /**
  *
- * @param { import("../../target-nodejs-sdk/generated-delivery-api-client/models/VisitorId").VisitorId } visitorId
+ * @param { import("@adobe/target-tools/delivery-api-client/models/VisitorId").VisitorId } visitorId
  * @returns {string} first non-blank marketingCloudVisitorId, tntId, thirdPartyId
  */
 export function getOrCreateVisitorId(visitorId) {
@@ -12,10 +12,10 @@ export function getOrCreateVisitorId(visitorId) {
       visitorId.marketingCloudVisitorId ||
       visitorId.tntId ||
       visitorId.thirdPartyId ||
-      TargetTools.createUUID()
+      createUUID()
     );
   }
-  return TargetTools.createUUID();
+  return createUUID();
 }
 
 /**
@@ -23,7 +23,7 @@ export function getOrCreateVisitorId(visitorId) {
  * The TargetDecisioningEngine initialize method
  * @param {String} clientId Target Client Id, required
  * @param {String} activityId Target Activity Id, required
- * @param { import("../../target-nodejs-sdk/generated-delivery-api-client/models/VisitorId").VisitorId } visitorId
+ * @param { import("@adobe/target-tools/delivery-api-client/models/VisitorId").VisitorId } visitorId
  * @param {String} salt salt value, optional
  */
 export function computeAllocation(clientId, activityId, visitorId, salt = "") {

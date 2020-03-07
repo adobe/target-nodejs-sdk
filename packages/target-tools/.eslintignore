@@ -1,4 +1,4 @@
 lib/**
-sample/**
+delivery-api-client/**
 node_modules/**
 coverage/**

@@ -1,5 +1,5 @@
 /**
- * @param {import("../generated-delivery-api-client/models/DeliveryResponse").DeliveryResponse} response
+ * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryResponse").DeliveryResponse} response
  */
 const { ATTRIBUTE_NOT_EXIST } = require("./messages");
 
@@ -28,7 +28,7 @@ function createIndexed(response) {
 
 /**
  * @param {Array<String>} mboxNames A list of mbox names that contains JSON content attributes, required
- * @param {import("../generated-delivery-api-client/models/DeliveryResponse").DeliveryResponse} deliveryResponse
+ * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryResponse").DeliveryResponse} deliveryResponse
  */
 function AttributesProvider(mboxNames, deliveryResponse) {
   const indexed = createIndexed(deliveryResponse);

@@ -1,5 +1,6 @@
 import jsonLogic from "json-logic-js";
-import TargetTools from "@adobe/target-tools/src";
+import { createUUID } from "@adobe/target-tools";
+import * as HttpStatus from "http-status-codes";
 import { computeAllocation } from "./allocationProvider";
 import { createMboxContext, createPageContext } from "./contextProvider";
 
@@ -7,10 +8,10 @@ import { createMboxContext, createPageContext } from "./contextProvider";
  *
  * @param { 'execute'|'prefetch' } mode
  * @param { String } clientId
- * @param { import("../../target-nodejs-sdk/generated-delivery-api-client/models/VisitorId").VisitorId } visitorId
+ * @param { import("@adobe/target-tools/delivery-api-client/models/VisitorId").VisitorId } visitorId
  * @param { Object } context
  * @param { Array } rules
- * @param {import("../../target-nodejs-sdk/generated-delivery-api-client/models/DeliveryRequest").DeliveryRequest} deliveryRequest Target View Delivery API request
+ * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} deliveryRequest Target View Delivery API request
  * @param { Function } mboxPostProcess Used to process an mbox if needed, optional
  */
 function getRequestDecisions(
@@ -94,10 +95,10 @@ function getRequestDecisions(
 /**
  *
  * @param { String } clientId
- * @param { import("../../target-nodejs-sdk/generated-delivery-api-client/models/VisitorId").VisitorId } visitorId
+ * @param { import("@adobe/target-tools/delivery-api-client/models/VisitorId").VisitorId } visitorId
  * @param { Object } context
  * @param { Array } rules
- * @param {import("../../target-nodejs-sdk/generated-delivery-api-client/models/DeliveryRequest").DeliveryRequest} deliveryRequest Target View Delivery API request
+ * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} deliveryRequest Target View Delivery API request
  */
 function getExecuteDecisions(
   clientId,
@@ -108,7 +109,7 @@ function getExecuteDecisions(
   notificationProvider
 ) {
   /**
-   * @param {import("../../target-nodejs-sdk/generated-delivery-api-client/models/MboxResponse").MboxResponse} item
+   * @param {import("@adobe/target-tools/delivery-api-client/models/MboxResponse").MboxResponse} item
    */
   function postProcess(item) {
     notificationProvider.addNotification(item);
@@ -135,10 +136,10 @@ function getExecuteDecisions(
 /**
  *
  * @param { String } clientId
- * @param { import("../../target-nodejs-sdk/generated-delivery-api-client/models/VisitorId").VisitorId } visitorId
+ * @param { import("@adobe/target-tools/delivery-api-client/models/VisitorId").VisitorId } visitorId
  * @param { Object } context
  * @param { Array } rules
- * @param {import("../../target-nodejs-sdk/generated-delivery-api-client/models/DeliveryRequest").DeliveryRequest} deliveryRequest Target View Delivery API request
+ * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} deliveryRequest Target View Delivery API request
  */
 // eslint-disable-next-line no-unused-vars
 function getPrefetchDecisions(
@@ -180,10 +181,10 @@ function getPrefetchDecisions(
 /**
  *
  * @param { String } clientId
- * @param { import("../../target-nodejs-sdk/generated-delivery-api-client/models/VisitorId").VisitorId } visitorId
+ * @param { import("@adobe/target-tools/delivery-api-client/models/VisitorId").VisitorId } visitorId
  * @param { Object } context
  * @param { Array } rules
- * @param {import("../../target-nodejs-sdk/generated-delivery-api-client/models/DeliveryRequest").DeliveryRequest} deliveryRequest Target View Delivery API request
+ * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} deliveryRequest Target View Delivery API request
  */
 export function getDecisions(
   clientId,
@@ -195,7 +196,7 @@ export function getDecisions(
 ) {
   const request = {
     ...deliveryRequest,
-    requestId: deliveryRequest.requestId || TargetTools.createUUID()
+    requestId: deliveryRequest.requestId || createUUID()
   };
 
   const response = {
@@ -210,8 +211,10 @@ export function getDecisions(
     prefetch: getPrefetchDecisions(clientId, visitorId, context, rules, request)
   };
 
+  const httpStatus = HttpStatus.OK;
+
   return Promise.resolve({
-    status: 200,
+    status: httpStatus,
     requestId: deliveryRequest.requestId,
     id: {
       ...deliveryRequest.id
@@ -223,6 +226,5 @@ export function getDecisions(
 }
 
 export function getRules(definition) {
-  // do some validation, check version number
   return definition.rules;
 }

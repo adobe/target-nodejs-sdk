@@ -1,5 +1,5 @@
 import * as HttpStatus from "http-status-codes";
-import TargetTools from "@adobe/target-tools/src";
+import { getLogger } from "@adobe/target-tools";
 import Messages from "./messages";
 import {
   DEFAULT_POLLING_INTERVAL,
@@ -93,7 +93,7 @@ function getPollingInterval(config) {
  */
 async function ArtifactProvider(config) {
   const pollingInterval = getPollingInterval(config);
-  const logger = TargetTools.getLogger(config.logger);
+  const logger = getLogger(config.logger);
 
   let pollingHalted = false;
   let pollingTimer;

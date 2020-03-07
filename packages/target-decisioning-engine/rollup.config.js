@@ -25,7 +25,7 @@ export default [
     output: {
       name: "TargetDecisioningEngine",
       file: pkg.main,
-      format: "umd",
+      format: "cjs",
       sourcemap: true
     },
     plugins: [
