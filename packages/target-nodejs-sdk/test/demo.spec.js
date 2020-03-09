@@ -1,9 +1,9 @@
+/* eslint-disable jest/no-test-callback */
 // const TargetClient = require("../dist/targetclient.server");
-const TargetClient = require("../src/index.server");
+const TargetClient = require("../src/index.server").default;
 
 describe.skip("demo", () => {
-  it("works", () => {
-    expect(true).toEqual(true);
+  it("works", async done => {
     const doLocalDecisioning = true;
 
     let client;
@@ -36,31 +36,30 @@ describe.skip("demo", () => {
       context
     };
 
-    function getOffers() {
+    async function getOffers() {
       // eslint-disable-next-line jest/valid-expect-in-promise
-      client
-        .getOffers({
-          request: {
-            ...targetRequest,
-            prefetch: {
-              mboxes: [
-                {
-                  name: "jason-flags",
-                  index: 1
-                },
-                {
-                  name: "remote-only-mbox-a",
-                  index: 2
-                }
-              ]
-            }
-          },
-          sessionId: "dummy_session"
-        })
-        .then(res => {
-          expect(res).not.toBeUndefined();
-          console.log("Result: Success", JSON.stringify(res, null, 4));
-        });
+      const result = await client.getOffers({
+        request: {
+          ...targetRequest,
+          prefetch: {
+            mboxes: [
+              {
+                name: "jason-flags",
+                index: 1
+              },
+              {
+                name: "remote-only-mbox-a",
+                index: 2
+              }
+            ]
+          }
+        },
+        sessionId: "dummy_session"
+      });
+
+      expect(result).not.toBeUndefined();
+      // console.log("Result: Success", JSON.stringify(res, null, 4));
+      done();
     }
 
     const targetClientOptions = {
@@ -77,7 +76,8 @@ describe.skip("demo", () => {
           ? {
               executionMode: "local",
               artifactLocation:
-                "https://target-local-decisioning-test.s3.us-west-2.amazonaws.com/adobesummit2018/waters_test/rules.json"
+                "https://target-local-decisioning-test.s3.us-west-2.amazonaws.com/adobesummit2018/waters_test/rules.json",
+              pollingInterval: 0
             }
           : {}
       )

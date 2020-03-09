@@ -1,4 +1,4 @@
-import { getLogger } from "./index";
+import { getFetchApi, getLogger } from "./index";
 
 it("has a default logger", () => {
   const logger = getLogger();
@@ -21,4 +21,9 @@ it("logger can be overridden", () => {
   expect(logger).not.toBeUndefined();
   logger.debug("hello debug");
   logger.error("hello error");
+});
+
+it("has getFetchApi", () => {
+  expect(getFetchApi).toBeDefined();
+  expect(typeof getFetchApi).toEqual("function");
 });

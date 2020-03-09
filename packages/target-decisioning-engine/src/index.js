@@ -14,6 +14,7 @@ import NotificationProvider from "./notificationProvider";
  * @param {String} config.artifactLocation Fully qualified url to the location of the artifact, optional
  * @param {String} config.artifactPayload A pre-fetched artifact, optional
  * @param {Object} config.logger Replaces the default noop logger, optional
+ * @param {Function }config.fetchApi Fetch Implementation, optional
  * @param {Function} config.sendNotificationFunc Function used to send notifications, optional
  */
 export default async function TargetDecisioningEngine(config) {
@@ -25,7 +26,8 @@ export default async function TargetDecisioningEngine(config) {
     pollingInterval: config.pollingInterval,
     artifactLocation: config.artifactLocation,
     artifactPayload: config.artifactPayload,
-    logger
+    logger,
+    fetchApi: config.fetchApi
   });
 
   let artifact = artifactProvider.getArtifact();

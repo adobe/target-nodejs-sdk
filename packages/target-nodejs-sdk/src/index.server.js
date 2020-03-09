@@ -1,16 +1,14 @@
-const FormData = require("form-data");
+import FormData from "form-data";
 
-const nodeFetch = require("node-fetch");
+import * as nodeFetch from "node-fetch";
 
-if (!global.fetch) {
-  global.fetch = nodeFetch;
-  global.Response = nodeFetch.Response;
-  global.Headers = nodeFetch.Headers;
-  global.Request = nodeFetch.Request;
-}
+import bootstrap from "./index";
 
 global.FormData = FormData;
 
-const TargetClient = require("./index");
+const TargetClient = bootstrap(
+  // eslint-disable-next-line no-undef
+  typeof fetch !== "undefined" ? fetch : nodeFetch.default
+);
 
-module.exports = TargetClient.default || TargetClient;
+export default TargetClient.default || TargetClient;

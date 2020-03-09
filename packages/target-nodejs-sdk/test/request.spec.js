@@ -1,5 +1,5 @@
 require("jest-fetch-mock").enableMocks();
-const TargetClient = require("../src/index.server");
+const TargetClient = require("../src/index.server").default;
 
 const RESPONSE_PAYLOAD = {
   status: 200,
@@ -55,12 +55,13 @@ describe("Requests to target delivery API", () => {
       sessionId: "dummy_session"
     });
     expect(result).not.toBeUndefined();
+    expect(fetch.mock.calls.length).toEqual(1);
     expect(result).toMatchObject({
       request: {
         requestId: expect.any(String),
         context: {
           channel: "web",
-          timeOffsetInMinutes: -480
+          timeOffsetInMinutes: expect.any(Number)
         },
         experienceCloud: {
           analytics: {

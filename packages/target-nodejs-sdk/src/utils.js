@@ -10,6 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
+import { isBrowser } from "@adobe/target-tools";
 import Visitor from "@adobe-mcid/visitor-js-server";
 
 const NAVIGATOR = "navigator";
@@ -60,10 +61,6 @@ export function createVisitor(options, config) {
   }
 
   return createdVisitor;
-}
-
-export function isBrowser() {
-  return typeof window !== "undefined";
 }
 
 export function isBeaconSupported() {

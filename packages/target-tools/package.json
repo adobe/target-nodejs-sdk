@@ -2,6 +2,8 @@
   "name": "@adobe/target-tools",
   "version": "1.0.0",
   "description": "",
+  "main": "dist/index.js",
+  "module": "src/index.js",
   "files": [
     ".eslintrc.js",
     "jest.config.js",
@@ -12,8 +14,6 @@
     "build": "NODE_ENV=production rollup -c",
     "test": "NODE_ENV=development jest"
   },
-  "main": "dist/index.js",
-  "module": "src/index.js",
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/plugin-transform-regenerator": "^7.8.3",

@@ -36,5 +36,6 @@ export const Messages = {
   PENDING_ARTIFACT_RETRIEVAL:
     "Unable to fulfill getOffers request. PENDING artifact retrieval.",
   ATTRIBUTE_NOT_EXIST: (keyName, mboxName) =>
-    `Attribute '${keyName}' does not exist for mbox '${mboxName}'`
+    `Attribute '${keyName}' does not exist for mbox '${mboxName}'`,
+  FETCH_UNDEFINED: "Fetch is not defined!"
 };

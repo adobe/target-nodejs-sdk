@@ -1,7 +1,7 @@
 require("jest-fetch-mock").enableMocks();
 const HttpStatus = require("http-status-codes");
 
-const TargetClient = require("../src/index.server");
+const TargetClient = require("../src/index.server").default;
 
 const { AttributesProvider } = require("../src/attributesProvider");
 const { Messages } = require("../src/messages");

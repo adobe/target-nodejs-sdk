@@ -1,5 +1,13 @@
-import "whatwg-fetch";
+import { fetch as whatwfFetch } from "whatwg-fetch";
 
-import TargetClient from "./index";
+import bootstrap from "./index";
+
+const TargetClient = bootstrap(
+  // eslint-disable-next-line no-undef
+  typeof window.fetch !== "undefined"
+    ? // eslint-disable-next-line no-undef
+      window.fetch.bind(window)
+    : whatwfFetch
+);
 
 export default TargetClient;

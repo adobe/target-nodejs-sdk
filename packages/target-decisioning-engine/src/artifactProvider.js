@@ -1,5 +1,5 @@
 import * as HttpStatus from "http-status-codes";
-import { getLogger } from "@adobe/target-tools";
+import { getLogger, getFetchApi } from "@adobe/target-tools";
 import Messages from "./messages";
 import {
   DEFAULT_POLLING_INTERVAL,
@@ -7,61 +7,8 @@ import {
   NUM_FETCH_RETRIES
 } from "./constants";
 
-let lastEtag;
-let lastResponse;
-
-function fetchWithRetry(url, options, numRetries) {
-  return fetch(url, options)
-    .then(res => {
-      if (!res.ok && res.status !== HttpStatus.NOT_MODIFIED) {
-        throw Error(res.statusText);
-      }
-      return res;
-    })
-    .catch(err => {
-      if (numRetries < 1) {
-        throw err;
-      }
-      return fetchWithRetry(url, options, numRetries - 1);
-    });
-}
-
 function determineArtifactLocation(clientId, organizationId) {
   return `${clientId}__${organizationId}`;
-}
-
-function fetchArtifact(artifactUrl) {
-  const headers = {
-    "Access-Control-Expose-Headers": "Etag"
-  };
-
-  if (lastEtag) {
-    headers["If-None-Match"] = lastEtag;
-  }
-
-  return fetchWithRetry(
-    artifactUrl,
-    {
-      headers,
-      cache: "default"
-    },
-    NUM_FETCH_RETRIES
-  )
-    .then(res => {
-      if (res.status === HttpStatus.NOT_MODIFIED && lastResponse) {
-        return lastResponse.clone();
-      }
-
-      if (res.status === HttpStatus.OK) {
-        const etag = res.headers.get("Etag");
-        if (etag != null && typeof etag !== "undefined") {
-          lastResponse = res.clone();
-          lastEtag = etag;
-        }
-      }
-      return res;
-    })
-    .then(res => res.json());
 }
 
 function getPollingInterval(config) {
@@ -90,10 +37,13 @@ function getPollingInterval(config) {
  * @param {String} config.artifactLocation Fully qualified url to the location of the artifact, optional
  * @param {String} config.artifactPayload A pre-fetched artifact, optional
  * @param {Object} config.logger Replaces the default noop logger, optional
+ * @param {Function }config.fetchApi Fetch Implementation, optional
  */
 async function ArtifactProvider(config) {
   const pollingInterval = getPollingInterval(config);
   const logger = getLogger(config.logger);
+
+  const fetchApi = getFetchApi(config.fetchApi);
 
   let pollingHalted = false;
   let pollingTimer;
@@ -102,6 +52,59 @@ async function ArtifactProvider(config) {
 
   const subscriptions = {};
   let subscriptionCount = 0;
+
+  let lastEtag;
+  let lastResponse;
+
+  function fetchWithRetry(url, options, numRetries) {
+    return fetchApi(url, options)
+      .then(res => {
+        if (!res.ok && res.status !== HttpStatus.NOT_MODIFIED) {
+          throw Error(res.statusText);
+        }
+        return res;
+      })
+      .catch(err => {
+        if (numRetries < 1) {
+          throw err;
+        }
+        return fetchWithRetry(url, options, numRetries - 1);
+      });
+  }
+
+  function fetchArtifact(artifactUrl) {
+    const headers = {
+      "Access-Control-Expose-Headers": "Etag"
+    };
+
+    if (lastEtag) {
+      headers["If-None-Match"] = lastEtag;
+    }
+
+    return fetchWithRetry(
+      artifactUrl,
+      {
+        headers,
+        cache: "default"
+      },
+      NUM_FETCH_RETRIES
+    )
+      .then(res => {
+        if (res.status === HttpStatus.NOT_MODIFIED && lastResponse) {
+          return lastResponse.clone();
+        }
+
+        if (res.status === HttpStatus.OK) {
+          const etag = res.headers.get("Etag");
+          if (etag != null && typeof etag !== "undefined") {
+            lastResponse = res.clone();
+            lastEtag = etag;
+          }
+        }
+        return res;
+      })
+      .then(res => res.json());
+  }
 
   function addSubscription(callbackFunc) {
     subscriptionCount += 1;

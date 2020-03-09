@@ -42,7 +42,7 @@ describe("Target Client factory", () => {
     jest.spyOn(TargetTools, "getLogger");
 
     // eslint-disable-next-line global-require
-    TargetClient = require("../src/index.server");
+    TargetClient = require("../src/index.server").default;
   });
 
   afterEach(() => {

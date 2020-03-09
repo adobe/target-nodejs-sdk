@@ -3,7 +3,7 @@ const HttpStatus = require("http-status-codes");
 
 const MockDate = require("mockdate");
 require("jest-fetch-mock").enableMocks();
-const TargetClient = require("../src/index.server");
+const TargetClient = require("../src/index.server").default;
 const { EXECUTION_MODE } = require("../src/enums");
 const { Messages } = require("../src/messages");
 
