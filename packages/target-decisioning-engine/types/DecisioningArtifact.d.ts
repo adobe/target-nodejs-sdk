@@ -1,9 +1,11 @@
+export interface Consequence {
+  mboxes: Array<any>;
+  views: Array<any>;
+}
+
 export interface Rule {
   condition: Object;
-  consequence: {
-    mboxes: Array<any>;
-    views: Array<any>;
-  },
+  consequence: Consequence;
   meta: {
     activityId: number;
     experienceId: number;
@@ -16,10 +18,10 @@ export interface Rule {
 export interface DecisioningArtifact {
     version: string;
     meta: {
-      generatedAt: string,
-      organizationId: string,
-      workspace: number,
-      environment: string,
+      generatedAt: string;
+      organizationId: string;
+      workspace: number;
+      environment: string;
       remoteMboxes: Array<string>
     };
     rules: Array<Rule>;

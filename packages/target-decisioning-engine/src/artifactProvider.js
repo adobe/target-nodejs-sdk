@@ -70,6 +70,7 @@ async function ArtifactProvider(config) {
             Messages.ERROR_MAX_RETRY(NUM_FETCH_RETRIES, err.toString())
           );
         }
+        // TODO: Enhance this to do Exponential Backoff
         return fetchWithRetry(url, options, numRetries - 1);
       });
   }
