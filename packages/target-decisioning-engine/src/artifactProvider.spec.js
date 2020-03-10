@@ -134,7 +134,9 @@ describe("artifactProvider", () => {
     const logger = {
       error: (prefix, message) => {
         expect(message).toEqual(
-          Messages.ERROR_MAX_RETRY(10, "Error: Internal Server Error")
+          Messages.ARTIFACT_FETCH_ERROR(
+            Messages.ERROR_MAX_RETRY(10, "Error: Internal Server Error")
+          )
         );
       }
     };

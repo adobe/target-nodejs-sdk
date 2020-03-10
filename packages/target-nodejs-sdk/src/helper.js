@@ -15,6 +15,7 @@ import {
   getMboxNames,
   DeliveryApiClient
 } from "@adobe/target-tools";
+import { OK, PARTIAL_CONTENT } from "http-status-codes";
 import { EXECUTION_MODE } from "./enums";
 import { Messages } from "./messages";
 import {
@@ -39,7 +40,8 @@ import {
   flatten,
   getTimezoneOffset,
   executeSendBeacon,
-  isBeaconSupported
+  isBeaconSupported,
+  requiresDecisioningEngine
 } from "./utils";
 
 const {
@@ -538,19 +540,42 @@ function createBeaconDeliveryApi(configuration) {
   };
 }
 
+function createRemoteDeliveryApi(configuration, useBeacon) {
+  return useBeacon && isBeaconSupported()
+    ? createBeaconDeliveryApi(configuration)
+    : new DeliveryAPIApi(configuration);
+}
+
+/**
+ * @param executionMode
+ * @param {import("@adobe/target-tools/delivery-api-client/runtime").Configuration} configuration
+ * @param { Boolean } useBeacon
+ * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} deliveryRequest
+ * @param decisioningEngine
+ * */
 export function createDeliveryApi(
   configuration,
   useBeacon = false,
   executionMode = EXECUTION_MODE.REMOTE,
+  deliveryRequest = undefined,
   decisioningEngine = undefined
 ) {
-  if (executionMode === EXECUTION_MODE.LOCAL) {
+  if (requiresDecisioningEngine(executionMode)) {
+    const decisioningDependency = decisioningEngine.hasRemoteDependency(
+      deliveryRequest
+    );
+
+    if (
+      executionMode === EXECUTION_MODE.HYBRID &&
+      decisioningDependency.remoteNeeded
+    ) {
+      return createRemoteDeliveryApi(configuration, useBeacon);
+    }
+
     return createLocalDeliveryApi(decisioningEngine);
   }
 
-  return useBeacon && isBeaconSupported()
-    ? createBeaconDeliveryApi(configuration)
-    : new DeliveryAPIApi(configuration);
+  return createRemoteDeliveryApi(configuration, useBeacon);
 }
 
 function getTargetCookie(sessionId, id) {
@@ -640,10 +665,47 @@ function getAnalyticsDetails(response) {
 }
 
 /**
- * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryResponse").DeliveryResponse} response Target View Delivery API request, required
+ * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} request Target Delivery API request, required
+ * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryResponse").DeliveryResponse} response Target Delivery API response, required
+ * @param executionMode
+ * @param decisioningEngine
  * */
-function getResponseStatus(response) {
-  return { status: response.status, message: "", remoteMboxes: [] };
+function getResponseStatus(
+  request,
+  response,
+  executionMode,
+  decisioningEngine
+) {
+  let { status } = response;
+  let message = Messages.REMOTE_RESULT;
+  let remoteMboxes = [];
+
+  if (decisioningEngine) {
+    const decisioningDependency = decisioningEngine.hasRemoteDependency(
+      request
+    );
+
+    if (executionMode === EXECUTION_MODE.HYBRID) {
+      message = decisioningDependency.remoteNeeded
+        ? Messages.REMOTE_RESULT
+        : Messages.LOCAL_RESULT;
+    } else if (EXECUTION_MODE.LOCAL === executionMode) {
+      status = decisioningDependency.remoteNeeded ? PARTIAL_CONTENT : OK;
+
+      message = decisioningDependency.remoteNeeded
+        ? Messages.PARTIAL_RESULT
+        : Messages.LOCAL_RESULT;
+    }
+
+    // eslint-disable-next-line prefer-destructuring
+    remoteMboxes = decisioningDependency.remoteMboxes;
+  }
+
+  return {
+    status,
+    message,
+    remoteMboxes
+  };
 }
 
 function getTraceFromObject(object = {}) {
@@ -718,7 +780,23 @@ function getResponseTokens(response) {
   return isNonEmptyArray(result) ? result : undefined;
 }
 
-export function processResponse(sessionId, cluster, response = {}) {
+/**
+ * processResponse method
+ * @param { string } sessionId
+ * @param { string } cluster
+ * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} request Target Delivery API request
+ * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryResponse").DeliveryResponse} response Target Delivery API response
+ * @param {('local'|'remote'|'hybrid')} executionMode
+ * @param { Object } decisioningEngine
+ */
+export function processResponse(
+  sessionId,
+  cluster,
+  request,
+  response,
+  executionMode = EXECUTION_MODE.REMOTE,
+  decisioningEngine = undefined
+) {
   const { id = {}, edgeHost } = response;
 
   const result = {
@@ -727,7 +805,12 @@ export function processResponse(sessionId, cluster, response = {}) {
     analyticsDetails: getAnalyticsDetails(response),
     trace: getTraceDetails(response),
     responseTokens: getResponseTokens(response),
-    status: getResponseStatus(response),
+    status: getResponseStatus(
+      request,
+      response,
+      executionMode,
+      decisioningEngine
+    ),
     response
   };
 

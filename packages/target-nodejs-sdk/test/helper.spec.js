@@ -468,8 +468,21 @@ describe("Target Helper", () => {
   });
 
   it("processResponse should process response", () => {
+    const request = {
+      execute: {
+        mboxes: [
+          {
+            name: "mbox1",
+            index: 1
+          }
+        ]
+      },
+      context: {
+        channel: "web"
+      }
+    };
     let response = {};
-    let result = processResponse("sessionId", undefined, response);
+    let result = processResponse("sessionId", undefined, request, response);
     expect(result).toMatchObject({
       targetCookie: {
         name: "mbox",
@@ -567,7 +580,8 @@ describe("Target Helper", () => {
         ]
       }
     };
-    result = processResponse("sessionId", "21", response);
+
+    result = processResponse("sessionId", "21", request, response);
     expect(result).toMatchObject({
       targetCookie: {
         name: "mbox",
@@ -693,7 +707,7 @@ describe("Target Helper", () => {
         }
       }
     };
-    result = processResponse("sessionId", undefined, response);
+    result = processResponse("sessionId", undefined, request, response);
     expect(result).toMatchObject({
       targetCookie: {
         name: "mbox",

@@ -1,9 +1,10 @@
-import { getLogger } from "@adobe/target-tools";
+import { getLogger, getMboxNames } from "@adobe/target-tools";
 import { createDecisioningContext } from "./contextProvider";
-import { getDecisions, getRules } from "./decisionProvider";
+import { getDecisions } from "./decisionProvider";
 import ArtifactProvider from "./artifactProvider";
 import Messages from "./messages";
 import NotificationProvider from "./notificationProvider";
+import { hasRemoteDependency } from "./utils";
 
 /**
  * The TargetDecisioningEngine initialize method
@@ -50,20 +51,23 @@ export default async function TargetDecisioningEngine(config) {
    * @param {Object} targetOptions.visitor Supply an external VisitorId instance, optional
    */
   function getOffers(targetOptions) {
+    const { request } = targetOptions;
+
     if (typeof artifact === "undefined") {
       return Promise.reject(new Error(Messages.ARTIFACT_NOT_AVAILABLE));
     }
+
     const notificationProvider = NotificationProvider(
-      targetOptions.request,
+      request,
       config.sendNotificationFunc
     );
 
     return getDecisions(
       config.client,
-      targetOptions.request.id,
-      createDecisioningContext(targetOptions.request),
-      getRules(artifact),
-      targetOptions.request,
+      request.id,
+      createDecisioningContext(request),
+      artifact,
+      request,
       notificationProvider
     );
   }
@@ -71,6 +75,8 @@ export default async function TargetDecisioningEngine(config) {
   return Promise.resolve({
     getRawArtifact: () => artifact,
     stopPolling: () => artifactProvider.stopPolling(),
-    getOffers: targetOptions => getOffers(targetOptions)
+    getOffers: targetOptions => getOffers(targetOptions),
+    hasRemoteDependency: request => hasRemoteDependency(artifact, request),
+    isReady: () => typeof artifact !== "undefined"
   });
 }

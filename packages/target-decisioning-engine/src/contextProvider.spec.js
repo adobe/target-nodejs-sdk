@@ -87,6 +87,7 @@ describe("contextProvider", () => {
       expect.objectContaining({
         browserType: "firefox",
         locale: "en",
+        platform: "Mac OS",
         browserVersion: 73
       })
     );

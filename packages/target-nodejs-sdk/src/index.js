@@ -13,7 +13,7 @@ governing permissions and limitations under the License.
 import { getLogger, getFetchApi } from "@adobe/target-tools";
 import Visitor from "@adobe-mcid/visitor-js-server";
 import TargetDecisioningEngine from "@adobe/target-decisioning-engine";
-import { createVisitor } from "./utils";
+import { createVisitor, requiresDecisioningEngine } from "./utils";
 import { Messages } from "./messages";
 import { EXECUTION_MODE } from "./enums";
 import { LOCATION_HINT_COOKIE, TARGET_COOKIE } from "./cookies";
@@ -52,7 +52,7 @@ export default function bootstrap(fetchApi) {
       this.config.timeout = options.timeout || DEFAULT_TIMEOUT;
       this.logger = getLogger(options.logger);
 
-      if (options.executionMode === EXECUTION_MODE.LOCAL) {
+      if (requiresDecisioningEngine(options.executionMode)) {
         TargetDecisioningEngine({
           client: options.client,
           organizationId: options.organizationId,

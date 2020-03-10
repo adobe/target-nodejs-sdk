@@ -1,8 +1,10 @@
 const AT_PREFIX = "AT:";
 
 const NOOP_LOGGER = {
-  debug() {},
-  error() {}
+  // eslint-disable-next-line no-unused-vars
+  debug(...messages) {},
+  // eslint-disable-next-line no-unused-vars
+  error(...messages) {}
 };
 
 // eslint-disable-next-line import/prefer-default-export

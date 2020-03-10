@@ -12,6 +12,7 @@ governing permissions and limitations under the License.
 
 import { isBrowser } from "@adobe/target-tools";
 import Visitor from "@adobe-mcid/visitor-js-server";
+import { EXECUTION_MODE } from "./enums";
 
 const NAVIGATOR = "navigator";
 const SEND_BEACON = "sendBeacon";
@@ -76,4 +77,14 @@ export function isBeaconSupported() {
 export function executeSendBeacon(url, data) {
   // eslint-disable-next-line no-undef
   return window[NAVIGATOR][SEND_BEACON](url, data);
+}
+
+export function requiresDecisioningEngine(executionMode) {
+  return [EXECUTION_MODE.LOCAL, EXECUTION_MODE.HYBRID].includes(executionMode);
+}
+
+export function decisioningEngineReady(decisioningEngine) {
+  return (
+    typeof decisioningEngine !== "undefined" && decisioningEngine.isReady()
+  );
 }

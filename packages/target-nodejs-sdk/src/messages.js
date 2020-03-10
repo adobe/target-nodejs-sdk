@@ -34,8 +34,13 @@ export const Messages = {
   REQUEST_SENT: "Request sent",
   RESPONSE_RECEIVED: "Response received",
   PENDING_ARTIFACT_RETRIEVAL:
-    "Unable to fulfill getOffers request. PENDING artifact retrieval.",
+    "Unable to fulfill request; PENDING artifact retrieval.",
   ATTRIBUTE_NOT_EXIST: (keyName, mboxName) =>
     `Attribute '${keyName}' does not exist for mbox '${mboxName}'`,
-  FETCH_UNDEFINED: "Fetch is not defined!"
+  FETCH_UNDEFINED: "Fetch is not defined!",
+  PARTIAL_RESULT:
+    "Partial result.  Some decisions were made locally, but a remote request may be needed.",
+  LOCAL_RESULT: "Decisions made locally.",
+  REMOTE_RESULT: "Decisions made remotely",
+  DECISIONING_ENGINE_UNDEFINED: "Decisioning Engine is undefined"
 };

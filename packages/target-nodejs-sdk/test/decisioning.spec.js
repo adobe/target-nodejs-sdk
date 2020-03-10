@@ -137,9 +137,7 @@ describe("target local decisioning", () => {
             request: TARGET_REQUEST,
             sessionId: "dummy_session"
           })
-        ).rejects.toEqual(
-          new Error("The decisioning artifact is not available")
-        );
+        ).rejects.toEqual(new Error(Messages.PENDING_ARTIFACT_RETRIEVAL));
 
         clearTimeout(timer);
         done();
@@ -444,7 +442,6 @@ describe("target local decisioning", () => {
           status: HttpStatus.NO_CONTENT
         }
       );
-      jest.mock("../src/index.server");
 
       async function onClientReady() {
         await client.getOffers(executeRequestOptions);

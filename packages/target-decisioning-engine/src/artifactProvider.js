@@ -1,5 +1,5 @@
-import * as HttpStatus from "http-status-codes";
 import { getLogger, getFetchApi } from "@adobe/target-tools";
+import { NOT_MODIFIED, OK } from "http-status-codes";
 import Messages from "./messages";
 import {
   DEFAULT_POLLING_INTERVAL,
@@ -59,14 +59,16 @@ async function ArtifactProvider(config) {
   function fetchWithRetry(url, options, numRetries) {
     return fetchApi(url, options)
       .then(res => {
-        if (!res.ok && res.status !== HttpStatus.NOT_MODIFIED) {
+        if (!res.ok && res.status !== NOT_MODIFIED) {
           throw Error(res.statusText);
         }
         return res;
       })
       .catch(err => {
         if (numRetries < 1) {
-          throw err;
+          throw new Error(
+            Messages.ERROR_MAX_RETRY(NUM_FETCH_RETRIES, err.toString())
+          );
         }
         return fetchWithRetry(url, options, numRetries - 1);
       });
@@ -90,11 +92,11 @@ async function ArtifactProvider(config) {
       NUM_FETCH_RETRIES
     )
       .then(res => {
-        if (res.status === HttpStatus.NOT_MODIFIED && lastResponse) {
+        if (res.status === NOT_MODIFIED && lastResponse) {
           return lastResponse.clone();
         }
 
-        if (res.status === HttpStatus.OK) {
+        if (res.status === OK) {
           const etag = res.headers.get("Etag");
           if (etag != null && typeof etag !== "undefined") {
             lastResponse = res.clone();
@@ -168,7 +170,8 @@ async function ArtifactProvider(config) {
     try {
       artifact = await fetchArtifact(artifactLocation);
     } catch (err) {
-      logger.error(Messages.ERROR_MAX_RETRY(NUM_FETCH_RETRIES, err.toString()));
+      const reason = err.message || err.toString();
+      logger.error(Messages.ARTIFACT_FETCH_ERROR(reason));
     }
     scheduleNextUpdate();
   }

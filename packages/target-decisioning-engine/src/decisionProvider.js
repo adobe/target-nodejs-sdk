@@ -1,8 +1,9 @@
 import jsonLogic from "json-logic-js";
 import { createUUID } from "@adobe/target-tools";
-import * as HttpStatus from "http-status-codes";
+import { OK, PARTIAL_CONTENT } from "http-status-codes";
 import { computeAllocation } from "./allocationProvider";
 import { createMboxContext, createPageContext } from "./contextProvider";
+import { hasRemoteDependency } from "./utils";
 
 /**
  *
@@ -10,7 +11,7 @@ import { createMboxContext, createPageContext } from "./contextProvider";
  * @param { String } clientId
  * @param { import("@adobe/target-tools/delivery-api-client/models/VisitorId").VisitorId } visitorId
  * @param { Object } context
- * @param { Array } rules
+ * @param { Array<import("../types/DecisioningArtifact").Rule> } rules
  * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} deliveryRequest Target View Delivery API request
  * @param { Function } mboxPostProcess Used to process an mbox if needed, optional
  */
@@ -97,8 +98,9 @@ function getRequestDecisions(
  * @param { String } clientId
  * @param { import("@adobe/target-tools/delivery-api-client/models/VisitorId").VisitorId } visitorId
  * @param { Object } context
- * @param { Array } rules
+ * @param { Array<import("../types/DecisioningArtifact").Rule> } rules
  * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} deliveryRequest Target View Delivery API request
+ * @param { Object } notificationProvider
  */
 function getExecuteDecisions(
   clientId,
@@ -138,7 +140,7 @@ function getExecuteDecisions(
  * @param { String } clientId
  * @param { import("@adobe/target-tools/delivery-api-client/models/VisitorId").VisitorId } visitorId
  * @param { Object } context
- * @param { Array } rules
+ * @param { Array<import("../types/DecisioningArtifact").Rule> } rules
  * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} deliveryRequest Target View Delivery API request
  */
 // eslint-disable-next-line no-unused-vars
@@ -183,14 +185,15 @@ function getPrefetchDecisions(
  * @param { String } clientId
  * @param { import("@adobe/target-tools/delivery-api-client/models/VisitorId").VisitorId } visitorId
  * @param { Object } context
- * @param { Array } rules
+ * @param { import("../types/DecisioningArtifact").DecisioningArtifact } artifact
  * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} deliveryRequest Target View Delivery API request
+ * @param { Object } notificationProvider
  */
 export function getDecisions(
   clientId,
   visitorId,
   context,
-  rules,
+  artifact,
   deliveryRequest,
   notificationProvider
 ) {
@@ -198,6 +201,7 @@ export function getDecisions(
     ...deliveryRequest,
     requestId: deliveryRequest.requestId || createUUID()
   };
+  const { rules } = artifact;
 
   const response = {
     execute: getExecuteDecisions(
@@ -211,10 +215,10 @@ export function getDecisions(
     prefetch: getPrefetchDecisions(clientId, visitorId, context, rules, request)
   };
 
-  const httpStatus = HttpStatus.OK;
-
   return Promise.resolve({
-    status: httpStatus,
+    status: hasRemoteDependency(artifact, request).remoteNeeded
+      ? PARTIAL_CONTENT
+      : OK,
     requestId: deliveryRequest.requestId,
     id: {
       ...deliveryRequest.id
@@ -223,8 +227,4 @@ export function getDecisions(
     edgeHost: undefined,
     ...response
   });
-}
-
-export function getRules(definition) {
-  return definition.rules;
 }

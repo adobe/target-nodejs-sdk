@@ -24,6 +24,7 @@ import {
   processResponse
 } from "./helper";
 import { parseCookies } from "./cookies";
+import { decisioningEngineReady, requiresDecisioningEngine } from "./utils";
 
 export function executeDelivery(options, decisioningEngine) {
   const {
@@ -38,7 +39,21 @@ export function executeDelivery(options, decisioningEngine) {
     createDeliveryApiMethod = createDeliveryApi
   } = options;
 
-  const { serverDomain, client, timeout, secure, environmentId } = config;
+  const {
+    serverDomain,
+    client,
+    timeout,
+    secure,
+    environmentId,
+    executionMode
+  } = config;
+
+  if (
+    requiresDecisioningEngine(executionMode) &&
+    !decisioningEngineReady(decisioningEngine)
+  ) {
+    return Promise.reject(new Error(Messages.PENDING_ARTIFACT_RETRIEVAL));
+  }
 
   const cookies = parseCookies(targetCookie);
   const deviceId = getDeviceId(cookies);
@@ -70,6 +85,7 @@ export function executeDelivery(options, decisioningEngine) {
     configuration,
     useBeacon,
     options.config.executionMode,
+    deliveryRequest,
     decisioningEngine
   )
     .execute(client, sessionId, deliveryRequest, config.version)
@@ -80,7 +96,14 @@ export function executeDelivery(options, decisioningEngine) {
       );
       return Object.assign(
         { visitorState: visitor.getState(), request: deliveryRequest },
-        processResponse(sessionId, cluster, response)
+        processResponse(
+          sessionId,
+          cluster,
+          deliveryRequest,
+          response,
+          executionMode,
+          decisioningEngine
+        )
       );
     });
 }

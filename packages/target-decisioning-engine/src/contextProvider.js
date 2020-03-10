@@ -15,6 +15,7 @@ function getLowerCaseAttributes(obj) {
 
 /**
  * @param { import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
+ * @return { import("../types/DecisioningContext").UserContext }
  */
 function createBrowserContext(deliveryRequest) {
   const { context } = deliveryRequest;
@@ -25,13 +26,15 @@ function createBrowserContext(deliveryRequest) {
 
   return {
     browserType: (userAgent.browser.name || "unknown").toLowerCase(),
+    platform: userAgent.os.name || "unknown",
     locale: "en", // TODO: determine where this comes from
     browserVersion: parseInt(userAgent.browser.major, 10)
   };
 }
 
 /**
- * @param { string } deliveryRequest
+ * @param { string } url
+ * @return { import("../types/DecisioningContext").PageContext }
  */
 function createUrlContext(url) {
   if (!url || typeof url !== "string") return undefined;
@@ -46,6 +49,7 @@ function createUrlContext(url) {
 
 /**
  * @param { import("@adobe/target-tools/delivery-api-client/models/Address").Address } address
+ * @return { import("../types/DecisioningContext").PageContext }
  */
 export function createPageContext(address) {
   return createUrlContext(address.url);
@@ -53,6 +57,7 @@ export function createPageContext(address) {
 
 /**
  * @param { import("@adobe/target-tools/delivery-api-client/models/Address").Address } address
+ * @return { import("../types/DecisioningContext").PageContext }
  */
 export function createReferringContext(address) {
   return createUrlContext(address.referringUrl);
@@ -60,6 +65,7 @@ export function createReferringContext(address) {
 
 /**
  * @param { import("@adobe/target-tools/delivery-api-client/models/MboxRequest").MboxRequest } mboxRequest
+ * @return { import("../types/DecisioningContext").MboxContext }
  */
 export function createMboxContext(mboxRequest) {
   if (!mboxRequest) return {};
@@ -72,9 +78,6 @@ export function createMboxContext(mboxRequest) {
   };
 }
 
-/**
- * @param { import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
- */
 function createTimingContext() {
   const now = new Date();
 
@@ -95,6 +98,7 @@ function createTimingContext() {
  *
  * The TargetDecisioningEngine initialize method
  * @param { import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
+ * @return { import("../types/DecisioningContext").DecisioningContext }
  */
 export function createDecisioningContext(deliveryRequest) {
   if (typeof deliveryRequest.context === "undefined")

@@ -1,5 +1,7 @@
 /* eslint-disable prefer-destructuring,import/prefer-default-export */
 import Url from "url-parse";
+import { getMboxNames } from "@adobe/target-tools";
+import Messages from "./messages";
 
 function caseSensitiveVersion(caseSenstiveString, lowercaseString) {
   const start = caseSenstiveString.toLowerCase().indexOf(lowercaseString);
@@ -49,4 +51,26 @@ export function parseURL(url) {
       break;
   }
   return result;
+}
+
+/**
+ * @param { import("../types/DecisioningArtifact").DecisioningArtifact } artifact
+ * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} request
+ */
+export function hasRemoteDependency(artifact, request) {
+  // TODO: memoize this
+  if (typeof artifact === "undefined") {
+    throw new Error(Messages.ARTIFACT_NOT_AVAILABLE);
+  }
+
+  const requestedMboxes = getMboxNames(request);
+
+  const remoteMboxes = (artifact.meta.remoteMboxes || []).filter(mboxName =>
+    requestedMboxes.has(mboxName)
+  );
+
+  return {
+    remoteNeeded: remoteMboxes.length > 0,
+    remoteMboxes
+  };
 }
