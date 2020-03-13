@@ -22,7 +22,8 @@ export interface DecisioningArtifact {
       organizationId: string;
       workspace: number;
       environment: string;
-      remoteMboxes: Array<string>
+      remoteMboxes: Array<string>;
+      globalMbox: string;
     };
     rules: Array<Rule>;
 }

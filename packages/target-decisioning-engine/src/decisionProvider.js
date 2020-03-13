@@ -22,10 +22,11 @@ function DecisionProvider(
   deliveryRequest,
   context,
   artifact,
-  sendNotificationFunc,
-  globalMboxName = DEFAULT_GLOBAL_MBOX_NAME
+  sendNotificationFunc
 ) {
   const { rules } = artifact;
+  const globalMboxName = artifact.meta.globalMbox || DEFAULT_GLOBAL_MBOX_NAME;
+
   const request = {
     ...deliveryRequest,
     requestId: deliveryRequest.requestId || createUUID()
@@ -112,7 +113,7 @@ function DecisionProvider(
       // eslint-disable-next-line no-restricted-syntax
       for (const rule of mboxRules) {
         processRule(rulesResult, rule);
-        if (!isGlobalMbox && rulesResult.length > 0) {
+        if (!isGlobalMbox && rulesResult.mboxes.length > 0) {
           break;
         }
       }

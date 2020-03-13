@@ -58,7 +58,10 @@
             {
             name: "something",
             index: 4
-          }
+          },{
+              name: "kitty",
+              index: 5
+            }
           ],
           views: [{}]
         },
@@ -91,7 +94,6 @@
 
   client = window.TargetClient.create(Object.assign({}, targetClientOptions, doLocalDecisioning ? {
     executionMode: "local",
-    // artifactLocation: "https://target-local-decisioning-test.s3.us-west-2.amazonaws.com/adobesummit2018/waters_test/jasonsflags-rules.json",
     artifactLocation: "https://target-local-decisioning-test.s3.us-west-2.amazonaws.com/adobesummit2018/waters_test/rules.json"
   } : {}));
 </script>
