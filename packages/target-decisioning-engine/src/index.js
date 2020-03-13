@@ -1,9 +1,8 @@
-import { getLogger, getMboxNames } from "@adobe/target-tools";
+import { getLogger } from "@adobe/target-tools";
 import { createDecisioningContext } from "./contextProvider";
-import { getDecisions } from "./decisionProvider";
+import DecisionProvider from "./decisionProvider";
 import ArtifactProvider from "./artifactProvider";
 import Messages from "./messages";
-import NotificationProvider from "./notificationProvider";
 import { hasRemoteDependency } from "./utils";
 
 /**
@@ -57,18 +56,12 @@ export default async function TargetDecisioningEngine(config) {
       return Promise.reject(new Error(Messages.ARTIFACT_NOT_AVAILABLE));
     }
 
-    const notificationProvider = NotificationProvider(
-      request,
-      config.sendNotificationFunc
-    );
-
-    return getDecisions(
+    return DecisionProvider(
       config.client,
-      request.id,
+      request,
       createDecisioningContext(request),
       artifact,
-      request,
-      notificationProvider
+      config.sendNotificationFunc
     );
   }
 

@@ -313,11 +313,10 @@ describe("decisioning outcomes - url params", () => {
       expect.objectContaining({
         execute: {
           mboxes: [
-            // unclear why delivery API returns an array with this superfluous object in it.  For now, local decisioning returns empty if there are no matches
-            // {
-            //   index: 1,
-            //   name: "offer2"
-            // }
+            {
+              index: 1,
+              name: "offer2"
+            }
           ]
         }
       })

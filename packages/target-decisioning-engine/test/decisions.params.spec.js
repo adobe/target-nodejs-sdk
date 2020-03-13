@@ -255,10 +255,10 @@ describe("decisioning outcomes - params", () => {
       expect.objectContaining({
         prefetch: {
           mboxes: [
-            // {
-            //   index: 1,
-            //   name: "redundant-mbox",
-            // }
+            {
+              index: 1,
+              name: "redundant-mbox"
+            }
           ]
         }
       })

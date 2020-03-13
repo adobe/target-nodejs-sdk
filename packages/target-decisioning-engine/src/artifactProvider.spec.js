@@ -104,7 +104,7 @@ describe("artifactProvider", () => {
       ["", { status: HttpStatus.GONE }],
       [JSON.stringify(DUMMY_ARTIFACT_PAYLOAD), { status: HttpStatus.OK }]
     );
-    // HttpStatus.NOT_MODIFIED
+
     provider = await ArtifactProvider({
       client: "clientId",
       organizationId: "orgId",
