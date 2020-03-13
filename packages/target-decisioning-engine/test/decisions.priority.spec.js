@@ -12,7 +12,7 @@ const DECISIONING_PAYLOAD = {
   version: "1.0.0",
   meta: {
     generatedAt: "2020-03-13T19:01:29.819Z",
-    remoteMboxes: ["[remote-only-mbox-a", "remote-only-mbox-a]"],
+    remoteMboxes: ["remote-only-mbox-a", "remote-only-mbox-a"],
     globalMbox: "target-global-mbox"
   },
   rules: [
