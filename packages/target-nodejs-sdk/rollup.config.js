@@ -17,12 +17,13 @@ import license from "rollup-plugin-license";
 import commonjs from "@rollup/plugin-commonjs";
 import { terser } from "rollup-plugin-terser";
 import babel from "rollup-plugin-babel";
+import visualizer from "rollup-plugin-visualizer";
 import pkg from "./package.json";
 
-function getPlugins(babelConfig) {
+function getPlugins(babelConfig, visualizerConfig) {
   return [
     json(),
-    resolve(),
+    resolve({ preferBuiltins: false }),
     commonjs(),
     license({
       banner: {
@@ -32,7 +33,8 @@ function getPlugins(babelConfig) {
       }
     }),
     babel(babelConfig),
-    terser()
+    terser(),
+    visualizer(visualizerConfig)
   ];
 }
 
@@ -46,31 +48,36 @@ export default [
       sourcemap: true
     },
     external: [],
-    plugins: getPlugins({
-      inputSourceMap: true,
-      sourceMaps: true,
-      exclude: ["node_modules/**", /\/core-js\//],
+    plugins: getPlugins(
+      {
+        inputSourceMap: true,
+        sourceMaps: true,
+        exclude: ["node_modules/**", /\/core-js\//],
 
-      presets: [
-        [
-          "@babel/preset-env",
-          {
-            useBuiltIns: "usage",
-            corejs: 3,
-            modules: false,
-            targets: {
-              browsers: [
-                "last 2 Chrome versions",
-                "last 2 Firefox versions",
-                "last 2 Safari versions",
-                "Explorer >= 10"
-              ]
+        presets: [
+          [
+            "@babel/preset-env",
+            {
+              useBuiltIns: "usage",
+              corejs: 3,
+              modules: false,
+              targets: {
+                browsers: [
+                  "last 2 Chrome versions",
+                  "last 2 Firefox versions",
+                  "last 2 Safari versions",
+                  "Explorer >= 10"
+                ]
+              }
             }
-          }
-        ]
-      ],
-      plugins: []
-    })
+          ]
+        ],
+        plugins: ["@babel/plugin-transform-regenerator"]
+      },
+      {
+        filename: "bundlesize-stats.browser.html"
+      }
+    )
   },
   {
     input: "src/index.server.js",
@@ -80,21 +87,27 @@ export default [
       format: "cjs"
     },
     external: [...Object.keys(pkg.dependencies || {})],
-    plugins: getPlugins({
-      exclude: "node_modules/**",
+    plugins: getPlugins(
+      {
+        exclude: "node_modules/**",
 
-      presets: [
-        [
-          "@babel/preset-env",
-          {
-            modules: false,
-            targets: {
-              node: "current"
+        presets: [
+          [
+            "@babel/preset-env",
+            {
+              useBuiltIns: false,
+              modules: false,
+              targets: {
+                node: "current"
+              }
             }
-          }
-        ]
-      ],
-      plugins: []
-    })
+          ]
+        ],
+        plugins: []
+      },
+      {
+        filename: "bundlesize-stats.server.html"
+      }
+    )
   }
 ];

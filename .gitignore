@@ -13,3 +13,4 @@ npm-debug.log
 *.iml
 *.map
 *.tgz
+bundlesize-stats*.html

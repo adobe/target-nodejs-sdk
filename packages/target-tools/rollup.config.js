@@ -15,6 +15,7 @@ import json from "@rollup/plugin-json";
 import commonjs from "@rollup/plugin-commonjs";
 import { terser } from "rollup-plugin-terser";
 import babel from "rollup-plugin-babel";
+import visualizer from "rollup-plugin-visualizer";
 import pkg from "./package.json";
 
 export default [
@@ -26,6 +27,15 @@ export default [
       format: "cjs",
       sourcemap: true
     },
-    plugins: [json(), resolve(), commonjs(), babel(), terser()]
+    plugins: [
+      json(),
+      resolve(),
+      commonjs(),
+      babel(),
+      terser(),
+      visualizer({
+        filename: "bundlesize-stats.html"
+      })
+    ]
   }
 ];
