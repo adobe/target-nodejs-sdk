@@ -1,4 +1,4 @@
-import { OneOfstringobject } from './index';
+import { OneOfstringobject } from './';
 export interface Action {
     type?: string;
     selector?: string;

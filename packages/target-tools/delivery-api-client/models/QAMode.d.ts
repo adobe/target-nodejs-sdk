@@ -1,4 +1,4 @@
-import { QAModePreviewIndex } from './index';
+import { QAModePreviewIndex } from './';
 export interface QAMode {
     token?: string;
     listedActivitiesOnly?: boolean;

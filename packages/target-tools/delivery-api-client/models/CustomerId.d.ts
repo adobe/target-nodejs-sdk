@@ -1,4 +1,4 @@
-import { AuthenticatedState } from './index';
+import { AuthenticatedState } from './';
 export interface CustomerId {
     id: string;
     integrationCode: string;

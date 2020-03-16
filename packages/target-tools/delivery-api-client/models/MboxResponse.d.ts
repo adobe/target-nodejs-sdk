@@ -1,4 +1,4 @@
-import { AnalyticsResponse, Metric, Option } from './index';
+import { AnalyticsResponse, Metric, Option } from './';
 export interface MboxResponse {
     index?: number;
     name?: string;

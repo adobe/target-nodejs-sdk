@@ -1,4 +1,4 @@
-import { Address, Application, Browser, ChannelType, Geo, MobilePlatform, Screen, Window } from './index';
+import { Address, Application, Browser, ChannelType, Geo, MobilePlatform, Screen, Window } from './';
 export interface Context {
     channel: ChannelType;
     mobilePlatform?: MobilePlatform;

@@ -2,608 +2,248 @@
 
 Object.defineProperty(exports, "__esModule", { value: true });
 
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
-
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
-
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
-***************************************************************************** */
-/* global Reflect, Promise */
-
-var extendStatics = function(d, b) {
-  extendStatics =
-    Object.setPrototypeOf ||
-    ({ __proto__: [] } instanceof Array &&
-      function(d, b) {
-        d.__proto__ = b;
-      }) ||
-    function(d, b) {
-      for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    };
-  return extendStatics(d, b);
-};
-
-function __extends(d, b) {
-  extendStatics(d, b);
-  function __() {
-    this.constructor = d;
-  }
-  d.prototype =
-    b === null ? Object.create(b) : ((__.prototype = b.prototype), new __());
-}
-
-var __assign = function() {
-  __assign =
-    Object.assign ||
-    function __assign(t) {
-      for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s)
-          if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-      }
-      return t;
-    };
-  return __assign.apply(this, arguments);
-};
-
-function __awaiter(thisArg, _arguments, P, generator) {
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    function step(result) {
-      result.done
-        ? resolve(result.value)
-        : new P(function(resolve) {
-            resolve(result.value);
-          }).then(fulfilled, rejected);
-    }
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-}
-
-function __generator(thisArg, body) {
-  var _ = {
-      label: 0,
-      sent: function() {
-        if (t[0] & 1) throw t[1];
-        return t[1];
-      },
-      trys: [],
-      ops: []
-    },
-    f,
-    y,
-    t,
-    g;
-  return (
-    (g = { next: verb(0), throw: verb(1), return: verb(2) }),
-    typeof Symbol === "function" &&
-      (g[Symbol.iterator] = function() {
-        return this;
-      }),
-    g
-  );
-  function verb(n) {
-    return function(v) {
-      return step([n, v]);
-    };
-  }
-  function step(op) {
-    if (f) throw new TypeError("Generator is already executing.");
-    while (_)
-      try {
-        if (
-          ((f = 1),
-          y &&
-            (t =
-              op[0] & 2
-                ? y["return"]
-                : op[0]
-                ? y["throw"] || ((t = y["return"]) && t.call(y), 0)
-                : y.next) &&
-            !(t = t.call(y, op[1])).done)
-        )
-          return t;
-        if (((y = 0), t)) op = [op[0] & 2, t.value];
-        switch (op[0]) {
-          case 0:
-          case 1:
-            t = op;
-            break;
-          case 4:
-            _.label++;
-            return { value: op[1], done: false };
-          case 5:
-            _.label++;
-            y = op[1];
-            op = [0];
-            continue;
-          case 7:
-            op = _.ops.pop();
-            _.trys.pop();
-            continue;
-          default:
-            if (
-              !((t = _.trys), (t = t.length > 0 && t[t.length - 1])) &&
-              (op[0] === 6 || op[0] === 2)
-            ) {
-              _ = 0;
-              continue;
-            }
-            if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) {
-              _.label = op[1];
-              break;
-            }
-            if (op[0] === 6 && _.label < t[1]) {
-              _.label = t[1];
-              t = op;
-              break;
-            }
-            if (t && _.label < t[2]) {
-              _.label = t[2];
-              _.ops.push(op);
-              break;
-            }
-            if (t[2]) _.ops.pop();
-            _.trys.pop();
-            continue;
-        }
-        op = body.call(thisArg, _);
-      } catch (e) {
-        op = [6, e];
-        y = 0;
-      } finally {
-        f = t = 0;
-      }
-    if (op[0] & 5) throw op[1];
-    return { value: op[0] ? op[1] : void 0, done: true };
-  }
-}
-
-var BASE_PATH = "https://.tt.omtrdc.net".replace(/\/+$/, "");
-var HTTP_NO_CONTENT = 204;
-var DEFAULT_TIMEOUT = 3000;
-var isBlob = function(value) {
-  return typeof Blob !== "undefined" && value instanceof Blob;
-};
-var BaseAPI = (function() {
-  function BaseAPI(configuration) {
-    if (configuration === void 0) {
-      configuration = new Configuration();
-    }
-    var _this = this;
+const BASE_PATH = "https://.tt.omtrdc.net".replace(/\/+$/, "");
+const HTTP_NO_CONTENT = 204;
+const DEFAULT_TIMEOUT = 3000;
+const isBlob = value => typeof Blob !== "undefined" && value instanceof Blob;
+class BaseAPI {
+  constructor(configuration = new Configuration()) {
     this.configuration = configuration;
-    this.fetchApi = function(url, init) {
-      return __awaiter(_this, void 0, void 0, function() {
-        var fetchParams, _i, _a, middleware, response, _b, _c, middleware;
-        return __generator(this, function(_d) {
-          switch (_d.label) {
-            case 0:
-              fetchParams = { url: url, init: init };
-              (_i = 0), (_a = this.middleware);
-              _d.label = 1;
-            case 1:
-              if (!(_i < _a.length)) return [3, 4];
-              middleware = _a[_i];
-              if (!middleware.pre) return [3, 3];
-              return [
-                4,
-                middleware.pre(__assign({ fetch: this.fetchApi }, fetchParams))
-              ];
-            case 2:
-              fetchParams = _d.sent() || fetchParams;
-              _d.label = 3;
-            case 3:
-              _i++;
-              return [3, 1];
-            case 4:
-              return [
-                4,
-                this.configuration.fetchApi(fetchParams.url, fetchParams.init)
-              ];
-            case 5:
-              response = _d.sent();
-              (_b = 0), (_c = this.middleware);
-              _d.label = 6;
-            case 6:
-              if (!(_b < _c.length)) return [3, 9];
-              middleware = _c[_b];
-              if (!middleware.post) return [3, 8];
-              return [
-                4,
-                middleware.post({
-                  fetch: this.fetchApi,
-                  url: url,
-                  init: init,
-                  response: response.clone()
-                })
-              ];
-            case 7:
-              response = _d.sent() || response;
-              _d.label = 8;
-            case 8:
-              _b++;
-              return [3, 6];
-            case 9:
-              return [2, response];
-          }
-        });
-      });
+    this.fetchApi = async (url, init) => {
+      let fetchParams = { url, init };
+      for (const middleware of this.middleware) {
+        if (middleware.pre) {
+          fetchParams =
+            (await middleware.pre({
+              fetch: this.fetchApi,
+              ...fetchParams
+            })) || fetchParams;
+        }
+      }
+      let response = await this.configuration.fetchApi(
+        fetchParams.url,
+        fetchParams.init
+      );
+      for (const middleware of this.middleware) {
+        if (middleware.post) {
+          response =
+            (await middleware.post({
+              fetch: this.fetchApi,
+              url,
+              init,
+              response: response.clone()
+            })) || response;
+        }
+      }
+      return response;
     };
     this.middleware = configuration.middleware;
   }
-  BaseAPI.prototype.withMiddleware = function() {
-    var middlewares = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-      middlewares[_i] = arguments[_i];
-    }
-    var _a;
-    var next = this.clone();
-    next.middleware = (_a = next.middleware).concat.apply(_a, middlewares);
+  withMiddleware(...middlewares) {
+    const next = this.clone();
+    next.middleware = next.middleware.concat(...middlewares);
     return next;
-  };
-  BaseAPI.prototype.withPreMiddleware = function() {
-    var preMiddlewares = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-      preMiddlewares[_i] = arguments[_i];
+  }
+  withPreMiddleware(...preMiddlewares) {
+    const middlewares = preMiddlewares.map(pre => ({ pre }));
+    return this.withMiddleware(...middlewares);
+  }
+  withPostMiddleware(...postMiddlewares) {
+    const middlewares = postMiddlewares.map(post => ({ post }));
+    return this.withMiddleware(...middlewares);
+  }
+  async request(context) {
+    const { url, init } = this.createFetchParams(context);
+    const response = await this.fetchApi(url, init);
+    if (response.status >= 200 && response.status < 300) {
+      return response;
     }
-    var middlewares = preMiddlewares.map(function(pre) {
-      return { pre: pre };
-    });
-    return this.withMiddleware.apply(this, middlewares);
-  };
-  BaseAPI.prototype.withPostMiddleware = function() {
-    var postMiddlewares = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-      postMiddlewares[_i] = arguments[_i];
-    }
-    var middlewares = postMiddlewares.map(function(post) {
-      return { post: post };
-    });
-    return this.withMiddleware.apply(this, middlewares);
-  };
-  BaseAPI.prototype.request = function(context) {
-    return __awaiter(this, void 0, void 0, function() {
-      var _a, url, init, response;
-      return __generator(this, function(_b) {
-        switch (_b.label) {
-          case 0:
-            (_a = this.createFetchParams(context)),
-              (url = _a.url),
-              (init = _a.init);
-            return [4, this.fetchApi(url, init)];
-          case 1:
-            response = _b.sent();
-            if (response.status >= 200 && response.status < 300) {
-              return [2, response];
-            }
-            throw response;
-        }
-      });
-    });
-  };
-  BaseAPI.prototype.createFetchParams = function(context) {
-    var url = this.configuration.basePath + context.path;
+    throw response;
+  }
+  createFetchParams(context) {
+    let url = this.configuration.basePath + context.path;
     if (
       context.query !== undefined &&
       Object.keys(context.query).length !== 0
     ) {
       url += "?" + this.configuration.queryParamsStringify(context.query);
     }
-    var body =
+    const body =
       context.body instanceof FormData ||
       context.body instanceof URLSearchParams ||
       isBlob(context.body)
         ? context.body
         : JSON.stringify(context.body);
-    var headers = Object.assign(
+    const headers = Object.assign(
       {},
       this.configuration.headers,
       context.headers
     );
-    var init = {
+    const init = {
       method: context.method,
       headers: headers,
-      body: body,
+      body,
       credentials: this.configuration.credentials
     };
-    return { url: url, init: init };
-  };
-  BaseAPI.prototype.clone = function() {
-    var constructor = this.constructor;
-    var next = new constructor(this.configuration);
+    return { url, init };
+  }
+  clone() {
+    const constructor = this.constructor;
+    const next = new constructor(this.configuration);
     next.middleware = this.middleware.slice();
     return next;
-  };
-  return BaseAPI;
-})();
-var RequiredError = (function(_super) {
-  __extends(RequiredError, _super);
-  function RequiredError(field, msg) {
-    var _this = _super.call(this, msg) || this;
-    _this.field = field;
-    _this.name = "RequiredError";
-    return _this;
   }
-  return RequiredError;
-})(Error);
-var COLLECTION_FORMATS = {
+}
+class RequiredError extends Error {
+  constructor(field, msg) {
+    super(msg);
+    this.field = field;
+    this.name = "RequiredError";
+  }
+}
+const COLLECTION_FORMATS = {
   csv: ",",
   ssv: " ",
   tsv: "\t",
   pipes: "|"
 };
-var Configuration = (function() {
-  function Configuration(configuration) {
-    if (configuration === void 0) {
-      configuration = {};
-    }
+class Configuration {
+  constructor(configuration = {}) {
     this.configuration = configuration;
   }
-  Object.defineProperty(Configuration.prototype, "basePath", {
-    get: function() {
-      return this.configuration.basePath || BASE_PATH;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(Configuration.prototype, "fetchApi", {
-    get: function() {
-      var timeout = this.configuration.timeout;
-      var fetch = this.configuration.fetchApi || window.fetch.bind(window);
-      return function(input, init) {
-        return new Promise(function(resolve, reject) {
-          var timer = setTimeout(function() {
-            return reject(new Error("Request timed out"));
-          }, timeout);
-          fetch(input, init)
-            .then(
-              function(response) {
-                return resolve(response);
-              },
-              function(err) {
-                return reject(err);
-              }
-            )
-            .finally(function() {
-              return clearTimeout(timer);
-            });
-        });
-      };
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(Configuration.prototype, "middleware", {
-    get: function() {
-      return this.configuration.middleware || [];
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(Configuration.prototype, "queryParamsStringify", {
-    get: function() {
-      return this.configuration.queryParamsStringify || querystring;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(Configuration.prototype, "username", {
-    get: function() {
-      return this.configuration.username;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(Configuration.prototype, "password", {
-    get: function() {
-      return this.configuration.password;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(Configuration.prototype, "apiKey", {
-    get: function() {
-      var apiKey = this.configuration.apiKey;
-      if (apiKey) {
-        return typeof apiKey === "function"
-          ? apiKey
-          : function() {
-              return apiKey;
-            };
-      }
-      return undefined;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(Configuration.prototype, "accessToken", {
-    get: function() {
-      var accessToken = this.configuration.accessToken;
-      if (accessToken) {
-        return typeof accessToken === "function"
-          ? accessToken
-          : function() {
-              return accessToken;
-            };
-      }
-      return undefined;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(Configuration.prototype, "headers", {
-    get: function() {
-      return this.configuration.headers;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(Configuration.prototype, "credentials", {
-    get: function() {
-      return this.configuration.credentials;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  Object.defineProperty(Configuration.prototype, "timeout", {
-    get: function() {
-      return this.configuration.timeout || DEFAULT_TIMEOUT;
-    },
-    enumerable: true,
-    configurable: true
-  });
-  return Configuration;
-})();
+  get basePath() {
+    return this.configuration.basePath || BASE_PATH;
+  }
+  get fetchApi() {
+    const timeout = this.configuration.timeout;
+    const fetch = this.configuration.fetchApi || window.fetch.bind(window);
+    return function(input, init) {
+      return new Promise((resolve, reject) => {
+        let timer = setTimeout(
+          () => reject(new Error("Request timed out")),
+          timeout
+        );
+        fetch(input, init)
+          .then(
+            response => resolve(response),
+            err => reject(err)
+          )
+          .finally(() => clearTimeout(timer));
+      });
+    };
+  }
+  get middleware() {
+    return this.configuration.middleware || [];
+  }
+  get queryParamsStringify() {
+    return this.configuration.queryParamsStringify || querystring;
+  }
+  get username() {
+    return this.configuration.username;
+  }
+  get password() {
+    return this.configuration.password;
+  }
+  get apiKey() {
+    const apiKey = this.configuration.apiKey;
+    if (apiKey) {
+      return typeof apiKey === "function" ? apiKey : () => apiKey;
+    }
+    return undefined;
+  }
+  get accessToken() {
+    const accessToken = this.configuration.accessToken;
+    if (accessToken) {
+      return typeof accessToken === "function"
+        ? accessToken
+        : () => accessToken;
+    }
+    return undefined;
+  }
+  get headers() {
+    return this.configuration.headers;
+  }
+  get credentials() {
+    return this.configuration.credentials;
+  }
+  get timeout() {
+    return this.configuration.timeout || DEFAULT_TIMEOUT;
+  }
+}
 function exists(json, key) {
-  var value = json[key];
+  const value = json[key];
   return value !== null && value !== undefined;
 }
-function querystring(params, prefix) {
-  if (prefix === void 0) {
-    prefix = "";
-  }
+function querystring(params, prefix = "") {
   return Object.keys(params)
-    .map(function(key) {
-      var fullKey = prefix + (prefix.length ? "[" + key + "]" : key);
-      var value = params[key];
+    .map(key => {
+      const fullKey = prefix + (prefix.length ? `[${key}]` : key);
+      const value = params[key];
       if (value instanceof Array) {
-        var multiValue = value
-          .map(function(singleValue) {
-            return encodeURIComponent(String(singleValue));
-          })
-          .join("&" + encodeURIComponent(fullKey) + "=");
-        return encodeURIComponent(fullKey) + "=" + multiValue;
+        const multiValue = value
+          .map(singleValue => encodeURIComponent(String(singleValue)))
+          .join(`&${encodeURIComponent(fullKey)}=`);
+        return `${encodeURIComponent(fullKey)}=${multiValue}`;
       }
       if (value instanceof Object) {
         return querystring(value, fullKey);
       }
-      return (
-        encodeURIComponent(fullKey) + "=" + encodeURIComponent(String(value))
-      );
+      return `${encodeURIComponent(fullKey)}=${encodeURIComponent(
+        String(value)
+      )}`;
     })
-    .filter(function(part) {
-      return part.length > 0;
-    })
+    .filter(part => part.length > 0)
     .join("&");
 }
 function mapValues(data, fn) {
-  return Object.keys(data).reduce(function(acc, key) {
-    var _a;
-    return __assign({}, acc, ((_a = {}), (_a[key] = fn(data[key])), _a));
-  }, {});
+  return Object.keys(data).reduce(
+    (acc, key) => ({ ...acc, [key]: fn(data[key]) }),
+    {}
+  );
 }
 function canConsumeForm(consumes) {
-  for (var _i = 0, consumes_1 = consumes; _i < consumes_1.length; _i++) {
-    var consume = consumes_1[_i];
+  for (const consume of consumes) {
     if ("multipart/form-data" === consume.contentType) {
       return true;
     }
   }
   return false;
 }
-var JSONApiResponse = (function() {
-  function JSONApiResponse(raw, transformer) {
-    if (transformer === void 0) {
-      transformer = function(jsonValue) {
-        return jsonValue;
-      };
-    }
+class JSONApiResponse {
+  constructor(raw, transformer = jsonValue => jsonValue) {
     this.raw = raw;
     this.transformer = transformer;
   }
-  JSONApiResponse.prototype.value = function() {
-    return __awaiter(this, void 0, void 0, function() {
-      var _a, _b;
-      return __generator(this, function(_c) {
-        switch (_c.label) {
-          case 0:
-            _a = this.transformer;
-            if (!(this.raw.status === HTTP_NO_CONTENT)) return [3, 1];
-            _b = {};
-            return [3, 3];
-          case 1:
-            return [4, this.raw.json()];
-          case 2:
-            _b = _c.sent();
-            _c.label = 3;
-          case 3:
-            return [2, _a.apply(this, [_b])];
-        }
-      });
-    });
-  };
-  return JSONApiResponse;
-})();
-var VoidApiResponse = (function() {
-  function VoidApiResponse(raw) {
+  async value() {
+    return this.transformer(
+      this.raw.status === HTTP_NO_CONTENT ? {} : await this.raw.json()
+    );
+  }
+}
+class VoidApiResponse {
+  constructor(raw) {
     this.raw = raw;
   }
-  VoidApiResponse.prototype.value = function() {
-    return __awaiter(this, void 0, void 0, function() {
-      return __generator(this, function(_a) {
-        return [2, undefined];
-      });
-    });
-  };
-  return VoidApiResponse;
-})();
-var BlobApiResponse = (function() {
-  function BlobApiResponse(raw) {
+  async value() {
+    return undefined;
+  }
+}
+class BlobApiResponse {
+  constructor(raw) {
     this.raw = raw;
   }
-  BlobApiResponse.prototype.value = function() {
-    return __awaiter(this, void 0, void 0, function() {
-      return __generator(this, function(_a) {
-        switch (_a.label) {
-          case 0:
-            return [4, this.raw.blob()];
-          case 1:
-            return [2, _a.sent()];
-        }
-      });
-    });
-  };
-  return BlobApiResponse;
-})();
-var TextApiResponse = (function() {
-  function TextApiResponse(raw) {
+  async value() {
+    return await this.raw.blob();
+  }
+}
+class TextApiResponse {
+  constructor(raw) {
     this.raw = raw;
   }
-  TextApiResponse.prototype.value = function() {
-    return __awaiter(this, void 0, void 0, function() {
-      return __generator(this, function(_a) {
-        switch (_a.label) {
-          case 0:
-            return [4, this.raw.text()];
-          case 1:
-            return [2, _a.sent()];
-        }
-      });
-    });
-  };
-  return TextApiResponse;
-})();
+  async value() {
+    return await this.raw.text();
+  }
+}
 
 function ActionFromJSON(json) {
   return ActionFromJSONTyped(json);
@@ -2291,109 +1931,68 @@ function OneOfstringobjectarrayToJSON(value) {
   return value;
 }
 
-var DeliveryAPIApi = (function(_super) {
-  __extends(DeliveryAPIApi, _super);
-  function DeliveryAPIApi() {
-    return (_super !== null && _super.apply(this, arguments)) || this;
+class DeliveryAPIApi extends BaseAPI {
+  async executeRaw(requestParameters) {
+    if (
+      requestParameters.client === null ||
+      requestParameters.client === undefined
+    ) {
+      throw new RequiredError(
+        "client",
+        "Required parameter requestParameters.client was null or undefined when calling execute."
+      );
+    }
+    if (
+      requestParameters.sessionId === null ||
+      requestParameters.sessionId === undefined
+    ) {
+      throw new RequiredError(
+        "sessionId",
+        "Required parameter requestParameters.sessionId was null or undefined when calling execute."
+      );
+    }
+    if (
+      requestParameters.deliveryRequest === null ||
+      requestParameters.deliveryRequest === undefined
+    ) {
+      throw new RequiredError(
+        "deliveryRequest",
+        "Required parameter requestParameters.deliveryRequest was null or undefined when calling execute."
+      );
+    }
+    const queryParameters = {};
+    if (requestParameters.client !== undefined) {
+      queryParameters["client"] = requestParameters.client;
+    }
+    if (requestParameters.sessionId !== undefined) {
+      queryParameters["sessionId"] = requestParameters.sessionId;
+    }
+    if (requestParameters.version !== undefined) {
+      queryParameters["version"] = requestParameters.version;
+    }
+    const headerParameters = {};
+    headerParameters["Content-Type"] = "application/json";
+    const response = await this.request({
+      path: `/rest/v1/delivery`,
+      method: "POST",
+      headers: headerParameters,
+      query: queryParameters,
+      body: DeliveryRequestToJSON(requestParameters.deliveryRequest)
+    });
+    return new JSONApiResponse(response, jsonValue =>
+      DeliveryResponseFromJSON(jsonValue)
+    );
   }
-  DeliveryAPIApi.prototype.executeRaw = function(requestParameters) {
-    return __awaiter(this, void 0, void 0, function() {
-      var queryParameters, headerParameters, response;
-      return __generator(this, function(_a) {
-        switch (_a.label) {
-          case 0:
-            if (
-              requestParameters.client === null ||
-              requestParameters.client === undefined
-            ) {
-              throw new RequiredError(
-                "client",
-                "Required parameter requestParameters.client was null or undefined when calling execute."
-              );
-            }
-            if (
-              requestParameters.sessionId === null ||
-              requestParameters.sessionId === undefined
-            ) {
-              throw new RequiredError(
-                "sessionId",
-                "Required parameter requestParameters.sessionId was null or undefined when calling execute."
-              );
-            }
-            if (
-              requestParameters.deliveryRequest === null ||
-              requestParameters.deliveryRequest === undefined
-            ) {
-              throw new RequiredError(
-                "deliveryRequest",
-                "Required parameter requestParameters.deliveryRequest was null or undefined when calling execute."
-              );
-            }
-            queryParameters = {};
-            if (requestParameters.client !== undefined) {
-              queryParameters["client"] = requestParameters.client;
-            }
-            if (requestParameters.sessionId !== undefined) {
-              queryParameters["sessionId"] = requestParameters.sessionId;
-            }
-            if (requestParameters.version !== undefined) {
-              queryParameters["version"] = requestParameters.version;
-            }
-            headerParameters = {};
-            headerParameters["Content-Type"] = "application/json";
-            return [
-              4,
-              this.request({
-                path: "/rest/v1/delivery",
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DeliveryRequestToJSON(requestParameters.deliveryRequest)
-              })
-            ];
-          case 1:
-            response = _a.sent();
-            return [
-              2,
-              new JSONApiResponse(response, function(jsonValue) {
-                return DeliveryResponseFromJSON(jsonValue);
-              })
-            ];
-        }
-      });
+  async execute(client, sessionId, deliveryRequest, version) {
+    const response = await this.executeRaw({
+      client: client,
+      sessionId: sessionId,
+      deliveryRequest: deliveryRequest,
+      version: version
     });
-  };
-  DeliveryAPIApi.prototype.execute = function(
-    client,
-    sessionId,
-    deliveryRequest,
-    version
-  ) {
-    return __awaiter(this, void 0, void 0, function() {
-      var response;
-      return __generator(this, function(_a) {
-        switch (_a.label) {
-          case 0:
-            return [
-              4,
-              this.executeRaw({
-                client: client,
-                sessionId: sessionId,
-                deliveryRequest: deliveryRequest,
-                version: version
-              })
-            ];
-          case 1:
-            response = _a.sent();
-            return [4, response.value()];
-          case 2:
-            return [2, _a.sent()];
-        }
-      });
-    });
-  };
-  return DeliveryAPIApi;
-})(BaseAPI);
+    return await response.value();
+  }
+}
 
 exports.ActionFromJSON = ActionFromJSON;
 exports.ActionFromJSONTyped = ActionFromJSONTyped;

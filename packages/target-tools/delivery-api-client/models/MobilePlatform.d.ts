@@ -1,4 +1,4 @@
-import { DeviceType, MobilePlatformType } from './index';
+import { DeviceType, MobilePlatformType } from './';
 export interface MobilePlatform {
     deviceName?: string;
     deviceType: DeviceType;

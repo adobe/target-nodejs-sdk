@@ -1,4 +1,4 @@
-import { AnalyticsRequest, AudienceManager } from './index';
+import { AnalyticsRequest, AudienceManager } from './';
 export interface ExperienceCloud {
     audienceManager?: AudienceManager;
     analytics?: AnalyticsRequest;

@@ -1,4 +1,4 @@
-import { OneOfstringobjectarray, OptionType } from './index';
+import { OneOfstringobjectarray, OptionType } from './';
 export interface Option {
     type?: OptionType;
     content?: OneOfstringobjectarray;

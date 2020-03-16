@@ -1,4 +1,4 @@
-import { ScreenOrientationType } from './index';
+import { ScreenOrientationType } from './';
 export interface Screen {
     width?: number;
     height?: number;

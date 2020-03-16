@@ -1,4 +1,4 @@
-import { Metric, PageLoadResponse, PrefetchMboxResponse, View } from './index';
+import { Metric, PageLoadResponse, PrefetchMboxResponse, View } from './';
 export interface PrefetchResponse {
     views?: Array<View>;
     pageLoad?: PageLoadResponse;

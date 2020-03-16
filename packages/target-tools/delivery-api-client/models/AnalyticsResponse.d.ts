@@ -1,4 +1,4 @@
-import { AnalyticsPayload } from './index';
+import { AnalyticsPayload } from './';
 export interface AnalyticsResponse {
     payload?: AnalyticsPayload;
 }

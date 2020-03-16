@@ -1,4 +1,4 @@
-import { Address, MetricType, NotificationMbox, NotificationPageLoad, NotificationView, Order, Product } from './index';
+import { Address, MetricType, NotificationMbox, NotificationPageLoad, NotificationView, Order, Product } from './';
 export interface Notification {
     address?: Address;
     parameters?: {

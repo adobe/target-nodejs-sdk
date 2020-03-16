@@ -1,4 +1,4 @@
-import { MboxRequest, RequestDetails } from './index';
+import { MboxRequest, RequestDetails } from './';
 export interface ExecuteRequest {
     pageLoad?: RequestDetails;
     mboxes?: Array<MboxRequest>;

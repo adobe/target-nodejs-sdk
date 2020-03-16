@@ -1,4 +1,4 @@
-import { MboxResponse, PageLoadResponse } from './index';
+import { MboxResponse, PageLoadResponse } from './';
 export interface ExecuteResponse {
     pageLoad?: PageLoadResponse;
     mboxes?: Array<MboxResponse>;

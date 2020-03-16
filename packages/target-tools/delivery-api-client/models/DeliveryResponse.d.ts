@@ -1,4 +1,4 @@
-import { ExecuteResponse, PrefetchResponse, VisitorId } from './index';
+import { ExecuteResponse, PrefetchResponse, VisitorId } from './';
 export interface DeliveryResponse {
     status?: number;
     requestId?: string;

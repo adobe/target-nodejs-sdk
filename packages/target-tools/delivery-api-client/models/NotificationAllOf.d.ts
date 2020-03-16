@@ -1,4 +1,4 @@
-import { MetricType, NotificationMbox, NotificationPageLoad, NotificationView } from './index';
+import { MetricType, NotificationMbox, NotificationPageLoad, NotificationView } from './';
 export interface NotificationAllOf {
     id?: string;
     impressionId?: string;

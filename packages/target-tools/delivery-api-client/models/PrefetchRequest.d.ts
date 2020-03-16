@@ -1,4 +1,4 @@
-import { MboxRequest, RequestDetails, ViewRequest } from './index';
+import { MboxRequest, RequestDetails, ViewRequest } from './';
 export interface PrefetchRequest {
     views?: Array<ViewRequest>;
     pageLoad?: RequestDetails;

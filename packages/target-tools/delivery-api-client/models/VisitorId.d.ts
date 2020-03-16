@@ -1,4 +1,4 @@
-import { CustomerId } from './index';
+import { CustomerId } from './';
 export interface VisitorId {
     tntId?: string;
     thirdPartyId?: string;

@@ -1,4 +1,4 @@
-import { LoggingType } from './index';
+import { LoggingType } from './';
 export interface AnalyticsRequest {
     supplementalDataId?: string;
     logging?: LoggingType;

@@ -1,4 +1,4 @@
-import { Address, Order, Product } from './index';
+import { Address, Order, Product } from './';
 export interface RequestDetails {
     address?: Address;
     parameters?: {
