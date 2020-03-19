@@ -1,4 +1,5 @@
 import TargetDecisioningEngine from "../src";
+import { DECISIONING_PAYLOAD_ADDRESS } from "./decisioning-payloads";
 
 require("jest-fetch-mock").enableMocks();
 
@@ -6,119 +7,6 @@ const TEST_CONF = {
   client: "someClientId",
   organizationId: "someOrgId",
   pollingInterval: 0
-};
-
-const DECISIONING_PAYLOAD_ADDRESS = {
-  version: "1.0.0",
-  meta: {
-    generatedAt: "2020-02-27T20:07:11.017Z"
-  },
-  rules: [
-    {
-      condition: {
-        and: [
-          {
-            "<": [
-              0,
-              {
-                var: "allocation"
-              },
-              50
-            ]
-          },
-          {
-            in: [
-              "bar",
-              {
-                var: "page.url_lc"
-              }
-            ]
-          }
-        ]
-      },
-      consequence: {
-        mboxes: [
-          {
-            options: [
-              {
-                content: {
-                  baz: 1
-                },
-                type: "json"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "mWtD0yDAXMnesyQOa7/jS2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "offer2"
-          }
-        ]
-      },
-      meta: {
-        activityId: 333312,
-        experienceId: 0,
-        type: "ab",
-        mboxes: ["offer2"],
-        views: []
-      }
-    },
-    {
-      condition: {
-        and: [
-          {
-            "<": [
-              50,
-              {
-                var: "allocation"
-              },
-              100
-            ]
-          },
-          {
-            in: [
-              "bar",
-              {
-                var: "page.url_lc"
-              }
-            ]
-          }
-        ]
-      },
-      consequence: {
-        mboxes: [
-          {
-            options: [
-              {
-                content: {
-                  baz: 2
-                },
-                type: "json"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "mWtD0yDAXMnesyQOa7/jS5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "offer2"
-          }
-        ]
-      },
-      meta: {
-        activityId: 333312,
-        experienceId: 1,
-        type: "ab",
-        mboxes: ["offer2"],
-        views: []
-      }
-    }
-  ]
 };
 
 describe("decisioning outcomes - url params", () => {

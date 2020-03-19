@@ -8,6 +8,11 @@ import NotificationProvider from "./notificationProvider";
 
 const DEFAULT_GLOBAL_MBOX_NAME = "target-global-mbox";
 
+const REQUEST_TYPE_PLURAL = {
+  mbox: "mboxes",
+  view: "views"
+};
+
 /**
  *
  * @param { String } clientId
@@ -41,14 +46,15 @@ function DecisionProvider(
 
   /**
    * @param {import("@adobe/target-tools/delivery-api-client/models/MboxRequest").MboxRequest} mboxRequest
+   * @param { 'mbox'|'view' } requestType
    * @param { Function } postProcessFunc
    */
-  function ruleEvaluator(mboxRequest, postProcessFunc) {
+  function ruleEvaluator(mboxRequest, requestType, postProcessFunc) {
     return (result, rule) => {
       let { page, referring } = context;
 
       if (
-        rule.meta.mboxes.indexOf(mboxRequest.name) > -1 &&
+        rule.meta.mbox === mboxRequest.name &&
         typeof mboxRequest.address !== "undefined"
       ) {
         page = createPageContext(mboxRequest.address) || page;
@@ -64,26 +70,18 @@ function DecisionProvider(
       };
 
       if (jsonLogic.apply(rule.condition, ruleContext)) {
-        Object.keys(rule.consequence).forEach(key => {
-          if (typeof result[key] === "undefined") {
-            // eslint-disable-next-line no-param-reassign
-            result[key] = [];
-          }
+        const key = REQUEST_TYPE_PLURAL[requestType];
 
-          Array.prototype.push.apply(
-            result[key],
-            rule.consequence[key]
-              .filter(mboxResponse => mboxRequest.name === mboxResponse.name) // filter out items that do not pertain to this mbox
-              .map(mboxResponse => {
-                const value = {
-                  ...mboxResponse,
-                  index: mboxRequest.index
-                };
-
-                return postProcessFunc(value);
-              })
-          );
-        });
+        if (typeof result[key] === "undefined") {
+          // eslint-disable-next-line no-param-reassign
+          result[key] = [];
+        }
+        result[key].push(
+          postProcessFunc({
+            ...rule.consequence,
+            index: mboxRequest.index
+          })
+        );
       }
       return result;
     };
@@ -104,11 +102,9 @@ function DecisionProvider(
     function processMboxRequest(result, mboxRequest) {
       const isGlobalMbox = mboxRequest.name === globalMboxName;
       const rulesResult = { mboxes: [] };
-      const processRule = ruleEvaluator(mboxRequest, postProcessFunc);
+      const processRule = ruleEvaluator(mboxRequest, "mbox", postProcessFunc);
 
-      const mboxRules = rules.filter(
-        rule => rule.meta.mboxes.indexOf(mboxRequest.name) > -1 // filter out rules that do not pertain to this mbox
-      );
+      const mboxRules = rules.mboxes[mboxRequest.name] || [];
 
       // eslint-disable-next-line no-restricted-syntax
       for (const rule of mboxRules) {

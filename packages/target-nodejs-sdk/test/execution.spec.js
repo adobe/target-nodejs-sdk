@@ -10,15 +10,16 @@ const TargetClient = require("../src/index.server").default;
 const ARTIFACT_PAYLOAD = {
   version: "1.0.0",
   meta: {
-    generatedAt: "2020-03-06T20:17:46.904Z",
-    remoteMboxes: ["remote-only-mbox-a", "remote-only-mbox-b"]
+    generatedAt: "2020-03-19T02:14:14.667Z",
+    remoteMboxes: ["remote-only-mbox-a", "remote-only-mbox-b"],
+    globalMbox: "target-global-mbox"
   },
-  rules: [
-    {
-      condition: { "<": [0, { var: "allocation" }, 50] },
-      consequence: {
-        mboxes: [
-          {
+  rules: {
+    mboxes: {
+      "jason-flags": [
+        {
+          condition: { "<": [0, { var: "allocation" }, 50] },
+          consequence: {
             options: [
               {
                 content: {
@@ -37,23 +38,18 @@ const ARTIFACT_PAYLOAD = {
                   "8MDICvd7bsTPYn79fLBNQmqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
-            name: "feature-flag-a"
+            name: "jason-flags"
+          },
+          meta: {
+            activityId: 335113,
+            experienceId: 0,
+            type: "ab",
+            mbox: "jason-flags"
           }
-        ]
-      },
-      meta: {
-        activityId: 335113,
-        experienceId: 0,
-        type: "ab",
-        mboxes: ["feature-flag-a"],
-        views: []
-      }
-    },
-    {
-      condition: { "<": [50, { var: "allocation" }, 100] },
-      consequence: {
-        mboxes: [
-          {
+        },
+        {
+          condition: { "<": [50, { var: "allocation" }, 100] },
+          consequence: {
             options: [
               {
                 content: {
@@ -72,20 +68,21 @@ const ARTIFACT_PAYLOAD = {
                   "8MDICvd7bsTPYn79fLBNQpNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
-            name: "feature-flag-a"
+            name: "jason-flags"
+          },
+          meta: {
+            activityId: 335113,
+            experienceId: 1,
+            type: "ab",
+            mbox: "jason-flags"
           }
-        ]
-      },
-      meta: {
-        activityId: 335113,
-        experienceId: 1,
-        type: "ab",
-        mboxes: ["feature-flag-a"],
-        views: []
-      }
-    }
-  ]
+        }
+      ]
+    },
+    views: {}
+  }
 };
+
 const DELIVERY_RESPONSE = {
   status: 200,
   requestId: "7a568cbfe3f44f0b99d1092c246660c3",
@@ -99,7 +96,7 @@ const DELIVERY_RESPONSE = {
     mboxes: [
       {
         index: 1,
-        name: "feature-flag-a",
+        name: "jason-flags",
         options: [
           {
             content: {
@@ -189,7 +186,7 @@ describe("execution mode", () => {
             prefetch: {
               mboxes: [
                 {
-                  name: "feature-flag-a",
+                  name: "jason-flags",
                   index: 1
                 },
                 {
@@ -234,7 +231,7 @@ describe("execution mode", () => {
             prefetch: {
               mboxes: [
                 {
-                  name: "feature-flag-a",
+                  name: "jason-flags",
                   index: 1
                 }
               ]
@@ -274,7 +271,7 @@ describe("execution mode", () => {
             prefetch: {
               mboxes: [
                 {
-                  name: "feature-flag-a",
+                  name: "jason-flags",
                   index: 1
                 },
                 {
@@ -319,7 +316,7 @@ describe("execution mode", () => {
             prefetch: {
               mboxes: [
                 {
-                  name: "feature-flag-a",
+                  name: "jason-flags",
                   index: 1
                 }
               ]

@@ -1,4 +1,5 @@
 import TargetDecisioningEngine from "../src";
+import { DECISIONING_PAYLOAD_BROWSER } from "./decisioning-payloads";
 
 require("jest-fetch-mock").enableMocks();
 
@@ -6,211 +7,6 @@ const TEST_CONF = {
   client: "someClientId",
   organizationId: "someOrgId",
   pollingInterval: 0
-};
-
-const DECISIONING_PAYLOAD = {
-  version: "1.0.0",
-  meta: {
-    generatedAt: "2020-02-28T19:19:37.420Z"
-  },
-  rules: [
-    {
-      condition: {
-        and: []
-      },
-      consequence: {
-        mboxes: [
-          {
-            options: [
-              {
-                content: "<h1>not firefox, safari or chrome</h1>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "B8C2FP2IuBgmeJcDfXHjGmqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "browser-mbox"
-          }
-        ]
-      },
-      meta: {
-        activityId: 334845,
-        experienceId: 0,
-        type: "xt",
-        mboxes: ["browser-mbox"],
-        views: []
-      }
-    },
-    {
-      condition: {
-        and: [
-          {
-            "==": [
-              {
-                var: "user.browserType"
-              },
-              "firefox"
-            ]
-          }
-        ]
-      },
-      consequence: {
-        mboxes: [
-          {
-            options: [
-              {
-                content: "<h1>it's firefox</h1>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "B8C2FP2IuBgmeJcDfXHjGpNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "browser-mbox"
-          }
-        ]
-      },
-      meta: {
-        activityId: 334845,
-        experienceId: 1,
-        type: "xt",
-        mboxes: ["browser-mbox"],
-        views: []
-      }
-    },
-    {
-      condition: {
-        and: [
-          {
-            "==": [
-              {
-                var: "user.browserType"
-              },
-              "safari"
-            ]
-          }
-        ]
-      },
-      consequence: {
-        mboxes: [
-          {
-            options: [
-              {
-                content: "<h1>it's safari</h1>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "B8C2FP2IuBgmeJcDfXHjGgreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "browser-mbox"
-          }
-        ]
-      },
-      meta: {
-        activityId: 334845,
-        experienceId: 2,
-        type: "xt",
-        mboxes: ["browser-mbox"],
-        views: []
-      }
-    },
-    {
-      condition: {
-        and: [
-          {
-            "==": [
-              {
-                var: "user.browserType"
-              },
-              "chrome"
-            ]
-          }
-        ]
-      },
-      consequence: {
-        mboxes: [
-          {
-            options: [
-              {
-                content: "<h1>it's chrome</h1>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "B8C2FP2IuBgmeJcDfXHjGpZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "browser-mbox"
-          }
-        ]
-      },
-      meta: {
-        activityId: 334845,
-        experienceId: 3,
-        type: "xt",
-        mboxes: ["browser-mbox"],
-        views: []
-      }
-    },
-    {
-      condition: {
-        and: [
-          {
-            "==": [
-              {
-                var: "user.browserType"
-              },
-              "ie"
-            ]
-          }
-        ]
-      },
-      consequence: {
-        mboxes: [
-          {
-            options: [
-              {
-                content: "<h1>it's internet explorer</h1>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "B8C2FP2IuBgmeJcDfXHjGhB3JWElmEno9qwHyGr0QvSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "browser-mbox"
-          }
-        ]
-      },
-      meta: {
-        activityId: 334845,
-        experienceId: 4,
-        type: "xt",
-        mboxes: ["browser-mbox"],
-        views: []
-      }
-    }
-  ]
 };
 
 const TARGET_REQUEST = {
@@ -248,10 +44,10 @@ describe("decisioning outcomes - browser", () => {
   });
 
   it("can identify chrome outcomes", async () => {
-    fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD));
+    fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_BROWSER));
     decisioning = await TargetDecisioningEngine(TEST_CONF);
 
-    expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD);
+    expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD_BROWSER);
 
     const result = await decisioning.getOffers({
       request: {
@@ -288,10 +84,10 @@ describe("decisioning outcomes - browser", () => {
   });
 
   it("can identify firefox outcomes", async () => {
-    fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD));
+    fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_BROWSER));
     decisioning = await TargetDecisioningEngine(TEST_CONF);
 
-    expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD);
+    expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD_BROWSER);
 
     const result = await decisioning.getOffers({
       request: {
@@ -328,10 +124,10 @@ describe("decisioning outcomes - browser", () => {
   });
 
   it("can identify safari outcomes", async () => {
-    fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD));
+    fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_BROWSER));
     decisioning = await TargetDecisioningEngine(TEST_CONF);
 
-    expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD);
+    expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD_BROWSER);
 
     const result = await decisioning.getOffers({
       request: {
@@ -368,10 +164,10 @@ describe("decisioning outcomes - browser", () => {
   });
 
   it("can identify internet explorer outcomes", async () => {
-    fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD));
+    fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_BROWSER));
     decisioning = await TargetDecisioningEngine(TEST_CONF);
 
-    expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD);
+    expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD_BROWSER);
 
     const result = await decisioning.getOffers({
       request: {

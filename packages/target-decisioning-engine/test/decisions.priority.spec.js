@@ -1,4 +1,5 @@
 import TargetDecisioningEngine from "../src";
+import { DECISIONING_PAYLOAD_PRIORITIES } from "./decisioning-payloads";
 
 require("jest-fetch-mock").enableMocks();
 
@@ -6,251 +7,6 @@ const TEST_CONF = {
   client: "someClientId",
   organizationId: "someOrgId",
   pollingInterval: 0
-};
-
-const DECISIONING_PAYLOAD = {
-  version: "1.0.0",
-  meta: {
-    generatedAt: "2020-03-13T19:01:29.819Z",
-    remoteMboxes: ["remote-only-mbox-a", "remote-only-mbox-a"],
-    globalMbox: "target-global-mbox"
-  },
-  rules: [
-    {
-      condition: {
-        and: [
-          {
-            "==": [
-              {
-                var: "user.browserType"
-              },
-              "firefox"
-            ]
-          }
-        ]
-      },
-      consequence: {
-        mboxes: [
-          {
-            options: [
-              {
-                content: "<div>kitty high with targeting: Firefox</div>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "/DhjxnVDh9heBZ0MrYFLF2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "kitty"
-          }
-        ]
-      },
-      meta: {
-        activityId: 336973,
-        experienceId: 0,
-        type: "xt",
-        mboxes: ["kitty"],
-        views: []
-      }
-    },
-    {
-      condition: {
-        and: [
-          {
-            "==": [
-              {
-                var: "user.browserType"
-              },
-              "safari"
-            ]
-          }
-        ]
-      },
-      consequence: {
-        mboxes: [
-          {
-            options: [
-              {
-                content: "<div>kitty high with targeting: Safari</div>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "/DhjxnVDh9heBZ0MrYFLF5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "kitty"
-          }
-        ]
-      },
-      meta: {
-        activityId: 336973,
-        experienceId: 1,
-        type: "xt",
-        mboxes: ["kitty"],
-        views: []
-      }
-    },
-    {
-      condition: {
-        "<": [
-          0,
-          {
-            var: "allocation"
-          },
-          50
-        ]
-      },
-      consequence: {
-        mboxes: [
-          {
-            options: [
-              {
-                content: "<div>kitty high A</div>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "ruhwp7VESR7F74TJL2DV5WqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "kitty"
-          }
-        ]
-      },
-      meta: {
-        activityId: 336951,
-        experienceId: 0,
-        type: "ab",
-        mboxes: ["kitty"],
-        views: []
-      }
-    },
-    {
-      condition: {
-        "<": [
-          50,
-          {
-            var: "allocation"
-          },
-          100
-        ]
-      },
-      consequence: {
-        mboxes: [
-          {
-            options: [
-              {
-                content: "<div>kitty high B</div>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "ruhwp7VESR7F74TJL2DV5ZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "kitty"
-          }
-        ]
-      },
-      meta: {
-        activityId: 336951,
-        experienceId: 1,
-        type: "ab",
-        mboxes: ["kitty"],
-        views: []
-      }
-    },
-    {
-      condition: {
-        "<": [
-          0,
-          {
-            var: "allocation"
-          },
-          50
-        ]
-      },
-      consequence: {
-        mboxes: [
-          {
-            options: [
-              {
-                content: "<div>kitty low A</div>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "Ww1ZcMj/ShY5tUV/rUzSjGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "kitty"
-          }
-        ]
-      },
-      meta: {
-        activityId: 336950,
-        experienceId: 0,
-        type: "ab",
-        mboxes: ["kitty"],
-        views: []
-      }
-    },
-    {
-      condition: {
-        "<": [
-          50,
-          {
-            var: "allocation"
-          },
-          100
-        ]
-      },
-      consequence: {
-        mboxes: [
-          {
-            options: [
-              {
-                content: "<div>kitty low B</div>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "Ww1ZcMj/ShY5tUV/rUzSjJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "kitty"
-          }
-        ]
-      },
-      meta: {
-        activityId: 336950,
-        experienceId: 1,
-        type: "ab",
-        mboxes: ["kitty"],
-        views: []
-      }
-    }
-  ]
 };
 
 describe("decisioning outcomes - priority", () => {
@@ -266,10 +22,12 @@ describe("decisioning outcomes - priority", () => {
   });
 
   it("prefers audience targeted rules and returns one result for the mbox requested", async () => {
-    fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD));
+    fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_PRIORITIES));
     decisioning = await TargetDecisioningEngine(TEST_CONF);
 
-    expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD);
+    expect(decisioning.getRawArtifact()).toEqual(
+      DECISIONING_PAYLOAD_PRIORITIES
+    );
 
     const result = await decisioning.getOffers({
       request: {
@@ -320,10 +78,12 @@ describe("decisioning outcomes - priority", () => {
   });
 
   it("only returns one result for the mbox requested", async () => {
-    fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD));
+    fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_PRIORITIES));
     decisioning = await TargetDecisioningEngine(TEST_CONF);
 
-    expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD);
+    expect(decisioning.getRawArtifact()).toEqual(
+      DECISIONING_PAYLOAD_PRIORITIES
+    );
 
     const result = await decisioning.getOffers({
       request: {

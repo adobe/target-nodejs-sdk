@@ -2,10 +2,10 @@ import * as HttpStatus from "http-status-codes";
 import TargetDecisioningEngine from "./index";
 import * as constants from "./constants";
 import Messages from "./messages";
+import { DUMMY_ARTIFACT_PAYLOAD } from "../test/decisioning-payloads";
 
 require("jest-fetch-mock").enableMocks();
 
-const DUMMY_ARTIFACT_PAYLOAD = { version: "1.0.0", meta: {}, rules: [] };
 const TARGET_REQUEST = {
   context: {
     channel: "web",

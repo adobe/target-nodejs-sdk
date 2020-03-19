@@ -1,6 +1,6 @@
-export interface Consequence {
-  mboxes: Array<any>;
-  views: Array<any>;
+import {MboxResponse} from "@adobe/target-tools/delivery-api-client";
+
+export interface Consequence extends MboxResponse{
 }
 
 export interface Rule {
@@ -10,8 +10,8 @@ export interface Rule {
     activityId: number;
     experienceId: number;
     type: string;
-    mboxes: Array<string>;
-    views: Array<any>;
+    mbox?: string;
+    view?: string;
   }
 }
 
@@ -25,5 +25,8 @@ export interface DecisioningArtifact {
       remoteMboxes: Array<string>;
       globalMbox: string;
     };
-    rules: Array<Rule>;
+    rules: {
+      mboxes: { [key: string]: Array<Rule>; }
+      views: { [key: string]: Array<Rule>; }
+    };
 }

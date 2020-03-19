@@ -1,4 +1,5 @@
 import TargetDecisioningEngine from "../src";
+import { DECISIONING_PAYLOAD_PARAMS } from "./decisioning-payloads";
 
 require("jest-fetch-mock").enableMocks();
 
@@ -6,123 +7,6 @@ const TEST_CONF = {
   client: "someClientId",
   organizationId: "someOrgId",
   pollingInterval: 0
-};
-
-const DECISIONING_PAYLOAD_PARAMS = {
-  version: "1.0.0",
-  meta: {
-    generatedAt: "2020-02-27T22:31:09.383Z"
-  },
-  rules: [
-    {
-      condition: {
-        and: [
-          {
-            "<": [
-              0,
-              {
-                var: "allocation"
-              },
-              50
-            ]
-          },
-          {
-            "==": [
-              "bar",
-              {
-                var: "mbox.foo"
-              }
-            ]
-          }
-        ]
-      },
-      consequence: {
-        mboxes: [
-          {
-            options: [
-              {
-                content: {
-                  foo: "bar",
-                  isFooBar: true,
-                  experience: "A"
-                },
-                type: "json"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "Zhwxeqy1O2r9Ske1YDA9bGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "redundant-mbox"
-          }
-        ]
-      },
-      meta: {
-        activityId: 334717,
-        experienceId: 0,
-        type: "ab",
-        mboxes: ["redundant-mbox"],
-        views: []
-      }
-    },
-    {
-      condition: {
-        and: [
-          {
-            "<": [
-              50,
-              {
-                var: "allocation"
-              },
-              100
-            ]
-          },
-          {
-            "==": [
-              "bar",
-              {
-                var: "mbox.foo"
-              }
-            ]
-          }
-        ]
-      },
-      consequence: {
-        mboxes: [
-          {
-            options: [
-              {
-                content: {
-                  foo: "bar",
-                  isFooBar: true,
-                  experience: "B"
-                },
-                type: "json"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "Zhwxeqy1O2r9Ske1YDA9bJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "redundant-mbox"
-          }
-        ]
-      },
-      meta: {
-        activityId: 334717,
-        experienceId: 1,
-        type: "ab",
-        mboxes: ["redundant-mbox"],
-        views: []
-      }
-    }
-  ]
 };
 
 describe("decisioning outcomes - params", () => {

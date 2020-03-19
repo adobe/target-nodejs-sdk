@@ -44,44 +44,69 @@
       request: Object.assign({}, targetRequest, {
         prefetch: {
           mboxes: [
+            // {
+            //   name: "jason-flags",
+            //   index: 1
+            // }
+            // ,
+            // {
+            //   name: "browser-mbox",
+            //   index: 2
+            // }
+            // ,
+            // {
+            //   name: "expendable-mbox",
+            //   index: 3
+            // }
+            // ,
+            // {
+            //   name: "superfluous-mbox",
+            //   index: 4
+            // }
+            // ,
+            // {
+            //   name: "redundant-mbox",
+            //   parameters: {
+            //     foo: "bar"
+            //   },
+            //   index: 5
+            // }
+            // ,
+            // {
+            //   name: "something",
+            //   index: 6
+            // }
+            // ,
+            // {
+            //   name: "kitty",
+            //   index: 7
+            // }
+            // ,
             {
-            name: "jason-flags",
-            index: 1
-          }, {
-            name: "mbox-waters",
-            index: 2
-          }, {
-            name: "remote-only-mbox-a",
-            index: 3
-          },
-            {
-            name: "something",
-            index: 4
-          },{
-              name: "kitty",
-              index: 5
+              name: "vanilla-mbox",
+              index: 8
             }
           ],
-          views: [{}]
+          // views: [{}]
         },
-        execute: {
-          pageLoad: {}
-        }
+        // execute: {
+        //   pageLoad: {}
+        // }
       }),
       sessionId: "dummy_session"
     }).then(function (res) {
-      showResult("Result: Success", JSON.stringify(res, null, 4));
+      showResult("Result: Success", JSON.stringify(res.response, null, 4));
     }).catch(function (err) {
       showResult("Result: Error", err.toString());
     });
 
-    // client.getAttributes(['jason-flags'], {
-    //   request: targetRequest,
-    //   sessionId: "dummy_session"
-    // }).then(function(features) {
-    //   console.log(features.asObject('jason-flags'));
-    //   console.log(features.getValue('jason-flags', 'paymentExperience'));
-    // });
+    client.getAttributes(['jason-flags'], {
+      request: targetRequest,
+      sessionId: "dummy_session"
+    }).then(function (features) {
+      console.log(features.asObject('jason-flags'));
+      console.log(features.getValue('jason-flags', 'paymentExperience'));
+    });
 
   }
 
@@ -93,7 +118,8 @@
 
   client = window.TargetClient.create(Object.assign({}, targetClientOptions, doLocalDecisioning ? {
     executionMode: "local",
-    artifactLocation: "https://target-local-decisioning-test.s3.us-west-2.amazonaws.com/adobesummit2018/waters_test/rules.json"
+    artifactLocation: "rules.json"
+    // artifactLocation: "https://target-local-decisioning-staging.s3.us-east-2.amazonaws.com/adobesummit2018/waters_test/rules.json"
   } : {}));
 </script>
 </body>

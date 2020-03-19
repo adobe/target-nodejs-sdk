@@ -1,4 +1,9 @@
 /* eslint-disable jest/no-test-callback */
+import {
+  DUMMY_ARTIFACT_PAYLOAD,
+  DECISIONING_PAYLOAD_SIMPLE
+} from "./decisioning-payloads";
+
 const HttpStatus = require("http-status-codes");
 
 const MockDate = require("mockdate");
@@ -6,8 +11,6 @@ require("jest-fetch-mock").enableMocks();
 const TargetClient = require("../src/index.server").default;
 const { EXECUTION_MODE } = require("../src/enums");
 const { Messages } = require("../src/messages");
-
-const DUMMY_ARTIFACT_PAYLOAD = { version: "1.0.0", meta: {}, rules: [] };
 
 const TARGET_REQUEST = {
   prefetch: {
@@ -146,96 +149,6 @@ describe("target local decisioning", () => {
   });
 
   describe("models delivery api responses", () => {
-    const LOCAL_DECISIONING_ARTIFACT = {
-      version: "1.0.0",
-      meta: {
-        generatedAt: "2020-03-02T21:20:13.576Z"
-      },
-      rules: [
-        {
-          condition: {
-            "<": [
-              0,
-              {
-                var: "allocation"
-              },
-              50
-            ]
-          },
-          consequence: {
-            mboxes: [
-              {
-                options: [
-                  {
-                    content: {
-                      doMagic: true,
-                      importantValue: 150
-                    },
-                    type: "json"
-                  }
-                ],
-                metrics: [
-                  {
-                    type: "display",
-                    eventToken:
-                      "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-                  }
-                ],
-                name: "superfluous-mbox"
-              }
-            ]
-          },
-          meta: {
-            activityId: 334411,
-            experienceId: 0,
-            type: "ab",
-            mboxes: ["superfluous-mbox"],
-            views: []
-          }
-        },
-        {
-          condition: {
-            "<": [
-              50,
-              {
-                var: "allocation"
-              },
-              100
-            ]
-          },
-          consequence: {
-            mboxes: [
-              {
-                options: [
-                  {
-                    content: {
-                      doMagic: false,
-                      importantValue: 75
-                    },
-                    type: "json"
-                  }
-                ],
-                metrics: [
-                  {
-                    type: "display",
-                    eventToken:
-                      "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-                  }
-                ],
-                name: "superfluous-mbox"
-              }
-            ]
-          },
-          meta: {
-            activityId: 334411,
-            experienceId: 1,
-            type: "ab",
-            mboxes: ["superfluous-mbox"],
-            views: []
-          }
-        }
-      ]
-    };
     const DELIVERY_API_RESPONSE = {
       status: 200,
       requestId: "0979a315df524c74aa420a9d03c8d921",
@@ -393,7 +306,7 @@ describe("target local decisioning", () => {
     };
 
     it("produces a valid response in local execution mode", async done => {
-      fetch.mockResponse(JSON.stringify(LOCAL_DECISIONING_ARTIFACT));
+      fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_SIMPLE));
 
       async function onClientReady() {
         const result = await client.getOffers(prefetchRequestOptions);
@@ -414,7 +327,7 @@ describe("target local decisioning", () => {
       const now = new Date("2020-02-25T01:05:00");
       MockDate.set(now);
 
-      fetch.once(JSON.stringify(LOCAL_DECISIONING_ARTIFACT)).once(
+      fetch.once(JSON.stringify(DECISIONING_PAYLOAD_SIMPLE)).once(
         async req => {
           expect(req).not.toBeUndefined();
           expect(req.method).toEqual("POST");

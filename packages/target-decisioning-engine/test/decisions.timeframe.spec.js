@@ -1,5 +1,6 @@
 import * as MockDate from "mockdate";
 import TargetDecisioningEngine from "../src";
+import { DECISIONING_PAYLOAD_TIMEFRAME } from "./decisioning-payloads";
 
 require("jest-fetch-mock").enableMocks();
 
@@ -7,201 +8,6 @@ const TEST_CONF = {
   client: "someClientId",
   organizationId: "someOrgId",
   pollingInterval: 0
-};
-
-const DECISIONING_PAYLOAD = {
-  version: "1.0.0",
-  meta: {
-    generatedAt: "2020-03-13T21:20:06.602Z",
-    remoteMboxes: ["remote-only-mbox-a", "remote-only-mbox-a"],
-    globalMbox: "target-global-mbox"
-  },
-  rules: [
-    {
-      condition: {
-        and: [
-          {
-            or: [
-              {
-                and: [
-                  {
-                    or: [
-                      {
-                        "==": [
-                          {
-                            var: "current_day"
-                          },
-                          "5"
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "<=": [
-                      "0000",
-                      {
-                        var: "current_time"
-                      },
-                      "2359"
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      consequence: {
-        mboxes: [
-          {
-            options: [
-              {
-                content: "<strong>it's friday</strong>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "wQY/V1IOYec8T4fAT5ww7hB3JWElmEno9qwHyGr0QvSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "daterange-mbox"
-          }
-        ]
-      },
-      meta: {
-        activityId: 334853,
-        experienceId: 4,
-        type: "xt",
-        mboxes: ["daterange-mbox"],
-        views: []
-      }
-    },
-    {
-      condition: {
-        and: [
-          {
-            or: [
-              {
-                "<=": [
-                  1582822800000,
-                  {
-                    var: "current_timestamp"
-                  },
-                  1583028000000
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      consequence: {
-        mboxes: [
-          {
-            options: [
-              {
-                content: "<strong>date range 1 (feb 27-29)</strong>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "wQY/V1IOYec8T4fAT5ww7unJlneZxJu5VqGhXCosHhWCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "daterange-mbox"
-          }
-        ]
-      },
-      meta: {
-        activityId: 334853,
-        experienceId: 5,
-        type: "xt",
-        mboxes: ["daterange-mbox"],
-        views: []
-      }
-    },
-    {
-      condition: {
-        and: [
-          {
-            or: [
-              {
-                "<=": [
-                  1583178000000,
-                  {
-                    var: "current_timestamp"
-                  },
-                  1583523600000
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      consequence: {
-        mboxes: [
-          {
-            options: [
-              {
-                content: "<strong>date range 2 (mar 2 - 6)</strong>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "wQY/V1IOYec8T4fAT5ww7pNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "daterange-mbox"
-          }
-        ]
-      },
-      meta: {
-        activityId: 334853,
-        experienceId: 1,
-        type: "xt",
-        mboxes: ["daterange-mbox"],
-        views: []
-      }
-    },
-    {
-      condition: true,
-      consequence: {
-        mboxes: [
-          {
-            options: [
-              {
-                content: "<strong>default result</strong>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "wQY/V1IOYec8T4fAT5ww7mqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "daterange-mbox"
-          }
-        ]
-      },
-      meta: {
-        activityId: 334853,
-        experienceId: 0,
-        type: "xt",
-        mboxes: ["daterange-mbox"],
-        views: []
-      }
-    }
-  ]
 };
 
 const TARGET_REQUEST = {
@@ -242,12 +48,12 @@ describe("decisioning outcomes - timeframe", () => {
   });
 
   it("targets date range 1 (feb 27 - feb 29 2020)", async () => {
-    fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD));
+    fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_TIMEFRAME));
     MockDate.set(Date.UTC(2020, 1, 27, 19)); // Thursday, February 27, 2020 11:00 AM
 
     decisioning = await TargetDecisioningEngine(TEST_CONF);
 
-    expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD);
+    expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD_TIMEFRAME);
 
     const result = await decisioning.getOffers({
       request: {
@@ -279,12 +85,12 @@ describe("decisioning outcomes - timeframe", () => {
   });
 
   it("targets date range 2 (mar 2 - mar 6 2020)", async () => {
-    fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD));
+    fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_TIMEFRAME));
     MockDate.set(Date.UTC(2020, 2, 4, 19)); // Wednesday, March 4, 2020 11:00 AM
 
     decisioning = await TargetDecisioningEngine(TEST_CONF);
 
-    expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD);
+    expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD_TIMEFRAME);
 
     const result = await decisioning.getOffers({
       request: {
@@ -316,12 +122,12 @@ describe("decisioning outcomes - timeframe", () => {
   });
 
   it("targets friday, even if within range of other rules", async () => {
-    fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD));
+    fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_TIMEFRAME));
     MockDate.set(Date.UTC(2020, 2, 6, 19)); // Friday, March 6, 2020 11:00 AM
 
     decisioning = await TargetDecisioningEngine(TEST_CONF);
 
-    expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD);
+    expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD_TIMEFRAME);
 
     const result = await decisioning.getOffers({
       request: {
@@ -353,12 +159,12 @@ describe("decisioning outcomes - timeframe", () => {
   });
 
   it("targets friday out of range of other rules", async () => {
-    fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD));
+    fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_TIMEFRAME));
     MockDate.set(Date.UTC(2020, 2, 20, 18)); // Friday, March 20, 2020 11:00 AM
 
     decisioning = await TargetDecisioningEngine(TEST_CONF);
 
-    expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD);
+    expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD_TIMEFRAME);
 
     const result = await decisioning.getOffers({
       request: {
@@ -390,12 +196,12 @@ describe("decisioning outcomes - timeframe", () => {
   });
 
   it("doesn't match any date rules", async () => {
-    fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD));
+    fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_TIMEFRAME));
     MockDate.set(Date.UTC(2020, 4, 26, 18)); // Tuesday, May 26, 2020 11:00 AM
 
     decisioning = await TargetDecisioningEngine(TEST_CONF);
 
-    expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD);
+    expect(decisioning.getRawArtifact()).toEqual(DECISIONING_PAYLOAD_TIMEFRAME);
 
     const result = await decisioning.getOffers({
       request: {
