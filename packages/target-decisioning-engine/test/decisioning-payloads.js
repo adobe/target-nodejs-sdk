@@ -4,6 +4,11 @@ export const DUMMY_ARTIFACT_PAYLOAD = {
   rules: { mboxes: {}, views: {} }
 };
 
+export const DUMMY_ARTIFACT_PAYLOAD_UNSUPPORTED_VERSION = {
+  ...DUMMY_ARTIFACT_PAYLOAD,
+  version: "99.0.0"
+};
+
 // https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/form_based_activity-offer2-feb1920201034
 export const DECISIONING_PAYLOAD_ADDRESS = {
   version: "1.0.0",
@@ -813,6 +818,272 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
             experienceId: 0,
             type: "xt",
             mbox: "daterange-mbox"
+          }
+        }
+      ]
+    },
+    views: {}
+  }
+};
+
+// https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/Experience-Targeting/global_mbox_browserhtml
+// https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/ab_tres_experienceglobalmbox
+// https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/global_ab_html
+export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
+  version: "1.0.0",
+  meta: {
+    generatedAt: "2020-03-19T23:52:46.680Z",
+    remoteMboxes: ["target-global-mbox"],
+    globalMbox: "target-global-mbox"
+  },
+  rules: {
+    mboxes: {
+      "target-global-mbox": [
+        {
+          condition: {
+            and: [{ "==": [{ var: "user.browserType" }, "chrome"] }]
+          },
+          consequence: {
+            options: [{ content: "<div>Chrometastic</div>", type: "html" }],
+            metrics: [
+              {
+                type: "display",
+                eventToken:
+                  "9FNM3ikASssS+sVoFXNulGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+              }
+            ],
+            name: "target-global-mbox"
+          },
+          meta: {
+            activityId: 337795,
+            experienceId: 0,
+            type: "xt",
+            mbox: "target-global-mbox"
+          }
+        },
+        {
+          condition: {
+            and: [{ "==": [{ var: "user.browserType" }, "firefox"] }]
+          },
+          consequence: {
+            options: [{ content: "<div>Firetime</div>", type: "html" }],
+            metrics: [
+              {
+                type: "display",
+                eventToken:
+                  "9FNM3ikASssS+sVoFXNulJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+              }
+            ],
+            name: "target-global-mbox"
+          },
+          meta: {
+            activityId: 337795,
+            experienceId: 1,
+            type: "xt",
+            mbox: "target-global-mbox"
+          }
+        },
+        {
+          condition: {
+            and: [{ "==": [{ var: "user.browserType" }, "safari"] }]
+          },
+          consequence: {
+            options: [{ content: "<div>Safari Run</div>", type: "html" }],
+            metrics: [
+              {
+                type: "display",
+                eventToken:
+                  "9FNM3ikASssS+sVoFXNulAreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+              }
+            ],
+            name: "target-global-mbox"
+          },
+          meta: {
+            activityId: 337795,
+            experienceId: 2,
+            type: "xt",
+            mbox: "target-global-mbox"
+          }
+        },
+        {
+          condition: true,
+          consequence: {
+            options: [{ content: "<div>Srsly, who dis?</div>", type: "html" }],
+            metrics: [
+              {
+                type: "display",
+                eventToken:
+                  "9FNM3ikASssS+sVoFXNulJZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+              }
+            ],
+            name: "target-global-mbox"
+          },
+          meta: {
+            activityId: 337795,
+            experienceId: 3,
+            type: "xt",
+            mbox: "target-global-mbox"
+          }
+        },
+        {
+          condition: {
+            and: [
+              { "<": [0, { var: "allocation" }, 34] },
+              { "==": ["bar", { var: "mbox.foo" }] }
+            ]
+          },
+          consequence: {
+            options: [
+              { content: "<div>foo=bar experience A</div>", type: "html" }
+            ],
+            metrics: [
+              {
+                type: "display",
+                eventToken:
+                  "0L1rCkDps3F+UEAm1B9A4GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+              }
+            ],
+            name: "target-global-mbox"
+          },
+          meta: {
+            activityId: 337797,
+            experienceId: 0,
+            type: "ab",
+            mbox: "target-global-mbox"
+          }
+        },
+        {
+          condition: {
+            and: [
+              { "<": [34, { var: "allocation" }, 67] },
+              { "==": ["bar", { var: "mbox.foo" }] }
+            ]
+          },
+          consequence: {
+            options: [
+              { content: "<div>foo=bar experience B</div>", type: "html" }
+            ],
+            metrics: [
+              {
+                type: "display",
+                eventToken:
+                  "0L1rCkDps3F+UEAm1B9A4JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+              }
+            ],
+            name: "target-global-mbox"
+          },
+          meta: {
+            activityId: 337797,
+            experienceId: 1,
+            type: "ab",
+            mbox: "target-global-mbox"
+          }
+        },
+        {
+          condition: {
+            and: [
+              { "<": [67, { var: "allocation" }, 100] },
+              { "==": ["bar", { var: "mbox.foo" }] }
+            ]
+          },
+          consequence: {
+            options: [
+              { content: "<div>foo=bar experience C</div>", type: "html" }
+            ],
+            metrics: [
+              {
+                type: "display",
+                eventToken:
+                  "0L1rCkDps3F+UEAm1B9A4AreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+              }
+            ],
+            name: "target-global-mbox"
+          },
+          meta: {
+            activityId: 337797,
+            experienceId: 2,
+            type: "ab",
+            mbox: "target-global-mbox"
+          }
+        },
+        {
+          condition: { "<": [0, { var: "allocation" }, 25] },
+          consequence: {
+            options: [{ content: "<div>whale</div>", type: "html" }],
+            metrics: [
+              {
+                type: "display",
+                eventToken:
+                  "5C2cbrGD+bQ5qOATNGy1AWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+              }
+            ],
+            name: "target-global-mbox"
+          },
+          meta: {
+            activityId: 337888,
+            experienceId: 0,
+            type: "ab",
+            mbox: "target-global-mbox"
+          }
+        },
+        {
+          condition: { "<": [25, { var: "allocation" }, 50] },
+          consequence: {
+            options: [{ content: "<div>mouse</div>", type: "html" }],
+            metrics: [
+              {
+                type: "display",
+                eventToken:
+                  "5C2cbrGD+bQ5qOATNGy1AZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+              }
+            ],
+            name: "target-global-mbox"
+          },
+          meta: {
+            activityId: 337888,
+            experienceId: 1,
+            type: "ab",
+            mbox: "target-global-mbox"
+          }
+        },
+        {
+          condition: { "<": [50, { var: "allocation" }, 75] },
+          consequence: {
+            options: [{ content: "<div>lion</div>", type: "html" }],
+            metrics: [
+              {
+                type: "display",
+                eventToken:
+                  "5C2cbrGD+bQ5qOATNGy1AQreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+              }
+            ],
+            name: "target-global-mbox"
+          },
+          meta: {
+            activityId: 337888,
+            experienceId: 2,
+            type: "ab",
+            mbox: "target-global-mbox"
+          }
+        },
+        {
+          condition: { "<": [75, { var: "allocation" }, 100] },
+          consequence: {
+            options: [{ content: "<div>owl</div>", type: "html" }],
+            metrics: [
+              {
+                type: "display",
+                eventToken:
+                  "5C2cbrGD+bQ5qOATNGy1AZZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+              }
+            ],
+            name: "target-global-mbox"
+          },
+          meta: {
+            activityId: 337888,
+            experienceId: 3,
+            type: "ab",
+            mbox: "target-global-mbox"
           }
         }
       ]

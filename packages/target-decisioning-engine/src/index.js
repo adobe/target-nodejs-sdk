@@ -3,7 +3,8 @@ import { createDecisioningContext } from "./contextProvider";
 import DecisionProvider from "./decisionProvider";
 import ArtifactProvider from "./artifactProvider";
 import Messages from "./messages";
-import { hasRemoteDependency } from "./utils";
+import { hasRemoteDependency, matchMajorVersion } from "./utils";
+import { SUPPORTED_ARTIFACT_MAJOR_VERSION } from "./constants";
 
 /**
  * The TargetDecisioningEngine initialize method
@@ -54,6 +55,19 @@ export default async function TargetDecisioningEngine(config) {
 
     if (typeof artifact === "undefined") {
       return Promise.reject(new Error(Messages.ARTIFACT_NOT_AVAILABLE));
+    }
+
+    if (
+      !matchMajorVersion(artifact.version, SUPPORTED_ARTIFACT_MAJOR_VERSION)
+    ) {
+      return Promise.reject(
+        new Error(
+          Messages.ARTIFACT_VERSION_UNSUPPORTED(
+            artifact.version,
+            SUPPORTED_ARTIFACT_MAJOR_VERSION
+          )
+        )
+      );
     }
 
     return DecisionProvider(

@@ -2,7 +2,11 @@ import * as HttpStatus from "http-status-codes";
 import TargetDecisioningEngine from "./index";
 import * as constants from "./constants";
 import Messages from "./messages";
-import { DUMMY_ARTIFACT_PAYLOAD } from "../test/decisioning-payloads";
+import {
+  DUMMY_ARTIFACT_PAYLOAD,
+  DUMMY_ARTIFACT_PAYLOAD_UNSUPPORTED_VERSION
+} from "../test/decisioning-payloads";
+import { SUPPORTED_ARTIFACT_MAJOR_VERSION } from "./constants";
 
 require("jest-fetch-mock").enableMocks();
 
@@ -138,6 +142,32 @@ describe("TargetDecisioningEngine", () => {
         sessionId: "dummy_session"
       })
     ).resolves.not.toBeUndefined();
+  });
+
+  it("getOffers gives an error if unsupported artifact version", async () => {
+    fetch.mockResponse(
+      JSON.stringify(DUMMY_ARTIFACT_PAYLOAD_UNSUPPORTED_VERSION)
+    );
+
+    decisioning = await TargetDecisioningEngine({
+      client: "someClientId",
+      organizationId: "someOrgId",
+      pollingInterval: 0
+    });
+
+    await expect(
+      decisioning.getOffers({
+        request: TARGET_REQUEST,
+        sessionId: "dummy_session"
+      })
+    ).rejects.toEqual(
+      new Error(
+        Messages.ARTIFACT_VERSION_UNSUPPORTED(
+          DUMMY_ARTIFACT_PAYLOAD_UNSUPPORTED_VERSION.version,
+          SUPPORTED_ARTIFACT_MAJOR_VERSION
+        )
+      )
+    );
   });
 
   it("fetches a json artifact", async () => {

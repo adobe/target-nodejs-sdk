@@ -8,11 +8,6 @@ import NotificationProvider from "./notificationProvider";
 
 const DEFAULT_GLOBAL_MBOX_NAME = "target-global-mbox";
 
-const REQUEST_TYPE_PLURAL = {
-  mbox: "mboxes",
-  view: "views"
-};
-
 /**
  *
  * @param { String } clientId
@@ -45,12 +40,13 @@ function DecisionProvider(
   );
 
   /**
-   * @param {import("@adobe/target-tools/delivery-api-client/models/MboxRequest").MboxRequest} mboxRequest
-   * @param { 'mbox'|'view' } requestType
-   * @param { Function } postProcessFunc
+   * @param {import("@adobe/target-tools/delivery-api-client/models/MboxRequest").MboxRequest|import("@adobe/target-tools/delivery-api-client/models/RequestDetails").RequestDetails} mboxRequest
+   * @param { 'mbox'|'view'|'pageLoad' } requestType
+   * @param { Array<Function> } postProcessors
    */
-  function ruleEvaluator(mboxRequest, requestType, postProcessFunc) {
-    return (result, rule) => {
+  function ruleEvaluator(mboxRequest, requestType, postProcessors) {
+    return rule => {
+      let consequence;
       let { page, referring } = context;
 
       if (
@@ -70,82 +66,138 @@ function DecisionProvider(
       };
 
       if (jsonLogic.apply(rule.condition, ruleContext)) {
-        const key = REQUEST_TYPE_PLURAL[requestType];
+        consequence = {
+          ...rule.consequence,
+          index: mboxRequest.index
+        };
 
-        if (typeof result[key] === "undefined") {
-          // eslint-disable-next-line no-param-reassign
-          result[key] = [];
-        }
-        result[key].push(
-          postProcessFunc({
-            ...rule.consequence,
-            index: mboxRequest.index
-          })
-        );
+        postProcessors.forEach(postProcessFunc => {
+          consequence = postProcessFunc(consequence);
+        });
       }
-      return result;
+      return consequence;
     };
   }
 
   /**
    *
    * @param { 'execute'|'prefetch' } mode
-   * @param { Function } postProcessFunc Used to process an mbox if needed, optional
+   * @param { Function } postProcessorFunc Used to process an mbox if needed, optional
    */
-  function getDecisions(mode, postProcessFunc = value => value) {
+  function getDecisions(mode, postProcessorFunc = value => value) {
     if (typeof request[mode] === "undefined") return undefined;
 
     /**
-     * @param { Object } result
      * @param {import("@adobe/target-tools/delivery-api-client/models/MboxRequest").MboxRequest} mboxRequest
+     * @param { Array<Function> } postProcessors
      */
-    function processMboxRequest(result, mboxRequest) {
+    function processMboxRequest(
+      mboxRequest,
+      postProcessors = [postProcessorFunc]
+    ) {
       const isGlobalMbox = mboxRequest.name === globalMboxName;
-      const rulesResult = { mboxes: [] };
-      const processRule = ruleEvaluator(mboxRequest, "mbox", postProcessFunc);
+
+      const processRule = ruleEvaluator(mboxRequest, "mbox", postProcessors);
+      const consequences = [];
 
       const mboxRules = rules.mboxes[mboxRequest.name] || [];
 
+      let prevActivityId;
       // eslint-disable-next-line no-restricted-syntax
       for (const rule of mboxRules) {
-        processRule(rulesResult, rule);
-        if (!isGlobalMbox && rulesResult.mboxes.length > 0) {
-          break;
+        let consequence;
+
+        if (
+          !isGlobalMbox ||
+          (isGlobalMbox && rule.meta.activityId !== prevActivityId)
+        ) {
+          consequence = processRule(rule);
+        }
+
+        if (consequence) {
+          consequences.push(consequence);
+          prevActivityId = rule.meta.activityId;
+          if (!isGlobalMbox) break;
         }
       }
 
-      Object.keys(rulesResult).forEach(key => {
-        if (!isGlobalMbox && rulesResult[key].length === 0) {
-          rulesResult[key].push({
-            name: mboxRequest.name,
-            index: mboxRequest.index
-          });
-        }
+      // add a blank if no consequences
+      if (!isGlobalMbox && consequences.length === 0) {
+        consequences.push({
+          name: mboxRequest.name,
+          index: mboxRequest.index
+        });
+      }
 
-        Array.prototype.push.apply(result[key], rulesResult[key]);
-      });
-
-      return result;
+      return consequences;
     }
 
-    const mboxes = request[mode].mboxes || [];
+    /**
+     * @param {import("@adobe/target-tools/delivery-api-client/models/RequestDetails").RequestDetails} requestDetails
+     */
+    function processPageLoadRequest(requestDetails) {
+      /**
+       * @param {import("@adobe/target-tools/delivery-api-client/models/MboxResponse").MboxResponse} mboxResponse
+       */
+      function removePageLoadAttributes(mboxResponse) {
+        const processed = {
+          ...mboxResponse
+        };
+        delete processed.index;
+        delete processed.name;
 
-    return mboxes.reduce(processMboxRequest, { mboxes: [] });
+        return processed;
+      }
+
+      const consequences = processMboxRequest(
+        {
+          ...requestDetails,
+          name: globalMboxName
+        },
+        [postProcessorFunc, removePageLoadAttributes]
+      );
+
+      return consequences.reduce((pageLoadResponse, consequence) => {
+        Object.keys(consequence)
+          .filter(key => consequence[key] instanceof Array)
+          .forEach(key => {
+            if (typeof pageLoadResponse[key] === "undefined") {
+              // eslint-disable-next-line no-param-reassign
+              pageLoadResponse[key] = [];
+            }
+            pageLoadResponse[key].push(...consequence[key]);
+          });
+        return pageLoadResponse;
+      }, {});
+    }
+
+    const response = {};
+
+    if (request[mode].mboxes) {
+      response.mboxes = request[mode].mboxes
+        .map(mboxRequest => processMboxRequest(mboxRequest))
+        .flat();
+    }
+
+    if (request[mode].pageLoad) {
+      response.pageLoad = processPageLoadRequest(request[mode].pageLoad);
+    }
+    return response;
   }
 
   function getExecuteDecisions() {
     /**
-     * @param {import("@adobe/target-tools/delivery-api-client/models/MboxResponse").MboxResponse} item
+     * @param {import("@adobe/target-tools/delivery-api-client/models/MboxResponse").MboxResponse} mboxResponse
      */
-    function postProcess(item) {
-      notificationProvider.addNotification(item);
+    function prepareExecuteResponse(mboxResponse) {
+      notificationProvider.addNotification(mboxResponse);
 
-      const result = { ...item };
+      const result = { ...mboxResponse };
       delete result.metrics;
       return result;
     }
 
-    const decisions = getDecisions("execute", postProcess);
+    const decisions = getDecisions("execute", prepareExecuteResponse);
 
     notificationProvider.sendNotifications();
 
@@ -154,15 +206,17 @@ function DecisionProvider(
 
   function getPrefetchDecisions() {
     /**
-     * @param {import("@adobe/target-tools/delivery-api-client/models/MboxResponse").MboxResponse} item
+     * @param {import("@adobe/target-tools/delivery-api-client/models/MboxResponse").MboxResponse} mboxResponse
      */
-    function postProcess(item) {
+    function preparePrefetchResponse(mboxResponse) {
       const eventToken =
-        item.metrics.length > 0 ? item.metrics[0].eventToken : undefined;
+        mboxResponse.metrics.length > 0
+          ? mboxResponse.metrics[0].eventToken
+          : undefined;
 
       const result = {
-        ...item,
-        options: item.options.map(option => {
+        ...mboxResponse,
+        options: mboxResponse.options.map(option => {
           return {
             ...option,
             eventToken
@@ -174,7 +228,7 @@ function DecisionProvider(
       return result;
     }
 
-    return getDecisions("prefetch", postProcess);
+    return getDecisions("prefetch", preparePrefetchResponse);
   }
 
   const response = {

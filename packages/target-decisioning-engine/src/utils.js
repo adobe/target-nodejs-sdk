@@ -74,3 +74,15 @@ export function hasRemoteDependency(artifact, request) {
     remoteMboxes
   };
 }
+
+/**
+ * @param { string } semanticVersion
+ * @param { number } majorVersion
+ */
+export function matchMajorVersion(semanticVersion, majorVersion) {
+  // eslint-disable-next-line no-unused-vars
+  const [major, minor, patch] = semanticVersion
+    .split(".")
+    .map(value => parseInt(value, 10));
+  return majorVersion === major;
+}

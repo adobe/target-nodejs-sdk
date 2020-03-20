@@ -43,16 +43,21 @@
     client.getOffers({
       request: Object.assign({}, targetRequest, {
         prefetch: {
+          pageLoad: {
+            parameters: {
+              foo: "bar"
+            }
+          },
           mboxes: [
-            // {
-            //   name: "jason-flags",
-            //   index: 1
-            // }
-            // ,
-            // {
-            //   name: "browser-mbox",
-            //   index: 2
-            // }
+          //   {
+          //     name: "jason-flags",
+          //     index: 1
+          //   }
+          //   ,
+            {
+              name: "browser-mbox",
+              index: 2
+            }
             // ,
             // {
             //   name: "expendable-mbox",
@@ -82,15 +87,19 @@
             //   index: 7
             // }
             // ,
-            {
-              name: "vanilla-mbox",
-              index: 8
-            }
+            // {
+            //   name: "vanilla-mbox",
+            //   index: 8
+            // }
           ],
           // views: [{}]
         },
         // execute: {
-        //   pageLoad: {}
+        //   pageLoad: {
+        //     parameters: {
+        //       foo: "bar"
+        //     }
+        //   }
         // }
       }),
       sessionId: "dummy_session"
@@ -100,13 +109,13 @@
       showResult("Result: Error", err.toString());
     });
 
-    client.getAttributes(['jason-flags'], {
-      request: targetRequest,
-      sessionId: "dummy_session"
-    }).then(function (features) {
-      console.log(features.asObject('jason-flags'));
-      console.log(features.getValue('jason-flags', 'paymentExperience'));
-    });
+    // client.getAttributes(['jason-flags'], {
+    //   request: targetRequest,
+    //   sessionId: "dummy_session"
+    // }).then(function (features) {
+    //   console.log(features.asObject('jason-flags'));
+    //   console.log(features.getValue('jason-flags', 'paymentExperience'));
+    // });
 
   }
 

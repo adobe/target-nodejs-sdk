@@ -165,6 +165,14 @@ async function ArtifactProvider(config) {
     scheduleNextUpdate();
   }
 
+  /**
+   *
+   * @return { import("../types/DecisioningArtifact").DecisioningArtifact } artifact
+   */
+  function getArtifact() {
+    return artifact;
+  }
+
   if (typeof config.artifactPayload === "object") {
     artifact = config.artifactPayload;
   } else {
@@ -178,7 +186,7 @@ async function ArtifactProvider(config) {
   }
 
   return Promise.resolve({
-    getArtifact: () => artifact,
+    getArtifact: () => getArtifact(),
     subscribe: callbackFunc => addSubscription(callbackFunc),
     unsubscribe: id => removeSubscription(id),
     stopPolling: () => stopAllPolling(),
