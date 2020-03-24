@@ -3,13 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Test</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <script type="text/javascript" src="script.js"></script>
-  <script type="text/javascript" src="targetclient.browser.js"></script>
+  <link rel="stylesheet" type="text/css" href="assets/style.css">
+  <script src="assets/VisitorAPI.js"></script>
+  <script type="text/javascript" src="assets/script.js"></script>
+  <script type="text/javascript" src="assets/targetclient.browser.js"></script>
 </head>
 <body>
 <div id="result"></div>
 <script type="text/javascript">
+  var useVisitorCookies = true;
+
+  var clientId = "adobesummit2018",
+    organizationId = "65453EA95A70434F0A495D34@AdobeOrg";
 
   var queryString = window.location.search;
   var urlParams = new URLSearchParams(queryString);
@@ -17,6 +22,14 @@
   var doLocalDecisioning = urlParams.get('local') !== null;
 
   var client;
+
+  var visitorCookies = getVisitorCookies();
+
+  var deliveryRequest = useVisitorCookies ? {
+    targetCookie: visitorCookies.targetCookie,
+    visitorCookie: visitorCookies.visitorCookie,
+    targetLocationHintCookie: visitorCookies.targetLocationHintCookie,
+  } : {};
 
   var context = {
     "userAgent": navigator.userAgent,
@@ -28,100 +41,103 @@
     "address": {"url": "http://waters-local/#/", "referringUrl": "http://waters-local/"}
   };
 
-  var visitorId = {
-    "tntId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
-    "marketingCloudVisitorId": "07327024324407615852294135870030620007",
-  };
-
   var targetRequest = {
-    "id": visitorId,
-    "context": context
+    id: {
+      thirdPartyId: "abc123_acmeco"
+    },
+    "context": context,
+    experienceCloud: {
+      analytics: {
+        trackingServer: 'adobesummit2018int.sc.omtrdc.net',
+        logging: "client_side"
+      }
+    }
   };
 
   function getOffers() {
 
-    client.getOffers({
+    client.getOffers(Object.assign({}, deliveryRequest, {
       request: Object.assign({}, targetRequest, {
-        prefetch: {
+        // prefetch: {
+        // pageLoad: {
+        //   parameters: {
+        //     foo: "bar"
+        //   }
+        // },
+        // mboxes: [
+        //   {
+        //     name: "jason-flags",
+        //     index: 1
+        //   }
+        //   ,
+        // {
+        //   name: "browser-mbox",
+        //   index: 2
+        // }
+        // ,
+        // {
+        //   name: "expendable-mbox",
+        //   index: 3
+        // }
+        // ,
+        // {
+        //   name: "superfluous-mbox",
+        //   index: 4
+        // }
+        // ,
+        // {
+        //   name: "redundant-mbox",
+        //   parameters: {
+        //     foo: "bar"
+        //   },
+        //   index: 5
+        // }
+        // ,
+        // {
+        //   name: "something",
+        //   index: 6
+        // }
+        // ,
+        // {
+        //   name: "kitty",
+        //   index: 7
+        // }
+        // ,
+        // {
+        //   name: "vanilla-mbox",
+        //   index: 8
+        // }
+        // ],
+        // views: [{}]
+        // },
+        execute: {
           pageLoad: {
             parameters: {
               foo: "bar"
             }
-          },
-          mboxes: [
-          //   {
-          //     name: "jason-flags",
-          //     index: 1
-          //   }
-          //   ,
-            {
-              name: "browser-mbox",
-              index: 2
-            }
-            // ,
-            // {
-            //   name: "expendable-mbox",
-            //   index: 3
-            // }
-            // ,
-            // {
-            //   name: "superfluous-mbox",
-            //   index: 4
-            // }
-            // ,
-            // {
-            //   name: "redundant-mbox",
-            //   parameters: {
-            //     foo: "bar"
-            //   },
-            //   index: 5
-            // }
-            // ,
-            // {
-            //   name: "something",
-            //   index: 6
-            // }
-            // ,
-            // {
-            //   name: "kitty",
-            //   index: 7
-            // }
-            // ,
-            // {
-            //   name: "vanilla-mbox",
-            //   index: 8
-            // }
-          ],
-          // views: [{}]
-        },
-        // execute: {
-        //   pageLoad: {
-        //     parameters: {
-        //       foo: "bar"
-        //     }
-        //   }
-        // }
-      }),
-      sessionId: "dummy_session"
-    }).then(function (res) {
-      showResult("Result: Success", JSON.stringify(res.response, null, 4));
+          }
+        }
+      })
+    })).then(function (targetResponse) {
+      if(useVisitorCookies) {
+        persistVisitorCookies(organizationId, targetResponse);
+      }
+      showResult("Result: Success", JSON.stringify(targetResponse.response, null, 4));
     }).catch(function (err) {
       showResult("Result: Error", err.toString());
     });
 
-    // client.getAttributes(['jason-flags'], {
+    // client.getAttributes(['jason-flags'], Object.assign({}, deliveryRequest, {
     //   request: targetRequest,
-    //   sessionId: "dummy_session"
-    // }).then(function (features) {
+    // })).then(function (features) {
     //   console.log(features.asObject('jason-flags'));
     //   console.log(features.getValue('jason-flags', 'paymentExperience'));
     // });
-
   }
 
   var targetClientOptions = {
-    client: "adobesummit2018",
-    organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
+    client: clientId,
+    organizationId: organizationId,
     clientReadyCallback: getOffers
   };
 
@@ -131,5 +147,6 @@
     // artifactLocation: "https://target-local-decisioning-staging.s3.us-east-2.amazonaws.com/adobesummit2018/waters_test/rules.json"
   } : {}));
 </script>
+<script src="assets/AppMeasurement.js"></script>
 </body>
 </html>

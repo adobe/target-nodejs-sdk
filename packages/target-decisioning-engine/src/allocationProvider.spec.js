@@ -1,4 +1,4 @@
-import { computeAllocation } from "./allocationProvider";
+import { computeAllocation, getOrCreateVisitorId } from "./allocationProvider";
 
 describe("allocationProvider", () => {
   it("computes allocation for ecid", () => {
@@ -46,5 +46,103 @@ describe("allocationProvider", () => {
       expect(allocation).toBeGreaterThanOrEqual(0);
       expect(allocation).toBeLessThanOrEqual(100);
     });
+  });
+});
+
+describe("getOrCreateVisitorId", () => {
+  it("prefers thirdPartyId", () => {
+    expect(
+      getOrCreateVisitorId({
+        tntId: "tnt123",
+        thirdPartyId: "thirdParty123",
+        marketingCloudVisitorId: "mcid123",
+        customerIds: [
+          {
+            id: "custId123",
+            integrationCode: "A",
+            authenticatedState: "authenticated"
+          }
+        ]
+      })
+    ).toEqual("thirdParty123");
+  });
+
+  it("prefers authenticated customerId", () => {
+    expect(
+      getOrCreateVisitorId({
+        tntId: "tnt123",
+        marketingCloudVisitorId: "mcid123",
+        customerIds: [
+          {
+            id: "custId123",
+            integrationCode: "A",
+            authenticatedState: "authenticated"
+          }
+        ]
+      })
+    ).toEqual("custId123");
+  });
+
+  it("only accepts authenticated customerIds", () => {
+    expect(
+      getOrCreateVisitorId({
+        tntId: "tnt123",
+        marketingCloudVisitorId: "mcid123",
+        customerIds: [
+          {
+            id: "custId123",
+            integrationCode: "A",
+            authenticatedState: "unknown"
+          }
+        ]
+      })
+    ).toEqual("mcid123");
+  });
+
+  it("accepts the first authenticated customerId", () => {
+    expect(
+      getOrCreateVisitorId({
+        tntId: "tnt123",
+        marketingCloudVisitorId: "mcid123",
+        customerIds: [
+          {
+            id: "custId123unknown",
+            integrationCode: "A",
+            authenticatedState: "unknown"
+          },
+          {
+            id: "custId123loggedout",
+            integrationCode: "A",
+            authenticatedState: "logged_out"
+          },
+          {
+            id: "custId123authenticated",
+            integrationCode: "A",
+            authenticatedState: "authenticated"
+          }
+        ]
+      })
+    ).toEqual("custId123authenticated");
+  });
+
+  it("prefers ecid", () => {
+    expect(
+      getOrCreateVisitorId({
+        tntId: "tnt123",
+        marketingCloudVisitorId: "mcid123"
+      })
+    ).toEqual("mcid123");
+  });
+
+  it("prefers tntId last", () => {
+    expect(
+      getOrCreateVisitorId({
+        tntId: "tnt123"
+      })
+    ).toEqual("tnt123");
+  });
+
+  it("generates a valid id if none provided", () => {
+    expect(getOrCreateVisitorId({})).toEqual(expect.any(String));
   });
 });

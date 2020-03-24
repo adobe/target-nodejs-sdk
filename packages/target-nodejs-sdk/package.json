@@ -14,7 +14,7 @@
     "clean": "rimraf dist",
     "prebuild": "npm run clean && npm run format && npm run lint",
     "build": "NODE_ENV=production rollup -c rollup.config.js",
-    "postbuild": "cp dist/targetclient.browser* demo",
+    "postbuild": "cp dist/targetclient.browser* demo/assets",
     "www": "npm run build && node ./sample/server.js",
     "pretest": "npm run lint-test",
     "test": "NODE_ENV=development jest",

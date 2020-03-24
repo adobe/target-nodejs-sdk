@@ -1,5 +1,6 @@
 import MurmurHash3 from "imurmurhash";
 import { createUUID } from "@adobe/target-tools";
+import { getCustomerId } from "./requestProvider";
 
 /**
  *
@@ -9,9 +10,10 @@ import { createUUID } from "@adobe/target-tools";
 export function getOrCreateVisitorId(visitorId) {
   if (visitorId) {
     return (
+      visitorId.thirdPartyId ||
+      getCustomerId(visitorId) ||
       visitorId.marketingCloudVisitorId ||
       visitorId.tntId ||
-      visitorId.thirdPartyId ||
       createUUID()
     );
   }

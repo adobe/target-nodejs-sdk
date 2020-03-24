@@ -252,7 +252,9 @@ function createSupplementalDataId(options) {
 
 function createAnalytics(analytics = {}, options) {
   return DeliveryApiClient.AnalyticsRequestFromJSON({
-    logging: LoggingType.ServerSide,
+    logging: isNonEmptyString(analytics.logging)
+      ? analytics.logging
+      : LoggingType.ServerSide,
     supplementalDataId: createSupplementalDataId(options),
     trackingServer: isNonEmptyString(analytics.trackingServer)
       ? analytics.trackingServer

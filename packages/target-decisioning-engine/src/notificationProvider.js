@@ -35,12 +35,13 @@ function NotificationProvider(request, sendNotificationFunc = noop) {
 
   function sendNotifications() {
     if (notifications.length > 0) {
-      const { id, context } = request;
+      const { id, context, experienceCloud } = request;
 
       sendNotificationFunc({
         request: {
           id,
           context,
+          experienceCloud,
           notifications
         }
       });

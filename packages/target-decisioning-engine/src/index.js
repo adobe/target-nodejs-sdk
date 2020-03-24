@@ -5,6 +5,7 @@ import ArtifactProvider from "./artifactProvider";
 import Messages from "./messages";
 import { hasRemoteDependency, matchMajorVersion } from "./utils";
 import { SUPPORTED_ARTIFACT_MAJOR_VERSION } from "./constants";
+import { validDeliveryRequest } from "./requestProvider";
 
 /**
  * The TargetDecisioningEngine initialize method
@@ -72,7 +73,7 @@ export default async function TargetDecisioningEngine(config) {
 
     return DecisionProvider(
       config.client,
-      request,
+      validDeliveryRequest(request),
       createDecisioningContext(request),
       artifact,
       config.sendNotificationFunc
