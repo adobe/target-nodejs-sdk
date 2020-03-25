@@ -80,6 +80,58 @@ describe("contextProvider", () => {
     MockDate.reset();
   });
 
+  it("can generate blank context", () => {
+    expect(
+      createDecisioningContext({
+        context: {
+          channel: "web"
+        }
+      })
+    ).toEqual({
+      current_day: expect.any(Number),
+      current_time: expect.any(String),
+      current_timestamp: expect.any(Number),
+      page: {
+        domain: "",
+        domain_lc: "",
+        fragment: "",
+        fragment_lc: "",
+        path: "",
+        path_lc: "",
+        query: "",
+        query_lc: "",
+        subdomain: "",
+        subdomain_lc: "",
+        topLevelDomain: "",
+        topLevelDomain_lc: "",
+        url: "",
+        url_lc: ""
+      },
+      referring: {
+        domain: "",
+        domain_lc: "",
+        fragment: "",
+        fragment_lc: "",
+        path: "",
+        path_lc: "",
+        query: "",
+        query_lc: "",
+        subdomain: "",
+        subdomain_lc: "",
+        topLevelDomain: "",
+        topLevelDomain_lc: "",
+        url: "",
+        url_lc: ""
+      },
+      user: {
+        browserType: "unknown",
+        browserVersion: -1,
+        locale: "en",
+        platform: "unknown"
+      }
+    });
+  });
+
   it("has browser context", () => {
     const context = createDecisioningContext(DELIVERY_REQUEST);
 

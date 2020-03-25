@@ -14,21 +14,20 @@ function getLowerCaseAttributes(obj) {
 }
 
 /**
- * @param { import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
+ * @param { import("@adobe/target-tools/delivery-api-client/models/Context").Context } context
  * @return { import("../types/DecisioningContext").UserContext }
  */
-function createBrowserContext(deliveryRequest) {
-  const { context } = deliveryRequest;
-  if (typeof context.userAgent === "undefined")
-    throw new Error("Undefined User Agent");
-
+function createBrowserContext(context) {
   const userAgent = UAParser(context.userAgent);
 
   return {
     browserType: (userAgent.browser.name || "unknown").toLowerCase(),
     platform: userAgent.os.name || "unknown",
     locale: "en", // TODO: determine where this comes from
-    browserVersion: parseInt(userAgent.browser.major, 10)
+    browserVersion:
+      typeof userAgent.browser.major !== "undefined"
+        ? parseInt(userAgent.browser.major, 10)
+        : -1
   };
 }
 
@@ -37,7 +36,10 @@ function createBrowserContext(deliveryRequest) {
  * @return { import("../types/DecisioningContext").PageContext }
  */
 function createUrlContext(url) {
-  if (!url || typeof url !== "string") return undefined;
+  if (!url || typeof url !== "string") {
+    // eslint-disable-next-line no-param-reassign
+    url = "";
+  }
 
   const urlAttributes = parseURL(url);
 
@@ -52,7 +54,7 @@ function createUrlContext(url) {
  * @return { import("../types/DecisioningContext").PageContext }
  */
 export function createPageContext(address) {
-  return createUrlContext(address.url);
+  return createUrlContext(address ? address.url : "");
 }
 
 /**
@@ -60,7 +62,7 @@ export function createPageContext(address) {
  * @return { import("../types/DecisioningContext").PageContext }
  */
 export function createReferringContext(address) {
-  return createUrlContext(address.referringUrl);
+  return createUrlContext(address ? address.referringUrl : "");
 }
 
 /**
@@ -106,7 +108,7 @@ export function createDecisioningContext(deliveryRequest) {
 
   return {
     ...createTimingContext(),
-    user: createBrowserContext(deliveryRequest),
+    user: createBrowserContext(deliveryRequest.context),
     page: createPageContext(deliveryRequest.context.address),
     referring: createReferringContext(deliveryRequest.context.address)
   };

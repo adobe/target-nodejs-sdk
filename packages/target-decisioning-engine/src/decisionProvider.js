@@ -1,12 +1,10 @@
 import jsonLogic from "json-logic-js";
-import { createUUID } from "@adobe/target-tools";
+import { createUUID, DEFAULT_GLOBAL_MBOX } from "@adobe/target-tools";
 import { OK, PARTIAL_CONTENT } from "http-status-codes";
 import { computeAllocation } from "./allocationProvider";
 import { createMboxContext, createPageContext } from "./contextProvider";
 import { hasRemoteDependency } from "./utils";
 import NotificationProvider from "./notificationProvider";
-
-const DEFAULT_GLOBAL_MBOX_NAME = "target-global-mbox";
 
 /**
  *
@@ -25,7 +23,7 @@ function DecisionProvider(
   sendNotificationFunc
 ) {
   const { rules } = artifact;
-  const globalMboxName = artifact.meta.globalMbox || DEFAULT_GLOBAL_MBOX_NAME;
+  const globalMboxName = artifact.meta.globalMbox || DEFAULT_GLOBAL_MBOX;
 
   const request = {
     ...deliveryRequest,

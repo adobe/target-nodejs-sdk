@@ -11,7 +11,10 @@ function caseSensitiveVersion(caseSenstiveString, lowercaseString) {
 }
 
 export function parseURL(url) {
-  if (!url || typeof url !== "string") return undefined;
+  if (typeof url !== "string") {
+    // eslint-disable-next-line no-param-reassign
+    url = "";
+  }
 
   const parsed = new Url(url);
 
@@ -28,22 +31,22 @@ export function parseURL(url) {
 
   switch (domainParts.length) {
     case 1:
-      result.subdomain = undefined;
+      result.subdomain = "";
       result.domain = domainParts[0];
-      result.topLevelDomain = undefined;
+      result.topLevelDomain = "";
       break;
     case 2:
-      result.subdomain = undefined;
+      result.subdomain = "";
       result.domain = domainParts[0];
       result.topLevelDomain = domainParts[1];
       break;
     case 3:
-      result.subdomain = domainParts[0] === "www" ? undefined : domainParts[0];
+      result.subdomain = domainParts[0] === "www" ? "" : domainParts[0];
       result.domain = domainParts[1];
       result.topLevelDomain = domainParts[2];
       break;
     case 4:
-      result.subdomain = domainParts[0] === "www" ? null : domainParts[0];
+      result.subdomain = domainParts[0] === "www" ? "" : domainParts[0];
       result.domain = domainParts[1];
       result.topLevelDomain = `${domainParts[2]}.${domainParts[3]}`;
       break;

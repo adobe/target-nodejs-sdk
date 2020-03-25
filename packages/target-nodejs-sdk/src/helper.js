@@ -13,7 +13,8 @@ governing permissions and limitations under the License.
 import {
   createUUID,
   getMboxNames,
-  DeliveryApiClient
+  DeliveryApiClient,
+  DEFAULT_GLOBAL_MBOX
 } from "@adobe/target-tools";
 import { OK, PARTIAL_CONTENT } from "http-status-codes";
 import { EXECUTION_MODE } from "./enums";
@@ -62,7 +63,6 @@ const AUTH_STATE = {
   1: AuthenticatedState.Authenticated,
   2: AuthenticatedState.LoggedOut
 };
-const DEFAULT_GLOBAL_MBOX = "target-global-mbox";
 const EDGE_CLUSTER_PREFIX = "mboxedge";
 const HOST = "tt.omtrdc.net";
 const SESSION_ID_MAX_AGE = 1860;
