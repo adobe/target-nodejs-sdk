@@ -4,6 +4,9 @@
 This is a mono repo with multiple javascript target modules.
 
 ### target-nodejs-sdk
+
+[![Coverage Status](https://coveralls.io/repos/github/jasonwaters/target-nodejs-sdk/badge.svg?branch=master)](https://coveralls.io/github/jasonwaters/target-nodejs-sdk?branch=master)
+
 View the SDK readme [here](packages/target-nodejs-sdk/README.md)
 
 ```./packages/target-nodejs-sdk```
