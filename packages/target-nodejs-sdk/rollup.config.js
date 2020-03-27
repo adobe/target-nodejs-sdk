@@ -23,7 +23,7 @@ import pkg from "./package.json";
 function getPlugins(babelConfig, visualizerConfig) {
   return [
     json(),
-    resolve({ preferBuiltins: false }),
+    resolve({}),
     commonjs(),
     license({
       banner: {
@@ -98,7 +98,7 @@ export default [
               useBuiltIns: false,
               modules: false,
               targets: {
-                node: "current"
+                node: "8"
               }
             }
           ]

@@ -26,7 +26,7 @@ module.exports = {
             corejs: 3,
             modules: false,
             targets: {
-              node: "current",
+              node: "8",
               browsers: [
                 "last 2 Chrome versions",
                 "last 2 Firefox versions",
