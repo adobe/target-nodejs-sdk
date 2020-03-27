@@ -10,7 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import { getLogger, getFetchApi } from "@adobe/target-tools";
+import { getFetchApi, getLogger } from "@adobe/target-tools";
 import Visitor from "@adobe-mcid/visitor-js-server";
 import TargetDecisioningEngine from "@adobe/target-decisioning-engine";
 import { createVisitor, requiresDecisioningEngine } from "./utils";
@@ -19,7 +19,11 @@ import { EXECUTION_MODE } from "./enums";
 import { LOCATION_HINT_COOKIE, TARGET_COOKIE } from "./cookies";
 import { executeDelivery } from "./target";
 import { AttributesProvider } from "./attributesProvider";
-import { addMboxesToRequest } from "./helper";
+import {
+  addMboxesToRequest,
+  preserveLocationHint,
+  requestLocationHintCookie
+} from "./helper";
 
 import {
   validateClientOptions,
@@ -53,20 +57,25 @@ export default function bootstrap(fetchApi) {
       this.logger = getLogger(options.logger);
 
       if (requiresDecisioningEngine(options.executionMode)) {
-        TargetDecisioningEngine({
-          client: options.client,
-          organizationId: options.organizationId,
-          pollingInterval: options.pollingInterval,
-          artifactLocation: options.artifactLocation,
-          artifactPayload: options.artifactPayload,
-          logger: this.logger,
-          fetchApi: fetchImpl,
-          sendNotificationFunc: notificationOptions =>
-            this.sendNotifications(notificationOptions)
-        }).then(decisioningEngine => {
-          this.decisioningEngine = decisioningEngine;
-          emitClientReady(options);
-        });
+        Promise.all([
+          requestLocationHintCookie(this, this.config.targetLocationHint),
+          TargetDecisioningEngine({
+            client: options.client,
+            organizationId: options.organizationId,
+            pollingInterval: options.pollingInterval,
+            artifactLocation: options.artifactLocation,
+            artifactPayload: options.artifactPayload,
+            logger: this.logger,
+            fetchApi: fetchImpl,
+            sendNotificationFunc: notificationOptions =>
+              this.sendNotifications(notificationOptions)
+          })
+        ])
+          // eslint-disable-next-line no-unused-vars
+          .then(([locationHintResponse, decisioningEngine]) => {
+            this.decisioningEngine = decisioningEngine;
+            emitClientReady(options);
+          });
       } else {
         setTimeout(() => emitClientReady(options), 100);
       }
@@ -80,9 +89,10 @@ export default function bootstrap(fetchApi) {
      * @param {String} options.organizationId Target Organization Id, required
      * @param {Number} options.timeout Target request timeout in ms, default: 3000
      * @param {String} options.serverDomain Server domain, optional
+     * @param {String} options.targetLocationHint Target Location Hint, optional
      * @param {boolean} options.secure Unset to enforce HTTP scheme, default: true
      * @param {Object} options.logger Replaces the default noop logger, optional
-     * @param {('local'|'remote'|'hybrid')} options.executionMode The evaluation mode, defaults to remote, optional
+     * @param {('local'|'remote'|'hybrid')} options.executionMode The execution mode, defaults to remote, optional
      * @param {Number} options.pollingInterval (Local Decisioning) Polling interval in ms, default: 30000
      * @param {String} options.artifactLocation (Local Decisioning) Fully qualified url to the location of the artifact, optional
      * @param {String} options.artifactPayload (Local Decisioning) A pre-fetched artifact, optional
@@ -115,11 +125,12 @@ export default function bootstrap(fetchApi) {
      * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} options.request Target View Delivery API request, required
      * @param {String} options.visitorCookie VisitorId cookie, optional
      * @param {String} options.targetCookie Target cookie, optional
-     * @param {String} options.targetLocationHintCookie Target Location Hint cookie, optional
+     * @param {String} options.targetLocationHint Target Location Hint, optional
      * @param {String} options.consumerId When stitching multiple calls, different consumerIds should be provided, optional
      * @param {Array}  options.customerIds An array of Customer Ids in VisitorId-compatible format, optional
      * @param {String} options.sessionId Session Id, used for linking multiple requests, optional
      * @param {Object} options.visitor Supply an external VisitorId instance, optional
+     * @param {('local'|'remote'|'hybrid')} options.executionMode The execution mode, defaults to remote, optional
      */
     getOffers(options) {
       const error = validateGetOffersOptions(options);
@@ -131,11 +142,20 @@ export default function bootstrap(fetchApi) {
       const visitor = createVisitor(options, this.config);
 
       const targetOptions = Object.assign(
-        { visitor, config: this.config, logger: this.logger },
+        {
+          visitor,
+          config: {
+            ...this.config,
+            executionMode: options.executionMode || this.config.executionMode
+          },
+          logger: this.logger
+        },
         options
       );
 
-      return executeDelivery(targetOptions, this.decisioningEngine);
+      return executeDelivery(targetOptions, this.decisioningEngine).then(
+        preserveLocationHint.bind(this)
+      );
     }
 
     /**
@@ -145,7 +165,7 @@ export default function bootstrap(fetchApi) {
      * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} options.request Target View Delivery API request, required
      * @param {String} options.visitorCookie VisitorId cookie, optional
      * @param {String} options.targetCookie Target cookie, optional
-     * @param {String} options.targetLocationHintCookie Target Location Hint cookie, optional
+     * @param {String} options.targetLocationHint Target Location Hint, optional
      * @param {String} options.consumerId When stitching multiple calls, different consumerIds should be provided, optional
      * @param {Array}  options.customerIds An array of Customer Ids in VisitorId-compatible format, optional
      * @param {String} options.sessionId Session Id, used for linking multiple requests, optional
@@ -164,7 +184,7 @@ export default function bootstrap(fetchApi) {
      * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} options.request Target View Delivery API request, required
      * @param {String} options.visitorCookie VisitorId cookie, optional
      * @param {String} options.targetCookie Target cookie, optional
-     * @param {String} options.targetLocationHintCookie Target Location Hint cookie, optional
+     * @param {String} options.targetLocationHint Target Location Hint, optional
      * @param {String} options.consumerId When stitching multiple calls, different consumerIds should be provided, optional
      * @param {Array} options.customerIds An array of Customer Ids in VisitorId-compatible format, optional
      * @param {String} options.sessionId Session Id, used for linking multiple requests, optional
@@ -191,7 +211,9 @@ export default function bootstrap(fetchApi) {
         ...options
       };
 
-      return executeDelivery(targetOptions);
+      return executeDelivery(targetOptions).then(
+        preserveLocationHint.bind(this)
+      );
     }
 
     static getVisitorCookieName(orgId) {

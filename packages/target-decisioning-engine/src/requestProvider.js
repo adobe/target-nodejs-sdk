@@ -27,9 +27,10 @@ export function getCustomerId(visitorId) {
 /**
  *
  * @param {import("@adobe/target-tools/delivery-api-client/models/VisitorId").VisitorId} visitorId
+ * @param {String} targetLocationHint
  * @returns {import("@adobe/target-tools/delivery-api-client/models/VisitorId").VisitorId}
  */
-export function validVisitorId(visitorId) {
+export function validVisitorId(visitorId, targetLocationHint) {
   const result = {
     ...visitorId
   };
@@ -40,7 +41,11 @@ export function validVisitorId(visitorId) {
     !getCustomerId(result) &&
     !result.thirdPartyId
   ) {
-    result.tntId = createUUID();
+    const locationHint =
+      typeof targetLocationHint !== "undefined"
+        ? `${targetLocationHint}_0`
+        : "";
+    result.tntId = `${createUUID()}.${locationHint}`;
   }
   return result;
 }
@@ -48,11 +53,12 @@ export function validVisitorId(visitorId) {
 /**
  *
  * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} request
+ * @param {String} targetLocationHint
  * @returns {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest}
  */
-export function validDeliveryRequest(request) {
+export function validDeliveryRequest(request, targetLocationHint) {
   return {
     ...request,
-    id: validVisitorId(request.id)
+    id: validVisitorId(request.id, targetLocationHint)
   };
 }

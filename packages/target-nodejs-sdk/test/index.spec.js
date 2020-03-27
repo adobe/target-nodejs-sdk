@@ -155,18 +155,6 @@ describe("Target Client factory", () => {
     );
   });
 
-  it("getOffers should throw when prefetch/execute is missing", async () => {
-    const client = TargetClient.create({
-      client: "client",
-      organizationId: "orgId",
-      fetchApi: fetch
-    });
-
-    await expect(client.getOffers({ request: { trace: {} } })).rejects.toEqual(
-      new Error(Messages.EXECUTE_OR_PREFETCH_REQUIRED)
-    );
-  });
-
   it("getOffers should throw when execute fields are missing", async () => {
     const client = TargetClient.create({
       client: "client",

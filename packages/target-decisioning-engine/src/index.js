@@ -45,7 +45,7 @@ export default async function TargetDecisioningEngine(config) {
    * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} targetOptions.request Target View Delivery API request, required
    * @param {String} targetOptions.visitorCookie VisitorId cookie, optional
    * @param {String} targetOptions.targetCookie Target cookie, optional
-   * @param {String} targetOptions.targetLocationHintCookie Target Location Hint cookie, optional
+   * @param {String} targetOptions.targetLocationHint Target Location Hint, optional
    * @param {String} targetOptions.consumerId When stitching multiple calls, different consumerIds should be provided, optional
    * @param {Array}  targetOptions.customerIds An array of Customer Ids in VisitorId-compatible format, optional
    * @param {String} targetOptions.sessionId Session Id, used for linking multiple requests, optional
@@ -73,7 +73,7 @@ export default async function TargetDecisioningEngine(config) {
 
     return DecisionProvider(
       config.client,
-      validDeliveryRequest(request),
+      validDeliveryRequest(request, targetOptions.targetLocationHint),
       createDecisioningContext(request),
       artifact,
       config.sendNotificationFunc

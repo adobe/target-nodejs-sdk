@@ -461,6 +461,12 @@ function createProperty(property = {}) {
   return undefined;
 }
 
+/**
+ *
+ * @param requestParam
+ * @param options
+ * @return { import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest }
+ */
 export function createDeliveryRequest(requestParam, options) {
   const { logger, uuidMethod = createUUID } = options;
 
@@ -488,6 +494,14 @@ export function createDeliveryRequest(requestParam, options) {
   return result;
 }
 
+/**
+ *
+ * @param fetchApi
+ * @param host
+ * @param headers
+ * @param timeout
+ * @return { import("@adobe/target-tools/delivery-api-client/runtime").Configuration }
+ */
 export function createConfiguration(fetchApi, host, headers, timeout) {
   return new Configuration({
     basePath: host,
@@ -497,7 +511,7 @@ export function createConfiguration(fetchApi, host, headers, timeout) {
   });
 }
 
-function createLocalDeliveryApi(decisioningEngine) {
+function createLocalDeliveryApi(decisioningEngine, targetLocationHint) {
   return {
     // eslint-disable-next-line no-unused-vars
     execute: (client, sessionId, deliveryRequest, atjsVersion) => {
@@ -506,6 +520,7 @@ function createLocalDeliveryApi(decisioningEngine) {
       }
 
       return decisioningEngine.getOffers({
+        targetLocationHint,
         request: deliveryRequest,
         sessionId
       });
@@ -549,9 +564,10 @@ function createRemoteDeliveryApi(configuration, useBeacon) {
 }
 
 /**
- * @param executionMode
  * @param {import("@adobe/target-tools/delivery-api-client/runtime").Configuration} configuration
  * @param { Boolean } useBeacon
+ * @param executionMode
+ * @param { String } targetLocationHint
  * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} deliveryRequest
  * @param decisioningEngine
  * */
@@ -559,6 +575,7 @@ export function createDeliveryApi(
   configuration,
   useBeacon = false,
   executionMode = EXECUTION_MODE.REMOTE,
+  targetLocationHint = undefined,
   deliveryRequest = undefined,
   decisioningEngine = undefined
 ) {
@@ -574,7 +591,7 @@ export function createDeliveryApi(
       return createRemoteDeliveryApi(configuration, useBeacon);
     }
 
-    return createLocalDeliveryApi(decisioningEngine);
+    return createLocalDeliveryApi(decisioningEngine, targetLocationHint);
   }
 
   return createRemoteDeliveryApi(configuration, useBeacon);
@@ -616,7 +633,7 @@ function extractClusterFromEdgeHost(host) {
   return parts[0].replace(EDGE_CLUSTER_PREFIX, "");
 }
 
-function getTargetLocationHintCookie(requestCluster, edgeHost) {
+export function getTargetLocationHintCookie(requestCluster, edgeHost) {
   const hostCluster = extractClusterFromEdgeHost(edgeHost);
   const cluster = requestCluster || hostCluster;
 
@@ -629,6 +646,33 @@ function getTargetLocationHintCookie(requestCluster, edgeHost) {
     value: cluster,
     maxAge: LOCATION_HINT_MAX_AGE
   };
+}
+
+export function requestLocationHintCookie(targetClient, targetLocationHint) {
+  return typeof targetLocationHint !== "undefined"
+    ? Promise.resolve({
+        targetLocationHintCookie: getTargetLocationHintCookie(
+          targetLocationHint
+        )
+      })
+    : targetClient
+        .getOffers({
+          sessionId: "ping123",
+          executionMode: EXECUTION_MODE.REMOTE,
+          request: {
+            context: {
+              channel: "web"
+            }
+          }
+        })
+        .catch(() => new Error(Messages.LOCATION_HINT_REQUEST_FAILED));
+}
+
+export function preserveLocationHint(response) {
+  if (typeof response.targetLocationHintCookie !== "undefined") {
+    this.config.targetLocationHint = response.targetLocationHintCookie.value;
+  }
+  return response;
 }
 
 function getAnalyticsFromObject(object = {}) {

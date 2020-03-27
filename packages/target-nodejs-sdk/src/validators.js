@@ -58,10 +58,6 @@ export function validateGetOffersOptions(options) {
 
   const { execute, prefetch } = request;
 
-  if (isEmptyObject(execute) && isEmptyObject(prefetch)) {
-    return Messages.EXECUTE_OR_PREFETCH_REQUIRED;
-  }
-
   if (
     isNonEmptyObject(execute) &&
     typeof execute.pageLoad === "undefined" &&

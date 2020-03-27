@@ -43,6 +43,7 @@ describe("target local decisioning", () => {
           client: "someClientId",
           organizationId: "someOrgId",
           executionMode: EXECUTION_MODE.LOCAL,
+          targetLocationHint: "28",
           pollingInterval: 0,
           clientReadyCallback: () => {
             expect(client.decisioningEngine).not.toBeUndefined();
@@ -90,6 +91,7 @@ describe("target local decisioning", () => {
         client: "someClientId",
         organizationId: "someOrgId",
         executionMode: EXECUTION_MODE.LOCAL,
+        targetLocationHint: "28",
         pollingInterval: 0
       });
 
@@ -124,6 +126,7 @@ describe("target local decisioning", () => {
         client: "someClientId",
         organizationId: "someOrgId",
         executionMode: EXECUTION_MODE.LOCAL,
+        targetLocationHint: "28",
         pollingInterval: 0
       });
 
@@ -304,6 +307,88 @@ describe("target local decisioning", () => {
         }
       }
     };
+    describe("targetLocationHintCookie", () => {
+      it("is makes a preemptive delivery request to get the mboxEdgeCluster on init", async done => {
+        fetch
+          .once(
+            JSON.stringify({
+              status: 200,
+              requestId: "1387f0ea-51d6-43df-ba32-f2fe79c356bd",
+              client: "someClientId",
+              id: {
+                tntId: "someSessionId.28_0"
+              },
+              edgeHost: "mboxedge28.tt.omtrdc.net"
+            })
+          )
+          .once(JSON.stringify(DECISIONING_PAYLOAD_SIMPLE));
+
+        async function onClientReady() {
+          const result = await client.getOffers(prefetchRequestOptions);
+
+          expect(result.targetLocationHintCookie).toEqual({
+            name: "mboxEdgeCluster",
+            value: "28",
+            maxAge: 1860
+          });
+          done();
+        }
+
+        client = TargetClient.create({
+          ...targetClientOptions,
+          executionMode: EXECUTION_MODE.LOCAL,
+          pollingInterval: 0,
+          clientReadyCallback: onClientReady
+        });
+      });
+
+      it("is recovers if the delivery request fails", async done => {
+        fetch.mockResponses(
+          ["", { status: HttpStatus.SERVICE_UNAVAILABLE }],
+          [
+            JSON.stringify(DECISIONING_PAYLOAD_SIMPLE),
+            { status: HttpStatus.OK }
+          ]
+        );
+
+        async function onClientReady() {
+          const result = await client.getOffers(prefetchRequestOptions);
+
+          expect(result.targetLocationHintCookie).toBeUndefined();
+          done();
+        }
+
+        client = TargetClient.create({
+          ...targetClientOptions,
+          executionMode: EXECUTION_MODE.LOCAL,
+          pollingInterval: 0,
+          clientReadyCallback: onClientReady
+        });
+      });
+
+      it("can be passed in as a config option to be used instead of of a preemptive delivery request", async done => {
+        fetch.once(JSON.stringify(DECISIONING_PAYLOAD_SIMPLE));
+
+        async function onClientReady() {
+          const result = await client.getOffers(prefetchRequestOptions);
+
+          expect(result.targetLocationHintCookie).toEqual({
+            name: "mboxEdgeCluster",
+            value: "28",
+            maxAge: 1860
+          });
+          done();
+        }
+
+        client = TargetClient.create({
+          ...targetClientOptions,
+          executionMode: EXECUTION_MODE.LOCAL,
+          pollingInterval: 0,
+          targetLocationHint: "28",
+          clientReadyCallback: onClientReady
+        });
+      });
+    });
 
     it("produces a valid response in local execution mode", async done => {
       fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_SIMPLE));
@@ -318,6 +403,7 @@ describe("target local decisioning", () => {
       client = TargetClient.create({
         ...targetClientOptions,
         executionMode: EXECUTION_MODE.LOCAL,
+        targetLocationHint: "28",
         pollingInterval: 0,
         clientReadyCallback: onClientReady
       });
@@ -366,6 +452,7 @@ describe("target local decisioning", () => {
         ...targetClientOptions,
         executionMode: EXECUTION_MODE.LOCAL,
         pollingInterval: 0,
+        targetLocationHint: "28",
         clientReadyCallback: onClientReady
       });
     });

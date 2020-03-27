@@ -609,7 +609,7 @@ app.get("/abtest", async (req, res) => {
     }};
 
   try {
-    const response = await targetClient.getOffers({ request, visitorCookie, targetCookie, targetLocationHintCookie });
+    const response = await targetClient.getOffers({ request, visitorCookie, targetCookie, targetLocationHint: targetLocationHintCookie });
     sendSuccessResponse(res, response);
   } catch (error) {
     console.error("Target:", error);
@@ -1060,14 +1060,16 @@ Check out the full sample here: https://github.com/adobe/target-nodejs-sdk-sampl
  
 The `options` object has the following structure:
 
-| Name            | Type     |Required | Default                | Description                            |
-|-----------------|----------|---------|------------------------|----------------------------------------|
-| client          |  String  | Yes     | None                   | Target Client Id                       |
-| organizationId  |  String  | Yes     | None                   | Experience Cloud Organization ID       |
-| timeout         |  Number  | No      | 3000                   | Target request timeout in milliseconds |
-| serverDomain    |  String  | No      | `client`.tt.omtrdc.net | Overrides default hostname             |
-| secure          |  Boolean | No      | true                   | Unset to enforce HTTP scheme           |
-| logger          |  Object  | No      | NOOP logger            | Replaces the default NOOP logger       |
+| Name                      | Type     |Required | Default                | Description                              |
+|---------------------------|----------|---------|------------------------|------------------------------------------|
+| client                    |  String  | Yes     | None                   | Target Client Id                         |
+| organizationId            |  String  | Yes     | None                   | Experience Cloud Organization ID         |
+| timeout                   |  Number  | No      | 3000                   | Target request timeout in milliseconds   |
+| serverDomain              |  String  | No      | `client`.tt.omtrdc.net | Overrides default hostname               |
+| secure                    |  Boolean | No      | true                   | Unset to enforce HTTP scheme             |
+| logger                    |  Object  | No      | NOOP logger            | Replaces the default NOOP logger         |
+| targetLocationHint        |  String  | No      | None                   | Target location hint                     |
+| executionMode             |  String  | No      | 'remote'               | Execution mode (local, remote or hybrid) |
 
 #### TargetClient.getOffers
 
@@ -1077,14 +1079,16 @@ The `options` object has the following structure:
 
 | Name                     | Type     | Required  | Default | Description                                      |
 |--------------------------|----------|-----------|---------|--------------------------------------------------|
-| request                  | Object   |  Yes      | None    | [Target Delivery API] request               |
+| request                  | Object   |  Yes      | None    | [Target Delivery API] request                    |
 | sessionId                | String   |  No       | None    | Used for linking multiple Target requests        |
 | visitorCookie            | String   |  No       | None    | ECID (VisitorId) cookie                          |
 | targetCookie             | String   |  No       | None    | Target cookie                                    |
-| targetLocationHintCookie | String   |  No       | None    | Target location hint cookie                      |
+| targetLocationHint       | String   |  No       | None    | Target location hint                             |
 | consumerId               | String   |  No       | None    | Provide different consumerIds for A4T stitching  |
 | customerIds              | Array    |  No       | None    | Customer Ids in VisitorId-compatible format      |
 | visitor                  | Object   |  No       | new VisitorId | Supply an external VisitorId instance      |
+| executionMode            | String   |  No       | 'remote'        | Execution mode (local, remote or hybrid) |
+
 
 The `request` object should conform to [Target Delivery API] request specification. 
 
@@ -1092,8 +1096,8 @@ The Promise returned by `TargetClient.getOffers()` has the following structure:
 
 | Name                     | Type              | Description                                                 |
 |--------------------------|-------------------|-------------------------------------------------------------|
-| request                  | Object            | [Target Delivery API] request                          |
-| response                 | Object            | [Target Delivery API] response                         |
+| request                  | Object            | [Target Delivery API] request                               |
+| response                 | Object            | [Target Delivery API] response                              |
 | visitorState             | Object            | Object that should be passed to Visitor API `getInstance()` |
 | targetCookie             | Object            | Target cookie                                               |
 | targetLocationHintCookie | Object            | Target location hint cookie                                 |

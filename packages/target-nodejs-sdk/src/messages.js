@@ -21,8 +21,6 @@ export const Messages = {
   ).join(",")}`,
   FETCH_API_REQUIRED: "Fetch API is required",
   REQUEST_REQUIRED: "Request object is required",
-  EXECUTE_OR_PREFETCH_REQUIRED:
-    "Either execute or prefetch is required in request",
   EXECUTE_FIELDS_REQUIRED: "Either pageLoad or mboxes is required in execute",
   PREFETCH_FIELDS_REQUIRED:
     "Either views, pageLoad or mboxes is required in prefetch",
@@ -42,5 +40,6 @@ export const Messages = {
     "Partial result.  Some decisions were made locally, but a remote request may be needed.",
   LOCAL_RESULT: "Decisions made locally.",
   REMOTE_RESULT: "Decisions made remotely",
-  DECISIONING_ENGINE_UNDEFINED: "Decisioning Engine is undefined"
+  DECISIONING_ENGINE_UNDEFINED: "Decisioning Engine is undefined",
+  LOCATION_HINT_REQUEST_FAILED: "Unable to retrieve location hint cookie."
 };

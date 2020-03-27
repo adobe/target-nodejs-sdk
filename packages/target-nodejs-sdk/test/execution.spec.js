@@ -162,7 +162,8 @@ const targetRequest = {
 
 const targetClientOptions = {
   client: "someClientId",
-  organizationId: "someOrgId"
+  organizationId: "someOrgId",
+  targetLocationHint: "28"
 };
 
 describe("execution mode", () => {
