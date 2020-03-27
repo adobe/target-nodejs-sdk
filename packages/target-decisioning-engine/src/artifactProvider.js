@@ -1,4 +1,4 @@
-import { getLogger, getFetchApi } from "@adobe/target-tools";
+import { getFetchApi, getFetchWithRetry, getLogger } from "@adobe/target-tools";
 import { NOT_MODIFIED, OK } from "http-status-codes";
 import Messages from "./messages";
 import {
@@ -55,25 +55,11 @@ async function ArtifactProvider(config) {
 
   let lastEtag;
   let lastResponse;
-
-  function fetchWithRetry(url, options, numRetries) {
-    return fetchApi(url, options)
-      .then(res => {
-        if (!res.ok && res.status !== NOT_MODIFIED) {
-          throw Error(res.statusText);
-        }
-        return res;
-      })
-      .catch(err => {
-        if (numRetries < 1) {
-          throw new Error(
-            Messages.ERROR_MAX_RETRY(NUM_FETCH_RETRIES, err.toString())
-          );
-        }
-        // TODO: Enhance this to do Exponential Backoff
-        return fetchWithRetry(url, options, numRetries - 1);
-      });
-  }
+  const fetchWithRetry = getFetchWithRetry(
+    fetchApi,
+    NUM_FETCH_RETRIES,
+    errorMessage => Messages.ERROR_MAX_RETRY(NUM_FETCH_RETRIES, errorMessage)
+  );
 
   function fetchArtifact(artifactUrl) {
     const headers = {
@@ -84,14 +70,10 @@ async function ArtifactProvider(config) {
       headers["If-None-Match"] = lastEtag;
     }
 
-    return fetchWithRetry(
-      artifactUrl,
-      {
-        headers,
-        cache: "default"
-      },
-      NUM_FETCH_RETRIES
-    )
+    return fetchWithRetry(artifactUrl, {
+      headers,
+      cache: "default"
+    })
       .then(res => {
         if (res.status === NOT_MODIFIED && lastResponse) {
           return lastResponse.clone();

@@ -135,7 +135,7 @@ describe("artifactProvider", () => {
       error: (prefix, message) => {
         expect(message).toEqual(
           Messages.ARTIFACT_FETCH_ERROR(
-            Messages.ERROR_MAX_RETRY(10, "Error: Internal Server Error")
+            Messages.ERROR_MAX_RETRY(10, "Internal Server Error")
           )
         );
       }

@@ -1,10 +1,10 @@
-var STORAGE_KEY = "tgtVisitorCookies";
+const STORAGE_KEY = "tgtVisitorCookies";
 
 function showResult(headingText, resultText) {
-  var resultEl = document.getElementById("result");
+  const resultEl = document.getElementById("result");
 
-  var preEl = document.createElement("pre");
-  var h3El = document.createElement("h3");
+  const preEl = document.createElement("pre");
+  const h3El = document.createElement("h3");
 
   h3El.innerText = headingText;
   preEl.innerText = resultText;
@@ -14,30 +14,32 @@ function showResult(headingText, resultText) {
 }
 
 function getCookie(name) {
-  var v = document.cookie.match('(^|;) ?' + encodeURIComponent(name) + '=([^;]*)(;|$)');
+  const v = document.cookie.match(
+    `(^|;) ?${encodeURIComponent(name)}=([^;]*)(;|$)`
+  );
   return v ? v[2] : null;
 }
 
-
-function persistVisitorCookies(organizationId, targetResponse) {
-  if (!organizationId) throw new Error("organizationId is undefined");
+function persistVisitorCookies(visitor, targetResponse) {
+  if (!visitor) throw new Error("visitor is undefined");
   if (!targetResponse) throw new Error("targetResponse is undefined");
 
-  var visitor = Visitor.getInstance(organizationId, {serverState: targetResponse.visitorState})
-
-  visitor.getVisitorValues(function (ids) {
-    var visitorCookie = getCookie(visitor.cookieName);
-    var storageValue = {
+  visitor.getVisitorValues(function(ids) {
+    const visitorCookie = getCookie(visitor.cookieName);
+    const storageValue = {
       targetCookie: targetResponse.targetCookie.value,
-      targetLocationHintCookie: typeof targetResponse.targetLocationHintCookie !== 'undefined' ? targetResponse.targetLocationHintCookie.value : undefined,
+      targetLocationHintCookie:
+        typeof targetResponse.targetLocationHintCookie !== "undefined"
+          ? targetResponse.targetLocationHintCookie.value
+          : undefined,
       visitorState: targetResponse.visitorState,
-      visitorCookie: visitorCookie
+      visitorCookie
     };
 
-    window['localStorage'].setItem(STORAGE_KEY, JSON.stringify(storageValue));
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(storageValue));
   });
 }
 
 function getVisitorCookies() {
-  return JSON.parse(window['localStorage'].getItem(STORAGE_KEY) || "{}");
+  return JSON.parse(window.localStorage.getItem(STORAGE_KEY) || "{}");
 }

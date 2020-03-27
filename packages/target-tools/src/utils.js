@@ -27,22 +27,3 @@ export function isBrowser() {
 export function isNodeJS() {
   return typeof global !== "undefined";
 }
-
-export function getFetchApi(fetchApi) {
-  if (fetchApi && typeof fetchApi === "function") return fetchApi;
-
-  let api;
-
-  if (isNodeJS() && typeof global.fetch === "function") {
-    api = global.fetch;
-  } else if (
-    isBrowser() &&
-    // eslint-disable-next-line no-undef
-    typeof window.fetch === "function"
-  ) {
-    // eslint-disable-next-line no-undef
-    api = window.fetch.bind(window);
-  }
-
-  return api;
-}

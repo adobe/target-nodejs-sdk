@@ -11,16 +11,17 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
+import { getFetchWithRetry } from "@adobe/target-tools";
 import { Messages } from "./messages";
 import {
-  getDeviceId,
-  getCluster,
-  getSessionId,
-  getTargetHost,
-  createHeaders,
-  createDeliveryRequest,
   createConfiguration,
   createDeliveryApi,
+  createDeliveryRequest,
+  createHeaders,
+  getCluster,
+  getDeviceId,
+  getSessionId,
+  getTargetHost,
   processResponse
 } from "./helper";
 import { parseCookies } from "./cookies";
@@ -46,6 +47,8 @@ export function executeDelivery(options, decisioningEngine) {
     environmentId,
     executionMode
   } = config;
+
+  const fetchWithRetry = getFetchWithRetry(config.fetchApi);
 
   const targetLocationHint =
     options.targetLocationHint || config.targetLocationHint;
@@ -77,7 +80,7 @@ export function executeDelivery(options, decisioningEngine) {
   logger.debug(Messages.REQUEST_SENT, JSON.stringify(deliveryRequest, null, 2));
 
   const configuration = createConfiguration(
-    config.fetchApi,
+    fetchWithRetry,
     host,
     headers,
     timeout
