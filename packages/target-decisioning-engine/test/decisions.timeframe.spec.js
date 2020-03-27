@@ -49,7 +49,7 @@ describe("decisioning outcomes - timeframe", () => {
 
   it("targets date range 1 (feb 27 - feb 29 2020)", async () => {
     fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_TIMEFRAME));
-    MockDate.set(Date.UTC(2020, 1, 27, 19)); // Thursday, February 27, 2020 11:00 AM
+    MockDate.set(Date.UTC(2020, 1, 27, 19)); // Thursday, February 27, 2020 11:00 AM (PST)
 
     decisioning = await TargetDecisioningEngine(TEST_CONF);
 
@@ -86,7 +86,7 @@ describe("decisioning outcomes - timeframe", () => {
 
   it("targets date range 2 (mar 2 - mar 6 2020)", async () => {
     fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_TIMEFRAME));
-    MockDate.set(Date.UTC(2020, 2, 4, 19)); // Wednesday, March 4, 2020 11:00 AM
+    MockDate.set(Date.UTC(2020, 2, 4, 19)); // Wednesday, March 4, 2020 11:00 AM (PST)
 
     decisioning = await TargetDecisioningEngine(TEST_CONF);
 
@@ -123,7 +123,7 @@ describe("decisioning outcomes - timeframe", () => {
 
   it("targets friday, even if within range of other rules", async () => {
     fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_TIMEFRAME));
-    MockDate.set(Date.UTC(2020, 2, 6, 19)); // Friday, March 6, 2020 11:00 AM
+    MockDate.set(Date.UTC(2020, 2, 6, 19)); // Friday, March 6, 2020 11:00 AM (PST)
 
     decisioning = await TargetDecisioningEngine(TEST_CONF);
 
@@ -160,7 +160,7 @@ describe("decisioning outcomes - timeframe", () => {
 
   it("targets friday out of range of other rules", async () => {
     fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_TIMEFRAME));
-    MockDate.set(Date.UTC(2020, 2, 20, 18)); // Friday, March 20, 2020 11:00 AM
+    MockDate.set(Date.UTC(2020, 2, 20, 18)); // Friday, March 20, 2020 11:00 AM (PST)
 
     decisioning = await TargetDecisioningEngine(TEST_CONF);
 
@@ -197,7 +197,7 @@ describe("decisioning outcomes - timeframe", () => {
 
   it("doesn't match any date rules", async () => {
     fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_TIMEFRAME));
-    MockDate.set(Date.UTC(2020, 4, 26, 18)); // Tuesday, May 26, 2020 11:00 AM
+    MockDate.set(Date.UTC(2020, 4, 26, 18)); // Tuesday, May 26, 2020 11:00 AM (PST)
 
     decisioning = await TargetDecisioningEngine(TEST_CONF);
 

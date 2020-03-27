@@ -221,7 +221,7 @@ describe("contextProvider", () => {
   });
 
   it("has timing context", () => {
-    MockDate.set(new Date("2020-02-25T01:05:00"));
+    MockDate.set(Date.UTC(2020, 2, 25, 24)); // "Wednesday, March 25, 2020 5:00 PM" (PST)
 
     const context = createDecisioningContext({
       context: {
@@ -241,9 +241,9 @@ describe("contextProvider", () => {
 
     expect(context).toEqual(
       expect.objectContaining({
-        current_timestamp: 1582621500000,
-        current_time: "0905",
-        current_day: 2
+        current_timestamp: 1585180800000,
+        current_time: "0000",
+        current_day: 4
       })
     );
   });
