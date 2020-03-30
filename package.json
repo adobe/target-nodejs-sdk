@@ -5,7 +5,8 @@
     "build": "lerna bootstrap && lerna run build",
     "clean": "lerna run clean",
     "publish": "npm run build && lerna publish",
-    "test": "lerna run test --stream"
+    "test": "lerna run test --stream && npm run coverage",
+    "coverage": "node mapCoverage.js"
   },
   "devDependencies": {
     "istanbul-lib-coverage": "^3.0.0",
