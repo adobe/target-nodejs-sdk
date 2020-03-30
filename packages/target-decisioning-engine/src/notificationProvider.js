@@ -1,4 +1,4 @@
-import { noop } from "@adobe/target-tools";
+import { noop, createUUID } from "@adobe/target-tools";
 
 /**
  * The get NotificationProvider initialize method
@@ -17,7 +17,8 @@ function NotificationProvider(request, sendNotificationFunc = noop) {
    */
   function addNotification(mbox) {
     const notification = {
-      id: `${mbox.name}_notification`,
+      id: createUUID(),
+      impressionId: createUUID(),
       timestamp,
       type: "display",
       mbox: {

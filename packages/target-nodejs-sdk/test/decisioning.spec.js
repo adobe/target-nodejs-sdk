@@ -413,28 +413,13 @@ describe("target local decisioning", () => {
       const now = new Date("2020-02-25T01:05:00");
       MockDate.set(now);
 
+      let notificationRequest;
+      let notificationPayload;
+
       fetch.once(JSON.stringify(DECISIONING_PAYLOAD_SIMPLE)).once(
         async req => {
-          expect(req).not.toBeUndefined();
-          expect(req.method).toEqual("POST");
-          const requestBody = await req.json();
-          expect(requestBody).toMatchObject({
-            ...targetRequest,
-            notifications: [
-              {
-                id: "superfluous-mbox_notification",
-                timestamp: now.getTime(),
-                type: "display",
-                mbox: {
-                  name: "superfluous-mbox"
-                },
-                tokens: [
-                  "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-                ]
-              }
-            ]
-          });
-
+          notificationRequest = req;
+          notificationPayload = await req.json();
           return Promise.resolve("");
         },
         {
@@ -443,8 +428,32 @@ describe("target local decisioning", () => {
       );
 
       async function onClientReady() {
-        await client.getOffers(executeRequestOptions);
+        await expect(
+          client.getOffers(executeRequestOptions)
+        ).resolves.toBeDefined();
         expect(fetch.mock.calls.length).toEqual(2);
+
+        expect(notificationRequest).not.toBeUndefined();
+        expect(notificationRequest.method).toEqual("POST");
+
+        expect(notificationPayload).toMatchObject({
+          ...targetRequest,
+          notifications: [
+            {
+              id: expect.any(String),
+              impressionId: expect.any(String),
+              timestamp: now.getTime(),
+              type: "display",
+              mbox: {
+                name: "superfluous-mbox"
+              },
+              tokens: [
+                "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+              ]
+            }
+          ]
+        });
+
         done();
       }
 

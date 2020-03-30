@@ -7,8 +7,9 @@ import {
   NUM_FETCH_RETRIES
 } from "./constants";
 
+// eslint-disable-next-line no-unused-vars
 function determineArtifactLocation(clientId, organizationId) {
-  return `${clientId}__${organizationId}`;
+  return `UNKNOWN_ARTIFACT_LOCATION`;
 }
 
 function getPollingInterval(config) {

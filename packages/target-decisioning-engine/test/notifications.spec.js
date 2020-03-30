@@ -83,7 +83,8 @@ describe("notifications", () => {
         context: targetRequest.context,
         notifications: [
           {
-            id: "superfluous-mbox_notification",
+            id: expect.any(String),
+            impressionId: expect.any(String),
             timestamp: now.getTime(),
             type: "display",
             mbox: {
@@ -131,7 +132,8 @@ describe("notifications", () => {
         context: targetRequest.context,
         notifications: [
           {
-            id: "superfluous-mbox_notification",
+            id: expect.any(String),
+            impressionId: expect.any(String),
             timestamp: now.getTime(),
             type: "display",
             mbox: {
@@ -142,7 +144,8 @@ describe("notifications", () => {
             ]
           },
           {
-            id: "expendable-mbox_notification",
+            id: expect.any(String),
+            impressionId: expect.any(String),
             timestamp: now.getTime(),
             type: "display",
             mbox: {
