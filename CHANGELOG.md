@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Replaced the the delivery request implementation with one based on [Fetch](https://fetch.spec.whatwg.org).  This allows the sdk to function in both node.js and browser environments.
 - Modified sendNotifications to use [Navigator.sendBeacon](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/sendBeacon) if run in a browser environment.
 - Migrated tests from jasmine to jest
+- Added support for local decisioning -- the ability to download and evaluate target activities locally instead of making repeat delivery api requests
+
+- Changed to a mono repo structure using lerna to support multiple packages
+  - target-nodejs-sdk - the sdk was moved inside the packages folder
+  - target-decisioning-engine - adds the ability to load target rules and evaluate them locally instead of making a delivery api request
+  - target-tools - shared code and config between the above packages
+
+
 
 ## [1.0.3] - 2019-10-10
 ### Changed

@@ -10,8 +10,10 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
+import path from "path";
 import resolve from "@rollup/plugin-node-resolve";
 import json from "@rollup/plugin-json";
+import license from "rollup-plugin-license";
 import commonjs from "@rollup/plugin-commonjs";
 import { terser } from "rollup-plugin-terser";
 import babel from "rollup-plugin-babel";
@@ -31,6 +33,13 @@ export default [
       json(),
       resolve(),
       commonjs(),
+      license({
+        banner: {
+          content: {
+            file: path.join(__dirname, "LICENSE_BANNER.txt")
+          }
+        }
+      }),
       babel(),
       terser(),
       visualizer({
