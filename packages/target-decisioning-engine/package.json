@@ -9,7 +9,8 @@
   ],
   "scripts": {
     "build": "NODE_ENV=production rollup -c",
-    "test": "NODE_ENV=development jest"
+    "test": "NODE_ENV=development jest",
+    "prepublishOnly": "echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc"
   },
   "dependencies": {
     "@adobe/target-tools": "1.0.0",
