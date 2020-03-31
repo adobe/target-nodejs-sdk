@@ -4,12 +4,15 @@
   "description": "Adobe Target JavaScript decisioning engine",
   "main": "dist/index.js",
   "module": "src/index.js",
+  "files": [
+    "dist/*.js"
+  ],
   "scripts": {
     "build": "NODE_ENV=production rollup -c",
     "test": "NODE_ENV=development jest"
   },
   "dependencies": {
-    "@adobe/target-tools": "^1.0.0",
+    "@adobe/target-tools": "1.0.0",
     "http-status-codes": "^1.4.0",
     "imurmurhash": "^0.1.4",
     "json-logic-js": "^1.2.2",

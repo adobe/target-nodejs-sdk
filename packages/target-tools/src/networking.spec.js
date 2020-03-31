@@ -1,4 +1,17 @@
-import * as HttpStatus from "http-status-codes";
+import {
+  BAD_GATEWAY,
+  BAD_REQUEST,
+  FORBIDDEN,
+  GONE,
+  INTERNAL_SERVER_ERROR,
+  NOT_ACCEPTABLE,
+  NOT_FOUND,
+  NOT_IMPLEMENTED,
+  OK,
+  SERVICE_UNAVAILABLE,
+  TOO_MANY_REQUESTS,
+  UNAUTHORIZED
+} from "http-status-codes";
 import { getFetchApi, getFetchWithRetry } from "./networking";
 
 require("jest-fetch-mock").enableMocks();
@@ -28,17 +41,17 @@ describe("fetchWithRetry", () => {
     const fetchWithRetry = getFetchWithRetry(fetchApi);
 
     fetch.mockResponses(
-      ["", { status: HttpStatus.UNAUTHORIZED }],
-      ["", { status: HttpStatus.NOT_FOUND }],
-      ["", { status: HttpStatus.NOT_ACCEPTABLE }],
-      ["", { status: HttpStatus.NOT_IMPLEMENTED }],
-      ["", { status: HttpStatus.FORBIDDEN }],
-      ["", { status: HttpStatus.SERVICE_UNAVAILABLE }],
-      ["", { status: HttpStatus.BAD_REQUEST }],
-      ["", { status: HttpStatus.BAD_GATEWAY }],
-      ["", { status: HttpStatus.TOO_MANY_REQUESTS }],
-      ["", { status: HttpStatus.GONE }],
-      [JSON.stringify(PAYLOAD), { status: HttpStatus.OK }]
+      ["", { status: UNAUTHORIZED }],
+      ["", { status: NOT_FOUND }],
+      ["", { status: NOT_ACCEPTABLE }],
+      ["", { status: NOT_IMPLEMENTED }],
+      ["", { status: FORBIDDEN }],
+      ["", { status: SERVICE_UNAVAILABLE }],
+      ["", { status: BAD_REQUEST }],
+      ["", { status: BAD_GATEWAY }],
+      ["", { status: TOO_MANY_REQUESTS }],
+      ["", { status: GONE }],
+      [JSON.stringify(PAYLOAD), { status: OK }]
     );
 
     const result = await fetchWithRetry("http://localhost").then(res =>
@@ -52,17 +65,17 @@ describe("fetchWithRetry", () => {
     const fetchWithRetry = getFetchWithRetry(fetchApi);
 
     fetch.mockResponses(
-      ["", { status: HttpStatus.UNAUTHORIZED }],
-      ["", { status: HttpStatus.NOT_FOUND }],
-      ["", { status: HttpStatus.NOT_ACCEPTABLE }],
-      ["", { status: HttpStatus.NOT_IMPLEMENTED }],
-      ["", { status: HttpStatus.FORBIDDEN }],
-      ["", { status: HttpStatus.SERVICE_UNAVAILABLE }],
-      ["", { status: HttpStatus.BAD_REQUEST }],
-      ["", { status: HttpStatus.BAD_GATEWAY }],
-      ["", { status: HttpStatus.TOO_MANY_REQUESTS }],
-      ["", { status: HttpStatus.GONE }],
-      ["", { status: HttpStatus.INTERNAL_SERVER_ERROR }]
+      ["", { status: UNAUTHORIZED }],
+      ["", { status: NOT_FOUND }],
+      ["", { status: NOT_ACCEPTABLE }],
+      ["", { status: NOT_IMPLEMENTED }],
+      ["", { status: FORBIDDEN }],
+      ["", { status: SERVICE_UNAVAILABLE }],
+      ["", { status: BAD_REQUEST }],
+      ["", { status: BAD_GATEWAY }],
+      ["", { status: TOO_MANY_REQUESTS }],
+      ["", { status: GONE }],
+      ["", { status: INTERNAL_SERVER_ERROR }]
     );
 
     await expect(fetchWithRetry("http://localhost")).rejects.toEqual(
@@ -86,17 +99,17 @@ describe("fetchWithRetry", () => {
     });
 
     fetch.mockResponses(
-      ["", { status: HttpStatus.UNAUTHORIZED }],
-      ["", { status: HttpStatus.NOT_FOUND }],
-      ["", { status: HttpStatus.NOT_ACCEPTABLE }],
-      ["", { status: HttpStatus.NOT_IMPLEMENTED }],
-      ["", { status: HttpStatus.FORBIDDEN }],
-      ["", { status: HttpStatus.BAD_REQUEST }],
-      ["", { status: HttpStatus.BAD_GATEWAY }],
-      ["", { status: HttpStatus.TOO_MANY_REQUESTS }],
+      ["", { status: UNAUTHORIZED }],
+      ["", { status: NOT_FOUND }],
+      ["", { status: NOT_ACCEPTABLE }],
+      ["", { status: NOT_IMPLEMENTED }],
+      ["", { status: FORBIDDEN }],
+      ["", { status: BAD_REQUEST }],
+      ["", { status: BAD_GATEWAY }],
+      ["", { status: TOO_MANY_REQUESTS }],
       () => Promise.reject(new Error("failed to fetch")),
-      ["", { status: HttpStatus.INTERNAL_SERVER_ERROR }],
-      ["", { status: HttpStatus.SERVICE_UNAVAILABLE }]
+      ["", { status: INTERNAL_SERVER_ERROR }],
+      ["", { status: SERVICE_UNAVAILABLE }]
     );
 
     await expect(fetchWithRetry("http://localhost")).rejects.toEqual(

@@ -47,7 +47,6 @@ export default [
       format: "umd",
       sourcemap: true
     },
-    external: [],
     plugins: getPlugins(
       {
         inputSourceMap: true,

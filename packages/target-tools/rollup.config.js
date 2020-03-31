@@ -29,6 +29,7 @@ export default [
       format: "cjs",
       sourcemap: true
     },
+    external: [...Object.keys(pkg.dependencies || {})],
     plugins: [
       json(),
       resolve(),

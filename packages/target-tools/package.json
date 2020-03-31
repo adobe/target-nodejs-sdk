@@ -8,11 +8,13 @@
     ".eslintrc.js",
     "jest.config.js",
     "babel.config.js",
-    "dist"
+    "dist/*.js",
+    "delivery-api-client/**/*.d.ts"
   ],
   "scripts": {
     "build": "NODE_ENV=production rollup -c",
-    "test": "NODE_ENV=development jest"
+    "test": "NODE_ENV=development jest",
+    "prepublishOnly": "echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc"
   },
   "dependencies": {
     "http-status-codes": "^1.4.0"

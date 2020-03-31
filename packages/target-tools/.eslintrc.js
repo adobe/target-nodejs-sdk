@@ -8,7 +8,15 @@ module.exports = {
   plugins: ["prettier", "jest"],
   rules: {
     "prettier/prettier": "error",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        devDependencies: true,
+        optionalDependencies: false,
+        peerDependencies: false
+      }
+    ]
   },
   overrides: [
     {
