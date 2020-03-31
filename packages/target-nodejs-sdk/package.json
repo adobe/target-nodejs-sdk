@@ -25,6 +25,8 @@
     "lint-test": "eslint test/**",
     "lint": "npm run lint-src && npm run lint-test",
     "format": "prettier --write {src,test}/**/*.js",
+    "prepack": "for file in $(<packfiles.txt); do cp \"../../$file\" .; done",
+    "postpack": "for file in $(<packfiles.txt); do rm \"$file\"; done",
     "prepublishOnly": "echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc"
   },
   "pre-commit": [
