@@ -9,6 +9,35 @@ The Adobe Target Node.js SDK uses the [Target Delivery API] to retrieve and deli
 Furthermore, the Node.js SDK helps manage integrations with Experience Cloud solutions using the [Experience Cloud Identity](https://docs.adobe.com/content/help/en/id-service/using/intro/overview.html)
 library (ECID).
 
+## Table of Contents
+
+  * [Getting started](#getting-started)
+    + [Prerequisites](#prerequisites)
+    + [Installation](#installation)
+  * [Super Simple to Use](#super-simple-to-use)
+  * [Table of Contents](#table-of-contents)
+  * [Target Only](#target-only)
+  * [ECID Integration](#ecid-integration)
+  * [ECID with Customer IDs Integration](#ecid-with-customer-ids-integration)
+  * [ECID and Analytics Integration](#ecid-and-analytics-integration)
+  * [ECID, Analytics and at.js Integration](#ecid-analytics-and-atjs-integration)
+  * [Advanced at.js integration via serverState](#advanced-atjs-integration-via-serverstate)
+  * [Shared ECID and Analytics Integration](#shared-ecid-and-analytics-integration)
+  * [Custom rendering of Target offers](#custom-rendering-of-target-offers)
+  * [JSON offers simplified](#json-offers-simplified)
+  * [Local execution mode](#local-execution-mode)
+  * [Troubleshooting](#troubleshooting)
+  * [Target Traces](#target-traces)
+  * [Target Node.js SDK API](#target-nodejs-sdk-api)
+      - [TargetClient.create](#targetclientcreate)
+      - [TargetClient.getOffers](#targetclientgetoffers)
+      - [TargetClient.getAttributes](#targetclientgetattributes)
+      - [TargetClient.sendNotifications](#targetclientsendnotifications)
+      - [TargetClient utility accessors](#targetclient-utility-accessors)
+  * [Multiple API requests](#multiple-api-requests)
+  * [Development](#development)
+  * [Additional code](#additional-code)
+
 ## Getting started
 
 ### Prerequisites
@@ -50,34 +79,6 @@ try {
   console.error('Error', error);
 }
 ```
-
-## Table of Contents
-
-  * [Getting started](#getting-started)
-    + [Prerequisites](#prerequisites)
-    + [Installation](#installation)
-  * [Super Simple to Use](#super-simple-to-use)
-  * [Table of Contents](#table-of-contents)
-  * [Target Only](#target-only)
-  * [ECID Integration](#ecid-integration)
-  * [ECID with Customer IDs Integration](#ecid-with-customer-ids-integration)
-  * [ECID and Analytics Integration](#ecid-and-analytics-integration)
-  * [ECID, Analytics and at.js Integration](#ecid-analytics-and-atjs-integration)
-  * [Advanced at.js integration via serverState](#advanced-atjs-integration-via-serverstate)
-  * [Shared ECID and Analytics Integration](#shared-ecid-and-analytics-integration)
-  * [Custom rendering of Target offers](#custom-rendering-of-target-offers)
-  * [Troubleshooting](#troubleshooting)
-  * [Target Traces](#target-traces)
-  * [Target Node.js SDK API](#target-nodejs-sdk-api)
-      - [TargetClient.create](#targetclientcreate)
-      - [TargetClient.getOffers](#targetclientgetoffers)
-      - [TargetClient.sendNotifications](#targetclientsendnotifications)
-      - [TargetClient utility accessors](#targetclient-utility-accessors)
-  * [Multiple API requests](#multiple-api-requests)
-  * [Development](#development)
-  * [Additional code](#additional-code)
-
----
 
 ## Target Only
 
@@ -946,6 +947,99 @@ const notificationResponse = await targetClient.sendNotifications({ request: mbo
 
 ---
 
+## JSON offers simplified
+
+The Target Node.js SDK provides a simplified way to to retrieve JSON offers from target and access the attributes of the offer.  This is done using the `getAttributes` method.
+
+In the code sample below, take a look at the `getAttributes` call.  An array of mbox names is passed in.  The result is an attributes object with a few methods that can be used to get offer details. 
+
+The `getValue` method is used to get the `searchProviderId` from the `demo-engineering-flags` mbox offer.
+
+And the `asObject` method is used to get a plain old JSON representation of the `demo-engineering-flags` mbox offer.
+
+```js
+    const targetClient = TargetClient.create(CONFIG);
+    const offerAttributes = await targetClient.getAttributes(["demo-engineering-flags"]);
+    
+
+    //returns just the value of searchProviderId from the mbox offer
+    const searchProviderId = offerAttributes.getValue("demo-engineering-flags", "searchProviderId");	
+    
+    //returns a simple JSON object representing the mbox offer
+    const engineeringFlags = offerAttributes.asObject("demo-engineering-flags");
+	
+    //  the value of engineeringFlags looks like this
+    //  {
+    //      "cdnHostname": "cdn.cloud.corp.net",
+    //      "searchProviderId": 143,
+    //      "hasLegacyAccess": false
+    //  }
+    
+    const assetUrl = `http://${engineeringFlags.cdnHostname}/path/to/asset`;
+
+	
+```
+
+Note: the `getAttributes` method call also accepts an optional options object as the second parameter.  This is the same options object as is passed into `getOffers`.  It can be used to refine the underlying request made by `getAttributes`.
+
+## Local execution mode
+
+The Target Node.js SDK can be configured to run in local execution mode.  In this mode, the SDK loads a rules definition file on startup and uses it to determine the outcomes for subsequent `getOFfers` calls instead of making repeat requests to the delivery API each time. This can greatly improve performance if you are concerned about network latency and would like to limit the number of requests made to target edge servers.
+
+By default, the SDK is configured to always make a request to the target delivery API for each getOffers call.  But you can configure the SDK to use local execution mode instead using the `executionMode` configuration option.
+
+```js
+const CONFIG = {
+    executionMode: "local",
+    clientReadyCallback: targetReady
+};
+
+const targetClient = TargetClient.create(CONFIG);
+
+function targetReady() {
+    // make getOffers requests
+    // targetClient.getOffers({...})            
+}
+```
+
+Once configured in this way, and after the clientReadyCallback has been invoked, your app can make standard SDK method calls and get offers that are determined locally.
+
+### Limitations
+
+Not all target activities can be decided locally.  
+
+#### Audience Rules
+Some activities are not supported due to audience rules.  Below is a list of audience rules with an indication for they are supported by local decisioning or will require a request to target edge servers to fulfill:
+
+
+| Audience Rule    | Local execution mode | Remote execution mode |
+|------------------|----------------------|-----------------------|
+| Geo              | Not Supported        | Supported             |
+| Network          | Not Supported        | Supported             |
+| Mobile           | Not Supported        | Supported             |
+| Custom           | Supported            | Supported             |
+| Operating System | Supported            | Supported             |
+| Site Pages       | Supported            | Supported             |
+| Browser          | Supported            | Supported             |
+| Visitor Profile  | Not Supported        | Supported             |
+| Traffic Sources  | Not Supported        | Supported             |
+| Time Frame       | Supported            | Supported             |
+
+
+#### Composer Type
+
+Activities created using the Visual Experience Composer (VEC) are not yet supported either.  Only activities created using the form-based composer are supported at this time. 
+
+| Composer Type                    | Local execution mode | Remote execution mode |
+|----------------------------------|----------------------|-----------------------|
+| Visual Experience Composer (VEC) | Not Supported        | Supported             |
+| Form-based Composer              | Supported            | Supported             |
+
+#### Hybrid mode
+
+Although all activities are not yet supported by local execution mode, there is a way to get the best of both worlds.  If you set `executionMode` to `hybrid`, then the SDK will determine on it's own whether to make decisions locally or remotely.  This way, if a `getOffers` request can be completed locally, the SDK will do so.  But if the request includes activities that are not supported, a request to the target delivery API will be made instead.  This may be useful as you begin to adopt local decisioning.
+
+
 ## Troubleshooting
 
 In order to understand what is happening on the wire, a `logger` object should be provided when instantiating the Node.js SDK.  
@@ -1060,16 +1154,23 @@ Check out the full sample here: https://github.com/adobe/target-nodejs-sdk-sampl
  
 The `options` object has the following structure:
 
-| Name                      | Type     |Required | Default                | Description                              |
-|---------------------------|----------|---------|------------------------|------------------------------------------|
-| client                    |  String  | Yes     | None                   | Target Client Id                         |
-| organizationId            |  String  | Yes     | None                   | Experience Cloud Organization ID         |
-| timeout                   |  Number  | No      | 3000                   | Target request timeout in milliseconds   |
-| serverDomain              |  String  | No      | `client`.tt.omtrdc.net | Overrides default hostname               |
-| secure                    |  Boolean | No      | true                   | Unset to enforce HTTP scheme             |
-| logger                    |  Object  | No      | NOOP logger            | Replaces the default NOOP logger         |
-| targetLocationHint        |  String  | No      | None                   | Target location hint                     |
-| executionMode             |  String  | No      | 'remote'               | Execution mode (local, remote or hybrid) |
+| Name                      | Type     |Required | Default                          | Description                                |
+|---------------------------|----------|---------|----------------------------------|--------------------------------------------|
+| client                    |  String  | Yes     | None                             | Target Client Id                           |
+| organizationId            |  String  | Yes     | None                             | Experience Cloud Organization ID           |
+| timeout                   |  Number  | No      | 3000                             | Target request timeout in milliseconds     |
+| serverDomain              |  String  | No      | `client`.tt.omtrdc.net           | Overrides default hostname                 |
+| secure                    |  Boolean | No      | true                             | Unset to enforce HTTP scheme               |
+| logger                    |  Object  | No      | NOOP logger                      | Replaces the default NOOP logger           |
+| targetLocationHint        |  String  | No      | None                             | Target location hint                       |
+| fetchApi                  |  Function| No      | global.fetch or window.fetch     | [fetch](https://fetch.spec.whatwg.org) is used by the SDK for http requests.  By default node-fetch or the browser implementation of fetch is used.  But an alternative implementation can be provided using `fetchApi` |
+| environmentId             |  Number  | No      | None (prod)                      | Environment ID to use                      |
+| version                   |  String  | No      | None                             | The version number for at.js if applicable |
+| executionMode             |  String  | No      | remote                           | Execution mode (local, remote or hybrid)   |
+| pollingInterval           |  Number  | No      | 5000                             | Polling interval for the local decisioning artifact (in ms) |
+| artifactLocation          |  String  | No      | None                             | A fully qualified url to a target decisioning JSON artifact.  Overrides internally determined location. |
+| artifactPayload           |  Object  | No      | None                             | A target decisioning JSON artifact. If specified, it is used instead of requesting one from a URL.      |
+| clientReadyCallback       |  Function| No      | None                             | A callback function that is invoked when the SDK is ready for method calls.  Needed for local execution mode |
 
 #### TargetClient.getOffers
 
@@ -1080,14 +1181,13 @@ The `options` object has the following structure:
 | Name                     | Type     | Required  | Default | Description                                      |
 |--------------------------|----------|-----------|---------|--------------------------------------------------|
 | request                  | Object   |  Yes      | None    | [Target Delivery API] request                    |
-| sessionId                | String   |  No       | None    | Used for linking multiple Target requests        |
 | visitorCookie            | String   |  No       | None    | ECID (VisitorId) cookie                          |
 | targetCookie             | String   |  No       | None    | Target cookie                                    |
 | targetLocationHint       | String   |  No       | None    | Target location hint                             |
 | consumerId               | String   |  No       | None    | Provide different consumerIds for A4T stitching  |
 | customerIds              | Array    |  No       | None    | Customer Ids in VisitorId-compatible format      |
+| sessionId                | String   |  No       | None    | Used for linking multiple Target requests        |
 | visitor                  | Object   |  No       | new VisitorId | Supply an external VisitorId instance      |
-| executionMode            | String   |  No       | 'remote'        | Execution mode (local, remote or hybrid) |
 
 
 The `request` object should conform to [Target Delivery API] request specification. 
@@ -1104,7 +1204,7 @@ The Promise returned by `TargetClient.getOffers()` has the following structure:
 | analyticsDetails         | Array             | Analytics payload, in case of client side Analytics usage   |
 | responseTokens           | Array             | A list of [Response Tokens](https://docs.adobe.com/help/en/target/using/administer/response-tokens.html) |
 | trace                    | Array             | Aggregated trace data for all request mboxes/views          |
-| timing                   | Object            | An object containing the durations of each request phase    |
+| status                   | Object            | An object containing the status of the response.            |
 
 The `targetCookie` and `targetLocationHintCookie` objects used for passing data back to the browser have the following structure:
 
@@ -1113,6 +1213,36 @@ The `targetCookie` and `targetLocationHintCookie` objects used for passing data 
 | name   | String | Cookie name                                                                                               |
 | value  | Any    | Cookie value, the value will be converted to string                                                       |
 | maxAge | Number | The `maxAge` option is a convenience for setting `expires` relative to the current time in seconds        |
+
+
+The `status` object used for indicating the status of the target response has the following structure:
+
+| Name         | Type   | Description                                                                                                  |
+|--------------|--------|--------------------------------------------------------------------------------------------------------------|
+| status       | Number | An http status code                                                                                          |
+| message      | String | A message about the response.  For instance, it may indicate if the response was decided locally or remotely |
+| remoteMboxes | Array<String> | When execution mode is `local`, an array of mbox names that could be fully decided locally is given.  In other words, a [Target Delivery API] request is needed. |
+
+
+#### TargetClient.getAttributes
+
+`TargetClient.getAttributes(mboxNames: Array<String>, options: Object): Promise` is used to fetch JSON offers from Target and easily read attributes.  It is especially useful as a feature flag mechanism.  For instance, imagine a target AB activity (mbox name: `featuresFlags`) with JSON offer content.  Developers can find the JSON values within a getOffers response object, or alternatively, the getAttributes method can be used to simplify getting at those attribute values.  
+
+getattributes accepts the following parameters: 
+
+| Name                     | Type          | Required  | Default | Description                                      |
+|--------------------------|---------------|-----------|---------|--------------------------------------------------|
+| mboxNames                | Array<String> |  Yes      | None    | An array of mbox names                           |
+| options                  | Object        |  No       | None    | The same options as used for [TargetClient.getOffers](#targetclientgetoffers)  |
+
+
+The Promise returned by `TargetClient.getAttributes()` resolves an object with the following methods:
+
+| Name                     | Return Type                                  | Description                                                    |
+|--------------------------|----------------------------------------------|----------------------------------------------------------------|
+| getValue(mboxName, key)  | Any                                          | Returns the value for a specified mbox name and attribute key  |
+| asObject(mboxName)       | Object                                       | Returns a simple json object with key value pairs              |
+| getResponse()            | [getOffers Response](#targetclientgetoffers) | Returns the response object normally returned by getOffers     |
 
 #### TargetClient.sendNotifications
 

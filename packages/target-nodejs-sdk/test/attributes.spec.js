@@ -113,11 +113,18 @@ const targetResponse = {
 
 describe("attributes", () => {
   describe("attributesProvider", () => {
+    it("has appropriate method calls", () => {
+      const feature = AttributesProvider(["feature-flag-a"], targetResponse);
+
+      expect(typeof feature.getValue).toEqual("function");
+      expect(typeof feature.asObject).toEqual("function");
+      expect(typeof feature.getResponse).toEqual("function");
+
+      expect(feature.getResponse()).toEqual(targetResponse);
+    });
+
     it("gets value for a single mbox", () => {
-      const featureA = AttributesProvider(
-        ["feature-flag-a"],
-        targetResponse.response
-      );
+      const featureA = AttributesProvider(["feature-flag-a"], targetResponse);
 
       expect(featureA.getValue("feature-flag-a", "paymentExperience")).toEqual(
         "legacy"
@@ -132,10 +139,7 @@ describe("attributes", () => {
         featureA.getValue("feature-flag-a", "customerFeedbackValue")
       ).toEqual(10);
 
-      const featureB = AttributesProvider(
-        ["feature-flag-b"],
-        targetResponse.response
-      );
+      const featureB = AttributesProvider(["feature-flag-b"], targetResponse);
 
       expect(featureB.getValue("feature-flag-b", "purchaseExperience")).toEqual(
         "beta2"
@@ -150,7 +154,7 @@ describe("attributes", () => {
     it("gets value for multiple mboxes at once", () => {
       const features = AttributesProvider(
         ["feature-flag-a", "feature-flag-b"],
-        targetResponse.response
+        targetResponse
       );
 
       expect(features.getValue("feature-flag-a", "paymentExperience")).toEqual(
@@ -179,7 +183,7 @@ describe("attributes", () => {
     it("gets as object", () => {
       const features = AttributesProvider(
         ["feature-flag-a", "feature-flag-b"],
-        targetResponse.response
+        targetResponse
       );
 
       expect(features.asObject("feature-flag-a")).toMatchObject({
@@ -215,7 +219,7 @@ describe("attributes", () => {
     it("throws an error if an attribute does not exist", () => {
       const features = AttributesProvider(
         ["feature-flag-a", "feature-flag-b"],
-        targetResponse.response
+        targetResponse
       );
 
       expect(features.getValue("feature-flag-a", "myPropertyName")).toEqual(
@@ -361,13 +365,10 @@ describe("attributes", () => {
         customerFeedbackValue: 10
       });
 
-      const features = await client.getAttributes(
-        ["feature-flag-a", "feature-flag-b"],
-        {
-          request: targetRequest,
-          sessionId: "dummy_session"
-        }
-      );
+      const features = await client.getAttributes([
+        "feature-flag-a",
+        "feature-flag-b"
+      ]);
 
       expect(features.getValue("feature-flag-b", "purchaseExperience")).toEqual(
         "beta2"

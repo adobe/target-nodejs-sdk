@@ -1,10 +1,10 @@
 /* eslint-disable import/prefer-default-export */
-/**
- * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryResponse").DeliveryResponse} response
- */
 
 import { Messages } from "./messages";
 
+/**
+ * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryResponse").DeliveryResponse} response
+ */
 function createIndexed(response) {
   const result = {};
 
@@ -30,10 +30,10 @@ function createIndexed(response) {
 
 /**
  * @param {Array<String>} mboxNames A list of mbox names that contains JSON content attributes, required
- * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryResponse").DeliveryResponse} deliveryResponse
+ * @param { OffersResponse } offersResponse
  */
-export function AttributesProvider(mboxNames, deliveryResponse) {
-  const indexed = createIndexed(deliveryResponse);
+export function AttributesProvider(mboxNames, offersResponse) {
+  const indexed = createIndexed(offersResponse.response);
 
   function getValue(mboxName, key) {
     if (
@@ -61,6 +61,7 @@ export function AttributesProvider(mboxNames, deliveryResponse) {
 
   return {
     getValue: (mboxName, key) => getValue(mboxName, key),
-    asObject: mboxName => getAsObject(mboxName)
+    asObject: mboxName => getAsObject(mboxName),
+    getResponse: () => offersResponse
   };
 }

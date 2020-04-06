@@ -21,6 +21,7 @@ import { executeDelivery } from "./target";
 import { AttributesProvider } from "./attributesProvider";
 import {
   addMboxesToRequest,
+  EMPTY_REQUEST,
   preserveLocationHint,
   requestLocationHintCookie
 } from "./helper";
@@ -171,11 +172,14 @@ export default function bootstrap(fetchApi) {
      * @param {String} options.sessionId Session Id, used for linking multiple requests, optional
      * @param {Object} options.visitor Supply an external VisitorId instance, optional
      */
-    getAttributes(mboxNames, options) {
+    getAttributes(mboxNames, options = {}) {
+      // eslint-disable-next-line no-param-reassign
+      options.request = options.request || EMPTY_REQUEST;
+
       return this.getOffers({
         ...options,
         request: addMboxesToRequest(mboxNames, options.request, "execute")
-      }).then(res => AttributesProvider(mboxNames, res.response));
+      }).then(res => AttributesProvider(mboxNames, res));
     }
 
     /**
@@ -186,7 +190,7 @@ export default function bootstrap(fetchApi) {
      * @param {String} options.targetCookie Target cookie, optional
      * @param {String} options.targetLocationHint Target Location Hint, optional
      * @param {String} options.consumerId When stitching multiple calls, different consumerIds should be provided, optional
-     * @param {Array} options.customerIds An array of Customer Ids in VisitorId-compatible format, optional
+     * @param {Array}  options.customerIds An array of Customer Ids in VisitorId-compatible format, optional
      * @param {String} options.sessionId Session Id, used for linking multiple requests, optional
      * @param {Object} options.visitor Supply an external VisitorId instance, optional
      */

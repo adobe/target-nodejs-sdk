@@ -12,9 +12,9 @@ governing permissions and limitations under the License.
 
 import {
   createUUID,
-  getMboxNames,
+  DEFAULT_GLOBAL_MBOX,
   DeliveryApiClient,
-  DEFAULT_GLOBAL_MBOX
+  getMboxNames
 } from "@adobe/target-tools";
 import { OK, PARTIAL_CONTENT } from "http-status-codes";
 import { EXECUTION_MODE } from "./enums";
@@ -29,19 +29,19 @@ import {
 import { version } from "../package.json";
 
 import {
-  isObject,
-  isNumber,
-  isNonEmptyObject,
-  isEmptyObject,
-  isNonEmptyString,
-  isEmptyString,
-  isNonEmptyArray,
-  isEmptyArray,
-  removeEmptyKeys,
+  executeSendBeacon,
   flatten,
   getTimezoneOffset,
-  executeSendBeacon,
   isBeaconSupported,
+  isEmptyArray,
+  isEmptyObject,
+  isEmptyString,
+  isNonEmptyArray,
+  isNonEmptyObject,
+  isNonEmptyString,
+  isNumber,
+  isObject,
+  removeEmptyKeys,
   requiresDecisioningEngine
 } from "./utils";
 
@@ -68,6 +68,8 @@ const HOST = "tt.omtrdc.net";
 const SESSION_ID_MAX_AGE = 1860;
 const DEVICE_ID_MAX_AGE = 63244800;
 const LOCATION_HINT_MAX_AGE = 1860;
+
+export const EMPTY_REQUEST = { context: { channel: "web" } };
 
 export function extractClusterFromDeviceId(id) {
   if (isEmptyString(id)) {
@@ -659,11 +661,7 @@ export function requestLocationHintCookie(targetClient, targetLocationHint) {
         .getOffers({
           sessionId: "ping123",
           executionMode: EXECUTION_MODE.REMOTE,
-          request: {
-            context: {
-              channel: "web"
-            }
-          }
+          request: EMPTY_REQUEST
         })
         .catch(() => new Error(Messages.LOCATION_HINT_REQUEST_FAILED));
 }

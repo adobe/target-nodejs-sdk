@@ -169,18 +169,4 @@ describe("TargetDecisioningEngine", () => {
       )
     );
   });
-
-  it("fetches a json artifact", async () => {
-    fetch.dontMock();
-
-    decisioning = await TargetDecisioningEngine({
-      client: "someClientId",
-      organizationId: "someOrgId",
-      pollingInterval: 0,
-      artifactLocation:
-        "https://target-local-decisioning-test.s3.us-west-2.amazonaws.com/adobesummit2018/waters_test/rules.json"
-    });
-
-    expect(decisioning.getRawArtifact()).not.toBeUndefined();
-  });
 });
