@@ -7,13 +7,13 @@ const { Messages } = require("../src/messages");
 
 const TargetClient = require("../src/index.server").default;
 
-const ARTIFACT_PAYLOAD = {
+// https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/jason-flags
+const DECISIONING_PAYLOAD_FEATURE_FLAG = {
   version: "1.0.0",
-  meta: {
-    generatedAt: "2020-03-19T02:14:14.667Z",
-    remoteMboxes: ["remote-only-mbox-a", "remote-only-mbox-b"],
-    globalMbox: "target-global-mbox"
-  },
+  globalMbox: "target-global-mbox",
+  responseTokens: [],
+  remoteMboxes: ["remote-only-mbox-a", "remote-only-mbox-b"],
+  meta: { generatedAt: "2020-04-10T21:45:50.503Z", environment: 11507 },
   rules: {
     mboxes: {
       "jason-flags": [
@@ -44,7 +44,9 @@ const ARTIFACT_PAYLOAD = {
             activityId: 335113,
             experienceId: 0,
             type: "ab",
-            mbox: "jason-flags"
+            mbox: "jason-flags",
+            offerIds: [632759],
+            audienceIds: []
           }
         },
         {
@@ -74,7 +76,9 @@ const ARTIFACT_PAYLOAD = {
             activityId: 335113,
             experienceId: 1,
             type: "ab",
-            mbox: "jason-flags"
+            mbox: "jason-flags",
+            offerIds: [632760],
+            audienceIds: []
           }
         }
       ]
@@ -178,7 +182,7 @@ describe("execution mode", () => {
 
   describe("local", () => {
     it("returns a list of mbox names that require remote", async done => {
-      fetch.mockResponse(JSON.stringify(ARTIFACT_PAYLOAD));
+      fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG));
 
       async function clientReadyCallback() {
         const result = await client.getOffers({
@@ -223,7 +227,7 @@ describe("execution mode", () => {
     });
 
     it("returns OK if no mbox names require remote", async done => {
-      fetch.mockResponse(JSON.stringify(ARTIFACT_PAYLOAD));
+      fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG));
 
       async function clientReadyCallback() {
         const result = await client.getOffers({
@@ -262,7 +266,7 @@ describe("execution mode", () => {
   describe("hybrid", () => {
     it("makes a remote request if remote is required", async done => {
       fetch
-        .once(JSON.stringify(ARTIFACT_PAYLOAD))
+        .once(JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG))
         .once(JSON.stringify(DELIVERY_RESPONSE));
 
       async function clientReadyCallback() {
@@ -308,7 +312,7 @@ describe("execution mode", () => {
     });
 
     it("does local decisioning if remote is not required", async done => {
-      fetch.once(JSON.stringify(ARTIFACT_PAYLOAD));
+      fetch.once(JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG));
 
       async function clientReadyCallback() {
         const result = await client.getOffers({

@@ -6,6 +6,7 @@ import {
   MINIMUM_POLLING_INTERVAL,
   NUM_FETCH_RETRIES
 } from "./constants";
+import { ArtifactTracer } from "./traceProvider";
 
 // eslint-disable-next-line no-unused-vars
 function determineArtifactLocation(clientId, organizationId) {
@@ -31,14 +32,7 @@ function getPollingInterval(config) {
 
 /**
  * The ArtifactProvider initialize method
- * @param {Object} config Options map, required
- * @param {String} config.client Target Client Id, required
- * @param {String} config.organizationId Target Organization Id, required
- * @param {Number} config.pollingInterval Polling interval in ms, optional, default: 30000
- * @param {String} config.artifactLocation Fully qualified url to the location of the artifact, optional
- * @param {String} config.artifactPayload A pre-fetched artifact, optional
- * @param {Object} config.logger Replaces the default noop logger, optional
- * @param {Function }config.fetchApi Fetch Implementation, optional
+ * @param {import("../types/DecisioningConfig").DecisioningConfig} config Options map, required
  */
 async function ArtifactProvider(config) {
   const pollingInterval = getPollingInterval(config);
@@ -61,6 +55,11 @@ async function ArtifactProvider(config) {
     NUM_FETCH_RETRIES,
     errorMessage => Messages.ERROR_MAX_RETRY(NUM_FETCH_RETRIES, errorMessage)
   );
+
+  const artifactLocation =
+    typeof config.artifactLocation === "string"
+      ? config.artifactLocation
+      : determineArtifactLocation(config.client, config.organizationId);
 
   function fetchArtifact(artifactUrl) {
     const headers = {
@@ -113,11 +112,6 @@ async function ArtifactProvider(config) {
     );
   }
 
-  const artifactLocation =
-    typeof config.artifactLocation === "string"
-      ? config.artifactLocation
-      : determineArtifactLocation(config.client, config.organizationId);
-
   function scheduleNextUpdate() {
     if (pollingInterval === 0 || pollingHalted) {
       return;
@@ -158,6 +152,7 @@ async function ArtifactProvider(config) {
 
   if (typeof config.artifactPayload === "object") {
     artifact = config.artifactPayload;
+    pollingHalted = true;
   } else {
     try {
       artifact = await fetchArtifact(artifactLocation);
@@ -168,12 +163,23 @@ async function ArtifactProvider(config) {
     scheduleNextUpdate();
   }
 
+  const artifactTracer = ArtifactTracer(
+    artifactLocation,
+    config.artifactPayload,
+    pollingInterval,
+    pollingHalted,
+    artifact
+  );
+
+  addSubscription(value => artifactTracer.provideNewArtifact(value));
+
   return Promise.resolve({
     getArtifact: () => getArtifact(),
     subscribe: callbackFunc => addSubscription(callbackFunc),
     unsubscribe: id => removeSubscription(id),
     stopPolling: () => stopAllPolling(),
-    resumePolling: () => resumePolling()
+    resumePolling: () => resumePolling(),
+    getTrace: () => artifactTracer.toJSON()
   });
 }
 

@@ -24,7 +24,7 @@ export function getOrCreateVisitorId(visitorId) {
  *
  * The TargetDecisioningEngine initialize method
  * @param {String} clientId Target Client Id, required
- * @param {String} activityId Target Activity Id, required
+ * @param {number} activityId Target Activity Id, required
  * @param { import("@adobe/target-tools/delivery-api-client/models/VisitorId").VisitorId } visitorId
  * @param {String} salt salt value, optional
  */

@@ -68,7 +68,7 @@ export function hasRemoteDependency(artifact, request) {
 
   const requestedMboxes = getMboxNames(request);
 
-  const remoteMboxes = (artifact.meta.remoteMboxes || []).filter(mboxName =>
+  const remoteMboxes = (artifact.remoteMboxes || []).filter(mboxName =>
     requestedMboxes.has(mboxName)
   );
 

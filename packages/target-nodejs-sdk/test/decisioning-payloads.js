@@ -5,13 +5,12 @@ export const DUMMY_ARTIFACT_PAYLOAD = {
 };
 
 // https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/superfluous_ab_json
-export const DECISIONING_PAYLOAD_SIMPLE = {
+export const DECISIONING_PAYLOAD_AB_SIMPLE = {
   version: "1.0.0",
-  meta: {
-    generatedAt: "2020-03-19T02:18:41.671Z",
-    remoteMboxes: [],
-    globalMbox: "target-global-mbox"
-  },
+  globalMbox: "target-global-mbox",
+  responseTokens: [],
+  remoteMboxes: [],
+  meta: { generatedAt: "2020-04-10T20:08:58.731Z", environment: 11507 },
   rules: {
     mboxes: {
       "superfluous-mbox": [
@@ -19,10 +18,7 @@ export const DECISIONING_PAYLOAD_SIMPLE = {
           condition: { "<": [0, { var: "allocation" }, 50] },
           consequence: {
             options: [
-              {
-                content: { doMagic: true, importantValue: 150 },
-                type: "json"
-              }
+              { content: { doMagic: true, importantValue: 150 }, type: "json" }
             ],
             metrics: [
               {
@@ -37,17 +33,16 @@ export const DECISIONING_PAYLOAD_SIMPLE = {
             activityId: 334411,
             experienceId: 0,
             type: "ab",
-            mbox: "superfluous-mbox"
+            mbox: "superfluous-mbox",
+            offerIds: [631992],
+            audienceIds: []
           }
         },
         {
           condition: { "<": [50, { var: "allocation" }, 100] },
           consequence: {
             options: [
-              {
-                content: { doMagic: false, importantValue: 75 },
-                type: "json"
-              }
+              { content: { doMagic: false, importantValue: 75 }, type: "json" }
             ],
             metrics: [
               {
@@ -62,7 +57,9 @@ export const DECISIONING_PAYLOAD_SIMPLE = {
             activityId: 334411,
             experienceId: 1,
             type: "ab",
-            mbox: "superfluous-mbox"
+            mbox: "superfluous-mbox",
+            offerIds: [631991],
+            audienceIds: []
           }
         }
       ]

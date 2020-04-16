@@ -62,6 +62,7 @@ export function AttributesProvider(mboxNames, offersResponse) {
   return {
     getValue: (mboxName, key) => getValue(mboxName, key),
     asObject: mboxName => getAsObject(mboxName),
+    toJSON: () => getAsObject(undefined),
     getResponse: () => offersResponse
   };
 }

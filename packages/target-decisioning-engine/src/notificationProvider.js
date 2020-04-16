@@ -14,8 +14,9 @@ function NotificationProvider(request, sendNotificationFunc = noop) {
   /**
    * The get NotificationProvider initialize method
    * @param {import("@adobe/target-tools/delivery-api-client/models/MboxResponse").MboxResponse} mbox
+   * @param { Function } traceFn
    */
-  function addNotification(mbox) {
+  function addNotification(mbox, traceFn = noop) {
     const notification = {
       id: createUUID(),
       impressionId: createUUID(),
@@ -30,6 +31,10 @@ function NotificationProvider(request, sendNotificationFunc = noop) {
     mbox.metrics.forEach(metric => {
       notification.tokens.push(metric.eventToken);
     });
+
+    if (typeof traceFn === "function") {
+      traceFn(notification);
+    }
 
     notifications.push(notification);
   }
@@ -51,8 +56,8 @@ function NotificationProvider(request, sendNotificationFunc = noop) {
   }
 
   return {
-    addNotification: mbox => addNotification(mbox),
-    sendNotifications: () => sendNotifications()
+    addNotification,
+    sendNotifications
   };
 }
 

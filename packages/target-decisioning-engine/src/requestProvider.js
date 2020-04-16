@@ -59,6 +59,7 @@ export function validVisitorId(visitorId, targetLocationHint) {
 export function validDeliveryRequest(request, targetLocationHint) {
   return {
     ...request,
-    id: validVisitorId(request.id, targetLocationHint)
+    id: validVisitorId(request.id, targetLocationHint),
+    requestId: request.requestId || createUUID()
   };
 }

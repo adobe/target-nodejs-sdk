@@ -34,11 +34,14 @@
           channel: "web",
           browser: {host: window.location.host},
           address: {url: window.location.href}
+        },
+        trace: {
+          authorizationToken: "79856ebe-7a17-422f-904d-8e51a3cb33e0"
         }
       };
 
       function getOffers() {
-        const mboxNames = ["browser-mbox"]; // ["jason-flags", "browser-mbox", "expendable-mbox", "superfluous-mbox", "redundant-mbox", "something", "kitty", "vanilla-mbox"];
+        const mboxNames = ["browser-mbox", "superfluous-mbox"]; //["jason-flags", "browser-mbox", "expendable-mbox", "superfluous-mbox", "redundant-mbox", "something", "kitty", "vanilla-mbox"];
         const params = {
           foo: "bar"
         };
@@ -48,31 +51,33 @@
             ...deliveryRequest,
             request: {
               ...targetRequest,
-              prefetch: {
+              // prefetch: {
                 // pageLoad: {
                 //   parameters: {
                 //     foo: "bar"
                 //   }
                 // },
-                mboxes: mboxNames.map((mboxName, idx) => ({
-                  name: mboxName,
-                  index: idx,
-                  parameters: params
-                }))
+                // mboxes: mboxNames.map((mboxName, idx) => ({
+                //   name: mboxName,
+                //   index: idx,
+                // }))
                 // views: [{}]
                 // },
-                // execute: {
-                //   pageLoad: {
-                //     parameters: {
-                //       foo: "bar"
-                //     }
-                //   },
-                //   mboxes: [{name: 'disney', index: 0}]
+                execute: {
+                  mboxes: mboxNames.map((mboxName, idx) => ({
+                    name: mboxName,
+                    index: idx,
+                  })),
+                  pageLoad: {
+                    parameters: {foo: "bar"}
+                  },
+                  //   mboxes: [{name: 'disney', index: 0}]
+                }
               }
-            }
+            // }
           })
           .then(function (targetResponse) {
-            showResult("Result: Success", JSON.stringify(targetResponse, null, 4));
+            showResult("Result: Success", JSON.stringify(targetResponse.response, null, 4));
 
             // client.getAttributes(['jason-flags'], Object.assign({}, deliveryRequest, {
             //   request: targetRequest,
@@ -98,8 +103,7 @@
           ? {
             ...targetClientOptions,
             executionMode: "local",
-            // artifactLocation: "rules.json"
-            artifactLocation:"https://assets.staging.adobetarget.com/adobesummit2018/waters_test/rules.json",
+            artifactLocation: "rules.json"
           }
           : {...targetClientOptions}
       );

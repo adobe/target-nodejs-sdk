@@ -1,7 +1,7 @@
 /* eslint-disable jest/no-test-callback */
 import {
-  DUMMY_ARTIFACT_PAYLOAD,
-  DECISIONING_PAYLOAD_SIMPLE
+  DECISIONING_PAYLOAD_AB_SIMPLE,
+  DUMMY_ARTIFACT_PAYLOAD
 } from "./decisioning-payloads";
 
 const HttpStatus = require("http-status-codes");
@@ -321,7 +321,7 @@ describe("target local decisioning", () => {
               edgeHost: "mboxedge28.tt.omtrdc.net"
             })
           )
-          .once(JSON.stringify(DECISIONING_PAYLOAD_SIMPLE));
+          .once(JSON.stringify(DECISIONING_PAYLOAD_AB_SIMPLE));
 
         async function onClientReady() {
           const result = await client.getOffers(prefetchRequestOptions);
@@ -346,7 +346,7 @@ describe("target local decisioning", () => {
         fetch.mockResponses(
           ["", { status: HttpStatus.SERVICE_UNAVAILABLE }],
           [
-            JSON.stringify(DECISIONING_PAYLOAD_SIMPLE),
+            JSON.stringify(DECISIONING_PAYLOAD_AB_SIMPLE),
             { status: HttpStatus.OK }
           ]
         );
@@ -367,7 +367,7 @@ describe("target local decisioning", () => {
       });
 
       it("can be passed in as a config option to be used instead of of a preemptive delivery request", async done => {
-        fetch.once(JSON.stringify(DECISIONING_PAYLOAD_SIMPLE));
+        fetch.once(JSON.stringify(DECISIONING_PAYLOAD_AB_SIMPLE));
 
         async function onClientReady() {
           const result = await client.getOffers(prefetchRequestOptions);
@@ -391,7 +391,7 @@ describe("target local decisioning", () => {
     });
 
     it("produces a valid response in local execution mode", async done => {
-      fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_SIMPLE));
+      fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_AB_SIMPLE));
 
       async function onClientReady() {
         const result = await client.getOffers(prefetchRequestOptions);
@@ -416,7 +416,7 @@ describe("target local decisioning", () => {
       let notificationRequest;
       let notificationPayload;
 
-      fetch.once(JSON.stringify(DECISIONING_PAYLOAD_SIMPLE)).once(
+      fetch.once(JSON.stringify(DECISIONING_PAYLOAD_AB_SIMPLE)).once(
         async req => {
           notificationRequest = req;
           notificationPayload = await req.json();

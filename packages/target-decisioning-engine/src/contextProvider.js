@@ -21,8 +21,8 @@ function createBrowserContext(context) {
   const userAgent = UAParser(context.userAgent);
 
   return {
-    browserType: (userAgent.browser.name || "unknown").toLowerCase(),
-    platform: userAgent.os.name || "unknown",
+    browserType: (userAgent.browser.name || Messages.UNKNOWN).toLowerCase(),
+    platform: userAgent.os.name || Messages.UNKNOWN,
     locale: "en", // TODO: determine where this comes from
     browserVersion:
       typeof userAgent.browser.major !== "undefined"
