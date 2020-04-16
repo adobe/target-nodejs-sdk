@@ -41,7 +41,7 @@
       };
 
       function getOffers() {
-        const mboxNames = ["browser-mbox", "superfluous-mbox"]; //["jason-flags", "browser-mbox", "expendable-mbox", "superfluous-mbox", "redundant-mbox", "something", "kitty", "vanilla-mbox"];
+        const mboxNames = ["browser-mbox"]; //["jason-flags", "browser-mbox", "expendable-mbox", "superfluous-mbox", "redundant-mbox", "something", "kitty", "vanilla-mbox"];
         const params = {
           foo: "bar"
         };
@@ -67,17 +67,18 @@
                   mboxes: mboxNames.map((mboxName, idx) => ({
                     name: mboxName,
                     index: idx,
-                  })),
-                  pageLoad: {
-                    parameters: {foo: "bar"}
-                  },
+                  }))
+                  // ,
+                  // pageLoad: {
+                  //   parameters: {foo: "bar"}
+                  // },
                   //   mboxes: [{name: 'disney', index: 0}]
                 }
               }
             // }
           })
           .then(function (targetResponse) {
-            showResult("Result: Success", JSON.stringify(targetResponse.response, null, 4));
+            showResult("Result: Success", JSON.stringify(targetResponse, null, 4));
 
             // client.getAttributes(['jason-flags'], Object.assign({}, deliveryRequest, {
             //   request: targetRequest,

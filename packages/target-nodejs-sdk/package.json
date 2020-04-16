@@ -1,6 +1,6 @@
 {
   "name": "@adobe/target-nodejs-sdk",
-  "version": "2.0.0-alpha.2",
+  "version": "2.0.0-alpha.3",
   "description": "Adobe Target Node.js SDK, Delivery API client",
   "main": "dist/targetclient.server.js",
   "browser": "dist/targetclient.browser.js",
