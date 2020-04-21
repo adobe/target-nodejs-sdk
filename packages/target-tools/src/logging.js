@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 const AT_PREFIX = "AT:";
 
 const NOOP_LOGGER = {
@@ -7,11 +8,15 @@ const NOOP_LOGGER = {
   error(...messages) {}
 };
 
-// eslint-disable-next-line import/prefer-default-export
 export function getLogger(logger = {}) {
+  // don't do anything if the logger was previously built
+  if (logger.built) {
+    return logger;
+  }
+
   const { debug, error } = logger;
 
-  const targetLogger = Object.assign({}, NOOP_LOGGER);
+  const targetLogger = Object.assign({ built: true }, NOOP_LOGGER);
 
   if (typeof debug === "function") {
     targetLogger.debug = (...messages) => {

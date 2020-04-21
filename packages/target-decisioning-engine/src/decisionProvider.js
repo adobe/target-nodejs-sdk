@@ -1,11 +1,13 @@
 import jsonLogic from "json-logic-js";
 import { DEFAULT_GLOBAL_MBOX } from "@adobe/target-tools";
-import { OK, PARTIAL_CONTENT } from "http-status-codes";
 import { computeAllocation } from "./allocationProvider";
 import { createMboxContext, createPageContext } from "./contextProvider";
 import { hasRemoteDependency } from "./utils";
 import NotificationProvider from "./notificationProvider";
 import { RequestTracer } from "./traceProvider";
+
+const PARTIAL_CONTENT = 206;
+const OK = 200;
 
 /**
  *

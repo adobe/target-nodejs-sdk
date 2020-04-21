@@ -8,8 +8,8 @@ const HttpStatus = require("http-status-codes");
 
 const MockDate = require("mockdate");
 require("jest-fetch-mock").enableMocks();
+const { EXECUTION_MODE } = require("@adobe/target-tools");
 const TargetClient = require("../src/index.server").default;
-const { EXECUTION_MODE } = require("../src/enums");
 const { Messages } = require("../src/messages");
 
 const TARGET_REQUEST = {
@@ -342,7 +342,7 @@ describe("target local decisioning", () => {
         });
       });
 
-      it("is recovers if the delivery request fails", async done => {
+      it("it recovers if the delivery request fails", async done => {
         fetch.mockResponses(
           ["", { status: HttpStatus.SERVICE_UNAVAILABLE }],
           [

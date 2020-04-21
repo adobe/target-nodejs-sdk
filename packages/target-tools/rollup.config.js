@@ -24,16 +24,16 @@ export default [
   {
     input: "src/index.js",
     output: {
-      name: "TargetDecisioningEngine",
+      name: "TargetTools",
       file: pkg.main,
-      format: "cjs",
-      sourcemap: true
+      format: "cjs"
     },
-    external: [...Object.keys(pkg.dependencies || {})],
     plugins: [
       json(),
       resolve(),
       commonjs(),
+      babel(),
+      terser(),
       license({
         banner: {
           content: {
@@ -41,8 +41,6 @@ export default [
           }
         }
       }),
-      babel(),
-      terser(),
       visualizer({
         filename: "bundlesize-stats.html"
       })

@@ -28,8 +28,11 @@ module.exports = {
 
   // An array of regexp pattern strings used to skip coverage collection
   coveragePathIgnorePatterns: [
-    "/node_modules/",
+    "/cjs/",
     "/delivery-api-client/",
+    "/dist/",
+    "/esm/",
+    "/node_modules/",
     "src/lodash"
   ],
 

@@ -1,7 +1,7 @@
-/* eslint-disable import/prefer-default-export */
-import { NOT_MODIFIED } from "http-status-codes";
 import { DEFAULT_NUM_FETCH_RETRIES } from "./constants";
 import { isBrowser, isNodeJS } from "./utils";
+
+const NOT_MODIFIED = 304;
 
 export function getFetchApi(fetchApi) {
   if (fetchApi && typeof fetchApi === "function") return fetchApi;

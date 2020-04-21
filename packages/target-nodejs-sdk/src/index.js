@@ -10,21 +10,24 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import { getFetchApi, getLogger } from "@adobe/target-tools";
-import Visitor from "@adobe-mcid/visitor-js-server";
-import TargetDecisioningEngine from "@adobe/target-decisioning-engine";
-import { createVisitor, requiresDecisioningEngine } from "./utils";
-import { Messages } from "./messages";
-import { EXECUTION_MODE } from "./enums";
-import { LOCATION_HINT_COOKIE, TARGET_COOKIE } from "./cookies";
-import { executeDelivery } from "./target";
-import { AttributesProvider } from "./attributesProvider";
 import {
   addMboxesToRequest,
+  AttributesProvider,
   EMPTY_REQUEST,
-  preserveLocationHint,
-  requestLocationHintCookie
-} from "./helper";
+  EXECUTION_MODE,
+  getFetchApi,
+  getLogger,
+  requiresDecisioningEngine
+} from "@adobe/target-tools";
+
+import Visitor from "@adobe-mcid/visitor-js-server";
+import TargetDecisioningEngine from "@adobe/target-decisioning-engine";
+import { createVisitor } from "./utils";
+import { Messages } from "./messages";
+import { LOCATION_HINT_COOKIE, TARGET_COOKIE } from "./cookies";
+import { executeDelivery } from "./target";
+
+import { preserveLocationHint, requestLocationHintCookie } from "./helper";
 
 import {
   validateClientOptions,

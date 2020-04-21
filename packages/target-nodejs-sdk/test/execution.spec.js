@@ -1,5 +1,5 @@
 /* eslint-disable jest/no-test-callback */
-import { EXECUTION_MODE } from "../src/enums";
+import { EXECUTION_MODE } from "@adobe/target-tools";
 
 const HttpStatus = require("http-status-codes");
 require("jest-fetch-mock").enableMocks();

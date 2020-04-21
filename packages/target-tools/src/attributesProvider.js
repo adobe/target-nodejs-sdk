@@ -1,9 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 
-import { Messages } from "./messages";
+import { ATTRIBUTE_NOT_EXIST } from "./messages";
 
 /**
- * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryResponse").DeliveryResponse} response
+ * @param {import("../delivery-api-client/models/DeliveryResponse").DeliveryResponse} response
  */
 function createIndexed(response) {
   const result = {};
@@ -40,7 +40,7 @@ export function AttributesProvider(mboxNames, offersResponse) {
       !Object.prototype.hasOwnProperty.call(indexed, mboxName) ||
       !Object.prototype.hasOwnProperty.call(indexed[mboxName], key)
     ) {
-      return new Error(Messages.ATTRIBUTE_NOT_EXIST(key, mboxName));
+      return new Error(ATTRIBUTE_NOT_EXIST(key, mboxName));
     }
 
     return indexed[mboxName][key];

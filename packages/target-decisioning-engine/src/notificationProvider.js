@@ -1,4 +1,4 @@
-import { noop, createUUID } from "@adobe/target-tools";
+import { createUUID, noop } from "@adobe/target-tools";
 
 /**
  * The get NotificationProvider initialize method

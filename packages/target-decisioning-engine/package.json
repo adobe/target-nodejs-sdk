@@ -1,20 +1,24 @@
 {
   "name": "@adobe/target-decisioning-engine",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Adobe Target JavaScript decisioning engine",
   "main": "dist/index.js",
   "module": "src/index.js",
   "files": [
-    "dist/*.js"
+    "dist/*",
+    "types/*",
+    "src/**/!(*.spec).js"
   ],
   "scripts": {
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean",
     "build": "NODE_ENV=production rollup -c",
     "test": "NODE_ENV=development jest",
-    "prepublishOnly": "echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc"
+    "prepublishOnly": "echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc",
+    "prepare": "rollup --config"
   },
   "dependencies": {
-    "@adobe/target-tools": "1.0.0",
-    "http-status-codes": "^1.4.0",
+    "@adobe/target-tools": "^1.0.1",
     "imurmurhash": "^0.1.4",
     "json-logic-js": "^1.2.2",
     "ua-parser-js": "^0.7.21",
@@ -22,23 +26,24 @@
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
-    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-env": "^7.9.5",
     "@babel/runtime": "^7.8.4",
     "@rollup/plugin-commonjs": "^11.0.1",
     "@rollup/plugin-json": "^4.0.1",
     "@rollup/plugin-node-resolve": "^7.0.0",
-    "core-js": "^3.6.4",
+    "core-js": "^3.6.5",
     "eslint": "^5.3.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "^23.6.0",
     "eslint-plugin-prettier": "^3.1.0",
+    "http-status-codes": "^1.4.0",
     "jest": "^25.1.0",
     "jest-fetch-mock": "^3.0.1",
     "mockdate": "^2.0.5",
     "prettier": "^1.18.2",
-    "rimraf": "^2.6.1",
+    "rimraf": "^3.0.2",
     "rollup": "^1.17.0",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-license": "^0.12.1",

@@ -1,5 +1,4 @@
 import { getFetchApi, getFetchWithRetry, getLogger } from "@adobe/target-tools";
-import { NOT_MODIFIED, OK } from "http-status-codes";
 import Messages from "./messages";
 import {
   DEFAULT_POLLING_INTERVAL,
@@ -8,26 +7,12 @@ import {
 } from "./constants";
 import { ArtifactTracer } from "./traceProvider";
 
+const NOT_MODIFIED = 304;
+const OK = 200;
+
 // eslint-disable-next-line no-unused-vars
 function determineArtifactLocation(clientId, organizationId) {
   return `UNKNOWN_ARTIFACT_LOCATION`;
-}
-
-function getPollingInterval(config) {
-  if (
-    // allow polling to be set to 0
-    typeof config.pollingInterval === "number" &&
-    config.pollingInterval === 0
-  ) {
-    return 0;
-  }
-
-  return Math.max(
-    MINIMUM_POLLING_INTERVAL,
-    typeof config.pollingInterval === "number"
-      ? config.pollingInterval
-      : DEFAULT_POLLING_INTERVAL
-  );
 }
 
 /**
@@ -35,8 +20,26 @@ function getPollingInterval(config) {
  * @param {import("../types/DecisioningConfig").DecisioningConfig} config Options map, required
  */
 async function ArtifactProvider(config) {
-  const pollingInterval = getPollingInterval(config);
   const logger = getLogger(config.logger);
+
+  function getPollingInterval() {
+    if (
+      // allow polling to be set to 0
+      typeof config.pollingInterval === "number" &&
+      config.pollingInterval === 0
+    ) {
+      return 0;
+    }
+
+    return Math.max(
+      MINIMUM_POLLING_INTERVAL,
+      typeof config.pollingInterval === "number"
+        ? config.pollingInterval
+        : DEFAULT_POLLING_INTERVAL
+    );
+  }
+
+  const pollingInterval = getPollingInterval(config);
 
   const fetchApi = getFetchApi(config.fetchApi);
 

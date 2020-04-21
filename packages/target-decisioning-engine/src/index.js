@@ -32,6 +32,7 @@ export default async function TargetDecisioningEngine(config) {
    * @param {import("../types/TargetOptions").TargetOptions} targetOptions
    */
   function getOffers(targetOptions) {
+    logger.debug("LD:getOffers", targetOptions);
     const { request } = targetOptions;
 
     if (typeof artifact === "undefined") {

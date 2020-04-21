@@ -13,11 +13,36 @@ governing permissions and limitations under the License.
 import {
   createUUID,
   DEFAULT_GLOBAL_MBOX,
-  DeliveryApiClient,
-  getMboxNames
+  EMPTY_REQUEST,
+  EXECUTION_MODE,
+  requiresDecisioningEngine
 } from "@adobe/target-tools";
+
+import {
+  AnalyticsRequestFromJSON,
+  AudienceManagerFromJSON,
+  AuthenticatedState,
+  ChannelType,
+  Configuration,
+  ContextFromJSON,
+  CustomerIdFromJSON,
+  DeliveryAPIApi,
+  DeliveryRequestFromJSON,
+  ExecuteRequestFromJSON,
+  ExperienceCloudFromJSON,
+  LoggingType,
+  MboxRequestFromJSON,
+  MetricType,
+  NotificationFromJSON,
+  PrefetchRequestFromJSON,
+  PropertyFromJSON,
+  RequestDetailsFromJSON,
+  TraceFromJSON,
+  ViewRequestFromJSON,
+  VisitorIdFromJSON
+} from "@adobe/target-tools/delivery-api-client";
+
 import { OK, PARTIAL_CONTENT } from "http-status-codes";
-import { EXECUTION_MODE } from "./enums";
 import { Messages } from "./messages";
 import {
   createTargetCookie,
@@ -41,18 +66,8 @@ import {
   isNonEmptyString,
   isNumber,
   isObject,
-  removeEmptyKeys,
-  requiresDecisioningEngine
+  removeEmptyKeys
 } from "./utils";
-
-const {
-  AuthenticatedState,
-  Configuration,
-  ChannelType,
-  LoggingType,
-  MetricType,
-  DeliveryAPIApi
-} = DeliveryApiClient;
 
 const SCHEME = {
   HTTP: "http://",
@@ -68,8 +83,6 @@ const HOST = "tt.omtrdc.net";
 const SESSION_ID_MAX_AGE = 1860;
 const DEVICE_ID_MAX_AGE = 63244800;
 const LOCATION_HINT_MAX_AGE = 1860;
-
-export const EMPTY_REQUEST = { context: { channel: "web" } };
 
 export function extractClusterFromDeviceId(id) {
   if (isEmptyString(id)) {
@@ -171,13 +184,13 @@ function getCustomerIds(customerIds, visitor) {
       let item;
 
       if (isObject(value)) {
-        item = DeliveryApiClient.CustomerIdFromJSON({
+        item = CustomerIdFromJSON({
           id: value.id || undefined,
           integrationCode: key || undefined,
           authenticatedState: AUTH_STATE[value.authState] || undefined
         });
       } else {
-        item = DeliveryApiClient.CustomerIdFromJSON({
+        item = CustomerIdFromJSON({
           id: value,
           integrationCode: key || undefined,
           authenticatedState: AUTH_STATE["0"]
@@ -208,7 +221,7 @@ export function createVisitorId(id = {}, options) {
 
   const mergedCustomerIds = getCustomerIds(customerIds, visitor);
 
-  const result = DeliveryApiClient.VisitorIdFromJSON({
+  const result = VisitorIdFromJSON({
     tntId: isNonEmptyString(tntId) ? tntId : undefined,
     thirdPartyId: isNonEmptyString(thirdPartyId) ? thirdPartyId : undefined,
     marketingCloudVisitorId: isNonEmptyString(marketingCloudVisitorId)
@@ -223,7 +236,7 @@ export function createVisitorId(id = {}, options) {
 }
 
 function createTrace(trace) {
-  const result = DeliveryApiClient.TraceFromJSON(trace);
+  const result = TraceFromJSON(trace);
 
   if (trace && isNonEmptyString(trace.authorizationToken)) {
     return result;
@@ -233,7 +246,7 @@ function createTrace(trace) {
 }
 
 function createContext(context = {}) {
-  const result = DeliveryApiClient.ContextFromJSON({
+  const result = ContextFromJSON({
     timeOffsetInMinutes: getTimezoneOffset(),
     ...context
   });
@@ -253,7 +266,7 @@ function createSupplementalDataId(options) {
 }
 
 function createAnalytics(analytics = {}, options) {
-  return DeliveryApiClient.AnalyticsRequestFromJSON({
+  return AnalyticsRequestFromJSON({
     logging: isNonEmptyString(analytics.logging)
       ? analytics.logging
       : LoggingType.ServerSide,
@@ -280,7 +293,7 @@ function createAudienceManager(audienceManager = {}, options) {
     blob = visitorValues.MCAAMB
   } = audienceManager;
 
-  const result = DeliveryApiClient.AudienceManagerFromJSON({
+  const result = AudienceManagerFromJSON({
     locationHint,
     blob
   });
@@ -296,14 +309,10 @@ function createExperienceCloud(experienceCloud = {}, options) {
     options
   );
 
-  return DeliveryApiClient.ExperienceCloudFromJSON({
+  return ExperienceCloudFromJSON({
     analytics: createAnalytics(analytics, options),
     audienceManager: createdAudienceManager || undefined
   });
-}
-
-function createParams(resultClass, entity = {}) {
-  return DeliveryApiClient[`${resultClass}FromJSON`].call(null, entity);
 }
 
 const validMbox = (mbox, logger) => {
@@ -321,7 +330,7 @@ function createMboxes(mboxes, logger) {
   const resultMboxes = mboxes
     .filter(mbox => validMbox(mbox, logger))
     .map((mbox, index) => {
-      const result = createParams("MboxRequest", mbox);
+      const result = MboxRequestFromJSON(mbox);
       result.name = mbox.name;
 
       if (isNumber(mbox.index)) {
@@ -341,7 +350,7 @@ function createViews(views) {
     return undefined;
   }
   const resultViews = views.map(view => {
-    const result = createParams("ViewRequest", view);
+    const result = ViewRequestFromJSON(view);
 
     if (isNonEmptyString(view.name)) {
       result.name = view.name;
@@ -368,10 +377,8 @@ function createExecute(execute, logger) {
     return undefined;
   }
 
-  return new DeliveryApiClient.ExecuteRequestFromJSON({
-    pageLoad: isObject(pageLoad)
-      ? createParams("RequestDetails", pageLoad)
-      : undefined,
+  return new ExecuteRequestFromJSON({
+    pageLoad: isObject(pageLoad) ? RequestDetailsFromJSON(pageLoad) : undefined,
     mboxes: isNonEmptyArray(mboxes) ? createMboxes(mboxes, logger) : undefined
   });
 }
@@ -387,10 +394,8 @@ function createPrefetch(prefetch, logger) {
     return undefined;
   }
 
-  return DeliveryApiClient.PrefetchRequestFromJSON({
-    pageLoad: isObject(pageLoad)
-      ? createParams("RequestDetails", pageLoad)
-      : undefined,
+  return PrefetchRequestFromJSON({
+    pageLoad: isObject(pageLoad) ? RequestDetailsFromJSON(pageLoad) : undefined,
     views: isNonEmptyArray(views) ? createViews(views) : undefined,
     mboxes: isNonEmptyArray(mboxes) ? createMboxes(mboxes, logger) : undefined
   });
@@ -425,7 +430,7 @@ function createNotifications(notifications, logger) {
         mbox,
         view
       } = notification;
-      const result = createParams("Notification", notification);
+      const result = NotificationFromJSON(notification);
 
       result.id = id;
       result.type = type;
@@ -457,7 +462,7 @@ function createProperty(property = {}) {
   const { token } = property;
 
   if (isNonEmptyString(token)) {
-    return DeliveryApiClient.PropertyFromJSON(property);
+    return PropertyFromJSON(property);
   }
 
   return undefined;
@@ -472,7 +477,7 @@ function createProperty(property = {}) {
 export function createDeliveryRequest(requestParam, options) {
   const { logger, uuidMethod = createUUID } = options;
 
-  const result = DeliveryApiClient.DeliveryRequestFromJSON({
+  const result = DeliveryRequestFromJSON({
     requestId: uuidMethod(),
     environmentId: options.environmentId,
     ...requestParam
@@ -859,48 +864,6 @@ export function processResponse(
   };
 
   removeEmptyKeys(result);
-
-  return result;
-}
-
-/**
- * addMboxesToRequest method.  Ensures the mboxes specified are part of the returned delivery request
- * @param {Array<String>} mboxNames A list of mbox names that contains JSON content attributes, required
- * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} request Target View Delivery API request, required
- * @param { 'execute'|'prefetch' } requestType
- */
-export function addMboxesToRequest(
-  mboxNames,
-  request,
-  requestType = "execute"
-) {
-  const requestedMboxes = getMboxNames(request); // returns a set
-
-  const mboxes = [];
-  if (
-    request &&
-    request[requestType] &&
-    request[requestType].mboxes instanceof Array
-  ) {
-    Array.prototype.push.apply(mboxes, request[requestType].mboxes);
-  }
-
-  mboxNames
-    .filter(mboxName => !requestedMboxes.has(mboxName))
-    .forEach(mboxName => {
-      mboxes.push({
-        name: mboxName
-      });
-    });
-
-  const result = {
-    ...request
-  };
-
-  result[requestType] = {
-    ...request[requestType],
-    mboxes
-  };
 
   return result;
 }

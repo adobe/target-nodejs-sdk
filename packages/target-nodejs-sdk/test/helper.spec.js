@@ -9,11 +9,16 @@ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTA
 OF ANY KIND, either express or implied. See the License for the specific language
 governing permissions and limitations under the License.
 */
-import { Configuration } from "@adobe/target-tools/delivery-api-client";
 
 require("jest-fetch-mock").enableMocks();
 const MockDate = require("mockdate");
-const { DeliveryApiClient } = require("@adobe/target-tools");
+const {
+  Configuration,
+  DeliveryAPIApi,
+  VisitorIdFromJSON,
+  CustomerIdFromJSON,
+  DeliveryRequestFromJSON
+} = require("@adobe/target-tools/delivery-api-client");
 const { version } = require("../package");
 
 const {
@@ -109,7 +114,7 @@ describe("Target Helper", () => {
     };
     result = createVisitorId(REQUEST_ID, { visitor: EMPTY_VISITOR });
 
-    expect(DeliveryApiClient.VisitorIdFromJSON(result)).toEqual(
+    expect(VisitorIdFromJSON(result)).toEqual(
       Object.assign({ customerIds: undefined }, REQUEST_ID)
     );
 
@@ -135,9 +140,7 @@ describe("Target Helper", () => {
 
     expect(result.customerIds.length).toEqual(3);
     result.customerIds.forEach((customerId, index) =>
-      expect(DeliveryApiClient.CustomerIdFromJSON(customerId)).toEqual(
-        MERGED_CUSTOMER_IDS[index]
-      )
+      expect(CustomerIdFromJSON(customerId)).toEqual(MERGED_CUSTOMER_IDS[index])
     );
   });
 
@@ -271,7 +274,7 @@ describe("Target Helper", () => {
       visitor: VISITOR,
       uuidMethod: uuidMock
     });
-    let serializedResult = DeliveryApiClient.DeliveryRequestFromJSON(result);
+    let serializedResult = DeliveryRequestFromJSON(result);
     expect(serializedResult).toMatchObject({
       requestId: "12345678-abcd-1234-efgh-000000000000",
       id: {
@@ -339,7 +342,7 @@ describe("Target Helper", () => {
       visitor: EMPTY_VISITOR,
       uuidMethod: uuidMock
     });
-    serializedResult = DeliveryApiClient.DeliveryRequestFromJSON(result);
+    serializedResult = DeliveryRequestFromJSON(result);
     expect(serializedResult).toMatchObject({
       requestId: "12345678-abcd-1234-efgh-000000000000",
       property: { token: "at_property1" },
@@ -373,7 +376,7 @@ describe("Target Helper", () => {
       visitor: EMPTY_VISITOR,
       uuidMethod: uuidMock
     });
-    serializedResult = DeliveryApiClient.DeliveryRequestFromJSON(result);
+    serializedResult = DeliveryRequestFromJSON(result);
     expect(serializedResult).toMatchObject({
       requestId: "12345678-abcd-1234-efgh-000000000000",
       context: { channel: "web", timeOffsetInMinutes: expect.any(Number) },
@@ -412,7 +415,7 @@ describe("Target Helper", () => {
       visitor: EMPTY_VISITOR,
       uuidMethod: uuidMock
     });
-    serializedResult = DeliveryApiClient.DeliveryRequestFromJSON(result);
+    serializedResult = DeliveryRequestFromJSON(result);
     expect(serializedResult).toMatchObject({
       requestId: "12345678-abcd-1234-efgh-000000000000",
       context: { channel: "web", timeOffsetInMinutes: expect.any(Number) },
@@ -459,7 +462,7 @@ describe("Target Helper", () => {
       "Notification validation failed for: ",
       expect.any(Object)
     );
-    serializedResult = DeliveryApiClient.DeliveryRequestFromJSON(result);
+    serializedResult = DeliveryRequestFromJSON(result);
     expect(serializedResult).toMatchObject({
       requestId: "12345678-abcd-1234-efgh-000000000000",
       context: { channel: "web", timeOffsetInMinutes: expect.any(Number) },
@@ -756,6 +759,6 @@ describe("Target Helper", () => {
         basePath: "http://target.host.com"
       })
     );
-    expect(result instanceof DeliveryApiClient.DeliveryAPIApi).toBe(true);
+    expect(result instanceof DeliveryAPIApi).toBe(true);
   });
 });

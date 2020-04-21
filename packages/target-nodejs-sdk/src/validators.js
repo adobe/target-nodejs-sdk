@@ -10,14 +10,14 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
+import { EXECUTION_MODE } from "@adobe/target-tools";
 import { Messages } from "./messages";
-import { EXECUTION_MODE } from "./enums";
 
 import {
-  isNonEmptyObject,
-  isEmptyObject,
   isEmptyArray,
-  isEmptyString
+  isEmptyObject,
+  isEmptyString,
+  isNonEmptyObject
 } from "./utils";
 
 export function validateClientOptions(options) {

@@ -11,7 +11,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import { EXECUTION_MODE } from "./enums";
+import { EXECUTION_MODE } from "@adobe/target-tools";
 
 export const Messages = {
   PRIVATE_CONSTRUCTOR: "Please use TargetClient.create static method instead",
@@ -33,8 +33,6 @@ export const Messages = {
   RESPONSE_RECEIVED: "Response received",
   PENDING_ARTIFACT_RETRIEVAL:
     "Unable to fulfill request; PENDING artifact retrieval.",
-  ATTRIBUTE_NOT_EXIST: (keyName, mboxName) =>
-    `Attribute '${keyName}' does not exist for mbox '${mboxName}'`,
   FETCH_UNDEFINED: "Fetch is not defined!",
   PARTIAL_RESULT:
     "Partial result.  Some decisions were made locally, but a remote request may be needed.",

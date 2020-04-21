@@ -11,7 +11,11 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import { getFetchWithRetry } from "@adobe/target-tools";
+import {
+  getFetchWithRetry,
+  decisioningEngineReady,
+  requiresDecisioningEngine
+} from "@adobe/target-tools";
 import { Messages } from "./messages";
 import {
   createConfiguration,
@@ -25,7 +29,6 @@ import {
   processResponse
 } from "./helper";
 import { parseCookies } from "./cookies";
-import { decisioningEngineReady, requiresDecisioningEngine } from "./utils";
 
 export function executeDelivery(options, decisioningEngine) {
   const {
