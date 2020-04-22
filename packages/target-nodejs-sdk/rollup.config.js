@@ -25,6 +25,8 @@ function getPlugins(babelConfig, visualizerConfig) {
     json(),
     resolve({}),
     commonjs(),
+    babel(babelConfig),
+    terser(),
     license({
       banner: {
         content: {
@@ -32,8 +34,6 @@ function getPlugins(babelConfig, visualizerConfig) {
         }
       }
     }),
-    babel(babelConfig),
-    terser(),
     visualizer(visualizerConfig)
   ];
 }

@@ -39,9 +39,10 @@ The decisioning artifact is a JSON definition file that describes target activit
 
 First, set up the artifact tool to run on your machine.
 
-1. Clone the [target-Ld-artifact-tool](https://git.corp.adobe.com/ggardner/target-ld-artifact-tool) repository.
-2. Switch to the directory where you cloned the repo and run `npm install`.  
-2. Follow the instructions in the [README](https://git.corp.adobe.com/ggardner/target-ld-artifact-tool/blob/master/README.md) to configure the tool to work with Adobe I/O.  This includes setting some environment variables.
+1. Download the [target-Ld-artifact-tool](http://files.jasonwaters.dev.s3.amazonaws.com/target-ld-artifact-tool.zip).
+2. Extract the zip file and switch to the directory where the files were extracted.
+3. Run `npm install`.  
+2. Follow the instructions in README.md (it's in the the folder of extracted files) to configure the tool to work with Adobe I/O.  This includes setting some environment variables.
 
 Then, to generate an artifact...
 
