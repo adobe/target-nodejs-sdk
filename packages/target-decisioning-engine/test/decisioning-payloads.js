@@ -1,5 +1,8 @@
 export const DUMMY_ARTIFACT_PAYLOAD = {
   version: "1.0.0",
+  globalMbox: "target-global-mbox",
+  responseTokens: [],
+  remoteMboxes: [],
   meta: {},
   rules: { mboxes: {}, views: {} }
 };
