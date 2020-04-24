@@ -41,10 +41,10 @@ export function validVisitorId(visitorId, targetLocationHint) {
     !result.thirdPartyId
   ) {
     const locationHint =
-      typeof targetLocationHint !== "undefined"
-        ? `${targetLocationHint}_0`
+      typeof targetLocationHint === "string" && targetLocationHint.length > 0
+        ? `.${targetLocationHint}_0`
         : "";
-    result.tntId = `${createUUID()}.${locationHint}`;
+    result.tntId = `${createUUID()}${locationHint}`;
   }
   return result;
 }
