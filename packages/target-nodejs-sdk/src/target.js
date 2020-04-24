@@ -14,7 +14,8 @@ governing permissions and limitations under the License.
 import {
   getFetchWithRetry,
   decisioningEngineReady,
-  requiresDecisioningEngine
+  requiresDecisioningEngine,
+  EXECUTION_MODE
 } from "@adobe/target-tools";
 import { Messages } from "./messages";
 import {
@@ -89,14 +90,16 @@ export function executeDelivery(options, decisioningEngine) {
     timeout
   );
 
-  return createDeliveryApiMethod(
+  const deliveryMethod = createDeliveryApiMethod(
     configuration,
     useBeacon,
     options.config.executionMode,
     targetLocationHint,
     deliveryRequest,
     decisioningEngine
-  )
+  );
+
+  return deliveryMethod
     .execute(client, sessionId, deliveryRequest, config.version)
     .then((response = {}) => {
       logger.debug(
@@ -110,7 +113,9 @@ export function executeDelivery(options, decisioningEngine) {
           cluster,
           deliveryRequest,
           response,
-          executionMode,
+          typeof deliveryMethod.executionMode === "string"
+            ? deliveryMethod.executionMode
+            : EXECUTION_MODE.REMOTE,
           decisioningEngine
         )
       );

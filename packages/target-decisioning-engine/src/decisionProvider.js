@@ -298,10 +298,11 @@ function DecisionProvider(
     prefetch: getPrefetchDecisions()
   };
 
+  const dependency = hasRemoteDependency(artifact, request);
+
   return Promise.resolve({
-    status: hasRemoteDependency(artifact, request).remoteNeeded
-      ? PARTIAL_CONTENT
-      : OK,
+    status: dependency.remoteNeeded ? PARTIAL_CONTENT : OK,
+    remoteMboxes: dependency.remoteMboxes,
     requestId: request.requestId,
     id: {
       ...request.id

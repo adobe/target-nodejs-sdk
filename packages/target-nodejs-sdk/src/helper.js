@@ -42,7 +42,6 @@ import {
   VisitorIdFromJSON
 } from "@adobe/target-tools/delivery-api-client";
 
-import { OK, PARTIAL_CONTENT } from "http-status-codes";
 import { Messages } from "./messages";
 import {
   createTargetCookie,
@@ -531,7 +530,8 @@ function createLocalDeliveryApi(decisioningEngine, targetLocationHint) {
         request: deliveryRequest,
         sessionId
       });
-    }
+    },
+    executionMode: EXECUTION_MODE.LOCAL
   };
 }
 
@@ -719,40 +719,19 @@ function getAnalyticsDetails(response) {
  * @param executionMode
  * @param decisioningEngine
  * */
-function getResponseStatus(
-  request,
-  response,
-  executionMode,
-  decisioningEngine
-) {
-  let { status } = response;
-  let message = Messages.REMOTE_RESULT;
-  let remoteMboxes = [];
+function getResponseMeta(request, response, executionMode, decisioningEngine) {
+  let { remoteMboxes } = response;
 
   if (decisioningEngine) {
     const decisioningDependency = decisioningEngine.hasRemoteDependency(
       request
     );
-
-    if (executionMode === EXECUTION_MODE.HYBRID) {
-      message = decisioningDependency.remoteNeeded
-        ? Messages.REMOTE_RESULT
-        : Messages.LOCAL_RESULT;
-    } else if (EXECUTION_MODE.LOCAL === executionMode) {
-      status = decisioningDependency.remoteNeeded ? PARTIAL_CONTENT : OK;
-
-      message = decisioningDependency.remoteNeeded
-        ? Messages.PARTIAL_RESULT
-        : Messages.LOCAL_RESULT;
-    }
-
     // eslint-disable-next-line prefer-destructuring
     remoteMboxes = decisioningDependency.remoteMboxes;
   }
 
   return {
-    status,
-    message,
+    executionMode,
     remoteMboxes
   };
 }
@@ -854,12 +833,7 @@ export function processResponse(
     analyticsDetails: getAnalyticsDetails(response),
     trace: getTraceDetails(response),
     responseTokens: getResponseTokens(response),
-    status: getResponseStatus(
-      request,
-      response,
-      executionMode,
-      decisioningEngine
-    ),
+    meta: getResponseMeta(request, response, executionMode, decisioningEngine),
     response
   };
 

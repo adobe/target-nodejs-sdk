@@ -35,9 +35,9 @@
           browser: {host: window.location.host},
           address: {url: window.location.href}
         },
-        trace: {
-          authorizationToken: "79856ebe-7a17-422f-904d-8e51a3cb33e0"
-        }
+        // trace: {
+        //   authorizationToken: "79856ebe-7a17-422f-904d-8e51a3cb33e0"
+        // }
       };
 
       function getOffers() {
@@ -63,7 +63,7 @@
                 // }))
                 // views: [{}]
                 // },
-                execute: {
+                prefetch: {
                   mboxes: mboxNames.map((mboxName, idx) => ({
                     name: mboxName,
                     index: idx,

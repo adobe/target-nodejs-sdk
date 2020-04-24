@@ -1,9 +1,7 @@
 /* eslint-disable jest/no-test-callback */
 import { EXECUTION_MODE } from "@adobe/target-tools";
 
-const HttpStatus = require("http-status-codes");
 require("jest-fetch-mock").enableMocks();
-const { Messages } = require("../src/messages");
 
 const TargetClient = require("../src/index.server").default;
 
@@ -208,10 +206,9 @@ describe("execution mode", () => {
           sessionId: "dummy_session"
         });
 
-        expect(result.status).toEqual(
+        expect(result.meta).toEqual(
           expect.objectContaining({
-            status: HttpStatus.PARTIAL_CONTENT,
-            message: Messages.PARTIAL_RESULT,
+            executionMode: EXECUTION_MODE.LOCAL,
             remoteMboxes: ["remote-only-mbox-a", "remote-only-mbox-b"]
           })
         );
@@ -245,10 +242,9 @@ describe("execution mode", () => {
           sessionId: "dummy_session"
         });
 
-        expect(result.status).toEqual(
+        expect(result.meta).toEqual(
           expect.objectContaining({
-            status: HttpStatus.OK,
-            message: Messages.LOCAL_RESULT,
+            executionMode: EXECUTION_MODE.LOCAL,
             remoteMboxes: []
           })
         );
@@ -293,10 +289,9 @@ describe("execution mode", () => {
           sessionId: "dummy_session"
         });
 
-        expect(result.status).toEqual(
+        expect(result.meta).toEqual(
           expect.objectContaining({
-            status: HttpStatus.OK,
-            message: Messages.REMOTE_RESULT,
+            executionMode: EXECUTION_MODE.REMOTE,
             remoteMboxes: ["remote-only-mbox-a", "remote-only-mbox-b"]
           })
         );
@@ -330,10 +325,9 @@ describe("execution mode", () => {
           sessionId: "dummy_session"
         });
 
-        expect(result.status).toEqual(
+        expect(result.meta).toEqual(
           expect.objectContaining({
-            status: HttpStatus.OK,
-            message: Messages.LOCAL_RESULT,
+            executionMode: EXECUTION_MODE.LOCAL,
             remoteMboxes: []
           })
         );

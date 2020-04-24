@@ -34,10 +34,6 @@ export const Messages = {
   PENDING_ARTIFACT_RETRIEVAL:
     "Unable to fulfill request; PENDING artifact retrieval.",
   FETCH_UNDEFINED: "Fetch is not defined!",
-  PARTIAL_RESULT:
-    "Partial result.  Some decisions were made locally, but a remote request may be needed.",
-  LOCAL_RESULT: "Decisions made locally.",
-  REMOTE_RESULT: "Decisions made remotely",
   DECISIONING_ENGINE_UNDEFINED: "Decisioning Engine is undefined",
   LOCATION_HINT_REQUEST_FAILED: "Unable to retrieve location hint cookie."
 };

@@ -396,7 +396,19 @@ describe("target local decisioning", () => {
       async function onClientReady() {
         const result = await client.getOffers(prefetchRequestOptions);
 
-        expect(result).toEqual(expect.objectContaining(targetResult));
+        expect(result).toEqual(
+          expect.objectContaining({
+            ...targetResult,
+            meta: {
+              executionMode: "local",
+              remoteMboxes: []
+            },
+            response: {
+              ...targetResult.response,
+              remoteMboxes: []
+            }
+          })
+        );
         done();
       }
 
