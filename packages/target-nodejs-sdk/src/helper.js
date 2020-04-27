@@ -234,16 +234,6 @@ export function createVisitorId(id = {}, options) {
   return isNonEmptyObject(result) ? result : undefined;
 }
 
-function createTrace(trace) {
-  const result = TraceFromJSON(trace);
-
-  if (trace && isNonEmptyString(trace.authorizationToken)) {
-    return result;
-  }
-
-  return undefined;
-}
-
 function createContext(context = {}) {
   const result = ContextFromJSON({
     timeOffsetInMinutes: getTimezoneOffset(),
@@ -484,7 +474,7 @@ export function createDeliveryRequest(requestParam, options) {
 
   result.id = createVisitorId(result.id, options);
   result.property = createProperty(result.property);
-  result.trace = createTrace(result.trace);
+  result.trace = TraceFromJSON(result.trace);
   result.context = createContext(result.context);
   result.experienceCloud = createExperienceCloud(
     result.experienceCloud,
