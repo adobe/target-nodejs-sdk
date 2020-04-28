@@ -88,13 +88,14 @@ export default [
     external: [...Object.keys(pkg.dependencies || {})],
     plugins: getPlugins(
       {
-        exclude: "node_modules/**",
+        exclude: ["node_modules/**", /\/core-js\//],
 
         presets: [
           [
             "@babel/preset-env",
             {
-              useBuiltIns: false,
+              useBuiltIns: "usage",
+              corejs: 3,
               modules: false,
               targets: {
                 node: "8"

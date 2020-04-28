@@ -11,8 +11,12 @@ const NOT_MODIFIED = 304;
 const OK = 200;
 
 // eslint-disable-next-line no-unused-vars
-function determineArtifactLocation(clientId, organizationId) {
-  return `UNKNOWN_ARTIFACT_LOCATION`;
+function determineArtifactLocation(
+  clientId,
+  organizationId,
+  environment = "production"
+) {
+  return `https://assets.adobetarget.com/${clientId}/${environment}/rules.json`;
 }
 
 /**
@@ -65,9 +69,7 @@ async function ArtifactProvider(config) {
       : determineArtifactLocation(config.client, config.organizationId);
 
   function fetchArtifact(artifactUrl) {
-    const headers = {
-      "Access-Control-Expose-Headers": "Etag"
-    };
+    const headers = {};
 
     if (lastEtag) {
       headers["If-None-Match"] = lastEtag;
