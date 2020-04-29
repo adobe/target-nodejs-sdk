@@ -113,7 +113,7 @@ describe("Target Delivery API client", () => {
         }
       })
     );
-    expect(EMPTY_VISITOR.getState.mock.calls.length).toBe(2);
+    expect(EMPTY_VISITOR.getState.mock.calls.length).toBe(3);
     expect(testLogger.debug.mock.calls.length).toBe(2);
 
     createDeliveryApiSpy = jest.fn(() => ({

@@ -28,13 +28,14 @@ function DecisionProvider(
   const globalMboxName = artifact.globalMbox || DEFAULT_GLOBAL_MBOX;
 
   const clientId = config.client;
-  const { request } = targetOptions;
+  const { request, visitor } = targetOptions;
   const { sendNotificationFunc } = config;
 
   const visitorId = request.id;
 
   const notificationProvider = NotificationProvider(
     request,
+    visitor,
     sendNotificationFunc
   );
 

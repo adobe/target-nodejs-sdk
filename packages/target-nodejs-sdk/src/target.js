@@ -92,6 +92,7 @@ export function executeDelivery(options, decisioningEngine) {
 
   const deliveryMethod = createDeliveryApiMethod(
     configuration,
+    visitor,
     useBeacon,
     options.config.executionMode,
     targetLocationHint,

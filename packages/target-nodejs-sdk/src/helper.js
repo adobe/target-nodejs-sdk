@@ -248,8 +248,22 @@ function createContext(context = {}) {
   return result;
 }
 
-function createSupplementalDataId(options) {
+function isCurrentSupplementalDataID(supplementalDataId, visitor) {
+  const visitorState = visitor.getState();
+  const firstOrganizationState = visitorState[Object.keys(visitorState)[0]];
+  return (
+    isNonEmptyObject(firstOrganizationState.sdid) &&
+    firstOrganizationState.sdid.supplementalDataIDCurrent === supplementalDataId
+  );
+}
+
+function createSupplementalDataId(analytics, options) {
   const { visitor, consumerId = DEFAULT_GLOBAL_MBOX } = options;
+  const { supplementalDataId } = analytics;
+
+  if (isCurrentSupplementalDataID(supplementalDataId, visitor)) {
+    return supplementalDataId;
+  }
 
   return visitor.getSupplementalDataID(consumerId);
 }
@@ -259,7 +273,7 @@ function createAnalytics(analytics = {}, options) {
     logging: isNonEmptyString(analytics.logging)
       ? analytics.logging
       : LoggingType.ServerSide,
-    supplementalDataId: createSupplementalDataId(options),
+    supplementalDataId: createSupplementalDataId(analytics, options),
     trackingServer: isNonEmptyString(analytics.trackingServer)
       ? analytics.trackingServer
       : undefined,
@@ -507,7 +521,11 @@ export function createConfiguration(fetchApi, host, headers, timeout) {
   });
 }
 
-function createLocalDeliveryApi(decisioningEngine, targetLocationHint) {
+function createLocalDeliveryApi(
+  decisioningEngine,
+  visitor,
+  targetLocationHint
+) {
   return {
     // eslint-disable-next-line no-unused-vars
     execute: (client, sessionId, deliveryRequest, atjsVersion) => {
@@ -518,7 +536,8 @@ function createLocalDeliveryApi(decisioningEngine, targetLocationHint) {
       return decisioningEngine.getOffers({
         targetLocationHint,
         request: deliveryRequest,
-        sessionId
+        sessionId,
+        visitor
       });
     },
     executionMode: EXECUTION_MODE.LOCAL
@@ -562,6 +581,7 @@ function createRemoteDeliveryApi(configuration, useBeacon) {
 
 /**
  * @param {import("@adobe/target-tools/delivery-api-client/runtime").Configuration} configuration
+ * @param visitor VisitorId instance
  * @param { Boolean } useBeacon
  * @param executionMode
  * @param { String } targetLocationHint
@@ -570,6 +590,7 @@ function createRemoteDeliveryApi(configuration, useBeacon) {
  * */
 export function createDeliveryApi(
   configuration,
+  visitor,
   useBeacon = false,
   executionMode = EXECUTION_MODE.REMOTE,
   targetLocationHint = undefined,
@@ -588,7 +609,11 @@ export function createDeliveryApi(
       return createRemoteDeliveryApi(configuration, useBeacon);
     }
 
-    return createLocalDeliveryApi(decisioningEngine, targetLocationHint);
+    return createLocalDeliveryApi(
+      decisioningEngine,
+      visitor,
+      targetLocationHint
+    );
   }
 
   return createRemoteDeliveryApi(configuration, useBeacon);
