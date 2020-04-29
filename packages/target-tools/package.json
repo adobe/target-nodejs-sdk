@@ -12,6 +12,9 @@
     "dist/*",
     "src/**/!(*.spec).js"
   ],
+  "publishConfig": {
+    "access": "restricted"
+  },
   "scripts": {
     "clean": "rimraf dist",
     "prebuild": "npm run clean",

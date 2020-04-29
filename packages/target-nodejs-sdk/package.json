@@ -14,6 +14,10 @@
     "*.md",
     "LICENSE*"
   ],
+  "publishConfig": {
+    "access": "public",
+    "tag": "alpha"
+  },
   "scripts": {
     "clean": "rimraf dist",
     "prebuild": "npm run clean && npm run format && npm run lint",
