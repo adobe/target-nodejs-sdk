@@ -83,6 +83,8 @@ const SESSION_ID_MAX_AGE = 1860;
 const DEVICE_ID_MAX_AGE = 63244800;
 const LOCATION_HINT_MAX_AGE = 1860;
 
+DeliveryAPIApi.prototype.executionMode = EXECUTION_MODE.REMOTE;
+
 export function extractClusterFromDeviceId(id) {
   if (isEmptyString(id)) {
     return null;
@@ -569,7 +571,8 @@ function createBeaconDeliveryApi(configuration) {
         })
       );
       return success ? Promise.resolve() : Promise.reject();
-    }
+    },
+    executionMode: EXECUTION_MODE.REMOTE
   };
 }
 

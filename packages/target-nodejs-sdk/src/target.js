@@ -12,10 +12,9 @@ governing permissions and limitations under the License.
 */
 
 import {
-  getFetchWithRetry,
   decisioningEngineReady,
-  requiresDecisioningEngine,
-  EXECUTION_MODE
+  getFetchWithRetry,
+  requiresDecisioningEngine
 } from "@adobe/target-tools";
 import { Messages } from "./messages";
 import {
@@ -114,9 +113,7 @@ export function executeDelivery(options, decisioningEngine) {
           cluster,
           deliveryRequest,
           response,
-          typeof deliveryMethod.executionMode === "string"
-            ? deliveryMethod.executionMode
-            : EXECUTION_MODE.REMOTE,
+          deliveryMethod.executionMode,
           decisioningEngine
         )
       );
