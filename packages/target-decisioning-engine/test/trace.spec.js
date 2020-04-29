@@ -250,7 +250,7 @@ describe("trace", () => {
           branchId: 3,
           // branchName: "Experience D",
           offers: [632438],
-          metrics: [
+          notifications: [
             {
               id: expect.any(String),
               impressionId: expect.any(String),
@@ -329,7 +329,7 @@ describe("trace", () => {
           branchId: 0,
           offers: [635716],
           environmentId: 11507,
-          metrics: [
+          notifications: [
             {
               type: "display",
               mbox: {
@@ -348,7 +348,7 @@ describe("trace", () => {
           branchId: 1,
           offers: [635718],
           environmentId: 11507,
-          metrics: [
+          notifications: [
             {
               type: "display",
               mbox: {
@@ -367,7 +367,7 @@ describe("trace", () => {
           branchId: 1,
           offers: [635776],
           environmentId: 11507,
-          metrics: [
+          notifications: [
             {
               type: "display",
               mbox: {

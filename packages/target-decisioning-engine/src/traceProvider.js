@@ -166,12 +166,12 @@ export function RequestTracer(artifact) {
    */
   function traceNotification(rule) {
     const { meta } = rule;
-    if (!(campaigns[meta.activityId].metrics instanceof Array)) {
-      campaigns[meta.activityId].metrics = [];
+    if (!(campaigns[meta.activityId].notifications instanceof Array)) {
+      campaigns[meta.activityId].notifications = [];
     }
 
     return notification => {
-      campaigns[meta.activityId].metrics.push(notification);
+      campaigns[meta.activityId].notifications.push(notification);
     };
   }
 
