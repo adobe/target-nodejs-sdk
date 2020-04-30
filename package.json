@@ -5,7 +5,8 @@
     "build": "lerna bootstrap && lerna run build",
     "clean": "lerna run clean",
     "prepublish": "npm run build",
-    "publish": "lerna publish",
+    "version": "lerna version",
+    "publish": "npm run version && lerna publish from-package",
     "test": "lerna run test --stream && npm run coverage",
     "coverage": "node mapCoverage.js"
   },
