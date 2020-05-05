@@ -1,10 +1,12 @@
 import jsonLogic from "json-logic-js";
 import { DEFAULT_GLOBAL_MBOX } from "@adobe/target-tools";
+import { MetricType } from "@adobe/target-tools/delivery-api-client";
 import { computeAllocation } from "./allocationProvider";
 import { createMboxContext, createPageContext } from "./contextProvider";
 import { hasRemoteDependency } from "./utils";
 import NotificationProvider from "./notificationProvider";
 import { RequestTracer } from "./traceProvider";
+import { RequestType } from "./enums";
 
 const PARTIAL_CONTENT = 206;
 const OK = 200;
@@ -40,12 +42,12 @@ function DecisionProvider(
   );
 
   /**
-   * @param {import("@adobe/target-tools/delivery-api-client/models/MboxRequest").MboxRequest|import("@adobe/target-tools/delivery-api-client/models/RequestDetails").RequestDetails} mboxRequest
+   * @param {import("@adobe/target-tools/delivery-api-client/models/MboxRequest").MboxRequest|import("@adobe/target-tools/delivery-api-client/models/RequestDetails").RequestDetails} requestDetail
    * @param { 'mbox'|'view'|'pageLoad' } requestType
    * @param { Array<Function> } postProcessors
    * @param tracer
    */
-  function ruleEvaluator(mboxRequest, requestType, postProcessors, tracer) {
+  function ruleEvaluator(requestDetail, requestType, postProcessors, tracer) {
     return (
       /**
        * @param {import("../types/DecisioningArtifact").Rule} rule
@@ -55,18 +57,18 @@ function DecisionProvider(
         let { page, referring } = context;
 
         if (
-          rule.meta.mbox === mboxRequest.name &&
-          typeof mboxRequest.address !== "undefined"
+          rule.meta.locationName === requestDetail.name &&
+          typeof requestDetail.address !== "undefined"
         ) {
-          page = createPageContext(mboxRequest.address) || page;
-          referring = createPageContext(mboxRequest.address) || referring;
+          page = createPageContext(requestDetail.address) || page;
+          referring = createPageContext(requestDetail.address) || referring;
         }
 
         const ruleContext = {
           ...context,
           page,
           referring,
-          mbox: createMboxContext(mboxRequest),
+          mbox: createMboxContext(requestDetail),
           allocation: computeAllocation(
             clientId,
             rule.meta.activityId,
@@ -77,7 +79,7 @@ function DecisionProvider(
         const ruleSatisfied = jsonLogic.apply(rule.condition, ruleContext);
         tracer.traceRuleEvaluated(
           rule,
-          mboxRequest,
+          requestDetail,
           requestType,
           ruleContext,
           ruleSatisfied
@@ -86,11 +88,16 @@ function DecisionProvider(
         if (ruleSatisfied) {
           consequence = {
             ...rule.consequence,
-            index: mboxRequest.index
+            index: requestDetail.index
           };
 
           postProcessors.forEach(postProcessFunc => {
-            consequence = postProcessFunc(rule, consequence, tracer);
+            consequence = postProcessFunc(
+              rule,
+              consequence,
+              requestType,
+              tracer
+            );
           });
         }
         return consequence;
@@ -109,6 +116,72 @@ function DecisionProvider(
     const requestTracer = RequestTracer(artifact);
 
     /**
+     *
+     * @param { import("@adobe/target-tools/delivery-api-client/models/RequestDetails").RequestDetails } mboxRequest
+     * @param {Array<Function>} additionalPostProcessors
+     */
+    function processViewRequest(mboxRequest, additionalPostProcessors = []) {
+      requestTracer.traceMboxRequest(mode, mboxRequest, context);
+
+      const processRule = ruleEvaluator(
+        mboxRequest,
+        RequestType.VIEW,
+        [...postProcessors, ...additionalPostProcessors],
+        requestTracer
+      );
+
+      const consequences = {};
+
+      let viewRules = [];
+      let isGlobal = true;
+      if (mboxRequest.hasOwnProperty("name")) {
+        viewRules = rules.views[mboxRequest.name];
+        isGlobal = false;
+      } else {
+        viewRules = Object.keys(rules.views).reduce(
+          (result, key) => [...result, ...rules.views[key]],
+          []
+        );
+      }
+
+      let prevActivityId;
+      // eslint-disable-next-line no-restricted-syntax
+      for (const rule of viewRules) {
+        let consequence;
+
+        if (
+          !isGlobal ||
+          (isGlobal && rule.meta.activityId !== prevActivityId)
+        ) {
+          consequence = processRule(rule);
+        }
+
+        if (consequence) {
+          if (!consequences[consequence.name]) {
+            consequences[consequence.name] = consequence;
+          } else {
+            consequences[consequence.name] = {
+              ...consequences[consequence.name],
+              options: [
+                ...consequences[consequence.name].options,
+                ...consequence.options
+              ],
+              metrics: [
+                ...consequences[consequence.name].metrics,
+                ...consequence.metrics
+              ]
+            };
+          }
+
+          prevActivityId = rule.meta.activityId;
+          if (!isGlobal) break;
+        }
+      }
+
+      return Object.values(consequences);
+    }
+
+    /**
      * @param {import("@adobe/target-tools/delivery-api-client/models/MboxRequest").MboxRequest} mboxRequest
      * @param { Array<Function> } additionalPostProcessors
      */
@@ -119,7 +192,7 @@ function DecisionProvider(
 
       const processRule = ruleEvaluator(
         mboxRequest,
-        "mbox",
+        RequestType.MBOX,
         [...postProcessors, ...additionalPostProcessors],
         requestTracer
       );
@@ -167,9 +240,15 @@ function DecisionProvider(
       /**
        * @param {import("../types/DecisioningArtifact").Rule} rule
        * @param {import("@adobe/target-tools/delivery-api-client/models/MboxResponse").MboxResponse} mboxResponse
+       * @param { 'mbox'|'view'|'pageLoad' } requestType
        * @param tracer
        */
-      function removePageLoadAttributes(rule, mboxResponse, tracer) {
+      function removePageLoadAttributes(
+        rule,
+        mboxResponse,
+        requestType,
+        tracer
+      ) {
         const processed = {
           ...mboxResponse
         };
@@ -215,6 +294,12 @@ function DecisionProvider(
         .flat();
     }
 
+    if (request[mode].views) {
+      response.views = request[mode].views
+        .map(mboxRequest => processViewRequest(mboxRequest))
+        .flat();
+    }
+
     if (request[mode].pageLoad) {
       response.pageLoad = processPageLoadRequest(request[mode].pageLoad);
     }
@@ -224,9 +309,10 @@ function DecisionProvider(
   /**
    * @param {import("../types/DecisioningArtifact").Rule} rule
    * @param {import("@adobe/target-tools/delivery-api-client/models/MboxResponse").MboxResponse} mboxResponse
+   * @param { 'mbox'|'view'|'pageLoad' } requestType
    * @param tracer
    */
-  function prepareTraceResponse(rule, mboxResponse, tracer) {
+  function prepareTraceResponse(rule, mboxResponse, requestType, tracer) {
     return {
       ...mboxResponse,
       trace: traceProvider.getTraceResult(tracer)
@@ -237,18 +323,26 @@ function DecisionProvider(
     /**
      * @param {import("../types/DecisioningArtifact").Rule} rule
      * @param {import("@adobe/target-tools/delivery-api-client/models/MboxResponse").MboxResponse} mboxResponse
+     * @param { 'mbox'|'view'|'pageLoad' } requestType
      * @param tracer
      */
-    function prepareExecuteResponse(rule, mboxResponse, tracer) {
+    function prepareExecuteResponse(rule, mboxResponse, requestType, tracer) {
       notificationProvider.addNotification(
         mboxResponse,
         tracer.traceNotification(rule)
       );
 
       const result = {
-        ...mboxResponse
+        ...mboxResponse,
+        metrics: mboxResponse.metrics.filter(
+          metric => metric.type === MetricType.Click
+        )
       };
-      delete result.metrics;
+
+      if (result.metrics.length === 0) {
+        delete result.metrics;
+      }
+
       return result;
     }
 
@@ -266,17 +360,22 @@ function DecisionProvider(
     /**
      * @param {import("../types/DecisioningArtifact").Rule} rule
      * @param {import("@adobe/target-tools/delivery-api-client/models/MboxResponse").MboxResponse} mboxResponse
+     * @param { 'mbox'|'view'|'pageLoad' } requestType
      * @param tracer
      */
-    function preparePrefetchResponse(rule, mboxResponse, tracer) {
-      const eventToken =
-        mboxResponse.metrics.length > 0
-          ? mboxResponse.metrics[0].eventToken
-          : undefined;
-
+    function preparePrefetchResponse(rule, mboxResponse, requestType, tracer) {
       const result = {
         ...mboxResponse,
-        options: mboxResponse.options.map(option => {
+        options: mboxResponse.options.map((option, idx) => {
+          let { eventToken } = option;
+          if (
+            typeof eventToken === "undefined" &&
+            mboxResponse.metrics.length > idx &&
+            mboxResponse.metrics[idx].type === MetricType.Display
+          ) {
+            // eslint-disable-next-line prefer-destructuring
+            eventToken = mboxResponse.metrics[idx].eventToken;
+          }
           return {
             ...option,
             eventToken
@@ -284,7 +383,10 @@ function DecisionProvider(
         })
       };
 
-      delete result.metrics;
+      if (requestType !== RequestType.VIEW) {
+        delete result.metrics;
+      }
+
       return result;
     }
 

@@ -107,12 +107,9 @@ describe("trace", () => {
       campaigns: [
         {
           id: 334411,
-          // campaignName: "superfluous ab json",
           campaignType: "ab",
           branchId: 1,
-          // branchName: "Experience B",
           offers: [631991],
-          // displayResponseType: "JSON_OFFER_RESPONSE",
           environmentId: 11507
         }
       ],
@@ -125,12 +122,9 @@ describe("trace", () => {
       evaluatedCampaignTargets: [
         {
           campaignId: 334411,
-          // campaignName: "superfluous ab json",
           campaignType: "ab",
           matchedSegmentIds: [5361982],
           unmatchedSegmentIds: [5361981]
-          // matchedTargetIds: [11395915],
-          // unmatchedTargetIds: [11395914]
         }
       ]
     });
@@ -176,12 +170,9 @@ describe("trace", () => {
       campaigns: [
         {
           id: 334845,
-          campaignName: "browser-mbox",
           campaignType: "xt",
           branchId: 3,
-          // branchName: "Experience D",
           offers: [632438],
-          // displayResponseType: "DISPLAY_OFFER_RESPONSE",
           environmentId: 11507
         }
       ],
@@ -194,12 +185,9 @@ describe("trace", () => {
       evaluatedCampaignTargets: [
         {
           campaignId: 334845,
-          campaignName: "browser-mbox",
           campaignType: "xt",
           matchedSegmentIds: [2170460],
           unmatchedSegmentIds: [4873452, 4957566]
-          // matchedTargetIds: [4984529],
-          // unmatchedTargetIds: [11597734, 11597735]
         }
       ]
     });
@@ -245,10 +233,8 @@ describe("trace", () => {
       campaigns: [
         {
           id: 334845,
-          campaignName: "browser-mbox",
           campaignType: "xt",
           branchId: 3,
-          // branchName: "Experience D",
           offers: [632438],
           notifications: [
             {
@@ -264,7 +250,6 @@ describe("trace", () => {
               ]
             }
           ],
-          // displayResponseType: "DISPLAY_OFFER_RESPONSE",
           environmentId: 11507
         }
       ],
@@ -277,12 +262,9 @@ describe("trace", () => {
       evaluatedCampaignTargets: [
         {
           campaignId: 334845,
-          campaignName: "browser-mbox",
           campaignType: "xt",
           matchedSegmentIds: [2170460],
           unmatchedSegmentIds: [4873452, 4957566]
-          // matchedTargetIds: [4984529],
-          // unmatchedTargetIds: [11597734, 11597735]
         }
       ]
     });
@@ -324,7 +306,6 @@ describe("trace", () => {
       campaigns: [
         {
           id: 337795,
-          campaignName: "target-global-mbox",
           campaignType: "xt",
           branchId: 0,
           offers: [635716],
@@ -343,7 +324,6 @@ describe("trace", () => {
         },
         {
           id: 337797,
-          campaignName: "target-global-mbox",
           campaignType: "ab",
           branchId: 1,
           offers: [635718],
@@ -362,7 +342,6 @@ describe("trace", () => {
         },
         {
           id: 337888,
-          campaignName: "target-global-mbox",
           campaignType: "ab",
           branchId: 1,
           offers: [635776],
@@ -389,21 +368,18 @@ describe("trace", () => {
       evaluatedCampaignTargets: [
         {
           campaignId: 337795,
-          campaignName: "target-global-mbox",
           campaignType: "xt",
           matchedSegmentIds: [2170460],
           unmatchedSegmentIds: []
         },
         {
           campaignId: 337797,
-          campaignName: "target-global-mbox",
           campaignType: "ab",
           matchedSegmentIds: [5272024],
           unmatchedSegmentIds: [5272024]
         },
         {
           campaignId: 337888,
-          campaignName: "target-global-mbox",
           campaignType: "ab",
           matchedSegmentIds: [],
           unmatchedSegmentIds: []

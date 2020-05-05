@@ -1,7 +1,6 @@
-import {MboxResponse} from "@adobe/target-tools/delivery-api-client";
+import { MboxResponse } from "@adobe/target-tools/delivery-api-client";
 
-export interface Consequence extends MboxResponse {
-}
+export interface Consequence extends MboxResponse {}
 
 export interface Rule {
   condition: Object;
@@ -12,24 +11,26 @@ export interface Rule {
     audienceIds: number[];
     experienceId: number;
     type: string;
-    mbox?: string;
-    view?: string;
-  }
+    locationName: string;
+    locationType: string;
+  };
 }
 
 export interface DecisioningArtifact {
   version: string;
   globalMbox: string;
   remoteMboxes: Array<string>;
+  remoteViews: Array<string>;
   responseTokens: Array<string>;
   meta: {
     generatedAt: string;
+    clientCode: string;
     organizationId: string;
     workspace: number;
     environment: string;
   };
   rules: {
-    mboxes: { [key: string]: Array<Rule>; }
-    views: { [key: string]: Array<Rule>; }
+    mboxes: { [key: string]: Array<Rule> };
+    views: { [key: string]: Array<Rule> };
   };
 }

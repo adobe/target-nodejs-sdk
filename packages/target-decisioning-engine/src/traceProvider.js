@@ -71,8 +71,6 @@ export function RequestTracer(artifact) {
       mbox: {
         ...mboxRequest,
         type: mode
-        // "version": 63,
-        // "count": 0,
       },
       pageURL: context.page.url,
       host: context.page.domain
@@ -93,12 +91,9 @@ export function RequestTracer(artifact) {
       campaigns[meta.activityId] = {
         id: meta.activityId,
         order: campaignOrder,
-        campaignName: meta.mbox,
         campaignType: meta.type,
         branchId: meta.experienceId,
-        // branchName: `Unknown branch name for branch id ${meta.experienceId}`,
         offers: meta.offerIds,
-        // displayResponseType: "???",
         environmentId: artifact.meta.environment
       };
     }
@@ -120,14 +115,11 @@ export function RequestTracer(artifact) {
         order: evaluatedCampaignTargetOrder,
         context: ruleContext,
         campaignId: meta.activityId,
-        campaignName: meta.mbox,
         campaignType: meta.type,
         matchedSegmentIds: new Set(),
         unmatchedSegmentIds: new Set(),
         matchedRuleConditions: [],
         unmatchedRuleConditions: []
-        // matchedTargetIds: new Set(),
-        // unmatchedTargetIds: new Set(),
       };
     }
 

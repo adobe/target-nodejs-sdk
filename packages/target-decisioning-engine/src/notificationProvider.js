@@ -1,4 +1,5 @@
 import { createUUID, noop } from "@adobe/target-tools";
+import { MetricType } from "@adobe/target-tools/delivery-api-client";
 
 /**
  * The get NotificationProvider initialize method
@@ -18,20 +19,22 @@ function NotificationProvider(request, visitor, sendNotificationFunc = noop) {
    * @param { Function } traceFn
    */
   function addNotification(mbox, traceFn = noop) {
+    const displayTokens = mbox.metrics
+      .filter(metric => metric.type === MetricType.Display)
+      .map(metric => metric.eventToken);
+
+    if (displayTokens.length === 0) return;
+
     const notification = {
       id: createUUID(),
       impressionId: createUUID(),
       timestamp,
-      type: "display",
+      type: MetricType.Display,
       mbox: {
         name: mbox.name
       },
-      tokens: []
+      tokens: displayTokens
     };
-
-    mbox.metrics.forEach(metric => {
-      notification.tokens.push(metric.eventToken);
-    });
 
     if (typeof traceFn === "function") {
       traceFn(notification);
