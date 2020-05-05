@@ -81,13 +81,7 @@ describe("contextProvider", () => {
   });
 
   it("can generate blank context", () => {
-    expect(
-      createDecisioningContext({
-        context: {
-          channel: "web"
-        }
-      })
-    ).toEqual({
+    expect(createDecisioningContext({})).toEqual({
       current_day: expect.any(Number),
       current_time: expect.any(String),
       current_timestamp: expect.any(Number),

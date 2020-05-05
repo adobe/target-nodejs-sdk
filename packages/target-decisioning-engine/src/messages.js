@@ -5,7 +5,6 @@ const Messages = {
   ARTIFACT_VERSION_UNSUPPORTED: (artifactVersion, supportedMajorVersion) =>
     `The decisioning artifact version (${artifactVersion}) is not supported. This library is compatible with this major version: ${supportedMajorVersion}`,
   ARTIFACT_FETCH_ERROR: reason => `Failed to retrieve artifact: ${reason}`,
-  CONTEXT_UNDEFINED: "Undefined context.",
   NOT_APPLICABLE: "Not Applicable",
   UNKNOWN: "unknown"
 };

@@ -10,7 +10,7 @@ export interface Rule {
     offerIds: number[];
     audienceIds: number[];
     experienceId: number;
-    type: string;
+    activityType: string;
     locationName: string;
     locationType: string;
   };

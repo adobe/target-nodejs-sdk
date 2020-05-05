@@ -41,8 +41,9 @@ const DECISIONING_PAYLOAD_FEATURE_FLAG = {
           meta: {
             activityId: 335113,
             experienceId: 0,
-            type: "ab",
-            mbox: "jason-flags",
+            activityType: "ab",
+            locationName: "jason-flags",
+            locationType: "mbox",
             offerIds: [632759],
             audienceIds: []
           }
@@ -73,8 +74,9 @@ const DECISIONING_PAYLOAD_FEATURE_FLAG = {
           meta: {
             activityId: 335113,
             experienceId: 1,
-            type: "ab",
-            mbox: "jason-flags",
+            activityType: "ab",
+            locationName: "jason-flags",
+            locationType: "mbox",
             offerIds: [632760],
             audienceIds: []
           }

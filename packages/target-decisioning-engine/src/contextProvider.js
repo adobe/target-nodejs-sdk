@@ -1,6 +1,14 @@
 import UAParser from "ua-parser-js";
 import { parseURL } from "./utils";
 import Messages from "./messages";
+import { ChannelType } from "@adobe/target-tools/delivery-api-client";
+
+/**
+ * @type { import("@adobe/target-tools/delivery-api-client/models/Context").Context }
+ */
+const EMPTY_CONTEXT = {
+  channel: ChannelType.Web
+};
 
 function getLowerCaseAttributes(obj) {
   const result = {};
@@ -103,13 +111,12 @@ function createTimingContext() {
  * @return { import("../types/DecisioningContext").DecisioningContext }
  */
 export function createDecisioningContext(deliveryRequest) {
-  if (typeof deliveryRequest.context === "undefined")
-    throw new Error(Messages.CONTEXT_UNDEFINED);
+  const { context = EMPTY_CONTEXT } = deliveryRequest;
 
   return {
     ...createTimingContext(),
-    user: createBrowserContext(deliveryRequest.context),
-    page: createPageContext(deliveryRequest.context.address),
-    referring: createReferringContext(deliveryRequest.context.address)
+    user: createBrowserContext(context),
+    page: createPageContext(context.address),
+    referring: createReferringContext(context.address)
   };
 }

@@ -1,4 +1,5 @@
 import Messages from "./messages";
+import { ChannelType } from "@adobe/target-tools/delivery-api-client";
 
 const byOrder = (a, b) => a.order - b.order;
 
@@ -10,6 +11,7 @@ const byOrder = (a, b) => a.order - b.order;
 export function TraceProvider(config, targetOptions, artifactTrace) {
   const clientCode = config.client;
   const { sessionId, request } = targetOptions;
+  const showTraces = typeof request.trace !== "undefined";
 
   const [tntId, profileLocation] =
     typeof request.id !== "undefined" && typeof request.id.tntId === "string"
@@ -24,10 +26,8 @@ export function TraceProvider(config, targetOptions, artifactTrace) {
     }
   };
 
-  function getTraceResult(requestTracer) {
-    if (typeof request.trace === "undefined") return undefined;
-
-    const traceResult = requestTracer.toJSON();
+  function wrap(traceResult) {
+    if (!showTraces) return undefined;
 
     return {
       clientCode,
@@ -43,14 +43,15 @@ export function TraceProvider(config, targetOptions, artifactTrace) {
   }
 
   return {
-    getTraceResult
+    wrap
   };
 }
 
 /**
+ * @param traceProvider
  * @param { import("../types/DecisioningArtifact").DecisioningArtifact } artifact
  */
-export function RequestTracer(artifact) {
+export function RequestTracer(traceProvider, artifact) {
   let request = {};
 
   // add to as rules are evaluated
@@ -63,14 +64,34 @@ export function RequestTracer(artifact) {
   /**
    *
    * @param { 'execute'|'prefetch' } mode
+   * @param { 'mbox'|'view'|'pageLoad' } requestType
    * @param mboxRequest
    * @param context
    */
-  function traceMboxRequest(mode, mboxRequest, context) {
+  function traceRequest(mode, requestType, mboxRequest, context) {
     request = {
-      mbox: {
+      pageURL: context.page.url,
+      host: context.page.domain
+    };
+
+    request[requestType] = {
+      ...mboxRequest,
+      type: mode
+    };
+  }
+
+  /**
+   *
+   * @param { 'execute'|'prefetch' } mode
+   * @param mboxRequest
+   * @param context
+   */
+  function traceViewRequest(mode, mboxRequest, context) {
+    request = {
+      view: {
         ...mboxRequest,
-        type: mode
+        type: mode,
+        channelType: ChannelType.Web
       },
       pageURL: context.page.url,
       host: context.page.domain
@@ -91,7 +112,7 @@ export function RequestTracer(artifact) {
       campaigns[meta.activityId] = {
         id: meta.activityId,
         order: campaignOrder,
-        campaignType: meta.type,
+        campaignType: meta.activityType,
         branchId: meta.experienceId,
         offers: meta.offerIds,
         environmentId: artifact.meta.environment
@@ -115,7 +136,7 @@ export function RequestTracer(artifact) {
         order: evaluatedCampaignTargetOrder,
         context: ruleContext,
         campaignId: meta.activityId,
-        campaignType: meta.type,
+        campaignType: meta.activityType,
         matchedSegmentIds: new Set(),
         unmatchedSegmentIds: new Set(),
         matchedRuleConditions: [],
@@ -195,11 +216,16 @@ export function RequestTracer(artifact) {
     };
   }
 
+  function getTraceResult() {
+    return traceProvider.wrap(toJSON());
+  }
+
   return {
     toJSON,
     traceRuleEvaluated,
-    traceMboxRequest,
-    traceNotification
+    traceRequest,
+    traceNotification,
+    getTraceResult
   };
 }
 

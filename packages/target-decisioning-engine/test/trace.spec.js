@@ -3,7 +3,8 @@ import TargetDecisioningEngine from "../src";
 import {
   DECISIONING_PAYLOAD_AB_SIMPLE,
   DECISIONING_PAYLOAD_BROWSER,
-  DECISIONING_PAYLOAD_GLOBAL_MBOX
+  DECISIONING_PAYLOAD_GLOBAL_MBOX,
+  DECISIONING_PAYLOAD_VIEWS
 } from "./decisioning-payloads";
 
 const TEST_CONF = {
@@ -386,5 +387,93 @@ describe("trace", () => {
         }
       ]
     });
+  });
+
+  it("does not have a trace object for prefetch views if not requested", async () => {
+    decisioning = await TargetDecisioningEngine({
+      ...TEST_CONF,
+      artifactPayload: DECISIONING_PAYLOAD_VIEWS
+    });
+
+    const result = await decisioning.getOffers({
+      request: {
+        ...targetRequest,
+        prefetch: {
+          views: [
+            {
+              name: "contact"
+            }
+          ]
+        }
+      }
+    });
+
+    expect(result.prefetch.views[0].trace).toBeUndefined();
+  });
+
+  it("has a trace object for prefetch views when requested", async () => {
+    decisioning = await TargetDecisioningEngine({
+      ...TEST_CONF,
+      artifactPayload: DECISIONING_PAYLOAD_VIEWS
+    });
+
+    const result = await decisioning.getOffers({
+      request: {
+        ...targetRequest,
+        prefetch: {
+          views: [
+            {
+              name: "contact",
+              parameters: {
+                browser: "chrome"
+              }
+            }
+          ]
+        },
+        trace: {}
+      }
+    });
+
+    expect(result.prefetch.views[0].trace).toEqual(
+      expect.objectContaining({
+        request: {
+          pageURL: "http://local-target-test/",
+          host: "local-target-test",
+          view: {
+            name: "contact",
+            parameters: {
+              browser: "chrome"
+            },
+            type: "prefetch"
+          }
+        },
+        campaigns: [
+          {
+            id: 344682,
+            campaignType: "ab",
+            branchId: 1,
+            offers: expect.any(Array),
+            environmentId: "production"
+          }
+        ],
+        evaluatedCampaignTargets: [
+          {
+            context: expect.objectContaining({
+              mbox: {
+                browser: "chrome",
+                browser_lc: "chrome"
+              },
+              allocation: expect.any(Number)
+            }),
+            campaignId: 344682,
+            campaignType: "ab",
+            matchedSegmentIds: [5621204],
+            unmatchedSegmentIds: [5621204],
+            matchedRuleConditions: expect.any(Array),
+            unmatchedRuleConditions: expect.any(Array)
+          }
+        ]
+      })
+    );
   });
 });

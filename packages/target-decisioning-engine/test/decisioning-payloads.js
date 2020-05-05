@@ -43,7 +43,7 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
           meta: {
             activityId: 333312,
             experienceId: 0,
-            type: "ab",
+            activityType: "ab",
             locationName: "offer2",
             locationType: "mbox",
             offerIds: [630815],
@@ -71,7 +71,7 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
           meta: {
             activityId: 333312,
             experienceId: 1,
-            type: "ab",
+            activityType: "ab",
             locationName: "offer2",
             locationType: "mbox",
             offerIds: [630814],
@@ -112,7 +112,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
           meta: {
             activityId: 334845,
             experienceId: 1,
-            type: "xt",
+            activityType: "xt",
             locationName: "browser-mbox",
             locationType: "mbox",
             offerIds: [632439],
@@ -137,7 +137,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
           meta: {
             activityId: 334845,
             experienceId: 2,
-            type: "xt",
+            activityType: "xt",
             locationName: "browser-mbox",
             locationType: "mbox",
             offerIds: [632440],
@@ -162,7 +162,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
           meta: {
             activityId: 334845,
             experienceId: 3,
-            type: "xt",
+            activityType: "xt",
             locationName: "browser-mbox",
             locationType: "mbox",
             offerIds: [632438],
@@ -187,7 +187,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
           meta: {
             activityId: 334845,
             experienceId: 4,
-            type: "xt",
+            activityType: "xt",
             locationName: "browser-mbox",
             locationType: "mbox",
             offerIds: [632446],
@@ -215,7 +215,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
           meta: {
             activityId: 334845,
             experienceId: 0,
-            type: "xt",
+            activityType: "xt",
             locationName: "browser-mbox",
             locationType: "mbox",
             offerIds: [632437],
@@ -257,7 +257,7 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
           meta: {
             activityId: 334411,
             experienceId: 0,
-            type: "ab",
+            activityType: "ab",
             locationName: "superfluous-mbox",
             locationType: "mbox",
             offerIds: [631992],
@@ -282,7 +282,7 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
           meta: {
             activityId: 334411,
             experienceId: 1,
-            type: "ab",
+            activityType: "ab",
             locationName: "superfluous-mbox",
             locationType: "mbox",
             offerIds: [631991],
@@ -307,7 +307,7 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
           meta: {
             activityId: 334640,
             experienceId: 0,
-            type: "ab",
+            activityType: "ab",
             locationName: "expendable-mbox",
             locationType: "mbox",
             offerIds: [632233],
@@ -330,7 +330,7 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
           meta: {
             activityId: 334640,
             experienceId: 1,
-            type: "ab",
+            activityType: "ab",
             locationName: "expendable-mbox",
             locationType: "mbox",
             offerIds: [632234],
@@ -379,7 +379,7 @@ export const DECISIONING_PAYLOAD_PARAMS = {
           meta: {
             activityId: 334717,
             experienceId: 0,
-            type: "ab",
+            activityType: "ab",
             locationName: "redundant-mbox",
             locationType: "mbox",
             offerIds: [632331],
@@ -412,7 +412,7 @@ export const DECISIONING_PAYLOAD_PARAMS = {
           meta: {
             activityId: 334717,
             experienceId: 1,
-            type: "ab",
+            activityType: "ab",
             locationName: "redundant-mbox",
             locationType: "mbox",
             offerIds: [632330],
@@ -460,7 +460,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
           meta: {
             activityId: 336973,
             experienceId: 0,
-            type: "xt",
+            activityType: "xt",
             locationName: "kitty",
             locationType: "mbox",
             offerIds: [634862],
@@ -490,7 +490,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
           meta: {
             activityId: 336973,
             experienceId: 1,
-            type: "xt",
+            activityType: "xt",
             locationName: "kitty",
             locationType: "mbox",
             offerIds: [634861],
@@ -513,7 +513,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
           meta: {
             activityId: 336951,
             experienceId: 0,
-            type: "ab",
+            activityType: "ab",
             locationName: "kitty",
             locationType: "mbox",
             offerIds: [634836],
@@ -536,7 +536,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
           meta: {
             activityId: 336951,
             experienceId: 1,
-            type: "ab",
+            activityType: "ab",
             locationName: "kitty",
             locationType: "mbox",
             offerIds: [634837],
@@ -559,7 +559,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
           meta: {
             activityId: 336950,
             experienceId: 0,
-            type: "ab",
+            activityType: "ab",
             locationName: "kitty",
             locationType: "mbox",
             offerIds: [634834],
@@ -582,7 +582,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
           meta: {
             activityId: 336950,
             experienceId: 1,
-            type: "ab",
+            activityType: "ab",
             locationName: "kitty",
             locationType: "mbox",
             offerIds: [634835],
@@ -623,7 +623,7 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
           meta: {
             activityId: 334411,
             experienceId: 0,
-            type: "ab",
+            activityType: "ab",
             locationName: "superfluous-mbox",
             locationType: "mbox",
             offerIds: [631992],
@@ -648,7 +648,7 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
           meta: {
             activityId: 334411,
             experienceId: 1,
-            type: "ab",
+            activityType: "ab",
             locationName: "superfluous-mbox",
             locationType: "mbox",
             offerIds: [631991],
@@ -702,7 +702,7 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
           meta: {
             activityId: 334853,
             experienceId: 4,
-            type: "xt",
+            activityType: "xt",
             locationName: "daterange-mbox",
             locationType: "mbox",
             offerIds: [632493],
@@ -744,7 +744,7 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
           meta: {
             activityId: 334853,
             experienceId: 5,
-            type: "xt",
+            activityType: "xt",
             locationName: "daterange-mbox",
             locationType: "mbox",
             offerIds: [632494],
@@ -786,7 +786,7 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
           meta: {
             activityId: 334853,
             experienceId: 1,
-            type: "xt",
+            activityType: "xt",
             locationName: "daterange-mbox",
             locationType: "mbox",
             offerIds: [632451],
@@ -811,7 +811,7 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
           meta: {
             activityId: 334853,
             experienceId: 0,
-            type: "xt",
+            activityType: "xt",
             locationName: "daterange-mbox",
             locationType: "mbox",
             offerIds: [632450],
@@ -854,7 +854,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           meta: {
             activityId: 337795,
             experienceId: 0,
-            type: "xt",
+            activityType: "xt",
             locationName: "target-global-mbox",
             locationType: "mbox",
             offerIds: [635716],
@@ -879,7 +879,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           meta: {
             activityId: 337795,
             experienceId: 1,
-            type: "xt",
+            activityType: "xt",
             locationName: "target-global-mbox",
             locationType: "mbox",
             offerIds: [635715],
@@ -904,7 +904,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           meta: {
             activityId: 337795,
             experienceId: 2,
-            type: "xt",
+            activityType: "xt",
             locationName: "target-global-mbox",
             locationType: "mbox",
             offerIds: [635713],
@@ -927,7 +927,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           meta: {
             activityId: 337795,
             experienceId: 3,
-            type: "xt",
+            activityType: "xt",
             locationName: "target-global-mbox",
             locationType: "mbox",
             offerIds: [635714],
@@ -957,7 +957,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           meta: {
             activityId: 337797,
             experienceId: 0,
-            type: "ab",
+            activityType: "ab",
             locationName: "target-global-mbox",
             locationType: "mbox",
             offerIds: [635719],
@@ -987,7 +987,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           meta: {
             activityId: 337797,
             experienceId: 1,
-            type: "ab",
+            activityType: "ab",
             locationName: "target-global-mbox",
             locationType: "mbox",
             offerIds: [635718],
@@ -1017,7 +1017,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           meta: {
             activityId: 337797,
             experienceId: 2,
-            type: "ab",
+            activityType: "ab",
             locationName: "target-global-mbox",
             locationType: "mbox",
             offerIds: [635717],
@@ -1040,7 +1040,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           meta: {
             activityId: 337888,
             experienceId: 0,
-            type: "ab",
+            activityType: "ab",
             locationName: "target-global-mbox",
             locationType: "mbox",
             offerIds: [635778],
@@ -1063,7 +1063,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           meta: {
             activityId: 337888,
             experienceId: 1,
-            type: "ab",
+            activityType: "ab",
             locationName: "target-global-mbox",
             locationType: "mbox",
             offerIds: [635776],
@@ -1086,7 +1086,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           meta: {
             activityId: 337888,
             experienceId: 2,
-            type: "ab",
+            activityType: "ab",
             locationName: "target-global-mbox",
             locationType: "mbox",
             offerIds: [635779],
@@ -1109,7 +1109,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           meta: {
             activityId: 337888,
             experienceId: 3,
-            type: "ab",
+            activityType: "ab",
             locationName: "target-global-mbox",
             locationType: "mbox",
             offerIds: [635777],
@@ -2361,7 +2361,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 336973,
             experienceId: 0,
-            type: "xt",
+            activityType: "xt",
             locationName: "kitty",
             locationType: "mbox",
             offerIds: [634862],
@@ -2391,7 +2391,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 336973,
             experienceId: 1,
-            type: "xt",
+            activityType: "xt",
             locationName: "kitty",
             locationType: "mbox",
             offerIds: [634861],
@@ -2414,7 +2414,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 336951,
             experienceId: 0,
-            type: "ab",
+            activityType: "ab",
             locationName: "kitty",
             locationType: "mbox",
             offerIds: [634836],
@@ -2437,7 +2437,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 336951,
             experienceId: 1,
-            type: "ab",
+            activityType: "ab",
             locationName: "kitty",
             locationType: "mbox",
             offerIds: [634837],
@@ -2460,7 +2460,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 336950,
             experienceId: 0,
-            type: "ab",
+            activityType: "ab",
             locationName: "kitty",
             locationType: "mbox",
             offerIds: [634834],
@@ -2483,7 +2483,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 336950,
             experienceId: 1,
-            type: "ab",
+            activityType: "ab",
             locationName: "kitty",
             locationType: "mbox",
             offerIds: [634835],
@@ -2510,7 +2510,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 337795,
             experienceId: 0,
-            type: "xt",
+            activityType: "xt",
             locationName: "target-global-mbox",
             locationType: "mbox",
             offerIds: [635716],
@@ -2535,7 +2535,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 337795,
             experienceId: 1,
-            type: "xt",
+            activityType: "xt",
             locationName: "target-global-mbox",
             locationType: "mbox",
             offerIds: [635715],
@@ -2560,7 +2560,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 337795,
             experienceId: 2,
-            type: "xt",
+            activityType: "xt",
             locationName: "target-global-mbox",
             locationType: "mbox",
             offerIds: [635713],
@@ -2583,7 +2583,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 337795,
             experienceId: 3,
-            type: "xt",
+            activityType: "xt",
             locationName: "target-global-mbox",
             locationType: "mbox",
             offerIds: [635714],
@@ -2613,7 +2613,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 337797,
             experienceId: 0,
-            type: "ab",
+            activityType: "ab",
             locationName: "target-global-mbox",
             locationType: "mbox",
             offerIds: [635719],
@@ -2643,7 +2643,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 337797,
             experienceId: 1,
-            type: "ab",
+            activityType: "ab",
             locationName: "target-global-mbox",
             locationType: "mbox",
             offerIds: [635718],
@@ -2673,7 +2673,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 337797,
             experienceId: 2,
-            type: "ab",
+            activityType: "ab",
             locationName: "target-global-mbox",
             locationType: "mbox",
             offerIds: [635717],
@@ -2696,7 +2696,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 337888,
             experienceId: 0,
-            type: "ab",
+            activityType: "ab",
             locationName: "target-global-mbox",
             locationType: "mbox",
             offerIds: [635778],
@@ -2719,7 +2719,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 337888,
             experienceId: 1,
-            type: "ab",
+            activityType: "ab",
             locationName: "target-global-mbox",
             locationType: "mbox",
             offerIds: [635776],
@@ -2742,7 +2742,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 337888,
             experienceId: 2,
-            type: "ab",
+            activityType: "ab",
             locationName: "target-global-mbox",
             locationType: "mbox",
             offerIds: [635779],
@@ -2765,7 +2765,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 337888,
             experienceId: 3,
-            type: "ab",
+            activityType: "ab",
             locationName: "target-global-mbox",
             locationType: "mbox",
             offerIds: [635777],
@@ -2795,7 +2795,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 333312,
             experienceId: 0,
-            type: "ab",
+            activityType: "ab",
             locationName: "offer2",
             locationType: "mbox",
             offerIds: [630815],
@@ -2823,7 +2823,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 333312,
             experienceId: 1,
-            type: "ab",
+            activityType: "ab",
             locationName: "offer2",
             locationType: "mbox",
             offerIds: [630814],
@@ -2863,7 +2863,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 334853,
             experienceId: 4,
-            type: "xt",
+            activityType: "xt",
             locationName: "daterange-mbox",
             locationType: "mbox",
             offerIds: [632493],
@@ -2905,7 +2905,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 334853,
             experienceId: 5,
-            type: "xt",
+            activityType: "xt",
             locationName: "daterange-mbox",
             locationType: "mbox",
             offerIds: [632494],
@@ -2947,7 +2947,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 334853,
             experienceId: 1,
-            type: "xt",
+            activityType: "xt",
             locationName: "daterange-mbox",
             locationType: "mbox",
             offerIds: [632451],
@@ -2972,7 +2972,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 334853,
             experienceId: 0,
-            type: "xt",
+            activityType: "xt",
             locationName: "daterange-mbox",
             locationType: "mbox",
             offerIds: [632450],
@@ -2999,7 +2999,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 334845,
             experienceId: 1,
-            type: "xt",
+            activityType: "xt",
             locationName: "browser-mbox",
             locationType: "mbox",
             offerIds: [632439],
@@ -3024,7 +3024,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 334845,
             experienceId: 2,
-            type: "xt",
+            activityType: "xt",
             locationName: "browser-mbox",
             locationType: "mbox",
             offerIds: [632440],
@@ -3049,7 +3049,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 334845,
             experienceId: 3,
-            type: "xt",
+            activityType: "xt",
             locationName: "browser-mbox",
             locationType: "mbox",
             offerIds: [632438],
@@ -3074,7 +3074,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 334845,
             experienceId: 4,
-            type: "xt",
+            activityType: "xt",
             locationName: "browser-mbox",
             locationType: "mbox",
             offerIds: [632446],
@@ -3102,7 +3102,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 334845,
             experienceId: 0,
-            type: "xt",
+            activityType: "xt",
             locationName: "browser-mbox",
             locationType: "mbox",
             offerIds: [632437],
@@ -3137,7 +3137,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 334717,
             experienceId: 0,
-            type: "ab",
+            activityType: "ab",
             locationName: "redundant-mbox",
             locationType: "mbox",
             offerIds: [632331],
@@ -3170,7 +3170,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 334717,
             experienceId: 1,
-            type: "ab",
+            activityType: "ab",
             locationName: "redundant-mbox",
             locationType: "mbox",
             offerIds: [632330],
@@ -3197,7 +3197,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 334411,
             experienceId: 0,
-            type: "ab",
+            activityType: "ab",
             locationName: "superfluous-mbox",
             locationType: "mbox",
             offerIds: [631992],
@@ -3222,7 +3222,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 334411,
             experienceId: 1,
-            type: "ab",
+            activityType: "ab",
             locationName: "superfluous-mbox",
             locationType: "mbox",
             offerIds: [631991],
@@ -3257,7 +3257,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 335113,
             experienceId: 0,
-            type: "ab",
+            activityType: "ab",
             locationName: "jason-flags",
             locationType: "mbox",
             offerIds: [632759],
@@ -3290,7 +3290,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 335113,
             experienceId: 1,
-            type: "ab",
+            activityType: "ab",
             locationName: "jason-flags",
             locationType: "mbox",
             offerIds: [632760],
@@ -3315,7 +3315,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 334640,
             experienceId: 0,
-            type: "ab",
+            activityType: "ab",
             locationName: "expendable-mbox",
             locationType: "mbox",
             offerIds: [632233],
@@ -3338,7 +3338,7 @@ export const DECISIONING_PAYLOAD_ALL = {
           meta: {
             activityId: 334640,
             experienceId: 1,
-            type: "ab",
+            activityType: "ab",
             locationName: "expendable-mbox",
             locationType: "mbox",
             offerIds: [632234],

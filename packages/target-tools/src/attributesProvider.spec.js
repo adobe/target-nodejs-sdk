@@ -112,6 +112,7 @@ describe("attributesProvider", () => {
 
     expect(typeof feature.getValue).toEqual("function");
     expect(typeof feature.asObject).toEqual("function");
+    expect(typeof feature.toJSON).toEqual("function");
     expect(typeof feature.getResponse).toEqual("function");
 
     expect(feature.getResponse()).toEqual(targetResponse);
@@ -191,6 +192,21 @@ describe("attributesProvider", () => {
     });
 
     expect(features.asObject()).toMatchObject({
+      "feature-flag-a": {
+        paymentExperience: "legacy",
+        showFeatureX: false,
+        paymentGatewayVersion: 2.3,
+        customerFeedbackValue: 10
+      },
+      "feature-flag-b": {
+        purchaseExperience: "beta2",
+        showFeatureY: true,
+        cartVersion: 1.3,
+        customerSurveyValue: 102
+      }
+    });
+
+    expect(features.toJSON()).toMatchObject({
       "feature-flag-a": {
         paymentExperience: "legacy",
         showFeatureX: false,

@@ -32,8 +32,9 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
           meta: {
             activityId: 334411,
             experienceId: 0,
-            type: "ab",
-            mbox: "superfluous-mbox",
+            activityType: "ab",
+            locationName: "superfluous-mbox",
+            locationType: "mbox",
             offerIds: [631992],
             audienceIds: []
           }
@@ -56,8 +57,9 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
           meta: {
             activityId: 334411,
             experienceId: 1,
-            type: "ab",
-            mbox: "superfluous-mbox",
+            activityType: "ab",
+            locationName: "superfluous-mbox",
+            locationType: "mbox",
             offerIds: [631991],
             audienceIds: []
           }

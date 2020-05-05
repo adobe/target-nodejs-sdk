@@ -25,4 +25,12 @@ describe("logging", () => {
     logger.debug("hello debug");
     logger.error("hello error");
   });
+
+  it("returns existing logger if the one passed in is valid", () => {
+    const logger = getLogger();
+    const logger2 = getLogger(logger);
+
+    expect(logger2).toEqual(logger);
+    expect(logger.built).toEqual(true);
+  });
 });
