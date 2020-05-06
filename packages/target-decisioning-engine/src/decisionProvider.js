@@ -147,7 +147,9 @@ function DecisionProvider(
 
         if (
           !isGlobalMbox ||
-          (isGlobalMbox && rule.meta.activityId !== prevActivityId)
+          (isGlobalMbox &&
+            (rule.meta.activityId !== prevActivityId ||
+              rule.meta.locationType === RequestType.VIEW))
         ) {
           consequence = processRule(
             rule,
@@ -199,21 +201,31 @@ function DecisionProvider(
         ]
       );
 
-      return consequences.reduce(
-        (pageLoadResponse, consequence) => {
-          Object.keys(consequence)
-            .filter(key => consequence[key] instanceof Array)
-            .forEach(key => {
-              if (typeof pageLoadResponse[key] === "undefined") {
-                // eslint-disable-next-line no-param-reassign
-                pageLoadResponse[key] = [];
-              }
-              pageLoadResponse[key].push(...consequence[key]);
-            });
-          return pageLoadResponse;
-        },
-        { trace }
-      );
+      const options = consequences
+        .map(consequence => consequence.options)
+        .flat();
+
+      const result = {
+        options,
+        trace
+      };
+
+      const indexedMetrics = consequences.reduce((indexed, consequence) => {
+        if (consequence.metrics instanceof Array) {
+          consequence.metrics.forEach(metric => {
+            // eslint-disable-next-line no-param-reassign
+            indexed[metric.eventToken] = metric;
+          });
+        }
+        return indexed;
+      }, {});
+
+      const metrics = Object.values(indexedMetrics);
+      if (metrics.length > 0) {
+        result.metrics = metrics;
+      }
+
+      return result;
     }
 
     const response = {};

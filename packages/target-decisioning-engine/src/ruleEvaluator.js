@@ -29,10 +29,7 @@ export function ruleEvaluator(clientId, visitorId) {
     let consequence;
     let { page, referring } = context;
 
-    if (
-      rule.meta.locationName === requestDetail.name &&
-      typeof requestDetail.address !== "undefined"
-    ) {
+    if (typeof requestDetail.address !== "undefined") {
       page = createPageContext(requestDetail.address) || page;
       referring = createPageContext(requestDetail.address) || referring;
     }

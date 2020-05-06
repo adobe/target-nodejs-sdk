@@ -115,7 +115,7 @@ export function RequestTracer(traceProvider, artifact) {
         campaignType: meta.activityType,
         branchId: meta.experienceId,
         offers: meta.offerIds,
-        environmentId: artifact.meta.environment
+        environment: artifact.meta.environment
       };
     }
   }

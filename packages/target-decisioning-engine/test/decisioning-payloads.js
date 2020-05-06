@@ -1219,7 +1219,75 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                 ],
                 eventToken:
                   "yYWdmhDasVXGPWlpX1TRZDSAQdPpz2XBromX4n+pX9jf5r+rP39VCIaiiZlXOAYq"
+              }
+            ],
+            metrics: [
+              {
+                type: "click",
+                eventToken: "/GMYvcjhUsR6WVqQElppUw==",
+                selector: "#action_insert_15882853393943012"
+              }
+            ]
+          }
+        },
+        {
+          meta: {
+            activityId: 344512,
+            activityType: "ab",
+            experienceId: 0,
+            locationName: "target-global-mbox",
+            locationType: "view",
+            audienceIds: [5614593],
+            offerIds: []
+          },
+          condition: {
+            and: [
+              {
+                "<": [
+                  0.0,
+                  {
+                    var: "allocation"
+                  },
+                  50.0
+                ]
               },
+              {
+                or: [
+                  {
+                    and: [
+                      {
+                        "==": [
+                          "local-target-test",
+                          {
+                            var: "page.domain"
+                          }
+                        ]
+                      },
+                      {
+                        "==": [
+                          "/",
+                          {
+                            var: "page.path"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    in: [
+                      "adbeld.surge.sh",
+                      {
+                        var: "page.url_lc"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          consequence: {
+            name: "target-global-mbox",
+            options: [
               {
                 type: "actions",
                 content: [
@@ -1319,7 +1387,75 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                 ],
                 eventToken:
                   "yYWdmhDasVXGPWlpX1TRZAincmumygxIUftu5lUZGQnf5r+rP39VCIaiiZlXOAYq"
+              }
+            ],
+            metrics: [
+              {
+                type: "click",
+                eventToken: "/GMYvcjhUsR6WVqQElppUw==",
+                selector: "#action_insert_15882853393943012"
+              }
+            ]
+          }
+        },
+        {
+          meta: {
+            activityId: 344512,
+            activityType: "ab",
+            experienceId: 1,
+            locationName: "target-global-mbox",
+            locationType: "view",
+            audienceIds: [5614593],
+            offerIds: []
+          },
+          condition: {
+            and: [
+              {
+                "<": [
+                  50.0,
+                  {
+                    var: "allocation"
+                  },
+                  100.0
+                ]
               },
+              {
+                or: [
+                  {
+                    and: [
+                      {
+                        "==": [
+                          "local-target-test",
+                          {
+                            var: "page.domain"
+                          }
+                        ]
+                      },
+                      {
+                        "==": [
+                          "/",
+                          {
+                            var: "page.path"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    in: [
+                      "adbeld.surge.sh",
+                      {
+                        var: "page.url_lc"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          consequence: {
+            name: "target-global-mbox",
+            options: [
               {
                 type: "actions",
                 content: [

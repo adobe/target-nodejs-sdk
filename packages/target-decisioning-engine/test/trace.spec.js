@@ -111,7 +111,7 @@ describe("trace", () => {
           campaignType: "ab",
           branchId: 1,
           offers: [631991],
-          environmentId: 11507
+          environment: 11507
         }
       ],
       profile: {
@@ -174,7 +174,7 @@ describe("trace", () => {
           campaignType: "xt",
           branchId: 3,
           offers: [632438],
-          environmentId: 11507
+          environment: 11507
         }
       ],
       profile: {
@@ -251,7 +251,7 @@ describe("trace", () => {
               ]
             }
           ],
-          environmentId: 11507
+          environment: 11507
         }
       ],
       profile: {
@@ -310,7 +310,7 @@ describe("trace", () => {
           campaignType: "xt",
           branchId: 0,
           offers: [635716],
-          environmentId: 11507,
+          environment: 11507,
           notifications: [
             {
               type: "display",
@@ -328,7 +328,7 @@ describe("trace", () => {
           campaignType: "ab",
           branchId: 1,
           offers: [635718],
-          environmentId: 11507,
+          environment: 11507,
           notifications: [
             {
               type: "display",
@@ -346,7 +346,7 @@ describe("trace", () => {
           campaignType: "ab",
           branchId: 1,
           offers: [635776],
-          environmentId: 11507,
+          environment: 11507,
           notifications: [
             {
               type: "display",
@@ -453,7 +453,7 @@ describe("trace", () => {
             campaignType: "ab",
             branchId: 1,
             offers: expect.any(Array),
-            environmentId: "production"
+            environment: "production"
           }
         ],
         evaluatedCampaignTargets: [
