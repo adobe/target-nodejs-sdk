@@ -1,14 +1,23 @@
 import { createUUID, noop } from "@adobe/target-tools";
 import { MetricType } from "@adobe/target-tools/delivery-api-client";
+import { LOG_PREFIX } from "./constants";
+
+const LOG_PREAMBLE = `${LOG_PREFIX}.NotificationProvider`;
 
 /**
  * The get NotificationProvider initialize method
  * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} request Target View Delivery API request, required
  * @param visitor VisitorId instance, required
+ * @param { Object } logger
  * @param {function} sendNotificationFunc function used to send the notification, required
  */
 
-function NotificationProvider(request, visitor, sendNotificationFunc = noop) {
+function NotificationProvider(
+  request,
+  visitor,
+  logger,
+  sendNotificationFunc = noop
+) {
   const now = new Date();
   const timestamp = now.getTime();
   let notifications = [];
@@ -44,6 +53,8 @@ function NotificationProvider(request, visitor, sendNotificationFunc = noop) {
   }
 
   function sendNotifications() {
+    logger.debug(`${LOG_PREAMBLE}.sendNotifications`, notifications);
+
     if (notifications.length > 0) {
       const { id, context, experienceCloud } = request;
 

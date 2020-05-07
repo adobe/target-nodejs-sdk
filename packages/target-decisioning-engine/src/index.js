@@ -32,7 +32,6 @@ export default async function TargetDecisioningEngine(config) {
    * @param {import("../types/TargetOptions").TargetOptions} targetOptions
    */
   function getOffers(targetOptions) {
-    logger.debug("LD:getOffers", targetOptions);
     const { request } = targetOptions;
 
     if (isUndefined(artifact)) {
@@ -68,6 +67,7 @@ export default async function TargetDecisioningEngine(config) {
       options,
       createDecisioningContext(request),
       artifact,
+      logger,
       traceProvider
     );
   }

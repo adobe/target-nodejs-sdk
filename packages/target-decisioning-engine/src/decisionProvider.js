@@ -8,14 +8,16 @@ import NotificationProvider from "./notificationProvider";
 import { RequestTracer } from "./traceProvider";
 import { RequestType } from "./enums";
 import {
+  addTrace,
+  cleanUp,
   prepareExecuteResponse,
   preparePrefetchResponse,
-  addTrace,
-  removePageLoadAttributes,
-  cleanUp
+  removePageLoadAttributes
 } from "./postProcessors";
 import { ruleEvaluator } from "./ruleEvaluator";
+import { LOG_PREFIX } from "./constants";
 
+const LOG_PREAMBLE = `${LOG_PREFIX}.DecisionProvider`;
 const PARTIAL_CONTENT = 206;
 const OK = 200;
 
@@ -25,6 +27,7 @@ const OK = 200;
  * @param {import("../types/TargetOptions").TargetOptions} targetOptions
  * @param { Object } context
  * @param { import("../types/DecisioningArtifact").DecisioningArtifact } artifact
+ * @param { Object } logger
  * @param traceProvider
  */
 function DecisionProvider(
@@ -32,6 +35,7 @@ function DecisionProvider(
   targetOptions,
   context,
   artifact,
+  logger,
   traceProvider
 ) {
   const { rules } = artifact;
@@ -48,6 +52,7 @@ function DecisionProvider(
   const notificationProvider = NotificationProvider(
     request,
     visitor,
+    logger,
     sendNotificationFunc
   );
 
@@ -268,24 +273,22 @@ function DecisionProvider(
     ]);
   }
 
-  const response = {
+  const response = objectWithoutUndefinedValues({
+    status: dependency.remoteNeeded ? PARTIAL_CONTENT : OK,
+    remoteMboxes: dependency.remoteMboxes,
+    requestId: request.requestId,
+    id: {
+      ...request.id
+    },
+    client: clientId,
+    edgeHost: undefined,
     execute: getExecuteDecisions(),
     prefetch: getPrefetchDecisions()
-  };
+  });
 
-  return Promise.resolve(
-    objectWithoutUndefinedValues({
-      status: dependency.remoteNeeded ? PARTIAL_CONTENT : OK,
-      remoteMboxes: dependency.remoteMboxes,
-      requestId: request.requestId,
-      id: {
-        ...request.id
-      },
-      client: clientId,
-      edgeHost: undefined,
-      ...response
-    })
-  );
+  logger.debug(`${LOG_PREAMBLE}`, request, response);
+
+  return Promise.resolve(response);
 }
 
 export default DecisionProvider;

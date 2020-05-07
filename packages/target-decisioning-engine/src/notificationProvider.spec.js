@@ -2,10 +2,13 @@ import {
   ChannelType,
   MetricType
 } from "@adobe/target-tools/delivery-api-client";
+import { getLogger } from "@adobe/target-tools";
 import NotificationProvider from "./notificationProvider";
 import { validVisitorId } from "./requestProvider";
 
 describe("notificationProvider", () => {
+  const logger = getLogger();
+
   const TARGET_REQUEST = {
     id: validVisitorId(undefined, undefined),
     context: {
@@ -32,6 +35,7 @@ describe("notificationProvider", () => {
     const provider = NotificationProvider(
       TARGET_REQUEST,
       undefined,
+      logger,
       mockNotify
     );
 
@@ -72,6 +76,7 @@ describe("notificationProvider", () => {
     const provider = NotificationProvider(
       TARGET_REQUEST,
       undefined,
+      logger,
       mockNotify
     );
     provider.addNotification({
