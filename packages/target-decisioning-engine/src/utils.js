@@ -32,22 +32,22 @@ export function parseURL(url) {
   switch (domainParts.length) {
     case 1:
       result.subdomain = "";
-      result.domain = domainParts[0];
+      result.domain = hostnameCaseSensitive;
       result.topLevelDomain = "";
       break;
     case 2:
       result.subdomain = "";
-      result.domain = domainParts[0];
+      result.domain = hostnameCaseSensitive;
       result.topLevelDomain = domainParts[1];
       break;
     case 3:
       result.subdomain = domainParts[0] === "www" ? "" : domainParts[0];
-      result.domain = domainParts[1];
+      result.domain = hostnameCaseSensitive;
       result.topLevelDomain = domainParts[2];
       break;
     case 4:
       result.subdomain = domainParts[0] === "www" ? "" : domainParts[0];
-      result.domain = domainParts[1];
+      result.domain = hostnameCaseSensitive;
       result.topLevelDomain = `${domainParts[2]}.${domainParts[3]}`;
       break;
     default:

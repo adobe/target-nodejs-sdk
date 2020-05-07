@@ -1,5 +1,9 @@
 import * as MockDate from "mockdate";
-import { createDecisioningContext, createMboxContext } from "./contextProvider";
+import {
+  createDecisioningContext,
+  createMboxContext,
+  createPageContext
+} from "./contextProvider";
 
 const DELIVERY_REQUEST = {
   context: {
@@ -162,8 +166,8 @@ describe("contextProvider", () => {
         url_lc: "http://my.web-site.net:8080/about?m=1&t=5&name=jimmy#home",
         path: "/About",
         path_lc: "/about",
-        domain: "Web-Site",
-        domain_lc: "web-site",
+        domain: "My.Web-Site.net",
+        domain_lc: "my.web-site.net",
         subdomain: "My",
         subdomain_lc: "my",
         topLevelDomain: "net",
@@ -172,6 +176,30 @@ describe("contextProvider", () => {
         query_lc: "m=1&t=5&name=jimmy",
         fragment: "home",
         fragment_lc: "home"
+      })
+    );
+  });
+  it("has greg page context", () => {
+    expect(
+      createPageContext({
+        url: "https://stage.applookout.net/"
+      })
+    ).toEqual(
+      expect.objectContaining({
+        url: "https://stage.applookout.net/",
+        url_lc: "https://stage.applookout.net/",
+        path: "/",
+        path_lc: "/",
+        domain: "stage.applookout.net",
+        domain_lc: "stage.applookout.net",
+        subdomain: "stage",
+        subdomain_lc: "stage",
+        topLevelDomain: "net",
+        topLevelDomain_lc: "net",
+        query: "",
+        query_lc: "",
+        fragment: "",
+        fragment_lc: ""
       })
     );
   });
