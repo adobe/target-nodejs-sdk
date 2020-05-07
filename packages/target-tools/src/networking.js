@@ -4,7 +4,7 @@ import { isBrowser, isNodeJS } from "./utils";
 const NOT_MODIFIED = 304;
 
 export function getFetchApi(fetchApi) {
-  if (fetchApi && typeof fetchApi === "function") return fetchApi;
+  if (typeof fetchApi === "function") return fetchApi;
 
   let api;
 

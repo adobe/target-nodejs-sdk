@@ -467,8 +467,8 @@ describe("trace", () => {
             }),
             campaignId: 344682,
             campaignType: "ab",
-            matchedSegmentIds: [5621204],
-            unmatchedSegmentIds: [5621204],
+            matchedSegmentIds: [5634157, 5642375, 5634562],
+            unmatchedSegmentIds: [5634157, 5642375, 5634562],
             matchedRuleConditions: expect.any(Array),
             unmatchedRuleConditions: expect.any(Array)
           }

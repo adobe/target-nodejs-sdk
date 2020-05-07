@@ -1,4 +1,8 @@
-import { DEFAULT_GLOBAL_MBOX } from "@adobe/target-tools";
+import {
+  DEFAULT_GLOBAL_MBOX,
+  isUndefined,
+  objectWithoutUndefinedValues
+} from "@adobe/target-tools";
 import { hasRemoteDependency } from "./utils";
 import NotificationProvider from "./notificationProvider";
 import { RequestTracer } from "./traceProvider";
@@ -7,7 +11,8 @@ import {
   prepareExecuteResponse,
   preparePrefetchResponse,
   addTrace,
-  removePageLoadAttributes
+  removePageLoadAttributes,
+  cleanUp
 } from "./postProcessors";
 import { ruleEvaluator } from "./ruleEvaluator";
 
@@ -52,7 +57,7 @@ function DecisionProvider(
    * @param { Function[] } postProcessors Used to process an mbox if needed, optional
    */
   function getDecisions(mode, postProcessors) {
-    if (typeof request[mode] === "undefined") return undefined;
+    if (isUndefined(request[mode])) return undefined;
 
     const requestTracer = RequestTracer(traceProvider, artifact);
 
@@ -72,10 +77,8 @@ function DecisionProvider(
       const consequences = {};
 
       let viewRules = [];
-      let isGlobal = true;
       if (requestDetails.hasOwnProperty("name")) {
         viewRules = rules.views[requestDetails.name];
-        isGlobal = false;
       } else {
         viewRules = Object.keys(rules.views).reduce(
           (result, key) => [...result, ...rules.views[key]],
@@ -83,24 +86,16 @@ function DecisionProvider(
         );
       }
 
-      let prevActivityId;
       // eslint-disable-next-line no-restricted-syntax
       for (const rule of viewRules) {
-        let consequence;
-
-        if (
-          !isGlobal ||
-          (isGlobal && rule.meta.activityId !== prevActivityId)
-        ) {
-          consequence = processRule(
-            rule,
-            context,
-            RequestType.VIEW,
-            requestDetails,
-            [...postProcessors, ...additionalPostProcessors],
-            requestTracer
-          );
-        }
+        const consequence = processRule(
+          rule,
+          context,
+          RequestType.VIEW,
+          requestDetails,
+          [...postProcessors, ...additionalPostProcessors],
+          requestTracer
+        );
 
         if (consequence) {
           if (!consequences[consequence.name]) {
@@ -118,9 +113,6 @@ function DecisionProvider(
               ]
             };
           }
-
-          prevActivityId = rule.meta.activityId;
-          if (!isGlobal) break;
         }
       }
 
@@ -259,7 +251,8 @@ function DecisionProvider(
         return mboxResponse;
       },
       prepareExecuteResponse,
-      addTrace
+      addTrace,
+      cleanUp
     ]);
 
     notificationProvider.sendNotifications();
@@ -268,7 +261,11 @@ function DecisionProvider(
   }
 
   function getPrefetchDecisions() {
-    return getDecisions("prefetch", [preparePrefetchResponse, addTrace]);
+    return getDecisions("prefetch", [
+      preparePrefetchResponse,
+      addTrace,
+      cleanUp
+    ]);
   }
 
   const response = {
@@ -276,17 +273,19 @@ function DecisionProvider(
     prefetch: getPrefetchDecisions()
   };
 
-  return Promise.resolve({
-    status: dependency.remoteNeeded ? PARTIAL_CONTENT : OK,
-    remoteMboxes: dependency.remoteMboxes,
-    requestId: request.requestId,
-    id: {
-      ...request.id
-    },
-    client: clientId,
-    edgeHost: undefined,
-    ...response
-  });
+  return Promise.resolve(
+    objectWithoutUndefinedValues({
+      status: dependency.remoteNeeded ? PARTIAL_CONTENT : OK,
+      remoteMboxes: dependency.remoteMboxes,
+      requestId: request.requestId,
+      id: {
+        ...request.id
+      },
+      client: clientId,
+      edgeHost: undefined,
+      ...response
+    })
+  );
 }
 
 export default DecisionProvider;

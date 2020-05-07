@@ -1,7 +1,8 @@
 import UAParser from "ua-parser-js";
+import { ChannelType } from "@adobe/target-tools/delivery-api-client";
+import { isUndefined } from "@adobe/target-tools";
 import { parseURL } from "./utils";
 import Messages from "./messages";
-import { ChannelType } from "@adobe/target-tools/delivery-api-client";
 
 /**
  * @type { import("@adobe/target-tools/delivery-api-client/models/Context").Context }
@@ -32,10 +33,9 @@ function createBrowserContext(context) {
     browserType: (userAgent.browser.name || Messages.UNKNOWN).toLowerCase(),
     platform: userAgent.os.name || Messages.UNKNOWN,
     locale: "en", // TODO: determine where this comes from
-    browserVersion:
-      typeof userAgent.browser.major !== "undefined"
-        ? parseInt(userAgent.browser.major, 10)
-        : -1
+    browserVersion: !isUndefined(userAgent.browser.major)
+      ? parseInt(userAgent.browser.major, 10)
+      : -1
   };
 }
 

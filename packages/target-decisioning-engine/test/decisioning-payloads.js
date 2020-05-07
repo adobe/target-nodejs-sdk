@@ -1203,6 +1203,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           },
           consequence: {
             name: "target-global-mbox",
+            skipKey: "344512-0",
             options: [
               {
                 type: "actions",
@@ -1218,7 +1219,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                   }
                 ],
                 eventToken:
-                  "yYWdmhDasVXGPWlpX1TRZDSAQdPpz2XBromX4n+pX9jf5r+rP39VCIaiiZlXOAYq"
+                  "6Na6eWan1u0HrN32JDT54GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
               }
             ],
             metrics: [
@@ -1287,6 +1288,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           },
           consequence: {
             name: "target-global-mbox",
+            skipKey: "344512-1",
             options: [
               {
                 type: "actions",
@@ -1302,7 +1304,81 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                   }
                 ],
                 eventToken:
-                  "yYWdmhDasVXGPWlpX1TRZDSAQdPpz2XBromX4n+pX9jf5r+rP39VCIaiiZlXOAYq"
+                  "6Na6eWan1u0HrN32JDT54GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+              }
+            ],
+            metrics: [
+              {
+                type: "click",
+                eventToken: "/GMYvcjhUsR6WVqQElppUw==",
+                selector: "#action_insert_15882853393943012"
+              }
+            ]
+          }
+        },
+        {
+          meta: {
+            activityId: 344512,
+            activityType: "ab",
+            experienceId: 0,
+            locationName: "target-global-mbox",
+            locationType: "view",
+            audienceIds: [5614593],
+            offerIds: []
+          },
+          condition: {
+            and: [
+              {
+                "<": [
+                  0.0,
+                  {
+                    var: "allocation"
+                  },
+                  50.0
+                ]
+              },
+              {
+                or: [
+                  {
+                    and: [
+                      {
+                        "==": [
+                          "local-target-test",
+                          {
+                            var: "page.domain"
+                          }
+                        ]
+                      },
+                      {
+                        "==": [
+                          "/",
+                          {
+                            var: "page.path"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    in: [
+                      "adbeld.surge.sh",
+                      {
+                        var: "page.url_lc"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          consequence: {
+            name: "target-global-mbox",
+            skipKey: "344512-2",
+            options: [
+              {
+                type: "default",
+                eventToken:
+                  "6Na6eWan1u0HrN32JDT54JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
               }
             ],
             metrics: [
@@ -1371,6 +1447,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           },
           consequence: {
             name: "target-global-mbox",
+            skipKey: "344512-0",
             options: [
               {
                 type: "actions",
@@ -1386,7 +1463,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                   }
                 ],
                 eventToken:
-                  "yYWdmhDasVXGPWlpX1TRZAincmumygxIUftu5lUZGQnf5r+rP39VCIaiiZlXOAYq"
+                  "6Na6eWan1u0HrN32JDT54JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
               }
             ],
             metrics: [
@@ -1455,6 +1532,81 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           },
           consequence: {
             name: "target-global-mbox",
+            skipKey: "344512-1",
+            options: [
+              {
+                type: "default",
+                eventToken:
+                  "6Na6eWan1u0HrN32JDT54JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+              }
+            ],
+            metrics: [
+              {
+                type: "click",
+                eventToken: "/GMYvcjhUsR6WVqQElppUw==",
+                selector: "#action_insert_15882853393943012"
+              }
+            ]
+          }
+        },
+        {
+          meta: {
+            activityId: 344512,
+            activityType: "ab",
+            experienceId: 1,
+            locationName: "target-global-mbox",
+            locationType: "view",
+            audienceIds: [5614593],
+            offerIds: []
+          },
+          condition: {
+            and: [
+              {
+                "<": [
+                  50.0,
+                  {
+                    var: "allocation"
+                  },
+                  100.0
+                ]
+              },
+              {
+                or: [
+                  {
+                    and: [
+                      {
+                        "==": [
+                          "local-target-test",
+                          {
+                            var: "page.domain"
+                          }
+                        ]
+                      },
+                      {
+                        "==": [
+                          "/",
+                          {
+                            var: "page.path"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    in: [
+                      "adbeld.surge.sh",
+                      {
+                        var: "page.url_lc"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          consequence: {
+            name: "target-global-mbox",
+            skipKey: "344512-2",
             options: [
               {
                 type: "actions",
@@ -1470,7 +1622,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                   }
                 ],
                 eventToken:
-                  "yYWdmhDasVXGPWlpX1TRZAincmumygxIUftu5lUZGQnf5r+rP39VCIaiiZlXOAYq"
+                  "6Na6eWan1u0HrN32JDT54JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
               }
             ],
             metrics: [
@@ -1734,15 +1886,52 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             offerIds: []
           },
           condition: {
-            "==": [
-              "chrome",
+            and: [
               {
-                var: "mbox.browser"
+                "==": [
+                  "chrome",
+                  {
+                    var: "mbox.browser"
+                  }
+                ]
+              },
+              {
+                or: [
+                  {
+                    and: [
+                      {
+                        "==": [
+                          "local-target-test",
+                          {
+                            var: "page.domain"
+                          }
+                        ]
+                      },
+                      {
+                        "==": [
+                          "/",
+                          {
+                            var: "page.path"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    in: [
+                      "adbeld.surge.sh",
+                      {
+                        var: "page.url_lc"
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
           consequence: {
             name: "target-global-mbox",
+            skipKey: "344854-0",
             options: [
               {
                 type: "actions",
@@ -1757,8 +1946,76 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                   }
                 ],
                 eventToken:
-                  "neZRmUp4w2JJPxnOS+UTvjSAQdPpz2XBromX4n+pX9jf5r+rP39VCIaiiZlXOAYq"
+                  "5IC4QWO4U1JZOs4j6l0LRWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+              }
+            ],
+            metrics: [
+              {
+                type: "click",
+                eventToken: "QWWpEMH8FTeKXvGWDQG7JQ==",
+                selector: "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)"
+              }
+            ]
+          }
+        },
+        {
+          meta: {
+            activityId: 344854,
+            activityType: "landing",
+            experienceId: 0,
+            locationName: "target-global-mbox",
+            locationType: "view",
+            audienceIds: [5632413, 5632437, 5632546, 5632450],
+            offerIds: []
+          },
+          condition: {
+            and: [
+              {
+                "==": [
+                  "chrome",
+                  {
+                    var: "mbox.browser"
+                  }
+                ]
               },
+              {
+                or: [
+                  {
+                    and: [
+                      {
+                        "==": [
+                          "local-target-test",
+                          {
+                            var: "page.domain"
+                          }
+                        ]
+                      },
+                      {
+                        "==": [
+                          "/",
+                          {
+                            var: "page.path"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    in: [
+                      "adbeld.surge.sh",
+                      {
+                        var: "page.url_lc"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          consequence: {
+            name: "target-global-mbox",
+            skipKey: "344854-1",
+            options: [
               {
                 type: "actions",
                 content: [
@@ -1775,7 +2032,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                   }
                 ],
                 eventToken:
-                  "neZRmUp4w2JJPxnOS+UTvjSAQdPpz2XBromX4n+pX9jf5r+rP39VCIaiiZlXOAYq"
+                  "5IC4QWO4U1JZOs4j6l0LRWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
               }
             ],
             metrics: [
@@ -1798,15 +2055,52 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             offerIds: []
           },
           condition: {
-            "==": [
-              "safari",
+            and: [
               {
-                var: "mbox.browser"
+                "==": [
+                  "safari",
+                  {
+                    var: "mbox.browser"
+                  }
+                ]
+              },
+              {
+                or: [
+                  {
+                    and: [
+                      {
+                        "==": [
+                          "local-target-test",
+                          {
+                            var: "page.domain"
+                          }
+                        ]
+                      },
+                      {
+                        "==": [
+                          "/",
+                          {
+                            var: "page.path"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    in: [
+                      "adbeld.surge.sh",
+                      {
+                        var: "page.url_lc"
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
           consequence: {
             name: "target-global-mbox",
+            skipKey: "344854-0",
             options: [
               {
                 type: "actions",
@@ -1821,8 +2115,76 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                   }
                 ],
                 eventToken:
-                  "neZRmUp4w2JJPxnOS+UTvgincmumygxIUftu5lUZGQnf5r+rP39VCIaiiZlXOAYq"
+                  "5IC4QWO4U1JZOs4j6l0LRZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+              }
+            ],
+            metrics: [
+              {
+                type: "click",
+                eventToken: "QWWpEMH8FTeKXvGWDQG7JQ==",
+                selector: "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)"
+              }
+            ]
+          }
+        },
+        {
+          meta: {
+            activityId: 344854,
+            activityType: "landing",
+            experienceId: 1,
+            locationName: "target-global-mbox",
+            locationType: "view",
+            audienceIds: [5632413, 5632437, 5632546, 5632450],
+            offerIds: []
+          },
+          condition: {
+            and: [
+              {
+                "==": [
+                  "safari",
+                  {
+                    var: "mbox.browser"
+                  }
+                ]
               },
+              {
+                or: [
+                  {
+                    and: [
+                      {
+                        "==": [
+                          "local-target-test",
+                          {
+                            var: "page.domain"
+                          }
+                        ]
+                      },
+                      {
+                        "==": [
+                          "/",
+                          {
+                            var: "page.path"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    in: [
+                      "adbeld.surge.sh",
+                      {
+                        var: "page.url_lc"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          consequence: {
+            name: "target-global-mbox",
+            skipKey: "344854-1",
+            options: [
               {
                 type: "actions",
                 content: [
@@ -1839,7 +2201,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                   }
                 ],
                 eventToken:
-                  "neZRmUp4w2JJPxnOS+UTvgincmumygxIUftu5lUZGQnf5r+rP39VCIaiiZlXOAYq"
+                  "5IC4QWO4U1JZOs4j6l0LRZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
               }
             ],
             metrics: [
@@ -1862,15 +2224,52 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             offerIds: []
           },
           condition: {
-            "==": [
-              "firefox",
+            and: [
               {
-                var: "mbox.browser"
+                or: [
+                  {
+                    and: [
+                      {
+                        "==": [
+                          "local-target-test",
+                          {
+                            var: "page.domain"
+                          }
+                        ]
+                      },
+                      {
+                        "==": [
+                          "/",
+                          {
+                            var: "page.path"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    in: [
+                      "adbeld.surge.sh",
+                      {
+                        var: "page.url_lc"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "==": [
+                  "firefox",
+                  {
+                    var: "mbox.browser"
+                  }
+                ]
               }
             ]
           },
           consequence: {
             name: "target-global-mbox",
+            skipKey: "344854-0",
             options: [
               {
                 type: "actions",
@@ -1885,8 +2284,76 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                   }
                 ],
                 eventToken:
-                  "neZRmUp4w2JJPxnOS+UTvn0gWGoMtBqXksS4P3HyOWjf5r+rP39VCIaiiZlXOAYq"
+                  "5IC4QWO4U1JZOs4j6l0LRQreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+              }
+            ],
+            metrics: [
+              {
+                type: "click",
+                eventToken: "QWWpEMH8FTeKXvGWDQG7JQ==",
+                selector: "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)"
+              }
+            ]
+          }
+        },
+        {
+          meta: {
+            activityId: 344854,
+            activityType: "landing",
+            experienceId: 2,
+            locationName: "target-global-mbox",
+            locationType: "view",
+            audienceIds: [5632413, 5632437, 5632546, 5632450],
+            offerIds: []
+          },
+          condition: {
+            and: [
+              {
+                or: [
+                  {
+                    and: [
+                      {
+                        "==": [
+                          "local-target-test",
+                          {
+                            var: "page.domain"
+                          }
+                        ]
+                      },
+                      {
+                        "==": [
+                          "/",
+                          {
+                            var: "page.path"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    in: [
+                      "adbeld.surge.sh",
+                      {
+                        var: "page.url_lc"
+                      }
+                    ]
+                  }
+                ]
               },
+              {
+                "==": [
+                  "firefox",
+                  {
+                    var: "mbox.browser"
+                  }
+                ]
+              }
+            ]
+          },
+          consequence: {
+            name: "target-global-mbox",
+            skipKey: "344854-1",
+            options: [
               {
                 type: "actions",
                 content: [
@@ -1903,7 +2370,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                   }
                 ],
                 eventToken:
-                  "neZRmUp4w2JJPxnOS+UTvn0gWGoMtBqXksS4P3HyOWjf5r+rP39VCIaiiZlXOAYq"
+                  "5IC4QWO4U1JZOs4j6l0LRQreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
               }
             ],
             metrics: [
@@ -1925,14 +2392,107 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             audienceIds: [5632413, 5632437, 5632546, 5632450],
             offerIds: []
           },
-          condition: true,
+          condition: {
+            or: [
+              {
+                and: [
+                  {
+                    "==": [
+                      "local-target-test",
+                      {
+                        var: "page.domain"
+                      }
+                    ]
+                  },
+                  {
+                    "==": [
+                      "/",
+                      {
+                        var: "page.path"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                in: [
+                  "adbeld.surge.sh",
+                  {
+                    var: "page.url_lc"
+                  }
+                ]
+              }
+            ]
+          },
           consequence: {
             name: "target-global-mbox",
+            skipKey: "344854-0",
             options: [
               {
                 type: "default",
                 eventToken:
-                  "neZRmUp4w2JJPxnOS+UTvtRFWStd/HIAxvWXk7GGEI7f5r+rP39VCIaiiZlXOAYq"
+                  "5IC4QWO4U1JZOs4j6l0LRZZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+              }
+            ],
+            metrics: [
+              {
+                type: "click",
+                eventToken: "QWWpEMH8FTeKXvGWDQG7JQ==",
+                selector: "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)"
+              }
+            ]
+          }
+        },
+        {
+          meta: {
+            activityId: 344854,
+            activityType: "landing",
+            experienceId: 3,
+            locationName: "target-global-mbox",
+            locationType: "view",
+            audienceIds: [5632413, 5632437, 5632546, 5632450],
+            offerIds: []
+          },
+          condition: {
+            or: [
+              {
+                and: [
+                  {
+                    "==": [
+                      "local-target-test",
+                      {
+                        var: "page.domain"
+                      }
+                    ]
+                  },
+                  {
+                    "==": [
+                      "/",
+                      {
+                        var: "page.path"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                in: [
+                  "adbeld.surge.sh",
+                  {
+                    var: "page.url_lc"
+                  }
+                ]
+              }
+            ]
+          },
+          consequence: {
+            name: "target-global-mbox",
+            skipKey: "344854-1",
+            options: [
+              {
+                type: "default",
+                eventToken:
+                  "5IC4QWO4U1JZOs4j6l0LRZZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
               }
             ],
             metrics: [
@@ -1955,18 +2515,18 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             experienceId: 0,
             locationName: "home",
             locationType: "view",
-            audienceIds: [5617250],
+            audienceIds: [5634157, 5617250],
             offerIds: []
           },
           condition: {
             and: [
               {
                 "<": [
-                  0,
+                  0.0,
                   {
                     var: "allocation"
                   },
-                  50
+                  50.0
                 ]
               },
               {
@@ -2005,6 +2565,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           },
           consequence: {
             name: "home",
+            skipKey: "344627-0",
             options: [
               {
                 type: "actions",
@@ -2017,8 +2578,53 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                   }
                 ],
                 eventToken:
-                  "kUaEC8amAVyoGv9fclUocTSAQdPpz2XBromX4n+pX9jf5r+rP39VCIaiiZlXOAYq"
+                  "GHOChK7T/wgyMBkN/NlmpmqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+              }
+            ],
+            metrics: [
+              {
+                type: "click",
+                eventToken: "l1MU85ewOVIpA//AMIXNVA==",
+                selector: "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)"
+              }
+            ]
+          }
+        },
+        {
+          meta: {
+            activityId: 344627,
+            activityType: "ab",
+            experienceId: 0,
+            locationName: "home",
+            locationType: "view",
+            audienceIds: [5634157, 5617250],
+            offerIds: []
+          },
+          condition: {
+            and: [
+              {
+                "<": [
+                  0.0,
+                  {
+                    var: "allocation"
+                  },
+                  50.0
+                ]
               },
+              {
+                "==": [
+                  "correct",
+                  {
+                    var: "mbox.greg"
+                  }
+                ]
+              }
+            ]
+          },
+          consequence: {
+            name: "home",
+            skipKey: "344627-1",
+            options: [
               {
                 type: "actions",
                 content: [
@@ -2031,7 +2637,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                   }
                 ],
                 eventToken:
-                  "kUaEC8amAVyoGv9fclUocTSAQdPpz2XBromX4n+pX9jf5r+rP39VCIaiiZlXOAYq"
+                  "GHOChK7T/wgyMBkN/NlmpmqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
               }
             ],
             metrics: [
@@ -2050,18 +2656,18 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             experienceId: 1,
             locationName: "home",
             locationType: "view",
-            audienceIds: [5617250],
+            audienceIds: [5634157, 5617250],
             offerIds: []
           },
           condition: {
             and: [
               {
                 "<": [
-                  50,
+                  50.0,
                   {
                     var: "allocation"
                   },
-                  100
+                  100.0
                 ]
               },
               {
@@ -2100,6 +2706,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           },
           consequence: {
             name: "home",
+            skipKey: "344627-0",
             options: [
               {
                 type: "actions",
@@ -2112,8 +2719,53 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                   }
                 ],
                 eventToken:
-                  "kUaEC8amAVyoGv9fclUocQincmumygxIUftu5lUZGQnf5r+rP39VCIaiiZlXOAYq"
+                  "GHOChK7T/wgyMBkN/NlmppNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+              }
+            ],
+            metrics: [
+              {
+                type: "click",
+                eventToken: "l1MU85ewOVIpA//AMIXNVA==",
+                selector: "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)"
+              }
+            ]
+          }
+        },
+        {
+          meta: {
+            activityId: 344627,
+            activityType: "ab",
+            experienceId: 1,
+            locationName: "home",
+            locationType: "view",
+            audienceIds: [5634157, 5617250],
+            offerIds: []
+          },
+          condition: {
+            and: [
+              {
+                "<": [
+                  50.0,
+                  {
+                    var: "allocation"
+                  },
+                  100.0
+                ]
               },
+              {
+                "==": [
+                  "correct",
+                  {
+                    var: "mbox.greg"
+                  }
+                ]
+              }
+            ]
+          },
+          consequence: {
+            name: "home",
+            skipKey: "344627-1",
+            options: [
               {
                 type: "actions",
                 content: [
@@ -2126,7 +2778,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                   }
                 ],
                 eventToken:
-                  "kUaEC8amAVyoGv9fclUocQincmumygxIUftu5lUZGQnf5r+rP39VCIaiiZlXOAYq"
+                  "GHOChK7T/wgyMBkN/NlmppNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
               }
             ],
             metrics: [
@@ -2152,11 +2804,11 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             and: [
               {
                 "<": [
-                  0,
+                  0.0,
                   {
                     var: "allocation"
                   },
-                  50
+                  50.0
                 ]
               },
               {
@@ -2195,6 +2847,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           },
           consequence: {
             name: "home",
+            skipKey: "344626-0",
             options: [
               {
                 type: "actions",
@@ -2210,7 +2863,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                   }
                 ],
                 eventToken:
-                  "Jc+a2hGbxIZZ6KZOuJ59jDSAQdPpz2XBromX4n+pX9jf5r+rP39VCIaiiZlXOAYq"
+                  "AwsKVxnME5t76R+joOlBI2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
               }
             ],
             metrics: []
@@ -2230,11 +2883,11 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             and: [
               {
                 "<": [
-                  50,
+                  50.0,
                   {
                     var: "allocation"
                   },
-                  100
+                  100.0
                 ]
               },
               {
@@ -2273,6 +2926,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           },
           consequence: {
             name: "home",
+            skipKey: "344626-0",
             options: [
               {
                 type: "actions",
@@ -2288,7 +2942,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                   }
                 ],
                 eventToken:
-                  "Jc+a2hGbxIZZ6KZOuJ59jAincmumygxIUftu5lUZGQnf5r+rP39VCIaiiZlXOAYq"
+                  "AwsKVxnME5t76R+joOlBI5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
               }
             ],
             metrics: []
@@ -2303,18 +2957,18 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             experienceId: 0,
             locationName: "contact",
             locationType: "view",
-            audienceIds: [5621204],
+            audienceIds: [5634157, 5642375, 5634562],
             offerIds: []
           },
           condition: {
             and: [
               {
                 "<": [
-                  0,
+                  0.0,
                   {
                     var: "allocation"
                   },
-                  50
+                  50.0
                 ]
               },
               {
@@ -2353,6 +3007,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           },
           consequence: {
             name: "contact",
+            skipKey: "344682-0",
             options: [
               {
                 type: "actions",
@@ -2362,20 +3017,192 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                     selector: "#spa-content > P:nth-of-type(1)",
                     cssSelector: "#spa-content > P:nth-of-type(1)",
                     content:
-                      '<p id="action_insert_15883725029394712">Please email us any time at: contact@ourcompany.com</p>'
+                      '<p id="action_insert_15887891115781390">experience A - all visitors</p>'
                   }
                 ],
                 eventToken:
-                  "MCqgP0tYVVh5Es6mHZJosDSAQdPpz2XBromX4n+pX9jf5r+rP39VCIaiiZlXOAYq"
+                  "B8pBf3FguSiYH0tQvbbGUGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
               }
             ],
-            metrics: [
+            metrics: []
+          }
+        },
+        {
+          meta: {
+            activityId: 344682,
+            activityType: "ab",
+            experienceId: 0,
+            locationName: "contact",
+            locationType: "view",
+            audienceIds: [5634157, 5642375, 5634562],
+            offerIds: []
+          },
+          condition: {
+            and: [
               {
-                type: "click",
-                eventToken: "355TUgmhMpxnMLw2HgiPBA==",
-                selector: "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)"
+                and: [
+                  {
+                    "<": [
+                      0.0,
+                      {
+                        var: "allocation"
+                      },
+                      50.0
+                    ]
+                  },
+                  {
+                    or: [
+                      {
+                        and: [
+                          {
+                            "==": [
+                              "local-target-test",
+                              {
+                                var: "page.domain"
+                              }
+                            ]
+                          },
+                          {
+                            "==": [
+                              "/",
+                              {
+                                var: "page.path"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        in: [
+                          "adbeld.surge.sh",
+                          {
+                            var: "page.url_lc"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "==": [
+                  "correct",
+                  {
+                    var: "mbox.jason"
+                  }
+                ]
               }
             ]
+          },
+          consequence: {
+            name: "contact",
+            skipKey: "344682-1",
+            options: [
+              {
+                type: "actions",
+                content: [
+                  {
+                    type: "insertBefore",
+                    selector: "#spa-content > P:nth-of-type(1)",
+                    cssSelector: "#spa-content > P:nth-of-type(1)",
+                    content:
+                      '<p id="action_insert_15887891342751419">experience A - jason is correct</p>'
+                  }
+                ],
+                eventToken:
+                  "B8pBf3FguSiYH0tQvbbGUGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          meta: {
+            activityId: 344682,
+            activityType: "ab",
+            experienceId: 0,
+            locationName: "contact",
+            locationType: "view",
+            audienceIds: [5634157, 5642375, 5634562],
+            offerIds: []
+          },
+          condition: {
+            and: [
+              {
+                and: [
+                  {
+                    "<": [
+                      0.0,
+                      {
+                        var: "allocation"
+                      },
+                      50.0
+                    ]
+                  },
+                  {
+                    "==": [
+                      "correct",
+                      {
+                        var: "mbox.greg"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                or: [
+                  {
+                    and: [
+                      {
+                        "==": [
+                          "local-target-test",
+                          {
+                            var: "page.domain"
+                          }
+                        ]
+                      },
+                      {
+                        "==": [
+                          "/",
+                          {
+                            var: "page.path"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    in: [
+                      "adbeld.surge.sh",
+                      {
+                        var: "page.url_lc"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          consequence: {
+            name: "contact",
+            skipKey: "344682-2",
+            options: [
+              {
+                type: "actions",
+                content: [
+                  {
+                    type: "insertBefore",
+                    selector: "#spa-content > P:nth-of-type(1)",
+                    cssSelector: "#spa-content > P:nth-of-type(1)",
+                    content:
+                      '<p id="action_insert_15887891447451448">experience A - greg is correct</p>'
+                  }
+                ],
+                eventToken:
+                  "B8pBf3FguSiYH0tQvbbGUGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+              }
+            ],
+            metrics: []
           }
         },
         {
@@ -2385,18 +3212,18 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             experienceId: 1,
             locationName: "contact",
             locationType: "view",
-            audienceIds: [5621204],
+            audienceIds: [5634157, 5642375, 5634562],
             offerIds: []
           },
           condition: {
             and: [
               {
                 "<": [
-                  50,
+                  50.0,
                   {
                     var: "allocation"
                   },
-                  100
+                  100.0
                 ]
               },
               {
@@ -2435,29 +3262,202 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           },
           consequence: {
             name: "contact",
+            skipKey: "344682-0",
             options: [
               {
                 type: "actions",
                 content: [
                   {
-                    type: "insertBefore",
+                    type: "insertAfter",
                     selector: "#spa-content > P:nth-of-type(1)",
                     cssSelector: "#spa-content > P:nth-of-type(1)",
                     content:
-                      '<p id="action_insert_15883724759054688">Please give us a call any time at: 800-532-2002</p>'
+                      '<p id="action_insert_15887891723461599">experience B - all visitors</p>'
                   }
                 ],
                 eventToken:
-                  "MCqgP0tYVVh5Es6mHZJosAincmumygxIUftu5lUZGQnf5r+rP39VCIaiiZlXOAYq"
+                  "B8pBf3FguSiYH0tQvbbGUJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
               }
             ],
-            metrics: [
+            metrics: []
+          }
+        },
+        {
+          meta: {
+            activityId: 344682,
+            activityType: "ab",
+            experienceId: 1,
+            locationName: "contact",
+            locationType: "view",
+            audienceIds: [5634157, 5642375, 5634562],
+            offerIds: []
+          },
+          condition: {
+            and: [
               {
-                type: "click",
-                eventToken: "355TUgmhMpxnMLw2HgiPBA==",
-                selector: "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)"
+                and: [
+                  {
+                    "<": [
+                      50.0,
+                      {
+                        var: "allocation"
+                      },
+                      100.0
+                    ]
+                  },
+                  {
+                    or: [
+                      {
+                        and: [
+                          {
+                            "==": [
+                              "local-target-test",
+                              {
+                                var: "page.domain"
+                              }
+                            ]
+                          },
+                          {
+                            "==": [
+                              "/",
+                              {
+                                var: "page.path"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        in: [
+                          "adbeld.surge.sh",
+                          {
+                            var: "page.url_lc"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "==": [
+                  "correct",
+                  {
+                    var: "mbox.jason"
+                  }
+                ]
               }
             ]
+          },
+          consequence: {
+            name: "contact",
+            skipKey: "344682-1",
+            options: [
+              {
+                type: "actions",
+                content: [
+                  {
+                    type: "insertAfter",
+                    selector: "#spa-content > P:nth-of-type(1)",
+                    cssSelector: "#spa-content > P:nth-of-type(1)",
+                    content:
+                      '<p id="action_insert_15887891852061628">experience B - jason is correct</p>'
+                  }
+                ],
+                eventToken:
+                  "B8pBf3FguSiYH0tQvbbGUJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          meta: {
+            activityId: 344682,
+            activityType: "ab",
+            experienceId: 1,
+            locationName: "contact",
+            locationType: "view",
+            audienceIds: [5634157, 5642375, 5634562],
+            offerIds: []
+          },
+          condition: {
+            and: [
+              {
+                and: [
+                  {
+                    "<": [
+                      50.0,
+                      {
+                        var: "allocation"
+                      },
+                      100.0
+                    ]
+                  },
+                  {
+                    "==": [
+                      "correct",
+                      {
+                        var: "mbox.greg"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                or: [
+                  {
+                    and: [
+                      {
+                        "==": [
+                          "local-target-test",
+                          {
+                            var: "page.domain"
+                          }
+                        ]
+                      },
+                      {
+                        "==": [
+                          "/",
+                          {
+                            var: "page.path"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    in: [
+                      "adbeld.surge.sh",
+                      {
+                        var: "page.url_lc"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          consequence: {
+            name: "contact",
+            skipKey: "344682-2",
+            options: [
+              {
+                type: "actions",
+                content: [
+                  {
+                    type: "insertAfter",
+                    selector: "#spa-content > P:nth-of-type(1)",
+                    cssSelector: "#spa-content > P:nth-of-type(1)",
+                    content:
+                      '<p id="action_insert_15887891929931657">experience B - greg is correct</p>'
+                  }
+                ],
+                eventToken:
+                  "B8pBf3FguSiYH0tQvbbGUJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+              }
+            ],
+            metrics: []
           }
         }
       ]

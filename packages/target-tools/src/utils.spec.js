@@ -3,7 +3,9 @@ import {
   createUUID,
   decisioningEngineReady,
   getMboxNames,
+  isUndefined,
   noop,
+  objectWithoutUndefinedValues,
   requiresDecisioningEngine
 } from "./utils";
 import { ChannelType } from "../delivery-api-client";
@@ -178,6 +180,36 @@ describe("utils", () => {
           }
         })
       );
+    });
+  });
+
+  it("isUndefined", () => {
+    expect(isUndefined(undefined)).toEqual(true);
+    expect(isUndefined({})).toEqual(false);
+    expect(isUndefined([])).toEqual(false);
+    expect(isUndefined(true)).toEqual(false);
+    expect(isUndefined(1)).toEqual(false);
+    expect(isUndefined(1.25)).toEqual(false);
+    expect(isUndefined(null)).toEqual(false); // null is an 'object'
+  });
+
+  it("objectWithoutUndefinedValues", () => {
+    expect(
+      objectWithoutUndefinedValues({
+        a: true,
+        b: false,
+        c: undefined,
+        d: {},
+        e: new Set(),
+        f: [],
+        g: undefined
+      })
+    ).toEqual({
+      a: true,
+      b: false,
+      d: {},
+      e: new Set(),
+      f: []
     });
   });
 });

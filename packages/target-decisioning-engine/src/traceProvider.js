@@ -1,5 +1,6 @@
 import Messages from "./messages";
 import { ChannelType } from "@adobe/target-tools/delivery-api-client";
+import { isUndefined } from "@adobe/target-tools";
 
 const byOrder = (a, b) => a.order - b.order;
 
@@ -11,10 +12,10 @@ const byOrder = (a, b) => a.order - b.order;
 export function TraceProvider(config, targetOptions, artifactTrace) {
   const clientCode = config.client;
   const { sessionId, request } = targetOptions;
-  const showTraces = typeof request.trace !== "undefined";
+  const showTraces = !isUndefined(request.trace);
 
   const [tntId, profileLocation] =
-    typeof request.id !== "undefined" && typeof request.id.tntId === "string"
+    !isUndefined(request.id) && typeof request.id.tntId === "string"
       ? request.id.tntId.split(".")
       : [undefined, undefined];
 
@@ -106,7 +107,7 @@ export function RequestTracer(traceProvider, artifact) {
   function addCampaign(rule, ruleSatisfied) {
     const { meta } = rule;
 
-    if (ruleSatisfied && typeof campaigns[meta.activityId] === "undefined") {
+    if (ruleSatisfied && isUndefined(campaigns[meta.activityId])) {
       campaignOrder += 1;
 
       campaigns[meta.activityId] = {
@@ -129,7 +130,7 @@ export function RequestTracer(traceProvider, artifact) {
   function addEvaluatedCampaignTarget(rule, ruleContext, ruleSatisfied) {
     const { meta } = rule;
 
-    if (typeof evaluatedCampaignTargets[meta.activityId] === "undefined") {
+    if (isUndefined(evaluatedCampaignTargets[meta.activityId])) {
       evaluatedCampaignTargetOrder += 1;
 
       evaluatedCampaignTargets[meta.activityId] = {
@@ -254,7 +255,7 @@ export function ArtifactTracer(
     artifact = value;
   }
 
-  const meta = typeof artifact !== "undefined" ? artifact.meta : {};
+  const meta = !isUndefined(artifact) ? artifact.meta : {};
 
   function toJSON() {
     return {
@@ -264,8 +265,9 @@ export function ArtifactTracer(
           : artifactLocation,
       pollingInterval,
       pollingHalted,
-      artifactVersion:
-        typeof artifact !== "undefined" ? artifact.version : Messages.UNKNOWN,
+      artifactVersion: !isUndefined(artifact)
+        ? artifact.version
+        : Messages.UNKNOWN,
       artifactRetrievalCount,
       artifactLastRetrieved: artifactLastRetrieved.toISOString(),
       ...meta

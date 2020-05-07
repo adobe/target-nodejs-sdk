@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { MetricType } from "@adobe/target-tools/delivery-api-client";
+import { isUndefined, objectWithoutUndefinedValues } from "@adobe/target-tools";
 import { RequestType } from "./enums";
 
 /**
@@ -45,7 +46,7 @@ export function preparePrefetchResponse(
     options: mboxResponse.options.map((option, idx) => {
       let { eventToken } = option;
       if (
-        typeof eventToken === "undefined" &&
+        isUndefined(eventToken) &&
         mboxResponse.metrics.length > idx &&
         mboxResponse.metrics[idx].type === MetricType.Display
       ) {
@@ -77,6 +78,20 @@ export function addTrace(rule, mboxResponse, requestType, tracer) {
     ...mboxResponse,
     trace: tracer.getTraceResult()
   };
+}
+
+/**
+ * @param {import("../types/DecisioningArtifact").Rule} rule
+ * @param {import("@adobe/target-tools/delivery-api-client/models/MboxResponse").MboxResponse} mboxResponse
+ * @param { 'mbox'|'view'|'pageLoad' } requestType
+ * @param tracer
+ */
+export function cleanUp(rule, mboxResponse, requestType, tracer) {
+  const result = objectWithoutUndefinedValues(mboxResponse);
+
+  delete result.skipKey;
+
+  return result;
 }
 
 /**

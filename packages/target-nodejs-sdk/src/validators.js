@@ -10,7 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import { EXECUTION_MODE } from "@adobe/target-tools";
+import { EXECUTION_MODE, isUndefined } from "@adobe/target-tools";
 import { Messages } from "./messages";
 
 import {
@@ -36,7 +36,7 @@ export function validateClientOptions(options) {
   }
 
   if (
-    typeof executionMode !== "undefined" &&
+    !isUndefined(executionMode) &&
     !Object.values(EXECUTION_MODE).includes(executionMode)
   ) {
     return Messages.EXECUTION_MODE_INVALID;
@@ -60,7 +60,7 @@ export function validateGetOffersOptions(options) {
 
   if (
     isNonEmptyObject(execute) &&
-    typeof execute.pageLoad === "undefined" &&
+    isUndefined(execute.pageLoad) &&
     isEmptyArray(execute.mboxes)
   ) {
     return Messages.EXECUTE_FIELDS_REQUIRED;
@@ -68,7 +68,7 @@ export function validateGetOffersOptions(options) {
 
   if (
     isNonEmptyObject(prefetch) &&
-    typeof prefetch.pageLoad === "undefined" &&
+    isUndefined(prefetch.pageLoad) &&
     isEmptyArray(prefetch.views) &&
     isEmptyArray(prefetch.mboxes)
   ) {

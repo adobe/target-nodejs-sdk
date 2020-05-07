@@ -1,4 +1,4 @@
-import { getLogger } from "@adobe/target-tools";
+import { getLogger, isUndefined } from "@adobe/target-tools";
 import { createDecisioningContext } from "./contextProvider";
 import DecisionProvider from "./decisionProvider";
 import ArtifactProvider from "./artifactProvider";
@@ -35,7 +35,7 @@ export default async function TargetDecisioningEngine(config) {
     logger.debug("LD:getOffers", targetOptions);
     const { request } = targetOptions;
 
-    if (typeof artifact === "undefined") {
+    if (isUndefined(artifact)) {
       return Promise.reject(new Error(Messages.ARTIFACT_NOT_AVAILABLE));
     }
 
@@ -77,6 +77,6 @@ export default async function TargetDecisioningEngine(config) {
     stopPolling: () => artifactProvider.stopPolling(),
     getOffers: targetOptions => getOffers(targetOptions),
     hasRemoteDependency: request => hasRemoteDependency(artifact, request),
-    isReady: () => typeof artifact !== "undefined"
+    isReady: () => !isUndefined(artifact)
   });
 }

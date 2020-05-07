@@ -1,10 +1,14 @@
 import { uuid } from "./lodash";
 import { EXECUTION_MODE } from "./enums";
 
+export function isUndefined(value) {
+  return typeof value === "undefined";
+}
+
 /**
  * @param {import("../delivery-api-client/models/DeliveryRequest").DeliveryRequest} deliveryRequest Target Delivery API request, required
  * @returns {Set<String>} Set of mbox names
- **/
+ */
 export function getMboxNames(deliveryRequest) {
   const requestMboxes = new Set();
 
@@ -22,8 +26,6 @@ export function getMboxNames(deliveryRequest) {
 
   return requestMboxes;
 }
-
-function getHighest() {}
 
 /**
  * addMboxesToRequest method.  Ensures the mboxes specified are part of the returned delivery request
@@ -92,7 +94,19 @@ export function requiresDecisioningEngine(executionMode) {
 }
 
 export function decisioningEngineReady(decisioningEngine) {
-  return (
-    typeof decisioningEngine !== "undefined" && decisioningEngine.isReady()
-  );
+  return !isUndefined(decisioningEngine) && decisioningEngine.isReady();
+}
+
+export function objectWithoutUndefinedValues(obj) {
+  const result = {
+    ...obj
+  };
+
+  Object.keys(result).forEach(key => {
+    if (isUndefined(result[key])) {
+      delete result[key];
+    }
+  });
+
+  return result;
 }

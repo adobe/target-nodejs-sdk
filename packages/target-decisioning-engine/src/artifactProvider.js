@@ -1,4 +1,9 @@
-import { getFetchApi, getFetchWithRetry, getLogger } from "@adobe/target-tools";
+import {
+  getFetchApi,
+  getFetchWithRetry,
+  getLogger,
+  isUndefined
+} from "@adobe/target-tools";
 import Messages from "./messages";
 import {
   DEFAULT_POLLING_INTERVAL,
@@ -86,7 +91,7 @@ async function ArtifactProvider(config) {
 
         if (res.status === OK) {
           const etag = res.headers.get("Etag");
-          if (etag != null && typeof etag !== "undefined") {
+          if (etag != null && !isUndefined(etag)) {
             lastResponse = res.clone();
             lastEtag = etag;
           }
@@ -135,7 +140,7 @@ async function ArtifactProvider(config) {
   }
 
   function stopAllPolling() {
-    if (typeof pollingTimer !== "undefined") {
+    if (!isUndefined(pollingTimer)) {
       clearTimeout(pollingTimer);
       pollingTimer = undefined;
     }

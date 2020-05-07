@@ -1,6 +1,6 @@
 /* eslint-disable prefer-destructuring,import/prefer-default-export */
 import Url from "url-parse";
-import { getMboxNames } from "@adobe/target-tools";
+import { getMboxNames, isUndefined } from "@adobe/target-tools";
 import Messages from "./messages";
 
 function caseSensitiveVersion(caseSenstiveString, lowercaseString) {
@@ -62,7 +62,7 @@ export function parseURL(url) {
  */
 export function hasRemoteDependency(artifact, request) {
   // TODO: memoize this
-  if (typeof artifact === "undefined") {
+  if (isUndefined(artifact)) {
     throw new Error(Messages.ARTIFACT_NOT_AVAILABLE);
   }
 

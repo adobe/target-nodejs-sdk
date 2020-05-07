@@ -15,6 +15,7 @@ import {
   DEFAULT_GLOBAL_MBOX,
   EMPTY_REQUEST,
   EXECUTION_MODE,
+  isUndefined,
   requiresDecisioningEngine
 } from "@adobe/target-tools";
 
@@ -531,7 +532,7 @@ function createLocalDeliveryApi(
   return {
     // eslint-disable-next-line no-unused-vars
     execute: (client, sessionId, deliveryRequest, atjsVersion) => {
-      if (typeof decisioningEngine === "undefined") {
+      if (isUndefined(decisioningEngine)) {
         return Promise.reject(new Error(Messages.PENDING_ARTIFACT_RETRIEVAL));
       }
 
@@ -554,7 +555,7 @@ function createBeaconDeliveryApi(configuration) {
         sessionId
       };
 
-      if (typeof configuration.version !== "undefined") {
+      if (!isUndefined(configuration.version)) {
         query.version = atjsVersion;
       }
 
@@ -674,7 +675,7 @@ export function getTargetLocationHintCookie(requestCluster, edgeHost) {
 }
 
 export function requestLocationHintCookie(targetClient, targetLocationHint) {
-  return typeof targetLocationHint !== "undefined"
+  return !isUndefined(targetLocationHint)
     ? Promise.resolve({
         targetLocationHintCookie: getTargetLocationHintCookie(
           targetLocationHint
@@ -690,7 +691,7 @@ export function requestLocationHintCookie(targetClient, targetLocationHint) {
 }
 
 export function preserveLocationHint(response) {
-  if (typeof response.targetLocationHintCookie !== "undefined") {
+  if (!isUndefined(response.targetLocationHintCookie)) {
     this.config.targetLocationHint = response.targetLocationHintCookie.value;
   }
   return response;
