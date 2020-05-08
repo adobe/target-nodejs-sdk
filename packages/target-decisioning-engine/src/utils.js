@@ -89,3 +89,11 @@ export function matchMajorVersion(semanticVersion, majorVersion) {
     .map(value => parseInt(value, 10));
   return majorVersion === major;
 }
+
+export function cloneDeep(obj) {
+  if (!isUndefined(obj)) {
+    return JSON.parse(JSON.stringify(obj));
+  }
+
+  return undefined;
+}

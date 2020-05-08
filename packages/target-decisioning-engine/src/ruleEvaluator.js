@@ -3,6 +3,7 @@ import jsonLogic from "json-logic-js";
 import { isUndefined } from "@adobe/target-tools";
 import { createMboxContext, createPageContext } from "./contextProvider";
 import { computeAllocation } from "./allocationProvider";
+import { cloneDeep } from "./utils";
 
 /**
  *
@@ -62,6 +63,6 @@ export function ruleEvaluator(clientId, visitorId) {
         consequence = postProcessFunc(rule, consequence, requestType, tracer);
       });
     }
-    return consequence;
+    return cloneDeep(consequence); // we return a new object because at.js has a tendency to mutate reponses and we don't want it to mutate the rule consequence itself
   };
 }
