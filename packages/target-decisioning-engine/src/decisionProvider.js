@@ -3,7 +3,7 @@ import {
   isUndefined,
   objectWithoutUndefinedValues
 } from "@adobe/target-tools";
-import { hasRemoteDependency } from "./utils";
+import { getRuleId, hasRemoteDependency } from "./utils";
 import NotificationProvider from "./notificationProvider";
 import { RequestTracer } from "./traceProvider";
 import { RequestType } from "./enums";
@@ -91,18 +91,27 @@ function DecisionProvider(
         );
       }
 
+      const matchedRuleIds = new Set();
+
       // eslint-disable-next-line no-restricted-syntax
       for (const rule of viewRules) {
-        const consequence = processRule(
-          rule,
-          context,
-          RequestType.VIEW,
-          requestDetails,
-          [...postProcessors, ...additionalPostProcessors],
-          requestTracer
-        );
+        const ruleId = getRuleId(rule);
+        let consequence;
+
+        if (!matchedRuleIds.has(ruleId)) {
+          consequence = processRule(
+            rule,
+            context,
+            RequestType.VIEW,
+            requestDetails,
+            [...postProcessors, ...additionalPostProcessors],
+            requestTracer
+          );
+        }
 
         if (consequence) {
+          matchedRuleIds.add(ruleId);
+
           if (!consequences[consequence.name]) {
             consequences[consequence.name] = consequence;
           } else {
@@ -137,17 +146,14 @@ function DecisionProvider(
 
       const mboxRules = rules.mboxes[mboxRequest.name] || [];
 
-      let prevActivityId;
+      const matchedRuleIds = new Set();
+
       // eslint-disable-next-line no-restricted-syntax
       for (const rule of mboxRules) {
+        const ruleId = getRuleId(rule);
         let consequence;
 
-        if (
-          !isGlobalMbox ||
-          (isGlobalMbox &&
-            (rule.meta.activityId !== prevActivityId ||
-              rule.meta.locationType === RequestType.VIEW))
-        ) {
+        if (!isGlobalMbox || (isGlobalMbox && !matchedRuleIds.has(ruleId))) {
           consequence = processRule(
             rule,
             context,
@@ -160,7 +166,7 @@ function DecisionProvider(
 
         if (consequence) {
           consequences.push(consequence);
-          prevActivityId = rule.meta.activityId;
+          matchedRuleIds.add(ruleId);
           if (!isGlobalMbox) break;
         }
       }

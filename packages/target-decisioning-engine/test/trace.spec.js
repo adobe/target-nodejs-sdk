@@ -425,7 +425,7 @@ describe("trace", () => {
             {
               name: "contact",
               parameters: {
-                browser: "chrome"
+                jason: "correct"
               }
             }
           ]
@@ -437,38 +437,39 @@ describe("trace", () => {
     expect(result.prefetch.views[0].trace).toEqual(
       expect.objectContaining({
         request: {
-          pageURL: "http://local-target-test/",
           host: "local-target-test",
+          pageURL: "http://local-target-test/",
           view: {
             name: "contact",
             parameters: {
-              browser: "chrome"
+              jason: "correct"
             },
             type: "prefetch"
           }
         },
         campaigns: [
           {
-            id: 344682,
-            campaignType: "ab",
-            branchId: 1,
-            offers: expect.any(Array),
-            environment: "production"
+            branchId: 0,
+            campaignType: "landing",
+            environment: "waters_test",
+            id: 345798,
+            offers: expect.any(Array)
           }
         ],
+        clientCode: "someClientId",
         evaluatedCampaignTargets: [
           {
             context: expect.objectContaining({
               mbox: {
-                browser: "chrome",
-                browser_lc: "chrome"
+                jason: "correct",
+                jason_lc: "correct"
               },
               allocation: expect.any(Number)
             }),
-            campaignId: 344682,
-            campaignType: "ab",
-            matchedSegmentIds: [5634157, 5642375, 5634562],
-            unmatchedSegmentIds: [5634157, 5642375, 5634562],
+            campaignId: 345798,
+            campaignType: "landing",
+            matchedSegmentIds: [5634562, 5653736],
+            unmatchedSegmentIds: [],
             matchedRuleConditions: expect.any(Array),
             unmatchedRuleConditions: expect.any(Array)
           }

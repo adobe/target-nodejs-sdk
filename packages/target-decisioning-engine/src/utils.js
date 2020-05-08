@@ -2,12 +2,26 @@
 import Url from "url-parse";
 import { getMboxNames, isUndefined } from "@adobe/target-tools";
 import Messages from "./messages";
+import { RequestType } from "./enums";
 
 function caseSensitiveVersion(caseSenstiveString, lowercaseString) {
   const start = caseSenstiveString.toLowerCase().indexOf(lowercaseString);
   const end = start + lowercaseString.length;
 
   return caseSenstiveString.substring(start, end);
+}
+
+/**
+ *
+ * @param {import("../types/DecisioningArtifact").Rule} rule
+ * @return {string}
+ */
+export function getRuleId(rule) {
+  const { locationType, activityId, locationId = 0 } = rule.meta;
+
+  return locationType === RequestType.VIEW
+    ? `${activityId}-${locationId}`
+    : `${activityId}`;
 }
 
 export function parseURL(url) {

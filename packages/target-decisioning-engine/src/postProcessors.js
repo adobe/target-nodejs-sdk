@@ -3,6 +3,10 @@ import { MetricType } from "@adobe/target-tools/delivery-api-client";
 import { isUndefined, objectWithoutUndefinedValues } from "@adobe/target-tools";
 import { RequestType } from "./enums";
 
+function noBlankOptions(option) {
+  return !(option.type === "default" && isUndefined(option.content));
+}
+
 /**
  * @param {import("../types/DecisioningArtifact").Rule} rule
  * @param {import("@adobe/target-tools/delivery-api-client/models/MboxResponse").MboxResponse} mboxResponse
@@ -17,6 +21,11 @@ export function prepareExecuteResponse(
 ) {
   const result = {
     ...mboxResponse,
+    options: mboxResponse.options.filter(noBlankOptions).map(pristineOption => {
+      const option = { ...pristineOption };
+      delete option.eventToken;
+      return option;
+    }),
     metrics: mboxResponse.metrics.filter(
       metric => metric.type === MetricType.Click
     )
@@ -43,8 +52,8 @@ export function preparePrefetchResponse(
 ) {
   const result = {
     ...mboxResponse,
-    options: mboxResponse.options.map((option, idx) => {
-      let { eventToken } = option;
+    options: mboxResponse.options.map((pristineOption, idx) => {
+      let { eventToken } = pristineOption;
       if (
         isUndefined(eventToken) &&
         mboxResponse.metrics.length > idx &&
@@ -54,7 +63,7 @@ export function preparePrefetchResponse(
         eventToken = mboxResponse.metrics[idx].eventToken;
       }
       return {
-        ...option,
+        ...pristineOption,
         eventToken
       };
     })
@@ -88,8 +97,6 @@ export function addTrace(rule, mboxResponse, requestType, tracer) {
  */
 export function cleanUp(rule, mboxResponse, requestType, tracer) {
   const result = objectWithoutUndefinedValues(mboxResponse);
-
-  delete result.skipKey;
 
   return result;
 }
