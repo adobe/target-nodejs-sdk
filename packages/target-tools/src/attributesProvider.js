@@ -16,7 +16,7 @@ function createIndexed(response) {
       response[requestType].mboxes instanceof Array
     ) {
       response[requestType].mboxes.forEach(mbox => {
-        const { name, options } = mbox;
+        const { name, options = [] } = mbox;
         options.forEach(option => {
           const { type, content } = option;
           if (type === "json" && !isUndefined(content)) {
