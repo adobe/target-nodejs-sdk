@@ -41,7 +41,7 @@
       };
 
       function getOffers() {
-        const mboxNames = ["browser-mbox"]; //["jason-flags", "browser-mbox", "expendable-mbox", "superfluous-mbox", "redundant-mbox", "something", "kitty", "vanilla-mbox"];
+        const mboxNames = ["demo-engineering-flags"]; //["jason-flags", "browser-mbox", "expendable-mbox", "superfluous-mbox", "redundant-mbox", "something", "kitty", "vanilla-mbox"];
         const params = {
           foo: "bar"
         };
@@ -51,40 +51,25 @@
             ...deliveryRequest,
             request: {
               ...targetRequest,
-              // prefetch: {
-                // pageLoad: {
-                //   parameters: {
-                //     foo: "bar"
-                //   }
-                // },
-                // mboxes: mboxNames.map((mboxName, idx) => ({
-                //   name: mboxName,
-                //   index: idx,
-                // }))
-                // views: [{}]
-                // },
-                prefetch: {
+              execute: {
+                pageLoad: {}
+              },
+              prefetch: {
                   mboxes: mboxNames.map((mboxName, idx) => ({
                     name: mboxName,
                     index: idx,
-                  }))
-                  // ,
-                  // pageLoad: {
-                  //   parameters: {foo: "bar"}
-                  // },
-                  //   mboxes: [{name: 'disney', index: 0}]
-                }
-              }
-            // }
+                  })),
+                  views: [{}]
+                },
+            }
           })
           .then(function (targetResponse) {
-            showResult("Result: Success", JSON.stringify(targetResponse, null, 4));
+            showResult("Result: Success", JSON.stringify(targetResponse.response, null, 4));
 
-            // client.getAttributes(['jason-flags'], Object.assign({}, deliveryRequest, {
+            // client.getAttributes(["demo-engineering-flags"], Object.assign({}, deliveryRequest, {
             //   request: targetRequest,
             // })).then(function (features) {
-            //   console.log(features.asObject('jason-flags'));
-            //   console.log(features.getValue('jason-flags', 'paymentExperience'));
+            //   console.log(features.asObject("demo-engineering-flags"));
             // });
           })
           .catch(function (err) {
@@ -104,7 +89,6 @@
           ? {
             ...targetClientOptions,
             executionMode: "local",
-            artifactLocation: "rules.json"
           }
           : {...targetClientOptions}
       );

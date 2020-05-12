@@ -10,7 +10,7 @@ global.URLSearchParams = URLSearchParams;
 
 const TargetClient = bootstrap(
   // eslint-disable-next-line no-undef
-  !isUndefined(fetch) ? fetch : nodeFetch.default
+  !isUndefined(global.fetch) ? global.fetch : nodeFetch.default
 );
 
 export default TargetClient.default || TargetClient;

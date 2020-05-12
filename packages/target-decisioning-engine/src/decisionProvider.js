@@ -82,7 +82,10 @@ function DecisionProvider(
       const consequences = {};
 
       let viewRules = [];
-      if (requestDetails.hasOwnProperty("name")) {
+      if (
+        requestDetails.hasOwnProperty("name") &&
+        !isUndefined(requestDetails.name)
+      ) {
         viewRules = rules.views[requestDetails.name];
       } else {
         viewRules = Object.keys(rules.views).reduce(
@@ -241,7 +244,7 @@ function DecisionProvider(
 
     if (request[mode].views) {
       response.views = request[mode].views
-        .map(mboxRequest => processViewRequest(mboxRequest))
+        .map(requestDetails => processViewRequest(requestDetails))
         .flat();
     }
 
