@@ -1025,16 +1025,6 @@ Some activities are not supported due to audience rules.  Below is a list of aud
 | Traffic Sources  | Not Supported        | Supported             |
 | Time Frame       | Supported            | Supported             |
 
-
-#### Composer Type
-
-Activities created using the Visual Experience Composer (VEC) are not yet supported either.  Only activities created using the form-based composer are supported at this time. 
-
-| Composer Type                    | Local execution mode | Remote execution mode |
-|----------------------------------|----------------------|-----------------------|
-| Visual Experience Composer (VEC) | Not Supported        | Supported             |
-| Form-based Composer              | Supported            | Supported             |
-
 #### Hybrid mode
 
 Although all activities are not yet supported by local execution mode, there is a way to get the best of both worlds.  If you set `executionMode` to `hybrid`, then the SDK will determine on it's own whether to make decisions locally or remotely.  This way, if a `getOffers` request can be completed locally, the SDK will do so.  But if the request includes activities that are not supported, a request to the target delivery API will be made instead.  This may be useful as you begin to adopt local decisioning.
