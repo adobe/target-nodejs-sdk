@@ -1,5 +1,8 @@
 export const DUMMY_ARTIFACT_PAYLOAD = {
   version: "1.0.0",
+  globalMbox: "target-global-mbox",
+  responseTokens: [],
+  remoteMboxes: [],
   meta: {},
   rules: { mboxes: {}, views: {} }
 };
@@ -18,15 +21,14 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
           condition: { "<": [0, { var: "allocation" }, 50] },
           consequence: {
             options: [
-              { content: { doMagic: true, importantValue: 150 }, type: "json" }
-            ],
-            metrics: [
               {
-                type: "display",
+                content: { doMagic: true, importantValue: 150 },
+                type: "json",
                 eventToken:
                   "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
+            metrics: [],
             name: "superfluous-mbox"
           },
           meta: {
@@ -43,15 +45,14 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
           condition: { "<": [50, { var: "allocation" }, 100] },
           consequence: {
             options: [
-              { content: { doMagic: false, importantValue: 75 }, type: "json" }
-            ],
-            metrics: [
               {
-                type: "display",
+                content: { doMagic: false, importantValue: 75 },
+                type: "json",
                 eventToken:
                   "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
+            metrics: [],
             name: "superfluous-mbox"
           },
           meta: {

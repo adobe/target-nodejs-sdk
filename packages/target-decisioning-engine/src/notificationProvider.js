@@ -1,4 +1,4 @@
-import { createUUID, noop } from "@adobe/target-tools";
+import { createUUID, isUndefined, noop } from "@adobe/target-tools";
 import { MetricType } from "@adobe/target-tools/delivery-api-client";
 import { LOG_PREFIX } from "./constants";
 
@@ -20,6 +20,7 @@ function NotificationProvider(
 ) {
   const now = new Date();
   const timestamp = now.getTime();
+  const prevEventKeys = new Set();
   let notifications = [];
 
   /**
@@ -28,9 +29,17 @@ function NotificationProvider(
    * @param { Function } traceFn
    */
   function addNotification(mbox, traceFn = noop) {
-    const displayTokens = mbox.metrics
-      .filter(metric => metric.type === MetricType.Display)
-      .map(metric => metric.eventToken);
+    const displayTokens = [];
+
+    mbox.options.forEach(option => {
+      const { eventToken } = option;
+      const eventKey = `${mbox.name}-${eventToken}`;
+
+      if (!isUndefined(eventToken) && !prevEventKeys.has(eventKey)) {
+        displayTokens.push(eventToken);
+        prevEventKeys.add(eventKey);
+      }
+    });
 
     if (displayTokens.length === 0) return;
 

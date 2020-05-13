@@ -99,14 +99,15 @@ export const DECISIONING_PAYLOAD_BROWSER = {
             and: [{ "==": [{ var: "user.browserType" }, "firefox"] }]
           },
           consequence: {
-            options: [{ content: "<h1>it's firefox</h1>", type: "html" }],
-            metrics: [
+            options: [
               {
-                type: "display",
+                content: "<h1>it's firefox</h1>",
+                type: "html",
                 eventToken:
                   "B8C2FP2IuBgmeJcDfXHjGpNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
+            metrics: [],
             name: "browser-mbox"
           },
           meta: {
@@ -124,14 +125,15 @@ export const DECISIONING_PAYLOAD_BROWSER = {
             and: [{ "==": [{ var: "user.browserType" }, "safari"] }]
           },
           consequence: {
-            options: [{ content: "<h1>it's safari</h1>", type: "html" }],
-            metrics: [
+            options: [
               {
-                type: "display",
+                content: "<h1>it's safari</h1>",
+                type: "html",
                 eventToken:
                   "B8C2FP2IuBgmeJcDfXHjGgreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
+            metrics: [],
             name: "browser-mbox"
           },
           meta: {
@@ -149,14 +151,15 @@ export const DECISIONING_PAYLOAD_BROWSER = {
             and: [{ "==": [{ var: "user.browserType" }, "chrome"] }]
           },
           consequence: {
-            options: [{ content: "<h1>it's chrome</h1>", type: "html" }],
-            metrics: [
+            options: [
               {
-                type: "display",
+                content: "<h1>it's chrome</h1>",
+                type: "html",
                 eventToken:
                   "B8C2FP2IuBgmeJcDfXHjGpZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
+            metrics: [],
             name: "browser-mbox"
           },
           meta: {
@@ -173,15 +176,14 @@ export const DECISIONING_PAYLOAD_BROWSER = {
           condition: { and: [{ "==": [{ var: "user.browserType" }, "ie"] }] },
           consequence: {
             options: [
-              { content: "<h1>it's internet explorer</h1>", type: "html" }
-            ],
-            metrics: [
               {
-                type: "display",
+                content: "<h1>it's internet explorer</h1>",
+                type: "html",
                 eventToken:
                   "B8C2FP2IuBgmeJcDfXHjGhB3JWElmEno9qwHyGr0QvSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
+            metrics: [],
             name: "browser-mbox"
           },
           meta: {
@@ -200,16 +202,12 @@ export const DECISIONING_PAYLOAD_BROWSER = {
             options: [
               {
                 content: "<h1>not firefox, safari or chrome</h1>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
+                type: "html",
                 eventToken:
                   "B8C2FP2IuBgmeJcDfXHjGmqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
+            metrics: [],
             name: "browser-mbox"
           },
           meta: {
@@ -243,15 +241,14 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
           condition: { "<": [0, { var: "allocation" }, 50] },
           consequence: {
             options: [
-              { content: { doMagic: true, importantValue: 150 }, type: "json" }
-            ],
-            metrics: [
               {
-                type: "display",
+                content: { doMagic: true, importantValue: 150 },
+                type: "json",
                 eventToken:
                   "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
+            metrics: [],
             name: "superfluous-mbox"
           },
           meta: {
@@ -268,15 +265,14 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
           condition: { "<": [50, { var: "allocation" }, 100] },
           consequence: {
             options: [
-              { content: { doMagic: false, importantValue: 75 }, type: "json" }
-            ],
-            metrics: [
               {
-                type: "display",
+                content: { doMagic: false, importantValue: 75 },
+                type: "json",
                 eventToken:
                   "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
+            metrics: [],
             name: "superfluous-mbox"
           },
           meta: {
@@ -294,14 +290,15 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
         {
           condition: { "<": [0, { var: "allocation" }, 50] },
           consequence: {
-            options: [{ content: "<div>hello</div>", type: "html" }],
-            metrics: [
+            options: [
               {
-                type: "display",
+                content: "<div>hello</div>",
+                type: "html",
                 eventToken:
                   "YPoPRnGmGGit+QxnpxYFjWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
+            metrics: [],
             name: "expendable-mbox"
           },
           meta: {
@@ -317,14 +314,15 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
         {
           condition: { "<": [50, { var: "allocation" }, 100] },
           consequence: {
-            options: [{ content: "<div>goodbye</div>", type: "html" }],
-            metrics: [
+            options: [
               {
-                type: "display",
+                content: "<div>goodbye</div>",
+                type: "html",
                 eventToken:
                   "YPoPRnGmGGit+QxnpxYFjZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
+            metrics: [],
             name: "expendable-mbox"
           },
           meta: {
@@ -841,14 +839,15 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             and: [{ "==": [{ var: "user.browserType" }, "chrome"] }]
           },
           consequence: {
-            options: [{ content: "<div>Chrometastic</div>", type: "html" }],
-            metrics: [
+            options: [
               {
-                type: "display",
+                content: "<div>Chrometastic</div>",
+                type: "html",
                 eventToken:
                   "9FNM3ikASssS+sVoFXNulGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
+            metrics: [],
             name: "target-global-mbox"
           },
           meta: {
@@ -866,14 +865,15 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             and: [{ "==": [{ var: "user.browserType" }, "firefox"] }]
           },
           consequence: {
-            options: [{ content: "<div>Firetime</div>", type: "html" }],
-            metrics: [
+            options: [
               {
-                type: "display",
+                content: "<div>Firetime</div>",
+                type: "html",
                 eventToken:
                   "9FNM3ikASssS+sVoFXNulJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
+            metrics: [],
             name: "target-global-mbox"
           },
           meta: {
@@ -891,14 +891,15 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             and: [{ "==": [{ var: "user.browserType" }, "safari"] }]
           },
           consequence: {
-            options: [{ content: "<div>Safari Run</div>", type: "html" }],
-            metrics: [
+            options: [
               {
-                type: "display",
+                content: "<div>Safari Run</div>",
+                type: "html",
                 eventToken:
                   "9FNM3ikASssS+sVoFXNulAreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
+            metrics: [],
             name: "target-global-mbox"
           },
           meta: {
@@ -914,14 +915,15 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
         {
           condition: true,
           consequence: {
-            options: [{ content: "<div>Srsly, who dis?</div>", type: "html" }],
-            metrics: [
+            options: [
               {
-                type: "display",
+                content: "<div>Srsly, who dis?</div>",
+                type: "html",
                 eventToken:
                   "9FNM3ikASssS+sVoFXNulJZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
+            metrics: [],
             name: "target-global-mbox"
           },
           meta: {
@@ -943,15 +945,14 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           },
           consequence: {
             options: [
-              { content: "<div>foo=bar experience A</div>", type: "html" }
-            ],
-            metrics: [
               {
-                type: "display",
+                content: "<div>foo=bar experience A</div>",
+                type: "html",
                 eventToken:
                   "0L1rCkDps3F+UEAm1B9A4GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
+            metrics: [],
             name: "target-global-mbox"
           },
           meta: {
@@ -973,15 +974,14 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           },
           consequence: {
             options: [
-              { content: "<div>foo=bar experience B</div>", type: "html" }
-            ],
-            metrics: [
               {
-                type: "display",
+                content: "<div>foo=bar experience B</div>",
+                type: "html",
                 eventToken:
                   "0L1rCkDps3F+UEAm1B9A4JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
+            metrics: [],
             name: "target-global-mbox"
           },
           meta: {
@@ -1003,15 +1003,14 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           },
           consequence: {
             options: [
-              { content: "<div>foo=bar experience C</div>", type: "html" }
-            ],
-            metrics: [
               {
-                type: "display",
+                content: "<div>foo=bar experience C</div>",
+                type: "html",
                 eventToken:
                   "0L1rCkDps3F+UEAm1B9A4AreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
+            metrics: [],
             name: "target-global-mbox"
           },
           meta: {
@@ -1027,14 +1026,15 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
         {
           condition: { "<": [0, { var: "allocation" }, 25] },
           consequence: {
-            options: [{ content: "<div>whale</div>", type: "html" }],
-            metrics: [
+            options: [
               {
-                type: "display",
+                content: "<div>whale</div>",
+                type: "html",
                 eventToken:
                   "5C2cbrGD+bQ5qOATNGy1AWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
+            metrics: [],
             name: "target-global-mbox"
           },
           meta: {
@@ -1050,14 +1050,15 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
         {
           condition: { "<": [25, { var: "allocation" }, 50] },
           consequence: {
-            options: [{ content: "<div>mouse</div>", type: "html" }],
-            metrics: [
+            options: [
               {
-                type: "display",
+                content: "<div>mouse</div>",
+                type: "html",
                 eventToken:
                   "5C2cbrGD+bQ5qOATNGy1AZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
+            metrics: [],
             name: "target-global-mbox"
           },
           meta: {
@@ -1073,14 +1074,15 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
         {
           condition: { "<": [50, { var: "allocation" }, 75] },
           consequence: {
-            options: [{ content: "<div>lion</div>", type: "html" }],
-            metrics: [
+            options: [
               {
-                type: "display",
+                content: "<div>lion</div>",
+                type: "html",
                 eventToken:
                   "5C2cbrGD+bQ5qOATNGy1AQreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
+            metrics: [],
             name: "target-global-mbox"
           },
           meta: {
@@ -1096,14 +1098,15 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
         {
           condition: { "<": [75, { var: "allocation" }, 100] },
           consequence: {
-            options: [{ content: "<div>owl</div>", type: "html" }],
-            metrics: [
+            options: [
               {
-                type: "display",
+                content: "<div>owl</div>",
+                type: "html",
                 eventToken:
                   "5C2cbrGD+bQ5qOATNGy1AZZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
+            metrics: [],
             name: "target-global-mbox"
           },
           meta: {
