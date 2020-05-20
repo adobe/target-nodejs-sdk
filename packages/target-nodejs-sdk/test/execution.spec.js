@@ -1,91 +1,10 @@
 /* eslint-disable jest/no-test-callback */
 import { EXECUTION_MODE } from "@adobe/target-tools";
+import { DECISIONING_PAYLOAD_FEATURE_FLAG } from "./decisioning-payloads";
 
 require("jest-fetch-mock").enableMocks();
 
 const TargetClient = require("../src/index.server").default;
-
-// https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/jason-flags
-const DECISIONING_PAYLOAD_FEATURE_FLAG = {
-  version: "1.0.0",
-  globalMbox: "target-global-mbox",
-  responseTokens: [],
-  remoteMboxes: ["remote-only-mbox-a", "remote-only-mbox-b"],
-  meta: { generatedAt: "2020-04-10T21:45:50.503Z", environment: 11507 },
-  rules: {
-    mboxes: {
-      "jason-flags": [
-        {
-          condition: { "<": [0, { var: "allocation" }, 50] },
-          consequence: {
-            options: [
-              {
-                content: {
-                  paymentExperience: "legacy",
-                  showFeatureX: false,
-                  paymentGatewayVersion: 2.3,
-                  customerFeedbackValue: 10
-                },
-                type: "json"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "8MDICvd7bsTPYn79fLBNQmqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "jason-flags"
-          },
-          meta: {
-            activityId: 335113,
-            experienceId: 0,
-            activityType: "ab",
-            locationName: "jason-flags",
-            locationType: "mbox",
-            offerIds: [632759],
-            audienceIds: []
-          }
-        },
-        {
-          condition: { "<": [50, { var: "allocation" }, 100] },
-          consequence: {
-            options: [
-              {
-                content: {
-                  paymentExperience: "alpha10",
-                  showFeatureX: true,
-                  paymentGatewayVersion: 3.1,
-                  customerFeedbackValue: 99
-                },
-                type: "json"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "8MDICvd7bsTPYn79fLBNQpNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "jason-flags"
-          },
-          meta: {
-            activityId: 335113,
-            experienceId: 1,
-            activityType: "ab",
-            locationName: "jason-flags",
-            locationType: "mbox",
-            offerIds: [632760],
-            audienceIds: []
-          }
-        }
-      ]
-    },
-    views: {}
-  }
-};
 
 const DELIVERY_RESPONSE = {
   status: 200,

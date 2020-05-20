@@ -4,7 +4,7 @@ import { isUndefined, objectWithoutUndefinedValues } from "@adobe/target-tools";
 import { RequestType } from "./enums";
 
 function noBlankOptions(option) {
-  return !(option.type === "default" && isUndefined(option.content));
+  return !(isUndefined(option.type) && isUndefined(option.content));
 }
 
 /**

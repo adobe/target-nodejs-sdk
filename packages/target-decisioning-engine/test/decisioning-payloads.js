@@ -15,14 +15,28 @@ export const DUMMY_ARTIFACT_PAYLOAD_UNSUPPORTED_VERSION = {
 // https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/form_based_activity-offer2-feb1920201034
 export const DECISIONING_PAYLOAD_ADDRESS = {
   version: "1.0.0",
+  meta: {
+    clientCode: "adobesummit2018",
+    environment: "production",
+    generatedAt: "2020-05-19T23:24:03.452Z"
+  },
   globalMbox: "target-global-mbox",
-  responseTokens: [],
-  remoteMboxes: [],
-  meta: { generatedAt: "2020-04-10T20:08:59.041Z", environment: 11507 },
+  responseTokens: ["activity.id", "activity.name"],
+  remoteMboxes: ["target-global-mbox"],
   rules: {
     mboxes: {
       offer2: [
         {
+          meta: {
+            activityId: 333312,
+            activityType: "ab",
+            experienceId: 0,
+            locationName: "offer2",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [5356811],
+            offerIds: [630815]
+          },
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 50] },
@@ -30,27 +44,29 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
             ]
           },
           consequence: {
-            options: [{ content: { baz: 1 }, type: "json" }],
-            metrics: [
+            name: "offer2",
+            options: [
               {
-                type: "display",
+                type: "json",
                 eventToken:
-                  "mWtD0yDAXMnesyQOa7/jS2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "mWtD0yDAXMnesyQOa7/jS2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: { baz: 1 }
               }
             ],
-            name: "offer2"
-          },
-          meta: {
-            activityId: 333312,
-            experienceId: 0,
-            activityType: "ab",
-            locationName: "offer2",
-            locationType: "mbox",
-            offerIds: [630815],
-            audienceIds: [5356811]
+            metrics: []
           }
         },
         {
+          meta: {
+            activityId: 333312,
+            activityType: "ab",
+            experienceId: 1,
+            locationName: "offer2",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [5356811],
+            offerIds: [630814]
+          },
           condition: {
             and: [
               { "<": [50, { var: "allocation" }, 100] },
@@ -58,24 +74,16 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
             ]
           },
           consequence: {
-            options: [{ content: { baz: 2 }, type: "json" }],
-            metrics: [
+            name: "offer2",
+            options: [
               {
-                type: "display",
+                type: "json",
                 eventToken:
-                  "mWtD0yDAXMnesyQOa7/jS5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "mWtD0yDAXMnesyQOa7/jS5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: { baz: 2 }
               }
             ],
-            name: "offer2"
-          },
-          meta: {
-            activityId: 333312,
-            experienceId: 1,
-            activityType: "ab",
-            locationName: "offer2",
-            locationType: "mbox",
-            offerIds: [630814],
-            audienceIds: [5356811]
+            metrics: []
           }
         }
       ]
@@ -87,137 +95,139 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
 // https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/Experience-Targeting/browser-mbox
 export const DECISIONING_PAYLOAD_BROWSER = {
   version: "1.0.0",
+  meta: {
+    clientCode: "adobesummit2018",
+    environment: "production",
+    generatedAt: "2020-05-19T23:24:03.452Z"
+  },
   globalMbox: "target-global-mbox",
-  responseTokens: [],
-  remoteMboxes: [],
-  meta: { generatedAt: "2020-04-10T20:08:59.356Z", environment: 11507 },
+  responseTokens: ["activity.id", "activity.name"],
+  remoteMboxes: ["target-global-mbox"],
   rules: {
     mboxes: {
       "browser-mbox": [
         {
-          condition: {
-            and: [{ "==": [{ var: "user.browserType" }, "firefox"] }]
-          },
-          consequence: {
-            options: [
-              {
-                content: "<h1>it's firefox</h1>",
-                type: "html",
-                eventToken:
-                  "B8C2FP2IuBgmeJcDfXHjGpNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            metrics: [],
-            name: "browser-mbox"
-          },
           meta: {
             activityId: 334845,
+            activityType: "landing",
             experienceId: 1,
-            activityType: "xt",
             locationName: "browser-mbox",
             locationType: "mbox",
-            offerIds: [632439],
-            audienceIds: [4873452]
+            locationId: 0,
+            audienceIds: [4873452],
+            offerIds: [632439]
+          },
+          condition: { "==": [{ var: "user.browserType" }, "firefox"] },
+          consequence: {
+            name: "browser-mbox",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "B8C2FP2IuBgmeJcDfXHjGpNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<h1>it's firefox</h1>"
+              }
+            ],
+            metrics: []
           }
         },
         {
-          condition: {
-            and: [{ "==": [{ var: "user.browserType" }, "safari"] }]
-          },
-          consequence: {
-            options: [
-              {
-                content: "<h1>it's safari</h1>",
-                type: "html",
-                eventToken:
-                  "B8C2FP2IuBgmeJcDfXHjGgreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            metrics: [],
-            name: "browser-mbox"
-          },
           meta: {
             activityId: 334845,
+            activityType: "landing",
             experienceId: 2,
-            activityType: "xt",
             locationName: "browser-mbox",
             locationType: "mbox",
-            offerIds: [632440],
-            audienceIds: [4957566]
+            locationId: 0,
+            audienceIds: [4957566],
+            offerIds: [632440]
+          },
+          condition: { "==": [{ var: "user.browserType" }, "safari"] },
+          consequence: {
+            name: "browser-mbox",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "B8C2FP2IuBgmeJcDfXHjGgreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<h1>it's safari</h1>"
+              }
+            ],
+            metrics: []
           }
         },
         {
-          condition: {
-            and: [{ "==": [{ var: "user.browserType" }, "chrome"] }]
-          },
-          consequence: {
-            options: [
-              {
-                content: "<h1>it's chrome</h1>",
-                type: "html",
-                eventToken:
-                  "B8C2FP2IuBgmeJcDfXHjGpZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            metrics: [],
-            name: "browser-mbox"
-          },
           meta: {
             activityId: 334845,
+            activityType: "landing",
             experienceId: 3,
-            activityType: "xt",
             locationName: "browser-mbox",
             locationType: "mbox",
-            offerIds: [632438],
-            audienceIds: [2170460]
-          }
-        },
-        {
-          condition: { and: [{ "==": [{ var: "user.browserType" }, "ie"] }] },
+            locationId: 0,
+            audienceIds: [2170460],
+            offerIds: [632438]
+          },
+          condition: { "==": [{ var: "user.browserType" }, "chrome"] },
           consequence: {
+            name: "browser-mbox",
             options: [
               {
-                content: "<h1>it's internet explorer</h1>",
                 type: "html",
                 eventToken:
-                  "B8C2FP2IuBgmeJcDfXHjGhB3JWElmEno9qwHyGr0QvSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "B8C2FP2IuBgmeJcDfXHjGpZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<h1>it's chrome</h1>"
               }
             ],
-            metrics: [],
-            name: "browser-mbox"
-          },
-          meta: {
-            activityId: 334845,
-            experienceId: 4,
-            activityType: "xt",
-            locationName: "browser-mbox",
-            locationType: "mbox",
-            offerIds: [632446],
-            audienceIds: [5372368]
+            metrics: []
           }
         },
         {
+          meta: {
+            activityId: 334845,
+            activityType: "landing",
+            experienceId: 4,
+            locationName: "browser-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [5372368],
+            offerIds: [632446]
+          },
+          condition: { "==": [{ var: "user.browserType" }, "ie"] },
+          consequence: {
+            name: "browser-mbox",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "B8C2FP2IuBgmeJcDfXHjGhB3JWElmEno9qwHyGr0QvSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<h1>it's internet explorer</h1>"
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          meta: {
+            activityId: 334845,
+            activityType: "landing",
+            experienceId: 0,
+            locationName: "browser-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            offerIds: [632437]
+          },
           condition: true,
           consequence: {
+            name: "browser-mbox",
             options: [
               {
-                content: "<h1>not firefox, safari or chrome</h1>",
                 type: "html",
                 eventToken:
-                  "B8C2FP2IuBgmeJcDfXHjGmqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "B8C2FP2IuBgmeJcDfXHjGmqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<h1>not firefox, safari or chrome</h1>"
               }
             ],
-            metrics: [],
-            name: "browser-mbox"
-          },
-          meta: {
-            activityId: 334845,
-            experienceId: 0,
-            activityType: "xt",
-            locationName: "browser-mbox",
-            locationType: "mbox",
-            offerIds: [632437],
-            audienceIds: []
+            metrics: []
           }
         }
       ]
@@ -230,109 +240,113 @@ export const DECISIONING_PAYLOAD_BROWSER = {
 // https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/superfluous_ab_json
 export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
   version: "1.0.0",
+  meta: {
+    clientCode: "adobesummit2018",
+    environment: "production",
+    generatedAt: "2020-05-19T23:24:03.452Z"
+  },
   globalMbox: "target-global-mbox",
-  responseTokens: [],
-  remoteMboxes: [],
-  meta: { generatedAt: "2020-04-10T20:08:59.684Z", environment: 11507 },
+  responseTokens: ["activity.id", "activity.name"],
+  remoteMboxes: ["target-global-mbox"],
   rules: {
     mboxes: {
       "superfluous-mbox": [
         {
-          condition: { "<": [0, { var: "allocation" }, 50] },
-          consequence: {
-            options: [
-              {
-                content: { doMagic: true, importantValue: 150 },
-                type: "json",
-                eventToken:
-                  "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            metrics: [],
-            name: "superfluous-mbox"
-          },
           meta: {
             activityId: 334411,
-            experienceId: 0,
             activityType: "ab",
+            experienceId: 0,
             locationName: "superfluous-mbox",
             locationType: "mbox",
-            offerIds: [631992],
-            audienceIds: []
+            locationId: 0,
+            offerIds: [631992]
+          },
+          condition: { "<": [0, { var: "allocation" }, 50] },
+          consequence: {
+            name: "superfluous-mbox",
+            options: [
+              {
+                type: "json",
+                eventToken:
+                  "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: { doMagic: true, importantValue: 150 }
+              }
+            ],
+            metrics: []
           }
         },
         {
-          condition: { "<": [50, { var: "allocation" }, 100] },
-          consequence: {
-            options: [
-              {
-                content: { doMagic: false, importantValue: 75 },
-                type: "json",
-                eventToken:
-                  "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            metrics: [],
-            name: "superfluous-mbox"
-          },
           meta: {
             activityId: 334411,
-            experienceId: 1,
             activityType: "ab",
+            experienceId: 1,
             locationName: "superfluous-mbox",
             locationType: "mbox",
-            offerIds: [631991],
-            audienceIds: []
+            locationId: 0,
+            offerIds: [631991]
+          },
+          condition: { "<": [50, { var: "allocation" }, 100] },
+          consequence: {
+            name: "superfluous-mbox",
+            options: [
+              {
+                type: "json",
+                eventToken:
+                  "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: { doMagic: false, importantValue: 75 }
+              }
+            ],
+            metrics: []
           }
         }
       ],
       "expendable-mbox": [
         {
-          condition: { "<": [0, { var: "allocation" }, 50] },
-          consequence: {
-            options: [
-              {
-                content: "<div>hello</div>",
-                type: "html",
-                eventToken:
-                  "YPoPRnGmGGit+QxnpxYFjWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            metrics: [],
-            name: "expendable-mbox"
-          },
           meta: {
             activityId: 334640,
-            experienceId: 0,
             activityType: "ab",
+            experienceId: 0,
             locationName: "expendable-mbox",
             locationType: "mbox",
-            offerIds: [632233],
-            audienceIds: []
+            locationId: 0,
+            offerIds: [632233]
+          },
+          condition: { "<": [0, { var: "allocation" }, 50] },
+          consequence: {
+            name: "expendable-mbox",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "YPoPRnGmGGit+QxnpxYFjWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>hello</div>"
+              }
+            ],
+            metrics: []
           }
         },
         {
-          condition: { "<": [50, { var: "allocation" }, 100] },
-          consequence: {
-            options: [
-              {
-                content: "<div>goodbye</div>",
-                type: "html",
-                eventToken:
-                  "YPoPRnGmGGit+QxnpxYFjZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            metrics: [],
-            name: "expendable-mbox"
-          },
           meta: {
             activityId: 334640,
-            experienceId: 1,
             activityType: "ab",
+            experienceId: 1,
             locationName: "expendable-mbox",
             locationType: "mbox",
-            offerIds: [632234],
-            audienceIds: []
+            locationId: 0,
+            offerIds: [632234]
+          },
+          condition: { "<": [50, { var: "allocation" }, 100] },
+          consequence: {
+            name: "expendable-mbox",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "YPoPRnGmGGit+QxnpxYFjZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>goodbye</div>"
+              }
+            ],
+            metrics: []
           }
         }
       ]
@@ -344,14 +358,28 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
 // https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/redundant-mbox
 export const DECISIONING_PAYLOAD_PARAMS = {
   version: "1.0.0",
+  meta: {
+    clientCode: "adobesummit2018",
+    environment: "production",
+    generatedAt: "2020-05-19T23:24:03.452Z"
+  },
   globalMbox: "target-global-mbox",
-  responseTokens: [],
-  remoteMboxes: [],
-  meta: { generatedAt: "2020-04-10T20:08:59.011Z", environment: 11507 },
+  responseTokens: ["activity.id", "activity.name"],
+  remoteMboxes: ["target-global-mbox"],
   rules: {
     mboxes: {
       "redundant-mbox": [
         {
+          meta: {
+            activityId: 334717,
+            activityType: "ab",
+            experienceId: 0,
+            locationName: "redundant-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [5452799],
+            offerIds: [632331]
+          },
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 50] },
@@ -359,32 +387,29 @@ export const DECISIONING_PAYLOAD_PARAMS = {
             ]
           },
           consequence: {
+            name: "redundant-mbox",
             options: [
               {
-                content: { foo: "bar", isFooBar: true, experience: "A" },
-                type: "json"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
+                type: "json",
                 eventToken:
-                  "Zhwxeqy1O2r9Ske1YDA9bGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "Zhwxeqy1O2r9Ske1YDA9bGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: { foo: "bar", isFooBar: true, experience: "A" }
               }
             ],
-            name: "redundant-mbox"
-          },
-          meta: {
-            activityId: 334717,
-            experienceId: 0,
-            activityType: "ab",
-            locationName: "redundant-mbox",
-            locationType: "mbox",
-            offerIds: [632331],
-            audienceIds: [5452799]
+            metrics: []
           }
         },
         {
+          meta: {
+            activityId: 334717,
+            activityType: "ab",
+            experienceId: 1,
+            locationName: "redundant-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [5452799],
+            offerIds: [632330]
+          },
           condition: {
             and: [
               { "<": [50, { var: "allocation" }, 100] },
@@ -392,29 +417,16 @@ export const DECISIONING_PAYLOAD_PARAMS = {
             ]
           },
           consequence: {
+            name: "redundant-mbox",
             options: [
               {
-                content: { foo: "bar", isFooBar: true, experience: "B" },
-                type: "json"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
+                type: "json",
                 eventToken:
-                  "Zhwxeqy1O2r9Ske1YDA9bJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "Zhwxeqy1O2r9Ske1YDA9bJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: { foo: "bar", isFooBar: true, experience: "B" }
               }
             ],
-            name: "redundant-mbox"
-          },
-          meta: {
-            activityId: 334717,
-            experienceId: 1,
-            activityType: "ab",
-            locationName: "redundant-mbox",
-            locationType: "mbox",
-            offerIds: [632330],
-            audienceIds: [5452799]
+            metrics: []
           }
         }
       ]
@@ -428,163 +440,161 @@ export const DECISIONING_PAYLOAD_PARAMS = {
 // https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/Experience-Targeting/kitty_high_with_targeting
 export const DECISIONING_PAYLOAD_PRIORITIES = {
   version: "1.0.0",
+  meta: {
+    clientCode: "adobesummit2018",
+    environment: "production",
+    generatedAt: "2020-05-19T23:24:03.452Z"
+  },
   globalMbox: "target-global-mbox",
-  responseTokens: [],
-  remoteMboxes: [],
-  meta: { generatedAt: "2020-04-10T20:09:00.994Z", environment: 11507 },
+  responseTokens: ["activity.id", "activity.name"],
+  remoteMboxes: ["target-global-mbox"],
   rules: {
     mboxes: {
       kitty: [
         {
-          condition: {
-            and: [{ "==": [{ var: "user.browserType" }, "firefox"] }]
-          },
-          consequence: {
-            options: [
-              {
-                content: "<div>kitty high with targeting: Firefox</div>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "/DhjxnVDh9heBZ0MrYFLF2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "kitty"
-          },
           meta: {
             activityId: 336973,
+            activityType: "landing",
             experienceId: 0,
-            activityType: "xt",
             locationName: "kitty",
             locationType: "mbox",
-            offerIds: [634862],
-            audienceIds: [4873452]
-          }
-        },
-        {
-          condition: {
-            and: [{ "==": [{ var: "user.browserType" }, "safari"] }]
+            locationId: 0,
+            audienceIds: [4873452],
+            offerIds: [634862]
           },
+          condition: { "==": [{ var: "user.browserType" }, "firefox"] },
           consequence: {
+            name: "kitty",
             options: [
               {
-                content: "<div>kitty high with targeting: Safari</div>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
+                type: "html",
                 eventToken:
-                  "/DhjxnVDh9heBZ0MrYFLF5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "/DhjxnVDh9heBZ0MrYFLF2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>kitty high with targeting: Firefox</div>"
               }
             ],
-            name: "kitty"
-          },
+            metrics: []
+          }
+        },
+        {
           meta: {
             activityId: 336973,
+            activityType: "landing",
             experienceId: 1,
-            activityType: "xt",
             locationName: "kitty",
             locationType: "mbox",
-            offerIds: [634861],
-            audienceIds: [4957566]
+            locationId: 0,
+            audienceIds: [4957566],
+            offerIds: [634861]
+          },
+          condition: { "==": [{ var: "user.browserType" }, "safari"] },
+          consequence: {
+            name: "kitty",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "/DhjxnVDh9heBZ0MrYFLF5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>kitty high with targeting: Safari</div>"
+              }
+            ],
+            metrics: []
           }
         },
         {
-          condition: { "<": [0, { var: "allocation" }, 50] },
-          consequence: {
-            options: [{ content: "<div>kitty high A</div>", type: "html" }],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "ruhwp7VESR7F74TJL2DV5WqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "kitty"
-          },
           meta: {
             activityId: 336951,
+            activityType: "ab",
             experienceId: 0,
-            activityType: "ab",
             locationName: "kitty",
             locationType: "mbox",
-            offerIds: [634836],
-            audienceIds: []
-          }
-        },
-        {
-          condition: { "<": [50, { var: "allocation" }, 100] },
-          consequence: {
-            options: [{ content: "<div>kitty high B</div>", type: "html" }],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "ruhwp7VESR7F74TJL2DV5ZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "kitty"
+            locationId: 0,
+            offerIds: [634836]
           },
-          meta: {
-            activityId: 336951,
-            experienceId: 1,
-            activityType: "ab",
-            locationName: "kitty",
-            locationType: "mbox",
-            offerIds: [634837],
-            audienceIds: []
-          }
-        },
-        {
           condition: { "<": [0, { var: "allocation" }, 50] },
           consequence: {
-            options: [{ content: "<div>kitty low A</div>", type: "html" }],
-            metrics: [
+            name: "kitty",
+            options: [
               {
-                type: "display",
+                type: "html",
                 eventToken:
-                  "Ww1ZcMj/ShY5tUV/rUzSjGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "ruhwp7VESR7F74TJL2DV5WqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>kitty high A</div>"
               }
             ],
-            name: "kitty"
-          },
-          meta: {
-            activityId: 336950,
-            experienceId: 0,
-            activityType: "ab",
-            locationName: "kitty",
-            locationType: "mbox",
-            offerIds: [634834],
-            audienceIds: []
+            metrics: []
           }
         },
         {
-          condition: { "<": [50, { var: "allocation" }, 100] },
-          consequence: {
-            options: [{ content: "<div>kitty low B</div>", type: "html" }],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "Ww1ZcMj/ShY5tUV/rUzSjJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "kitty"
-          },
           meta: {
-            activityId: 336950,
-            experienceId: 1,
+            activityId: 336951,
             activityType: "ab",
+            experienceId: 1,
             locationName: "kitty",
             locationType: "mbox",
-            offerIds: [634835],
-            audienceIds: []
+            locationId: 0,
+            offerIds: [634837]
+          },
+          condition: { "<": [50, { var: "allocation" }, 100] },
+          consequence: {
+            name: "kitty",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "ruhwp7VESR7F74TJL2DV5ZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>kitty high B</div>"
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          meta: {
+            activityId: 336950,
+            activityType: "ab",
+            experienceId: 0,
+            locationName: "kitty",
+            locationType: "mbox",
+            locationId: 0,
+            offerIds: [634834]
+          },
+          condition: { "<": [0, { var: "allocation" }, 50] },
+          consequence: {
+            name: "kitty",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "Ww1ZcMj/ShY5tUV/rUzSjGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>kitty low A</div>"
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          meta: {
+            activityId: 336950,
+            activityType: "ab",
+            experienceId: 1,
+            locationName: "kitty",
+            locationType: "mbox",
+            locationId: 0,
+            offerIds: [634835]
+          },
+          condition: { "<": [50, { var: "allocation" }, 100] },
+          consequence: {
+            name: "kitty",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "Ww1ZcMj/ShY5tUV/rUzSjJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>kitty low B</div>"
+              }
+            ],
+            metrics: []
           }
         }
       ]
@@ -596,61 +606,63 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
 // https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/superfluous_ab_json
 export const DECISIONING_PAYLOAD_AB_SIMPLE = {
   version: "1.0.0",
+  meta: {
+    clientCode: "adobesummit2018",
+    environment: "production",
+    generatedAt: "2020-05-19T23:24:03.452Z"
+  },
   globalMbox: "target-global-mbox",
-  responseTokens: [],
-  remoteMboxes: [],
-  meta: { generatedAt: "2020-04-10T19:46:53.599Z", environment: 11507 },
+  responseTokens: ["activity.id", "activity.name"],
+  remoteMboxes: ["target-global-mbox"],
   rules: {
     mboxes: {
       "superfluous-mbox": [
         {
-          condition: { "<": [0, { var: "allocation" }, 50] },
-          consequence: {
-            options: [
-              { content: { doMagic: true, importantValue: 150 }, type: "json" }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "superfluous-mbox"
-          },
           meta: {
             activityId: 334411,
-            experienceId: 0,
             activityType: "ab",
+            experienceId: 0,
             locationName: "superfluous-mbox",
             locationType: "mbox",
-            offerIds: [631992],
-            audienceIds: [5361981]
+            locationId: 0,
+            offerIds: [631992]
+          },
+          condition: { "<": [0, { var: "allocation" }, 50] },
+          consequence: {
+            name: "superfluous-mbox",
+            options: [
+              {
+                type: "json",
+                eventToken:
+                  "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: { doMagic: true, importantValue: 150 }
+              }
+            ],
+            metrics: []
           }
         },
         {
-          condition: { "<": [50, { var: "allocation" }, 100] },
-          consequence: {
-            options: [
-              { content: { doMagic: false, importantValue: 75 }, type: "json" }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "superfluous-mbox"
-          },
           meta: {
             activityId: 334411,
-            experienceId: 1,
             activityType: "ab",
+            experienceId: 1,
             locationName: "superfluous-mbox",
             locationType: "mbox",
-            offerIds: [631991],
-            audienceIds: [5361982]
+            locationId: 0,
+            offerIds: [631991]
+          },
+          condition: { "<": [50, { var: "allocation" }, 100] },
+          consequence: {
+            name: "superfluous-mbox",
+            options: [
+              {
+                type: "json",
+                eventToken:
+                  "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: { doMagic: false, importantValue: 75 }
+              }
+            ],
+            metrics: []
           }
         }
       ]
@@ -662,158 +674,123 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
 // https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/Experience-Targeting/daterange-mbox
 export const DECISIONING_PAYLOAD_TIMEFRAME = {
   version: "1.0.0",
+  meta: {
+    clientCode: "adobesummit2018",
+    environment: "production",
+    generatedAt: "2020-05-19T23:24:03.452Z"
+  },
   globalMbox: "target-global-mbox",
-  responseTokens: [],
-  remoteMboxes: ["remote-only-mbox-a", "remote-only-mbox-a"],
-  meta: { generatedAt: "2020-04-10T20:08:59.355Z", environment: 11507 },
+  responseTokens: ["activity.id", "activity.name"],
+  remoteMboxes: ["remote-only-mbox-a", "target-global-mbox"],
   rules: {
     mboxes: {
       "daterange-mbox": [
         {
-          condition: {
-            and: [
-              {
-                or: [
-                  {
-                    and: [
-                      { or: [{ "==": [{ var: "current_day" }, "5"] }] },
-                      { "<=": ["0000", { var: "current_time" }, "2359"] }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          consequence: {
-            options: [
-              { content: "<strong>it's friday</strong>", type: "html" }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "wQY/V1IOYec8T4fAT5ww7hB3JWElmEno9qwHyGr0QvSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "daterange-mbox"
-          },
           meta: {
             activityId: 334853,
+            activityType: "landing",
             experienceId: 4,
-            activityType: "xt",
             locationName: "daterange-mbox",
             locationType: "mbox",
-            offerIds: [632493],
-            audienceIds: [5372446]
-          }
-        },
-        {
+            locationId: 0,
+            audienceIds: [5372446],
+            offerIds: [632493]
+          },
           condition: {
             and: [
-              {
-                or: [
-                  {
-                    "<=": [
-                      1582822800000,
-                      { var: "current_timestamp" },
-                      1583028000000
-                    ]
-                  }
-                ]
-              }
+              { or: [{ "==": [{ var: "current_day" }, "5"] }] },
+              { "<=": ["0000", { var: "current_time" }, "2359"] }
             ]
           },
           consequence: {
+            name: "daterange-mbox",
             options: [
               {
-                content: "<strong>date range 1 (feb 27-29)</strong>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
+                type: "html",
                 eventToken:
-                  "wQY/V1IOYec8T4fAT5ww7unJlneZxJu5VqGhXCosHhWCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "wQY/V1IOYec8T4fAT5ww7hB3JWElmEno9qwHyGr0QvSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<strong>it's friday</strong>"
               }
             ],
-            name: "daterange-mbox"
-          },
+            metrics: []
+          }
+        },
+        {
           meta: {
             activityId: 334853,
+            activityType: "landing",
             experienceId: 5,
-            activityType: "xt",
             locationName: "daterange-mbox",
             locationType: "mbox",
-            offerIds: [632494],
-            audienceIds: [5372445]
-          }
-        },
-        {
+            locationId: 0,
+            audienceIds: [5372445],
+            offerIds: [632494]
+          },
           condition: {
-            and: [
-              {
-                or: [
-                  {
-                    "<=": [
-                      1583178000000,
-                      { var: "current_timestamp" },
-                      1583523600000
-                    ]
-                  }
-                ]
-              }
-            ]
+            "<=": [1582794000000, { var: "current_timestamp" }, 1582999200000]
           },
           consequence: {
+            name: "daterange-mbox",
             options: [
               {
-                content: "<strong>date range 2 (mar 2 - 6)</strong>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
+                type: "html",
                 eventToken:
-                  "wQY/V1IOYec8T4fAT5ww7pNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "wQY/V1IOYec8T4fAT5ww7unJlneZxJu5VqGhXCosHhWCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<strong>date range 1 (feb 27-29)</strong>"
               }
             ],
-            name: "daterange-mbox"
-          },
-          meta: {
-            activityId: 334853,
-            experienceId: 1,
-            activityType: "xt",
-            locationName: "daterange-mbox",
-            locationType: "mbox",
-            offerIds: [632451],
-            audienceIds: [5372444]
+            metrics: []
           }
         },
         {
+          meta: {
+            activityId: 334853,
+            activityType: "landing",
+            experienceId: 1,
+            locationName: "daterange-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [5372444],
+            offerIds: [632451]
+          },
+          condition: {
+            "<=": [1583149200000, { var: "current_timestamp" }, 1583494800000]
+          },
+          consequence: {
+            name: "daterange-mbox",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "wQY/V1IOYec8T4fAT5ww7pNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<strong>date range 2 (mar 2 - 6)</strong>"
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          meta: {
+            activityId: 334853,
+            activityType: "landing",
+            experienceId: 0,
+            locationName: "daterange-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            offerIds: [632450]
+          },
           condition: true,
           consequence: {
+            name: "daterange-mbox",
             options: [
-              { content: "<strong>default result</strong>", type: "html" }
-            ],
-            metrics: [
               {
-                type: "display",
+                type: "html",
                 eventToken:
-                  "wQY/V1IOYec8T4fAT5ww7mqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "wQY/V1IOYec8T4fAT5ww7mqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<strong>default result</strong>"
               }
             ],
-            name: "daterange-mbox"
-          },
-          meta: {
-            activityId: 334853,
-            experienceId: 0,
-            activityType: "xt",
-            locationName: "daterange-mbox",
-            locationType: "mbox",
-            offerIds: [632450],
-            audienceIds: []
+            metrics: []
           }
         }
       ]
@@ -827,116 +804,127 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
 // https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/global_ab_html
 export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
   version: "1.0.0",
+  meta: {
+    clientCode: "adobesummit2018",
+    environment: "production",
+    generatedAt: "2020-05-19T23:24:03.452Z"
+  },
   globalMbox: "target-global-mbox",
-  responseTokens: [],
+  responseTokens: ["activity.id", "activity.name"],
   remoteMboxes: ["target-global-mbox"],
-  meta: { generatedAt: "2020-04-10T20:09:01.361Z", environment: 11507 },
   rules: {
     mboxes: {
       "target-global-mbox": [
         {
-          condition: {
-            and: [{ "==": [{ var: "user.browserType" }, "chrome"] }]
-          },
-          consequence: {
-            options: [
-              {
-                content: "<div>Chrometastic</div>",
-                type: "html",
-                eventToken:
-                  "9FNM3ikASssS+sVoFXNulGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            metrics: [],
-            name: "target-global-mbox"
-          },
           meta: {
             activityId: 337795,
+            activityType: "landing",
             experienceId: 0,
-            activityType: "xt",
             locationName: "target-global-mbox",
             locationType: "mbox",
-            offerIds: [635716],
-            audienceIds: [2170460]
+            locationId: 0,
+            audienceIds: [2170460],
+            offerIds: [635716]
+          },
+          condition: { "==": [{ var: "user.browserType" }, "chrome"] },
+          consequence: {
+            name: "target-global-mbox",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "9FNM3ikASssS+sVoFXNulGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>Chrometastic</div>"
+              }
+            ],
+            metrics: []
           }
         },
         {
-          condition: {
-            and: [{ "==": [{ var: "user.browserType" }, "firefox"] }]
-          },
-          consequence: {
-            options: [
-              {
-                content: "<div>Firetime</div>",
-                type: "html",
-                eventToken:
-                  "9FNM3ikASssS+sVoFXNulJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            metrics: [],
-            name: "target-global-mbox"
-          },
           meta: {
             activityId: 337795,
+            activityType: "landing",
             experienceId: 1,
-            activityType: "xt",
             locationName: "target-global-mbox",
             locationType: "mbox",
-            offerIds: [635715],
-            audienceIds: [4873452]
-          }
-        },
-        {
-          condition: {
-            and: [{ "==": [{ var: "user.browserType" }, "safari"] }]
+            locationId: 0,
+            audienceIds: [4873452],
+            offerIds: [635715]
           },
+          condition: { "==": [{ var: "user.browserType" }, "firefox"] },
           consequence: {
+            name: "target-global-mbox",
             options: [
               {
-                content: "<div>Safari Run</div>",
                 type: "html",
                 eventToken:
-                  "9FNM3ikASssS+sVoFXNulAreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "9FNM3ikASssS+sVoFXNulJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>Firetime</div>"
               }
             ],
-            metrics: [],
-            name: "target-global-mbox"
-          },
-          meta: {
-            activityId: 337795,
-            experienceId: 2,
-            activityType: "xt",
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            offerIds: [635713],
-            audienceIds: [4957566]
+            metrics: []
           }
         },
         {
+          meta: {
+            activityId: 337795,
+            activityType: "landing",
+            experienceId: 2,
+            locationName: "target-global-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [4957566],
+            offerIds: [635713]
+          },
+          condition: { "==": [{ var: "user.browserType" }, "safari"] },
+          consequence: {
+            name: "target-global-mbox",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "9FNM3ikASssS+sVoFXNulAreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>Safari Run</div>"
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          meta: {
+            activityId: 337795,
+            activityType: "landing",
+            experienceId: 3,
+            locationName: "target-global-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            offerIds: [635714]
+          },
           condition: true,
           consequence: {
+            name: "target-global-mbox",
             options: [
               {
-                content: "<div>Srsly, who dis?</div>",
                 type: "html",
                 eventToken:
-                  "9FNM3ikASssS+sVoFXNulJZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "9FNM3ikASssS+sVoFXNulJZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>Srsly, who dis?</div>"
               }
             ],
-            metrics: [],
-            name: "target-global-mbox"
-          },
-          meta: {
-            activityId: 337795,
-            experienceId: 3,
-            activityType: "xt",
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            offerIds: [635714],
-            audienceIds: []
+            metrics: []
           }
         },
         {
+          meta: {
+            activityId: 337797,
+            activityType: "ab",
+            experienceId: 0,
+            locationName: "target-global-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [5272024],
+            offerIds: [635719]
+          },
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 34] },
@@ -944,28 +932,29 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             ]
           },
           consequence: {
+            name: "target-global-mbox",
             options: [
               {
-                content: "<div>foo=bar experience A</div>",
                 type: "html",
                 eventToken:
-                  "0L1rCkDps3F+UEAm1B9A4GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "0L1rCkDps3F+UEAm1B9A4GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>foo=bar experience A</div>"
               }
             ],
-            metrics: [],
-            name: "target-global-mbox"
-          },
-          meta: {
-            activityId: 337797,
-            experienceId: 0,
-            activityType: "ab",
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            offerIds: [635719],
-            audienceIds: [5272024]
+            metrics: []
           }
         },
         {
+          meta: {
+            activityId: 337797,
+            activityType: "ab",
+            experienceId: 1,
+            locationName: "target-global-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [5272024],
+            offerIds: [635718]
+          },
           condition: {
             and: [
               { "<": [34, { var: "allocation" }, 67] },
@@ -973,28 +962,29 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             ]
           },
           consequence: {
+            name: "target-global-mbox",
             options: [
               {
-                content: "<div>foo=bar experience B</div>",
                 type: "html",
                 eventToken:
-                  "0L1rCkDps3F+UEAm1B9A4JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "0L1rCkDps3F+UEAm1B9A4JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>foo=bar experience B</div>"
               }
             ],
-            metrics: [],
-            name: "target-global-mbox"
-          },
-          meta: {
-            activityId: 337797,
-            experienceId: 1,
-            activityType: "ab",
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            offerIds: [635718],
-            audienceIds: [5272024]
+            metrics: []
           }
         },
         {
+          meta: {
+            activityId: 337797,
+            activityType: "ab",
+            experienceId: 2,
+            locationName: "target-global-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [5272024],
+            offerIds: [635717]
+          },
           condition: {
             and: [
               { "<": [67, { var: "allocation" }, 100] },
@@ -1002,121 +992,112 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             ]
           },
           consequence: {
+            name: "target-global-mbox",
             options: [
               {
-                content: "<div>foo=bar experience C</div>",
                 type: "html",
                 eventToken:
-                  "0L1rCkDps3F+UEAm1B9A4AreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "0L1rCkDps3F+UEAm1B9A4AreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>foo=bar experience C</div>"
               }
             ],
-            metrics: [],
-            name: "target-global-mbox"
-          },
-          meta: {
-            activityId: 337797,
-            experienceId: 2,
-            activityType: "ab",
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            offerIds: [635717],
-            audienceIds: [5272024]
+            metrics: []
           }
         },
         {
+          meta: {
+            activityId: 337888,
+            activityType: "ab",
+            experienceId: 0,
+            locationName: "target-global-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            offerIds: [635778]
+          },
           condition: { "<": [0, { var: "allocation" }, 25] },
           consequence: {
+            name: "target-global-mbox",
             options: [
               {
-                content: "<div>whale</div>",
                 type: "html",
                 eventToken:
-                  "5C2cbrGD+bQ5qOATNGy1AWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "5C2cbrGD+bQ5qOATNGy1AWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>whale</div>"
               }
             ],
-            metrics: [],
-            name: "target-global-mbox"
-          },
-          meta: {
-            activityId: 337888,
-            experienceId: 0,
-            activityType: "ab",
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            offerIds: [635778],
-            audienceIds: []
+            metrics: []
           }
         },
         {
+          meta: {
+            activityId: 337888,
+            activityType: "ab",
+            experienceId: 1,
+            locationName: "target-global-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            offerIds: [635776]
+          },
           condition: { "<": [25, { var: "allocation" }, 50] },
           consequence: {
+            name: "target-global-mbox",
             options: [
               {
-                content: "<div>mouse</div>",
                 type: "html",
                 eventToken:
-                  "5C2cbrGD+bQ5qOATNGy1AZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "5C2cbrGD+bQ5qOATNGy1AZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>mouse</div>"
               }
             ],
-            metrics: [],
-            name: "target-global-mbox"
-          },
-          meta: {
-            activityId: 337888,
-            experienceId: 1,
-            activityType: "ab",
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            offerIds: [635776],
-            audienceIds: []
+            metrics: []
           }
         },
         {
+          meta: {
+            activityId: 337888,
+            activityType: "ab",
+            experienceId: 2,
+            locationName: "target-global-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            offerIds: [635779]
+          },
           condition: { "<": [50, { var: "allocation" }, 75] },
           consequence: {
+            name: "target-global-mbox",
             options: [
               {
-                content: "<div>lion</div>",
                 type: "html",
                 eventToken:
-                  "5C2cbrGD+bQ5qOATNGy1AQreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "5C2cbrGD+bQ5qOATNGy1AQreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>lion</div>"
               }
             ],
-            metrics: [],
-            name: "target-global-mbox"
-          },
-          meta: {
-            activityId: 337888,
-            experienceId: 2,
-            activityType: "ab",
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            offerIds: [635779],
-            audienceIds: []
+            metrics: []
           }
         },
         {
-          condition: { "<": [75, { var: "allocation" }, 100] },
-          consequence: {
-            options: [
-              {
-                content: "<div>owl</div>",
-                type: "html",
-                eventToken:
-                  "5C2cbrGD+bQ5qOATNGy1AZZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            metrics: [],
-            name: "target-global-mbox"
-          },
           meta: {
             activityId: 337888,
-            experienceId: 3,
             activityType: "ab",
+            experienceId: 3,
             locationName: "target-global-mbox",
             locationType: "mbox",
-            offerIds: [635777],
-            audienceIds: []
+            locationId: 0,
+            offerIds: [635777]
+          },
+          condition: { "<": [75, { var: "allocation" }, 100] },
+          consequence: {
+            name: "target-global-mbox",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "5C2cbrGD+bQ5qOATNGy1AZZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>owl</div>"
+              }
+            ],
+            metrics: []
           }
         }
       ]
@@ -1125,26 +1106,100 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
   }
 };
 
+// https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/jason-flags
+export const DECISIONING_PAYLOAD_FEATURE_FLAG = {
+  version: "1.0.0",
+  meta: {
+    clientCode: "adobesummit2018",
+    environment: "production",
+    generatedAt: "2020-05-19T23:24:03.452Z"
+  },
+  globalMbox: "target-global-mbox",
+  responseTokens: ["activity.id", "activity.name"],
+  remoteMboxes: [
+    "remote-only-mbox-a",
+    "remote-only-mbox-b",
+    "target-global-mbox"
+  ],
+  rules: {
+    mboxes: {
+      "jason-flags": [
+        {
+          meta: {
+            activityId: 335113,
+            activityType: "ab",
+            experienceId: 0,
+            locationName: "jason-flags",
+            locationType: "mbox",
+            locationId: 0,
+            offerIds: [632759]
+          },
+          condition: { "<": [0, { var: "allocation" }, 50] },
+          consequence: {
+            name: "jason-flags",
+            options: [
+              {
+                type: "json",
+                eventToken:
+                  "8MDICvd7bsTPYn79fLBNQmqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: {
+                  paymentExperience: "legacy",
+                  showFeatureX: false,
+                  paymentGatewayVersion: 2.3,
+                  customerFeedbackValue: 10
+                }
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          meta: {
+            activityId: 335113,
+            activityType: "ab",
+            experienceId: 1,
+            locationName: "jason-flags",
+            locationType: "mbox",
+            locationId: 0,
+            offerIds: [632760]
+          },
+          condition: { "<": [50, { var: "allocation" }, 100] },
+          consequence: {
+            name: "jason-flags",
+            options: [
+              {
+                type: "json",
+                eventToken:
+                  "8MDICvd7bsTPYn79fLBNQpNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: {
+                  paymentExperience: "alpha10",
+                  showFeatureX: true,
+                  paymentGatewayVersion: 3.1,
+                  customerFeedbackValue: 99
+                }
+              }
+            ],
+            metrics: []
+          }
+        }
+      ]
+    },
+    views: {}
+  }
+};
+
+// https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/Experience-Targeting/xt_spa_add_text_tocontactpage
 // https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/ab_spa_view_changemultipletextnoaudiences
 // https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/ab_spa_view_changeaddtextwithaudiences
 export const DECISIONING_PAYLOAD_VIEWS = {
   version: "1.0.0",
   meta: {
     clientCode: "adobesummit2018",
-    generatedAt: "2020-05-08T20:20:31.375Z",
-    environment: "waters_test"
+    environment: "production",
+    generatedAt: "2020-05-19T23:24:03.452Z"
   },
   globalMbox: "target-global-mbox",
-  responseTokens: [
-    "activity.id",
-    "activity.name",
-    "experience.name",
-    "experience.id",
-    "offer.name",
-    "offer.id",
-    "option.id",
-    "option.name"
-  ],
+  responseTokens: ["activity.id", "activity.name"],
   remoteMboxes: ["target-global-mbox"],
   rules: {
     mboxes: {},
@@ -1158,37 +1213,15 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationName: "contact",
             locationType: "view",
             locationId: 0,
-            audienceIds: [5634562, 5653736],
-            offerIds: []
+            audienceIds: [5634562, 5653736]
           },
           condition: {
             and: [
+              { "==": ["correct", { var: "mbox.jason" }] },
               {
                 and: [
-                  {
-                    "==": [
-                      "local-target-test",
-                      {
-                        var: "page.domain"
-                      }
-                    ]
-                  },
-                  {
-                    "==": [
-                      "/",
-                      {
-                        var: "page.path"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.jason"
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               }
             ]
@@ -1198,6 +1231,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "DKyEy8B6J+arIj6GhXNW/GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "insertBefore",
@@ -1206,9 +1241,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                     content:
                       '<div id="action_insert_15889714592501888">Please call Jason immediately</div>'
                   }
-                ],
-                eventToken:
-                  "DKyEy8B6J+arIj6GhXNW/GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: []
@@ -1222,37 +1255,15 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationName: "contact",
             locationType: "view",
             locationId: 1,
-            audienceIds: [5634562, 5653736],
-            offerIds: []
+            audienceIds: [5634562, 5653736]
           },
           condition: {
             and: [
+              { "==": ["correct", { var: "mbox.jason" }] },
               {
                 and: [
-                  {
-                    "==": [
-                      "local-target-test",
-                      {
-                        var: "page.domain"
-                      }
-                    ]
-                  },
-                  {
-                    "==": [
-                      "/",
-                      {
-                        var: "page.path"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.jason"
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               }
             ]
@@ -1262,6 +1273,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "DKyEy8B6J+arIj6GhXNW/GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setStyle",
@@ -1272,9 +1285,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                       priority: "important"
                     }
                   }
-                ],
-                eventToken:
-                  "DKyEy8B6J+arIj6GhXNW/GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: []
@@ -1288,37 +1299,15 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationName: "contact",
             locationType: "view",
             locationId: 0,
-            audienceIds: [5634157, 5653736],
-            offerIds: []
+            audienceIds: [5634157, 5653736]
           },
           condition: {
             and: [
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.greg"
-                  }
-                ]
-              },
+              { "==": ["correct", { var: "mbox.greg" }] },
               {
                 and: [
-                  {
-                    "==": [
-                      "local-target-test",
-                      {
-                        var: "page.domain"
-                      }
-                    ]
-                  },
-                  {
-                    "==": [
-                      "/",
-                      {
-                        var: "page.path"
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               }
             ]
@@ -1328,6 +1317,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "DKyEy8B6J+arIj6GhXNW/JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "insertBefore",
@@ -1336,9 +1327,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                     content:
                       '<span id="action_insert_15889714897491922">Please email Greg immediately</span>'
                   }
-                ],
-                eventToken:
-                  "DKyEy8B6J+arIj6GhXNW/JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: []
@@ -1352,37 +1341,15 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationName: "contact",
             locationType: "view",
             locationId: 1,
-            audienceIds: [5634157, 5653736],
-            offerIds: []
+            audienceIds: [5634157, 5653736]
           },
           condition: {
             and: [
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.greg"
-                  }
-                ]
-              },
+              { "==": ["correct", { var: "mbox.greg" }] },
               {
                 and: [
-                  {
-                    "==": [
-                      "local-target-test",
-                      {
-                        var: "page.domain"
-                      }
-                    ]
-                  },
-                  {
-                    "==": [
-                      "/",
-                      {
-                        var: "page.path"
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               }
             ]
@@ -1392,6 +1359,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "DKyEy8B6J+arIj6GhXNW/JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setStyle",
@@ -1402,9 +1371,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                       priority: "important"
                     }
                   }
-                ],
-                eventToken:
-                  "DKyEy8B6J+arIj6GhXNW/JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: []
@@ -1418,27 +1385,12 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationName: "contact",
             locationType: "view",
             locationId: 0,
-            audienceIds: [5653736],
-            offerIds: []
+            audienceIds: [5653736]
           },
           condition: {
             and: [
-              {
-                "==": [
-                  "local-target-test",
-                  {
-                    var: "page.domain"
-                  }
-                ]
-              },
-              {
-                "==": [
-                  "/",
-                  {
-                    var: "page.path"
-                  }
-                ]
-              }
+              { "==": ["local-target-test", { var: "page.domain" }] },
+              { "==": ["/", { var: "page.path" }] }
             ]
           },
           consequence: {
@@ -1446,6 +1398,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "DKyEy8B6J+arIj6GhXNW/AreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "insertAfter",
@@ -1454,9 +1408,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                     content:
                       '<span id="action_insert_15889715194712006">Please do not contact us.</span>'
                   }
-                ],
-                eventToken:
-                  "DKyEy8B6J+arIj6GhXNW/AreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: []
@@ -1470,27 +1422,12 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationName: "contact",
             locationType: "view",
             locationId: 1,
-            audienceIds: [5653736],
-            offerIds: []
+            audienceIds: [5653736]
           },
           condition: {
             and: [
-              {
-                "==": [
-                  "local-target-test",
-                  {
-                    var: "page.domain"
-                  }
-                ]
-              },
-              {
-                "==": [
-                  "/",
-                  {
-                    var: "page.path"
-                  }
-                ]
-              }
+              { "==": ["local-target-test", { var: "page.domain" }] },
+              { "==": ["/", { var: "page.path" }] }
             ]
           },
           consequence: {
@@ -1498,6 +1435,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "DKyEy8B6J+arIj6GhXNW/AreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setStyle",
@@ -1508,9 +1447,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                       priority: "important"
                     }
                   }
-                ],
-                eventToken:
-                  "DKyEy8B6J+arIj6GhXNW/AreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: []
@@ -1526,52 +1463,18 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationName: "home",
             locationType: "view",
             locationId: 0,
-            audienceIds: [5653493, 5634562],
-            offerIds: []
+            audienceIds: [5653493, 5634562]
           },
           condition: {
             and: [
+              { "<": [0, { var: "allocation" }, 50] },
               {
                 and: [
-                  {
-                    "<": [
-                      0.0,
-                      {
-                        var: "allocation"
-                      },
-                      50.0
-                    ]
-                  },
-                  {
-                    and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.jason"
-                  }
-                ]
-              }
+              { "==": ["correct", { var: "mbox.jason" }] }
             ]
           },
           consequence: {
@@ -1579,6 +1482,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "ob3/yMzSVllQx2v2P7122GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "insertAfter",
@@ -1587,9 +1492,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                     content:
                       '<p id="action_insert_15889690271122446">jason = correct</p>'
                   }
-                ],
-                eventToken:
-                  "ob3/yMzSVllQx2v2P7122GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -1609,52 +1512,18 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationName: "home",
             locationType: "view",
             locationId: 1,
-            audienceIds: [5653493, 5634562],
-            offerIds: []
+            audienceIds: [5653493, 5634562]
           },
           condition: {
             and: [
+              { "<": [0, { var: "allocation" }, 50] },
               {
                 and: [
-                  {
-                    "<": [
-                      0.0,
-                      {
-                        var: "allocation"
-                      },
-                      50.0
-                    ]
-                  },
-                  {
-                    and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.jason"
-                  }
-                ]
-              }
+              { "==": ["correct", { var: "mbox.jason" }] }
             ]
           },
           consequence: {
@@ -1662,6 +1531,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "ob3/yMzSVllQx2v2P7122GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setHtml",
@@ -1669,9 +1540,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                     cssSelector: "#spa-content > H3:nth-of-type(1)",
                     content: "jason home - exp A"
                   }
-                ],
-                eventToken:
-                  "ob3/yMzSVllQx2v2P7122GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -1691,52 +1560,18 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationName: "home",
             locationType: "view",
             locationId: 2,
-            audienceIds: [5653493, 5634157],
-            offerIds: []
+            audienceIds: [5653493, 5634157]
           },
           condition: {
             and: [
+              { "<": [0, { var: "allocation" }, 50] },
               {
                 and: [
-                  {
-                    "<": [
-                      0.0,
-                      {
-                        var: "allocation"
-                      },
-                      50.0
-                    ]
-                  },
-                  {
-                    and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.greg"
-                  }
-                ]
-              }
+              { "==": ["correct", { var: "mbox.greg" }] }
             ]
           },
           consequence: {
@@ -1744,6 +1579,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "ob3/yMzSVllQx2v2P7122GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "insertAfter",
@@ -1752,9 +1589,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                     content:
                       '<p id="action_insert_15889690455422475">greg = correct</p>'
                   }
-                ],
-                eventToken:
-                  "ob3/yMzSVllQx2v2P7122GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -1774,52 +1609,18 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationName: "home",
             locationType: "view",
             locationId: 3,
-            audienceIds: [5653493, 5634157],
-            offerIds: []
+            audienceIds: [5653493, 5634157]
           },
           condition: {
             and: [
+              { "<": [0, { var: "allocation" }, 50] },
               {
                 and: [
-                  {
-                    "<": [
-                      0.0,
-                      {
-                        var: "allocation"
-                      },
-                      50.0
-                    ]
-                  },
-                  {
-                    and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.greg"
-                  }
-                ]
-              }
+              { "==": ["correct", { var: "mbox.greg" }] }
             ]
           },
           consequence: {
@@ -1827,6 +1628,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "ob3/yMzSVllQx2v2P7122GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setHtml",
@@ -1834,9 +1637,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                     cssSelector: "#spa-content > H3:nth-of-type(1)",
                     content: "greg home - exp A"
                   }
-                ],
-                eventToken:
-                  "ob3/yMzSVllQx2v2P7122GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -1856,38 +1657,15 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationName: "home",
             locationType: "view",
             locationId: 4,
-            audienceIds: [5653493],
-            offerIds: []
+            audienceIds: [5653493]
           },
           condition: {
             and: [
-              {
-                "<": [
-                  0.0,
-                  {
-                    var: "allocation"
-                  },
-                  50.0
-                ]
-              },
+              { "<": [0, { var: "allocation" }, 50] },
               {
                 and: [
-                  {
-                    "==": [
-                      "local-target-test",
-                      {
-                        var: "page.domain"
-                      }
-                    ]
-                  },
-                  {
-                    "==": [
-                      "/",
-                      {
-                        var: "page.path"
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               }
             ]
@@ -1897,6 +1675,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "ob3/yMzSVllQx2v2P7122GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "insertAfter",
@@ -1905,9 +1685,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                     content:
                       '<p id="action_insert_15889689998702412">experience A</p>'
                   }
-                ],
-                eventToken:
-                  "ob3/yMzSVllQx2v2P7122GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -1927,38 +1705,15 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationName: "home",
             locationType: "view",
             locationId: 5,
-            audienceIds: [5653493],
-            offerIds: []
+            audienceIds: [5653493]
           },
           condition: {
             and: [
-              {
-                "<": [
-                  0.0,
-                  {
-                    var: "allocation"
-                  },
-                  50.0
-                ]
-              },
+              { "<": [0, { var: "allocation" }, 50] },
               {
                 and: [
-                  {
-                    "==": [
-                      "local-target-test",
-                      {
-                        var: "page.domain"
-                      }
-                    ]
-                  },
-                  {
-                    "==": [
-                      "/",
-                      {
-                        var: "page.path"
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               }
             ]
@@ -1968,6 +1723,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "ob3/yMzSVllQx2v2P7122GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setHtml",
@@ -1975,9 +1732,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                     cssSelector: "#spa-content > H3:nth-of-type(1)",
                     content: "nobody home - exp A"
                   }
-                ],
-                eventToken:
-                  "ob3/yMzSVllQx2v2P7122GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -1997,52 +1752,18 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationName: "home",
             locationType: "view",
             locationId: 0,
-            audienceIds: [5653493, 5634562],
-            offerIds: []
+            audienceIds: [5653493, 5634562]
           },
           condition: {
             and: [
+              { "<": [50, { var: "allocation" }, 100] },
               {
                 and: [
-                  {
-                    "<": [
-                      50.0,
-                      {
-                        var: "allocation"
-                      },
-                      100.0
-                    ]
-                  },
-                  {
-                    and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.jason"
-                  }
-                ]
-              }
+              { "==": ["correct", { var: "mbox.jason" }] }
             ]
           },
           consequence: {
@@ -2050,6 +1771,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "insertBefore",
@@ -2058,9 +1781,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                     content:
                       '<p id="action_insert_15889691021902684">jason = correct</p>'
                   }
-                ],
-                eventToken:
-                  "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -2080,52 +1801,18 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationName: "home",
             locationType: "view",
             locationId: 1,
-            audienceIds: [5653493, 5634562],
-            offerIds: []
+            audienceIds: [5653493, 5634562]
           },
           condition: {
             and: [
+              { "<": [50, { var: "allocation" }, 100] },
               {
                 and: [
-                  {
-                    "<": [
-                      50.0,
-                      {
-                        var: "allocation"
-                      },
-                      100.0
-                    ]
-                  },
-                  {
-                    and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.jason"
-                  }
-                ]
-              }
+              { "==": ["correct", { var: "mbox.jason" }] }
             ]
           },
           consequence: {
@@ -2133,6 +1820,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setHtml",
@@ -2140,9 +1829,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                     cssSelector: "#spa-content > H3:nth-of-type(1)",
                     content: "JASON HOME - exp B"
                   }
-                ],
-                eventToken:
-                  "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -2162,52 +1849,18 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationName: "home",
             locationType: "view",
             locationId: 2,
-            audienceIds: [5653493, 5634157],
-            offerIds: []
+            audienceIds: [5653493, 5634157]
           },
           condition: {
             and: [
+              { "<": [50, { var: "allocation" }, 100] },
               {
                 and: [
-                  {
-                    "<": [
-                      50.0,
-                      {
-                        var: "allocation"
-                      },
-                      100.0
-                    ]
-                  },
-                  {
-                    and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.greg"
-                  }
-                ]
-              }
+              { "==": ["correct", { var: "mbox.greg" }] }
             ]
           },
           consequence: {
@@ -2215,6 +1868,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "insertBefore",
@@ -2223,9 +1878,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                     content:
                       '<p id="action_insert_15889690873022655">greg = correct</p>'
                   }
-                ],
-                eventToken:
-                  "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -2245,52 +1898,18 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationName: "home",
             locationType: "view",
             locationId: 3,
-            audienceIds: [5653493, 5634157],
-            offerIds: []
+            audienceIds: [5653493, 5634157]
           },
           condition: {
             and: [
+              { "<": [50, { var: "allocation" }, 100] },
               {
                 and: [
-                  {
-                    "<": [
-                      50.0,
-                      {
-                        var: "allocation"
-                      },
-                      100.0
-                    ]
-                  },
-                  {
-                    and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.greg"
-                  }
-                ]
-              }
+              { "==": ["correct", { var: "mbox.greg" }] }
             ]
           },
           consequence: {
@@ -2298,6 +1917,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setHtml",
@@ -2305,9 +1926,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                     cssSelector: "#spa-content > H3:nth-of-type(1)",
                     content: "GREG HOME - exp B"
                   }
-                ],
-                eventToken:
-                  "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -2327,38 +1946,15 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationName: "home",
             locationType: "view",
             locationId: 4,
-            audienceIds: [5653493],
-            offerIds: []
+            audienceIds: [5653493]
           },
           condition: {
             and: [
-              {
-                "<": [
-                  50.0,
-                  {
-                    var: "allocation"
-                  },
-                  100.0
-                ]
-              },
+              { "<": [50, { var: "allocation" }, 100] },
               {
                 and: [
-                  {
-                    "==": [
-                      "local-target-test",
-                      {
-                        var: "page.domain"
-                      }
-                    ]
-                  },
-                  {
-                    "==": [
-                      "/",
-                      {
-                        var: "page.path"
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               }
             ]
@@ -2368,6 +1964,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "insertBefore",
@@ -2376,9 +1974,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                     content:
                       '<p id="action_insert_15889690584632570">Experience B</p>'
                   }
-                ],
-                eventToken:
-                  "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -2398,38 +1994,15 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationName: "home",
             locationType: "view",
             locationId: 5,
-            audienceIds: [5653493],
-            offerIds: []
+            audienceIds: [5653493]
           },
           condition: {
             and: [
-              {
-                "<": [
-                  50.0,
-                  {
-                    var: "allocation"
-                  },
-                  100.0
-                ]
-              },
+              { "<": [50, { var: "allocation" }, 100] },
               {
                 and: [
-                  {
-                    "==": [
-                      "local-target-test",
-                      {
-                        var: "page.domain"
-                      }
-                    ]
-                  },
-                  {
-                    "==": [
-                      "/",
-                      {
-                        var: "page.path"
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               }
             ]
@@ -2439,6 +2012,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setHtml",
@@ -2446,9 +2021,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                     cssSelector: "#spa-content > H3:nth-of-type(1)",
                     content: "NOBODY HOME - exp B"
                   }
-                ],
-                eventToken:
-                  "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -2468,38 +2041,15 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationName: "home",
             locationType: "view",
             locationId: 0,
-            audienceIds: [5653426],
-            offerIds: []
+            audienceIds: [5653426]
           },
           condition: {
             and: [
-              {
-                "<": [
-                  0.0,
-                  {
-                    var: "allocation"
-                  },
-                  50.0
-                ]
-              },
+              { "<": [0, { var: "allocation" }, 50] },
               {
                 and: [
-                  {
-                    "==": [
-                      "local-target-test",
-                      {
-                        var: "page.domain"
-                      }
-                    ]
-                  },
-                  {
-                    "==": [
-                      "/",
-                      {
-                        var: "page.path"
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               }
             ]
@@ -2509,6 +2059,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "XQ6HqnRfrxl3ausAjtQJj2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setHtml",
@@ -2516,9 +2068,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                     cssSelector: "#spa-content > H3:nth-of-type(1)",
                     content: "Home - Experience A"
                   }
-                ],
-                eventToken:
-                  "XQ6HqnRfrxl3ausAjtQJj2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: []
@@ -2532,38 +2082,15 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationName: "home",
             locationType: "view",
             locationId: 1,
-            audienceIds: [5653426],
-            offerIds: []
+            audienceIds: [5653426]
           },
           condition: {
             and: [
-              {
-                "<": [
-                  0.0,
-                  {
-                    var: "allocation"
-                  },
-                  50.0
-                ]
-              },
+              { "<": [0, { var: "allocation" }, 50] },
               {
                 and: [
-                  {
-                    "==": [
-                      "local-target-test",
-                      {
-                        var: "page.domain"
-                      }
-                    ]
-                  },
-                  {
-                    "==": [
-                      "/",
-                      {
-                        var: "page.path"
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               }
             ]
@@ -2573,6 +2100,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "XQ6HqnRfrxl3ausAjtQJj2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setHtml",
@@ -2581,9 +2110,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                     content:
                       "experience A! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus, magna et dignissim ullamcorper, magna ipsum pharetra velit, vel egestas magna leo interdum urna. Etiam purus massa, accumsan in elit sit amet, posuere maximus augue. Donec non velit sit amet ipsum feugiat aliquet id in metus. Integer a auctor nisl. Donec ac lacinia eros. Proin nisl magna, bibendum ut tellus vitae, mattis laoreet lacus. Pellentesque mauris lorem, scelerisque quis nisi ac, vulputate tincidunt est. Maecenas ex justo, ultrices non neque sed, fermentum maximus diam. Vestibulum at facilisis magna. Ut eu tristique lectus. Proin gravida leo eu fermentum ullamcorper. Suspendisse gravida nibh vitae ultricies ultricies. Donec fermentum, metus id tincidunt dapibus, tellus lacus tristique felis, non posuere nibh ligula sed est."
                   }
-                ],
-                eventToken:
-                  "XQ6HqnRfrxl3ausAjtQJj2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: []
@@ -2597,38 +2124,15 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationName: "home",
             locationType: "view",
             locationId: 0,
-            audienceIds: [5653426],
-            offerIds: []
+            audienceIds: [5653426]
           },
           condition: {
             and: [
-              {
-                "<": [
-                  50.0,
-                  {
-                    var: "allocation"
-                  },
-                  100.0
-                ]
-              },
+              { "<": [50, { var: "allocation" }, 100] },
               {
                 and: [
-                  {
-                    "==": [
-                      "local-target-test",
-                      {
-                        var: "page.domain"
-                      }
-                    ]
-                  },
-                  {
-                    "==": [
-                      "/",
-                      {
-                        var: "page.path"
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               }
             ]
@@ -2638,6 +2142,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "XQ6HqnRfrxl3ausAjtQJj5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setHtml",
@@ -2645,9 +2151,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                     cssSelector: "#spa-content > H3:nth-of-type(1)",
                     content: "Home - Experience B"
                   }
-                ],
-                eventToken:
-                  "XQ6HqnRfrxl3ausAjtQJj5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: []
@@ -2661,38 +2165,15 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationName: "home",
             locationType: "view",
             locationId: 1,
-            audienceIds: [5653426],
-            offerIds: []
+            audienceIds: [5653426]
           },
           condition: {
             and: [
-              {
-                "<": [
-                  50.0,
-                  {
-                    var: "allocation"
-                  },
-                  100.0
-                ]
-              },
+              { "<": [50, { var: "allocation" }, 100] },
               {
                 and: [
-                  {
-                    "==": [
-                      "local-target-test",
-                      {
-                        var: "page.domain"
-                      }
-                    ]
-                  },
-                  {
-                    "==": [
-                      "/",
-                      {
-                        var: "page.path"
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               }
             ]
@@ -2702,6 +2183,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "XQ6HqnRfrxl3ausAjtQJj5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setHtml",
@@ -2710,9 +2193,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                     content:
                       "experience B! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus, magna et dignissim ullamcorper, magna ipsum pharetra velit, vel egestas magna leo interdum urna. Etiam purus massa, accumsan in elit sit amet, posuere maximus augue. Donec non velit sit amet ipsum feugiat aliquet id in metus. Integer a auctor nisl. Donec ac lacinia eros. Proin nisl magna, bibendum ut tellus vitae, mattis laoreet lacus. Pellentesque mauris lorem, scelerisque quis nisi ac, vulputate tincidunt est. Maecenas ex justo, ultrices non neque sed, fermentum maximus diam. Vestibulum at facilisis magna. Ut eu tristique lectus. Proin gravida leo eu fermentum ullamcorper. Suspendisse gravida nibh vitae ultricies ultricies. Donec fermentum, metus id tincidunt dapibus, tellus lacus tristique felis, non posuere nibh ligula sed est."
                   }
-                ],
-                eventToken:
-                  "XQ6HqnRfrxl3ausAjtQJj5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: []
@@ -2728,20 +2209,11 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
   version: "1.0.0",
   meta: {
     clientCode: "adobesummit2018",
-    generatedAt: "2020-05-08T17:11:10.858Z",
-    environment: "waters_test"
+    environment: "production",
+    generatedAt: "2020-05-19T23:24:03.452Z"
   },
   globalMbox: "target-global-mbox",
-  responseTokens: [
-    "activity.id",
-    "activity.name",
-    "experience.name",
-    "experience.id",
-    "offer.name",
-    "offer.id",
-    "option.id",
-    "option.name"
-  ],
+  responseTokens: ["activity.id", "activity.name"],
   remoteMboxes: ["target-global-mbox"],
   rules: {
     mboxes: {
@@ -2754,37 +2226,15 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 0,
-            audienceIds: [5634157, 5652249],
-            offerIds: []
+            audienceIds: [5634157, 5652249]
           },
           condition: {
             and: [
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.greg"
-                  }
-                ]
-              },
+              { "==": ["correct", { var: "mbox.greg" }] },
               {
                 and: [
-                  {
-                    "==": [
-                      "local-target-test",
-                      {
-                        var: "page.domain"
-                      }
-                    ]
-                  },
-                  {
-                    "==": [
-                      "/",
-                      {
-                        var: "page.path"
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               }
             ]
@@ -2794,6 +2244,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "39UdigzDfmb97ogXP1PN62qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setHtml",
@@ -2803,9 +2255,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
                       "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
                     content: "greg is correct"
                   }
-                ],
-                eventToken:
-                  "39UdigzDfmb97ogXP1PN62qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -2825,37 +2275,15 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 1,
-            audienceIds: [5634157, 5652249],
-            offerIds: []
+            audienceIds: [5634157, 5652249]
           },
           condition: {
             and: [
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.greg"
-                  }
-                ]
-              },
+              { "==": ["correct", { var: "mbox.greg" }] },
               {
                 and: [
-                  {
-                    "==": [
-                      "local-target-test",
-                      {
-                        var: "page.domain"
-                      }
-                    ]
-                  },
-                  {
-                    "==": [
-                      "/",
-                      {
-                        var: "page.path"
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               }
             ]
@@ -2865,6 +2293,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "39UdigzDfmb97ogXP1PN62qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setHtml",
@@ -2874,9 +2304,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
                       "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
                     content: "Hello greg"
                   }
-                ],
-                eventToken:
-                  "39UdigzDfmb97ogXP1PN62qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -2896,37 +2324,15 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 2,
-            audienceIds: [5634157, 5652249],
-            offerIds: []
+            audienceIds: [5634157, 5652249]
           },
           condition: {
             and: [
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.greg"
-                  }
-                ]
-              },
+              { "==": ["correct", { var: "mbox.greg" }] },
               {
                 and: [
-                  {
-                    "==": [
-                      "local-target-test",
-                      {
-                        var: "page.domain"
-                      }
-                    ]
-                  },
-                  {
-                    "==": [
-                      "/",
-                      {
-                        var: "page.path"
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               }
             ]
@@ -2935,9 +2341,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             name: "target-global-mbox",
             options: [
               {
-                type: "default",
                 eventToken:
-                  "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                  "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             metrics: [
@@ -2957,37 +2362,15 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 3,
-            audienceIds: [5634157, 5652249],
-            offerIds: []
+            audienceIds: [5634157, 5652249]
           },
           condition: {
             and: [
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.greg"
-                  }
-                ]
-              },
+              { "==": ["correct", { var: "mbox.greg" }] },
               {
                 and: [
-                  {
-                    "==": [
-                      "local-target-test",
-                      {
-                        var: "page.domain"
-                      }
-                    ]
-                  },
-                  {
-                    "==": [
-                      "/",
-                      {
-                        var: "page.path"
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               }
             ]
@@ -2996,9 +2379,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             name: "target-global-mbox",
             options: [
               {
-                type: "default",
                 eventToken:
-                  "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                  "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             metrics: [
@@ -3018,37 +2400,15 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 0,
-            audienceIds: [5634562, 5652249],
-            offerIds: []
+            audienceIds: [5634562, 5652249]
           },
           condition: {
             and: [
+              { "==": ["correct", { var: "mbox.jason" }] },
               {
                 and: [
-                  {
-                    "==": [
-                      "local-target-test",
-                      {
-                        var: "page.domain"
-                      }
-                    ]
-                  },
-                  {
-                    "==": [
-                      "/",
-                      {
-                        var: "page.path"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.jason"
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               }
             ]
@@ -3057,9 +2417,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             name: "target-global-mbox",
             options: [
               {
-                type: "default",
                 eventToken:
-                  "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                  "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             metrics: [
@@ -3079,37 +2438,15 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 1,
-            audienceIds: [5634562, 5652249],
-            offerIds: []
+            audienceIds: [5634562, 5652249]
           },
           condition: {
             and: [
+              { "==": ["correct", { var: "mbox.jason" }] },
               {
                 and: [
-                  {
-                    "==": [
-                      "local-target-test",
-                      {
-                        var: "page.domain"
-                      }
-                    ]
-                  },
-                  {
-                    "==": [
-                      "/",
-                      {
-                        var: "page.path"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.jason"
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               }
             ]
@@ -3119,6 +2456,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "39UdigzDfmb97ogXP1PN65NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setHtml",
@@ -3128,9 +2467,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
                       "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
                     content: "Hello jason"
                   }
-                ],
-                eventToken:
-                  "39UdigzDfmb97ogXP1PN65NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -3150,37 +2487,15 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 2,
-            audienceIds: [5634562, 5652249],
-            offerIds: []
+            audienceIds: [5634562, 5652249]
           },
           condition: {
             and: [
+              { "==": ["correct", { var: "mbox.jason" }] },
               {
                 and: [
-                  {
-                    "==": [
-                      "local-target-test",
-                      {
-                        var: "page.domain"
-                      }
-                    ]
-                  },
-                  {
-                    "==": [
-                      "/",
-                      {
-                        var: "page.path"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.jason"
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               }
             ]
@@ -3190,6 +2505,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "39UdigzDfmb97ogXP1PN65NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setHtml",
@@ -3199,9 +2516,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
                       "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
                     content: "jason is correct"
                   }
-                ],
-                eventToken:
-                  "39UdigzDfmb97ogXP1PN65NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -3221,37 +2536,15 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 3,
-            audienceIds: [5634562, 5652249],
-            offerIds: []
+            audienceIds: [5634562, 5652249]
           },
           condition: {
             and: [
+              { "==": ["correct", { var: "mbox.jason" }] },
               {
                 and: [
-                  {
-                    "==": [
-                      "local-target-test",
-                      {
-                        var: "page.domain"
-                      }
-                    ]
-                  },
-                  {
-                    "==": [
-                      "/",
-                      {
-                        var: "page.path"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.jason"
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               }
             ]
@@ -3260,9 +2553,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             name: "target-global-mbox",
             options: [
               {
-                type: "default",
                 eventToken:
-                  "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                  "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             metrics: [
@@ -3282,36 +2574,20 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 0,
-            audienceIds: [5652249],
-            offerIds: []
+            audienceIds: [5652249]
           },
           condition: {
             and: [
-              {
-                "==": [
-                  "local-target-test",
-                  {
-                    var: "page.domain"
-                  }
-                ]
-              },
-              {
-                "==": [
-                  "/",
-                  {
-                    var: "page.path"
-                  }
-                ]
-              }
+              { "==": ["local-target-test", { var: "page.domain" }] },
+              { "==": ["/", { var: "page.path" }] }
             ]
           },
           consequence: {
             name: "target-global-mbox",
             options: [
               {
-                type: "default",
                 eventToken:
-                  "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                  "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             metrics: [
@@ -3331,27 +2607,12 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 1,
-            audienceIds: [5652249],
-            offerIds: []
+            audienceIds: [5652249]
           },
           condition: {
             and: [
-              {
-                "==": [
-                  "local-target-test",
-                  {
-                    var: "page.domain"
-                  }
-                ]
-              },
-              {
-                "==": [
-                  "/",
-                  {
-                    var: "page.path"
-                  }
-                ]
-              }
+              { "==": ["local-target-test", { var: "page.domain" }] },
+              { "==": ["/", { var: "page.path" }] }
             ]
           },
           consequence: {
@@ -3359,6 +2620,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setHtml",
@@ -3368,9 +2631,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
                       "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
                     content: "Hello everyone"
                   }
-                ],
-                eventToken:
-                  "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -3390,36 +2651,20 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 2,
-            audienceIds: [5652249],
-            offerIds: []
+            audienceIds: [5652249]
           },
           condition: {
             and: [
-              {
-                "==": [
-                  "local-target-test",
-                  {
-                    var: "page.domain"
-                  }
-                ]
-              },
-              {
-                "==": [
-                  "/",
-                  {
-                    var: "page.path"
-                  }
-                ]
-              }
+              { "==": ["local-target-test", { var: "page.domain" }] },
+              { "==": ["/", { var: "page.path" }] }
             ]
           },
           consequence: {
             name: "target-global-mbox",
             options: [
               {
-                type: "default",
                 eventToken:
-                  "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                  "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             metrics: [
@@ -3439,27 +2684,12 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 3,
-            audienceIds: [5652249],
-            offerIds: []
+            audienceIds: [5652249]
           },
           condition: {
             and: [
-              {
-                "==": [
-                  "local-target-test",
-                  {
-                    var: "page.domain"
-                  }
-                ]
-              },
-              {
-                "==": [
-                  "/",
-                  {
-                    var: "page.path"
-                  }
-                ]
-              }
+              { "==": ["local-target-test", { var: "page.domain" }] },
+              { "==": ["/", { var: "page.path" }] }
             ]
           },
           consequence: {
@@ -3467,6 +2697,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setHtml",
@@ -3476,9 +2708,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
                       "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
                     content: "all visitors"
                   }
-                ],
-                eventToken:
-                  "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -3502,20 +2732,11 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
   version: "1.0.0",
   meta: {
     clientCode: "adobesummit2018",
-    generatedAt: "2020-05-08T17:37:00.793Z",
-    environment: "waters_test"
+    environment: "production",
+    generatedAt: "2020-05-19T23:24:03.452Z"
   },
   globalMbox: "target-global-mbox",
-  responseTokens: [
-    "activity.id",
-    "activity.name",
-    "experience.name",
-    "experience.id",
-    "offer.name",
-    "offer.id",
-    "option.id",
-    "option.name"
-  ],
+  responseTokens: ["activity.id", "activity.name"],
   remoteMboxes: ["target-global-mbox"],
   rules: {
     mboxes: {
@@ -3528,52 +2749,18 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 0,
-            audienceIds: [5639015, 5634157],
-            offerIds: []
+            audienceIds: [5639015, 5634157]
           },
           condition: {
             and: [
+              { "<": [0, { var: "allocation" }, 50] },
               {
                 and: [
-                  {
-                    "<": [
-                      0.0,
-                      {
-                        var: "allocation"
-                      },
-                      50.0
-                    ]
-                  },
-                  {
-                    and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.greg"
-                  }
-                ]
-              }
+              { "==": ["correct", { var: "mbox.greg" }] }
             ]
           },
           consequence: {
@@ -3581,6 +2768,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "/SXLXTYTqMY5xlnwaQZrEWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setHtml",
@@ -3590,9 +2779,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
                       "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
                     content: "greg is correct"
                   }
-                ],
-                eventToken:
-                  "/SXLXTYTqMY5xlnwaQZrEWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -3612,52 +2799,18 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 1,
-            audienceIds: [5639015, 5634157],
-            offerIds: []
+            audienceIds: [5639015, 5634157]
           },
           condition: {
             and: [
+              { "<": [0, { var: "allocation" }, 50] },
               {
                 and: [
-                  {
-                    "<": [
-                      0.0,
-                      {
-                        var: "allocation"
-                      },
-                      50.0
-                    ]
-                  },
-                  {
-                    and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.greg"
-                  }
-                ]
-              }
+              { "==": ["correct", { var: "mbox.greg" }] }
             ]
           },
           consequence: {
@@ -3665,6 +2818,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "/SXLXTYTqMY5xlnwaQZrEWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setStyle",
@@ -3677,9 +2832,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
                       priority: "important"
                     }
                   }
-                ],
-                eventToken:
-                  "/SXLXTYTqMY5xlnwaQZrEWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -3699,52 +2852,18 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 2,
-            audienceIds: [5639015, 5634562],
-            offerIds: []
+            audienceIds: [5639015, 5634562]
           },
           condition: {
             and: [
+              { "<": [0, { var: "allocation" }, 50] },
               {
                 and: [
-                  {
-                    "<": [
-                      0.0,
-                      {
-                        var: "allocation"
-                      },
-                      50.0
-                    ]
-                  },
-                  {
-                    and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.jason"
-                  }
-                ]
-              }
+              { "==": ["correct", { var: "mbox.jason" }] }
             ]
           },
           consequence: {
@@ -3752,6 +2871,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "/SXLXTYTqMY5xlnwaQZrEWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setHtml",
@@ -3761,9 +2882,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
                       "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
                     content: "jason is correct"
                   }
-                ],
-                eventToken:
-                  "/SXLXTYTqMY5xlnwaQZrEWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -3783,52 +2902,18 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 3,
-            audienceIds: [5639015, 5634562],
-            offerIds: []
+            audienceIds: [5639015, 5634562]
           },
           condition: {
             and: [
+              { "<": [0, { var: "allocation" }, 50] },
               {
                 and: [
-                  {
-                    "<": [
-                      0.0,
-                      {
-                        var: "allocation"
-                      },
-                      50.0
-                    ]
-                  },
-                  {
-                    and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.jason"
-                  }
-                ]
-              }
+              { "==": ["correct", { var: "mbox.jason" }] }
             ]
           },
           consequence: {
@@ -3836,6 +2921,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "/SXLXTYTqMY5xlnwaQZrEWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setStyle",
@@ -3848,9 +2935,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
                       priority: "important"
                     }
                   }
-                ],
-                eventToken:
-                  "/SXLXTYTqMY5xlnwaQZrEWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -3870,38 +2955,15 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 4,
-            audienceIds: [5639015],
-            offerIds: []
+            audienceIds: [5639015]
           },
           condition: {
             and: [
-              {
-                "<": [
-                  0.0,
-                  {
-                    var: "allocation"
-                  },
-                  50.0
-                ]
-              },
+              { "<": [0, { var: "allocation" }, 50] },
               {
                 and: [
-                  {
-                    "==": [
-                      "local-target-test",
-                      {
-                        var: "page.domain"
-                      }
-                    ]
-                  },
-                  {
-                    "==": [
-                      "/",
-                      {
-                        var: "page.path"
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               }
             ]
@@ -3911,6 +2973,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "/SXLXTYTqMY5xlnwaQZrEWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "insertBefore",
@@ -3921,9 +2985,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
                     content:
                       '<p id="action_insert_15887183492726231">experience A</p>'
                   }
-                ],
-                eventToken:
-                  "/SXLXTYTqMY5xlnwaQZrEWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -3943,61 +3005,26 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 5,
-            audienceIds: [5639015, 5634157],
-            offerIds: []
+            audienceIds: [5639015, 5634157]
           },
           condition: {
             and: [
+              { "<": [0, { var: "allocation" }, 50] },
               {
                 and: [
-                  {
-                    "<": [
-                      0.0,
-                      {
-                        var: "allocation"
-                      },
-                      50.0
-                    ]
-                  },
-                  {
-                    and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.greg"
-                  }
-                ]
-              }
+              { "==": ["correct", { var: "mbox.greg" }] }
             ]
           },
           consequence: {
             name: "target-global-mbox",
             options: [
               {
-                type: "default",
                 eventToken:
-                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             metrics: [
@@ -4017,61 +3044,26 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 6,
-            audienceIds: [5639015, 5634157],
-            offerIds: []
+            audienceIds: [5639015, 5634157]
           },
           condition: {
             and: [
+              { "<": [0, { var: "allocation" }, 50] },
               {
                 and: [
-                  {
-                    "<": [
-                      0.0,
-                      {
-                        var: "allocation"
-                      },
-                      50.0
-                    ]
-                  },
-                  {
-                    and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.greg"
-                  }
-                ]
-              }
+              { "==": ["correct", { var: "mbox.greg" }] }
             ]
           },
           consequence: {
             name: "target-global-mbox",
             options: [
               {
-                type: "default",
                 eventToken:
-                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             metrics: [
@@ -4091,61 +3083,26 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 7,
-            audienceIds: [5639015, 5634562],
-            offerIds: []
+            audienceIds: [5639015, 5634562]
           },
           condition: {
             and: [
+              { "<": [0, { var: "allocation" }, 50] },
               {
                 and: [
-                  {
-                    "<": [
-                      0.0,
-                      {
-                        var: "allocation"
-                      },
-                      50.0
-                    ]
-                  },
-                  {
-                    and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.jason"
-                  }
-                ]
-              }
+              { "==": ["correct", { var: "mbox.jason" }] }
             ]
           },
           consequence: {
             name: "target-global-mbox",
             options: [
               {
-                type: "default",
                 eventToken:
-                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             metrics: [
@@ -4165,61 +3122,26 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 8,
-            audienceIds: [5639015, 5634562],
-            offerIds: []
+            audienceIds: [5639015, 5634562]
           },
           condition: {
             and: [
+              { "<": [0, { var: "allocation" }, 50] },
               {
                 and: [
-                  {
-                    "<": [
-                      0.0,
-                      {
-                        var: "allocation"
-                      },
-                      50.0
-                    ]
-                  },
-                  {
-                    and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.jason"
-                  }
-                ]
-              }
+              { "==": ["correct", { var: "mbox.jason" }] }
             ]
           },
           consequence: {
             name: "target-global-mbox",
             options: [
               {
-                type: "default",
                 eventToken:
-                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             metrics: [
@@ -4239,61 +3161,26 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 0,
-            audienceIds: [5639015, 5634157],
-            offerIds: []
+            audienceIds: [5639015, 5634157]
           },
           condition: {
             and: [
+              { "<": [50, { var: "allocation" }, 100] },
               {
                 and: [
-                  {
-                    "<": [
-                      50.0,
-                      {
-                        var: "allocation"
-                      },
-                      100.0
-                    ]
-                  },
-                  {
-                    and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.greg"
-                  }
-                ]
-              }
+              { "==": ["correct", { var: "mbox.greg" }] }
             ]
           },
           consequence: {
             name: "target-global-mbox",
             options: [
               {
-                type: "default",
                 eventToken:
-                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             metrics: [
@@ -4313,61 +3200,26 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 1,
-            audienceIds: [5639015, 5634157],
-            offerIds: []
+            audienceIds: [5639015, 5634157]
           },
           condition: {
             and: [
+              { "<": [50, { var: "allocation" }, 100] },
               {
                 and: [
-                  {
-                    "<": [
-                      50.0,
-                      {
-                        var: "allocation"
-                      },
-                      100.0
-                    ]
-                  },
-                  {
-                    and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.greg"
-                  }
-                ]
-              }
+              { "==": ["correct", { var: "mbox.greg" }] }
             ]
           },
           consequence: {
             name: "target-global-mbox",
             options: [
               {
-                type: "default",
                 eventToken:
-                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             metrics: [
@@ -4387,61 +3239,26 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 2,
-            audienceIds: [5639015, 5634562],
-            offerIds: []
+            audienceIds: [5639015, 5634562]
           },
           condition: {
             and: [
+              { "<": [50, { var: "allocation" }, 100] },
               {
                 and: [
-                  {
-                    "<": [
-                      50.0,
-                      {
-                        var: "allocation"
-                      },
-                      100.0
-                    ]
-                  },
-                  {
-                    and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.jason"
-                  }
-                ]
-              }
+              { "==": ["correct", { var: "mbox.jason" }] }
             ]
           },
           consequence: {
             name: "target-global-mbox",
             options: [
               {
-                type: "default",
                 eventToken:
-                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             metrics: [
@@ -4461,61 +3278,26 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 3,
-            audienceIds: [5639015, 5634562],
-            offerIds: []
+            audienceIds: [5639015, 5634562]
           },
           condition: {
             and: [
+              { "<": [50, { var: "allocation" }, 100] },
               {
                 and: [
-                  {
-                    "<": [
-                      50.0,
-                      {
-                        var: "allocation"
-                      },
-                      100.0
-                    ]
-                  },
-                  {
-                    and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.jason"
-                  }
-                ]
-              }
+              { "==": ["correct", { var: "mbox.jason" }] }
             ]
           },
           consequence: {
             name: "target-global-mbox",
             options: [
               {
-                type: "default",
                 eventToken:
-                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             metrics: [
@@ -4535,38 +3317,15 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 4,
-            audienceIds: [5639015],
-            offerIds: []
+            audienceIds: [5639015]
           },
           condition: {
             and: [
-              {
-                "<": [
-                  50.0,
-                  {
-                    var: "allocation"
-                  },
-                  100.0
-                ]
-              },
+              { "<": [50, { var: "allocation" }, 100] },
               {
                 and: [
-                  {
-                    "==": [
-                      "local-target-test",
-                      {
-                        var: "page.domain"
-                      }
-                    ]
-                  },
-                  {
-                    "==": [
-                      "/",
-                      {
-                        var: "page.path"
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               }
             ]
@@ -4576,6 +3335,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "insertBefore",
@@ -4586,9 +3347,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
                     content:
                       '<p id="action_insert_15887183664846489">experience B</p>'
                   }
-                ],
-                eventToken:
-                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -4608,52 +3367,18 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 5,
-            audienceIds: [5639015, 5634157],
-            offerIds: []
+            audienceIds: [5639015, 5634157]
           },
           condition: {
             and: [
+              { "<": [50, { var: "allocation" }, 100] },
               {
                 and: [
-                  {
-                    "<": [
-                      50.0,
-                      {
-                        var: "allocation"
-                      },
-                      100.0
-                    ]
-                  },
-                  {
-                    and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.greg"
-                  }
-                ]
-              }
+              { "==": ["correct", { var: "mbox.greg" }] }
             ]
           },
           consequence: {
@@ -4661,6 +3386,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setHtml",
@@ -4670,9 +3397,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
                       "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
                     content: "greg is correct"
                   }
-                ],
-                eventToken:
-                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -4692,52 +3417,18 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 6,
-            audienceIds: [5639015, 5634157],
-            offerIds: []
+            audienceIds: [5639015, 5634157]
           },
           condition: {
             and: [
+              { "<": [50, { var: "allocation" }, 100] },
               {
                 and: [
-                  {
-                    "<": [
-                      50.0,
-                      {
-                        var: "allocation"
-                      },
-                      100.0
-                    ]
-                  },
-                  {
-                    and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.greg"
-                  }
-                ]
-              }
+              { "==": ["correct", { var: "mbox.greg" }] }
             ]
           },
           consequence: {
@@ -4745,6 +3436,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "insertBefore",
@@ -4753,9 +3446,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
                     content:
                       '<p id="action_insert_15887181614905265"> gregggggg</p>'
                   }
-                ],
-                eventToken:
-                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -4775,52 +3466,18 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 7,
-            audienceIds: [5639015, 5634562],
-            offerIds: []
+            audienceIds: [5639015, 5634562]
           },
           condition: {
             and: [
+              { "<": [50, { var: "allocation" }, 100] },
               {
                 and: [
-                  {
-                    "<": [
-                      50.0,
-                      {
-                        var: "allocation"
-                      },
-                      100.0
-                    ]
-                  },
-                  {
-                    and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.jason"
-                  }
-                ]
-              }
+              { "==": ["correct", { var: "mbox.jason" }] }
             ]
           },
           consequence: {
@@ -4828,6 +3485,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setHtml",
@@ -4837,9 +3496,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
                       "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
                     content: "jason is correct"
                   }
-                ],
-                eventToken:
-                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -4859,52 +3516,18 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 8,
-            audienceIds: [5639015, 5634562],
-            offerIds: []
+            audienceIds: [5639015, 5634562]
           },
           condition: {
             and: [
+              { "<": [50, { var: "allocation" }, 100] },
               {
                 and: [
-                  {
-                    "<": [
-                      50.0,
-                      {
-                        var: "allocation"
-                      },
-                      100.0
-                    ]
-                  },
-                  {
-                    and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
                 ]
               },
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.jason"
-                  }
-                ]
-              }
+              { "==": ["correct", { var: "mbox.jason" }] }
             ]
           },
           consequence: {
@@ -4912,6 +3535,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "insertBefore",
@@ -4920,9 +3545,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
                     content:
                       '<p id="action_insert_15887181773115309"> jasonnnnnnnn</p>'
                   }
-                ],
-                eventToken:
-                  "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -4942,50 +3565,20 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 0,
-            audienceIds: [5614593],
-            offerIds: []
+            audienceIds: [5614593]
           },
           condition: {
             and: [
-              {
-                "<": [
-                  0.0,
-                  {
-                    var: "allocation"
-                  },
-                  50.0
-                ]
-              },
+              { "<": [0, { var: "allocation" }, 50] },
               {
                 or: [
                   {
                     and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
+                      { "==": ["local-target-test", { var: "page.domain" }] },
+                      { "==": ["/", { var: "page.path" }] }
                     ]
                   },
-                  {
-                    in: [
-                      "adbeld.surge.sh",
-                      {
-                        var: "page.url_lc"
-                      }
-                    ]
-                  }
+                  { in: ["adbeld.surge.sh", { var: "page.url_lc" }] }
                 ]
               }
             ]
@@ -4995,6 +3588,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "6Na6eWan1u0HrN32JDT54GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "insertAfter",
@@ -5005,9 +3600,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
                     content:
                       '<p id="action_insert_15882850825432970">Better to remain silent and be thought a fool than to speak out and remove all doubt.</p>'
                   }
-                ],
-                eventToken:
-                  "6Na6eWan1u0HrN32JDT54GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -5027,50 +3620,20 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 1,
-            audienceIds: [5614593],
-            offerIds: []
+            audienceIds: [5614593]
           },
           condition: {
             and: [
-              {
-                "<": [
-                  0.0,
-                  {
-                    var: "allocation"
-                  },
-                  50.0
-                ]
-              },
+              { "<": [0, { var: "allocation" }, 50] },
               {
                 or: [
                   {
                     and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
+                      { "==": ["local-target-test", { var: "page.domain" }] },
+                      { "==": ["/", { var: "page.path" }] }
                     ]
                   },
-                  {
-                    in: [
-                      "adbeld.surge.sh",
-                      {
-                        var: "page.url_lc"
-                      }
-                    ]
-                  }
+                  { in: ["adbeld.surge.sh", { var: "page.url_lc" }] }
                 ]
               }
             ]
@@ -5080,6 +3643,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "6Na6eWan1u0HrN32JDT54GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setStyle",
@@ -5090,9 +3655,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
                       priority: "important"
                     }
                   }
-                ],
-                eventToken:
-                  "6Na6eWan1u0HrN32JDT54GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -5112,50 +3675,20 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 2,
-            audienceIds: [5614593],
-            offerIds: []
+            audienceIds: [5614593]
           },
           condition: {
             and: [
-              {
-                "<": [
-                  0.0,
-                  {
-                    var: "allocation"
-                  },
-                  50.0
-                ]
-              },
+              { "<": [0, { var: "allocation" }, 50] },
               {
                 or: [
                   {
                     and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
+                      { "==": ["local-target-test", { var: "page.domain" }] },
+                      { "==": ["/", { var: "page.path" }] }
                     ]
                   },
-                  {
-                    in: [
-                      "adbeld.surge.sh",
-                      {
-                        var: "page.url_lc"
-                      }
-                    ]
-                  }
+                  { in: ["adbeld.surge.sh", { var: "page.url_lc" }] }
                 ]
               }
             ]
@@ -5164,9 +3697,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             name: "target-global-mbox",
             options: [
               {
-                type: "default",
                 eventToken:
-                  "6Na6eWan1u0HrN32JDT54JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                  "6Na6eWan1u0HrN32JDT54JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             metrics: [
@@ -5186,50 +3718,20 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 0,
-            audienceIds: [5614593],
-            offerIds: []
+            audienceIds: [5614593]
           },
           condition: {
             and: [
-              {
-                "<": [
-                  50.0,
-                  {
-                    var: "allocation"
-                  },
-                  100.0
-                ]
-              },
+              { "<": [50, { var: "allocation" }, 100] },
               {
                 or: [
                   {
                     and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
+                      { "==": ["local-target-test", { var: "page.domain" }] },
+                      { "==": ["/", { var: "page.path" }] }
                     ]
                   },
-                  {
-                    in: [
-                      "adbeld.surge.sh",
-                      {
-                        var: "page.url_lc"
-                      }
-                    ]
-                  }
+                  { in: ["adbeld.surge.sh", { var: "page.url_lc" }] }
                 ]
               }
             ]
@@ -5239,6 +3741,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "6Na6eWan1u0HrN32JDT54JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "insertAfter",
@@ -5249,9 +3753,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
                     content:
                       '<p id="action_insert_15882853393943012">Life moves pretty fast. If you don’t stop and look around once in a while, you could miss it.</p>'
                   }
-                ],
-                eventToken:
-                  "6Na6eWan1u0HrN32JDT54JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -5271,50 +3773,20 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 1,
-            audienceIds: [5614593],
-            offerIds: []
+            audienceIds: [5614593]
           },
           condition: {
             and: [
-              {
-                "<": [
-                  50.0,
-                  {
-                    var: "allocation"
-                  },
-                  100.0
-                ]
-              },
+              { "<": [50, { var: "allocation" }, 100] },
               {
                 or: [
                   {
                     and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
+                      { "==": ["local-target-test", { var: "page.domain" }] },
+                      { "==": ["/", { var: "page.path" }] }
                     ]
                   },
-                  {
-                    in: [
-                      "adbeld.surge.sh",
-                      {
-                        var: "page.url_lc"
-                      }
-                    ]
-                  }
+                  { in: ["adbeld.surge.sh", { var: "page.url_lc" }] }
                 ]
               }
             ]
@@ -5323,9 +3795,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             name: "target-global-mbox",
             options: [
               {
-                type: "default",
                 eventToken:
-                  "6Na6eWan1u0HrN32JDT54JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                  "6Na6eWan1u0HrN32JDT54JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             metrics: [
@@ -5345,50 +3816,20 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationName: "target-global-mbox",
             locationType: "view",
             locationId: 2,
-            audienceIds: [5614593],
-            offerIds: []
+            audienceIds: [5614593]
           },
           condition: {
             and: [
-              {
-                "<": [
-                  50.0,
-                  {
-                    var: "allocation"
-                  },
-                  100.0
-                ]
-              },
+              { "<": [50, { var: "allocation" }, 100] },
               {
                 or: [
                   {
                     and: [
-                      {
-                        "==": [
-                          "local-target-test",
-                          {
-                            var: "page.domain"
-                          }
-                        ]
-                      },
-                      {
-                        "==": [
-                          "/",
-                          {
-                            var: "page.path"
-                          }
-                        ]
-                      }
+                      { "==": ["local-target-test", { var: "page.domain" }] },
+                      { "==": ["/", { var: "page.path" }] }
                     ]
                   },
-                  {
-                    in: [
-                      "adbeld.surge.sh",
-                      {
-                        var: "page.url_lc"
-                      }
-                    ]
-                  }
+                  { in: ["adbeld.surge.sh", { var: "page.url_lc" }] }
                 ]
               }
             ]
@@ -5398,6 +3839,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             options: [
               {
                 type: "actions",
+                eventToken:
+                  "6Na6eWan1u0HrN32JDT54JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: [
                   {
                     type: "setStyle",
@@ -5408,9 +3851,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
                       priority: "important"
                     }
                   }
-                ],
-                eventToken:
-                  "6Na6eWan1u0HrN32JDT54JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
+                ]
               }
             ],
             metrics: [
@@ -5420,1028 +3861,6 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
                 selector: "#action_insert_15882853393943012"
               }
             ]
-          }
-        }
-      ]
-    },
-    views: {}
-  }
-};
-
-export const DECISIONING_PAYLOAD_ALL = {
-  version: "1.0.0",
-  globalMbox: "target-global-mbox",
-  responseTokens: [],
-  remoteMboxes: ["remote-only-mbox-a", "remote-only-mbox-b"],
-  meta: { generatedAt: "2020-04-14T19:02:04.557Z", environment: 11507 },
-  rules: {
-    mboxes: {
-      kitty: [
-        {
-          condition: {
-            and: [{ "==": [{ var: "user.browserType" }, "firefox"] }]
-          },
-          consequence: {
-            options: [
-              {
-                content: "<div>kitty high with targeting: Firefox</div>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "/DhjxnVDh9heBZ0MrYFLF2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "kitty"
-          },
-          meta: {
-            activityId: 336973,
-            experienceId: 0,
-            activityType: "xt",
-            locationName: "kitty",
-            locationType: "mbox",
-            offerIds: [634862],
-            audienceIds: [4873452]
-          }
-        },
-        {
-          condition: {
-            and: [{ "==": [{ var: "user.browserType" }, "safari"] }]
-          },
-          consequence: {
-            options: [
-              {
-                content: "<div>kitty high with targeting: Safari</div>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "/DhjxnVDh9heBZ0MrYFLF5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "kitty"
-          },
-          meta: {
-            activityId: 336973,
-            experienceId: 1,
-            activityType: "xt",
-            locationName: "kitty",
-            locationType: "mbox",
-            offerIds: [634861],
-            audienceIds: [4957566]
-          }
-        },
-        {
-          condition: { "<": [0, { var: "allocation" }, 50] },
-          consequence: {
-            options: [{ content: "<div>kitty high A</div>", type: "html" }],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "ruhwp7VESR7F74TJL2DV5WqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "kitty"
-          },
-          meta: {
-            activityId: 336951,
-            experienceId: 0,
-            activityType: "ab",
-            locationName: "kitty",
-            locationType: "mbox",
-            offerIds: [634836],
-            audienceIds: []
-          }
-        },
-        {
-          condition: { "<": [50, { var: "allocation" }, 100] },
-          consequence: {
-            options: [{ content: "<div>kitty high B</div>", type: "html" }],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "ruhwp7VESR7F74TJL2DV5ZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "kitty"
-          },
-          meta: {
-            activityId: 336951,
-            experienceId: 1,
-            activityType: "ab",
-            locationName: "kitty",
-            locationType: "mbox",
-            offerIds: [634837],
-            audienceIds: []
-          }
-        },
-        {
-          condition: { "<": [0, { var: "allocation" }, 50] },
-          consequence: {
-            options: [{ content: "<div>kitty low A</div>", type: "html" }],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "Ww1ZcMj/ShY5tUV/rUzSjGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "kitty"
-          },
-          meta: {
-            activityId: 336950,
-            experienceId: 0,
-            activityType: "ab",
-            locationName: "kitty",
-            locationType: "mbox",
-            offerIds: [634834],
-            audienceIds: []
-          }
-        },
-        {
-          condition: { "<": [50, { var: "allocation" }, 100] },
-          consequence: {
-            options: [{ content: "<div>kitty low B</div>", type: "html" }],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "Ww1ZcMj/ShY5tUV/rUzSjJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "kitty"
-          },
-          meta: {
-            activityId: 336950,
-            experienceId: 1,
-            activityType: "ab",
-            locationName: "kitty",
-            locationType: "mbox",
-            offerIds: [634835],
-            audienceIds: []
-          }
-        }
-      ],
-      "target-global-mbox": [
-        {
-          condition: {
-            and: [{ "==": [{ var: "user.browserType" }, "chrome"] }]
-          },
-          consequence: {
-            options: [{ content: "<div>Chrometastic</div>", type: "html" }],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "9FNM3ikASssS+sVoFXNulGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "target-global-mbox"
-          },
-          meta: {
-            activityId: 337795,
-            experienceId: 0,
-            activityType: "xt",
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            offerIds: [635716],
-            audienceIds: [2170460]
-          }
-        },
-        {
-          condition: {
-            and: [{ "==": [{ var: "user.browserType" }, "firefox"] }]
-          },
-          consequence: {
-            options: [{ content: "<div>Firetime</div>", type: "html" }],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "9FNM3ikASssS+sVoFXNulJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "target-global-mbox"
-          },
-          meta: {
-            activityId: 337795,
-            experienceId: 1,
-            activityType: "xt",
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            offerIds: [635715],
-            audienceIds: [4873452]
-          }
-        },
-        {
-          condition: {
-            and: [{ "==": [{ var: "user.browserType" }, "safari"] }]
-          },
-          consequence: {
-            options: [{ content: "<div>Safari Run</div>", type: "html" }],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "9FNM3ikASssS+sVoFXNulAreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "target-global-mbox"
-          },
-          meta: {
-            activityId: 337795,
-            experienceId: 2,
-            activityType: "xt",
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            offerIds: [635713],
-            audienceIds: [4957566]
-          }
-        },
-        {
-          condition: true,
-          consequence: {
-            options: [{ content: "<div>Srsly, who dis?</div>", type: "html" }],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "9FNM3ikASssS+sVoFXNulJZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "target-global-mbox"
-          },
-          meta: {
-            activityId: 337795,
-            experienceId: 3,
-            activityType: "xt",
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            offerIds: [635714],
-            audienceIds: []
-          }
-        },
-        {
-          condition: {
-            and: [
-              { "<": [0, { var: "allocation" }, 34] },
-              { "==": ["bar", { var: "mbox.foo" }] }
-            ]
-          },
-          consequence: {
-            options: [
-              { content: "<div>foo=bar experience A</div>", type: "html" }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "0L1rCkDps3F+UEAm1B9A4GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "target-global-mbox"
-          },
-          meta: {
-            activityId: 337797,
-            experienceId: 0,
-            activityType: "ab",
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            offerIds: [635719],
-            audienceIds: [5272024]
-          }
-        },
-        {
-          condition: {
-            and: [
-              { "<": [34, { var: "allocation" }, 67] },
-              { "==": ["bar", { var: "mbox.foo" }] }
-            ]
-          },
-          consequence: {
-            options: [
-              { content: "<div>foo=bar experience B</div>", type: "html" }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "0L1rCkDps3F+UEAm1B9A4JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "target-global-mbox"
-          },
-          meta: {
-            activityId: 337797,
-            experienceId: 1,
-            activityType: "ab",
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            offerIds: [635718],
-            audienceIds: [5272024]
-          }
-        },
-        {
-          condition: {
-            and: [
-              { "<": [67, { var: "allocation" }, 100] },
-              { "==": ["bar", { var: "mbox.foo" }] }
-            ]
-          },
-          consequence: {
-            options: [
-              { content: "<div>foo=bar experience C</div>", type: "html" }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "0L1rCkDps3F+UEAm1B9A4AreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "target-global-mbox"
-          },
-          meta: {
-            activityId: 337797,
-            experienceId: 2,
-            activityType: "ab",
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            offerIds: [635717],
-            audienceIds: [5272024]
-          }
-        },
-        {
-          condition: { "<": [0, { var: "allocation" }, 25] },
-          consequence: {
-            options: [{ content: "<div>whale</div>", type: "html" }],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "5C2cbrGD+bQ5qOATNGy1AWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "target-global-mbox"
-          },
-          meta: {
-            activityId: 337888,
-            experienceId: 0,
-            activityType: "ab",
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            offerIds: [635778],
-            audienceIds: []
-          }
-        },
-        {
-          condition: { "<": [25, { var: "allocation" }, 50] },
-          consequence: {
-            options: [{ content: "<div>mouse</div>", type: "html" }],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "5C2cbrGD+bQ5qOATNGy1AZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "target-global-mbox"
-          },
-          meta: {
-            activityId: 337888,
-            experienceId: 1,
-            activityType: "ab",
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            offerIds: [635776],
-            audienceIds: []
-          }
-        },
-        {
-          condition: { "<": [50, { var: "allocation" }, 75] },
-          consequence: {
-            options: [{ content: "<div>lion</div>", type: "html" }],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "5C2cbrGD+bQ5qOATNGy1AQreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "target-global-mbox"
-          },
-          meta: {
-            activityId: 337888,
-            experienceId: 2,
-            activityType: "ab",
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            offerIds: [635779],
-            audienceIds: []
-          }
-        },
-        {
-          condition: { "<": [75, { var: "allocation" }, 100] },
-          consequence: {
-            options: [{ content: "<div>owl</div>", type: "html" }],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "5C2cbrGD+bQ5qOATNGy1AZZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "target-global-mbox"
-          },
-          meta: {
-            activityId: 337888,
-            experienceId: 3,
-            activityType: "ab",
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            offerIds: [635777],
-            audienceIds: []
-          }
-        }
-      ],
-      offer2: [
-        {
-          condition: {
-            and: [
-              { "<": [0, { var: "allocation" }, 50] },
-              { in: ["bar", { var: "page.url_lc" }] }
-            ]
-          },
-          consequence: {
-            options: [{ content: { baz: 1 }, type: "json" }],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "mWtD0yDAXMnesyQOa7/jS2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "offer2"
-          },
-          meta: {
-            activityId: 333312,
-            experienceId: 0,
-            activityType: "ab",
-            locationName: "offer2",
-            locationType: "mbox",
-            offerIds: [630815],
-            audienceIds: [5356811]
-          }
-        },
-        {
-          condition: {
-            and: [
-              { "<": [50, { var: "allocation" }, 100] },
-              { in: ["bar", { var: "page.url_lc" }] }
-            ]
-          },
-          consequence: {
-            options: [{ content: { baz: 2 }, type: "json" }],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "mWtD0yDAXMnesyQOa7/jS5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "offer2"
-          },
-          meta: {
-            activityId: 333312,
-            experienceId: 1,
-            activityType: "ab",
-            locationName: "offer2",
-            locationType: "mbox",
-            offerIds: [630814],
-            audienceIds: [5356811]
-          }
-        }
-      ],
-      "daterange-mbox": [
-        {
-          condition: {
-            and: [
-              {
-                or: [
-                  {
-                    and: [
-                      { or: [{ "==": [{ var: "current_day" }, "5"] }] },
-                      { "<=": ["0000", { var: "current_time" }, "2359"] }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          consequence: {
-            options: [
-              { content: "<strong>it's friday</strong>", type: "html" }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "wQY/V1IOYec8T4fAT5ww7hB3JWElmEno9qwHyGr0QvSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "daterange-mbox"
-          },
-          meta: {
-            activityId: 334853,
-            experienceId: 4,
-            activityType: "xt",
-            locationName: "daterange-mbox",
-            locationType: "mbox",
-            offerIds: [632493],
-            audienceIds: [5372446]
-          }
-        },
-        {
-          condition: {
-            and: [
-              {
-                or: [
-                  {
-                    "<=": [
-                      1582822800000,
-                      { var: "current_timestamp" },
-                      1583028000000
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          consequence: {
-            options: [
-              {
-                content: "<strong>date range 1 (feb 27-29)</strong>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "wQY/V1IOYec8T4fAT5ww7unJlneZxJu5VqGhXCosHhWCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "daterange-mbox"
-          },
-          meta: {
-            activityId: 334853,
-            experienceId: 5,
-            activityType: "xt",
-            locationName: "daterange-mbox",
-            locationType: "mbox",
-            offerIds: [632494],
-            audienceIds: [5372445]
-          }
-        },
-        {
-          condition: {
-            and: [
-              {
-                or: [
-                  {
-                    "<=": [
-                      1583178000000,
-                      { var: "current_timestamp" },
-                      1583523600000
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          consequence: {
-            options: [
-              {
-                content: "<strong>date range 2 (mar 2 - 6)</strong>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "wQY/V1IOYec8T4fAT5ww7pNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "daterange-mbox"
-          },
-          meta: {
-            activityId: 334853,
-            experienceId: 1,
-            activityType: "xt",
-            locationName: "daterange-mbox",
-            locationType: "mbox",
-            offerIds: [632451],
-            audienceIds: [5372444]
-          }
-        },
-        {
-          condition: true,
-          consequence: {
-            options: [
-              { content: "<strong>default result</strong>", type: "html" }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "wQY/V1IOYec8T4fAT5ww7mqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "daterange-mbox"
-          },
-          meta: {
-            activityId: 334853,
-            experienceId: 0,
-            activityType: "xt",
-            locationName: "daterange-mbox",
-            locationType: "mbox",
-            offerIds: [632450],
-            audienceIds: []
-          }
-        }
-      ],
-      "browser-mbox": [
-        {
-          condition: {
-            and: [{ "==": [{ var: "user.browserType" }, "firefox"] }]
-          },
-          consequence: {
-            options: [{ content: "<h1>it's firefox</h1>", type: "html" }],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "B8C2FP2IuBgmeJcDfXHjGpNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "browser-mbox"
-          },
-          meta: {
-            activityId: 334845,
-            experienceId: 1,
-            activityType: "xt",
-            locationName: "browser-mbox",
-            locationType: "mbox",
-            offerIds: [632439],
-            audienceIds: [4873452]
-          }
-        },
-        {
-          condition: {
-            and: [{ "==": [{ var: "user.browserType" }, "safari"] }]
-          },
-          consequence: {
-            options: [{ content: "<h1>it's safari</h1>", type: "html" }],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "B8C2FP2IuBgmeJcDfXHjGgreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "browser-mbox"
-          },
-          meta: {
-            activityId: 334845,
-            experienceId: 2,
-            activityType: "xt",
-            locationName: "browser-mbox",
-            locationType: "mbox",
-            offerIds: [632440],
-            audienceIds: [4957566]
-          }
-        },
-        {
-          condition: {
-            and: [{ "==": [{ var: "user.browserType" }, "chrome"] }]
-          },
-          consequence: {
-            options: [{ content: "<h1>it's chrome</h1>", type: "html" }],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "B8C2FP2IuBgmeJcDfXHjGpZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "browser-mbox"
-          },
-          meta: {
-            activityId: 334845,
-            experienceId: 3,
-            activityType: "xt",
-            locationName: "browser-mbox",
-            locationType: "mbox",
-            offerIds: [632438],
-            audienceIds: [2170460]
-          }
-        },
-        {
-          condition: { and: [{ "==": [{ var: "user.browserType" }, "ie"] }] },
-          consequence: {
-            options: [
-              { content: "<h1>it's internet explorer</h1>", type: "html" }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "B8C2FP2IuBgmeJcDfXHjGhB3JWElmEno9qwHyGr0QvSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "browser-mbox"
-          },
-          meta: {
-            activityId: 334845,
-            experienceId: 4,
-            activityType: "xt",
-            locationName: "browser-mbox",
-            locationType: "mbox",
-            offerIds: [632446],
-            audienceIds: [5372368]
-          }
-        },
-        {
-          condition: true,
-          consequence: {
-            options: [
-              {
-                content: "<h1>not firefox, safari or chrome</h1>",
-                type: "html"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "B8C2FP2IuBgmeJcDfXHjGmqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "browser-mbox"
-          },
-          meta: {
-            activityId: 334845,
-            experienceId: 0,
-            activityType: "xt",
-            locationName: "browser-mbox",
-            locationType: "mbox",
-            offerIds: [632437],
-            audienceIds: []
-          }
-        }
-      ],
-      "redundant-mbox": [
-        {
-          condition: {
-            and: [
-              { "<": [0, { var: "allocation" }, 50] },
-              { "==": ["bar", { var: "mbox.foo" }] }
-            ]
-          },
-          consequence: {
-            options: [
-              {
-                content: { foo: "bar", isFooBar: true, experience: "A" },
-                type: "json"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "Zhwxeqy1O2r9Ske1YDA9bGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "redundant-mbox"
-          },
-          meta: {
-            activityId: 334717,
-            experienceId: 0,
-            activityType: "ab",
-            locationName: "redundant-mbox",
-            locationType: "mbox",
-            offerIds: [632331],
-            audienceIds: [5452799]
-          }
-        },
-        {
-          condition: {
-            and: [
-              { "<": [50, { var: "allocation" }, 100] },
-              { "==": ["bar", { var: "mbox.foo" }] }
-            ]
-          },
-          consequence: {
-            options: [
-              {
-                content: { foo: "bar", isFooBar: true, experience: "B" },
-                type: "json"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "Zhwxeqy1O2r9Ske1YDA9bJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "redundant-mbox"
-          },
-          meta: {
-            activityId: 334717,
-            experienceId: 1,
-            activityType: "ab",
-            locationName: "redundant-mbox",
-            locationType: "mbox",
-            offerIds: [632330],
-            audienceIds: [5452799]
-          }
-        }
-      ],
-      "superfluous-mbox": [
-        {
-          condition: { "<": [0, { var: "allocation" }, 50] },
-          consequence: {
-            options: [
-              { content: { doMagic: true, importantValue: 150 }, type: "json" }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "superfluous-mbox"
-          },
-          meta: {
-            activityId: 334411,
-            experienceId: 0,
-            activityType: "ab",
-            locationName: "superfluous-mbox",
-            locationType: "mbox",
-            offerIds: [631992],
-            audienceIds: []
-          }
-        },
-        {
-          condition: { "<": [50, { var: "allocation" }, 100] },
-          consequence: {
-            options: [
-              { content: { doMagic: false, importantValue: 75 }, type: "json" }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "superfluous-mbox"
-          },
-          meta: {
-            activityId: 334411,
-            experienceId: 1,
-            activityType: "ab",
-            locationName: "superfluous-mbox",
-            locationType: "mbox",
-            offerIds: [631991],
-            audienceIds: []
-          }
-        }
-      ],
-      "jason-flags": [
-        {
-          condition: { "<": [0, { var: "allocation" }, 50] },
-          consequence: {
-            options: [
-              {
-                content: {
-                  paymentExperience: "legacy",
-                  showFeatureX: false,
-                  paymentGatewayVersion: 2.3,
-                  customerFeedbackValue: 10
-                },
-                type: "json"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "8MDICvd7bsTPYn79fLBNQmqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "jason-flags"
-          },
-          meta: {
-            activityId: 335113,
-            experienceId: 0,
-            activityType: "ab",
-            locationName: "jason-flags",
-            locationType: "mbox",
-            offerIds: [632759],
-            audienceIds: []
-          }
-        },
-        {
-          condition: { "<": [50, { var: "allocation" }, 100] },
-          consequence: {
-            options: [
-              {
-                content: {
-                  paymentExperience: "alpha10",
-                  showFeatureX: true,
-                  paymentGatewayVersion: 3.1,
-                  customerFeedbackValue: 99
-                },
-                type: "json"
-              }
-            ],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "8MDICvd7bsTPYn79fLBNQpNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "jason-flags"
-          },
-          meta: {
-            activityId: 335113,
-            experienceId: 1,
-            activityType: "ab",
-            locationName: "jason-flags",
-            locationType: "mbox",
-            offerIds: [632760],
-            audienceIds: []
-          }
-        }
-      ],
-      "expendable-mbox": [
-        {
-          condition: { "<": [0, { var: "allocation" }, 50] },
-          consequence: {
-            options: [{ content: "<div>hello</div>", type: "html" }],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "YPoPRnGmGGit+QxnpxYFjWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "expendable-mbox"
-          },
-          meta: {
-            activityId: 334640,
-            experienceId: 0,
-            activityType: "ab",
-            locationName: "expendable-mbox",
-            locationType: "mbox",
-            offerIds: [632233],
-            audienceIds: []
-          }
-        },
-        {
-          condition: { "<": [50, { var: "allocation" }, 100] },
-          consequence: {
-            options: [{ content: "<div>goodbye</div>", type: "html" }],
-            metrics: [
-              {
-                type: "display",
-                eventToken:
-                  "YPoPRnGmGGit+QxnpxYFjZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              }
-            ],
-            name: "expendable-mbox"
-          },
-          meta: {
-            activityId: 334640,
-            experienceId: 1,
-            activityType: "ab",
-            locationName: "expendable-mbox",
-            locationType: "mbox",
-            offerIds: [632234],
-            audienceIds: []
           }
         }
       ]

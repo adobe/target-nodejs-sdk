@@ -8,7 +8,8 @@
     "version": "lerna version",
     "publish": "npm run version && lerna publish from-package",
     "test": "lerna run test --stream && npm run coverage",
-    "coverage": "node mapCoverage.js"
+    "coverage": "node tools/mapCoverage.js",
+    "updateTestArtifacts": "node tools/updateTestArtifacts.js"
   },
   "devDependencies": {
     "istanbul-lib-coverage": "^3.0.0",

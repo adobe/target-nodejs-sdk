@@ -9,6 +9,18 @@ const TEST_CONF = {
   pollingInterval: 0
 };
 
+function byContent(a, b) {
+  const contentA = a.content.toLowerCase();
+  const contentB = b.content.toLowerCase();
+
+  if (contentA > contentB) {
+    return 1;
+  } else if (contentA < contentB) {
+    return -1;
+  }
+  return 0;
+}
+
 describe("decisioning outcomes - pageload", () => {
   let decisioning;
 
@@ -182,27 +194,19 @@ describe("decisioning outcomes - pageload", () => {
       sessionId: "dummy_session"
     });
 
-    expect(result).toEqual(
-      expect.objectContaining({
-        execute: {
-          pageLoad: {
-            options: [
-              {
-                content: "<div>Chrometastic</div>",
-                type: "html"
-              },
-              {
-                content: "<div>foo=bar experience A</div>",
-                type: "html"
-              },
-              {
-                content: "<div>mouse</div>",
-                type: "html"
-              }
-            ]
-          }
-        }
-      })
-    );
+    expect(result.execute.pageLoad.options).toEqual([
+      {
+        content: "<div>Chrometastic</div>",
+        type: "html"
+      },
+      {
+        content: "<div>foo=bar experience A</div>",
+        type: "html"
+      },
+      {
+        content: "<div>mouse</div>",
+        type: "html"
+      }
+    ]);
   });
 });

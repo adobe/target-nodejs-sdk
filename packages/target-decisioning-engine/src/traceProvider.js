@@ -115,7 +115,7 @@ export function RequestTracer(traceProvider, artifact) {
         order: campaignOrder,
         campaignType: meta.activityType,
         branchId: meta.experienceId,
-        offers: meta.offerIds,
+        offers: meta.offerIds || [],
         environment: artifact.meta.environment
       };
     }
@@ -129,6 +129,7 @@ export function RequestTracer(traceProvider, artifact) {
    */
   function addEvaluatedCampaignTarget(rule, ruleContext, ruleSatisfied) {
     const { meta } = rule;
+    const { audienceIds = [] } = meta;
 
     if (isUndefined(evaluatedCampaignTargets[meta.activityId])) {
       evaluatedCampaignTargetOrder += 1;
@@ -145,7 +146,7 @@ export function RequestTracer(traceProvider, artifact) {
       };
     }
 
-    meta.audienceIds.forEach(audienceId => {
+    audienceIds.forEach(audienceId => {
       evaluatedCampaignTargets[meta.activityId][
         ruleSatisfied ? "matchedSegmentIds" : "unmatchedSegmentIds"
       ].add(audienceId);

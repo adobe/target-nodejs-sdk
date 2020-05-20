@@ -86,7 +86,7 @@ function DecisionProvider(
         requestDetails.hasOwnProperty("name") &&
         !isUndefined(requestDetails.name)
       ) {
-        viewRules = rules.views[requestDetails.name];
+        viewRules = rules.views[requestDetails.name] || [];
       } else {
         viewRules = Object.keys(rules.views).reduce(
           (result, key) => [...result, ...rules.views[key]],

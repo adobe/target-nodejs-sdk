@@ -1160,7 +1160,7 @@ The `options` object has the following structure:
 | pollingInterval           |  Number  | No      | 5000                             | Polling interval for the local decisioning artifact (in ms) |
 | artifactLocation          |  String  | No      | None                             | A fully qualified url to a target decisioning JSON artifact.  Overrides internally determined location. |
 | artifactPayload           |  Object  | No      | None                             | A target decisioning JSON artifact. If specified, it is used instead of requesting one from a URL.      |
-| clientReadyCallback       |  Function| No      | None                             | A callback function that is invoked when the SDK is ready for method calls.  Needed for local execution mode |
+| clientReadyCallback       |  Function| No      | None                             | An optional callback function that is invoked when the SDK is ready for method calls.  Recommended when using local execution mode. |
 
 #### TargetClient.getOffers
 

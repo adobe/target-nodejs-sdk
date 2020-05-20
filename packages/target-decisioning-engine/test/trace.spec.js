@@ -91,16 +91,13 @@ describe("trace", () => {
       clientCode: "someClientId",
       request: {
         mbox: {
+          index: 1,
           name: "superfluous-mbox",
           type: "prefetch",
-          // version: 63,
-          // count: 0,
           parameters: {
             foo: "bar"
-            // mboxMCSDID: "65D10A705D23AF49-445477BD9B018EF4"
           }
         },
-        // pageId: "732c94f9-8629-4d2b-b5de-d6bf40f768e8",
         sessionId: "dummy_session",
         pageURL: "http://local-target-test/",
         host: "local-target-test"
@@ -111,7 +108,7 @@ describe("trace", () => {
           campaignType: "ab",
           branchId: 1,
           offers: [631991],
-          environment: 11507
+          environment: "production"
         }
       ],
       profile: {
@@ -124,8 +121,8 @@ describe("trace", () => {
         {
           campaignId: 334411,
           campaignType: "ab",
-          matchedSegmentIds: [5361982],
-          unmatchedSegmentIds: [5361981]
+          matchedSegmentIds: [],
+          unmatchedSegmentIds: []
         }
       ]
     });
@@ -160,10 +157,7 @@ describe("trace", () => {
         mbox: {
           name: "browser-mbox",
           type: "prefetch"
-          // version: 63,
-          // count: 0,
         },
-        // pageId: "d074ff55-f97d-4bef-b726-df036dee6091",
         sessionId: "dummy_session",
         pageURL: "http://local-target-test/",
         host: "local-target-test"
@@ -171,10 +165,10 @@ describe("trace", () => {
       campaigns: [
         {
           id: 334845,
-          campaignType: "xt",
+          campaignType: "landing",
           branchId: 3,
           offers: [632438],
-          environment: 11507
+          environment: "production"
         }
       ],
       profile: {
@@ -186,7 +180,7 @@ describe("trace", () => {
       evaluatedCampaignTargets: [
         {
           campaignId: 334845,
-          campaignType: "xt",
+          campaignType: "landing",
           matchedSegmentIds: [2170460],
           unmatchedSegmentIds: [4873452, 4957566]
         }
@@ -223,10 +217,7 @@ describe("trace", () => {
         mbox: {
           name: "browser-mbox",
           type: "execute"
-          // version: 63,
-          // count: 0,
         },
-        // pageId: "d074ff55-f97d-4bef-b726-df036dee6091",
         sessionId: "dummy_session",
         pageURL: "http://local-target-test/",
         host: "local-target-test"
@@ -234,7 +225,7 @@ describe("trace", () => {
       campaigns: [
         {
           id: 334845,
-          campaignType: "xt",
+          campaignType: "landing",
           branchId: 3,
           offers: [632438],
           notifications: [
@@ -251,7 +242,7 @@ describe("trace", () => {
               ]
             }
           ],
-          environment: 11507
+          environment: "production"
         }
       ],
       profile: {
@@ -263,7 +254,7 @@ describe("trace", () => {
       evaluatedCampaignTargets: [
         {
           campaignId: 334845,
-          campaignType: "xt",
+          campaignType: "landing",
           matchedSegmentIds: [2170460],
           unmatchedSegmentIds: [4873452, 4957566]
         }
@@ -307,19 +298,17 @@ describe("trace", () => {
       campaigns: [
         {
           id: 337795,
-          campaignType: "xt",
+          campaignType: "landing",
           branchId: 0,
           offers: [635716],
-          environment: 11507,
+          environment: "production",
           notifications: [
             {
               type: "display",
               mbox: {
                 name: "target-global-mbox"
               },
-              tokens: [
-                "9FNM3ikASssS+sVoFXNulGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              ]
+              tokens: [expect.any(String)]
             }
           ]
         },
@@ -328,7 +317,7 @@ describe("trace", () => {
           campaignType: "ab",
           branchId: 1,
           offers: [635718],
-          environment: 11507,
+          environment: "production",
           notifications: [
             {
               type: "display",
@@ -346,7 +335,7 @@ describe("trace", () => {
           campaignType: "ab",
           branchId: 1,
           offers: [635776],
-          environment: 11507,
+          environment: "production",
           notifications: [
             {
               type: "display",
@@ -369,7 +358,7 @@ describe("trace", () => {
       evaluatedCampaignTargets: [
         {
           campaignId: 337795,
-          campaignType: "xt",
+          campaignType: "landing",
           matchedSegmentIds: [2170460],
           unmatchedSegmentIds: []
         },
@@ -451,7 +440,7 @@ describe("trace", () => {
           {
             branchId: 0,
             campaignType: "landing",
-            environment: "waters_test",
+            environment: "production",
             id: 345798,
             offers: expect.any(Array)
           }

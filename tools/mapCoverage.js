@@ -1,7 +1,10 @@
 const fs = require("fs");
+const path = require("path");
 const istanbulReport = require("istanbul-lib-report");
 const istanbulReports = require("istanbul-reports");
 const istanbulCoverage = require("istanbul-lib-coverage");
+
+const packagesFolder = path.resolve(__dirname, "../packages/");
 
 function getDirectories(path) {
   return fs.readdirSync(path).filter(function(file) {
@@ -9,8 +12,8 @@ function getDirectories(path) {
   });
 }
 
-const coverageReports = getDirectories("./packages").map(
-  folderName => `./packages/${folderName}/coverage/coverage-final.json`
+const coverageReports = getDirectories(packagesFolder).map(
+  folderName => `${packagesFolder}/${folderName}/coverage/coverage-final.json`
 );
 
 const map = istanbulCoverage.createCoverageMap();

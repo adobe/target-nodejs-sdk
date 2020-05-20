@@ -1,0 +1,21 @@
+{
+  "what_is_this": {
+    "description": "This file lists the activities used in local decisioning tests.",
+    "wiki": "https://wiki.corp.adobe.com/display/elm/Local+Decisioning%3A+Test+Artifacts"
+  },
+  "artifacts": [
+    { "activityIds": [333312], "remoteMboxes": [], "artifactFilename": "DECISIONING_PAYLOAD_ADDRESS.json", "adminUrls": ["https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/form_based_activity-offer2-feb1920201034"]},
+    { "activityIds": [334845], "remoteMboxes": [], "artifactFilename": "DECISIONING_PAYLOAD_BROWSER.json", "adminUrls": ["https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/Experience-Targeting/browser-mbox"]},
+    { "activityIds": [334640,334411], "remoteMboxes": [], "artifactFilename": "DECISIONING_PAYLOAD_AB_MULTI_SIMPLE.json", "adminUrls": ["https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/simple_ab_expendable-mbox", "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/superfluous_ab_json"]},
+    { "activityIds": [334717], "remoteMboxes": [], "artifactFilename": "DECISIONING_PAYLOAD_PARAMS.json", "adminUrls": ["https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/redundant-mbox"]},
+    { "activityIds": [336973,336951,336950], "remoteMboxes": [], "artifactFilename": "DECISIONING_PAYLOAD_PRIORITIES.json", "adminUrls": ["https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/kitty_low", "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/kitty_high", "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/Experience-Targeting/kitty_high_with_targeting"]},
+    { "activityIds": [334411], "remoteMboxes": [], "artifactFilename": "DECISIONING_PAYLOAD_AB_SIMPLE.json", "adminUrls": ["https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/superfluous_ab_json"]},
+    { "activityIds": [334853], "remoteMboxes": ["remote-only-mbox-a", "remote-only-mbox-a"], "artifactFilename": "DECISIONING_PAYLOAD_TIMEFRAME.json", "adminUrls": ["https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/Experience-Targeting/daterange-mbox"]},
+    { "activityIds": [337795,337797,337888], "remoteMboxes": ["target-global-mbox"], "artifactFilename": "DECISIONING_PAYLOAD_GLOBAL_MBOX.json", "adminUrls": ["https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/Experience-Targeting/global_mbox_browserhtml", "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/ab_tres_experienceglobalmbox", "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/global_ab_html"]},
+    { "activityIds": [335113], "remoteMboxes": ["remote-only-mbox-a", "remote-only-mbox-b"], "artifactFilename": "DECISIONING_PAYLOAD_FEATURE_FLAG.json", "adminUrls": ["https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/jason-flags"]},
+
+    { "activityIds": [345798, 345779, 345782], "remoteMboxes": [], "artifactFilename": "DECISIONING_PAYLOAD_VIEWS.json", "adminUrls": ["https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/Experience-Targeting/xt_spa_add_text_tocontactpage","https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/ab_spa_view_changemultipletextnoaudiences", "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/ab_spa_view_changeaddtextwithaudiences"]},
+    { "activityIds": [345717], "remoteMboxes": [], "artifactFilename": "DECISIONING_PAYLOAD_PAGELOAD_VEC_XT.json", "adminUrls": ["https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/Experience-Targeting/xt_vec_non-spa_correctparamslocal-target-test"]},
+    { "activityIds": [344512,345139], "remoteMboxes": [], "artifactFilename": "DECISIONING_PAYLOAD_PAGELOAD_VEC_AB.json", "adminUrls": ["https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/ab_add_text_local-target-test", "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/ab_non-spa_local-target-test"]}
+  ]
+}

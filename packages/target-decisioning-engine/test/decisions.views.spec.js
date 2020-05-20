@@ -742,7 +742,7 @@ describe("decisioning outcomes - views", () => {
           ])
         );
       });
-      it("no params, returns experiences for just one experience", async () => {
+      it("no params, returns experiences for just one experience - execute", async () => {
         const result = await decisioning.getOffers({
           request: {
             ...targetRequest,
@@ -779,6 +779,60 @@ describe("decisioning outcomes - views", () => {
                 }
               ],
               type: "actions"
+            }
+          ])
+        );
+      });
+
+      it("no params, returns experiences for just one experience - prefetch", async () => {
+        const result = await decisioning.getOffers({
+          request: {
+            ...targetRequest,
+            prefetch: {
+              pageLoad: {}
+            }
+          }
+        });
+
+        expect(result.prefetch.pageLoad.options).toEqual(
+          expect.objectContaining([
+            {
+              eventToken:
+                "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+            },
+            {
+              content: [
+                {
+                  type: "setHtml",
+                  selector:
+                    "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                  cssSelector:
+                    "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                  content: "Hello everyone"
+                }
+              ],
+              type: "actions",
+              eventToken:
+                "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+            },
+            {
+              eventToken:
+                "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+            },
+            {
+              content: [
+                {
+                  type: "setHtml",
+                  selector:
+                    "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
+                  cssSelector:
+                    "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
+                  content: "all visitors"
+                }
+              ],
+              type: "actions",
+              eventToken:
+                "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
             }
           ])
         );
