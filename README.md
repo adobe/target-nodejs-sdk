@@ -984,7 +984,7 @@ Note: the `getAttributes` method call also accepts an optional options object as
 
 ## Local execution mode
 
-The Target Node.js SDK can be configured to run in local execution mode.  In this mode, the SDK loads a rules definition file on startup and uses it to determine the outcomes for subsequent `getOFfers` calls instead of making repeat requests to the delivery API each time. This can greatly improve performance if you are concerned about network latency and would like to limit the number of requests made to target edge servers.
+The Target Node.js SDK can be configured to run in local execution mode.  In this mode, the SDK loads a rules definition file on startup and uses it to determine the outcomes for subsequent `getOffers` calls instead of making repeated requests to the delivery API each time. This can greatly improve performance if you are concerned about network latency and would like to limit the number of requests made to target edge servers.
 
 By default, the SDK is configured to always make a request to the target delivery API for each getOffers call.  But you can configure the SDK to use local execution mode instead using the `executionMode` configuration option.
 
@@ -1002,7 +1002,9 @@ function targetReady() {
 }
 ```
 
-Once configured in this way, and after the clientReadyCallback has been invoked, your app can make standard SDK method calls and get offers that are determined locally.
+Once configured in this way, and after the `clientReadyCallback` has been invoked, your app can make standard SDK method calls and get offers that are determined locally.
+
+Using the `clientReadyCallback` is optional, but if calls to the `getOffers` method are made prior to the decisioning artifact being downloaded, an error will be returned.  That's why we recommend using the `clientReadyCallback` if possible.
 
 ### Limitations
 
