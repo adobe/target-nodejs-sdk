@@ -94,14 +94,14 @@ function DecisionProvider(
         );
       }
 
-      const matchedRuleIds = new Set();
+      const matchedRuleKeys = new Set();
 
       // eslint-disable-next-line no-restricted-syntax
       for (const rule of viewRules) {
-        const ruleId = getRuleKey(rule);
+        const ruleKey = getRuleKey(rule);
         let consequence;
 
-        if (!matchedRuleIds.has(ruleId)) {
+        if (!matchedRuleKeys.has(ruleKey)) {
           consequence = processRule(
             rule,
             context,
@@ -113,7 +113,7 @@ function DecisionProvider(
         }
 
         if (consequence) {
-          matchedRuleIds.add(ruleId);
+          matchedRuleKeys.add(ruleKey);
 
           if (!consequences[consequence.name]) {
             consequences[consequence.name] = consequence;
@@ -149,14 +149,14 @@ function DecisionProvider(
 
       const mboxRules = rules.mboxes[mboxRequest.name] || [];
 
-      const matchedRuleIds = new Set();
+      const matchedRuleKeys = new Set();
 
       // eslint-disable-next-line no-restricted-syntax
       for (const rule of mboxRules) {
-        const ruleId = getRuleKey(rule);
+        const ruleKey = getRuleKey(rule);
         let consequence;
 
-        if (!isGlobalMbox || (isGlobalMbox && !matchedRuleIds.has(ruleId))) {
+        if (!isGlobalMbox || (isGlobalMbox && !matchedRuleKeys.has(ruleKey))) {
           consequence = processRule(
             rule,
             context,
@@ -169,7 +169,7 @@ function DecisionProvider(
 
         if (consequence) {
           consequences.push(consequence);
-          matchedRuleIds.add(ruleId);
+          matchedRuleKeys.add(ruleKey);
           if (!isGlobalMbox) break;
         }
       }
