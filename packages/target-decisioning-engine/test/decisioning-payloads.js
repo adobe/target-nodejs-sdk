@@ -18,7 +18,7 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-19T23:24:03.452Z"
+    generatedAt: "2020-05-20T22:54:08.341Z"
   },
   globalMbox: "target-global-mbox",
   responseTokens: ["activity.id", "activity.name"],
@@ -37,6 +37,7 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
             audienceIds: [5356811],
             offerIds: [630815]
           },
+          ruleKey: "offer2",
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 50] },
@@ -67,6 +68,7 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
             audienceIds: [5356811],
             offerIds: [630814]
           },
+          ruleKey: "offer2",
           condition: {
             and: [
               { "<": [50, { var: "allocation" }, 100] },
@@ -98,7 +100,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-19T23:24:03.452Z"
+    generatedAt: "2020-05-20T22:54:08.341Z"
   },
   globalMbox: "target-global-mbox",
   responseTokens: ["activity.id", "activity.name"],
@@ -117,6 +119,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
             audienceIds: [4873452],
             offerIds: [632439]
           },
+          ruleKey: "browser-mbox",
           condition: { "==": [{ var: "user.browserType" }, "firefox"] },
           consequence: {
             name: "browser-mbox",
@@ -142,6 +145,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
             audienceIds: [4957566],
             offerIds: [632440]
           },
+          ruleKey: "browser-mbox",
           condition: { "==": [{ var: "user.browserType" }, "safari"] },
           consequence: {
             name: "browser-mbox",
@@ -167,6 +171,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
             audienceIds: [2170460],
             offerIds: [632438]
           },
+          ruleKey: "browser-mbox",
           condition: { "==": [{ var: "user.browserType" }, "chrome"] },
           consequence: {
             name: "browser-mbox",
@@ -192,6 +197,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
             audienceIds: [5372368],
             offerIds: [632446]
           },
+          ruleKey: "browser-mbox",
           condition: { "==": [{ var: "user.browserType" }, "ie"] },
           consequence: {
             name: "browser-mbox",
@@ -216,6 +222,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
             locationId: 0,
             offerIds: [632437]
           },
+          ruleKey: "browser-mbox",
           condition: true,
           consequence: {
             name: "browser-mbox",
@@ -243,7 +250,7 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-19T23:24:03.452Z"
+    generatedAt: "2020-05-20T22:54:08.341Z"
   },
   globalMbox: "target-global-mbox",
   responseTokens: ["activity.id", "activity.name"],
@@ -261,6 +268,7 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
             locationId: 0,
             offerIds: [631992]
           },
+          ruleKey: "superfluous-mbox",
           condition: { "<": [0, { var: "allocation" }, 50] },
           consequence: {
             name: "superfluous-mbox",
@@ -285,6 +293,7 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
             locationId: 0,
             offerIds: [631991]
           },
+          ruleKey: "superfluous-mbox",
           condition: { "<": [50, { var: "allocation" }, 100] },
           consequence: {
             name: "superfluous-mbox",
@@ -311,6 +320,7 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
             locationId: 0,
             offerIds: [632233]
           },
+          ruleKey: "expendable-mbox",
           condition: { "<": [0, { var: "allocation" }, 50] },
           consequence: {
             name: "expendable-mbox",
@@ -335,6 +345,7 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
             locationId: 0,
             offerIds: [632234]
           },
+          ruleKey: "expendable-mbox",
           condition: { "<": [50, { var: "allocation" }, 100] },
           consequence: {
             name: "expendable-mbox",
@@ -361,7 +372,7 @@ export const DECISIONING_PAYLOAD_PARAMS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-19T23:24:03.452Z"
+    generatedAt: "2020-05-20T22:54:08.341Z"
   },
   globalMbox: "target-global-mbox",
   responseTokens: ["activity.id", "activity.name"],
@@ -380,6 +391,7 @@ export const DECISIONING_PAYLOAD_PARAMS = {
             audienceIds: [5452799],
             offerIds: [632331]
           },
+          ruleKey: "redundant-mbox",
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 50] },
@@ -410,6 +422,7 @@ export const DECISIONING_PAYLOAD_PARAMS = {
             audienceIds: [5452799],
             offerIds: [632330]
           },
+          ruleKey: "redundant-mbox",
           condition: {
             and: [
               { "<": [50, { var: "allocation" }, 100] },
@@ -443,7 +456,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-19T23:24:03.452Z"
+    generatedAt: "2020-05-20T22:54:08.341Z"
   },
   globalMbox: "target-global-mbox",
   responseTokens: ["activity.id", "activity.name"],
@@ -462,6 +475,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
             audienceIds: [4873452],
             offerIds: [634862]
           },
+          ruleKey: "kitty",
           condition: { "==": [{ var: "user.browserType" }, "firefox"] },
           consequence: {
             name: "kitty",
@@ -487,6 +501,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
             audienceIds: [4957566],
             offerIds: [634861]
           },
+          ruleKey: "kitty",
           condition: { "==": [{ var: "user.browserType" }, "safari"] },
           consequence: {
             name: "kitty",
@@ -511,6 +526,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
             locationId: 0,
             offerIds: [634836]
           },
+          ruleKey: "kitty",
           condition: { "<": [0, { var: "allocation" }, 50] },
           consequence: {
             name: "kitty",
@@ -535,6 +551,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
             locationId: 0,
             offerIds: [634837]
           },
+          ruleKey: "kitty",
           condition: { "<": [50, { var: "allocation" }, 100] },
           consequence: {
             name: "kitty",
@@ -559,6 +576,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
             locationId: 0,
             offerIds: [634834]
           },
+          ruleKey: "kitty",
           condition: { "<": [0, { var: "allocation" }, 50] },
           consequence: {
             name: "kitty",
@@ -583,6 +601,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
             locationId: 0,
             offerIds: [634835]
           },
+          ruleKey: "kitty",
           condition: { "<": [50, { var: "allocation" }, 100] },
           consequence: {
             name: "kitty",
@@ -609,7 +628,7 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-19T23:24:03.452Z"
+    generatedAt: "2020-05-20T22:54:08.341Z"
   },
   globalMbox: "target-global-mbox",
   responseTokens: ["activity.id", "activity.name"],
@@ -627,6 +646,7 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
             locationId: 0,
             offerIds: [631992]
           },
+          ruleKey: "superfluous-mbox",
           condition: { "<": [0, { var: "allocation" }, 50] },
           consequence: {
             name: "superfluous-mbox",
@@ -651,6 +671,7 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
             locationId: 0,
             offerIds: [631991]
           },
+          ruleKey: "superfluous-mbox",
           condition: { "<": [50, { var: "allocation" }, 100] },
           consequence: {
             name: "superfluous-mbox",
@@ -677,7 +698,7 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-19T23:24:03.452Z"
+    generatedAt: "2020-05-20T22:54:08.341Z"
   },
   globalMbox: "target-global-mbox",
   responseTokens: ["activity.id", "activity.name"],
@@ -696,6 +717,7 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
             audienceIds: [5372446],
             offerIds: [632493]
           },
+          ruleKey: "daterange-mbox",
           condition: {
             and: [
               { or: [{ "==": [{ var: "current_day" }, "5"] }] },
@@ -726,6 +748,7 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
             audienceIds: [5372445],
             offerIds: [632494]
           },
+          ruleKey: "daterange-mbox",
           condition: {
             "<=": [1582794000000, { var: "current_timestamp" }, 1582999200000]
           },
@@ -753,6 +776,7 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
             audienceIds: [5372444],
             offerIds: [632451]
           },
+          ruleKey: "daterange-mbox",
           condition: {
             "<=": [1583149200000, { var: "current_timestamp" }, 1583494800000]
           },
@@ -779,6 +803,7 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
             locationId: 0,
             offerIds: [632450]
           },
+          ruleKey: "daterange-mbox",
           condition: true,
           consequence: {
             name: "daterange-mbox",
@@ -807,7 +832,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-19T23:24:03.452Z"
+    generatedAt: "2020-05-20T22:54:08.341Z"
   },
   globalMbox: "target-global-mbox",
   responseTokens: ["activity.id", "activity.name"],
@@ -826,6 +851,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             audienceIds: [2170460],
             offerIds: [635716]
           },
+          ruleKey: "337795",
           condition: { "==": [{ var: "user.browserType" }, "chrome"] },
           consequence: {
             name: "target-global-mbox",
@@ -851,6 +877,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             audienceIds: [4873452],
             offerIds: [635715]
           },
+          ruleKey: "337795",
           condition: { "==": [{ var: "user.browserType" }, "firefox"] },
           consequence: {
             name: "target-global-mbox",
@@ -876,6 +903,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             audienceIds: [4957566],
             offerIds: [635713]
           },
+          ruleKey: "337795",
           condition: { "==": [{ var: "user.browserType" }, "safari"] },
           consequence: {
             name: "target-global-mbox",
@@ -900,6 +928,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             locationId: 0,
             offerIds: [635714]
           },
+          ruleKey: "337795",
           condition: true,
           consequence: {
             name: "target-global-mbox",
@@ -925,6 +954,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             audienceIds: [5272024],
             offerIds: [635719]
           },
+          ruleKey: "337797",
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 34] },
@@ -955,6 +985,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             audienceIds: [5272024],
             offerIds: [635718]
           },
+          ruleKey: "337797",
           condition: {
             and: [
               { "<": [34, { var: "allocation" }, 67] },
@@ -985,6 +1016,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             audienceIds: [5272024],
             offerIds: [635717]
           },
+          ruleKey: "337797",
           condition: {
             and: [
               { "<": [67, { var: "allocation" }, 100] },
@@ -1014,6 +1046,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             locationId: 0,
             offerIds: [635778]
           },
+          ruleKey: "337888",
           condition: { "<": [0, { var: "allocation" }, 25] },
           consequence: {
             name: "target-global-mbox",
@@ -1038,6 +1071,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             locationId: 0,
             offerIds: [635776]
           },
+          ruleKey: "337888",
           condition: { "<": [25, { var: "allocation" }, 50] },
           consequence: {
             name: "target-global-mbox",
@@ -1062,6 +1096,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             locationId: 0,
             offerIds: [635779]
           },
+          ruleKey: "337888",
           condition: { "<": [50, { var: "allocation" }, 75] },
           consequence: {
             name: "target-global-mbox",
@@ -1086,6 +1121,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             locationId: 0,
             offerIds: [635777]
           },
+          ruleKey: "337888",
           condition: { "<": [75, { var: "allocation" }, 100] },
           consequence: {
             name: "target-global-mbox",
@@ -1112,7 +1148,7 @@ export const DECISIONING_PAYLOAD_FEATURE_FLAG = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-19T23:24:03.452Z"
+    generatedAt: "2020-05-20T22:54:08.341Z"
   },
   globalMbox: "target-global-mbox",
   responseTokens: ["activity.id", "activity.name"],
@@ -1134,6 +1170,7 @@ export const DECISIONING_PAYLOAD_FEATURE_FLAG = {
             locationId: 0,
             offerIds: [632759]
           },
+          ruleKey: "jason-flags",
           condition: { "<": [0, { var: "allocation" }, 50] },
           consequence: {
             name: "jason-flags",
@@ -1163,6 +1200,7 @@ export const DECISIONING_PAYLOAD_FEATURE_FLAG = {
             locationId: 0,
             offerIds: [632760]
           },
+          ruleKey: "jason-flags",
           condition: { "<": [50, { var: "allocation" }, 100] },
           consequence: {
             name: "jason-flags",
@@ -1188,6 +1226,377 @@ export const DECISIONING_PAYLOAD_FEATURE_FLAG = {
   }
 };
 
+// https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/Experience-Targeting/global_mbox_browserhtml
+// https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/Experience-Targeting/browser-mbox
+// https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/superfluous_ab_json
+// https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/jason-flags
+export const DECISIONING_PAYLOAD_ATJS = {
+  version: "1.0.0",
+  meta: {
+    clientCode: "adobesummit2018",
+    environment: "production",
+    generatedAt: "2020-05-20T22:54:08.341Z"
+  },
+  globalMbox: "target-global-mbox",
+  responseTokens: ["activity.id", "activity.name"],
+  remoteMboxes: ["browser-mbox", "target-global-mbox"],
+  rules: {
+    mboxes: {
+      "target-global-mbox": [
+        {
+          meta: {
+            activityId: 337795,
+            activityType: "landing",
+            experienceId: 0,
+            locationName: "target-global-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [2170460],
+            offerIds: [635716]
+          },
+          ruleKey: "337795",
+          condition: { "==": [{ var: "user.browserType" }, "chrome"] },
+          consequence: {
+            name: "target-global-mbox",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "9FNM3ikASssS+sVoFXNulGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>Chrometastic</div>"
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          meta: {
+            activityId: 337795,
+            activityType: "landing",
+            experienceId: 1,
+            locationName: "target-global-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [4873452],
+            offerIds: [635715]
+          },
+          ruleKey: "337795",
+          condition: { "==": [{ var: "user.browserType" }, "firefox"] },
+          consequence: {
+            name: "target-global-mbox",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "9FNM3ikASssS+sVoFXNulJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>Firetime</div>"
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          meta: {
+            activityId: 337795,
+            activityType: "landing",
+            experienceId: 2,
+            locationName: "target-global-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [4957566],
+            offerIds: [635713]
+          },
+          ruleKey: "337795",
+          condition: { "==": [{ var: "user.browserType" }, "safari"] },
+          consequence: {
+            name: "target-global-mbox",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "9FNM3ikASssS+sVoFXNulAreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>Safari Run</div>"
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          meta: {
+            activityId: 337795,
+            activityType: "landing",
+            experienceId: 3,
+            locationName: "target-global-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            offerIds: [635714]
+          },
+          ruleKey: "337795",
+          condition: true,
+          consequence: {
+            name: "target-global-mbox",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "9FNM3ikASssS+sVoFXNulJZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>Srsly, who dis?</div>"
+              }
+            ],
+            metrics: []
+          }
+        }
+      ],
+      "browser-mbox": [
+        {
+          meta: {
+            activityId: 334845,
+            activityType: "landing",
+            experienceId: 1,
+            locationName: "browser-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [4873452],
+            offerIds: [632439]
+          },
+          ruleKey: "browser-mbox",
+          condition: { "==": [{ var: "user.browserType" }, "firefox"] },
+          consequence: {
+            name: "browser-mbox",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "B8C2FP2IuBgmeJcDfXHjGpNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<h1>it's firefox</h1>"
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          meta: {
+            activityId: 334845,
+            activityType: "landing",
+            experienceId: 2,
+            locationName: "browser-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [4957566],
+            offerIds: [632440]
+          },
+          ruleKey: "browser-mbox",
+          condition: { "==": [{ var: "user.browserType" }, "safari"] },
+          consequence: {
+            name: "browser-mbox",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "B8C2FP2IuBgmeJcDfXHjGgreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<h1>it's safari</h1>"
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          meta: {
+            activityId: 334845,
+            activityType: "landing",
+            experienceId: 3,
+            locationName: "browser-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [2170460],
+            offerIds: [632438]
+          },
+          ruleKey: "browser-mbox",
+          condition: { "==": [{ var: "user.browserType" }, "chrome"] },
+          consequence: {
+            name: "browser-mbox",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "B8C2FP2IuBgmeJcDfXHjGpZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<h1>it's chrome</h1>"
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          meta: {
+            activityId: 334845,
+            activityType: "landing",
+            experienceId: 4,
+            locationName: "browser-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [5372368],
+            offerIds: [632446]
+          },
+          ruleKey: "browser-mbox",
+          condition: { "==": [{ var: "user.browserType" }, "ie"] },
+          consequence: {
+            name: "browser-mbox",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "B8C2FP2IuBgmeJcDfXHjGhB3JWElmEno9qwHyGr0QvSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<h1>it's internet explorer</h1>"
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          meta: {
+            activityId: 334845,
+            activityType: "landing",
+            experienceId: 0,
+            locationName: "browser-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            offerIds: [632437]
+          },
+          ruleKey: "browser-mbox",
+          condition: true,
+          consequence: {
+            name: "browser-mbox",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "B8C2FP2IuBgmeJcDfXHjGmqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<h1>not firefox, safari or chrome</h1>"
+              }
+            ],
+            metrics: []
+          }
+        }
+      ],
+      "jason-flags": [
+        {
+          meta: {
+            activityId: 335113,
+            activityType: "ab",
+            experienceId: 0,
+            locationName: "jason-flags",
+            locationType: "mbox",
+            locationId: 0,
+            offerIds: [632759]
+          },
+          ruleKey: "jason-flags",
+          condition: { "<": [0, { var: "allocation" }, 50] },
+          consequence: {
+            name: "jason-flags",
+            options: [
+              {
+                type: "json",
+                eventToken:
+                  "8MDICvd7bsTPYn79fLBNQmqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: {
+                  paymentExperience: "legacy",
+                  showFeatureX: false,
+                  paymentGatewayVersion: 2.3,
+                  customerFeedbackValue: 10
+                }
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          meta: {
+            activityId: 335113,
+            activityType: "ab",
+            experienceId: 1,
+            locationName: "jason-flags",
+            locationType: "mbox",
+            locationId: 0,
+            offerIds: [632760]
+          },
+          ruleKey: "jason-flags",
+          condition: { "<": [50, { var: "allocation" }, 100] },
+          consequence: {
+            name: "jason-flags",
+            options: [
+              {
+                type: "json",
+                eventToken:
+                  "8MDICvd7bsTPYn79fLBNQpNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: {
+                  paymentExperience: "alpha10",
+                  showFeatureX: true,
+                  paymentGatewayVersion: 3.1,
+                  customerFeedbackValue: 99
+                }
+              }
+            ],
+            metrics: []
+          }
+        }
+      ],
+      "superfluous-mbox": [
+        {
+          meta: {
+            activityId: 334411,
+            activityType: "ab",
+            experienceId: 0,
+            locationName: "superfluous-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            offerIds: [631992]
+          },
+          ruleKey: "superfluous-mbox",
+          condition: { "<": [0, { var: "allocation" }, 50] },
+          consequence: {
+            name: "superfluous-mbox",
+            options: [
+              {
+                type: "json",
+                eventToken:
+                  "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: { doMagic: true, importantValue: 150 }
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          meta: {
+            activityId: 334411,
+            activityType: "ab",
+            experienceId: 1,
+            locationName: "superfluous-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            offerIds: [631991]
+          },
+          ruleKey: "superfluous-mbox",
+          condition: { "<": [50, { var: "allocation" }, 100] },
+          consequence: {
+            name: "superfluous-mbox",
+            options: [
+              {
+                type: "json",
+                eventToken:
+                  "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: { doMagic: false, importantValue: 75 }
+              }
+            ],
+            metrics: []
+          }
+        }
+      ]
+    },
+    views: {}
+  }
+};
+
 // https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/Experience-Targeting/xt_spa_add_text_tocontactpage
 // https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/ab_spa_view_changemultipletextnoaudiences
 // https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/ab_spa_view_changeaddtextwithaudiences
@@ -1196,7 +1605,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-19T23:24:03.452Z"
+    generatedAt: "2020-05-20T22:54:08.341Z"
   },
   globalMbox: "target-global-mbox",
   responseTokens: ["activity.id", "activity.name"],
@@ -1215,6 +1624,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationId: 0,
             audienceIds: [5634562, 5653736]
           },
+          ruleKey: "345798-0",
           condition: {
             and: [
               { "==": ["correct", { var: "mbox.jason" }] },
@@ -1257,6 +1667,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationId: 1,
             audienceIds: [5634562, 5653736]
           },
+          ruleKey: "345798-1",
           condition: {
             and: [
               { "==": ["correct", { var: "mbox.jason" }] },
@@ -1301,6 +1712,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationId: 0,
             audienceIds: [5634157, 5653736]
           },
+          ruleKey: "345798-0",
           condition: {
             and: [
               { "==": ["correct", { var: "mbox.greg" }] },
@@ -1343,6 +1755,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationId: 1,
             audienceIds: [5634157, 5653736]
           },
+          ruleKey: "345798-1",
           condition: {
             and: [
               { "==": ["correct", { var: "mbox.greg" }] },
@@ -1387,6 +1800,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationId: 0,
             audienceIds: [5653736]
           },
+          ruleKey: "345798-0",
           condition: {
             and: [
               { "==": ["local-target-test", { var: "page.domain" }] },
@@ -1424,6 +1838,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationId: 1,
             audienceIds: [5653736]
           },
+          ruleKey: "345798-1",
           condition: {
             and: [
               { "==": ["local-target-test", { var: "page.domain" }] },
@@ -1465,6 +1880,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationId: 0,
             audienceIds: [5653493, 5634562]
           },
+          ruleKey: "345782-0",
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 50] },
@@ -1514,6 +1930,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationId: 1,
             audienceIds: [5653493, 5634562]
           },
+          ruleKey: "345782-1",
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 50] },
@@ -1562,6 +1979,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationId: 2,
             audienceIds: [5653493, 5634157]
           },
+          ruleKey: "345782-2",
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 50] },
@@ -1611,6 +2029,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationId: 3,
             audienceIds: [5653493, 5634157]
           },
+          ruleKey: "345782-3",
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 50] },
@@ -1659,6 +2078,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationId: 4,
             audienceIds: [5653493]
           },
+          ruleKey: "345782-4",
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 50] },
@@ -1707,6 +2127,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationId: 5,
             audienceIds: [5653493]
           },
+          ruleKey: "345782-5",
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 50] },
@@ -1754,6 +2175,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationId: 0,
             audienceIds: [5653493, 5634562]
           },
+          ruleKey: "345782-0",
           condition: {
             and: [
               { "<": [50, { var: "allocation" }, 100] },
@@ -1803,6 +2225,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationId: 1,
             audienceIds: [5653493, 5634562]
           },
+          ruleKey: "345782-1",
           condition: {
             and: [
               { "<": [50, { var: "allocation" }, 100] },
@@ -1851,6 +2274,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationId: 2,
             audienceIds: [5653493, 5634157]
           },
+          ruleKey: "345782-2",
           condition: {
             and: [
               { "<": [50, { var: "allocation" }, 100] },
@@ -1900,6 +2324,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationId: 3,
             audienceIds: [5653493, 5634157]
           },
+          ruleKey: "345782-3",
           condition: {
             and: [
               { "<": [50, { var: "allocation" }, 100] },
@@ -1948,6 +2373,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationId: 4,
             audienceIds: [5653493]
           },
+          ruleKey: "345782-4",
           condition: {
             and: [
               { "<": [50, { var: "allocation" }, 100] },
@@ -1996,6 +2422,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationId: 5,
             audienceIds: [5653493]
           },
+          ruleKey: "345782-5",
           condition: {
             and: [
               { "<": [50, { var: "allocation" }, 100] },
@@ -2043,6 +2470,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationId: 0,
             audienceIds: [5653426]
           },
+          ruleKey: "345779-0",
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 50] },
@@ -2084,6 +2512,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationId: 1,
             audienceIds: [5653426]
           },
+          ruleKey: "345779-1",
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 50] },
@@ -2126,6 +2555,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationId: 0,
             audienceIds: [5653426]
           },
+          ruleKey: "345779-0",
           condition: {
             and: [
               { "<": [50, { var: "allocation" }, 100] },
@@ -2167,6 +2597,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             locationId: 1,
             audienceIds: [5653426]
           },
+          ruleKey: "345779-1",
           condition: {
             and: [
               { "<": [50, { var: "allocation" }, 100] },
@@ -2210,7 +2641,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-19T23:24:03.452Z"
+    generatedAt: "2020-05-20T22:54:08.341Z"
   },
   globalMbox: "target-global-mbox",
   responseTokens: ["activity.id", "activity.name"],
@@ -2228,6 +2659,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             locationId: 0,
             audienceIds: [5634157, 5652249]
           },
+          ruleKey: "345717-0",
           condition: {
             and: [
               { "==": ["correct", { var: "mbox.greg" }] },
@@ -2277,6 +2709,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             locationId: 1,
             audienceIds: [5634157, 5652249]
           },
+          ruleKey: "345717-1",
           condition: {
             and: [
               { "==": ["correct", { var: "mbox.greg" }] },
@@ -2326,6 +2759,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             locationId: 2,
             audienceIds: [5634157, 5652249]
           },
+          ruleKey: "345717-2",
           condition: {
             and: [
               { "==": ["correct", { var: "mbox.greg" }] },
@@ -2364,6 +2798,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             locationId: 3,
             audienceIds: [5634157, 5652249]
           },
+          ruleKey: "345717-3",
           condition: {
             and: [
               { "==": ["correct", { var: "mbox.greg" }] },
@@ -2402,6 +2837,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             locationId: 0,
             audienceIds: [5634562, 5652249]
           },
+          ruleKey: "345717-0",
           condition: {
             and: [
               { "==": ["correct", { var: "mbox.jason" }] },
@@ -2440,6 +2876,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             locationId: 1,
             audienceIds: [5634562, 5652249]
           },
+          ruleKey: "345717-1",
           condition: {
             and: [
               { "==": ["correct", { var: "mbox.jason" }] },
@@ -2489,6 +2926,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             locationId: 2,
             audienceIds: [5634562, 5652249]
           },
+          ruleKey: "345717-2",
           condition: {
             and: [
               { "==": ["correct", { var: "mbox.jason" }] },
@@ -2538,6 +2976,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             locationId: 3,
             audienceIds: [5634562, 5652249]
           },
+          ruleKey: "345717-3",
           condition: {
             and: [
               { "==": ["correct", { var: "mbox.jason" }] },
@@ -2576,6 +3015,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             locationId: 0,
             audienceIds: [5652249]
           },
+          ruleKey: "345717-0",
           condition: {
             and: [
               { "==": ["local-target-test", { var: "page.domain" }] },
@@ -2609,6 +3049,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             locationId: 1,
             audienceIds: [5652249]
           },
+          ruleKey: "345717-1",
           condition: {
             and: [
               { "==": ["local-target-test", { var: "page.domain" }] },
@@ -2653,6 +3094,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             locationId: 2,
             audienceIds: [5652249]
           },
+          ruleKey: "345717-2",
           condition: {
             and: [
               { "==": ["local-target-test", { var: "page.domain" }] },
@@ -2686,6 +3128,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             locationId: 3,
             audienceIds: [5652249]
           },
+          ruleKey: "345717-3",
           condition: {
             and: [
               { "==": ["local-target-test", { var: "page.domain" }] },
@@ -2733,7 +3176,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-19T23:24:03.452Z"
+    generatedAt: "2020-05-20T22:54:08.341Z"
   },
   globalMbox: "target-global-mbox",
   responseTokens: ["activity.id", "activity.name"],
@@ -2751,6 +3194,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationId: 0,
             audienceIds: [5639015, 5634157]
           },
+          ruleKey: "345139-0",
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 50] },
@@ -2801,6 +3245,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationId: 1,
             audienceIds: [5639015, 5634157]
           },
+          ruleKey: "345139-1",
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 50] },
@@ -2854,6 +3299,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationId: 2,
             audienceIds: [5639015, 5634562]
           },
+          ruleKey: "345139-2",
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 50] },
@@ -2904,6 +3350,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationId: 3,
             audienceIds: [5639015, 5634562]
           },
+          ruleKey: "345139-3",
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 50] },
@@ -2957,6 +3404,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationId: 4,
             audienceIds: [5639015]
           },
+          ruleKey: "345139-4",
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 50] },
@@ -3007,6 +3455,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationId: 5,
             audienceIds: [5639015, 5634157]
           },
+          ruleKey: "345139-5",
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 50] },
@@ -3046,6 +3495,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationId: 6,
             audienceIds: [5639015, 5634157]
           },
+          ruleKey: "345139-6",
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 50] },
@@ -3085,6 +3535,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationId: 7,
             audienceIds: [5639015, 5634562]
           },
+          ruleKey: "345139-7",
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 50] },
@@ -3124,6 +3575,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationId: 8,
             audienceIds: [5639015, 5634562]
           },
+          ruleKey: "345139-8",
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 50] },
@@ -3163,6 +3615,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationId: 0,
             audienceIds: [5639015, 5634157]
           },
+          ruleKey: "345139-0",
           condition: {
             and: [
               { "<": [50, { var: "allocation" }, 100] },
@@ -3202,6 +3655,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationId: 1,
             audienceIds: [5639015, 5634157]
           },
+          ruleKey: "345139-1",
           condition: {
             and: [
               { "<": [50, { var: "allocation" }, 100] },
@@ -3241,6 +3695,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationId: 2,
             audienceIds: [5639015, 5634562]
           },
+          ruleKey: "345139-2",
           condition: {
             and: [
               { "<": [50, { var: "allocation" }, 100] },
@@ -3280,6 +3735,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationId: 3,
             audienceIds: [5639015, 5634562]
           },
+          ruleKey: "345139-3",
           condition: {
             and: [
               { "<": [50, { var: "allocation" }, 100] },
@@ -3319,6 +3775,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationId: 4,
             audienceIds: [5639015]
           },
+          ruleKey: "345139-4",
           condition: {
             and: [
               { "<": [50, { var: "allocation" }, 100] },
@@ -3369,6 +3826,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationId: 5,
             audienceIds: [5639015, 5634157]
           },
+          ruleKey: "345139-5",
           condition: {
             and: [
               { "<": [50, { var: "allocation" }, 100] },
@@ -3419,6 +3877,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationId: 6,
             audienceIds: [5639015, 5634157]
           },
+          ruleKey: "345139-6",
           condition: {
             and: [
               { "<": [50, { var: "allocation" }, 100] },
@@ -3468,6 +3927,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationId: 7,
             audienceIds: [5639015, 5634562]
           },
+          ruleKey: "345139-7",
           condition: {
             and: [
               { "<": [50, { var: "allocation" }, 100] },
@@ -3518,6 +3978,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationId: 8,
             audienceIds: [5639015, 5634562]
           },
+          ruleKey: "345139-8",
           condition: {
             and: [
               { "<": [50, { var: "allocation" }, 100] },
@@ -3567,6 +4028,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationId: 0,
             audienceIds: [5614593]
           },
+          ruleKey: "344512-0",
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 50] },
@@ -3622,6 +4084,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationId: 1,
             audienceIds: [5614593]
           },
+          ruleKey: "344512-1",
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 50] },
@@ -3677,6 +4140,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationId: 2,
             audienceIds: [5614593]
           },
+          ruleKey: "344512-2",
           condition: {
             and: [
               { "<": [0, { var: "allocation" }, 50] },
@@ -3720,6 +4184,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationId: 0,
             audienceIds: [5614593]
           },
+          ruleKey: "344512-0",
           condition: {
             and: [
               { "<": [50, { var: "allocation" }, 100] },
@@ -3775,6 +4240,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationId: 1,
             audienceIds: [5614593]
           },
+          ruleKey: "344512-1",
           condition: {
             and: [
               { "<": [50, { var: "allocation" }, 100] },
@@ -3818,6 +4284,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             locationId: 2,
             audienceIds: [5614593]
           },
+          ruleKey: "344512-2",
           condition: {
             and: [
               { "<": [50, { var: "allocation" }, 100] },

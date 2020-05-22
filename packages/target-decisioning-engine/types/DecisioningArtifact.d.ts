@@ -3,6 +3,7 @@ import { MboxResponse } from "@adobe/target-tools/delivery-api-client";
 export interface Consequence extends MboxResponse {}
 
 export interface Rule {
+  ruleKey: String;
   condition: Object;
   consequence: Consequence;
   meta: {

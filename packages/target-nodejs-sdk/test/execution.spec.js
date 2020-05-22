@@ -1,5 +1,7 @@
-/* eslint-disable jest/no-test-callback */
-import { EXECUTION_MODE } from "@adobe/target-tools";
+import {
+  DECISIONING_ENGINE_NOT_READY,
+  EXECUTION_MODE
+} from "@adobe/target-tools";
 import { DECISIONING_PAYLOAD_FEATURE_FLAG } from "./decisioning-payloads";
 
 require("jest-fetch-mock").enableMocks();
@@ -100,166 +102,256 @@ describe("execution mode", () => {
   });
 
   describe("local", () => {
-    it("returns a list of mbox names that require remote", async done => {
-      fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG));
+    it("returns a list of mbox names that require remote", () => {
+      expect.assertions(1);
 
-      async function clientReadyCallback() {
-        const result = await client.getOffers({
-          request: {
-            ...targetRequest,
-            prefetch: {
-              mboxes: [
-                {
-                  name: "jason-flags",
-                  index: 1
-                },
-                {
-                  name: "remote-only-mbox-a",
-                  index: 2
-                },
-                {
-                  name: "remote-only-mbox-b",
-                  index: 2
-                }
-              ]
-            }
-          },
-          sessionId: "dummy_session"
+      return new Promise(done => {
+        fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG));
+
+        async function clientReadyCallback() {
+          const result = await client.getOffers({
+            request: {
+              ...targetRequest,
+              prefetch: {
+                mboxes: [
+                  {
+                    name: "jason-flags",
+                    index: 1
+                  },
+                  {
+                    name: "remote-only-mbox-a",
+                    index: 2
+                  },
+                  {
+                    name: "remote-only-mbox-b",
+                    index: 2
+                  }
+                ]
+              }
+            },
+            sessionId: "dummy_session"
+          });
+
+          expect(result.meta).toEqual(
+            expect.objectContaining({
+              executionMode: EXECUTION_MODE.LOCAL,
+              remoteMboxes: ["remote-only-mbox-a", "remote-only-mbox-b"]
+            })
+          );
+          done();
+        }
+
+        client = TargetClient.create({
+          executionMode: EXECUTION_MODE.LOCAL,
+          pollingInterval: 0,
+          ...targetClientOptions,
+          clientReadyCallback
         });
-
-        expect(result.meta).toEqual(
-          expect.objectContaining({
-            executionMode: EXECUTION_MODE.LOCAL,
-            remoteMboxes: ["remote-only-mbox-a", "remote-only-mbox-b"]
-          })
-        );
-        done();
-      }
-
-      client = TargetClient.create({
-        executionMode: EXECUTION_MODE.LOCAL,
-        pollingInterval: 0,
-        ...targetClientOptions,
-        clientReadyCallback
       });
     });
 
-    it("returns OK if no mbox names require remote", async done => {
-      fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG));
+    it("returns OK if no mbox names require remote", () => {
+      expect.assertions(1);
 
-      async function clientReadyCallback() {
-        const result = await client.getOffers({
-          request: {
-            ...targetRequest,
-            prefetch: {
-              mboxes: [
-                {
-                  name: "jason-flags",
-                  index: 1
-                }
-              ]
-            }
-          },
-          sessionId: "dummy_session"
+      return new Promise(done => {
+        fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG));
+
+        async function clientReadyCallback() {
+          const result = await client.getOffers({
+            request: {
+              ...targetRequest,
+              prefetch: {
+                mboxes: [
+                  {
+                    name: "jason-flags",
+                    index: 1
+                  }
+                ]
+              }
+            },
+            sessionId: "dummy_session"
+          });
+
+          expect(result.meta).toEqual(
+            expect.objectContaining({
+              executionMode: EXECUTION_MODE.LOCAL,
+              remoteMboxes: []
+            })
+          );
+          done();
+        }
+
+        client = TargetClient.create({
+          executionMode: EXECUTION_MODE.LOCAL,
+          pollingInterval: 0,
+          ...targetClientOptions,
+          clientReadyCallback
         });
-
-        expect(result.meta).toEqual(
-          expect.objectContaining({
-            executionMode: EXECUTION_MODE.LOCAL,
-            remoteMboxes: []
-          })
-        );
-        done();
-      }
-
-      client = TargetClient.create({
-        executionMode: EXECUTION_MODE.LOCAL,
-        pollingInterval: 0,
-        ...targetClientOptions,
-        clientReadyCallback
       });
     });
   });
   describe("hybrid", () => {
-    it("makes a remote request if remote is required", async done => {
-      fetch
-        .once(JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG))
-        .once(JSON.stringify(DELIVERY_RESPONSE));
+    it("makes a remote request if remote is required", () => {
+      expect.assertions(1);
 
-      async function clientReadyCallback() {
-        const result = await client.getOffers({
-          request: {
-            ...targetRequest,
-            prefetch: {
-              mboxes: [
-                {
-                  name: "jason-flags",
-                  index: 1
-                },
-                {
-                  name: "remote-only-mbox-a",
-                  index: 2
-                },
-                {
-                  name: "remote-only-mbox-b",
-                  index: 2
-                }
-              ]
-            }
-          },
-          sessionId: "dummy_session"
+      return new Promise(done => {
+        fetch
+          .once(JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG))
+          .once(JSON.stringify(DELIVERY_RESPONSE));
+
+        async function clientReadyCallback() {
+          const result = await client.getOffers({
+            request: {
+              ...targetRequest,
+              prefetch: {
+                mboxes: [
+                  {
+                    name: "jason-flags",
+                    index: 1
+                  },
+                  {
+                    name: "remote-only-mbox-a",
+                    index: 2
+                  },
+                  {
+                    name: "remote-only-mbox-b",
+                    index: 2
+                  }
+                ]
+              }
+            },
+            sessionId: "dummy_session"
+          });
+
+          expect(result.meta).toEqual(
+            expect.objectContaining({
+              executionMode: EXECUTION_MODE.REMOTE,
+              remoteMboxes: ["remote-only-mbox-a", "remote-only-mbox-b"]
+            })
+          );
+          done();
+        }
+
+        client = TargetClient.create({
+          executionMode: EXECUTION_MODE.HYBRID,
+          pollingInterval: 0,
+          ...targetClientOptions,
+          clientReadyCallback
         });
-
-        expect(result.meta).toEqual(
-          expect.objectContaining({
-            executionMode: EXECUTION_MODE.REMOTE,
-            remoteMboxes: ["remote-only-mbox-a", "remote-only-mbox-b"]
-          })
-        );
-        done();
-      }
-
-      client = TargetClient.create({
-        executionMode: EXECUTION_MODE.HYBRID,
-        pollingInterval: 0,
-        ...targetClientOptions,
-        clientReadyCallback
       });
     });
 
-    it("does local decisioning if remote is not required", async done => {
-      fetch.once(JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG));
+    it("does local decisioning if remote is not required", () => {
+      expect.assertions(1);
 
-      async function clientReadyCallback() {
-        const result = await client.getOffers({
-          request: {
-            ...targetRequest,
-            prefetch: {
-              mboxes: [
-                {
-                  name: "jason-flags",
-                  index: 1
-                }
-              ]
-            }
-          },
-          sessionId: "dummy_session"
+      return new Promise(done => {
+        fetch.once(JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG));
+
+        async function clientReadyCallback() {
+          const result = await client.getOffers({
+            request: {
+              ...targetRequest,
+              prefetch: {
+                mboxes: [
+                  {
+                    name: "jason-flags",
+                    index: 1
+                  }
+                ]
+              }
+            },
+            sessionId: "dummy_session"
+          });
+
+          expect(result.meta).toEqual(
+            expect.objectContaining({
+              executionMode: EXECUTION_MODE.LOCAL,
+              remoteMboxes: []
+            })
+          );
+          done();
+        }
+
+        client = TargetClient.create({
+          executionMode: EXECUTION_MODE.HYBRID,
+          pollingInterval: 0,
+          ...targetClientOptions,
+          clientReadyCallback
         });
+      });
+    });
+  });
 
-        expect(result.meta).toEqual(
-          expect.objectContaining({
-            executionMode: EXECUTION_MODE.LOCAL,
-            remoteMboxes: []
-          })
-        );
-        done();
-      }
+  describe("remote", () => {
+    it("throws an error if local executionMode is used in getOffers call but the global executionMode is remote", () => {
+      expect.assertions(1);
+      return new Promise(done => {
+        client = TargetClient.create({
+          executionMode: EXECUTION_MODE.REMOTE,
+          pollingInterval: 0,
+          ...targetClientOptions,
+          clientReadyCallback: () => {
+            client
+              .getOffers({
+                executionMode: EXECUTION_MODE.LOCAL,
+                request: {
+                  ...targetRequest,
+                  prefetch: {
+                    mboxes: [
+                      {
+                        name: "jason-flags",
+                        index: 1
+                      }
+                    ]
+                  }
+                }
+              })
+              .catch(err => {
+                expect(err).toEqual(new Error(DECISIONING_ENGINE_NOT_READY));
+                done();
+              });
+          }
+        });
+      });
+    });
 
-      client = TargetClient.create({
-        executionMode: EXECUTION_MODE.HYBRID,
-        pollingInterval: 0,
-        ...targetClientOptions,
-        clientReadyCallback
+    it("makes a request to delivery API if hybrid executionMode is used in a getOffers call and decisioning engine is not ready", () => {
+      fetch.once(JSON.stringify(DELIVERY_RESPONSE));
+
+      expect.assertions(1);
+      return new Promise(done => {
+        client = TargetClient.create({
+          executionMode: EXECUTION_MODE.REMOTE,
+          pollingInterval: 0,
+          ...targetClientOptions,
+          clientReadyCallback: () => {
+            client
+              .getOffers({
+                executionMode: EXECUTION_MODE.HYBRID,
+                request: {
+                  ...targetRequest,
+                  prefetch: {
+                    mboxes: [
+                      {
+                        name: "jason-flags",
+                        index: 1
+                      }
+                    ]
+                  }
+                }
+              })
+              .then(result => {
+                expect(result).toEqual(
+                  expect.objectContaining({
+                    meta: {
+                      executionMode: EXECUTION_MODE.REMOTE
+                    }
+                  })
+                );
+                done();
+              });
+          }
+        });
       });
     });
   });

@@ -12,6 +12,7 @@ governing permissions and limitations under the License.
 
 import {
   createUUID,
+  DECISIONING_ENGINE_NOT_READY,
   DEFAULT_GLOBAL_MBOX,
   EMPTY_REQUEST,
   EXECUTION_MODE,
@@ -533,7 +534,7 @@ function createLocalDeliveryApi(
     // eslint-disable-next-line no-unused-vars
     execute: (client, sessionId, deliveryRequest, atjsVersion) => {
       if (isUndefined(decisioningEngine)) {
-        return Promise.reject(new Error(Messages.PENDING_ARTIFACT_RETRIEVAL));
+        return Promise.reject(new Error(DECISIONING_ENGINE_NOT_READY));
       }
 
       return decisioningEngine.getOffers({

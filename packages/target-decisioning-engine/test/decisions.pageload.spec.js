@@ -194,7 +194,7 @@ describe("decisioning outcomes - pageload", () => {
       sessionId: "dummy_session"
     });
 
-    expect(result.execute.pageLoad.options).toEqual([
+    expect(result.execute.pageLoad.options.sort(byContent)).toEqual([
       {
         content: "<div>Chrometastic</div>",
         type: "html"

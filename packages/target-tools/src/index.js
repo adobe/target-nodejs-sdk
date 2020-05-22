@@ -21,4 +21,4 @@ export { getFetchWithRetry, getFetchApi } from "./networking";
 
 export { AttributesProvider } from "./attributesProvider";
 
-export { ATTRIBUTE_NOT_EXIST } from "./messages";
+export { ATTRIBUTE_NOT_EXIST, DECISIONING_ENGINE_NOT_READY } from "./messages";

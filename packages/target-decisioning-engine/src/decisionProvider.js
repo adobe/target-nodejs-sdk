@@ -3,7 +3,7 @@ import {
   isUndefined,
   objectWithoutUndefinedValues
 } from "@adobe/target-tools";
-import { getRuleId, hasRemoteDependency } from "./utils";
+import { getRuleKey, hasRemoteDependency } from "./utils";
 import NotificationProvider from "./notificationProvider";
 import { RequestTracer } from "./traceProvider";
 import { RequestType } from "./enums";
@@ -98,7 +98,7 @@ function DecisionProvider(
 
       // eslint-disable-next-line no-restricted-syntax
       for (const rule of viewRules) {
-        const ruleId = getRuleId(rule);
+        const ruleId = getRuleKey(rule);
         let consequence;
 
         if (!matchedRuleIds.has(ruleId)) {
@@ -153,7 +153,7 @@ function DecisionProvider(
 
       // eslint-disable-next-line no-restricted-syntax
       for (const rule of mboxRules) {
-        const ruleId = getRuleId(rule);
+        const ruleId = getRuleKey(rule);
         let consequence;
 
         if (!isGlobalMbox || (isGlobalMbox && !matchedRuleIds.has(ruleId))) {

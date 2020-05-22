@@ -1,4 +1,5 @@
 /* eslint-disable jest/no-test-callback */
+import { DECISIONING_ENGINE_NOT_READY } from "@adobe/target-tools";
 import {
   DECISIONING_PAYLOAD_AB_SIMPLE,
   DUMMY_ARTIFACT_PAYLOAD
@@ -10,7 +11,6 @@ const MockDate = require("mockdate");
 require("jest-fetch-mock").enableMocks();
 const { EXECUTION_MODE } = require("@adobe/target-tools");
 const TargetClient = require("../src/index.server").default;
-const { Messages } = require("../src/messages");
 
 const TARGET_REQUEST = {
   prefetch: {
@@ -101,7 +101,7 @@ describe("target local decisioning", () => {
           request: TARGET_REQUEST,
           sessionId: "dummy_session"
         })
-      ).rejects.toEqual(new Error(Messages.PENDING_ARTIFACT_RETRIEVAL));
+      ).rejects.toEqual(new Error(DECISIONING_ENGINE_NOT_READY));
 
       if (timer) clearTimeout(timer);
       done();
@@ -135,7 +135,7 @@ describe("target local decisioning", () => {
           request: TARGET_REQUEST,
           sessionId: "dummy_session"
         })
-      ).rejects.toEqual(new Error(Messages.PENDING_ARTIFACT_RETRIEVAL));
+      ).rejects.toEqual(new Error(DECISIONING_ENGINE_NOT_READY));
 
       const timer = setTimeout(async () => {
         await expect(
@@ -143,7 +143,7 @@ describe("target local decisioning", () => {
             request: TARGET_REQUEST,
             sessionId: "dummy_session"
           })
-        ).rejects.toEqual(new Error(Messages.PENDING_ARTIFACT_RETRIEVAL));
+        ).rejects.toEqual(new Error(DECISIONING_ENGINE_NOT_READY));
 
         clearTimeout(timer);
         done();

@@ -16,7 +16,7 @@ function caseSensitiveVersion(caseSenstiveString, lowercaseString) {
  * @param {import("../types/DecisioningArtifact").Rule} rule
  * @return {string}
  */
-export function getRuleId(rule) {
+export function getRuleKey(rule) {
   const { locationType, activityId, locationId = 0 } = rule.meta;
 
   return locationType === RequestType.VIEW

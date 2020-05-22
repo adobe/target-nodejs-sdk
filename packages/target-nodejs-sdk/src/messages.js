@@ -31,8 +31,6 @@ export const Messages = {
   OPTIONS_REQUIRED: "Options map is required",
   REQUEST_SENT: "Request sent",
   RESPONSE_RECEIVED: "Response received",
-  PENDING_ARTIFACT_RETRIEVAL:
-    "Unable to fulfill request; PENDING artifact retrieval.",
   FETCH_UNDEFINED: "Fetch is not defined!",
   DECISIONING_ENGINE_UNDEFINED: "Decisioning Engine is undefined",
   LOCATION_HINT_REQUEST_FAILED: "Unable to retrieve location hint cookie."

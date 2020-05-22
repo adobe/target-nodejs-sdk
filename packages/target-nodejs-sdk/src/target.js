@@ -12,7 +12,9 @@ governing permissions and limitations under the License.
 */
 
 import {
+  DECISIONING_ENGINE_NOT_READY,
   decisioningEngineReady,
+  EXECUTION_MODE,
   getFetchWithRetry,
   requiresDecisioningEngine
 } from "@adobe/target-tools";
@@ -42,14 +44,9 @@ export function executeDelivery(options, decisioningEngine) {
     createDeliveryApiMethod = createDeliveryApi
   } = options;
 
-  const {
-    serverDomain,
-    client,
-    timeout,
-    secure,
-    environmentId,
-    executionMode
-  } = config;
+  const { serverDomain, client, timeout, secure, environmentId } = config;
+
+  let { executionMode } = config;
 
   const fetchWithRetry = getFetchWithRetry(config.fetchApi);
 
@@ -60,7 +57,12 @@ export function executeDelivery(options, decisioningEngine) {
     requiresDecisioningEngine(executionMode) &&
     !decisioningEngineReady(decisioningEngine)
   ) {
-    return Promise.reject(new Error(Messages.PENDING_ARTIFACT_RETRIEVAL));
+    // fulfill the request remotely if hybrid execution mode and decisioning engine is unavailable
+    if (executionMode === EXECUTION_MODE.HYBRID) {
+      executionMode = EXECUTION_MODE.REMOTE;
+    } else {
+      return Promise.reject(new Error(DECISIONING_ENGINE_NOT_READY));
+    }
   }
 
   const cookies = parseCookies(targetCookie);
@@ -93,7 +95,7 @@ export function executeDelivery(options, decisioningEngine) {
     configuration,
     visitor,
     useBeacon,
-    options.config.executionMode,
+    executionMode,
     targetLocationHint,
     deliveryRequest,
     decisioningEngine
