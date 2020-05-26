@@ -13,26 +13,24 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [8.x, 10.x, 12.x]
-
+        node-version: [8.x, 10.x, 12.x, 14.x]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@master
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@master
         with:
           node-version: ${{ matrix.node-version }}
       - name: build, test, generate coverage
         run: |
           npm ci
-          npm run build --if-present
           npm test
         env:
           CI: true
-
       - name: coveralls
-        uses: coverallsapp/github-action@v1.1.1
+        uses: coverallsapp/github-action@master
         with:
-          github-token: ${{ secrets.github_token }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: Node.js-${{ matrix.node-version }}
           parallel: true
 
   coverage:
@@ -40,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: coveralls report
-        uses: coverallsapp/github-action@v1.1.1
+        uses: coverallsapp/github-action@master
         with:
-          github-token: ${{ secrets.github_token }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           parallel-finished: true

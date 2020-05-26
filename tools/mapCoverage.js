@@ -4,16 +4,21 @@ const istanbulReport = require("istanbul-lib-report");
 const istanbulReports = require("istanbul-reports");
 const istanbulCoverage = require("istanbul-lib-coverage");
 
-const packagesFolder = path.resolve(__dirname, "../packages/");
+const rootDir = path.resolve(__dirname, "../");
+const packagesDir = path.resolve(__dirname, "../packages/");
+
+function getFiles(path) {
+  return fs.readdirSync(path);
+}
 
 function getDirectories(path) {
-  return fs.readdirSync(path).filter(function(file) {
+  return getFiles(path).filter(function(file) {
     return fs.statSync(path + "/" + file).isDirectory();
   });
 }
 
-const coverageReports = getDirectories(packagesFolder).map(
-  folderName => `${packagesFolder}/${folderName}/coverage/coverage-final.json`
+const coverageReports = getDirectories(packagesDir).map(
+  dirName => `${packagesDir}/${dirName}/coverage/coverage-final.json`
 );
 
 const map = istanbulCoverage.createCoverageMap();
@@ -36,5 +41,9 @@ coverageReports.forEach(coverageReport => {
 const context = istanbulReport.createContext({ coverageMap: map });
 
 ["json", "lcov", "text"].forEach(reporter =>
-  istanbulReports.create(reporter, {}).execute(context)
+  istanbulReports
+    .create(reporter, {
+      projectRoot: rootDir
+    })
+    .execute(context)
 );
