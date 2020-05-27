@@ -1,6 +1,7 @@
 const https = require("https");
 const fs = require("fs");
 const path = require("path");
+const prettier = require("prettier");
 
 const clientId = "adobesummit2018";
 const environment = "production";
@@ -13,21 +14,21 @@ const outputFolders = [
 
 function fetchAndSaveArtifact() {
   const artifactLocation = `${__dirname}/artifact.json`;
-  const file = fs.createWriteStream(artifactLocation);
   return new Promise((resolve, reject) => {
     https
       .get(artifactUrl, response => {
         let body = "";
-
-        if (response.statusCode === 200) {
-          response.pipe(file);
-        }
 
         response.on("data", chunk => {
           body += chunk;
         });
 
         response.on("end", () => {
+          fs.writeFileSync(
+            artifactLocation,
+            prettier.format(body, { parser: "json" })
+          );
+
           resolve(JSON.parse(body));
         });
       })
@@ -107,8 +108,10 @@ async function run() {
     output += `export const ${name} = ${JSON.stringify(artifact)}\n\n`;
   });
 
+  const fileContents = prettier.format(output, { parser: "babel" });
+
   outputFolders.forEach(dir => {
-    fs.writeFileSync(`${dir}/decisioning-payloads.js`, output);
+    fs.writeFileSync(`${dir}/decisioning-payloads.js`, fileContents);
   });
 }
 
