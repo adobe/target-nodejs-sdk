@@ -19,16 +19,16 @@ export function prepareExecuteResponse(
   requestType,
   tracer
 ) {
+  const { metrics = [], options = [] } = mboxResponse;
+
   const result = {
     ...mboxResponse,
-    options: mboxResponse.options.filter(noBlankOptions).map(pristineOption => {
+    options: options.filter(noBlankOptions).map(pristineOption => {
       const option = { ...pristineOption };
       delete option.eventToken;
       return option;
     }),
-    metrics: mboxResponse.metrics.filter(
-      metric => metric.type === MetricType.Click
-    )
+    metrics: metrics.filter(metric => metric.type === MetricType.Click)
   };
 
   if (result.metrics.length === 0) {
@@ -50,9 +50,11 @@ export function preparePrefetchResponse(
   requestType,
   tracer
 ) {
+  const { options = [] } = mboxResponse;
+
   const result = {
     ...mboxResponse,
-    options: mboxResponse.options.map((pristineOption, idx) => {
+    options: options.map((pristineOption, idx) => {
       let { eventToken } = pristineOption;
       if (
         isUndefined(eventToken) &&
