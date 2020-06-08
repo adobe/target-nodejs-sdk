@@ -133,13 +133,19 @@ function getTargetHost(serverDomain, cluster, client, secure) {
   return `${schemePrefix}${client}.${HOST}`;
 }
 
-function createHeaders(uuidMethod = uuid) {
-  return {
+function createHeaders(ipAddress, uuidMethod = uuid) {
+  const headers = {
     "Content-Type": "application/json",
     "X-EXC-SDK": "AdobeTargetNode",
     "X-EXC-SDK-Version": version,
     "X-Request-Id": uuidMethod()
   };
+
+  if (typeof ipAddress === "string" && ipAddress.length > 0) {
+    headers["X-Forwarded-For"] = ipAddress;
+  }
+
+  return headers;
 }
 
 function getMarketingCloudVisitorId(visitor) {

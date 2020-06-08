@@ -32,6 +32,7 @@ function executeDelivery(options) {
     targetCookie,
     consumerId,
     request,
+    ipAddress,
     createDeliveryApiMethod = createDeliveryApi
   } = options;
 
@@ -42,7 +43,7 @@ function executeDelivery(options) {
   const cluster = getCluster(deviceId, targetLocationHintCookie);
   const host = getTargetHost(serverDomain, cluster, client, secure);
   const sessionId = getSessionId(cookies, options.sessionId);
-  const headers = createHeaders();
+  const headers = createHeaders(ipAddress);
 
   const requestOptions = {
     logger,

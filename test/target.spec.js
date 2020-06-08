@@ -68,6 +68,7 @@ describe("Target Delivery API client", () => {
       targetCookie,
       consumerId: "consumer1",
       request: {
+        context: { channel: "web", timeOffsetInMinutes: 0 },
         requestId: "123",
         execute: {
           pageLoad: {}
