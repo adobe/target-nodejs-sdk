@@ -10,6 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
+const { getIpAddress } = require("./helper");
 const { parseCookies } = require("./cookies");
 const {
   getDeviceId,
@@ -42,7 +43,7 @@ function executeDelivery(options) {
   const cluster = getCluster(deviceId, targetLocationHintCookie);
   const host = getTargetHost(serverDomain, cluster, client, secure);
   const sessionId = getSessionId(cookies, options.sessionId);
-  const headers = createHeaders();
+  const headers = createHeaders(getIpAddress(request));
 
   const requestOptions = {
     logger,

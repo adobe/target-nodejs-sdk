@@ -133,13 +133,19 @@ function getTargetHost(serverDomain, cluster, client, secure) {
   return `${schemePrefix}${client}.${HOST}`;
 }
 
-function createHeaders(uuidMethod = uuid) {
-  return {
+function createHeaders(ipAddress, uuidMethod = uuid) {
+  const headers = {
     "Content-Type": "application/json",
     "X-EXC-SDK": "AdobeTargetNode",
     "X-EXC-SDK-Version": version,
     "X-Request-Id": uuidMethod()
   };
+
+  if (typeof ipAddress === "string" && ipAddress.length) {
+    headers["X-Forwarded-For"] = ipAddress;
+  }
+
+  return headers;
 }
 
 function getMarketingCloudVisitorId(visitor) {
@@ -520,6 +526,17 @@ function createProperty(property = {}) {
   return undefined;
 }
 
+function getIpAddress(request = {}) {
+  const IP_ADDRESS = /((^\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\s*$)|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$))/g;
+
+  const { context = {} } = request;
+  const { geo = {} } = context;
+
+  return typeof geo.ipAddress === "string" && IP_ADDRESS.test(geo.ipAddress)
+    ? geo.ipAddress
+    : undefined;
+}
+
 function createDeliveryRequest(requestParam, options) {
   const request = ObjectSerializer.deserialize(requestParam, "DeliveryRequest");
 
@@ -748,6 +765,7 @@ module.exports = {
   getDeviceId,
   getCluster,
   getSessionId,
+  getIpAddress,
   getTargetHost,
   extractClusterFromDeviceId,
   createHeaders,

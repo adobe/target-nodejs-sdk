@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*
 Copyright 2019 Adobe. All rights reserved.
 This file is licensed to you under the Apache License, Version 2.0 (the "License");
@@ -11,6 +12,7 @@ governing permissions and limitations under the License.
 */
 
 const MockDate = require("mockdate");
+const { getIpAddress } = require("../src/helper");
 const { version } = require("../package");
 const {
   ObjectSerializer,
@@ -235,12 +237,28 @@ describe("Target Helper", () => {
       "X-Request-Id": "12345678-abcd-1234-efgh-000000000000"
     };
 
-    const result = createHeaders(uuidMock);
+    const result = createHeaders(undefined, uuidMock);
+    expect(result).toEqual(headers);
+  });
+
+  it("createHeaders adds X-Forwarded-For if ipAddress specified", () => {
+    const headers = {
+      "Content-Type": "application/json",
+      "X-EXC-SDK": "AdobeTargetNode",
+      "X-EXC-SDK-Version": version,
+      "X-Request-Id": "12345678-abcd-1234-efgh-000000000000",
+      "X-Forwarded-For": "123.45.67.89"
+    };
+
+    const result = createHeaders("123.45.67.89", uuidMock);
     expect(result).toEqual(headers);
   });
 
   it("createDeliveryRequest should create Delivery request", () => {
+    const context = { channel: "web", timeOffsetInMinutes: 0 };
+
     let request = {
+      context,
       execute: {
         pageLoad: {
           address: {
@@ -279,6 +297,7 @@ describe("Target Helper", () => {
     );
 
     request = {
+      context,
       property: {
         token: "at_property1"
       },
@@ -319,6 +338,7 @@ describe("Target Helper", () => {
     );
 
     request = {
+      context,
       execute: {
         mboxes: []
       },
@@ -339,6 +359,7 @@ describe("Target Helper", () => {
     );
 
     request = {
+      context,
       notifications: [
         {
           id: "id",
@@ -376,6 +397,7 @@ describe("Target Helper", () => {
     );
 
     request = {
+      context,
       notifications: [
         {
           id: "id",
@@ -559,5 +581,38 @@ describe("Target Helper", () => {
     expect(result).toEqual(jasmine.any(TargetDeliveryApi));
     expect(result.basePath).toEqual(URL);
     expect(result.timeout).toEqual(TIMEOUT);
+  });
+  describe("getIpAddress", () => {
+    it("returns undefined", () => {
+      expect(getIpAddress()).toBeUndefined();
+
+      expect(getIpAddress({ context: {} })).toBeUndefined();
+
+      expect(getIpAddress({ context: { geo: {} } })).toBeUndefined();
+
+      expect(
+        getIpAddress({ context: { geo: { ipAddress: "" } } })
+      ).toBeUndefined();
+
+      expect(
+        getIpAddress({ context: { geo: { ipAddress: "invalid_ip" } } })
+      ).toBeUndefined();
+    });
+
+    it("accepts valid ipv4", () => {
+      expect(
+        getIpAddress({ context: { geo: { ipAddress: "70.25.14.5" } } })
+      ).toBe("70.25.14.5");
+    });
+
+    it("accepts valid ipv6", () => {
+      expect(
+        getIpAddress({
+          context: {
+            geo: { ipAddress: "2001:cdba:0000:0000:0000:0000:3257:9652" }
+          }
+        })
+      ).toBe("2001:cdba:0000:0000:0000:0000:3257:9652");
+    });
   });
 });
