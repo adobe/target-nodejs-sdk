@@ -141,7 +141,7 @@ function createHeaders(ipAddress, uuidMethod = uuid) {
     "X-Request-Id": uuidMethod()
   };
 
-  if (typeof ipAddress === "string" && ipAddress.length > 0) {
+  if (typeof ipAddress === "string" && ipAddress.length) {
     headers["X-Forwarded-For"] = ipAddress;
   }
 
@@ -526,19 +526,15 @@ function createProperty(property = {}) {
   return undefined;
 }
 
-function getIpAddress(request) {
-  const IP_ADDRESS = /\b(?:\d{1,3}\.){3}\d{1,3}\b/g;
+function getIpAddress(request = {}) {
+  const IP_ADDRESS = /((^\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\s*$)|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$))/g;
 
-  if (
-    request &&
-    request.context &&
-    request.context.geo &&
-    typeof request.context.geo.ipAddress === "string" &&
-    IP_ADDRESS.test(request.context.geo.ipAddress)
-  ) {
-    return request.context.geo.ipAddress;
-  }
-  return undefined;
+  const { context = {} } = request;
+  const { geo = {} } = context;
+
+  return typeof geo.ipAddress === "string" && IP_ADDRESS.test(geo.ipAddress)
+    ? geo.ipAddress
+    : undefined;
 }
 
 function createDeliveryRequest(requestParam, options) {

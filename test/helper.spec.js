@@ -12,6 +12,7 @@ governing permissions and limitations under the License.
 */
 
 const MockDate = require("mockdate");
+const { getIpAddress } = require("../src/helper");
 const { version } = require("../package");
 const {
   ObjectSerializer,
@@ -580,5 +581,38 @@ describe("Target Helper", () => {
     expect(result).toEqual(jasmine.any(TargetDeliveryApi));
     expect(result.basePath).toEqual(URL);
     expect(result.timeout).toEqual(TIMEOUT);
+  });
+  describe("getIpAddress", () => {
+    it("returns undefined", () => {
+      expect(getIpAddress()).toBeUndefined();
+
+      expect(getIpAddress({ context: {} })).toBeUndefined();
+
+      expect(getIpAddress({ context: { geo: {} } })).toBeUndefined();
+
+      expect(
+        getIpAddress({ context: { geo: { ipAddress: "" } } })
+      ).toBeUndefined();
+
+      expect(
+        getIpAddress({ context: { geo: { ipAddress: "invalid_ip" } } })
+      ).toBeUndefined();
+    });
+
+    it("accepts valid ipv4", () => {
+      expect(
+        getIpAddress({ context: { geo: { ipAddress: "70.25.14.5" } } })
+      ).toBe("70.25.14.5");
+    });
+
+    it("accepts valid ipv6", () => {
+      expect(
+        getIpAddress({
+          context: {
+            geo: { ipAddress: "2001:cdba:0000:0000:0000:0000:3257:9652" }
+          }
+        })
+      ).toBe("2001:cdba:0000:0000:0000:0000:3257:9652");
+    });
   });
 });
