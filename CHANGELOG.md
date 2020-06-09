@@ -50,6 +50,7 @@ method declaration [here](https://www.npmjs.com/package/@adobe/target-node-clien
 - [getOffer() API method](https://www.npmjs.com/package/@adobe/target-node-client#targetnodeclientgetoffer) has been removed,
 use [getOffers() API method](README.md#targetclientgetoffers) instead 
 
-[Unreleased]: https://github.com/adobe/target-nodejs-sdk/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/adobe/target-nodejs-sdk/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/adobe/target-nodejs-sdk/compare/v1.0.3...v1.1.0
 [1.0.3]: https://github.com/adobe/target-nodejs-sdk/compare/v1.0.1...v1.0.3
 [1.0.1]: https://github.com/adobe/target-nodejs-sdk/releases/tag/v1.0.1
