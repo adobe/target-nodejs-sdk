@@ -526,6 +526,21 @@ function createProperty(property = {}) {
   return undefined;
 }
 
+function getIpAddress(request) {
+  const IP_ADDRESS = /\b(?:\d{1,3}\.){3}\d{1,3}\b/g;
+
+  if (
+    request &&
+    request.context &&
+    request.context.geo &&
+    typeof request.context.geo.ipAddress === "string" &&
+    IP_ADDRESS.test(request.context.geo.ipAddress)
+  ) {
+    return request.context.geo.ipAddress;
+  }
+  return undefined;
+}
+
 function createDeliveryRequest(requestParam, options) {
   const request = ObjectSerializer.deserialize(requestParam, "DeliveryRequest");
 
@@ -754,6 +769,7 @@ module.exports = {
   getDeviceId,
   getCluster,
   getSessionId,
+  getIpAddress,
   getTargetHost,
   extractClusterFromDeviceId,
   createHeaders,

@@ -64,7 +64,6 @@ class TargetClient {
    * @param {String} options.consumerId When stitching multiple calls, different consumerIds should be provided, optional
    * @param {Array} options.customerIds An array of Customer Ids in VisitorId-compatible format, optional
    * @param {String} options.sessionId Session Id, used for linking multiple requests, optional
-   * @param {String} options.ipAddress IP Address, used for geo location, optional
    * @param {Object} options.visitor Supply an external VisitorId instance, optional
    */
 
