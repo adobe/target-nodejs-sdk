@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2020-06-09
+### Added
+- Support for providing an IP Address when a getOffers call is made using the request>context>geo object. [see sample usage](https://gist.github.com/jasonwaters/9a408ac65717c272efbce12d43d62c4d)
+
 ## [1.0.3] - 2019-10-10
 ### Changed
 - Minor [README](README.md) updates
