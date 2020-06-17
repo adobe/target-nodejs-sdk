@@ -16,6 +16,7 @@ import {
   DEFAULT_GLOBAL_MBOX,
   EMPTY_REQUEST,
   EXECUTION_MODE,
+  isDefined,
   isUndefined,
   requiresDecisioningEngine
 } from "@adobe/target-tools";
@@ -556,7 +557,7 @@ function createBeaconDeliveryApi(configuration) {
         sessionId
       };
 
-      if (!isUndefined(configuration.version)) {
+      if (isDefined(configuration.version)) {
         query.version = atjsVersion;
       }
 
@@ -676,7 +677,7 @@ export function getTargetLocationHintCookie(requestCluster, edgeHost) {
 }
 
 export function requestLocationHintCookie(targetClient, targetLocationHint) {
-  return !isUndefined(targetLocationHint)
+  return isDefined(targetLocationHint)
     ? Promise.resolve({
         targetLocationHintCookie: getTargetLocationHintCookie(
           targetLocationHint
@@ -692,7 +693,7 @@ export function requestLocationHintCookie(targetClient, targetLocationHint) {
 }
 
 export function preserveLocationHint(response) {
-  if (!isUndefined(response.targetLocationHintCookie)) {
+  if (isDefined(response.targetLocationHintCookie)) {
     this.config.targetLocationHint = response.targetLocationHintCookie.value;
   }
   return response;

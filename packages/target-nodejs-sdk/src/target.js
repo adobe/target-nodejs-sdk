@@ -16,6 +16,8 @@ import {
   decisioningEngineReady,
   EXECUTION_MODE,
   getFetchWithRetry,
+  getProperty,
+  isDefined,
   requiresDecisioningEngine
 } from "@adobe/target-tools";
 import { Messages } from "./messages";
@@ -43,6 +45,11 @@ export function executeDelivery(options, decisioningEngine) {
     useBeacon,
     createDeliveryApiMethod = createDeliveryApi
   } = options;
+
+  const property = getProperty(config, request, logger);
+  if (isDefined(property)) {
+    request.property = property;
+  }
 
   const { serverDomain, client, timeout, secure, environmentId } = config;
 

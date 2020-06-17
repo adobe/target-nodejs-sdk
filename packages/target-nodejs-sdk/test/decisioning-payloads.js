@@ -22,15 +22,50 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-27T22:29:01.244Z"
+    generatedAt: "2020-06-17T23:14:23.723Z"
   },
   globalMbox: "target-global-mbox",
-  responseTokens: ["activity.id", "activity.name"],
-  remoteMboxes: ["target-global-mbox"],
+  geoTargetingEnabled: true,
+  responseTokens: [
+    "activity.id",
+    "activity.name",
+    "experience.id",
+    "geo.country",
+    "geo.city",
+    "geo.state"
+  ],
+  remoteMboxes: ["geo", "target-global-mbox"],
+  remoteViews: ["home"],
+  localMboxes: [
+    "offer2",
+    "multinot",
+    "demo-marketing-offer2",
+    "demo-marketing-offer1",
+    "alloy-test-scope-1",
+    "sam-mbox-2",
+    "specialk",
+    "target-global-mbox",
+    "kitty",
+    "geo",
+    "daterange-mbox",
+    "browser-mbox",
+    "onboarding-mbox-1",
+    "demo-engineering-flags",
+    "redundant-mbox",
+    "composite2",
+    "jason-flags",
+    "superfluous-mbox",
+    "expendable-mbox",
+    "local123456",
+    "sam-mbox"
+  ],
+  localViews: ["contact", "home"],
   rules: {
     mboxes: {
       offer2: [
         {
+          ruleKey: "333312",
+          activityId: 333312,
           meta: {
             activityId: 333312,
             activityType: "ab",
@@ -61,6 +96,8 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
           }
         },
         {
+          ruleKey: "333312",
+          activityId: 333312,
           meta: {
             activityId: 333312,
             activityType: "ab",
@@ -102,15 +139,50 @@ export const DECISIONING_PAYLOAD_BROWSER = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-27T22:29:01.244Z"
+    generatedAt: "2020-06-17T23:14:23.723Z"
   },
   globalMbox: "target-global-mbox",
-  responseTokens: ["activity.id", "activity.name"],
-  remoteMboxes: ["target-global-mbox"],
+  geoTargetingEnabled: true,
+  responseTokens: [
+    "activity.id",
+    "activity.name",
+    "experience.id",
+    "geo.country",
+    "geo.city",
+    "geo.state"
+  ],
+  remoteMboxes: ["geo", "target-global-mbox"],
+  remoteViews: ["home"],
+  localMboxes: [
+    "offer2",
+    "multinot",
+    "demo-marketing-offer2",
+    "demo-marketing-offer1",
+    "alloy-test-scope-1",
+    "sam-mbox-2",
+    "specialk",
+    "target-global-mbox",
+    "kitty",
+    "geo",
+    "daterange-mbox",
+    "browser-mbox",
+    "onboarding-mbox-1",
+    "demo-engineering-flags",
+    "redundant-mbox",
+    "composite2",
+    "jason-flags",
+    "superfluous-mbox",
+    "expendable-mbox",
+    "local123456",
+    "sam-mbox"
+  ],
+  localViews: ["contact", "home"],
   rules: {
     mboxes: {
       "browser-mbox": [
         {
+          ruleKey: "334845",
+          activityId: 334845,
           meta: {
             activityId: 334845,
             activityType: "landing",
@@ -136,6 +208,8 @@ export const DECISIONING_PAYLOAD_BROWSER = {
           }
         },
         {
+          ruleKey: "334845",
+          activityId: 334845,
           meta: {
             activityId: 334845,
             activityType: "landing",
@@ -161,6 +235,8 @@ export const DECISIONING_PAYLOAD_BROWSER = {
           }
         },
         {
+          ruleKey: "334845",
+          activityId: 334845,
           meta: {
             activityId: 334845,
             activityType: "landing",
@@ -186,6 +262,8 @@ export const DECISIONING_PAYLOAD_BROWSER = {
           }
         },
         {
+          ruleKey: "334845",
+          activityId: 334845,
           meta: {
             activityId: 334845,
             activityType: "landing",
@@ -211,6 +289,8 @@ export const DECISIONING_PAYLOAD_BROWSER = {
           }
         },
         {
+          ruleKey: "334845",
+          activityId: 334845,
           meta: {
             activityId: 334845,
             activityType: "landing",
@@ -248,15 +328,50 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-27T22:29:01.244Z"
+    generatedAt: "2020-06-17T23:14:23.723Z"
   },
   globalMbox: "target-global-mbox",
-  responseTokens: ["activity.id", "activity.name"],
-  remoteMboxes: ["target-global-mbox"],
+  geoTargetingEnabled: true,
+  responseTokens: [
+    "activity.id",
+    "activity.name",
+    "experience.id",
+    "geo.country",
+    "geo.city",
+    "geo.state"
+  ],
+  remoteMboxes: ["geo", "target-global-mbox"],
+  remoteViews: ["home"],
+  localMboxes: [
+    "offer2",
+    "multinot",
+    "demo-marketing-offer2",
+    "demo-marketing-offer1",
+    "alloy-test-scope-1",
+    "sam-mbox-2",
+    "specialk",
+    "target-global-mbox",
+    "kitty",
+    "geo",
+    "daterange-mbox",
+    "browser-mbox",
+    "onboarding-mbox-1",
+    "demo-engineering-flags",
+    "redundant-mbox",
+    "composite2",
+    "jason-flags",
+    "superfluous-mbox",
+    "expendable-mbox",
+    "local123456",
+    "sam-mbox"
+  ],
+  localViews: ["contact", "home"],
   rules: {
     mboxes: {
       "superfluous-mbox": [
         {
+          ruleKey: "334411",
+          activityId: 334411,
           meta: {
             activityId: 334411,
             activityType: "ab",
@@ -282,6 +397,8 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
           }
         },
         {
+          ruleKey: "334411",
+          activityId: 334411,
           meta: {
             activityId: 334411,
             activityType: "ab",
@@ -309,6 +426,8 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
       ],
       "expendable-mbox": [
         {
+          ruleKey: "334640",
+          activityId: 334640,
           meta: {
             activityId: 334640,
             activityType: "ab",
@@ -334,6 +453,8 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
           }
         },
         {
+          ruleKey: "334640",
+          activityId: 334640,
           meta: {
             activityId: 334640,
             activityType: "ab",
@@ -370,15 +491,50 @@ export const DECISIONING_PAYLOAD_PARAMS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-27T22:29:01.244Z"
+    generatedAt: "2020-06-17T23:14:23.723Z"
   },
   globalMbox: "target-global-mbox",
-  responseTokens: ["activity.id", "activity.name"],
-  remoteMboxes: ["target-global-mbox"],
+  geoTargetingEnabled: true,
+  responseTokens: [
+    "activity.id",
+    "activity.name",
+    "experience.id",
+    "geo.country",
+    "geo.city",
+    "geo.state"
+  ],
+  remoteMboxes: ["geo", "target-global-mbox"],
+  remoteViews: ["home"],
+  localMboxes: [
+    "offer2",
+    "multinot",
+    "demo-marketing-offer2",
+    "demo-marketing-offer1",
+    "alloy-test-scope-1",
+    "sam-mbox-2",
+    "specialk",
+    "target-global-mbox",
+    "kitty",
+    "geo",
+    "daterange-mbox",
+    "browser-mbox",
+    "onboarding-mbox-1",
+    "demo-engineering-flags",
+    "redundant-mbox",
+    "composite2",
+    "jason-flags",
+    "superfluous-mbox",
+    "expendable-mbox",
+    "local123456",
+    "sam-mbox"
+  ],
+  localViews: ["contact", "home"],
   rules: {
     mboxes: {
       "redundant-mbox": [
         {
+          ruleKey: "334717",
+          activityId: 334717,
           meta: {
             activityId: 334717,
             activityType: "ab",
@@ -409,6 +565,8 @@ export const DECISIONING_PAYLOAD_PARAMS = {
           }
         },
         {
+          ruleKey: "334717",
+          activityId: 334717,
           meta: {
             activityId: 334717,
             activityType: "ab",
@@ -452,15 +610,50 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-27T22:29:01.244Z"
+    generatedAt: "2020-06-17T23:14:23.723Z"
   },
   globalMbox: "target-global-mbox",
-  responseTokens: ["activity.id", "activity.name"],
-  remoteMboxes: ["target-global-mbox"],
+  geoTargetingEnabled: true,
+  responseTokens: [
+    "activity.id",
+    "activity.name",
+    "experience.id",
+    "geo.country",
+    "geo.city",
+    "geo.state"
+  ],
+  remoteMboxes: ["geo", "target-global-mbox"],
+  remoteViews: ["home"],
+  localMboxes: [
+    "offer2",
+    "multinot",
+    "demo-marketing-offer2",
+    "demo-marketing-offer1",
+    "alloy-test-scope-1",
+    "sam-mbox-2",
+    "specialk",
+    "target-global-mbox",
+    "kitty",
+    "geo",
+    "daterange-mbox",
+    "browser-mbox",
+    "onboarding-mbox-1",
+    "demo-engineering-flags",
+    "redundant-mbox",
+    "composite2",
+    "jason-flags",
+    "superfluous-mbox",
+    "expendable-mbox",
+    "local123456",
+    "sam-mbox"
+  ],
+  localViews: ["contact", "home"],
   rules: {
     mboxes: {
       kitty: [
         {
+          ruleKey: "336973",
+          activityId: 336973,
           meta: {
             activityId: 336973,
             activityType: "landing",
@@ -486,6 +679,8 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
           }
         },
         {
+          ruleKey: "336973",
+          activityId: 336973,
           meta: {
             activityId: 336973,
             activityType: "landing",
@@ -511,6 +706,8 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
           }
         },
         {
+          ruleKey: "336951",
+          activityId: 336951,
           meta: {
             activityId: 336951,
             activityType: "ab",
@@ -536,6 +733,8 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
           }
         },
         {
+          ruleKey: "336951",
+          activityId: 336951,
           meta: {
             activityId: 336951,
             activityType: "ab",
@@ -561,6 +760,8 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
           }
         },
         {
+          ruleKey: "336950",
+          activityId: 336950,
           meta: {
             activityId: 336950,
             activityType: "ab",
@@ -586,6 +787,8 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
           }
         },
         {
+          ruleKey: "336950",
+          activityId: 336950,
           meta: {
             activityId: 336950,
             activityType: "ab",
@@ -622,15 +825,50 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-27T22:29:01.244Z"
+    generatedAt: "2020-06-17T23:14:23.723Z"
   },
   globalMbox: "target-global-mbox",
-  responseTokens: ["activity.id", "activity.name"],
-  remoteMboxes: ["target-global-mbox"],
+  geoTargetingEnabled: true,
+  responseTokens: [
+    "activity.id",
+    "activity.name",
+    "experience.id",
+    "geo.country",
+    "geo.city",
+    "geo.state"
+  ],
+  remoteMboxes: ["geo", "target-global-mbox"],
+  remoteViews: ["home"],
+  localMboxes: [
+    "offer2",
+    "multinot",
+    "demo-marketing-offer2",
+    "demo-marketing-offer1",
+    "alloy-test-scope-1",
+    "sam-mbox-2",
+    "specialk",
+    "target-global-mbox",
+    "kitty",
+    "geo",
+    "daterange-mbox",
+    "browser-mbox",
+    "onboarding-mbox-1",
+    "demo-engineering-flags",
+    "redundant-mbox",
+    "composite2",
+    "jason-flags",
+    "superfluous-mbox",
+    "expendable-mbox",
+    "local123456",
+    "sam-mbox"
+  ],
+  localViews: ["contact", "home"],
   rules: {
     mboxes: {
       "superfluous-mbox": [
         {
+          ruleKey: "334411",
+          activityId: 334411,
           meta: {
             activityId: 334411,
             activityType: "ab",
@@ -656,6 +894,8 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
           }
         },
         {
+          ruleKey: "334411",
+          activityId: 334411,
           meta: {
             activityId: 334411,
             activityType: "ab",
@@ -692,15 +932,50 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-27T22:29:01.244Z"
+    generatedAt: "2020-06-17T23:14:23.723Z"
   },
   globalMbox: "target-global-mbox",
-  responseTokens: ["activity.id", "activity.name"],
-  remoteMboxes: ["remote-only-mbox-a", "target-global-mbox"],
+  geoTargetingEnabled: true,
+  responseTokens: [
+    "activity.id",
+    "activity.name",
+    "experience.id",
+    "geo.country",
+    "geo.city",
+    "geo.state"
+  ],
+  remoteMboxes: ["remote-only-mbox-a", "geo", "target-global-mbox"],
+  remoteViews: ["home"],
+  localMboxes: [
+    "offer2",
+    "multinot",
+    "demo-marketing-offer2",
+    "demo-marketing-offer1",
+    "alloy-test-scope-1",
+    "sam-mbox-2",
+    "specialk",
+    "target-global-mbox",
+    "kitty",
+    "geo",
+    "daterange-mbox",
+    "browser-mbox",
+    "onboarding-mbox-1",
+    "demo-engineering-flags",
+    "redundant-mbox",
+    "composite2",
+    "jason-flags",
+    "superfluous-mbox",
+    "expendable-mbox",
+    "local123456",
+    "sam-mbox"
+  ],
+  localViews: ["contact", "home"],
   rules: {
     mboxes: {
       "daterange-mbox": [
         {
+          ruleKey: "334853",
+          activityId: 334853,
           meta: {
             activityId: 334853,
             activityType: "landing",
@@ -731,6 +1006,8 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
           }
         },
         {
+          ruleKey: "334853",
+          activityId: 334853,
           meta: {
             activityId: 334853,
             activityType: "landing",
@@ -758,6 +1035,8 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
           }
         },
         {
+          ruleKey: "334853",
+          activityId: 334853,
           meta: {
             activityId: 334853,
             activityType: "landing",
@@ -785,6 +1064,8 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
           }
         },
         {
+          ruleKey: "334853",
+          activityId: 334853,
           meta: {
             activityId: 334853,
             activityType: "landing",
@@ -823,15 +1104,50 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-27T22:29:01.244Z"
+    generatedAt: "2020-06-17T23:14:23.723Z"
   },
   globalMbox: "target-global-mbox",
-  responseTokens: ["activity.id", "activity.name"],
-  remoteMboxes: ["target-global-mbox"],
+  geoTargetingEnabled: true,
+  responseTokens: [
+    "activity.id",
+    "activity.name",
+    "experience.id",
+    "geo.country",
+    "geo.city",
+    "geo.state"
+  ],
+  remoteMboxes: ["target-global-mbox", "geo"],
+  remoteViews: ["home"],
+  localMboxes: [
+    "offer2",
+    "multinot",
+    "demo-marketing-offer2",
+    "demo-marketing-offer1",
+    "alloy-test-scope-1",
+    "sam-mbox-2",
+    "specialk",
+    "target-global-mbox",
+    "kitty",
+    "geo",
+    "daterange-mbox",
+    "browser-mbox",
+    "onboarding-mbox-1",
+    "demo-engineering-flags",
+    "redundant-mbox",
+    "composite2",
+    "jason-flags",
+    "superfluous-mbox",
+    "expendable-mbox",
+    "local123456",
+    "sam-mbox"
+  ],
+  localViews: ["contact", "home"],
   rules: {
     mboxes: {
       "target-global-mbox": [
         {
+          ruleKey: "337795",
+          activityId: 337795,
           meta: {
             activityId: 337795,
             activityType: "landing",
@@ -857,6 +1173,8 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           }
         },
         {
+          ruleKey: "337795",
+          activityId: 337795,
           meta: {
             activityId: 337795,
             activityType: "landing",
@@ -882,6 +1200,8 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           }
         },
         {
+          ruleKey: "337795",
+          activityId: 337795,
           meta: {
             activityId: 337795,
             activityType: "landing",
@@ -907,6 +1227,8 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           }
         },
         {
+          ruleKey: "337795",
+          activityId: 337795,
           meta: {
             activityId: 337795,
             activityType: "landing",
@@ -932,6 +1254,8 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           }
         },
         {
+          ruleKey: "337797",
+          activityId: 337797,
           meta: {
             activityId: 337797,
             activityType: "ab",
@@ -962,6 +1286,8 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           }
         },
         {
+          ruleKey: "337797",
+          activityId: 337797,
           meta: {
             activityId: 337797,
             activityType: "ab",
@@ -992,6 +1318,8 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           }
         },
         {
+          ruleKey: "337797",
+          activityId: 337797,
           meta: {
             activityId: 337797,
             activityType: "ab",
@@ -1022,6 +1350,8 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           }
         },
         {
+          ruleKey: "337888",
+          activityId: 337888,
           meta: {
             activityId: 337888,
             activityType: "ab",
@@ -1047,6 +1377,8 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           }
         },
         {
+          ruleKey: "337888",
+          activityId: 337888,
           meta: {
             activityId: 337888,
             activityType: "ab",
@@ -1072,6 +1404,8 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           }
         },
         {
+          ruleKey: "337888",
+          activityId: 337888,
           meta: {
             activityId: 337888,
             activityType: "ab",
@@ -1097,6 +1431,8 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           }
         },
         {
+          ruleKey: "337888",
+          activityId: 337888,
           meta: {
             activityId: 337888,
             activityType: "ab",
@@ -1133,19 +1469,55 @@ export const DECISIONING_PAYLOAD_FEATURE_FLAG = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-27T22:29:01.244Z"
+    generatedAt: "2020-06-17T23:14:23.723Z"
   },
   globalMbox: "target-global-mbox",
-  responseTokens: ["activity.id", "activity.name"],
+  geoTargetingEnabled: true,
+  responseTokens: [
+    "activity.id",
+    "activity.name",
+    "experience.id",
+    "geo.country",
+    "geo.city",
+    "geo.state"
+  ],
   remoteMboxes: [
     "remote-only-mbox-a",
     "remote-only-mbox-b",
+    "geo",
     "target-global-mbox"
   ],
+  remoteViews: ["home"],
+  localMboxes: [
+    "offer2",
+    "multinot",
+    "demo-marketing-offer2",
+    "demo-marketing-offer1",
+    "alloy-test-scope-1",
+    "sam-mbox-2",
+    "specialk",
+    "target-global-mbox",
+    "kitty",
+    "geo",
+    "daterange-mbox",
+    "browser-mbox",
+    "onboarding-mbox-1",
+    "demo-engineering-flags",
+    "redundant-mbox",
+    "composite2",
+    "jason-flags",
+    "superfluous-mbox",
+    "expendable-mbox",
+    "local123456",
+    "sam-mbox"
+  ],
+  localViews: ["contact", "home"],
   rules: {
     mboxes: {
       "jason-flags": [
         {
+          ruleKey: "335113",
+          activityId: 335113,
           meta: {
             activityId: 335113,
             activityType: "ab",
@@ -1176,6 +1548,8 @@ export const DECISIONING_PAYLOAD_FEATURE_FLAG = {
           }
         },
         {
+          ruleKey: "335113",
+          activityId: 335113,
           meta: {
             activityId: 335113,
             activityType: "ab",
@@ -1220,15 +1594,50 @@ export const DECISIONING_PAYLOAD_ATJS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-27T22:29:01.244Z"
+    generatedAt: "2020-06-17T23:14:23.723Z"
   },
   globalMbox: "target-global-mbox",
-  responseTokens: ["activity.id", "activity.name"],
-  remoteMboxes: ["browser-mbox", "target-global-mbox"],
+  geoTargetingEnabled: true,
+  responseTokens: [
+    "activity.id",
+    "activity.name",
+    "experience.id",
+    "geo.country",
+    "geo.city",
+    "geo.state"
+  ],
+  remoteMboxes: ["browser-mbox", "geo", "target-global-mbox"],
+  remoteViews: ["home"],
+  localMboxes: [
+    "offer2",
+    "multinot",
+    "demo-marketing-offer2",
+    "demo-marketing-offer1",
+    "alloy-test-scope-1",
+    "sam-mbox-2",
+    "specialk",
+    "target-global-mbox",
+    "kitty",
+    "geo",
+    "daterange-mbox",
+    "browser-mbox",
+    "onboarding-mbox-1",
+    "demo-engineering-flags",
+    "redundant-mbox",
+    "composite2",
+    "jason-flags",
+    "superfluous-mbox",
+    "expendable-mbox",
+    "local123456",
+    "sam-mbox"
+  ],
+  localViews: ["contact", "home"],
   rules: {
     mboxes: {
       "target-global-mbox": [
         {
+          ruleKey: "337795",
+          activityId: 337795,
           meta: {
             activityId: 337795,
             activityType: "landing",
@@ -1254,6 +1663,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
           }
         },
         {
+          ruleKey: "337795",
+          activityId: 337795,
           meta: {
             activityId: 337795,
             activityType: "landing",
@@ -1279,6 +1690,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
           }
         },
         {
+          ruleKey: "337795",
+          activityId: 337795,
           meta: {
             activityId: 337795,
             activityType: "landing",
@@ -1304,6 +1717,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
           }
         },
         {
+          ruleKey: "337795",
+          activityId: 337795,
           meta: {
             activityId: 337795,
             activityType: "landing",
@@ -1331,6 +1746,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
       ],
       "browser-mbox": [
         {
+          ruleKey: "334845",
+          activityId: 334845,
           meta: {
             activityId: 334845,
             activityType: "landing",
@@ -1356,6 +1773,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
           }
         },
         {
+          ruleKey: "334845",
+          activityId: 334845,
           meta: {
             activityId: 334845,
             activityType: "landing",
@@ -1381,6 +1800,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
           }
         },
         {
+          ruleKey: "334845",
+          activityId: 334845,
           meta: {
             activityId: 334845,
             activityType: "landing",
@@ -1406,6 +1827,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
           }
         },
         {
+          ruleKey: "334845",
+          activityId: 334845,
           meta: {
             activityId: 334845,
             activityType: "landing",
@@ -1431,6 +1854,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
           }
         },
         {
+          ruleKey: "334845",
+          activityId: 334845,
           meta: {
             activityId: 334845,
             activityType: "landing",
@@ -1458,6 +1883,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
       ],
       "jason-flags": [
         {
+          ruleKey: "335113",
+          activityId: 335113,
           meta: {
             activityId: 335113,
             activityType: "ab",
@@ -1488,6 +1915,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
           }
         },
         {
+          ruleKey: "335113",
+          activityId: 335113,
           meta: {
             activityId: 335113,
             activityType: "ab",
@@ -1520,6 +1949,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
       ],
       "superfluous-mbox": [
         {
+          ruleKey: "334411",
+          activityId: 334411,
           meta: {
             activityId: 334411,
             activityType: "ab",
@@ -1545,6 +1976,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
           }
         },
         {
+          ruleKey: "334411",
+          activityId: 334411,
           meta: {
             activityId: 334411,
             activityType: "ab",
@@ -1575,6 +2008,301 @@ export const DECISIONING_PAYLOAD_ATJS = {
   }
 };
 
+// https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/vegetable_ab_global-mbox
+// https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/fruit_ab_global-mbox
+// https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/Experience-Targeting/global_mbox_browserhtml
+export const DECISIONING_PAYLOAD_PROPERTIES = {
+  version: "1.0.0",
+  meta: {
+    clientCode: "adobesummit2018",
+    environment: "production",
+    generatedAt: "2020-06-17T23:14:23.723Z"
+  },
+  globalMbox: "target-global-mbox",
+  geoTargetingEnabled: true,
+  responseTokens: [
+    "activity.id",
+    "activity.name",
+    "experience.id",
+    "geo.country",
+    "geo.city",
+    "geo.state"
+  ],
+  remoteMboxes: ["geo", "target-global-mbox"],
+  remoteViews: ["home"],
+  localMboxes: [
+    "offer2",
+    "multinot",
+    "demo-marketing-offer2",
+    "demo-marketing-offer1",
+    "alloy-test-scope-1",
+    "sam-mbox-2",
+    "specialk",
+    "target-global-mbox",
+    "kitty",
+    "geo",
+    "daterange-mbox",
+    "browser-mbox",
+    "onboarding-mbox-1",
+    "demo-engineering-flags",
+    "redundant-mbox",
+    "composite2",
+    "jason-flags",
+    "superfluous-mbox",
+    "expendable-mbox",
+    "local123456",
+    "sam-mbox"
+  ],
+  localViews: ["contact", "home"],
+  rules: {
+    mboxes: {
+      "target-global-mbox": [
+        {
+          ruleKey: "337795",
+          activityId: 337795,
+          meta: {
+            activityId: 337795,
+            activityType: "landing",
+            experienceId: 0,
+            locationName: "target-global-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [2170460],
+            offerIds: [635716]
+          },
+          condition: { "==": [{ var: "user.browserType" }, "chrome"] },
+          consequence: {
+            name: "target-global-mbox",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "9FNM3ikASssS+sVoFXNulGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>Chrometastic</div>"
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          ruleKey: "337795",
+          activityId: 337795,
+          meta: {
+            activityId: 337795,
+            activityType: "landing",
+            experienceId: 1,
+            locationName: "target-global-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [4873452],
+            offerIds: [635715]
+          },
+          condition: { "==": [{ var: "user.browserType" }, "firefox"] },
+          consequence: {
+            name: "target-global-mbox",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "9FNM3ikASssS+sVoFXNulJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>Firetime</div>"
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          ruleKey: "337795",
+          activityId: 337795,
+          meta: {
+            activityId: 337795,
+            activityType: "landing",
+            experienceId: 2,
+            locationName: "target-global-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [4957566],
+            offerIds: [635713]
+          },
+          condition: { "==": [{ var: "user.browserType" }, "safari"] },
+          consequence: {
+            name: "target-global-mbox",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "9FNM3ikASssS+sVoFXNulAreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>Safari Run</div>"
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          ruleKey: "337795",
+          activityId: 337795,
+          meta: {
+            activityId: 337795,
+            activityType: "landing",
+            experienceId: 3,
+            locationName: "target-global-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [],
+            offerIds: [635714]
+          },
+          condition: true,
+          consequence: {
+            name: "target-global-mbox",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "9FNM3ikASssS+sVoFXNulJZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: "<div>Srsly, who dis?</div>"
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          ruleKey: "350783",
+          activityId: 350783,
+          meta: {
+            activityId: 350783,
+            activityType: "ab",
+            experienceId: 0,
+            locationName: "target-global-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [],
+            offerIds: [652741]
+          },
+          condition: { "<": [0, { var: "allocation" }, 50] },
+          consequence: {
+            name: "target-global-mbox",
+            options: [
+              {
+                type: "json",
+                eventToken:
+                  "FP4I48cIaitld6Qi9EQI5mqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: {
+                  mbox: "target-global-mbox",
+                  experience: "A",
+                  vegetable: "Asparagus",
+                  property: "property Y"
+                }
+              }
+            ],
+            metrics: []
+          },
+          propertyTokens: ["e63fc881-65c7-97b4-a16f-f63ce86c0434"]
+        },
+        {
+          ruleKey: "350783",
+          activityId: 350783,
+          meta: {
+            activityId: 350783,
+            activityType: "ab",
+            experienceId: 1,
+            locationName: "target-global-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [],
+            offerIds: [652740]
+          },
+          condition: { "<": [50, { var: "allocation" }, 100] },
+          consequence: {
+            name: "target-global-mbox",
+            options: [
+              {
+                type: "json",
+                eventToken:
+                  "FP4I48cIaitld6Qi9EQI5pNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: {
+                  mbox: "target-global-mbox",
+                  experience: "B",
+                  vegetable: "Brussel Sprouts",
+                  property: "property Y"
+                }
+              }
+            ],
+            metrics: []
+          },
+          propertyTokens: ["e63fc881-65c7-97b4-a16f-f63ce86c0434"]
+        },
+        {
+          ruleKey: "350782",
+          activityId: 350782,
+          meta: {
+            activityId: 350782,
+            activityType: "ab",
+            experienceId: 0,
+            locationName: "target-global-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [],
+            offerIds: [652738]
+          },
+          condition: { "<": [0, { var: "allocation" }, 50] },
+          consequence: {
+            name: "target-global-mbox",
+            options: [
+              {
+                type: "json",
+                eventToken:
+                  "0+xiYgJFaaB6s6ZUF9QhIGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: {
+                  mbox: "target-global-mbox",
+                  experience: "A",
+                  fruit: "Apple",
+                  property: "property X"
+                }
+              }
+            ],
+            metrics: []
+          },
+          propertyTokens: ["9a327144-63fe-a7fc-5fdb-515e0c0175a8"]
+        },
+        {
+          ruleKey: "350782",
+          activityId: 350782,
+          meta: {
+            activityId: 350782,
+            activityType: "ab",
+            experienceId: 1,
+            locationName: "target-global-mbox",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [],
+            offerIds: [652739]
+          },
+          condition: { "<": [50, { var: "allocation" }, 100] },
+          consequence: {
+            name: "target-global-mbox",
+            options: [
+              {
+                type: "json",
+                eventToken:
+                  "0+xiYgJFaaB6s6ZUF9QhIJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: {
+                  mbox: "target-global-mbox",
+                  experience: "B",
+                  fruit: "Blueberry",
+                  property: "property X"
+                }
+              }
+            ],
+            metrics: []
+          },
+          propertyTokens: ["9a327144-63fe-a7fc-5fdb-515e0c0175a8"]
+        }
+      ]
+    },
+    views: {}
+  }
+};
+
 // https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/Experience-Targeting/xt_spa_add_text_tocontactpage
 // https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/ab_spa_view_changemultipletextnoaudiences
 // https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/ab_spa_view_changeaddtextwithaudiences
@@ -1583,16 +2311,51 @@ export const DECISIONING_PAYLOAD_VIEWS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-27T22:29:01.244Z"
+    generatedAt: "2020-06-17T23:14:23.723Z"
   },
   globalMbox: "target-global-mbox",
-  responseTokens: ["activity.id", "activity.name"],
-  remoteMboxes: ["target-global-mbox"],
+  geoTargetingEnabled: true,
+  responseTokens: [
+    "activity.id",
+    "activity.name",
+    "experience.id",
+    "geo.country",
+    "geo.city",
+    "geo.state"
+  ],
+  remoteMboxes: ["geo", "target-global-mbox"],
+  remoteViews: ["home"],
+  localMboxes: [
+    "offer2",
+    "multinot",
+    "demo-marketing-offer2",
+    "demo-marketing-offer1",
+    "alloy-test-scope-1",
+    "sam-mbox-2",
+    "specialk",
+    "target-global-mbox",
+    "kitty",
+    "geo",
+    "daterange-mbox",
+    "browser-mbox",
+    "onboarding-mbox-1",
+    "demo-engineering-flags",
+    "redundant-mbox",
+    "composite2",
+    "jason-flags",
+    "superfluous-mbox",
+    "expendable-mbox",
+    "local123456",
+    "sam-mbox"
+  ],
+  localViews: ["contact", "home"],
   rules: {
     mboxes: {},
     views: {
       contact: [
         {
+          ruleKey: "345798-0",
+          activityId: 345798,
           meta: {
             activityId: 345798,
             activityType: "landing",
@@ -1635,6 +2398,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           }
         },
         {
+          ruleKey: "345798-1",
+          activityId: 345798,
           meta: {
             activityId: 345798,
             activityType: "landing",
@@ -1679,6 +2444,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           }
         },
         {
+          ruleKey: "345798-0",
+          activityId: 345798,
           meta: {
             activityId: 345798,
             activityType: "landing",
@@ -1721,6 +2488,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           }
         },
         {
+          ruleKey: "345798-1",
+          activityId: 345798,
           meta: {
             activityId: 345798,
             activityType: "landing",
@@ -1765,6 +2534,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           }
         },
         {
+          ruleKey: "345798-0",
+          activityId: 345798,
           meta: {
             activityId: 345798,
             activityType: "landing",
@@ -1802,6 +2573,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           }
         },
         {
+          ruleKey: "345798-1",
+          activityId: 345798,
           meta: {
             activityId: 345798,
             activityType: "landing",
@@ -1843,6 +2616,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
       ],
       home: [
         {
+          ruleKey: "345782-0",
+          activityId: 345782,
           meta: {
             activityId: 345782,
             activityType: "ab",
@@ -1892,6 +2667,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           }
         },
         {
+          ruleKey: "345782-1",
+          activityId: 345782,
           meta: {
             activityId: 345782,
             activityType: "ab",
@@ -1940,6 +2717,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           }
         },
         {
+          ruleKey: "345782-2",
+          activityId: 345782,
           meta: {
             activityId: 345782,
             activityType: "ab",
@@ -1989,6 +2768,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           }
         },
         {
+          ruleKey: "345782-3",
+          activityId: 345782,
           meta: {
             activityId: 345782,
             activityType: "ab",
@@ -2037,6 +2818,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           }
         },
         {
+          ruleKey: "345782-4",
+          activityId: 345782,
           meta: {
             activityId: 345782,
             activityType: "ab",
@@ -2085,6 +2868,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           }
         },
         {
+          ruleKey: "345782-5",
+          activityId: 345782,
           meta: {
             activityId: 345782,
             activityType: "ab",
@@ -2132,6 +2917,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           }
         },
         {
+          ruleKey: "345782-0",
+          activityId: 345782,
           meta: {
             activityId: 345782,
             activityType: "ab",
@@ -2181,6 +2968,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           }
         },
         {
+          ruleKey: "345782-1",
+          activityId: 345782,
           meta: {
             activityId: 345782,
             activityType: "ab",
@@ -2229,6 +3018,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           }
         },
         {
+          ruleKey: "345782-2",
+          activityId: 345782,
           meta: {
             activityId: 345782,
             activityType: "ab",
@@ -2278,6 +3069,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           }
         },
         {
+          ruleKey: "345782-3",
+          activityId: 345782,
           meta: {
             activityId: 345782,
             activityType: "ab",
@@ -2326,6 +3119,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           }
         },
         {
+          ruleKey: "345782-4",
+          activityId: 345782,
           meta: {
             activityId: 345782,
             activityType: "ab",
@@ -2374,6 +3169,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           }
         },
         {
+          ruleKey: "345782-5",
+          activityId: 345782,
           meta: {
             activityId: 345782,
             activityType: "ab",
@@ -2421,6 +3218,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           }
         },
         {
+          ruleKey: "345779-0",
+          activityId: 345779,
           meta: {
             activityId: 345779,
             activityType: "ab",
@@ -2462,6 +3261,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           }
         },
         {
+          ruleKey: "345779-1",
+          activityId: 345779,
           meta: {
             activityId: 345779,
             activityType: "ab",
@@ -2504,6 +3305,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           }
         },
         {
+          ruleKey: "345779-0",
+          activityId: 345779,
           meta: {
             activityId: 345779,
             activityType: "ab",
@@ -2545,6 +3348,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           }
         },
         {
+          ruleKey: "345779-1",
+          activityId: 345779,
           meta: {
             activityId: 345779,
             activityType: "ab",
@@ -2597,15 +3402,50 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-27T22:29:01.244Z"
+    generatedAt: "2020-06-17T23:14:23.723Z"
   },
   globalMbox: "target-global-mbox",
-  responseTokens: ["activity.id", "activity.name"],
-  remoteMboxes: ["target-global-mbox"],
+  geoTargetingEnabled: true,
+  responseTokens: [
+    "activity.id",
+    "activity.name",
+    "experience.id",
+    "geo.country",
+    "geo.city",
+    "geo.state"
+  ],
+  remoteMboxes: ["geo", "target-global-mbox"],
+  remoteViews: ["home"],
+  localMboxes: [
+    "offer2",
+    "multinot",
+    "demo-marketing-offer2",
+    "demo-marketing-offer1",
+    "alloy-test-scope-1",
+    "sam-mbox-2",
+    "specialk",
+    "target-global-mbox",
+    "kitty",
+    "geo",
+    "daterange-mbox",
+    "browser-mbox",
+    "onboarding-mbox-1",
+    "demo-engineering-flags",
+    "redundant-mbox",
+    "composite2",
+    "jason-flags",
+    "superfluous-mbox",
+    "expendable-mbox",
+    "local123456",
+    "sam-mbox"
+  ],
+  localViews: ["contact", "home"],
   rules: {
     mboxes: {
       "target-global-mbox": [
         {
+          ruleKey: "345717-0",
+          activityId: 345717,
           meta: {
             activityId: 345717,
             activityType: "landing",
@@ -2655,6 +3495,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
           }
         },
         {
+          ruleKey: "345717-1",
+          activityId: 345717,
           meta: {
             activityId: 345717,
             activityType: "landing",
@@ -2704,6 +3546,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
           }
         },
         {
+          ruleKey: "345717-2",
+          activityId: 345717,
           meta: {
             activityId: 345717,
             activityType: "landing",
@@ -2742,6 +3586,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
           }
         },
         {
+          ruleKey: "345717-3",
+          activityId: 345717,
           meta: {
             activityId: 345717,
             activityType: "landing",
@@ -2780,6 +3626,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
           }
         },
         {
+          ruleKey: "345717-0",
+          activityId: 345717,
           meta: {
             activityId: 345717,
             activityType: "landing",
@@ -2818,6 +3666,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
           }
         },
         {
+          ruleKey: "345717-1",
+          activityId: 345717,
           meta: {
             activityId: 345717,
             activityType: "landing",
@@ -2867,6 +3717,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
           }
         },
         {
+          ruleKey: "345717-2",
+          activityId: 345717,
           meta: {
             activityId: 345717,
             activityType: "landing",
@@ -2916,6 +3768,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
           }
         },
         {
+          ruleKey: "345717-3",
+          activityId: 345717,
           meta: {
             activityId: 345717,
             activityType: "landing",
@@ -2954,6 +3808,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
           }
         },
         {
+          ruleKey: "345717-0",
+          activityId: 345717,
           meta: {
             activityId: 345717,
             activityType: "landing",
@@ -2987,6 +3843,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
           }
         },
         {
+          ruleKey: "345717-1",
+          activityId: 345717,
           meta: {
             activityId: 345717,
             activityType: "landing",
@@ -3031,6 +3889,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
           }
         },
         {
+          ruleKey: "345717-2",
+          activityId: 345717,
           meta: {
             activityId: 345717,
             activityType: "landing",
@@ -3064,6 +3924,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
           }
         },
         {
+          ruleKey: "345717-3",
+          activityId: 345717,
           meta: {
             activityId: 345717,
             activityType: "landing",
@@ -3120,15 +3982,50 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-05-27T22:29:01.244Z"
+    generatedAt: "2020-06-17T23:14:23.723Z"
   },
   globalMbox: "target-global-mbox",
-  responseTokens: ["activity.id", "activity.name"],
-  remoteMboxes: ["target-global-mbox"],
+  geoTargetingEnabled: true,
+  responseTokens: [
+    "activity.id",
+    "activity.name",
+    "experience.id",
+    "geo.country",
+    "geo.city",
+    "geo.state"
+  ],
+  remoteMboxes: ["geo", "target-global-mbox"],
+  remoteViews: ["home"],
+  localMboxes: [
+    "offer2",
+    "multinot",
+    "demo-marketing-offer2",
+    "demo-marketing-offer1",
+    "alloy-test-scope-1",
+    "sam-mbox-2",
+    "specialk",
+    "target-global-mbox",
+    "kitty",
+    "geo",
+    "daterange-mbox",
+    "browser-mbox",
+    "onboarding-mbox-1",
+    "demo-engineering-flags",
+    "redundant-mbox",
+    "composite2",
+    "jason-flags",
+    "superfluous-mbox",
+    "expendable-mbox",
+    "local123456",
+    "sam-mbox"
+  ],
+  localViews: ["contact", "home"],
   rules: {
     mboxes: {
       "target-global-mbox": [
         {
+          ruleKey: "345139-0",
+          activityId: 345139,
           meta: {
             activityId: 345139,
             activityType: "ab",
@@ -3179,6 +4076,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
           }
         },
         {
+          ruleKey: "345139-1",
+          activityId: 345139,
           meta: {
             activityId: 345139,
             activityType: "ab",
@@ -3232,6 +4131,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
           }
         },
         {
+          ruleKey: "345139-2",
+          activityId: 345139,
           meta: {
             activityId: 345139,
             activityType: "ab",
@@ -3282,6 +4183,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
           }
         },
         {
+          ruleKey: "345139-3",
+          activityId: 345139,
           meta: {
             activityId: 345139,
             activityType: "ab",
@@ -3335,6 +4238,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
           }
         },
         {
+          ruleKey: "345139-4",
+          activityId: 345139,
           meta: {
             activityId: 345139,
             activityType: "ab",
@@ -3385,6 +4290,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
           }
         },
         {
+          ruleKey: "345139-5",
+          activityId: 345139,
           meta: {
             activityId: 345139,
             activityType: "ab",
@@ -3424,6 +4331,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
           }
         },
         {
+          ruleKey: "345139-6",
+          activityId: 345139,
           meta: {
             activityId: 345139,
             activityType: "ab",
@@ -3463,6 +4372,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
           }
         },
         {
+          ruleKey: "345139-7",
+          activityId: 345139,
           meta: {
             activityId: 345139,
             activityType: "ab",
@@ -3502,6 +4413,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
           }
         },
         {
+          ruleKey: "345139-8",
+          activityId: 345139,
           meta: {
             activityId: 345139,
             activityType: "ab",
@@ -3541,6 +4454,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
           }
         },
         {
+          ruleKey: "345139-0",
+          activityId: 345139,
           meta: {
             activityId: 345139,
             activityType: "ab",
@@ -3580,6 +4495,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
           }
         },
         {
+          ruleKey: "345139-1",
+          activityId: 345139,
           meta: {
             activityId: 345139,
             activityType: "ab",
@@ -3619,6 +4536,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
           }
         },
         {
+          ruleKey: "345139-2",
+          activityId: 345139,
           meta: {
             activityId: 345139,
             activityType: "ab",
@@ -3658,6 +4577,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
           }
         },
         {
+          ruleKey: "345139-3",
+          activityId: 345139,
           meta: {
             activityId: 345139,
             activityType: "ab",
@@ -3697,6 +4618,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
           }
         },
         {
+          ruleKey: "345139-4",
+          activityId: 345139,
           meta: {
             activityId: 345139,
             activityType: "ab",
@@ -3747,6 +4670,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
           }
         },
         {
+          ruleKey: "345139-5",
+          activityId: 345139,
           meta: {
             activityId: 345139,
             activityType: "ab",
@@ -3797,6 +4722,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
           }
         },
         {
+          ruleKey: "345139-6",
+          activityId: 345139,
           meta: {
             activityId: 345139,
             activityType: "ab",
@@ -3846,6 +4773,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
           }
         },
         {
+          ruleKey: "345139-7",
+          activityId: 345139,
           meta: {
             activityId: 345139,
             activityType: "ab",
@@ -3896,6 +4825,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
           }
         },
         {
+          ruleKey: "345139-8",
+          activityId: 345139,
           meta: {
             activityId: 345139,
             activityType: "ab",
@@ -3945,6 +4876,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
           }
         },
         {
+          ruleKey: "344512-0",
+          activityId: 344512,
           meta: {
             activityId: 344512,
             activityType: "ab",
@@ -4000,6 +4933,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
           }
         },
         {
+          ruleKey: "344512-1",
+          activityId: 344512,
           meta: {
             activityId: 344512,
             activityType: "ab",
@@ -4055,6 +4990,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
           }
         },
         {
+          ruleKey: "344512-2",
+          activityId: 344512,
           meta: {
             activityId: 344512,
             activityType: "ab",
@@ -4098,6 +5035,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
           }
         },
         {
+          ruleKey: "344512-0",
+          activityId: 344512,
           meta: {
             activityId: 344512,
             activityType: "ab",
@@ -4153,6 +5092,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
           }
         },
         {
+          ruleKey: "344512-1",
+          activityId: 344512,
           meta: {
             activityId: 344512,
             activityType: "ab",
@@ -4196,6 +5137,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
           }
         },
         {
+          ruleKey: "344512-2",
+          activityId: 344512,
           meta: {
             activityId: 344512,
             activityType: "ab",

@@ -51,5 +51,5 @@
     "rollup-plugin-visualizer": "^3.3.2"
   },
   "author": "",
-  "license": "ISC"
+  "license": "Apache-2.0"
 }

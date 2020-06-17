@@ -1,159 +1,36 @@
+import * as nodeFetch from "node-fetch";
+import * as HttpsProxyAgent from "https-proxy-agent";
+
 import TargetDecisioningEngine from "../src";
 
-const DECISIONING_PAYLOAD_SCRATCH = {
-  version: "1.0.0",
-  meta: {
-    clientCode: "adobesummit2018",
-    generatedAt: "2020-05-12T17:30:51.603Z",
-    environment: "waters_test"
-  },
-  globalMbox: "target-global-mbox",
-  responseTokens: [
-    "activity.id",
-    "activity.name",
-    "experience.name",
-    "experience.id",
-    "offer.name",
-    "offer.id",
-    "option.id",
-    "option.name"
-  ],
-  remoteMboxes: ["target-global-mbox"],
-  rules: {
-    mboxes: {
-      "target-global-mbox": [
-        {
-          meta: {
-            activityId: 346119,
-            activityType: "landing",
-            experienceId: 0,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            locationId: 0,
-            audienceIds: [5665764, 5634157],
-            offerIds: []
-          },
-          condition: {
-            and: [
-              {
-                "==": [
-                  "correct",
-                  {
-                    var: "mbox.greg"
-                  }
-                ]
-              },
-              {
-                and: [
-                  {
-                    "==": [
-                      "stage.applookout.net",
-                      {
-                        var: "page.domain"
-                      }
-                    ]
-                  },
-                  {
-                    "==": [
-                      "/",
-                      {
-                        var: "page.path"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          consequence: {
-            name: "target-global-mbox",
-            options: [
-              {
-                type: "actions",
-                content: [
-                  {
-                    type: "setStyle",
-                    selector:
-                      "HTML > BODY > DIV.top-content:eq(0) > DIV.inner-bg:eq(0) > DIV.container:eq(0) > DIV.row:eq(1) > DIV.col-sm-6:eq(0)",
-                    cssSelector:
-                      "HTML > BODY > DIV:nth-of-type(2) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(2) > DIV:nth-of-type(1)",
-                    content: {
-                      visibility: "hidden"
-                    }
-                  }
-                ],
-                eventToken:
-                  "XaGxL/oofudncR2tWZZ6z2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
-              }
-            ],
-            metrics: [
-              {
-                type: "click",
-                eventToken: "oDfbc20sBuxCM6JwOpstag==",
-                selector: "#continue-button"
-              }
-            ]
-          }
-        },
-        {
-          meta: {
-            activityId: 346119,
-            activityType: "landing",
-            experienceId: 1,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            locationId: 0,
-            audienceIds: [5665764],
-            offerIds: []
-          },
-          condition: {
-            and: [
-              {
-                "==": [
-                  "stage.applookout.net",
-                  {
-                    var: "page.domain"
-                  }
-                ]
-              },
-              {
-                "==": [
-                  "/",
-                  {
-                    var: "page.path"
-                  }
-                ]
-              }
-            ]
-          },
-          consequence: {
-            name: "target-global-mbox",
-            options: [
-              {
-                type: "default",
-                eventToken:
-                  "XaGxL/oofudncR2tWZZ6z5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE5D1i1VIvi6hLUaKBzNXfVcQ=="
-              }
-            ],
-            metrics: [
-              {
-                type: "click",
-                eventToken: "oDfbc20sBuxCM6JwOpstag==",
-                selector: "#continue-button"
-              }
-            ]
-          }
-        }
-      ]
-    },
-    views: {}
-  }
-};
+/**
+ * Use this method to proxy requests to Proxyman or Charles Proxy
+ */
+function getFetchWithProxy() {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
+
+  const fetch = nodeFetch.default;
+  const ProxyAgent = HttpsProxyAgent.default;
+
+  return (url, options) => {
+    return fetch(url, {
+      ...options,
+      agent: new ProxyAgent("http://127.0.0.1:9090")
+    });
+  };
+}
 
 const TEST_CONF = {
-  client: "someClientId",
-  organizationId: "someOrgId",
-  pollingInterval: 0
+  client: "adobesummit2018",
+  organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
+  fetchApi: nodeFetch.default, // getFetchWithProxy(),
+  pollingInterval: 0,
+  logger: {
+    // eslint-disable-next-line no-console
+    debug: (...messages) => console.log("DEBUG", ...messages),
+    // eslint-disable-next-line no-console
+    error: (...messages) => console.log("ERROR", ...messages)
+  }
 };
 
 const targetRequest = {
@@ -163,23 +40,25 @@ const targetRequest = {
   context: {
     channel: "web",
     browser: {
-      host: "stage.applookout.net"
+      host: "local-target-test"
     },
     address: {
-      url: "https://stage.applookout.net/"
+      url: "http://local-target-test/"
     },
     userAgent:
       "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
   }
 };
 
-describe("a quick test", () => {
+/**
+ * This can be useful for testing/troubleshooting the decisioning engine
+ */
+describe.skip("target-decisioning-engine scratch", () => {
   let decisioning;
 
   beforeEach(async () => {
     decisioning = await TargetDecisioningEngine({
-      ...TEST_CONF,
-      artifactPayload: DECISIONING_PAYLOAD_SCRATCH
+      ...TEST_CONF
     });
   });
 
@@ -188,18 +67,19 @@ describe("a quick test", () => {
     decisioning = undefined;
   });
 
-  it("does something", async () => {
+  it("test", async () => {
     const result = await decisioning.getOffers({
       request: {
         ...targetRequest,
         prefetch: {
           pageLoad: {}
+        },
+        property: {
+          token: "e63fc881-65c7-97b4-a16f-f63ce86c0434"
         }
       }
     });
 
-    const { eventToken } = result.prefetch.pageLoad.options[0];
-
-    expect(eventToken.startsWith("XaGxL/oofudncR2")).toEqual(true);
+    expect(result.prefetch.pageLoad).toBeDefined();
   });
 });

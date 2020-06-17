@@ -42,9 +42,11 @@
     "eslint-plugin-jest": "^23.6.0",
     "eslint-plugin-prettier": "^3.1.0",
     "http-status-codes": "^1.4.0",
+    "https-proxy-agent": "^5.0.0",
     "jest": "^25.1.0",
     "jest-fetch-mock": "^3.0.1",
     "mockdate": "^2.0.5",
+    "node-fetch": "^2.6.0",
     "prettier": "^1.18.2",
     "rimraf": "^3.0.2",
     "rollup": "^1.17.0",
@@ -54,5 +56,5 @@
     "rollup-plugin-visualizer": "^3.3.2"
   },
   "author": "",
-  "license": "ISC"
+  "license": "Apache-2.0"
 }

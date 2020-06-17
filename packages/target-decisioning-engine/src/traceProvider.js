@@ -1,6 +1,6 @@
 import Messages from "./messages";
 import { ChannelType } from "@adobe/target-tools/delivery-api-client";
-import { isUndefined } from "@adobe/target-tools";
+import { isDefined, isUndefined } from "@adobe/target-tools";
 
 const byOrder = (a, b) => a.order - b.order;
 
@@ -12,10 +12,10 @@ const byOrder = (a, b) => a.order - b.order;
 export function TraceProvider(config, targetOptions, artifactTrace) {
   const clientCode = config.client;
   const { sessionId, request } = targetOptions;
-  const showTraces = !isUndefined(request.trace);
+  const showTraces = isDefined(request.trace);
 
   const [tntId, profileLocation] =
-    !isUndefined(request.id) && typeof request.id.tntId === "string"
+    isDefined(request.id) && typeof request.id.tntId === "string"
       ? request.id.tntId.split(".")
       : [undefined, undefined];
 
@@ -256,7 +256,7 @@ export function ArtifactTracer(
     artifact = value;
   }
 
-  const meta = !isUndefined(artifact) ? artifact.meta : {};
+  const meta = isDefined(artifact) ? artifact.meta : {};
 
   function toJSON() {
     return {
@@ -266,7 +266,7 @@ export function ArtifactTracer(
           : artifactLocation,
       pollingInterval,
       pollingHalted,
-      artifactVersion: !isUndefined(artifact)
+      artifactVersion: isDefined(artifact)
         ? artifact.version
         : Messages.UNKNOWN,
       artifactRetrievalCount,

@@ -2,27 +2,23 @@ import {
   getFetchApi,
   getFetchWithRetry,
   getLogger,
-  isUndefined
+  isBrowser,
+  isDefined,
+  isNodeJS
 } from "@adobe/target-tools";
 import Messages from "./messages";
 import {
   DEFAULT_POLLING_INTERVAL,
+  LOG_PREFIX,
   MINIMUM_POLLING_INTERVAL,
   NUM_FETCH_RETRIES
 } from "./constants";
 import { ArtifactTracer } from "./traceProvider";
+import { determineArtifactLocation } from "./utils";
 
+const LOG_TAG = `${LOG_PREFIX}.ArtifactProvider`;
 const NOT_MODIFIED = 304;
 const OK = 200;
-
-// eslint-disable-next-line no-unused-vars
-function determineArtifactLocation(
-  clientId,
-  organizationId,
-  environment = "production"
-) {
-  return `https://assets.adobetarget.com/${clientId}/${environment}/rules.json`;
-}
 
 /**
  * The ArtifactProvider initialize method
@@ -60,8 +56,8 @@ async function ArtifactProvider(config) {
   const subscriptions = {};
   let subscriptionCount = 0;
 
-  let lastEtag;
-  let lastResponse;
+  let lastResponseEtag;
+  let lastResponseData;
   const fetchWithRetry = getFetchWithRetry(
     fetchApi,
     NUM_FETCH_RETRIES,
@@ -71,34 +67,38 @@ async function ArtifactProvider(config) {
   const artifactLocation =
     typeof config.artifactLocation === "string"
       ? config.artifactLocation
-      : determineArtifactLocation(config.client, config.organizationId);
+      : determineArtifactLocation(config);
 
   function fetchArtifact(artifactUrl) {
     const headers = {};
+    logger.debug(`${LOG_TAG} fetching artifact - ${artifactUrl}`);
 
-    if (lastEtag) {
-      headers["If-None-Match"] = lastEtag;
+    if (lastResponseEtag && !isBrowser() && isNodeJS()) {
+      headers["If-None-Match"] = lastResponseEtag;
     }
 
     return fetchWithRetry(artifactUrl, {
       headers,
       cache: "default"
-    })
-      .then(res => {
-        if (res.status === NOT_MODIFIED && lastResponse) {
-          return lastResponse.clone();
-        }
+    }).then(async res => {
+      logger.debug(`${LOG_TAG} artifact received - status=${res.status}`);
 
-        if (res.status === OK) {
-          const etag = res.headers.get("Etag");
-          if (etag != null && !isUndefined(etag)) {
-            lastResponse = res.clone();
-            lastEtag = etag;
-          }
+      if (res.status === NOT_MODIFIED && lastResponseData) {
+        return lastResponseData;
+      }
+
+      let responseData;
+      if (res.ok && res.status === OK) {
+        responseData = await res.json();
+
+        const etag = res.headers.get("Etag");
+        if (etag != null && isDefined(etag)) {
+          lastResponseData = responseData;
+          lastResponseEtag = etag;
         }
-        return res;
-      })
-      .then(res => res.json());
+      }
+      return responseData;
+    });
   }
 
   function addSubscription(callbackFunc) {
@@ -140,7 +140,7 @@ async function ArtifactProvider(config) {
   }
 
   function stopAllPolling() {
-    if (!isUndefined(pollingTimer)) {
+    if (isDefined(pollingTimer)) {
       clearTimeout(pollingTimer);
       pollingTimer = undefined;
     }

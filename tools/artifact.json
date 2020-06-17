@@ -3,15 +3,50 @@
   "meta": {
     "clientCode": "adobesummit2018",
     "environment": "production",
-    "generatedAt": "2020-05-27T22:29:01.244Z"
+    "generatedAt": "2020-06-17T23:14:23.723Z"
   },
   "globalMbox": "target-global-mbox",
-  "responseTokens": ["activity.id", "activity.name"],
-  "remoteMboxes": ["target-global-mbox"],
+  "geoTargetingEnabled": true,
+  "responseTokens": [
+    "activity.id",
+    "activity.name",
+    "experience.id",
+    "geo.country",
+    "geo.city",
+    "geo.state"
+  ],
+  "remoteMboxes": ["geo", "target-global-mbox"],
+  "remoteViews": ["home"],
+  "localMboxes": [
+    "offer2",
+    "multinot",
+    "demo-marketing-offer2",
+    "demo-marketing-offer1",
+    "alloy-test-scope-1",
+    "sam-mbox-2",
+    "specialk",
+    "target-global-mbox",
+    "kitty",
+    "geo",
+    "daterange-mbox",
+    "browser-mbox",
+    "onboarding-mbox-1",
+    "demo-engineering-flags",
+    "redundant-mbox",
+    "composite2",
+    "jason-flags",
+    "superfluous-mbox",
+    "expendable-mbox",
+    "local123456",
+    "sam-mbox"
+  ],
+  "localViews": ["contact", "home"],
   "rules": {
     "mboxes": {
       "offer2": [
         {
+          "ruleKey": "333312",
+          "activityId": 333312,
           "meta": {
             "activityId": 333312,
             "activityType": "ab",
@@ -41,6 +76,8 @@
           }
         },
         {
+          "ruleKey": "333312",
+          "activityId": 333312,
           "meta": {
             "activityId": 333312,
             "activityType": "ab",
@@ -70,8 +107,87 @@
           }
         }
       ],
+      "multinot": [
+        {
+          "ruleKey": "349313",
+          "activityId": 349313,
+          "meta": {
+            "activityId": 349313,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationName": "multinot",
+            "locationType": "mbox",
+            "locationId": 0,
+            "audienceIds": [5757708]
+          },
+          "condition": {
+            "and": [
+              { "<": [0.0, { "var": "allocation" }, 50.0] },
+              {
+                "!": {
+                  "or": [
+                    { "==": ["right", { "var": "mbox.greg_lc" }] },
+                    { "==": ["correct", { "var": "mbox.greg_lc" }] },
+                    { "==": ["smart", { "var": "mbox.greg_lc" }] }
+                  ]
+                }
+              }
+            ]
+          },
+          "consequence": {
+            "name": "multinot",
+            "options": [
+              {
+                "eventToken": "kplSqQZ8KW7crrfwwf1lSmqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "349313",
+          "activityId": 349313,
+          "meta": {
+            "activityId": 349313,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationName": "multinot",
+            "locationType": "mbox",
+            "locationId": 0,
+            "audienceIds": [5757708],
+            "offerIds": [650571]
+          },
+          "condition": {
+            "and": [
+              { "<": [50.0, { "var": "allocation" }, 100.0] },
+              {
+                "!": {
+                  "or": [
+                    { "==": ["right", { "var": "mbox.greg_lc" }] },
+                    { "==": ["correct", { "var": "mbox.greg_lc" }] },
+                    { "==": ["smart", { "var": "mbox.greg_lc" }] }
+                  ]
+                }
+              }
+            ]
+          },
+          "consequence": {
+            "name": "multinot",
+            "options": [
+              {
+                "type": "json",
+                "eventToken": "kplSqQZ8KW7crrfwwf1lSpNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": { "multinot": true }
+              }
+            ],
+            "metrics": []
+          }
+        }
+      ],
       "demo-marketing-offer2": [
         {
+          "ruleKey": "345967",
+          "activityId": 345967,
           "meta": {
             "activityId": 345967,
             "activityType": "ab",
@@ -96,6 +212,8 @@
           }
         },
         {
+          "ruleKey": "345967",
+          "activityId": 345967,
           "meta": {
             "activityId": 345967,
             "activityType": "ab",
@@ -122,6 +240,8 @@
       ],
       "demo-marketing-offer1": [
         {
+          "ruleKey": "345822",
+          "activityId": 345822,
           "meta": {
             "activityId": 345822,
             "activityType": "ab",
@@ -149,6 +269,8 @@
           }
         },
         {
+          "ruleKey": "345822",
+          "activityId": 345822,
           "meta": {
             "activityId": 345822,
             "activityType": "ab",
@@ -178,6 +300,8 @@
       ],
       "alloy-test-scope-1": [
         {
+          "ruleKey": "347009",
+          "activityId": 347009,
           "meta": {
             "activityId": 347009,
             "activityType": "landing",
@@ -202,8 +326,76 @@
           }
         }
       ],
+      "sam-mbox-2": [
+        {
+          "ruleKey": "349566",
+          "activityId": 349566,
+          "meta": {
+            "activityId": 349566,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationName": "sam-mbox-2",
+            "locationType": "mbox",
+            "locationId": 0,
+            "audienceIds": [],
+            "offerIds": [650965]
+          },
+          "condition": { "<": [0.0, { "var": "allocation" }, 50.0] },
+          "consequence": {
+            "name": "sam-mbox-2",
+            "options": [
+              {
+                "type": "json",
+                "eventToken": "JMCbGRpym+rKWXPzwB7iEGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": {
+                  "hello": "Experience AAAAAA for sam-test-property-2"
+                }
+              }
+            ],
+            "metrics": []
+          },
+          "propertyTokens": [
+            "a4d17d78-cb39-6171-b12d-a222a62ebe49",
+            "ad8737fc-fd54-5351-f286-1a519a390e18"
+          ]
+        },
+        {
+          "ruleKey": "349566",
+          "activityId": 349566,
+          "meta": {
+            "activityId": 349566,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationName": "sam-mbox-2",
+            "locationType": "mbox",
+            "locationId": 0,
+            "audienceIds": [],
+            "offerIds": [650964]
+          },
+          "condition": { "<": [50.0, { "var": "allocation" }, 100.0] },
+          "consequence": {
+            "name": "sam-mbox-2",
+            "options": [
+              {
+                "type": "json",
+                "eventToken": "JMCbGRpym+rKWXPzwB7iEJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": {
+                  "hello": "Experience BBBBBBB for sam-test-property-2"
+                }
+              }
+            ],
+            "metrics": []
+          },
+          "propertyTokens": [
+            "a4d17d78-cb39-6171-b12d-a222a62ebe49",
+            "ad8737fc-fd54-5351-f286-1a519a390e18"
+          ]
+        }
+      ],
       "specialk": [
         {
+          "ruleKey": "345615",
+          "activityId": 345615,
           "meta": {
             "activityId": 345615,
             "activityType": "landing",
@@ -228,6 +420,8 @@
           }
         },
         {
+          "ruleKey": "345615",
+          "activityId": 345615,
           "meta": {
             "activityId": 345615,
             "activityType": "landing",
@@ -252,6 +446,8 @@
           }
         },
         {
+          "ruleKey": "345615",
+          "activityId": 345615,
           "meta": {
             "activityId": 345615,
             "activityType": "landing",
@@ -278,6 +474,8 @@
       ],
       "target-global-mbox": [
         {
+          "ruleKey": "337795",
+          "activityId": 337795,
           "meta": {
             "activityId": 337795,
             "activityType": "landing",
@@ -302,6 +500,8 @@
           }
         },
         {
+          "ruleKey": "337795",
+          "activityId": 337795,
           "meta": {
             "activityId": 337795,
             "activityType": "landing",
@@ -326,6 +526,8 @@
           }
         },
         {
+          "ruleKey": "337795",
+          "activityId": 337795,
           "meta": {
             "activityId": 337795,
             "activityType": "landing",
@@ -350,6 +552,8 @@
           }
         },
         {
+          "ruleKey": "337795",
+          "activityId": 337795,
           "meta": {
             "activityId": 337795,
             "activityType": "landing",
@@ -374,6 +578,8 @@
           }
         },
         {
+          "ruleKey": "337797",
+          "activityId": 337797,
           "meta": {
             "activityId": 337797,
             "activityType": "ab",
@@ -403,6 +609,8 @@
           }
         },
         {
+          "ruleKey": "337797",
+          "activityId": 337797,
           "meta": {
             "activityId": 337797,
             "activityType": "ab",
@@ -432,6 +640,8 @@
           }
         },
         {
+          "ruleKey": "337797",
+          "activityId": 337797,
           "meta": {
             "activityId": 337797,
             "activityType": "ab",
@@ -461,6 +671,8 @@
           }
         },
         {
+          "ruleKey": "337888",
+          "activityId": 337888,
           "meta": {
             "activityId": 337888,
             "activityType": "ab",
@@ -485,6 +697,8 @@
           }
         },
         {
+          "ruleKey": "337888",
+          "activityId": 337888,
           "meta": {
             "activityId": 337888,
             "activityType": "ab",
@@ -509,6 +723,8 @@
           }
         },
         {
+          "ruleKey": "337888",
+          "activityId": 337888,
           "meta": {
             "activityId": 337888,
             "activityType": "ab",
@@ -533,6 +749,8 @@
           }
         },
         {
+          "ruleKey": "337888",
+          "activityId": 337888,
           "meta": {
             "activityId": 337888,
             "activityType": "ab",
@@ -557,6 +775,8 @@
           }
         },
         {
+          "ruleKey": "345139-0",
+          "activityId": 345139,
           "meta": {
             "activityId": 345139,
             "activityType": "ab",
@@ -604,6 +824,8 @@
           }
         },
         {
+          "ruleKey": "345139-1",
+          "activityId": 345139,
           "meta": {
             "activityId": 345139,
             "activityType": "ab",
@@ -654,6 +876,8 @@
           }
         },
         {
+          "ruleKey": "345139-2",
+          "activityId": 345139,
           "meta": {
             "activityId": 345139,
             "activityType": "ab",
@@ -701,6 +925,8 @@
           }
         },
         {
+          "ruleKey": "345139-3",
+          "activityId": 345139,
           "meta": {
             "activityId": 345139,
             "activityType": "ab",
@@ -751,6 +977,8 @@
           }
         },
         {
+          "ruleKey": "345139-4",
+          "activityId": 345139,
           "meta": {
             "activityId": 345139,
             "activityType": "ab",
@@ -797,6 +1025,8 @@
           }
         },
         {
+          "ruleKey": "345139-5",
+          "activityId": 345139,
           "meta": {
             "activityId": 345139,
             "activityType": "ab",
@@ -835,6 +1065,8 @@
           }
         },
         {
+          "ruleKey": "345139-6",
+          "activityId": 345139,
           "meta": {
             "activityId": 345139,
             "activityType": "ab",
@@ -873,6 +1105,8 @@
           }
         },
         {
+          "ruleKey": "345139-7",
+          "activityId": 345139,
           "meta": {
             "activityId": 345139,
             "activityType": "ab",
@@ -911,6 +1145,8 @@
           }
         },
         {
+          "ruleKey": "345139-8",
+          "activityId": 345139,
           "meta": {
             "activityId": 345139,
             "activityType": "ab",
@@ -949,6 +1185,8 @@
           }
         },
         {
+          "ruleKey": "345139-0",
+          "activityId": 345139,
           "meta": {
             "activityId": 345139,
             "activityType": "ab",
@@ -987,6 +1225,8 @@
           }
         },
         {
+          "ruleKey": "345139-1",
+          "activityId": 345139,
           "meta": {
             "activityId": 345139,
             "activityType": "ab",
@@ -1025,6 +1265,8 @@
           }
         },
         {
+          "ruleKey": "345139-2",
+          "activityId": 345139,
           "meta": {
             "activityId": 345139,
             "activityType": "ab",
@@ -1063,6 +1305,8 @@
           }
         },
         {
+          "ruleKey": "345139-3",
+          "activityId": 345139,
           "meta": {
             "activityId": 345139,
             "activityType": "ab",
@@ -1101,6 +1345,8 @@
           }
         },
         {
+          "ruleKey": "345139-4",
+          "activityId": 345139,
           "meta": {
             "activityId": 345139,
             "activityType": "ab",
@@ -1147,6 +1393,8 @@
           }
         },
         {
+          "ruleKey": "345139-5",
+          "activityId": 345139,
           "meta": {
             "activityId": 345139,
             "activityType": "ab",
@@ -1194,6 +1442,8 @@
           }
         },
         {
+          "ruleKey": "345139-6",
+          "activityId": 345139,
           "meta": {
             "activityId": 345139,
             "activityType": "ab",
@@ -1241,6 +1491,8 @@
           }
         },
         {
+          "ruleKey": "345139-7",
+          "activityId": 345139,
           "meta": {
             "activityId": 345139,
             "activityType": "ab",
@@ -1288,6 +1540,8 @@
           }
         },
         {
+          "ruleKey": "345139-8",
+          "activityId": 345139,
           "meta": {
             "activityId": 345139,
             "activityType": "ab",
@@ -1335,6 +1589,8 @@
           }
         },
         {
+          "ruleKey": "345717-0",
+          "activityId": 345717,
           "meta": {
             "activityId": 345717,
             "activityType": "landing",
@@ -1381,6 +1637,8 @@
           }
         },
         {
+          "ruleKey": "345717-1",
+          "activityId": 345717,
           "meta": {
             "activityId": 345717,
             "activityType": "landing",
@@ -1427,6 +1685,8 @@
           }
         },
         {
+          "ruleKey": "345717-2",
+          "activityId": 345717,
           "meta": {
             "activityId": 345717,
             "activityType": "landing",
@@ -1464,6 +1724,8 @@
           }
         },
         {
+          "ruleKey": "345717-3",
+          "activityId": 345717,
           "meta": {
             "activityId": 345717,
             "activityType": "landing",
@@ -1501,6 +1763,8 @@
           }
         },
         {
+          "ruleKey": "345717-0",
+          "activityId": 345717,
           "meta": {
             "activityId": 345717,
             "activityType": "landing",
@@ -1538,6 +1802,8 @@
           }
         },
         {
+          "ruleKey": "345717-1",
+          "activityId": 345717,
           "meta": {
             "activityId": 345717,
             "activityType": "landing",
@@ -1584,6 +1850,8 @@
           }
         },
         {
+          "ruleKey": "345717-2",
+          "activityId": 345717,
           "meta": {
             "activityId": 345717,
             "activityType": "landing",
@@ -1630,6 +1898,8 @@
           }
         },
         {
+          "ruleKey": "345717-3",
+          "activityId": 345717,
           "meta": {
             "activityId": 345717,
             "activityType": "landing",
@@ -1667,6 +1937,8 @@
           }
         },
         {
+          "ruleKey": "345717-0",
+          "activityId": 345717,
           "meta": {
             "activityId": 345717,
             "activityType": "landing",
@@ -1699,6 +1971,8 @@
           }
         },
         {
+          "ruleKey": "345717-1",
+          "activityId": 345717,
           "meta": {
             "activityId": 345717,
             "activityType": "landing",
@@ -1740,6 +2014,8 @@
           }
         },
         {
+          "ruleKey": "345717-2",
+          "activityId": 345717,
           "meta": {
             "activityId": 345717,
             "activityType": "landing",
@@ -1772,6 +2048,8 @@
           }
         },
         {
+          "ruleKey": "345717-3",
+          "activityId": 345717,
           "meta": {
             "activityId": 345717,
             "activityType": "landing",
@@ -1813,6 +2091,8 @@
           }
         },
         {
+          "ruleKey": "348016-0",
+          "activityId": 348016,
           "meta": {
             "activityId": 348016,
             "activityType": "ab",
@@ -1853,6 +2133,8 @@
           }
         },
         {
+          "ruleKey": "348016-1",
+          "activityId": 348016,
           "meta": {
             "activityId": 348016,
             "activityType": "ab",
@@ -1895,6 +2177,8 @@
           }
         },
         {
+          "ruleKey": "348016-2",
+          "activityId": 348016,
           "meta": {
             "activityId": 348016,
             "activityType": "ab",
@@ -1935,6 +2219,8 @@
           }
         },
         {
+          "ruleKey": "348016-3",
+          "activityId": 348016,
           "meta": {
             "activityId": 348016,
             "activityType": "ab",
@@ -1966,6 +2252,8 @@
           }
         },
         {
+          "ruleKey": "348016-4",
+          "activityId": 348016,
           "meta": {
             "activityId": 348016,
             "activityType": "ab",
@@ -1997,6 +2285,8 @@
           }
         },
         {
+          "ruleKey": "348016-5",
+          "activityId": 348016,
           "meta": {
             "activityId": 348016,
             "activityType": "ab",
@@ -2028,6 +2318,8 @@
           }
         },
         {
+          "ruleKey": "348016-0",
+          "activityId": 348016,
           "meta": {
             "activityId": 348016,
             "activityType": "ab",
@@ -2068,6 +2360,8 @@
           }
         },
         {
+          "ruleKey": "348016-1",
+          "activityId": 348016,
           "meta": {
             "activityId": 348016,
             "activityType": "ab",
@@ -2099,6 +2393,8 @@
           }
         },
         {
+          "ruleKey": "348016-2",
+          "activityId": 348016,
           "meta": {
             "activityId": 348016,
             "activityType": "ab",
@@ -2130,6 +2426,8 @@
           }
         },
         {
+          "ruleKey": "348016-3",
+          "activityId": 348016,
           "meta": {
             "activityId": 348016,
             "activityType": "ab",
@@ -2170,6 +2468,8 @@
           }
         },
         {
+          "ruleKey": "348016-4",
+          "activityId": 348016,
           "meta": {
             "activityId": 348016,
             "activityType": "ab",
@@ -2212,6 +2512,8 @@
           }
         },
         {
+          "ruleKey": "348016-5",
+          "activityId": 348016,
           "meta": {
             "activityId": 348016,
             "activityType": "ab",
@@ -2254,6 +2556,8 @@
           }
         },
         {
+          "ruleKey": "345564-0",
+          "activityId": 345564,
           "meta": {
             "activityId": 345564,
             "activityType": "landing",
@@ -2285,6 +2589,8 @@
           }
         },
         {
+          "ruleKey": "345564-1",
+          "activityId": 345564,
           "meta": {
             "activityId": 345564,
             "activityType": "landing",
@@ -2316,6 +2622,8 @@
           }
         },
         {
+          "ruleKey": "345564-2",
+          "activityId": 345564,
           "meta": {
             "activityId": 345564,
             "activityType": "landing",
@@ -2359,6 +2667,8 @@
           }
         },
         {
+          "ruleKey": "345564-3",
+          "activityId": 345564,
           "meta": {
             "activityId": 345564,
             "activityType": "landing",
@@ -2399,6 +2709,8 @@
           }
         },
         {
+          "ruleKey": "345564-0",
+          "activityId": 345564,
           "meta": {
             "activityId": 345564,
             "activityType": "landing",
@@ -2436,6 +2748,8 @@
           }
         },
         {
+          "ruleKey": "345564-1",
+          "activityId": 345564,
           "meta": {
             "activityId": 345564,
             "activityType": "landing",
@@ -2474,6 +2788,8 @@
           }
         },
         {
+          "ruleKey": "345564-2",
+          "activityId": 345564,
           "meta": {
             "activityId": 345564,
             "activityType": "landing",
@@ -2500,6 +2816,8 @@
           }
         },
         {
+          "ruleKey": "345564-3",
+          "activityId": 345564,
           "meta": {
             "activityId": 345564,
             "activityType": "landing",
@@ -2526,6 +2844,8 @@
           }
         },
         {
+          "ruleKey": "345109-0",
+          "activityId": 345109,
           "meta": {
             "activityId": 345109,
             "activityType": "ab",
@@ -2570,6 +2890,8 @@
           }
         },
         {
+          "ruleKey": "345109-1",
+          "activityId": 345109,
           "meta": {
             "activityId": 345109,
             "activityType": "ab",
@@ -2611,6 +2933,8 @@
           }
         },
         {
+          "ruleKey": "345109-2",
+          "activityId": 345109,
           "meta": {
             "activityId": 345109,
             "activityType": "ab",
@@ -2655,6 +2979,8 @@
           }
         },
         {
+          "ruleKey": "345109-3",
+          "activityId": 345109,
           "meta": {
             "activityId": 345109,
             "activityType": "ab",
@@ -2696,6 +3022,8 @@
           }
         },
         {
+          "ruleKey": "345109-0",
+          "activityId": 345109,
           "meta": {
             "activityId": 345109,
             "activityType": "ab",
@@ -2740,6 +3068,8 @@
           }
         },
         {
+          "ruleKey": "345109-1",
+          "activityId": 345109,
           "meta": {
             "activityId": 345109,
             "activityType": "ab",
@@ -2781,6 +3111,8 @@
           }
         },
         {
+          "ruleKey": "345109-2",
+          "activityId": 345109,
           "meta": {
             "activityId": 345109,
             "activityType": "ab",
@@ -2825,6 +3157,8 @@
           }
         },
         {
+          "ruleKey": "345109-3",
+          "activityId": 345109,
           "meta": {
             "activityId": 345109,
             "activityType": "ab",
@@ -2866,6 +3200,8 @@
           }
         },
         {
+          "ruleKey": "344920-0",
+          "activityId": 344920,
           "meta": {
             "activityId": 344920,
             "activityType": "landing",
@@ -2904,6 +3240,8 @@
           }
         },
         {
+          "ruleKey": "344920-1",
+          "activityId": 344920,
           "meta": {
             "activityId": 344920,
             "activityType": "landing",
@@ -2942,6 +3280,8 @@
           }
         },
         {
+          "ruleKey": "344920-0",
+          "activityId": 344920,
           "meta": {
             "activityId": 344920,
             "activityType": "landing",
@@ -2980,6 +3320,8 @@
           }
         },
         {
+          "ruleKey": "344920-1",
+          "activityId": 344920,
           "meta": {
             "activityId": 344920,
             "activityType": "landing",
@@ -3018,6 +3360,8 @@
           }
         },
         {
+          "ruleKey": "344920-0",
+          "activityId": 344920,
           "meta": {
             "activityId": 344920,
             "activityType": "landing",
@@ -3051,6 +3395,8 @@
           }
         },
         {
+          "ruleKey": "344920-1",
+          "activityId": 344920,
           "meta": {
             "activityId": 344920,
             "activityType": "landing",
@@ -3084,6 +3430,8 @@
           }
         },
         {
+          "ruleKey": "347504-0",
+          "activityId": 347504,
           "meta": {
             "activityId": 347504,
             "activityType": "landing",
@@ -3124,6 +3472,8 @@
           }
         },
         {
+          "ruleKey": "347504-0",
+          "activityId": 347504,
           "meta": {
             "activityId": 347504,
             "activityType": "landing",
@@ -3164,6 +3514,8 @@
           }
         },
         {
+          "ruleKey": "347504-0",
+          "activityId": 347504,
           "meta": {
             "activityId": 347504,
             "activityType": "landing",
@@ -3204,6 +3556,8 @@
           }
         },
         {
+          "ruleKey": "345116",
+          "activityId": 345116,
           "meta": {
             "activityId": 345116,
             "activityType": "landing",
@@ -3228,6 +3582,8 @@
           }
         },
         {
+          "ruleKey": "345116",
+          "activityId": 345116,
           "meta": {
             "activityId": 345116,
             "activityType": "landing",
@@ -3257,6 +3613,8 @@
           }
         },
         {
+          "ruleKey": "345116",
+          "activityId": 345116,
           "meta": {
             "activityId": 345116,
             "activityType": "landing",
@@ -3286,6 +3644,8 @@
           }
         },
         {
+          "ruleKey": "345116",
+          "activityId": 345116,
           "meta": {
             "activityId": 345116,
             "activityType": "landing",
@@ -3310,6 +3670,8 @@
           }
         },
         {
+          "ruleKey": "344512-0",
+          "activityId": 344512,
           "meta": {
             "activityId": 344512,
             "activityType": "ab",
@@ -3361,6 +3723,8 @@
           }
         },
         {
+          "ruleKey": "344512-1",
+          "activityId": 344512,
           "meta": {
             "activityId": 344512,
             "activityType": "ab",
@@ -3415,6 +3779,8 @@
           }
         },
         {
+          "ruleKey": "344512-2",
+          "activityId": 344512,
           "meta": {
             "activityId": 344512,
             "activityType": "ab",
@@ -3457,6 +3823,8 @@
           }
         },
         {
+          "ruleKey": "344512-0",
+          "activityId": 344512,
           "meta": {
             "activityId": 344512,
             "activityType": "ab",
@@ -3508,6 +3876,8 @@
           }
         },
         {
+          "ruleKey": "344512-1",
+          "activityId": 344512,
           "meta": {
             "activityId": 344512,
             "activityType": "ab",
@@ -3550,6 +3920,8 @@
           }
         },
         {
+          "ruleKey": "344512-2",
+          "activityId": 344512,
           "meta": {
             "activityId": 344512,
             "activityType": "ab",
@@ -3604,6 +3976,8 @@
           }
         },
         {
+          "ruleKey": "345975-0",
+          "activityId": 345975,
           "meta": {
             "activityId": 345975,
             "activityType": "ab",
@@ -3644,6 +4018,8 @@
           }
         },
         {
+          "ruleKey": "345975-1",
+          "activityId": 345975,
           "meta": {
             "activityId": 345975,
             "activityType": "ab",
@@ -3684,6 +4060,8 @@
           }
         },
         {
+          "ruleKey": "345975-0",
+          "activityId": 345975,
           "meta": {
             "activityId": 345975,
             "activityType": "ab",
@@ -3724,6 +4102,8 @@
           }
         },
         {
+          "ruleKey": "345975-1",
+          "activityId": 345975,
           "meta": {
             "activityId": 345975,
             "activityType": "ab",
@@ -3764,6 +4144,8 @@
           }
         },
         {
+          "ruleKey": "344905",
+          "activityId": 344905,
           "meta": {
             "activityId": 344905,
             "activityType": "ab",
@@ -3793,6 +4175,8 @@
           }
         },
         {
+          "ruleKey": "344905",
+          "activityId": 344905,
           "meta": {
             "activityId": 344905,
             "activityType": "ab",
@@ -3822,6 +4206,8 @@
           }
         },
         {
+          "ruleKey": "344905",
+          "activityId": 344905,
           "meta": {
             "activityId": 344905,
             "activityType": "ab",
@@ -3851,6 +4237,8 @@
           }
         },
         {
+          "ruleKey": "344905",
+          "activityId": 344905,
           "meta": {
             "activityId": 344905,
             "activityType": "ab",
@@ -3880,6 +4268,8 @@
           }
         },
         {
+          "ruleKey": "346119-0",
+          "activityId": 346119,
           "meta": {
             "activityId": 346119,
             "activityType": "landing",
@@ -3928,6 +4318,8 @@
           }
         },
         {
+          "ruleKey": "346119-0",
+          "activityId": 346119,
           "meta": {
             "activityId": 346119,
             "activityType": "landing",
@@ -3960,6 +4352,246 @@
           }
         },
         {
+          "ruleKey": "350437-0",
+          "activityId": 350437,
+          "meta": {
+            "activityId": 350437,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "locationId": 0,
+            "audienceIds": [5778714]
+          },
+          "condition": {
+            "and": [
+              { "<": [0.0, { "var": "allocation" }, 50.0] },
+              {
+                "and": [
+                  { "==": ["localhost", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "eventToken": "kYEcFKeB6duvuMEV+pnSDWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "350437-0",
+          "activityId": 350437,
+          "meta": {
+            "activityId": 350437,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "locationId": 0,
+            "audienceIds": [5778714]
+          },
+          "condition": {
+            "and": [
+              { "<": [50.0, { "var": "allocation" }, 100.0] },
+              {
+                "and": [
+                  { "==": ["localhost", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "eventToken": "kYEcFKeB6duvuMEV+pnSDZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "350233-0",
+          "activityId": 350233,
+          "meta": {
+            "activityId": 350233,
+            "activityType": "landing",
+            "experienceId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "locationId": 0,
+            "audienceIds": [5775997]
+          },
+          "condition": {
+            "and": [
+              { "==": ["localhost", { "var": "page.domain" }] },
+              {
+                "or": [
+                  { "==": ["/demo/", { "var": "page.path" }] },
+                  { "==": ["/demo", { "var": "page.path" }] }
+                ]
+              },
+              { "==": ["165", { "var": "page.{parameter=nina}" }] }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "D9D/3LCe72MAyUO/WoImlmqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "#root > DIV:nth-of-type(1) > DIV:nth-of-type(1) > SECTION:nth-of-type(1) > DIV.personalization-container:eq(0)",
+                    "cssSelector": "#root > DIV:nth-of-type(1) > DIV:nth-of-type(1) > SECTION:nth-of-type(1) > DIV:nth-of-type(1)",
+                    "content": "<h2>Some awesome default content.</h2>\n\n<div>HEEEEEY!</div>"
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "350233-1",
+          "activityId": 350233,
+          "meta": {
+            "activityId": 350233,
+            "activityType": "landing",
+            "experienceId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "locationId": 1,
+            "audienceIds": [5775997]
+          },
+          "condition": {
+            "and": [
+              { "==": ["localhost", { "var": "page.domain" }] },
+              {
+                "or": [
+                  { "==": ["/demo/", { "var": "page.path" }] },
+                  { "==": ["/demo", { "var": "page.path" }] }
+                ]
+              },
+              { "==": ["165", { "var": "page.{parameter=nina}" }] }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "D9D/3LCe72MAyUO/WoImlmqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "insertAfter",
+                    "selector": "#root",
+                    "cssSelector": "#root",
+                    "content": "<div id=\"action_insert_15917538430181112\">tralivali</div>"
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "349546-0",
+          "activityId": 349546,
+          "meta": {
+            "activityId": 349546,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "locationId": 0,
+            "audienceIds": [5762320]
+          },
+          "condition": {
+            "and": [
+              { "<": [0.0, { "var": "allocation" }, 50.0] },
+              {
+                "and": [
+                  { "==": ["sam-local", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "tGPgHsGuI/Id4GquqeTVf2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "insertAfter",
+                    "selector": "HTML > BODY > DIV:nth-of-type(1)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1)",
+                    "content": "<span id=\"action_insert_15913082890281545\">Experience AAAAAAAAA!</span>"
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          },
+          "propertyTokens": ["a4d17d78-cb39-6171-b12d-a222a62ebe49"]
+        },
+        {
+          "ruleKey": "349546-0",
+          "activityId": 349546,
+          "meta": {
+            "activityId": 349546,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "locationId": 0,
+            "audienceIds": [5762320]
+          },
+          "condition": {
+            "and": [
+              { "<": [50.0, { "var": "allocation" }, 100.0] },
+              {
+                "and": [
+                  { "==": ["sam-local", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "tGPgHsGuI/Id4GquqeTVf5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "insertAfter",
+                    "selector": "HTML > BODY > DIV:nth-of-type(1)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1)",
+                    "content": "<span id=\"action_insert_15913083055611569\">Experience BBBBBBBB!</span>"
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          },
+          "propertyTokens": ["a4d17d78-cb39-6171-b12d-a222a62ebe49"]
+        },
+        {
+          "ruleKey": "347502-0",
+          "activityId": 347502,
           "meta": {
             "activityId": 347502,
             "activityType": "ab",
@@ -4009,6 +4641,8 @@
           }
         },
         {
+          "ruleKey": "347502-0",
+          "activityId": 347502,
           "meta": {
             "activityId": 347502,
             "activityType": "ab",
@@ -4058,6 +4692,8 @@
           }
         },
         {
+          "ruleKey": "345615",
+          "activityId": 345615,
           "meta": {
             "activityId": 345615,
             "activityType": "landing",
@@ -4082,6 +4718,8 @@
           }
         },
         {
+          "ruleKey": "345615",
+          "activityId": 345615,
           "meta": {
             "activityId": 345615,
             "activityType": "landing",
@@ -4106,6 +4744,8 @@
           }
         },
         {
+          "ruleKey": "345615",
+          "activityId": 345615,
           "meta": {
             "activityId": 345615,
             "activityType": "landing",
@@ -4130,56 +4770,170 @@
           }
         },
         {
+          "ruleKey": "350356-0",
+          "activityId": 350356,
           "meta": {
-            "activityId": 348051,
+            "activityId": 350356,
+            "activityType": "landing",
+            "experienceId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "locationId": 0,
+            "audienceIds": [5777790]
+          },
+          "condition": {
+            "and": [
+              { "==": ["localhost", { "var": "page.domain" }] },
+              { "==": ["/", { "var": "page.path" }] },
+              { "==": ["1", { "var": "page.{parameter=nina}" }] }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "ITOSuXDgTerarJ9LofSFPWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": []
+              }
+            ],
+            "metrics": []
+          },
+          "propertyTokens": ["687be116-6f44-5ebc-3823-d084379811b9"]
+        },
+        {
+          "ruleKey": "350783",
+          "activityId": 350783,
+          "meta": {
+            "activityId": 350783,
             "activityType": "ab",
             "experienceId": 0,
             "locationName": "target-global-mbox",
             "locationType": "mbox",
             "locationId": 0,
             "audienceIds": [],
-            "offerIds": [649054]
+            "offerIds": [652741]
           },
           "condition": { "<": [0.0, { "var": "allocation" }, 50.0] },
           "consequence": {
             "name": "target-global-mbox",
             "options": [
               {
-                "type": "html",
-                "eventToken": "0+4UV6rKCQEPqDjDDbgg7GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                "content": "<h1>bleh property</h1>\n<p>experience A</p>"
+                "type": "json",
+                "eventToken": "FP4I48cIaitld6Qi9EQI5mqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": {
+                  "mbox": "target-global-mbox",
+                  "experience": "A",
+                  "vegetable": "Asparagus",
+                  "property": "property Y"
+                }
               }
             ],
             "metrics": []
-          }
+          },
+          "propertyTokens": ["e63fc881-65c7-97b4-a16f-f63ce86c0434"]
         },
         {
+          "ruleKey": "350783",
+          "activityId": 350783,
           "meta": {
-            "activityId": 348051,
+            "activityId": 350783,
             "activityType": "ab",
             "experienceId": 1,
             "locationName": "target-global-mbox",
             "locationType": "mbox",
             "locationId": 0,
             "audienceIds": [],
-            "offerIds": [649053]
+            "offerIds": [652740]
           },
           "condition": { "<": [50.0, { "var": "allocation" }, 100.0] },
           "consequence": {
             "name": "target-global-mbox",
             "options": [
               {
-                "type": "html",
-                "eventToken": "0+4UV6rKCQEPqDjDDbgg7JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                "content": "<h1>bleh property</h1>\n<p>experience B</p>"
+                "type": "json",
+                "eventToken": "FP4I48cIaitld6Qi9EQI5pNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": {
+                  "mbox": "target-global-mbox",
+                  "experience": "B",
+                  "vegetable": "Brussel Sprouts",
+                  "property": "property Y"
+                }
               }
             ],
             "metrics": []
-          }
+          },
+          "propertyTokens": ["e63fc881-65c7-97b4-a16f-f63ce86c0434"]
+        },
+        {
+          "ruleKey": "350782",
+          "activityId": 350782,
+          "meta": {
+            "activityId": 350782,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "locationId": 0,
+            "audienceIds": [],
+            "offerIds": [652738]
+          },
+          "condition": { "<": [0.0, { "var": "allocation" }, 50.0] },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "json",
+                "eventToken": "0+xiYgJFaaB6s6ZUF9QhIGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": {
+                  "mbox": "target-global-mbox",
+                  "experience": "A",
+                  "fruit": "Apple",
+                  "property": "property X"
+                }
+              }
+            ],
+            "metrics": []
+          },
+          "propertyTokens": ["9a327144-63fe-a7fc-5fdb-515e0c0175a8"]
+        },
+        {
+          "ruleKey": "350782",
+          "activityId": 350782,
+          "meta": {
+            "activityId": 350782,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "locationId": 0,
+            "audienceIds": [],
+            "offerIds": [652739]
+          },
+          "condition": { "<": [50.0, { "var": "allocation" }, 100.0] },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "json",
+                "eventToken": "0+xiYgJFaaB6s6ZUF9QhIJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": {
+                  "mbox": "target-global-mbox",
+                  "experience": "B",
+                  "fruit": "Blueberry",
+                  "property": "property X"
+                }
+              }
+            ],
+            "metrics": []
+          },
+          "propertyTokens": ["9a327144-63fe-a7fc-5fdb-515e0c0175a8"]
         }
       ],
       "kitty": [
         {
+          "ruleKey": "336973",
+          "activityId": 336973,
           "meta": {
             "activityId": 336973,
             "activityType": "landing",
@@ -4204,6 +4958,8 @@
           }
         },
         {
+          "ruleKey": "336973",
+          "activityId": 336973,
           "meta": {
             "activityId": 336973,
             "activityType": "landing",
@@ -4228,6 +4984,8 @@
           }
         },
         {
+          "ruleKey": "336951",
+          "activityId": 336951,
           "meta": {
             "activityId": 336951,
             "activityType": "ab",
@@ -4252,6 +5010,8 @@
           }
         },
         {
+          "ruleKey": "336951",
+          "activityId": 336951,
           "meta": {
             "activityId": 336951,
             "activityType": "ab",
@@ -4276,6 +5036,8 @@
           }
         },
         {
+          "ruleKey": "336950",
+          "activityId": 336950,
           "meta": {
             "activityId": 336950,
             "activityType": "ab",
@@ -4300,6 +5062,8 @@
           }
         },
         {
+          "ruleKey": "336950",
+          "activityId": 336950,
           "meta": {
             "activityId": 336950,
             "activityType": "ab",
@@ -4324,8 +5088,154 @@
           }
         }
       ],
+      "geo": [
+        {
+          "ruleKey": "349133",
+          "activityId": 349133,
+          "meta": {
+            "activityId": 349133,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationName": "geo",
+            "locationType": "mbox",
+            "locationId": 0,
+            "audienceIds": [5753100],
+            "offerIds": [651951]
+          },
+          "condition": {
+            "and": [
+              { "<": [0.0, { "var": "allocation" }, 50.0] },
+              {
+                "and": [
+                  {
+                    "or": [
+                      { "==": ["UNITED STATES", { "var": "geo.country" }] },
+                      { "==": ["US", { "var": "geo.country" }] },
+                      { "==": ["CANADA", { "var": "geo.country" }] },
+                      { "==": ["CA", { "var": "geo.country" }] }
+                    ]
+                  },
+                  {
+                    "or": [
+                      { "==": ["CALIFORNIA", { "var": "geo.region" }] },
+                      { "==": ["CA", { "var": "geo.region" }] },
+                      { "==": ["BRITISH COLUMBIA", { "var": "geo.region" }] },
+                      { "==": ["BC", { "var": "geo.region" }] }
+                    ]
+                  },
+                  {
+                    "or": [
+                      { "==": ["SAN FRANCISCO", { "var": "geo.city" }] },
+                      { "==": ["SANFRANCISCO", { "var": "geo.city" }] },
+                      { "==": ["VANCOUVER", { "var": "geo.city" }] }
+                    ]
+                  },
+                  { "<": ["37.70", { "var": "geo.latitude" }] },
+                  { ">=": ["37.80", { "var": "geo.latitude" }] },
+                  { "<=": ["-122.5", { "var": "geo.longitude" }] },
+                  { ">": ["-122.3", { "var": "geo.longitude" }] },
+                  {
+                    "!": {
+                      "or": [
+                        {
+                          "==": ["SOUTH SAN FRANCISCO", { "var": "geo.city" }]
+                        },
+                        { "==": ["SOUTHSANFRANCISCO", { "var": "geo.city" }] }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "geo",
+            "options": [
+              {
+                "type": "json",
+                "eventToken": "LYJSFrgKxsp5ZlEO5o4jpGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": { "geo": true, "exp": "geo.a" }
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "349133",
+          "activityId": 349133,
+          "meta": {
+            "activityId": 349133,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationName": "geo",
+            "locationType": "mbox",
+            "locationId": 0,
+            "audienceIds": [5753100],
+            "offerIds": [650379]
+          },
+          "condition": {
+            "and": [
+              { "<": [50.0, { "var": "allocation" }, 100.0] },
+              {
+                "and": [
+                  {
+                    "or": [
+                      { "==": ["UNITED STATES", { "var": "geo.country" }] },
+                      { "==": ["US", { "var": "geo.country" }] },
+                      { "==": ["CANADA", { "var": "geo.country" }] },
+                      { "==": ["CA", { "var": "geo.country" }] }
+                    ]
+                  },
+                  {
+                    "or": [
+                      { "==": ["CALIFORNIA", { "var": "geo.region" }] },
+                      { "==": ["CA", { "var": "geo.region" }] },
+                      { "==": ["BRITISH COLUMBIA", { "var": "geo.region" }] },
+                      { "==": ["BC", { "var": "geo.region" }] }
+                    ]
+                  },
+                  {
+                    "or": [
+                      { "==": ["SAN FRANCISCO", { "var": "geo.city" }] },
+                      { "==": ["SANFRANCISCO", { "var": "geo.city" }] },
+                      { "==": ["VANCOUVER", { "var": "geo.city" }] }
+                    ]
+                  },
+                  { "<": ["37.70", { "var": "geo.latitude" }] },
+                  { ">=": ["37.80", { "var": "geo.latitude" }] },
+                  { "<=": ["-122.5", { "var": "geo.longitude" }] },
+                  { ">": ["-122.3", { "var": "geo.longitude" }] },
+                  {
+                    "!": {
+                      "or": [
+                        {
+                          "==": ["SOUTH SAN FRANCISCO", { "var": "geo.city" }]
+                        },
+                        { "==": ["SOUTHSANFRANCISCO", { "var": "geo.city" }] }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "geo",
+            "options": [
+              {
+                "type": "json",
+                "eventToken": "LYJSFrgKxsp5ZlEO5o4jpJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": { "geo": true, "exp": "geo.b" }
+              }
+            ],
+            "metrics": []
+          }
+        }
+      ],
       "daterange-mbox": [
         {
+          "ruleKey": "334853",
+          "activityId": 334853,
           "meta": {
             "activityId": 334853,
             "activityType": "landing",
@@ -4355,6 +5265,8 @@
           }
         },
         {
+          "ruleKey": "334853",
+          "activityId": 334853,
           "meta": {
             "activityId": 334853,
             "activityType": "landing",
@@ -4381,6 +5293,8 @@
           }
         },
         {
+          "ruleKey": "334853",
+          "activityId": 334853,
           "meta": {
             "activityId": 334853,
             "activityType": "landing",
@@ -4407,6 +5321,8 @@
           }
         },
         {
+          "ruleKey": "334853",
+          "activityId": 334853,
           "meta": {
             "activityId": 334853,
             "activityType": "landing",
@@ -4433,6 +5349,8 @@
       ],
       "browser-mbox": [
         {
+          "ruleKey": "334845",
+          "activityId": 334845,
           "meta": {
             "activityId": 334845,
             "activityType": "landing",
@@ -4457,6 +5375,8 @@
           }
         },
         {
+          "ruleKey": "334845",
+          "activityId": 334845,
           "meta": {
             "activityId": 334845,
             "activityType": "landing",
@@ -4481,6 +5401,8 @@
           }
         },
         {
+          "ruleKey": "334845",
+          "activityId": 334845,
           "meta": {
             "activityId": 334845,
             "activityType": "landing",
@@ -4505,6 +5427,8 @@
           }
         },
         {
+          "ruleKey": "334845",
+          "activityId": 334845,
           "meta": {
             "activityId": 334845,
             "activityType": "landing",
@@ -4529,6 +5453,8 @@
           }
         },
         {
+          "ruleKey": "334845",
+          "activityId": 334845,
           "meta": {
             "activityId": 334845,
             "activityType": "landing",
@@ -4555,6 +5481,8 @@
       ],
       "onboarding-mbox-1": [
         {
+          "ruleKey": "347505",
+          "activityId": 347505,
           "meta": {
             "activityId": 347505,
             "activityType": "ab",
@@ -4579,6 +5507,8 @@
           }
         },
         {
+          "ruleKey": "347505",
+          "activityId": 347505,
           "meta": {
             "activityId": 347505,
             "activityType": "ab",
@@ -4605,6 +5535,8 @@
       ],
       "demo-engineering-flags": [
         {
+          "ruleKey": "345998",
+          "activityId": 345998,
           "meta": {
             "activityId": 345998,
             "activityType": "ab",
@@ -4633,6 +5565,8 @@
           }
         },
         {
+          "ruleKey": "345998",
+          "activityId": 345998,
           "meta": {
             "activityId": 345998,
             "activityType": "ab",
@@ -4663,6 +5597,8 @@
       ],
       "redundant-mbox": [
         {
+          "ruleKey": "334717",
+          "activityId": 334717,
           "meta": {
             "activityId": 334717,
             "activityType": "ab",
@@ -4692,6 +5628,8 @@
           }
         },
         {
+          "ruleKey": "334717",
+          "activityId": 334717,
           "meta": {
             "activityId": 334717,
             "activityType": "ab",
@@ -4723,6 +5661,8 @@
       ],
       "composite2": [
         {
+          "ruleKey": "347405",
+          "activityId": 347405,
           "meta": {
             "activityId": 347405,
             "activityType": "ab",
@@ -4741,7 +5681,7 @@
                   {
                     "and": [
                       { "==": ["bar", { "var": "mbox.foo" }] },
-                      { "!=": ["buz", { "var": "mbox.baz_lc" }] }
+                      { "!": { "==": ["buz", { "var": "mbox.baz_lc" }] } }
                     ]
                   },
                   {
@@ -4779,6 +5719,8 @@
           }
         },
         {
+          "ruleKey": "347405",
+          "activityId": 347405,
           "meta": {
             "activityId": 347405,
             "activityType": "ab",
@@ -4797,7 +5739,7 @@
                   {
                     "and": [
                       { "==": ["bar", { "var": "mbox.foo" }] },
-                      { "!=": ["buz", { "var": "mbox.baz_lc" }] }
+                      { "!": { "==": ["buz", { "var": "mbox.baz_lc" }] } }
                     ]
                   },
                   {
@@ -4837,6 +5779,8 @@
       ],
       "jason-flags": [
         {
+          "ruleKey": "335113",
+          "activityId": 335113,
           "meta": {
             "activityId": 335113,
             "activityType": "ab",
@@ -4866,6 +5810,8 @@
           }
         },
         {
+          "ruleKey": "335113",
+          "activityId": 335113,
           "meta": {
             "activityId": 335113,
             "activityType": "ab",
@@ -4897,6 +5843,8 @@
       ],
       "superfluous-mbox": [
         {
+          "ruleKey": "334411",
+          "activityId": 334411,
           "meta": {
             "activityId": 334411,
             "activityType": "ab",
@@ -4921,6 +5869,8 @@
           }
         },
         {
+          "ruleKey": "334411",
+          "activityId": 334411,
           "meta": {
             "activityId": 334411,
             "activityType": "ab",
@@ -4947,6 +5897,8 @@
       ],
       "expendable-mbox": [
         {
+          "ruleKey": "334640",
+          "activityId": 334640,
           "meta": {
             "activityId": 334640,
             "activityType": "ab",
@@ -4971,6 +5923,8 @@
           }
         },
         {
+          "ruleKey": "334640",
+          "activityId": 334640,
           "meta": {
             "activityId": 334640,
             "activityType": "ab",
@@ -4997,6 +5951,8 @@
       ],
       "local123456": [
         {
+          "ruleKey": "342687",
+          "activityId": 342687,
           "meta": {
             "activityId": 342687,
             "activityType": "ab",
@@ -5021,6 +5977,8 @@
           }
         },
         {
+          "ruleKey": "342687",
+          "activityId": 342687,
           "meta": {
             "activityId": 342687,
             "activityType": "ab",
@@ -5044,11 +6002,69 @@
             "metrics": []
           }
         }
+      ],
+      "sam-mbox": [
+        {
+          "ruleKey": "349559",
+          "activityId": 349559,
+          "meta": {
+            "activityId": 349559,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationName": "sam-mbox",
+            "locationType": "mbox",
+            "locationId": 0,
+            "audienceIds": [],
+            "offerIds": [650954]
+          },
+          "condition": { "<": [0.0, { "var": "allocation" }, 50.0] },
+          "consequence": {
+            "name": "sam-mbox",
+            "options": [
+              {
+                "type": "json",
+                "eventToken": "nOuatS/bKd37zuqU02jU02qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": { "hello": "Experience AAAAAA" }
+              }
+            ],
+            "metrics": []
+          },
+          "propertyTokens": ["a4d17d78-cb39-6171-b12d-a222a62ebe49"]
+        },
+        {
+          "ruleKey": "349559",
+          "activityId": 349559,
+          "meta": {
+            "activityId": 349559,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationName": "sam-mbox",
+            "locationType": "mbox",
+            "locationId": 0,
+            "audienceIds": [],
+            "offerIds": [650953]
+          },
+          "condition": { "<": [50.0, { "var": "allocation" }, 100.0] },
+          "consequence": {
+            "name": "sam-mbox",
+            "options": [
+              {
+                "type": "json",
+                "eventToken": "nOuatS/bKd37zuqU02jU05NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": { "hello": "Experience BBBBBB" }
+              }
+            ],
+            "metrics": []
+          },
+          "propertyTokens": ["a4d17d78-cb39-6171-b12d-a222a62ebe49"]
+        }
       ]
     },
     "views": {
       "contact": [
         {
+          "ruleKey": "345798-0",
+          "activityId": 345798,
           "meta": {
             "activityId": 345798,
             "activityType": "landing",
@@ -5089,6 +6105,8 @@
           }
         },
         {
+          "ruleKey": "345798-1",
+          "activityId": 345798,
           "meta": {
             "activityId": 345798,
             "activityType": "landing",
@@ -5132,6 +6150,8 @@
           }
         },
         {
+          "ruleKey": "345798-0",
+          "activityId": 345798,
           "meta": {
             "activityId": 345798,
             "activityType": "landing",
@@ -5172,6 +6192,8 @@
           }
         },
         {
+          "ruleKey": "345798-1",
+          "activityId": 345798,
           "meta": {
             "activityId": 345798,
             "activityType": "landing",
@@ -5215,6 +6237,8 @@
           }
         },
         {
+          "ruleKey": "345798-0",
+          "activityId": 345798,
           "meta": {
             "activityId": 345798,
             "activityType": "landing",
@@ -5250,6 +6274,8 @@
           }
         },
         {
+          "ruleKey": "345798-1",
+          "activityId": 345798,
           "meta": {
             "activityId": 345798,
             "activityType": "landing",
@@ -5290,6 +6316,8 @@
       ],
       "home": [
         {
+          "ruleKey": "345782-0",
+          "activityId": 345782,
           "meta": {
             "activityId": 345782,
             "activityType": "ab",
@@ -5337,6 +6365,8 @@
           }
         },
         {
+          "ruleKey": "345782-1",
+          "activityId": 345782,
           "meta": {
             "activityId": 345782,
             "activityType": "ab",
@@ -5384,6 +6414,8 @@
           }
         },
         {
+          "ruleKey": "345782-2",
+          "activityId": 345782,
           "meta": {
             "activityId": 345782,
             "activityType": "ab",
@@ -5431,6 +6463,8 @@
           }
         },
         {
+          "ruleKey": "345782-3",
+          "activityId": 345782,
           "meta": {
             "activityId": 345782,
             "activityType": "ab",
@@ -5478,6 +6512,8 @@
           }
         },
         {
+          "ruleKey": "345782-4",
+          "activityId": 345782,
           "meta": {
             "activityId": 345782,
             "activityType": "ab",
@@ -5524,6 +6560,8 @@
           }
         },
         {
+          "ruleKey": "345782-5",
+          "activityId": 345782,
           "meta": {
             "activityId": 345782,
             "activityType": "ab",
@@ -5570,6 +6608,8 @@
           }
         },
         {
+          "ruleKey": "345782-0",
+          "activityId": 345782,
           "meta": {
             "activityId": 345782,
             "activityType": "ab",
@@ -5617,6 +6657,8 @@
           }
         },
         {
+          "ruleKey": "345782-1",
+          "activityId": 345782,
           "meta": {
             "activityId": 345782,
             "activityType": "ab",
@@ -5664,6 +6706,8 @@
           }
         },
         {
+          "ruleKey": "345782-2",
+          "activityId": 345782,
           "meta": {
             "activityId": 345782,
             "activityType": "ab",
@@ -5711,6 +6755,8 @@
           }
         },
         {
+          "ruleKey": "345782-3",
+          "activityId": 345782,
           "meta": {
             "activityId": 345782,
             "activityType": "ab",
@@ -5758,6 +6804,8 @@
           }
         },
         {
+          "ruleKey": "345782-4",
+          "activityId": 345782,
           "meta": {
             "activityId": 345782,
             "activityType": "ab",
@@ -5804,6 +6852,8 @@
           }
         },
         {
+          "ruleKey": "345782-5",
+          "activityId": 345782,
           "meta": {
             "activityId": 345782,
             "activityType": "ab",
@@ -5850,6 +6900,8 @@
           }
         },
         {
+          "ruleKey": "345779-0",
+          "activityId": 345779,
           "meta": {
             "activityId": 345779,
             "activityType": "ab",
@@ -5890,6 +6942,8 @@
           }
         },
         {
+          "ruleKey": "345779-1",
+          "activityId": 345779,
           "meta": {
             "activityId": 345779,
             "activityType": "ab",
@@ -5930,6 +6984,8 @@
           }
         },
         {
+          "ruleKey": "345779-0",
+          "activityId": 345779,
           "meta": {
             "activityId": 345779,
             "activityType": "ab",
@@ -5970,6 +7026,8 @@
           }
         },
         {
+          "ruleKey": "345779-1",
+          "activityId": 345779,
           "meta": {
             "activityId": 345779,
             "activityType": "ab",
@@ -6010,6 +7068,8 @@
           }
         },
         {
+          "ruleKey": "342775-0",
+          "activityId": 342775,
           "meta": {
             "activityId": 342775,
             "activityType": "ab",
@@ -6051,6 +7111,8 @@
           }
         },
         {
+          "ruleKey": "342775-0",
+          "activityId": 342775,
           "meta": {
             "activityId": 342775,
             "activityType": "ab",

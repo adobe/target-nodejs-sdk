@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import jsonLogic from "json-logic-js";
-import { isUndefined } from "@adobe/target-tools";
+import { isDefined } from "@adobe/target-tools";
 import { createMboxContext, createPageContext } from "./contextProvider";
 import { computeAllocation } from "./allocationProvider";
 import { cloneDeep } from "./utils";
@@ -31,7 +31,7 @@ export function ruleEvaluator(clientId, visitorId) {
     let consequence;
     let { page, referring } = context;
 
-    if (!isUndefined(requestDetail.address)) {
+    if (isDefined(requestDetail.address)) {
       page = createPageContext(requestDetail.address) || page;
       referring = createPageContext(requestDetail.address) || referring;
     }

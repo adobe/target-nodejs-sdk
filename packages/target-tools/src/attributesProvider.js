@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 
 import { ATTRIBUTE_NOT_EXIST } from "./messages";
-import { isUndefined } from "./utils";
+import { isDefined, isUndefined } from "./utils";
 
 /**
  * @param {import("../delivery-api-client/models/DeliveryResponse").DeliveryResponse} response
@@ -11,15 +11,15 @@ function createIndexed(response) {
 
   ["prefetch", "execute"].forEach(requestType => {
     if (
-      !isUndefined(response[requestType]) &&
-      !isUndefined(response[requestType].mboxes) &&
+      isDefined(response[requestType]) &&
+      isDefined(response[requestType].mboxes) &&
       response[requestType].mboxes instanceof Array
     ) {
       response[requestType].mboxes.forEach(mbox => {
         const { name, options = [] } = mbox;
         options.forEach(option => {
           const { type, content } = option;
-          if (type === "json" && !isUndefined(content)) {
+          if (type === "json" && isDefined(content)) {
             result[name] = Object.assign({}, result[name], content);
           }
         });

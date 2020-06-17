@@ -5,7 +5,7 @@ const prettier = require("prettier");
 
 const clientId = "adobesummit2018";
 const environment = "production";
-const artifactUrl = `https://assets.staging.adobetarget.com/${clientId}/${environment}/rules.json`;
+const artifactUrl = `https://assets.adobetarget.com/${clientId}/${environment}/v1/rules.json`;
 
 const outputFolders = [
   path.resolve(__dirname, "../packages/target-decisioning-engine/test"),

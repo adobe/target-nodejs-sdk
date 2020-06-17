@@ -1,8 +1,8 @@
-import { createUUID, isUndefined, noop } from "@adobe/target-tools";
+import { createUUID, isDefined, noop } from "@adobe/target-tools";
 import { MetricType } from "@adobe/target-tools/delivery-api-client";
 import { LOG_PREFIX } from "./constants";
 
-const LOG_PREAMBLE = `${LOG_PREFIX}.NotificationProvider`;
+const LOG_TAG = `${LOG_PREFIX}.NotificationProvider`;
 
 /**
  * The get NotificationProvider initialize method
@@ -35,7 +35,7 @@ function NotificationProvider(
       const { eventToken } = option;
       const eventKey = `${mbox.name}-${eventToken}`;
 
-      if (!isUndefined(eventToken) && !prevEventKeys.has(eventKey)) {
+      if (isDefined(eventToken) && !prevEventKeys.has(eventKey)) {
         displayTokens.push(eventToken);
         prevEventKeys.add(eventKey);
       }
@@ -62,7 +62,7 @@ function NotificationProvider(
   }
 
   function sendNotifications() {
-    logger.debug(`${LOG_PREAMBLE}.sendNotifications`, notifications);
+    logger.debug(`${LOG_TAG}.sendNotifications`, notifications);
 
     if (notifications.length > 0) {
       const { id, context, experienceCloud } = request;

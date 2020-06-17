@@ -6,7 +6,10 @@ import {
   isUndefined,
   noop,
   objectWithoutUndefinedValues,
-  requiresDecisioningEngine
+  requiresDecisioningEngine,
+  getProperty,
+  getPropertyToken,
+  isDefined
 } from "./utils";
 import { ChannelType } from "../delivery-api-client";
 import { EXECUTION_MODE } from "./enums";
@@ -193,6 +196,16 @@ describe("utils", () => {
     expect(isUndefined(null)).toEqual(false); // null is an 'object'
   });
 
+  it("isDefined", () => {
+    expect(isDefined(undefined)).toEqual(false);
+    expect(isDefined({})).toEqual(true);
+    expect(isDefined([])).toEqual(true);
+    expect(isDefined(true)).toEqual(true);
+    expect(isDefined(1)).toEqual(true);
+    expect(isDefined(1.25)).toEqual(true);
+    expect(isDefined(null)).toEqual(true); // null is an 'object'
+  });
+
   it("objectWithoutUndefinedValues", () => {
     expect(
       objectWithoutUndefinedValues({
@@ -211,5 +224,26 @@ describe("utils", () => {
       e: new Set(),
       f: []
     });
+  });
+
+  it("getProperty", () => {
+    expect(
+      getProperty({ propertyToken: "abc" }, { property: { token: "xyz" } })
+    ).toEqual({ token: "xyz" });
+
+    expect(getProperty({}, { property: { token: "xyz" } })).toEqual({
+      token: "xyz"
+    });
+
+    expect(getProperty({ propertyToken: "abc" }, {})).toEqual({ token: "abc" });
+    expect(getProperty({}, {})).toEqual(undefined);
+    expect(getProperty(undefined, undefined)).toEqual(undefined);
+  });
+
+  it("getPropertyToken", () => {
+    expect(getPropertyToken(undefined)).toEqual(undefined);
+    expect(getPropertyToken({})).toEqual(undefined);
+    expect(getPropertyToken({ token: undefined })).toEqual(undefined);
+    expect(getPropertyToken({ token: "abc_xyz" })).toEqual("abc_xyz");
   });
 });

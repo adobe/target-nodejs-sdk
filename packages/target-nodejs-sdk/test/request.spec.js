@@ -1,3 +1,5 @@
+import { PROPERTY_TOKEN_MISMATCH } from "@adobe/target-tools";
+
 require("jest-fetch-mock").enableMocks();
 const TargetClient = require("../src/index.server").default;
 
@@ -108,40 +110,128 @@ describe("Requests to target delivery API", () => {
     expect(fetch.mock.calls.length).toEqual(1);
   });
 
-  it("includes environmentID in request if specified", async () => {
-    const client = TargetClient.create({
-      client: "someClientId",
-      organizationId: "someOrgId",
-      environmentId: 12345
+  describe("environment ID", () => {
+    it("includes environmentID in request if specified", async () => {
+      const client = TargetClient.create({
+        client: "someClientId",
+        organizationId: "someOrgId",
+        environmentId: 12345
+      });
+
+      const result = await client.getOffers({
+        request: TARGET_REQUEST,
+        sessionId: "dummy_session"
+      });
+      expect(result).not.toBeUndefined();
+
+      expect(fetch.mock.calls.length).toEqual(1);
+      const fetchRequestBody = JSON.parse(fetch.mock.calls[0][1].body);
+
+      expect(fetchRequestBody.environmentId).toEqual(12345);
     });
 
-    const result = await client.getOffers({
-      request: TARGET_REQUEST,
-      sessionId: "dummy_session"
+    it("does not include environmentID in request if not specified", async () => {
+      const client = TargetClient.create({
+        client: "someClientId",
+        organizationId: "someOrgId"
+      });
+
+      const result = await client.getOffers({
+        request: TARGET_REQUEST,
+        sessionId: "dummy_session"
+      });
+      expect(result).not.toBeUndefined();
+
+      expect(fetch.mock.calls.length).toEqual(1);
+      const fetchRequestBody = JSON.parse(fetch.mock.calls[0][1].body);
+
+      expect(fetchRequestBody.environmentId).toBeUndefined();
     });
-    expect(result).not.toBeUndefined();
-
-    expect(fetch.mock.calls.length).toEqual(1);
-    const fetchRequestBody = JSON.parse(fetch.mock.calls[0][1].body);
-
-    expect(fetchRequestBody.environmentId).toEqual(12345);
   });
 
-  it("does not include environmentID in request if not specified", async () => {
-    const client = TargetClient.create({
-      client: "someClientId",
-      organizationId: "someOrgId"
+  describe("property token", () => {
+    it("includes propertyToken in request if specified in global config", async () => {
+      const client = TargetClient.create({
+        client: "someClientId",
+        organizationId: "someOrgId",
+        propertyToken: "token_abc"
+      });
+
+      const result = await client.getOffers({
+        request: TARGET_REQUEST,
+        sessionId: "dummy_session"
+      });
+      expect(result).not.toBeUndefined();
+
+      expect(fetch.mock.calls.length).toEqual(1);
+      const fetchRequestBody = JSON.parse(fetch.mock.calls[0][1].body);
+
+      expect(fetchRequestBody.property).toEqual({
+        token: "token_abc"
+      });
     });
 
-    const result = await client.getOffers({
-      request: TARGET_REQUEST,
-      sessionId: "dummy_session"
+    it("includes propertyToken in request if specified in request", async () => {
+      const client = TargetClient.create({
+        client: "someClientId",
+        organizationId: "someOrgId"
+      });
+
+      const result = await client.getOffers({
+        request: {
+          ...TARGET_REQUEST,
+          property: { token: "token_xyz" }
+        },
+        sessionId: "dummy_session"
+      });
+      expect(result).not.toBeUndefined();
+
+      expect(fetch.mock.calls.length).toEqual(1);
+      const fetchRequestBody = JSON.parse(fetch.mock.calls[0][1].body);
+
+      expect(fetchRequestBody.property).toEqual({
+        token: "token_xyz"
+      });
     });
-    expect(result).not.toBeUndefined();
 
-    expect(fetch.mock.calls.length).toEqual(1);
-    const fetchRequestBody = JSON.parse(fetch.mock.calls[0][1].body);
+    it("prefers request property token over config property token", async () => {
+      const debugLogMessages = [];
 
-    expect(fetchRequestBody.environmentId).toBeUndefined();
+      const client = TargetClient.create({
+        client: "someClientId",
+        organizationId: "someOrgId",
+        propertyToken: "token_abc",
+        logger: {
+          debug: (prefix, message) => {
+            debugLogMessages.push(message);
+          }
+        }
+      });
+
+      const result = await client.getOffers({
+        request: {
+          ...TARGET_REQUEST,
+          property: { token: "token_xyz" }
+        },
+        sessionId: "dummy_session"
+      });
+      expect(result).not.toBeUndefined();
+
+      expect(fetch.mock.calls.length).toEqual(1);
+      const fetchRequestBody = JSON.parse(fetch.mock.calls[0][1].body);
+
+      expect(fetchRequestBody.property).toEqual({
+        token: "token_xyz"
+      });
+
+      const expectedLogMessage = PROPERTY_TOKEN_MISMATCH(
+        "token_xyz",
+        "token_abc"
+      );
+
+      expect(
+        debugLogMessages.find(message => message === expectedLogMessage)
+      ).toEqual(expectedLogMessage);
+    });
   });
 });

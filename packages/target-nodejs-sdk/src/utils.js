@@ -10,7 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import { isBrowser, isUndefined } from "@adobe/target-tools";
+import { isBrowser, isDefined } from "@adobe/target-tools";
 
 import Visitor from "@adobe-mcid/visitor-js-server";
 
@@ -29,7 +29,7 @@ export const isPrimitiveObject = value =>
   value instanceof Symbol;
 
 export const noUndefinedValues = value =>
-  !!Object.values(value).filter(obj => !isUndefined(obj)).length;
+  !!Object.values(value).filter(obj => isDefined(obj)).length;
 export const isNonEmptyObject = value =>
   isObject(value) &&
   !Array.isArray(value) &&

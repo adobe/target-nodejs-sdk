@@ -1,4 +1,4 @@
-import { getLogger, isUndefined } from "@adobe/target-tools";
+import { getLogger, isDefined, isUndefined } from "@adobe/target-tools";
 import { createDecisioningContext } from "./contextProvider";
 import DecisionProvider from "./decisionProvider";
 import ArtifactProvider from "./artifactProvider";
@@ -77,6 +77,6 @@ export default async function TargetDecisioningEngine(config) {
     stopPolling: () => artifactProvider.stopPolling(),
     getOffers: targetOptions => getOffers(targetOptions),
     hasRemoteDependency: request => hasRemoteDependency(artifact, request),
-    isReady: () => !isUndefined(artifact)
+    isReady: () => isDefined(artifact)
   });
 }

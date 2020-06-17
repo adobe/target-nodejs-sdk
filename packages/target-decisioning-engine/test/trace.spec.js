@@ -108,7 +108,7 @@ describe("trace", () => {
           campaignType: "ab",
           branchId: 1,
           offers: [631991],
-          environment: "production"
+          environment: expect.any(String)
         }
       ],
       profile: {
@@ -168,7 +168,7 @@ describe("trace", () => {
           campaignType: "landing",
           branchId: 3,
           offers: [632438],
-          environment: "production"
+          environment: expect.any(String)
         }
       ],
       profile: {
@@ -242,7 +242,7 @@ describe("trace", () => {
               ]
             }
           ],
-          environment: "production"
+          environment: expect.any(String)
         }
       ],
       profile: {
@@ -301,7 +301,7 @@ describe("trace", () => {
           campaignType: "landing",
           branchId: 0,
           offers: [635716],
-          environment: "production",
+          environment: expect.any(String),
           notifications: [
             {
               type: "display",
@@ -317,7 +317,7 @@ describe("trace", () => {
           campaignType: "ab",
           branchId: 1,
           offers: [635718],
-          environment: "production",
+          environment: expect.any(String),
           notifications: [
             {
               type: "display",
@@ -335,7 +335,7 @@ describe("trace", () => {
           campaignType: "ab",
           branchId: 1,
           offers: [635776],
-          environment: "production",
+          environment: expect.any(String),
           notifications: [
             {
               type: "display",
@@ -440,7 +440,7 @@ describe("trace", () => {
           {
             branchId: 0,
             campaignType: "landing",
-            environment: "production",
+            environment: expect.any(String),
             id: 345798,
             offers: expect.any(Array)
           }

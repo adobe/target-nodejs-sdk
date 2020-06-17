@@ -1,9 +1,16 @@
 /* eslint-disable jest/no-test-callback */
 import * as HttpStatus from "http-status-codes";
+import { ENVIRONMENT_PROD, ENVIRONMENT_STAGE } from "@adobe/target-tools";
 import ArtifactProvider from "./artifactProvider";
 import * as constants from "./constants";
+import {
+  CDN_BASE_PROD,
+  CDN_BASE_STAGE,
+  SUPPORTED_ARTIFACT_MAJOR_VERSION
+} from "./constants";
 import Messages from "./messages";
 import { DUMMY_ARTIFACT_PAYLOAD } from "../test/decisioning-payloads";
+import { determineArtifactLocation } from "./utils";
 
 require("jest-fetch-mock").enableMocks();
 
@@ -278,5 +285,69 @@ describe("artifactProvider", () => {
           break;
       }
     });
+  });
+});
+
+describe("determineArtifactLocation", () => {
+  it("CDN host environment can be overridden", () => {
+    expect(
+      determineArtifactLocation({
+        client: "someClientId",
+        cdnEnvironment: "staging"
+      })
+    ).toEqual(
+      `${CDN_BASE_STAGE}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.json`
+    );
+  });
+
+  it("defaults to production environment", () => {
+    expect(
+      determineArtifactLocation({
+        client: "someClientId"
+      })
+    ).toEqual(
+      `${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.json`
+    );
+  });
+
+  it("can be any valid environment name", () => {
+    expect(
+      determineArtifactLocation({
+        client: "someClientId",
+        environment: ENVIRONMENT_STAGE
+      })
+    ).toEqual(
+      `${CDN_BASE_PROD}/someClientId/${ENVIRONMENT_STAGE}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.json`
+    );
+  });
+
+  it("warns on invalid environment name and defaults to prod", done => {
+    expect(
+      determineArtifactLocation({
+        client: "someClientId",
+        environment: "boohoo",
+        logger: {
+          debug: (prefix, message) => {
+            expect(message).toEqual(
+              Messages.INVALID_ENVIRONMENT("boohoo", ENVIRONMENT_PROD)
+            );
+            done();
+          }
+        }
+      })
+    ).toEqual(
+      `${CDN_BASE_PROD}/someClientId/${ENVIRONMENT_PROD}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.json`
+    );
+  });
+
+  it("can add property token", () => {
+    expect(
+      determineArtifactLocation({
+        client: "someClientId",
+        propertyToken: "xyz-123-abc"
+      })
+    ).toEqual(
+      `${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/xyz-123-abc/rules.json`
+    );
   });
 });

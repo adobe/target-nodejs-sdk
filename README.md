@@ -25,6 +25,7 @@ library (ECID).
   * [Shared ECID and Analytics Integration](#shared-ecid-and-analytics-integration)
   * [Custom rendering of Target offers](#custom-rendering-of-target-offers)
   * [JSON offers simplified](#json-offers-simplified)
+  * [Enterprise Permissions and Property Support](#enterprise-permissions-and-property-support)
   * [Local execution mode](#local-execution-mode)
   * [Troubleshooting](#troubleshooting)
   * [Target Traces](#target-traces)
@@ -982,6 +983,58 @@ And the `asObject` method is used to get a plain old JSON representation of the 
 
 Note: the `getAttributes` method call also accepts an optional options object as the second parameter.  This is the same options object as is passed into `getOffers`.  It can be used to refine the underlying request made by `getAttributes`.
 
+## Enterprise Permissions and Property Support
+
+The Node.js SDK includes support for Target Properties.  If you are unfamiliar with how Adobe Target handles enterprise permissions via workspaces and properties, you can [read more about them here](https://docs.adobe.com/content/help/en/target/using/administer/manage-users/enterprise/properties-overview.html).
+
+The client can make use of a property token in one of two ways.
+
+### Global Property Token
+
+If you want all getOffers calls to use the same propertyToken, you can specify a `propertyToken` on the config object passed in during initialization.  When configured in this way all getOffers calls will automatically include the property token.
+
+When using local execution mode, a different rules artifact will be loaded at startup based on the property token.  As a result, you will benefit from a lighter weight artifact payload that includes only the rules needed for the property specified.  If no property token is specified then the default non-property-specific rules artifact will be loaded.
+
+```js
+const CONFIG = {
+    client: "acmeclient",
+    organizationId: "1234567890@AdobeOrg",
+    propertyToken: "8c4630b1-16db-e2fc-3391-8b3d81436cfb"
+};
+
+const targetClient = TargetClient.create(CONFIG);
+
+targetClient.getOffers({...})            
+
+```
+
+### Incidental Property Token in getOffers call
+
+A property token can also be specified in an individual getOffers call.  This is done by [adding a property object with token to the request](https://developers.adobetarget.com/api/delivery-api/#section/User-Permissions-(Premium)).  A property token specified in this way takes precedent over one set in the config.  
+
+If you are using local decisioning, remember that a property-specific artifact will be loaded if a token is specified in the config.  So beware of a case where you specify "property-token-A" in the config object, and then in a subsequent call to getOffers, override it with "property-token-B".  In that case, the experiences for "property-token-B" may not be available and a warning will be logged.  If you intend to make many getOffers calls with varying property token values, do not to add a property token to the config.  That way you can ensure the appropriate experiences are considered regardless of execution mode.
+
+```js
+const CONFIG = {
+    client: "acmeclient",
+    organizationId: "1234567890@AdobeOrg",
+};
+
+const targetClient = TargetClient.create(CONFIG);
+
+targetClient.getOffers({
+    request: {
+        execute: {
+            pageLoad: {}
+        },
+        property: {
+            token: "8c4630b1-16db-e2fc-3391-8b3d81436cfb"
+        }           
+    }
+})            
+```
+
+
 ## Local execution mode
 
 The Target Node.js SDK can be configured to run in local execution mode.  In this mode, the SDK loads a rules definition file on startup and uses it to determine the outcomes for subsequent `getOffers` calls instead of making repeated requests to the delivery API each time. This can greatly improve performance if you are concerned about network latency and would like to limit the number of requests made to target edge servers.
@@ -990,6 +1043,8 @@ By default, the SDK is configured to always make a request to the target deliver
 
 ```js
 const CONFIG = {
+    client: "acmeclient",
+    organizationId: "1234567890@AdobeOrg",
     executionMode: "local",
     clientReadyCallback: targetReady
 };
@@ -1156,12 +1211,15 @@ The `options` object has the following structure:
 | logger                    |  Object  | No      | NOOP logger                      | Replaces the default NOOP logger           |
 | targetLocationHint        |  String  | No      | None                             | Target location hint                       |
 | fetchApi                  |  Function| No      | global.fetch or window.fetch     | [fetch](https://fetch.spec.whatwg.org) is used by the SDK for http requests.  By default node-fetch or the browser implementation of fetch is used.  But an alternative implementation can be provided using `fetchApi` |
-| environmentId             |  Number  | No      | None (prod)                      | Environment ID to use                      |
+| propertyToken             |  String  | No      | None                             | Target Property Token. If specified here, all getOffers calls will use this value.  |
 | version                   |  String  | No      | None                             | The version number for at.js if applicable |
 | executionMode             |  String  | No      | remote                           | Execution mode (local, remote or hybrid)   |
-| pollingInterval           |  Number  | No      | 5000                             | Polling interval for the local decisioning artifact (in ms) |
+| pollingInterval           |  Number  | No      | 300000 (5 minutes)               | Polling interval for the local decisioning artifact (in ms) |
 | artifactLocation          |  String  | No      | None                             | A fully qualified url to a target decisioning JSON artifact.  Overrides internally determined location. |
 | artifactPayload           |  Object  | No      | None                             | A target decisioning JSON artifact. If specified, it is used instead of requesting one from a URL.      |
+| environmentId             |  Number  | No      | production                       | Target environment ID to use for Delivery Api requests |
+| environment               |  String  | No      | production                       | Target environment name to be used for local decisioning (production, staging or development)  |
+| cdnEnvironment            |  String  | No      | production                       | CDN host environment name to be used for local decisioning (production or staging) |
 | clientReadyCallback       |  Function| No      | None                             | An optional callback function that is invoked when the SDK is ready for method calls.  Recommended when using local execution mode. |
 
 #### TargetClient.getOffers

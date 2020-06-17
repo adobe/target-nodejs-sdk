@@ -1,25 +1,28 @@
+/* eslint-disable no-console */
+const fetch = require("node-fetch");
+const HttpsProxyAgent = require("https-proxy-agent");
 const TargetClient = require("../dist/targetclient.server");
 
-const doLocalDecisioning = true;
+function getFetchWithProxy() {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
+
+  return (url, options) => {
+    return fetch(url, {
+      ...options,
+      agent: new HttpsProxyAgent("http://127.0.0.1:9090")
+    });
+  };
+}
 
 let client;
 
 const context = {
   channel: "web",
-  mobilePlatform: null,
-  application: null,
-  screen: null,
-  window: null,
-  browser: null,
   address: {
-    url: "http://adobe.com",
-    referringUrl: null
+    url: "http://local-target-test"
   },
-  geo: null,
-  timeOffsetInMinutes: null,
   userAgent:
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0",
-  beacon: false
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0"
 };
 
 const visitorId = {
@@ -33,7 +36,6 @@ const targetRequest = {
 };
 
 function getOffers() {
-  // eslint-disable-next-line jest/valid-expect-in-promise
   client
     .getOffers({
       request: {
@@ -43,10 +45,6 @@ function getOffers() {
             {
               name: "jason-flags",
               index: 1
-            },
-            {
-              name: "remote-only-mbox-a",
-              index: 2
             }
           ]
         }
@@ -55,25 +53,22 @@ function getOffers() {
     })
     .then(res => {
       console.log("Result: Success", JSON.stringify(res, null, 4));
+    })
+    .catch(err => {
+      console.log(err.message);
     });
 }
 
-const targetClientOptions = {
+client = TargetClient.create({
   client: "adobesummit2018",
   organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
-  clientReadyCallback: getOffers
-};
-
-client = TargetClient.create(
-  Object.assign(
-    {},
-    targetClientOptions,
-    doLocalDecisioning
-      ? {
-          executionMode: "local",
-          artifactLocation:
-            "https://target-local-decisioning-test.s3.us-west-2.amazonaws.com/adobesummit2018/waters_test/rules.json"
-        }
-      : {}
-  )
-);
+  fetchApi: getFetchWithProxy(),
+  executionMode: "local",
+  // environment: "staging",
+  // cdnEnvironment: "staging",
+  clientReadyCallback: getOffers,
+  logger: {
+    debug: (...messages) => console.log(...messages),
+    error: (...messages) => console.log(...messages)
+  }
+});

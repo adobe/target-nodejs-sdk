@@ -5,3 +5,6 @@ export const ATTRIBUTE_NOT_EXIST = (keyName, mboxName) =>
 
 export const DECISIONING_ENGINE_NOT_READY =
   "Unable to fulfill request; decisioning engine not ready.";
+
+export const PROPERTY_TOKEN_MISMATCH = (requestProperty, configProperty) =>
+  `The property token specified in the request "${requestProperty}" does not match the one specified in the config "${configProperty}".`;

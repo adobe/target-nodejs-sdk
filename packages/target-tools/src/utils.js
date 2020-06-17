@@ -1,8 +1,14 @@
 import { uuid } from "./lodash";
 import { EXECUTION_MODE } from "./enums";
+import { getLogger } from "./logging";
+import { PROPERTY_TOKEN_MISMATCH } from "./messages";
 
 export function isUndefined(value) {
   return typeof value === "undefined";
+}
+
+export function isDefined(value) {
+  return !isUndefined(value);
 }
 
 /**
@@ -94,7 +100,7 @@ export function requiresDecisioningEngine(executionMode) {
 }
 
 export function decisioningEngineReady(decisioningEngine) {
-  return !isUndefined(decisioningEngine) && decisioningEngine.isReady();
+  return isDefined(decisioningEngine) && decisioningEngine.isReady();
 }
 
 export function objectWithoutUndefinedValues(obj) {
@@ -109,4 +115,34 @@ export function objectWithoutUndefinedValues(obj) {
   });
 
   return result;
+}
+
+/**
+ *
+ * @param { import("../delivery-api-client/models/Property").Property } property
+ */
+export function getPropertyToken(property = { token: undefined }) {
+  const { token = undefined } = property;
+  return token;
+}
+
+export function getProperty(config = {}, request = {}, logger) {
+  const configPropertyToken = config.propertyToken;
+  const requestPropertyToken = getPropertyToken(request.property);
+  const propertyToken = requestPropertyToken || configPropertyToken;
+
+  if (
+    isDefined(requestPropertyToken) &&
+    requestPropertyToken !== configPropertyToken
+  ) {
+    getLogger(logger).debug(
+      PROPERTY_TOKEN_MISMATCH(requestPropertyToken, configPropertyToken)
+    );
+  }
+
+  return propertyToken
+    ? {
+        token: propertyToken
+      }
+    : undefined;
 }

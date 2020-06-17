@@ -1,5 +1,7 @@
 import {
   DEFAULT_GLOBAL_MBOX,
+  getPropertyToken,
+  isDefined,
   isUndefined,
   objectWithoutUndefinedValues
 } from "@adobe/target-tools";
@@ -16,8 +18,9 @@ import {
 } from "./postProcessors";
 import { ruleEvaluator } from "./ruleEvaluator";
 import { LOG_PREFIX } from "./constants";
+import { byPropertyToken } from "./filters";
 
-const LOG_PREAMBLE = `${LOG_PREFIX}.DecisionProvider`;
+const LOG_TAG = `${LOG_PREFIX}.DecisionProvider`;
 const PARTIAL_CONTENT = 206;
 const OK = 200;
 
@@ -43,6 +46,8 @@ function DecisionProvider(
 
   const clientId = config.client;
   const { request, visitor } = targetOptions;
+  const propertyToken = getPropertyToken(request.property);
+
   const { sendNotificationFunc } = config;
 
   const visitorId = request.id;
@@ -84,7 +89,7 @@ function DecisionProvider(
       let viewRules = [];
       if (
         requestDetails.hasOwnProperty("name") &&
-        !isUndefined(requestDetails.name)
+        isDefined(requestDetails.name)
       ) {
         viewRules = rules.views[requestDetails.name] || [];
       } else {
@@ -93,6 +98,8 @@ function DecisionProvider(
           []
         );
       }
+
+      viewRules = viewRules.filter(byPropertyToken(propertyToken));
 
       const matchedRuleKeys = new Set();
 
@@ -147,7 +154,9 @@ function DecisionProvider(
 
       const consequences = [];
 
-      const mboxRules = rules.mboxes[mboxRequest.name] || [];
+      const mboxRules = (rules.mboxes[mboxRequest.name] || []).filter(
+        byPropertyToken(propertyToken)
+      );
 
       const matchedRuleKeys = new Set();
 
@@ -295,7 +304,7 @@ function DecisionProvider(
     prefetch: getPrefetchDecisions()
   });
 
-  logger.debug(`${LOG_PREAMBLE}`, request, response);
+  logger.debug(`${LOG_TAG}`, request, response);
 
   return Promise.resolve(response);
 }

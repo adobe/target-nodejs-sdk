@@ -27,6 +27,21 @@ export interface DecisioningConfig {
   artifactPayload?: DecisioningArtifact;
 
   /**
+   * A property token used to limit the scope of evaluated target activities
+   */
+  propertyToken?: String;
+
+  /**
+   * The target environment name (production, staging, development). Defaults to production.
+   */
+  environment?: String;
+
+  /**
+   * The CDN environment name (production, staging, development).  Defaults to production.
+   */
+  cdnEnvironment?: String;
+
+  /**
    * Replaces the default noop logger
    */
   logger?: Object;

@@ -69,6 +69,9 @@ export default function bootstrap(fetchApi) {
             pollingInterval: options.pollingInterval,
             artifactLocation: options.artifactLocation,
             artifactPayload: options.artifactPayload,
+            propertyToken: options.propertyToken,
+            environment: options.environment,
+            cdnEnvironment: options.cdnEnvironment,
             logger: this.logger,
             fetchApi: fetchImpl,
             sendNotificationFunc: notificationOptions =>
@@ -100,8 +103,11 @@ export default function bootstrap(fetchApi) {
      * @param {Number} options.pollingInterval (Local Decisioning) Polling interval in ms, default: 30000
      * @param {String} options.artifactLocation (Local Decisioning) Fully qualified url to the location of the artifact, optional
      * @param {String} options.artifactPayload (Local Decisioning) A pre-fetched artifact, optional
-     * @param {Number} options.environmentId The environment ID, defaults to prod, optional
+     * @param {Number} options.environmentId The Target environment ID, defaults to production, optional
+     * @param {String} options.environment The Target environment name, defaults to production, optional
+     * @param {String} options.cdnEnvironment The CDN environment name, defaults to production, optional
      * @param {String} options.version The version number of at.js, optional
+     * @param {String} options.propertyToken A property token used to limit the scope of evaluated target activities, optional
      * @param {String} options.clientReadyCallback A callback that is called when the TargetClient is ready, optional
      */
     static create(options) {

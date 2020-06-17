@@ -1,8 +1,16 @@
 /* eslint-disable prefer-destructuring,import/prefer-default-export */
 import Url from "url-parse";
-import { getMboxNames, isUndefined } from "@adobe/target-tools";
+import {
+  ENVIRONMENT_PROD,
+  getLogger,
+  getMboxNames,
+  isDefined,
+  isUndefined,
+  POSSIBLE_ENVIRONMENTS
+} from "@adobe/target-tools";
 import Messages from "./messages";
 import { RequestType } from "./enums";
+import { CDN_BASE, SUPPORTED_ARTIFACT_MAJOR_VERSION } from "./constants";
 
 function caseSensitiveVersion(caseSenstiveString, lowercaseString) {
   const start = caseSenstiveString.toLowerCase().indexOf(lowercaseString);
@@ -105,9 +113,73 @@ export function matchMajorVersion(semanticVersion, majorVersion) {
 }
 
 export function cloneDeep(obj) {
-  if (!isUndefined(obj)) {
+  if (isDefined(obj)) {
     return JSON.parse(JSON.stringify(obj));
   }
 
   return undefined;
+}
+
+export function getCdnBasePath(environment = ENVIRONMENT_PROD) {
+  const env = POSSIBLE_ENVIRONMENTS.includes(environment)
+    ? environment
+    : ENVIRONMENT_PROD;
+
+  return CDN_BASE[env];
+}
+
+/**
+ *
+ * @param {String} environmentName
+ * @param logger
+ */
+export function getValidEnvironment(environmentName, logger) {
+  const isValid = POSSIBLE_ENVIRONMENTS.includes(environmentName);
+
+  if (!isValid) {
+    getLogger(logger).debug(
+      Messages.INVALID_ENVIRONMENT(environmentName, ENVIRONMENT_PROD)
+    );
+  }
+
+  return isValid ? environmentName : ENVIRONMENT_PROD;
+}
+
+/**
+ * @param {import("../types/DecisioningConfig").DecisioningConfig} config
+ */
+export function getTargetEnvironment(config) {
+  const { environment = ENVIRONMENT_PROD } = config;
+
+  return getValidEnvironment(environment, config.logger);
+}
+
+/**
+ * @param {import("../types/DecisioningConfig").DecisioningConfig} config
+ */
+export function getCdnEnvironment(config) {
+  const { cdnEnvironment = ENVIRONMENT_PROD } = config;
+
+  return getValidEnvironment(cdnEnvironment, config.logger);
+}
+
+/**
+ * The ArtifactProvider initialize method
+ * @param {import("../types/DecisioningConfig").DecisioningConfig} config Options map, required
+ */
+export function determineArtifactLocation(config) {
+  const { client, propertyToken } = config;
+  const targetEnvironment = getTargetEnvironment(config);
+  const cdnEnvironment = getCdnEnvironment(config);
+
+  return [
+    getCdnBasePath(cdnEnvironment),
+    client,
+    targetEnvironment,
+    `v${SUPPORTED_ARTIFACT_MAJOR_VERSION}`,
+    propertyToken,
+    "rules.json"
+  ]
+    .filter(value => isDefined(value))
+    .join("/");
 }

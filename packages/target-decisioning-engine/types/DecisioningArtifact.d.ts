@@ -4,29 +4,35 @@ export interface Consequence extends MboxResponse {}
 
 export interface Rule {
   ruleKey: String;
+  propertyTokens: String[];
+  seed: String;
   condition: Object;
   consequence: Consequence;
   meta: {
     activityId: number;
-    offerIds: number[];
-    audienceIds: number[];
     experienceId: number;
     activityType: string;
     locationName: string;
     locationType: string;
+    offerIds: number[];
+    audienceIds: number[];
+    displayResponseType: string;
   };
 }
 
 export interface DecisioningArtifact {
   version: string;
   globalMbox: string;
-  remoteMboxes: Array<string>;
-  remoteViews: Array<string>;
+  hasGeoTargeting: boolean;
   responseTokens: Array<string>;
+  remoteMboxes: Array<string>;
+  localMboxes: Array<string>;
+  remoteViews: Array<string>;
+  localViews: Array<string>;
   meta: {
     generatedAt: string;
-    clientCode: string;
     organizationId: string;
+    clientCode: string;
     workspace: number;
     environment: string;
   };
