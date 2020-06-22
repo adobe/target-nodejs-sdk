@@ -4,6 +4,7 @@ import {
   ENVIRONMENT_PROD,
   getLogger,
   getMboxNames,
+  isBrowser,
   isDefined,
   isUndefined,
   POSSIBLE_ENVIRONMENTS
@@ -166,8 +167,12 @@ export function getCdnEnvironment(config) {
 /**
  * The ArtifactProvider initialize method
  * @param {import("../types/DecisioningConfig").DecisioningConfig} config Options map, required
+ * @param {Boolean} addPropertyToken
  */
-export function determineArtifactLocation(config) {
+export function determineArtifactLocation(
+  config,
+  addPropertyToken = isBrowser()
+) {
   const { client, propertyToken } = config;
   const targetEnvironment = getTargetEnvironment(config);
   const cdnEnvironment = getCdnEnvironment(config);
@@ -177,7 +182,7 @@ export function determineArtifactLocation(config) {
     client,
     targetEnvironment,
     `v${SUPPORTED_ARTIFACT_MAJOR_VERSION}`,
-    propertyToken,
+    addPropertyToken ? propertyToken : undefined,
     "rules.json"
   ]
     .filter(value => isDefined(value))

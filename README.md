@@ -985,15 +985,13 @@ Note: the `getAttributes` method call also accepts an optional options object as
 
 ## Enterprise Permissions and Property Support
 
-The Node.js SDK includes support for Target Properties.  If you are unfamiliar with how Adobe Target handles enterprise permissions via workspaces and properties, you can [read more about them here](https://docs.adobe.com/content/help/en/target/using/administer/manage-users/enterprise/properties-overview.html).
+The Node.js SDK includes support for Target Properties.  If you are unfamiliar with how Adobe Target handles enterprise permissions via workspaces and properties, you can [read more about it here](https://docs.adobe.com/content/help/en/target/using/administer/manage-users/enterprise/properties-overview.html).
 
 The client can make use of a property token in one of two ways.
 
 ### Global Property Token
 
 If you want all getOffers calls to use the same propertyToken, you can specify a `propertyToken` on the config object passed in during initialization.  When configured in this way all getOffers calls will automatically include the property token.
-
-When using local execution mode, a different rules artifact will be loaded at startup based on the property token.  As a result, you will benefit from a lighter weight artifact payload that includes only the rules needed for the property specified.  If no property token is specified then the default non-property-specific rules artifact will be loaded.
 
 ```js
 const CONFIG = {
@@ -1011,8 +1009,6 @@ targetClient.getOffers({...})
 ### Incidental Property Token in getOffers call
 
 A property token can also be specified in an individual getOffers call.  This is done by [adding a property object with token to the request](https://developers.adobetarget.com/api/delivery-api/#section/User-Permissions-(Premium)).  A property token specified in this way takes precedent over one set in the config.  
-
-If you are using local decisioning, remember that a property-specific artifact will be loaded if a token is specified in the config.  So beware of a case where you specify "property-token-A" in the config object, and then in a subsequent call to getOffers, override it with "property-token-B".  In that case, the experiences for "property-token-B" may not be available and a warning will be logged.  If you intend to make many getOffers calls with varying property token values, do not to add a property token to the config.  That way you can ensure the appropriate experiences are considered regardless of execution mode.
 
 ```js
 const CONFIG = {
