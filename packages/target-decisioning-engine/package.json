@@ -1,6 +1,6 @@
 {
   "name": "@adobe/target-decisioning-engine",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Adobe Target JavaScript decisioning engine",
   "main": "dist/index.js",
   "module": "src/index.js",
