@@ -23,6 +23,14 @@ const TARGET_REQUEST = {
   }
 };
 
+const CONFIG = {
+  client: "someClientId",
+  organizationId: "someOrgId",
+  targetLocationHint: "28",
+  pollingInterval: 0,
+  maximumWaitReady: 500
+};
+
 describe("target local decisioning", () => {
   let client;
 
@@ -40,17 +48,16 @@ describe("target local decisioning", () => {
 
       return new Promise(done => {
         client = TargetClient.create({
-          client: "someClientId",
-          organizationId: "someOrgId",
+          ...CONFIG,
           executionMode: EXECUTION_MODE.LOCAL,
-          targetLocationHint: "28",
-          pollingInterval: 0,
-          clientReadyCallback: () => {
-            expect(client.decisioningEngine).not.toBeUndefined();
-            expect(typeof client.decisioningEngine.getOffers).toEqual(
-              "function"
-            );
-            done();
+          events: {
+            clientReady: () => {
+              expect(client.decisioningEngine).not.toBeUndefined();
+              expect(typeof client.decisioningEngine.getOffers).toEqual(
+                "function"
+              );
+              done();
+            }
           }
         });
       });
@@ -60,16 +67,16 @@ describe("target local decisioning", () => {
       fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
 
       client = TargetClient.create({
-        client: "someClientId",
-        organizationId: "someOrgId",
+        ...CONFIG,
         executionMode: EXECUTION_MODE.REMOTE,
-        pollingInterval: 0,
-        clientReadyCallback: () => {
-          expect(client).toBeDefined();
-          expect(
-            Object.prototype.hasOwnProperty.call(client, "decisioningEngine")
-          ).toEqual(false);
-          done();
+        events: {
+          clientReady: () => {
+            expect(client).toBeDefined();
+            expect(
+              Object.prototype.hasOwnProperty.call(client, "decisioningEngine")
+            ).toEqual(false);
+            done();
+          }
         }
       });
     });
@@ -88,11 +95,8 @@ describe("target local decisioning", () => {
       });
 
       client = TargetClient.create({
-        client: "someClientId",
-        organizationId: "someOrgId",
-        executionMode: EXECUTION_MODE.LOCAL,
-        targetLocationHint: "28",
-        pollingInterval: 0
+        ...CONFIG,
+        executionMode: EXECUTION_MODE.LOCAL
       });
 
       // make the request immediately (before the artifact has been fetched)
@@ -122,12 +126,19 @@ describe("target local decisioning", () => {
         ["", { status: HttpStatus.INTERNAL_SERVER_ERROR }]
       );
 
+      const artifactDownloadFailed = jest.fn();
+      const artifactDownloadSucceeded = jest.fn();
+      const clientReady = jest.fn();
+
       client = TargetClient.create({
-        client: "someClientId",
-        organizationId: "someOrgId",
+        ...CONFIG,
         executionMode: EXECUTION_MODE.LOCAL,
-        targetLocationHint: "28",
-        pollingInterval: 0
+        maximumWaitReady: 500,
+        events: {
+          clientReady,
+          artifactDownloadFailed,
+          artifactDownloadSucceeded
+        }
       });
 
       await expect(
@@ -144,6 +155,18 @@ describe("target local decisioning", () => {
             sessionId: "dummy_session"
           })
         ).rejects.toEqual(new Error(DECISIONING_ENGINE_NOT_READY));
+
+        expect(clientReady).not.toHaveBeenCalled();
+        expect(artifactDownloadSucceeded).not.toHaveBeenCalled();
+        expect(artifactDownloadFailed).toHaveBeenCalledTimes(11);
+
+        expect(artifactDownloadFailed.mock.calls[0][0]).toEqual(
+          expect.objectContaining({
+            type: "artifactDownloadFailed",
+            artifactLocation: expect.any(String),
+            error: expect.any(Error)
+          })
+        );
 
         clearTimeout(timer);
         done();
@@ -228,7 +251,8 @@ describe("target local decisioning", () => {
     const targetClientOptions = {
       client: "adobesummit2018",
       organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
-      pollingInterval: 0
+      pollingInterval: 0,
+      maximumWaitReady: 500
     };
 
     const targetResult = {
@@ -323,7 +347,7 @@ describe("target local decisioning", () => {
           )
           .once(JSON.stringify(DECISIONING_PAYLOAD_AB_SIMPLE));
 
-        async function onClientReady() {
+        async function clientReady() {
           const result = await client.getOffers(prefetchRequestOptions);
 
           expect(result.targetLocationHintCookie).toEqual({
@@ -337,8 +361,7 @@ describe("target local decisioning", () => {
         client = TargetClient.create({
           ...targetClientOptions,
           executionMode: EXECUTION_MODE.LOCAL,
-          pollingInterval: 0,
-          clientReadyCallback: onClientReady
+          events: { clientReady }
         });
       });
 
@@ -351,7 +374,7 @@ describe("target local decisioning", () => {
           ]
         );
 
-        async function onClientReady() {
+        async function clientReady() {
           const result = await client.getOffers(prefetchRequestOptions);
 
           expect(result.targetLocationHintCookie).toBeUndefined();
@@ -361,15 +384,14 @@ describe("target local decisioning", () => {
         client = TargetClient.create({
           ...targetClientOptions,
           executionMode: EXECUTION_MODE.LOCAL,
-          pollingInterval: 0,
-          clientReadyCallback: onClientReady
+          events: { clientReady }
         });
       });
 
       it("can be passed in as a config option to be used instead of of a preemptive delivery request", async done => {
         fetch.once(JSON.stringify(DECISIONING_PAYLOAD_AB_SIMPLE));
 
-        async function onClientReady() {
+        async function clientReady() {
           const result = await client.getOffers(prefetchRequestOptions);
 
           expect(result.targetLocationHintCookie).toEqual({
@@ -385,7 +407,7 @@ describe("target local decisioning", () => {
           executionMode: EXECUTION_MODE.LOCAL,
           pollingInterval: 0,
           targetLocationHint: "28",
-          clientReadyCallback: onClientReady
+          events: { clientReady }
         });
       });
     });
@@ -393,7 +415,7 @@ describe("target local decisioning", () => {
     it("produces a valid response in local execution mode", async done => {
       fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_AB_SIMPLE));
 
-      async function onClientReady() {
+      async function clientReady() {
         const result = await client.getOffers(prefetchRequestOptions);
 
         expect(result).toEqual(
@@ -417,7 +439,7 @@ describe("target local decisioning", () => {
         executionMode: EXECUTION_MODE.LOCAL,
         targetLocationHint: "28",
         pollingInterval: 0,
-        clientReadyCallback: onClientReady
+        events: { clientReady }
       });
     });
 
@@ -439,7 +461,7 @@ describe("target local decisioning", () => {
         }
       );
 
-      async function onClientReady() {
+      async function clientReady() {
         await expect(
           client.getOffers(executeRequestOptions)
         ).resolves.toBeDefined();
@@ -474,14 +496,15 @@ describe("target local decisioning", () => {
         executionMode: EXECUTION_MODE.LOCAL,
         pollingInterval: 0,
         targetLocationHint: "28",
-        clientReadyCallback: onClientReady
+
+        events: { clientReady }
       });
     });
 
     it("produces a valid response in remote execution mode", async done => {
       fetch.mockResponse(JSON.stringify(DELIVERY_API_RESPONSE));
 
-      async function onClientReady() {
+      async function clientReady() {
         const result = await client.getOffers(prefetchRequestOptions);
 
         expect(result).toEqual(
@@ -504,7 +527,7 @@ describe("target local decisioning", () => {
       client = TargetClient.create({
         ...targetClientOptions,
         executionMode: EXECUTION_MODE.REMOTE,
-        clientReadyCallback: onClientReady
+        events: { clientReady }
       });
     });
   });

@@ -4,7 +4,8 @@ import {
   getLogger,
   isBrowser,
   isDefined,
-  isNodeJS
+  isNodeJS,
+  noop
 } from "@adobe/target-tools";
 import Messages from "./messages";
 import {
@@ -15,6 +16,10 @@ import {
 } from "./constants";
 import { ArtifactTracer } from "./traceProvider";
 import { determineArtifactLocation } from "./utils";
+import {
+  ARTIFACT_DOWNLOAD_FAILED,
+  ARTIFACT_DOWNLOAD_SUCCEEDED
+} from "./events";
 
 const LOG_TAG = `${LOG_PREFIX}.ArtifactProvider`;
 const NOT_MODIFIED = 304;
@@ -26,6 +31,7 @@ const OK = 200;
  */
 async function ArtifactProvider(config) {
   const logger = getLogger(config.logger);
+  const { eventEmitter = noop } = config;
 
   function getPollingInterval() {
     if (
@@ -58,16 +64,18 @@ async function ArtifactProvider(config) {
 
   let lastResponseEtag;
   let lastResponseData;
-  const fetchWithRetry = getFetchWithRetry(
-    fetchApi,
-    NUM_FETCH_RETRIES,
-    errorMessage => Messages.ERROR_MAX_RETRY(NUM_FETCH_RETRIES, errorMessage)
-  );
 
   const artifactLocation =
     typeof config.artifactLocation === "string"
       ? config.artifactLocation
       : determineArtifactLocation(config);
+
+  const fetchWithRetry = getFetchWithRetry(
+    fetchApi,
+    NUM_FETCH_RETRIES,
+    errorMessage => Messages.ERROR_MAX_RETRY(NUM_FETCH_RETRIES, errorMessage),
+    error => eventEmitter(ARTIFACT_DOWNLOAD_FAILED, { artifactLocation, error })
+  );
 
   function fetchArtifact(artifactUrl) {
     const headers = {};
@@ -96,6 +104,11 @@ async function ArtifactProvider(config) {
           lastResponseData = responseData;
           lastResponseEtag = etag;
         }
+
+        eventEmitter(ARTIFACT_DOWNLOAD_SUCCEEDED, {
+          artifactLocation,
+          artifactPayload: responseData
+        });
       }
       return responseData;
     });

@@ -12,7 +12,8 @@ export {
   objectWithoutUndefinedValues,
   requiresDecisioningEngine,
   getProperty,
-  getPropertyToken
+  getPropertyToken,
+  timeLimitExceeded
 } from "./utils";
 
 export { getLogger } from "./logging";
@@ -32,6 +33,7 @@ export { EXECUTION_MODE } from "./enums";
 export { getFetchWithRetry, getFetchApi } from "./networking";
 
 export { AttributesProvider } from "./attributesProvider";
+export { EventProvider } from "./eventProvider";
 
 export {
   ATTRIBUTE_NOT_EXIST,

@@ -1,5 +1,5 @@
 import { DEFAULT_NUM_FETCH_RETRIES } from "./constants";
-import { isBrowser, isNodeJS } from "./utils";
+import { isBrowser, isNodeJS, noop } from "./utils";
 
 const NOT_MODIFIED = 304;
 
@@ -25,7 +25,8 @@ export function getFetchApi(fetchApi) {
 export function getFetchWithRetry(
   fetchApi,
   maxRetries = DEFAULT_NUM_FETCH_RETRIES,
-  errorFunc = errorMessage => errorMessage
+  errorFunc = errorMessage => errorMessage,
+  incidentalFailureCallback = noop
 ) {
   return function fetchWithRetry(url, options, numRetries = maxRetries) {
     return fetchApi(url, options)
@@ -36,6 +37,10 @@ export function getFetchWithRetry(
         return res;
       })
       .catch(err => {
+        if (typeof incidentalFailureCallback === "function") {
+          incidentalFailureCallback.call(undefined, err);
+        }
+
         if (numRetries < 1) {
           throw new Error(errorFunc(err.message));
         }

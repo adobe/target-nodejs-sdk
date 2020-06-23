@@ -3,7 +3,7 @@
   "meta": {
     "clientCode": "adobesummit2018",
     "environment": "production",
-    "generatedAt": "2020-06-17T23:14:23.723Z"
+    "generatedAt": "2020-06-23T17:36:30.886Z"
   },
   "globalMbox": "target-global-mbox",
   "geoTargetingEnabled": true,
@@ -20,6 +20,7 @@
   "localMboxes": [
     "offer2",
     "multinot",
+    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -178,6 +179,70 @@
                 "type": "json",
                 "eventToken": "kplSqQZ8KW7crrfwwf1lSpNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": { "multinot": true }
+              }
+            ],
+            "metrics": []
+          }
+        }
+      ],
+      "demo-geo-offer1": [
+        {
+          "ruleKey": "348159",
+          "activityId": 348159,
+          "meta": {
+            "activityId": 348159,
+            "activityType": "landing",
+            "experienceId": 0,
+            "locationName": "demo-geo-offer1",
+            "locationType": "mbox",
+            "locationId": 0,
+            "audienceIds": [5726147],
+            "offerIds": [649223]
+          },
+          "condition": {
+            "or": [
+              { "==": ["JAPAN", { "var": "geo.country" }] },
+              { "==": ["JP", { "var": "geo.country" }] }
+            ]
+          },
+          "consequence": {
+            "name": "demo-geo-offer1",
+            "options": [
+              {
+                "type": "html",
+                "eventToken": "jrsoKbgyQonnEM54yVY072qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<h1>Hello Japan!!</h1>"
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "348159",
+          "activityId": 348159,
+          "meta": {
+            "activityId": 348159,
+            "activityType": "landing",
+            "experienceId": 1,
+            "locationName": "demo-geo-offer1",
+            "locationType": "mbox",
+            "locationId": 0,
+            "audienceIds": [5726143],
+            "offerIds": [649224]
+          },
+          "condition": {
+            "or": [
+              { "==": ["UNITED STATES", { "var": "geo.country" }] },
+              { "==": ["US", { "var": "geo.country" }] }
+            ]
+          },
+          "consequence": {
+            "name": "demo-geo-offer1",
+            "options": [
+              {
+                "type": "html",
+                "eventToken": "jrsoKbgyQonnEM54yVY075NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<h1>Hello USA!!</h1>"
               }
             ],
             "metrics": []

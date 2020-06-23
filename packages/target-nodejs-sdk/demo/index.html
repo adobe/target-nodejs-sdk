@@ -81,7 +81,7 @@
         client: clientId,
         organizationId,
         targetLocationHint: "28",
-        clientReadyCallback: getOffers
+        events: {clientReady: getOffers}
       };
 
       client = window.TargetClient.create(

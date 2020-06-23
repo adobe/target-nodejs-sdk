@@ -55,4 +55,14 @@ export interface DecisioningConfig {
    * Function used to send notifications
    */
   sendNotificationFunc?: Function;
+
+  /**
+   * Function used to emit events
+   */
+  eventEmitter: (eventName: string, payload?: Object) => undefined;
+
+  /**
+   * The maximum amount of time (in ms) to wait for decisioning engine to become ready.  Default is to wait indefinitely.
+   */
+  maximumWaitReady: Number;
 }

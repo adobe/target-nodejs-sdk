@@ -14,6 +14,7 @@ import {
   addMboxesToRequest,
   AttributesProvider,
   EMPTY_REQUEST,
+  EventProvider,
   EXECUTION_MODE,
   getFetchApi,
   getLogger,
@@ -34,15 +35,10 @@ import {
   validateGetOffersOptions,
   validateSendNotificationsOptions
 } from "./validators";
+import { CLIENT_READY } from "./events";
 
 const AMCV_PREFIX = "AMCV_";
 const DEFAULT_TIMEOUT = 3000;
-
-function emitClientReady(config) {
-  if (typeof config.clientReadyCallback === "function") {
-    config.clientReadyCallback();
-  }
-}
 
 export default function bootstrap(fetchApi) {
   const fetchImpl = getFetchApi(fetchApi);
@@ -59,6 +55,7 @@ export default function bootstrap(fetchApi) {
       this.config = options;
       this.config.timeout = options.timeout || DEFAULT_TIMEOUT;
       this.logger = getLogger(options.logger);
+      const eventEmitter = EventProvider(this.config.events).emit;
 
       if (requiresDecisioningEngine(options.executionMode)) {
         Promise.all([
@@ -67,6 +64,7 @@ export default function bootstrap(fetchApi) {
             client: options.client,
             organizationId: options.organizationId,
             pollingInterval: options.pollingInterval,
+            maximumWaitReady: options.maximumWaitReady,
             artifactLocation: options.artifactLocation,
             artifactPayload: options.artifactPayload,
             propertyToken: options.propertyToken,
@@ -74,6 +72,7 @@ export default function bootstrap(fetchApi) {
             cdnEnvironment: options.cdnEnvironment,
             logger: this.logger,
             fetchApi: fetchImpl,
+            eventEmitter,
             sendNotificationFunc: notificationOptions =>
               this.sendNotifications(notificationOptions)
           })
@@ -81,10 +80,13 @@ export default function bootstrap(fetchApi) {
           // eslint-disable-next-line no-unused-vars
           .then(([locationHintResponse, decisioningEngine]) => {
             this.decisioningEngine = decisioningEngine;
-            emitClientReady(options);
+            eventEmitter(CLIENT_READY);
+          })
+          .catch(err => {
+            this.logger.error(err.message);
           });
       } else {
-        setTimeout(() => emitClientReady(options), 100);
+        setTimeout(() => eventEmitter(CLIENT_READY), 100);
       }
     }
 
@@ -101,6 +103,7 @@ export default function bootstrap(fetchApi) {
      * @param {Object} options.logger Replaces the default noop logger, optional
      * @param {('local'|'remote'|'hybrid')} options.executionMode The execution mode, defaults to remote, optional
      * @param {Number} options.pollingInterval (Local Decisioning) Polling interval in ms, default: 30000
+     * @param {Number} options.maximumWaitReady (Local Decisioning) The maximum amount of time (in ms) to wait for clientReady.  Default is to wait indefinitely.
      * @param {String} options.artifactLocation (Local Decisioning) Fully qualified url to the location of the artifact, optional
      * @param {String} options.artifactPayload (Local Decisioning) A pre-fetched artifact, optional
      * @param {Number} options.environmentId The Target environment ID, defaults to production, optional
@@ -108,7 +111,7 @@ export default function bootstrap(fetchApi) {
      * @param {String} options.cdnEnvironment The CDN environment name, defaults to production, optional
      * @param {String} options.version The version number of at.js, optional
      * @param {String} options.propertyToken A property token used to limit the scope of evaluated target activities, optional
-     * @param {String} options.clientReadyCallback A callback that is called when the TargetClient is ready, optional
+     * @param {Object.<String, Function>} options.events An object with event name keys and callback function values, optional
      */
     static create(options) {
       const error = validateClientOptions(options);

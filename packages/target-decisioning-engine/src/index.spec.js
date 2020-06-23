@@ -1,12 +1,14 @@
 import * as HttpStatus from "http-status-codes";
 import TargetDecisioningEngine from "./index";
 import * as constants from "./constants";
+import { SUPPORTED_ARTIFACT_MAJOR_VERSION } from "./constants";
 import Messages from "./messages";
 import {
   DUMMY_ARTIFACT_PAYLOAD,
   DUMMY_ARTIFACT_PAYLOAD_UNSUPPORTED_VERSION
 } from "../test/decisioning-payloads";
-import { SUPPORTED_ARTIFACT_MAJOR_VERSION } from "./constants";
+import { isDefined } from "@adobe/target-tools";
+import { ARTIFACT_DOWNLOAD_FAILED } from "./events";
 
 require("jest-fetch-mock").enableMocks();
 
@@ -34,6 +36,12 @@ const TARGET_REQUEST = {
   }
 };
 
+const CONFIG = {
+  client: "clientId",
+  organizationId: "orgId",
+  maximumWaitReady: 500
+};
+
 describe("TargetDecisioningEngine", () => {
   let decisioning;
 
@@ -43,17 +51,18 @@ describe("TargetDecisioningEngine", () => {
   });
 
   afterEach(() => {
-    decisioning.stopPolling();
-    decisioning = undefined;
+    if (isDefined(decisioning)) {
+      decisioning.stopPolling();
+      decisioning = undefined;
+    }
   });
 
   it("initializes", async () => {
     fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
 
     decisioning = await TargetDecisioningEngine({
-      client: "clientId",
-      organizationId: "orgId",
-      pollingInterval: 0 // do not poll
+      ...CONFIG,
+      pollingInterval: 0
     });
 
     expect(typeof decisioning.getOffers).toBe("function");
@@ -74,8 +83,7 @@ describe("TargetDecisioningEngine", () => {
     fetch.mockResponses(...responses);
 
     decisioning = await TargetDecisioningEngine({
-      client: "clientId",
-      organizationId: "orgId",
+      ...CONFIG,
       pollingInterval: 5
     });
 
@@ -98,7 +106,10 @@ describe("TargetDecisioningEngine", () => {
     }, 7);
   });
 
-  it("getOffers provides an error if the artifact is not available", async () => {
+  it("provides an error if the artifact is not available", done => {
+    expect.assertions(3);
+    const eventEmitter = jest.fn();
+
     fetch.mockResponses(
       ["", { status: HttpStatus.UNAUTHORIZED }],
       ["", { status: HttpStatus.NOT_FOUND }],
@@ -113,26 +124,31 @@ describe("TargetDecisioningEngine", () => {
       ["", { status: HttpStatus.INTERNAL_SERVER_ERROR }]
     );
 
-    decisioning = await TargetDecisioningEngine({
-      client: "someClientId",
-      organizationId: "someOrgId",
-      pollingInterval: 0
-    });
-
-    await expect(
-      decisioning.getOffers({
-        request: TARGET_REQUEST,
-        sessionId: "dummy_session"
+    TargetDecisioningEngine({
+      ...CONFIG,
+      pollingInterval: 0,
+      eventEmitter
+    })
+      .then(instance => {
+        decisioning = instance;
       })
-    ).rejects.toEqual(new Error(Messages.ARTIFACT_NOT_AVAILABLE));
+      .catch(err => {
+        expect(err).toEqual(new Error(Messages.ARTIFACT_NOT_AVAILABLE));
+      });
+
+    setTimeout(() => {
+      expect(eventEmitter).toHaveBeenCalledTimes(11);
+
+      expect(eventEmitter.mock.calls[0][0]).toEqual(ARTIFACT_DOWNLOAD_FAILED);
+      done();
+    }, 1000);
   });
 
   it("getOffers resolves", async () => {
     fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
 
     decisioning = await TargetDecisioningEngine({
-      client: "someClientId",
-      organizationId: "someOrgId",
+      ...CONFIG,
       pollingInterval: 0
     });
 
@@ -150,8 +166,7 @@ describe("TargetDecisioningEngine", () => {
     );
 
     decisioning = await TargetDecisioningEngine({
-      client: "someClientId",
-      organizationId: "someOrgId",
+      ...CONFIG,
       pollingInterval: 0
     });
 

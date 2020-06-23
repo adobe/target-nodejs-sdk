@@ -1,10 +1,18 @@
-import { getLogger, isDefined, isUndefined } from "@adobe/target-tools";
+import {
+  getLogger,
+  isDefined,
+  isUndefined,
+  timeLimitExceeded
+} from "@adobe/target-tools";
 import { createDecisioningContext } from "./contextProvider";
 import DecisionProvider from "./decisionProvider";
 import ArtifactProvider from "./artifactProvider";
 import Messages from "./messages";
 import { hasRemoteDependency, matchMajorVersion } from "./utils";
-import { SUPPORTED_ARTIFACT_MAJOR_VERSION } from "./constants";
+import {
+  DEFAULT_MAXIMUM_WAIT_READY,
+  SUPPORTED_ARTIFACT_MAJOR_VERSION
+} from "./constants";
 import { validDeliveryRequest } from "./requestProvider";
 import { TraceProvider } from "./traceProvider";
 
@@ -13,6 +21,8 @@ import { TraceProvider } from "./traceProvider";
  * @param {import("../types/DecisioningConfig").DecisioningConfig} config Options map, required
  */
 export default async function TargetDecisioningEngine(config) {
+  const { maximumWaitReady = DEFAULT_MAXIMUM_WAIT_READY } = config;
+  const initTime = new Date().getTime();
   const logger = getLogger(config.logger);
 
   const artifactProvider = await ArtifactProvider({
@@ -72,11 +82,33 @@ export default async function TargetDecisioningEngine(config) {
     );
   }
 
-  return Promise.resolve({
-    getRawArtifact: () => artifact,
-    stopPolling: () => artifactProvider.stopPolling(),
-    getOffers: targetOptions => getOffers(targetOptions),
-    hasRemoteDependency: request => hasRemoteDependency(artifact, request),
-    isReady: () => isDefined(artifact)
+  function isReady() {
+    return isDefined(artifact);
+  }
+
+  function whenReady(maximumWaitTime = DEFAULT_MAXIMUM_WAIT_READY) {
+    return new Promise((resolve, reject) => {
+      (function wait(count) {
+        if (timeLimitExceeded(initTime, maximumWaitTime)) {
+          reject(new Error(Messages.ARTIFACT_NOT_AVAILABLE));
+          return;
+        }
+        if (isReady()) {
+          resolve();
+          return;
+        }
+        setTimeout(() => wait(count + 1), 100);
+      })(0);
+    });
+  }
+
+  return whenReady(maximumWaitReady).then(() => {
+    return {
+      getRawArtifact: () => artifact,
+      stopPolling: () => artifactProvider.stopPolling(),
+      getOffers: targetOptions => getOffers(targetOptions),
+      hasRemoteDependency: request => hasRemoteDependency(artifact, request),
+      isReady
+    };
   });
 }

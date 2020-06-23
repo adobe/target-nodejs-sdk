@@ -88,7 +88,9 @@ const targetRequest = {
 const targetClientOptions = {
   client: "someClientId",
   organizationId: "someOrgId",
-  targetLocationHint: "28"
+  targetLocationHint: "28",
+  pollingInterval: 0,
+  maximumWaitReady: 500
 };
 
 describe("execution mode", () => {
@@ -108,7 +110,7 @@ describe("execution mode", () => {
       return new Promise(done => {
         fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG));
 
-        async function clientReadyCallback() {
+        async function clientReady() {
           const result = await client.getOffers({
             request: {
               ...targetRequest,
@@ -143,9 +145,8 @@ describe("execution mode", () => {
 
         client = TargetClient.create({
           executionMode: EXECUTION_MODE.LOCAL,
-          pollingInterval: 0,
           ...targetClientOptions,
-          clientReadyCallback
+          events: { clientReady }
         });
       });
     });
@@ -156,7 +157,7 @@ describe("execution mode", () => {
       return new Promise(done => {
         fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG));
 
-        async function clientReadyCallback() {
+        async function clientReady() {
           const result = await client.getOffers({
             request: {
               ...targetRequest,
@@ -183,9 +184,8 @@ describe("execution mode", () => {
 
         client = TargetClient.create({
           executionMode: EXECUTION_MODE.LOCAL,
-          pollingInterval: 0,
           ...targetClientOptions,
-          clientReadyCallback
+          events: { clientReady }
         });
       });
     });
@@ -199,7 +199,7 @@ describe("execution mode", () => {
           .once(JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG))
           .once(JSON.stringify(DELIVERY_RESPONSE));
 
-        async function clientReadyCallback() {
+        async function clientReady() {
           const result = await client.getOffers({
             request: {
               ...targetRequest,
@@ -234,9 +234,8 @@ describe("execution mode", () => {
 
         client = TargetClient.create({
           executionMode: EXECUTION_MODE.HYBRID,
-          pollingInterval: 0,
           ...targetClientOptions,
-          clientReadyCallback
+          events: { clientReady }
         });
       });
     });
@@ -247,7 +246,7 @@ describe("execution mode", () => {
       return new Promise(done => {
         fetch.once(JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG));
 
-        async function clientReadyCallback() {
+        async function clientReady() {
           const result = await client.getOffers({
             request: {
               ...targetRequest,
@@ -274,9 +273,8 @@ describe("execution mode", () => {
 
         client = TargetClient.create({
           executionMode: EXECUTION_MODE.HYBRID,
-          pollingInterval: 0,
           ...targetClientOptions,
-          clientReadyCallback
+          events: { clientReady }
         });
       });
     });
@@ -288,28 +286,29 @@ describe("execution mode", () => {
       return new Promise(done => {
         client = TargetClient.create({
           executionMode: EXECUTION_MODE.REMOTE,
-          pollingInterval: 0,
           ...targetClientOptions,
-          clientReadyCallback: () => {
-            client
-              .getOffers({
-                executionMode: EXECUTION_MODE.LOCAL,
-                request: {
-                  ...targetRequest,
-                  prefetch: {
-                    mboxes: [
-                      {
-                        name: "jason-flags",
-                        index: 1
-                      }
-                    ]
+          events: {
+            clientReady: () => {
+              client
+                .getOffers({
+                  executionMode: EXECUTION_MODE.LOCAL,
+                  request: {
+                    ...targetRequest,
+                    prefetch: {
+                      mboxes: [
+                        {
+                          name: "jason-flags",
+                          index: 1
+                        }
+                      ]
+                    }
                   }
-                }
-              })
-              .catch(err => {
-                expect(err).toEqual(new Error(DECISIONING_ENGINE_NOT_READY));
-                done();
-              });
+                })
+                .catch(err => {
+                  expect(err).toEqual(new Error(DECISIONING_ENGINE_NOT_READY));
+                  done();
+                });
+            }
           }
         });
       });
@@ -322,34 +321,35 @@ describe("execution mode", () => {
       return new Promise(done => {
         client = TargetClient.create({
           executionMode: EXECUTION_MODE.REMOTE,
-          pollingInterval: 0,
           ...targetClientOptions,
-          clientReadyCallback: () => {
-            client
-              .getOffers({
-                executionMode: EXECUTION_MODE.HYBRID,
-                request: {
-                  ...targetRequest,
-                  prefetch: {
-                    mboxes: [
-                      {
-                        name: "jason-flags",
-                        index: 1
-                      }
-                    ]
-                  }
-                }
-              })
-              .then(result => {
-                expect(result).toEqual(
-                  expect.objectContaining({
-                    meta: {
-                      executionMode: EXECUTION_MODE.REMOTE
+          events: {
+            clientReady: () => {
+              client
+                .getOffers({
+                  executionMode: EXECUTION_MODE.HYBRID,
+                  request: {
+                    ...targetRequest,
+                    prefetch: {
+                      mboxes: [
+                        {
+                          name: "jason-flags",
+                          index: 1
+                        }
+                      ]
                     }
-                  })
-                );
-                done();
-              });
+                  }
+                })
+                .then(result => {
+                  expect(result).toEqual(
+                    expect.objectContaining({
+                      meta: {
+                        executionMode: EXECUTION_MODE.REMOTE
+                      }
+                    })
+                  );
+                  done();
+                });
+            }
           }
         });
       });

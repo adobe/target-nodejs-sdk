@@ -1042,20 +1042,20 @@ const CONFIG = {
     client: "acmeclient",
     organizationId: "1234567890@AdobeOrg",
     executionMode: "local",
-    clientReadyCallback: targetReady
+    events: {clientReady: targetClientReady }
 };
 
 const targetClient = TargetClient.create(CONFIG);
 
-function targetReady() {
+function targetClientReady() {
     // make getOffers requests
     // targetClient.getOffers({...})            
 }
 ```
 
-Once configured in this way, and after the `clientReadyCallback` has been invoked, your app can make standard SDK method calls and get offers that are determined locally.
+Once configured in this way, and after the `clientReady` event callback has been invoked, your app can make standard SDK method calls and get offers that are determined locally.
 
-Using the `clientReadyCallback` is optional, but if calls to the `getOffers` method are made prior to the decisioning artifact being downloaded, an error will be returned.  That's why we recommend using the `clientReadyCallback` if possible.
+Using the `clientReady` event callback is optional, but if calls to the `getOffers` method are made prior to the decisioning artifact being downloaded, an error will be returned.  That's why we recommend using the `clientReady` event callback if possible.
 
 ### Limitations
 
@@ -1216,7 +1216,48 @@ The `options` object has the following structure:
 | environmentId             |  Number  | No      | production                       | Target environment ID to use for Delivery Api requests |
 | environment               |  String  | No      | production                       | Target environment name to be used for local decisioning (production, staging or development)  |
 | cdnEnvironment            |  String  | No      | production                       | CDN host environment name to be used for local decisioning (production or staging) |
-| clientReadyCallback       |  Function| No      | None                             | An optional callback function that is invoked when the SDK is ready for method calls.  Recommended when using local execution mode. |
+| events                    |  Object.<String, Function>  | No      | None          | An optional object with event name keys and callback function values. |
+
+##### Events
+
+The `options.events` object is an optional object with event name keys and callback function values.  It can be used to subscribe to various events that occur within the SDK.  For instance the `clientReady` event may be used with a callback function that will be invoked when the SDK is ready for method calls.  
+
+When the callback function is called, an event object is passed in.  Each event has a `type` corresponding to the event name.  And some events include additional properties with pertinent information.
+
+| Event Name (type)         | Description                                                                        | Additional Event Properties |
+|---------------------------|------------------------------------------------------------------------------------|-----------------------------|
+| clientReady               | Emitted when the artifact has downloaded and the SDK is ready for getOffers calls. Recommended when using local execution mode. | None |
+| artifactDownloadSucceeded | Emitted each time a new artifact is downloaded. | artifactPayload, artifactLocation |                                    |
+| artifactDownloadFailed    | Emitted each time an artifact fails to download.                                   | artifactLocation, error |
+
+```js
+
+const targetClient = TargetClient.create({
+    client: "acmeclient",
+    organizationId: "1234567890@AdobeOrg",
+    executionMode: "local",
+    events: {
+        clientReady: onTargetClientReady,
+        artifactDownloadSucceeded: onArtifactDownloadSucceeded,
+        artifactDownloadFailed: onArtifactDownloadFailed
+    }
+});
+
+function onTargetClientReady() {
+    // make getOffers requests
+    targetClient.getOffers({...})            
+}
+
+function onArtifactDownloadSucceeded(event) {
+    console.log(`The local decisioning artifact was successfully downloaded from '${event.artifactLocation}'`);
+    // optionally do something with event.artifactPayload, like persist it
+}
+
+function onArtifactDownloadFailed(event) {
+    console.log(`The local decisioning artifact failed to download from '${event.artifactLocation}' with the following error message: ${event.error.message}`);
+}
+
+```
 
 #### TargetClient.getOffers
 

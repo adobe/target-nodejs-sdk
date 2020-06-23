@@ -146,3 +146,10 @@ export function getProperty(config = {}, request = {}, logger) {
       }
     : undefined;
 }
+
+export function timeLimitExceeded(startTimeMillis, limit = -1) {
+  if (limit === -1) return false;
+
+  const now = new Date().getTime();
+  return now - startTimeMillis > limit;
+}

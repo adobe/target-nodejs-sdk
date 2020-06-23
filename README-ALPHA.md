@@ -61,12 +61,12 @@ The first way is by specifying `artifactPayload` in the config options.  This is
 const CONFIG = {
     executionMode: "local",
     artifactPayload: require("./sampleRules"), // loads sampleRules.json and provides it to TargetClient
-    clientReadyCallback: targetReady
+    events: { clientReady: onTargetClientReady }
 };
 
 const targetClient = TargetClient.create(CONFIG);
 
-function targetReady() {
+function onTargetClientReady() {
     // make getOffers requests
     // targetClient.getOffers({...})            
 }
@@ -78,12 +78,12 @@ The second way is by specifying `artifactLocation` in the config options.  When 
 const CONFIG = {
     executionMode: "local",
     artifactLocation: "http://cdn.mywebsite.com/path/to/decisioning/rules.json", // provide a URL for the SDK to load the artifact from
-    clientReadyCallback: targetReady
+    events: { clientReady: onTargetClientReady }
 };
 
 const targetClient = TargetClient.create(CONFIG);
 
-function targetReady() {
+function onTargetClientReady() {
     // make getOffers requests
     // targetClient.getOffers({...})            
 }

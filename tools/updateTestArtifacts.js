@@ -5,7 +5,10 @@ const prettier = require("prettier");
 
 const clientId = "adobesummit2018";
 const environment = "production";
-const artifactUrl = `https://assets.adobetarget.com/${clientId}/${environment}/v1/rules.json`;
+const AKAMAI_BASE = "https://assets.adobetarget.com";
+const S3_BASE = "https://target-local-decisioning.s3.us-east-2.amazonaws.com";
+
+const artifactUrl = `${S3_BASE}/${clientId}/${environment}/v1/rules.json`;
 
 const outputFolders = [
   path.resolve(__dirname, "../packages/target-decisioning-engine/test"),

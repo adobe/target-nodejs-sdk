@@ -11,6 +11,10 @@ import {
 import Messages from "./messages";
 import { DUMMY_ARTIFACT_PAYLOAD } from "../test/decisioning-payloads";
 import { determineArtifactLocation } from "./utils";
+import {
+  ARTIFACT_DOWNLOAD_FAILED,
+  ARTIFACT_DOWNLOAD_SUCCEEDED
+} from "./events";
 
 require("jest-fetch-mock").enableMocks();
 
@@ -33,7 +37,8 @@ describe("artifactProvider", () => {
     provider = await ArtifactProvider({
       client: "clientId",
       organizationId: "orgId",
-      artifactPayload: DUMMY_ARTIFACT_PAYLOAD
+      artifactPayload: DUMMY_ARTIFACT_PAYLOAD,
+      maximumWaitReady: 500
     });
     expect(provider).not.toBeUndefined();
     expect(provider.getArtifact()).toEqual(DUMMY_ARTIFACT_PAYLOAD);
@@ -284,6 +289,58 @@ describe("artifactProvider", () => {
           done.fail();
           break;
       }
+    });
+  });
+
+  it("emits artifactDownloadSucceeded event", async done => {
+    fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
+    expect.assertions(2);
+
+    function eventEmitter(eventName, payload) {
+      expect(eventName).toEqual(ARTIFACT_DOWNLOAD_SUCCEEDED);
+      expect(payload).toEqual(
+        expect.objectContaining({
+          artifactLocation:
+            "https://assets.adobetarget.com/clientId/production/v1/rules.json",
+          artifactPayload: expect.any(Object)
+        })
+      );
+      setTimeout(() => done(), 100);
+    }
+
+    provider = await ArtifactProvider({
+      client: "clientId",
+      organizationId: "orgId",
+      pollingInterval: 0,
+      eventEmitter
+    });
+  });
+
+  it("emits artifactDownloadFailed event", async done => {
+    fetch.mockResponse("", { status: HttpStatus.FORBIDDEN });
+
+    expect.assertions(22); // (1 + 10 retries) * 2 assertions
+
+    function eventEmitter(eventName, payload) {
+      expect(eventName).toEqual(ARTIFACT_DOWNLOAD_FAILED);
+      expect(payload).toEqual(
+        expect.objectContaining({
+          artifactLocation:
+            "https://assets.adobetarget.com/clientId/production/v1/rules.json",
+          error: expect.objectContaining({
+            stack: expect.any(String),
+            message: "Forbidden"
+          })
+        })
+      );
+      setTimeout(() => done(), 100);
+    }
+
+    provider = await ArtifactProvider({
+      client: "clientId",
+      organizationId: "orgId",
+      pollingInterval: 0,
+      eventEmitter
     });
   });
 });

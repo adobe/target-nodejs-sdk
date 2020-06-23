@@ -9,7 +9,8 @@ import {
   requiresDecisioningEngine,
   getProperty,
   getPropertyToken,
-  isDefined
+  isDefined,
+  timeLimitExceeded
 } from "./utils";
 import { ChannelType } from "../delivery-api-client";
 import { EXECUTION_MODE } from "./enums";
@@ -245,5 +246,14 @@ describe("utils", () => {
     expect(getPropertyToken({})).toEqual(undefined);
     expect(getPropertyToken({ token: undefined })).toEqual(undefined);
     expect(getPropertyToken({ token: "abc_xyz" })).toEqual("abc_xyz");
+  });
+
+  it("timeLimitExceeded", () => {
+    const now = new Date().getTime();
+
+    expect(timeLimitExceeded(now - 1100, 1000)).toBeTruthy();
+    expect(timeLimitExceeded(now - 1100, 500)).toBeTruthy();
+    expect(timeLimitExceeded(now - 1100, 2000)).toBeFalsy();
+    expect(timeLimitExceeded(now, -1)).toBeFalsy();
   });
 });
