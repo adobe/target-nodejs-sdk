@@ -82,8 +82,9 @@ describe("artifactProvider", () => {
     }, 100);
   });
 
-  it("does not poll if artifact payload is provided", async done => {
+  it("polls even if artifactPayload is provided", async done => {
     fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
+    expect.assertions(1);
 
     provider = await ArtifactProvider({
       client: "clientId",
@@ -97,7 +98,7 @@ describe("artifactProvider", () => {
     provider.subscribe(mockListener);
 
     setTimeout(() => {
-      expect(mockListener.mock.calls.length).toBe(0);
+      expect(mockListener.mock.calls.length).toBeGreaterThanOrEqual(8);
       done();
     }, 100);
   });
@@ -184,6 +185,8 @@ describe("artifactProvider", () => {
   });
 
   it("gets a cached version based on ETag", async done => {
+    expect.assertions(6);
+
     const eTagIdentifier = "the_original_eTag";
     const eTagIdentifierNew = "the_new_eTag";
 
@@ -256,40 +259,24 @@ describe("artifactProvider", () => {
         }
       );
 
+    const artifactUpdated = jest.fn();
+
     provider = await ArtifactProvider({
       client: "clientId",
       organizationId: "orgId",
-      pollingInterval: 500,
+      pollingInterval: 100,
       artifactLocation: "rules.json"
     });
 
-    // here's what we expect...
-    // 1. first request is an original artifact
-    // 2. second request is a cached artifact
-    // 3. third request is a new artifact
-    // 4. fourth request is a cached artifact
+    provider.subscribe(artifactUpdated);
 
     expect(provider.getArtifact()).toEqual(FIRST_PAYLOAD); // first time getting artifact on ArtifactProvider#initialize
 
-    provider.subscribe(artifact => {
-      switch (fetch.mock.calls.length) {
-        case 2: // second time getting artifact, should be cached
-          expect(artifact).not.toEqual(IRRELEVANT_PAYLOAD);
-          expect(artifact).toEqual(FIRST_PAYLOAD); // this is the cached response body
-          break;
-        case 3: // third time getting artifact is new version
-          expect(artifact).toEqual(NEW_VERSION_PAYLOAD);
-          break;
-        case 4: // fourth time getting artifact, should be cached new version
-          expect(artifact).not.toEqual(IRRELEVANT_PAYLOAD);
-          expect(artifact).toEqual(NEW_VERSION_PAYLOAD); // this is the cached response body
-          done();
-          break;
-        default:
-          done.fail();
-          break;
-      }
-    });
+    setTimeout(() => {
+      expect(artifactUpdated).toHaveBeenCalledTimes(1); // only one update to the artifact after the initial
+      expect(artifactUpdated.mock.calls[0][0]).toEqual(NEW_VERSION_PAYLOAD);
+      done();
+    }, 350);
   });
 
   it("emits artifactDownloadSucceeded event", async done => {

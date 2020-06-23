@@ -77,6 +77,17 @@ async function ArtifactProvider(config) {
     error => eventEmitter(ARTIFACT_DOWNLOAD_FAILED, { artifactLocation, error })
   );
 
+  function emitNewArtifact(artifactPayload) {
+    eventEmitter(ARTIFACT_DOWNLOAD_SUCCEEDED, {
+      artifactLocation,
+      artifactPayload
+    });
+
+    Object.values(subscriptions).forEach(subscriptionFunc =>
+      subscriptionFunc(artifactPayload)
+    );
+  }
+
   function fetchArtifact(artifactUrl) {
     const headers = {};
     logger.debug(`${LOG_TAG} fetching artifact - ${artifactUrl}`);
@@ -88,30 +99,32 @@ async function ArtifactProvider(config) {
     return fetchWithRetry(artifactUrl, {
       headers,
       cache: "default"
-    }).then(async res => {
-      logger.debug(`${LOG_TAG} artifact received - status=${res.status}`);
+    })
+      .then(async res => {
+        logger.debug(`${LOG_TAG} artifact received - status=${res.status}`);
 
-      if (res.status === NOT_MODIFIED && lastResponseData) {
-        return lastResponseData;
-      }
-
-      let responseData;
-      if (res.ok && res.status === OK) {
-        responseData = await res.json();
-
-        const etag = res.headers.get("Etag");
-        if (etag != null && isDefined(etag)) {
-          lastResponseData = responseData;
-          lastResponseEtag = etag;
+        if (res.status === NOT_MODIFIED && lastResponseData) {
+          return lastResponseData;
         }
 
-        eventEmitter(ARTIFACT_DOWNLOAD_SUCCEEDED, {
-          artifactLocation,
-          artifactPayload: responseData
-        });
-      }
-      return responseData;
-    });
+        let responseData;
+        if (res.ok && res.status === OK) {
+          responseData = await res.json();
+
+          const etag = res.headers.get("Etag");
+          if (etag != null && isDefined(etag)) {
+            lastResponseData = responseData;
+            lastResponseEtag = etag;
+          }
+
+          emitNewArtifact(responseData);
+        }
+        return responseData;
+      })
+      .catch(err => {
+        const reason = err.message || err.toString();
+        logger.error(Messages.ARTIFACT_FETCH_ERROR(reason));
+      });
   }
 
   function addSubscription(callbackFunc) {
@@ -129,25 +142,13 @@ async function ArtifactProvider(config) {
     ids.forEach(id => removeSubscription(id));
   }
 
-  function emit(data) {
-    Object.values(subscriptions).forEach(subscriptionFunc =>
-      subscriptionFunc(data)
-    );
-  }
-
   function scheduleNextUpdate() {
     if (pollingInterval === 0 || pollingHalted) {
       return;
     }
 
     pollingTimer = setTimeout(async () => {
-      try {
-        artifact = await fetchArtifact(artifactLocation);
-        emit(artifact);
-      } catch (err) {
-        const reason = err ? err.toString() : "unknown reason";
-        logger.error(Messages.ARTIFACT_FETCH_ERROR(reason));
-      }
+      artifact = await fetchArtifact(artifactLocation);
       scheduleNextUpdate();
     }, pollingInterval);
   }
@@ -175,16 +176,10 @@ async function ArtifactProvider(config) {
 
   if (typeof config.artifactPayload === "object") {
     artifact = config.artifactPayload;
-    pollingHalted = true;
   } else {
-    try {
-      artifact = await fetchArtifact(artifactLocation);
-    } catch (err) {
-      const reason = err.message || err.toString();
-      logger.error(Messages.ARTIFACT_FETCH_ERROR(reason));
-    }
-    scheduleNextUpdate();
+    artifact = await fetchArtifact(artifactLocation);
   }
+  scheduleNextUpdate();
 
   const artifactTracer = ArtifactTracer(
     artifactLocation,
