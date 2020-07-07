@@ -121,12 +121,27 @@ export function cloneDeep(obj) {
   return undefined;
 }
 
-export function getCdnBasePath(environment = ENVIRONMENT_PROD) {
-  const env = POSSIBLE_ENVIRONMENTS.includes(environment)
-    ? environment
+/**
+ * @param {import("../types/DecisioningConfig").DecisioningConfig} config
+ * @return {string}
+ */
+export function getCdnBasePath(config) {
+  const cdnEnvironment = getCdnEnvironment(config);
+
+  const env = POSSIBLE_ENVIRONMENTS.includes(cdnEnvironment)
+    ? cdnEnvironment
     : ENVIRONMENT_PROD;
 
   return CDN_BASE[env];
+}
+
+/**
+ * @param {import("../types/DecisioningConfig").DecisioningConfig} config
+ * @return {string}
+ */
+export function getGeoLookupPath(config) {
+  const cdnBasePath = getCdnBasePath(config);
+  return `${cdnBasePath}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/geo/`;
 }
 
 /**
@@ -175,10 +190,9 @@ export function determineArtifactLocation(
 ) {
   const { client, propertyToken } = config;
   const targetEnvironment = getTargetEnvironment(config);
-  const cdnEnvironment = getCdnEnvironment(config);
 
   return [
-    getCdnBasePath(cdnEnvironment),
+    getCdnBasePath(config),
     client,
     targetEnvironment,
     `v${SUPPORTED_ARTIFACT_MAJOR_VERSION}`,

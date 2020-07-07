@@ -14,3 +14,5 @@ export const POSSIBLE_ENVIRONMENTS = [
   ENVIRONMENT_STAGE,
   ENVIRONMENT_DEV
 ];
+
+export const UNKNOWN_IP_ADDRESS = "unknownIpAddress";

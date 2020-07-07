@@ -77,7 +77,7 @@ describe("artifactProvider", () => {
     provider.subscribe(mockListener);
 
     setTimeout(() => {
-      expect(mockListener.mock.calls.length).toBeGreaterThanOrEqual(3);
+      expect(mockListener.mock.calls.length).toBeGreaterThanOrEqual(4);
       done();
     }, 100);
   });
@@ -281,7 +281,7 @@ describe("artifactProvider", () => {
 
   it("emits artifactDownloadSucceeded event", async done => {
     fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
-    expect.assertions(2);
+    expect.assertions(3);
 
     function eventEmitter(eventName, payload) {
       expect(eventName).toEqual(ARTIFACT_DOWNLOAD_SUCCEEDED);

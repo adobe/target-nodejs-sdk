@@ -15,6 +15,7 @@ import {
 } from "./constants";
 import { validDeliveryRequest } from "./requestProvider";
 import { TraceProvider } from "./traceProvider";
+import { GeoProvider } from "./geoProvider";
 
 /**
  * The TargetDecisioningEngine initialize method
@@ -31,6 +32,7 @@ export default async function TargetDecisioningEngine(config) {
   });
 
   let artifact = artifactProvider.getArtifact();
+  let geoContext = artifactProvider.getGeoContext();
 
   // subscribe to new artifacts that are downloaded on the polling interval
   artifactProvider.subscribe(data => {
@@ -41,8 +43,8 @@ export default async function TargetDecisioningEngine(config) {
    * The get offers method
    * @param {import("../types/TargetOptions").TargetOptions} targetOptions
    */
-  function getOffers(targetOptions) {
-    const { request } = targetOptions;
+  async function getOffers(targetOptions) {
+    let { request } = targetOptions;
 
     if (isUndefined(artifact)) {
       return Promise.reject(new Error(Messages.ARTIFACT_NOT_AVAILABLE));
@@ -61,9 +63,15 @@ export default async function TargetDecisioningEngine(config) {
       );
     }
 
+    request = await validDeliveryRequest(
+      request,
+      targetOptions.targetLocationHint,
+      GeoProvider(config, artifact).validGeoRequestContext
+    );
+
     const options = {
       ...targetOptions,
-      request: validDeliveryRequest(request, targetOptions.targetLocationHint)
+      request
     };
 
     const traceProvider = TraceProvider(

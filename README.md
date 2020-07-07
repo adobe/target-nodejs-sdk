@@ -43,7 +43,7 @@ library (ECID).
 
 ### Prerequisites
 
-All currently maintained versions of Node.js are supported (including LTS versions), see 
+All currently maintained versions of Node.js are supported (including LTS versions), see
 [Node.js Releases](https://en.wikipedia.org/wiki/Node.js#Releases).  
 Older Node.js releases may likely work too, but are not officially supported.
 
@@ -56,7 +56,7 @@ npm i @adobe/target-nodejs-sdk -P
 
 ## Super Simple to Use
 
-The Target Node.js SDK has been designed to facilitate interaction with Adobe [Target Delivery API] 
+The Target Node.js SDK has been designed to facilitate interaction with Adobe [Target Delivery API]
 in server-side Node.js environments.
 
 ```js
@@ -83,7 +83,7 @@ try {
 
 ## Target Only
 
-The Target Node.js SDK can be used to retrieve personalized content from Target without forcing the use of ECID. 
+The Target Node.js SDK can be used to retrieve personalized content from Target without forcing the use of ECID.
 
 ```js
 const TargetClient = require("@adobe/target-nodejs-sdk");
@@ -109,11 +109,11 @@ try {
 }
 ```
 
-By default, the Target Node.js SDK generates a new session ID for every Target call, 
+By default, the Target Node.js SDK generates a new session ID for every Target call,
  which might not always be the desired behavior. To ensure that Target properly tracks the user session,
 you should ensure that the Target cookie is sent to the browser after Target content is retrieved
  and the Target cookie value is passed to `getOffers()`/`sendNotifications()` as an incoming request is processed.  
-The original request URL should also be passed in the `address` field of the Delivery request. 
+The original request URL should also be passed in the `address` field of the Delivery request.
 
 In a sample `Express` application, this could look like this:
 
@@ -188,8 +188,8 @@ Full sample: https://github.com/adobe/target-nodejs-sdk-samples/tree/master/targ
 Although using the Target Node.js SDK for fetching content from Target can be powerful, the added value of using ECID
 for user tracking outweighs using Target only. ECID allows leveraging all the cool features of the Adobe Experience Cloud,
 such as audience sharing, analytics integration, etc.  
-Using Target and ECID in an `Express` application is pretty straightforward. ECID has a client-side part, so we'll have 
-to use a simple template that references the ECID client-side JavaScript library. 
+Using Target and ECID in an `Express` application is pretty straightforward. ECID has a client-side part, so we'll have
+to use a simple template that references the ECID client-side JavaScript library.
 
 Here is the sample `Express` application:
 
@@ -283,7 +283,7 @@ app.listen(3000, function () {
 ```
 
 The biggest benefit of using ECID integration is that it allows you to share Audience Manager segments with Target.
-Note that as this is a server-side integration for first-time visitors, you might not have any Audience Manager 
+Note that as this is a server-side integration for first-time visitors, you might not have any Audience Manager
 related data.
 
 Full sample: https://github.com/adobe/target-nodejs-sdk-samples/tree/master/ecid-integration
@@ -376,7 +376,7 @@ app.get("/abtest", async (req, res) => {
         name: "a1-serverside-ab"
       }]
     }};
-    
+
   try {
     const response = await targetClient.getOffers({ request, visitorCookie, targetCookie, customerIds });
     sendSuccessResponse(res, response);
@@ -398,7 +398,7 @@ Full sample: https://github.com/adobe/target-nodejs-sdk-samples/tree/master/ecid
 ## ECID and Analytics Integration
 
 To get the most out of the Target Node.js SDK and to use the powerful analytics capabilities provided by Adobe Analytics,
- you can use the Target, ECID and Analytics combo. 
+ you can use the Target, ECID and Analytics combo.
 
 Using MCID, Analytics, and Target lets you:
 - Use segments from Adobe Audience Manager
@@ -406,7 +406,7 @@ Using MCID, Analytics, and Target lets you:
 - Ensure that all events and success metrics are collected in Analytics
 - Use Analytics' powerful queries and benefit from awesome report visualizations
 
-Here is a simple `Express` application that demonstrates how you can use all three solutions in a single application: 
+Here is a simple `Express` application that demonstrates how you can use all three solutions in a single application:
 
 ```js
 const express = require("express");
@@ -505,15 +505,15 @@ Full sample: https://github.com/adobe/target-nodejs-sdk-samples/tree/master/ecid
 ## ECID, Analytics and at.js Integration
 
 Most of the time Target Node.js SDK will be used in a NodeJS application, such as `Express`, `Hapi`, `Koa`, etc.
-However, with the recent proliferation of SPA frameworks that allow server-side rendering (such as Facebook React, 
+However, with the recent proliferation of SPA frameworks that allow server-side rendering (such as Facebook React,
 Next.js or Angular), there are use cases where server-side code should work in tandem with client-side libraries.
 In Target's case the client-side library is `at.js`.  
-The integration between server-side and client-side is also known as "hybrid" testing mode. 
-The biggest challenge in this case is ensuring that both server-side and client-side Target calls are hitting the same 
+The integration between server-side and client-side is also known as "hybrid" testing mode.
+The biggest challenge in this case is ensuring that both server-side and client-side Target calls are hitting the same
 Target edge cluster. Otherwise, one may end up with different user profiles being created by server-side and client-side
 calls for the same visitor.
 
-To solve this, Target leverages the so-called "location hint" cookie. To be able to use the location hint cookie, the 
+To solve this, Target leverages the so-called "location hint" cookie. To be able to use the location hint cookie, the
 following JavaScript snippet must be added to the rendered page before `at.js` (or before the Target Adobe Launch extension
  is initialized when Adobe Launch tag manager is used):
 
@@ -624,8 +624,8 @@ app.listen(3000, function () {
 });
 ```
 
-Using the `at.js` integration allows use cases where a Target experience is started on the server-side and is continued 
-on the client-side by `at.js`, also known as "hybrid" testing. The downside of this approach is that some amount of 
+Using the `at.js` integration allows use cases where a Target experience is started on the server-side and is continued
+on the client-side by `at.js`, also known as "hybrid" testing. The downside of this approach is that some amount of
 performance degradation may be observed when a NodeJS application that uses the Target Node.js SDK is not geo-distributed
 (as are Target edge clusters).
 
@@ -637,10 +637,10 @@ Full sample: https://github.com/adobe/target-nodejs-sdk-samples/tree/master/ecid
 
 In the previous section, we've showcased "hybrid" Target integration, where both the server-side and the client-side Target
 libraries are hitting the same Target edge cluster, sharing the same Target session and visitor state. However, at.js still
-needs to go over the wire for fetching Target content in the browser, prehiding the whole page BODY until Target offers 
+needs to go over the wire for fetching Target content in the browser, prehiding the whole page BODY until Target offers
 are fetched and applied.
 
-But what if we could prefetch the Target content on the server-side, include it in the page returned to the client, and 
+But what if we could prefetch the Target content on the server-side, include it in the page returned to the client, and
 then just have at.js apply the Target offers immediately, without making another expensive network call?
 Also, in this case at.js will be able to prehide only the specific DOM elements for which Target offers have been fetched
 on the server-side, thus no longer requiring the prehiding of the whole page BODY.
@@ -755,11 +755,11 @@ without firing any network calls against the Target edge. Additionally, at.js wi
 for which Target offers are available in the content fetched server-side, thus positively impacting page load performance
 and end-user experience.
 
-### Important notes 
-- At the moment, at.js v2.2 supports only Page Load and View Prefetch for `serverState` scenarios. Support for mboxes may 
+### Important notes
+- At the moment, at.js v2.2 supports only Page Load and View Prefetch for `serverState` scenarios. Support for mboxes may
 be provided in a future at.js release
 - In case of SPAs using [Target Views and triggerView() at.js API](https://docs.adobe.com/content/help/en/target/using/implement-target/client-side/functions-overview/adobe-target-triggerview-atjs-2.html)
-, at.js will cache the content for all Views prefetched on the server-side and will apply these as soon as each View is 
+, at.js will cache the content for all Views prefetched on the server-side and will apply these as soon as each View is
 triggered via `triggerView()`, again without firing any additional content-fetching calls to Target.
 - When applying `serverState` offers, at.js takes into consideration `pageLoadEnabled` and `viewsEnabled` settings, e.g.
 Page Load offers will not be applied if `pageLoadEnabled` setting is `false`
@@ -772,10 +772,10 @@ See also a SPA demo using `serverState` here: https://github.com/adobe/target-no
 ## Shared ECID and Analytics Integration
 
 By default, the Target Node.js SDK creates a new Visitor instance on each `getOffers` or `sendNotifications` call.  
-In cases when the same Visitor instance needs to be shared across several Target Node.js SDK API calls, this can be 
+In cases when the same Visitor instance needs to be shared across several Target Node.js SDK API calls, this can be
 achieved by explicitly initializing the Visitor instance and passing it in SDK API calls as a `visitor` parameter.  
 
-See important notes on sharing `sessionId`, `visitor` and generating the proper `consumerIds` across multiple 
+See important notes on sharing `sessionId`, `visitor` and generating the proper `consumerIds` across multiple
 Target Node.js SDK calls when processing a single client request in [Multiple API requests](#multiple-api-requests) section.
 
 Here's an `Express` app snippet, exemplifying two concurrent Target Node.js SDK calls:
@@ -863,7 +863,7 @@ const prefetchMboxesRequest = {
 const targetResponse = await targetClient.getOffers({ request: prefetchMboxesRequest });
 ```
 
-A successful response will contain a Target Delivery API response object, which contains prefetched content for the 
+A successful response will contain a Target Delivery API response object, which contains prefetched content for the
 requested mboxes.   
 A sample `targetResponse.response` object may look as follows:
 ```json
@@ -922,7 +922,7 @@ A sample `targetResponse.response` object may look as follows:
 
 Note the mbox `name` and `state` fields, as well as the `eventToken` field, in each of the Target content options. These
 should be provided in the `sendNotifications()` request, as soon as each content option is displayed.  
-Let's consider that the Product1 mbox has been displayed on a non-browser device. The notifications request will look 
+Let's consider that the Product1 mbox has been displayed on a non-browser device. The notifications request will look
 like this:
 ```js
 const mboxNotificationRequest = {
@@ -952,7 +952,7 @@ const notificationResponse = await targetClient.sendNotifications({ request: mbo
 
 The Target Node.js SDK provides a simplified way to to retrieve JSON offers from target and access the attributes of the offer.  This is done using the `getAttributes` method.
 
-In the code sample below, take a look at the `getAttributes` call.  An array of mbox names is passed in.  The result is an attributes object with a few methods that can be used to get offer details. 
+In the code sample below, take a look at the `getAttributes` call.  An array of mbox names is passed in.  The result is an attributes object with a few methods that can be used to get offer details.
 
 The `getValue` method is used to get the `searchProviderId` from the `demo-engineering-flags` mbox offer.
 
@@ -961,24 +961,24 @@ And the `asObject` method is used to get a plain old JSON representation of the 
 ```js
     const targetClient = TargetClient.create(CONFIG);
     const offerAttributes = await targetClient.getAttributes(["demo-engineering-flags"]);
-    
+
 
     //returns just the value of searchProviderId from the mbox offer
-    const searchProviderId = offerAttributes.getValue("demo-engineering-flags", "searchProviderId");	
-    
+    const searchProviderId = offerAttributes.getValue("demo-engineering-flags", "searchProviderId");
+
     //returns a simple JSON object representing the mbox offer
     const engineeringFlags = offerAttributes.asObject("demo-engineering-flags");
-	
+
     //  the value of engineeringFlags looks like this
     //  {
     //      "cdnHostname": "cdn.cloud.corp.net",
     //      "searchProviderId": 143,
     //      "hasLegacyAccess": false
     //  }
-    
+
     const assetUrl = `http://${engineeringFlags.cdnHostname}/path/to/asset`;
 
-	
+
 ```
 
 Note: the `getAttributes` method call also accepts an optional options object as the second parameter.  This is the same options object as is passed into `getOffers`.  It can be used to refine the underlying request made by `getAttributes`.
@@ -1067,7 +1067,7 @@ Some activities are not supported due to audience rules.  Below is a list of aud
 
 | Audience Rule    | Local execution mode | Remote execution mode |
 |------------------|----------------------|-----------------------|
-| Geo              | Not Supported        | Supported             |
+| Geo              | Supported            | Supported             |
 | Network          | Not Supported        | Supported             |
 | Mobile           | Not Supported        | Supported             |
 | Custom           | Supported            | Supported             |
@@ -1193,8 +1193,8 @@ Check out the full sample here: https://github.com/adobe/target-nodejs-sdk-sampl
 
 #### TargetClient.create
 
-`TargetClient.create(options: Object): TargetClient` creates an instance of the Target Node.js client. 
- 
+`TargetClient.create(options: Object): TargetClient` creates an instance of the Target Node.js client.
+
 The `options` object has the following structure:
 
 | Name                      | Type     |Required | Default                          | Description                                |
@@ -1277,7 +1277,7 @@ The `options` object has the following structure:
 | visitor                  | Object   |  No       | new VisitorId | Supply an external VisitorId instance      |
 
 
-The `request` object should conform to [Target Delivery API] request specification. 
+The `request` object should conform to [Target Delivery API] request specification.
 
 The Promise returned by `TargetClient.getOffers()` has the following structure:
 
@@ -1315,7 +1315,7 @@ The `status` object used for indicating the status of the target response has th
 
 `TargetClient.getAttributes(mboxNames: Array<String>, options: Object): Promise` is used to fetch JSON offers from Target and easily read attributes.  It is especially useful as a feature flag mechanism.  For instance, imagine a target AB activity (mbox name: `featuresFlags`) with JSON offer content.  Developers can find the JSON values within a getOffers response object, or alternatively, the getAttributes method can be used to simplify getting at those attribute values.  
 
-getattributes accepts the following parameters: 
+getattributes accepts the following parameters:
 
 | Name                     | Type          | Required  | Default | Description                                      |
 |--------------------------|---------------|-----------|---------|--------------------------------------------------|
@@ -1338,13 +1338,13 @@ for previously prefetched mboxes/views.
 **Note:** this API should only be used when the prefetched Target content is displayed in non-browser environments/devices,
 where at.js cannot be deployed. For content displayed in supported browsers, at.js will handle sending of notifications
 for content prefetched on the server-side and delivered via serverState.  
-The arguments and return value are the same as for [TargetClient.getOffers](#targetclientgetoffers). 
+The arguments and return value are the same as for [TargetClient.getOffers](#targetclientgetoffers).
 Note that `notifications` array must be present in the provided [Target Delivery API] request (`request` option).  
 
 #### TargetClient utility accessors
 
 `TargetClient.getVisitorCookieName(organizationId: string): string` is used to retrieve the ECID cookie name.
- 
+
 `TargetClient.TargetCookieName: string` returns the Target cookie name.
 
 `TargetClient.TargetLocationHintCookieName: string` returns the Target location hint cookie name.
@@ -1355,13 +1355,13 @@ Note that `notifications` array must be present in the provided [Target Delivery
 
 ## Multiple API requests
 
-When using the Target Node.js SDK to service an incoming client request, a single `getOffers()` call with multiple 
+When using the Target Node.js SDK to service an incoming client request, a single `getOffers()` call with multiple
 mboxes/views should generally be preferred over multiple `getOffers()` calls with a shared Visitor instance.
 However, in cases when there's a need to call Target Node.js SDK API methods more than once when servicing a client request,
 the following considerations should be taken into account:
 
 * **Session Id** - `sessionId` option is not required for a single Target Node.js SDK API call. However, when several API
-calls are made, the same `sessionId` value should be supplied (provided there's no Target cookie present in the client-side 
+calls are made, the same `sessionId` value should be supplied (provided there's no Target cookie present in the client-side
 request). The supplied `sessionId` should be a randomly generated UUID string.
 
 * **Visitor** - By default, the Target Node.js SDK instantiates a new ECID Visitor instance internally on each API call.
@@ -1386,8 +1386,8 @@ targetClient.getOffers({ request: secondRequest, targetCookie, sessionId, visito
 ```
 In this case, the two calls will not be stitched together, and a different SDID value will be generated for the second call.
 
-Check out [Shared ECID and Analytics Integration](#shared-ecid-and-analytics-integration) for an example of making 
-multiple Target Node.js SDK API calls. 
+Check out [Shared ECID and Analytics Integration](#shared-ecid-and-analytics-integration) for an example of making
+multiple Target Node.js SDK API calls.
 
 ---
 

@@ -21,17 +21,9 @@ const targetRequest = {
   },
   context: {
     channel: "web",
-    mobilePlatform: null,
-    application: null,
-    screen: null,
-    window: null,
-    browser: null,
     address: {
-      url: "http://local-target-test:8080/",
-      referringUrl: null
+      url: "http://local-target-test:8080/"
     },
-    geo: null,
-    timeOffsetInMinutes: null,
     userAgent:
       "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0",
     beacon: false

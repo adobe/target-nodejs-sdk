@@ -3,7 +3,7 @@
   "meta": {
     "clientCode": "adobesummit2018",
     "environment": "production",
-    "generatedAt": "2020-06-23T17:36:30.886Z"
+    "generatedAt": "2020-06-23T22:29:36.910Z"
   },
   "globalMbox": "target-global-mbox",
   "geoTargetingEnabled": true,
@@ -4829,6 +4829,38 @@
                 "type": "html",
                 "eventToken": "XuE4szTFZRpIcF0U3cyvzAreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": "<pre>all visitors</pre>"
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "352314-2",
+          "activityId": 352314,
+          "meta": {
+            "activityId": 352314,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "locationId": 2,
+            "audienceIds": [5814640]
+          },
+          "condition": { "in": ["local", { "var": "page.url_lc" }] },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "LYSLkM5nm5JpRAUx8Meg/pNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "#top-menu",
+                    "cssSelector": "${cssSelector}",
+                    "content": "${offerContent}"
+                  }
+                ]
               }
             ],
             "metrics": []

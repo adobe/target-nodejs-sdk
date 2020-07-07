@@ -1,5 +1,6 @@
 export interface Browser {
     host?: string;
+    language?: string;
     webGLRenderer?: string;
 }
 export declare function BrowserFromJSON(json: any): Browser;

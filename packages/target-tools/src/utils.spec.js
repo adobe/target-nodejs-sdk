@@ -10,7 +10,8 @@ import {
   getProperty,
   getPropertyToken,
   isDefined,
-  timeLimitExceeded
+  timeLimitExceeded,
+  isValidIpAddress
 } from "./utils";
 import { ChannelType } from "../delivery-api-client";
 import { EXECUTION_MODE } from "./enums";
@@ -255,5 +256,15 @@ describe("utils", () => {
     expect(timeLimitExceeded(now - 1100, 500)).toBeTruthy();
     expect(timeLimitExceeded(now - 1100, 2000)).toBeFalsy();
     expect(timeLimitExceeded(now, -1)).toBeFalsy();
+  });
+
+  it("isValidIpAddress", () => {
+    expect(isValidIpAddress(undefined)).toEqual(false);
+    expect(isValidIpAddress("")).toEqual(false);
+    expect(isValidIpAddress("70.25.14.5")).toEqual(true);
+    expect(isValidIpAddress("2001:cdba:0000:0000:0000:0000:3257:9652")).toEqual(
+      true
+    );
+    expect(isValidIpAddress("invalid_ip")).toEqual(false);
   });
 });

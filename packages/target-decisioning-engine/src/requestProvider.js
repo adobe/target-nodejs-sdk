@@ -53,11 +53,24 @@ export function validVisitorId(visitorId, targetLocationHint) {
  *
  * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} request
  * @param {String} targetLocationHint
+ * @param {Function} validGeoRequestContext
  * @returns {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest}
  */
-export function validDeliveryRequest(request, targetLocationHint) {
+export async function validDeliveryRequest(
+  request,
+  targetLocationHint,
+  validGeoRequestContext
+) {
+  const { context } = request;
+
+  const geo = await validGeoRequestContext(context.geo || {});
+
   return {
     ...request,
+    context: {
+      ...context,
+      geo
+    },
     id: validVisitorId(request.id, targetLocationHint),
     requestId: request.requestId || createUUID()
   };

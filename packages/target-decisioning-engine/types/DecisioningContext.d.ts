@@ -1,3 +1,11 @@
+export interface GeoContext {
+  country: string;
+  region: string;
+  city: string;
+  latitude: number;
+  longitude: number;
+}
+
 export interface UserContext {
   browserType: string;
   platform: string;
@@ -35,4 +43,5 @@ export interface DecisioningContext {
   page: PageContext;
   referring: PageContext;
   mbox: MboxContext;
+  geo: GeoContext;
 }

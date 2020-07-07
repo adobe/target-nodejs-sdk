@@ -3,7 +3,6 @@ import { ChannelType } from "@adobe/target-tools/delivery-api-client";
 import { isDefined } from "@adobe/target-tools";
 import { parseURL } from "./utils";
 import Messages from "./messages";
-
 /**
  * @type { import("@adobe/target-tools/delivery-api-client/models/Context").Context }
  */
@@ -88,6 +87,20 @@ export function createMboxContext(mboxRequest) {
   };
 }
 
+/**
+ * @param { import("@adobe/target-tools/delivery-api-client/models/Geo").Geo } geoContext
+ * @return { import("../types/DecisioningContext").GeoContext}
+ */
+export function createGeoContext(geoContext = {}) {
+  return {
+    country: geoContext.countryCode,
+    region: geoContext.stateCode,
+    city: geoContext.city,
+    latitude: geoContext.latitude,
+    longitude: geoContext.longitude
+  };
+}
+
 function createTimingContext() {
   const now = new Date();
 
@@ -117,6 +130,7 @@ export function createDecisioningContext(deliveryRequest) {
     ...createTimingContext(),
     user: createBrowserContext(context),
     page: createPageContext(context.address),
-    referring: createReferringContext(context.address)
+    referring: createReferringContext(context.address),
+    geo: createGeoContext(context.geo || {})
   };
 }

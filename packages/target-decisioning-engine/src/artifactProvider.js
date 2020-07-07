@@ -18,8 +18,10 @@ import { ArtifactTracer } from "./traceProvider";
 import { determineArtifactLocation } from "./utils";
 import {
   ARTIFACT_DOWNLOAD_FAILED,
-  ARTIFACT_DOWNLOAD_SUCCEEDED
+  ARTIFACT_DOWNLOAD_SUCCEEDED,
+  GEO_LOCATION_UPDATED
 } from "./events";
+import { createGeoObject } from "./geoProvider";
 
 const LOG_TAG = `${LOG_PREFIX}.ArtifactProvider`;
 const NOT_MODIFIED = 304;
@@ -58,6 +60,7 @@ async function ArtifactProvider(config) {
   let pollingTimer;
 
   let artifact;
+  let geoContext = {};
 
   const subscriptions = {};
   let subscriptionCount = 0;
@@ -77,12 +80,14 @@ async function ArtifactProvider(config) {
     error => eventEmitter(ARTIFACT_DOWNLOAD_FAILED, { artifactLocation, error })
   );
 
-  function emitNewArtifact(artifactPayload) {
+  function emitNewArtifact(artifactPayload, geoContext) {
     eventEmitter(ARTIFACT_DOWNLOAD_SUCCEEDED, {
       artifactLocation,
       artifactPayload
     });
-
+    eventEmitter(GEO_LOCATION_UPDATED, {
+      geoContext
+    });
     Object.values(subscriptions).forEach(subscriptionFunc =>
       subscriptionFunc(artifactPayload)
     );
@@ -110,14 +115,13 @@ async function ArtifactProvider(config) {
         let responseData;
         if (res.ok && res.status === OK) {
           responseData = await res.json();
-
           const etag = res.headers.get("Etag");
           if (etag != null && isDefined(etag)) {
             lastResponseData = responseData;
             lastResponseEtag = etag;
           }
-
-          emitNewArtifact(responseData);
+          geoContext = createGeoObject(res);
+          emitNewArtifact(responseData, geoContext);
         }
         return responseData;
       })
@@ -168,10 +172,18 @@ async function ArtifactProvider(config) {
 
   /**
    *
-   * @return { import("../types/DecisioningArtifact").DecisioningArtifact } artifact
+   * @return { import("../types/DecisioningArtifact").DecisioningArtifact }
    */
   function getArtifact() {
     return artifact;
+  }
+
+  /**
+   *
+   * @return { import("@adobe/target-tools/delivery-api-client/models/Context").Geo  }
+   */
+  function getGeoContext() {
+    return geoContext;
   }
 
   if (typeof config.artifactPayload === "object") {
@@ -193,6 +205,7 @@ async function ArtifactProvider(config) {
 
   return Promise.resolve({
     getArtifact: () => getArtifact(),
+    getGeoContext: () => getGeoContext(),
     subscribe: callbackFunc => addSubscription(callbackFunc),
     unsubscribe: id => removeSubscription(id),
     stopPolling: () => stopAllPolling(),

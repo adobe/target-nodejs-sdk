@@ -13,7 +13,8 @@ export {
   requiresDecisioningEngine,
   getProperty,
   getPropertyToken,
-  timeLimitExceeded
+  timeLimitExceeded,
+  isValidIpAddress
 } from "./utils";
 
 export { getLogger } from "./logging";
@@ -25,7 +26,8 @@ export {
   ENVIRONMENT_PROD,
   ENVIRONMENT_STAGE,
   ENVIRONMENT_DEV,
-  POSSIBLE_ENVIRONMENTS
+  POSSIBLE_ENVIRONMENTS,
+  UNKNOWN_IP_ADDRESS
 } from "./constants";
 
 export { EXECUTION_MODE } from "./enums";

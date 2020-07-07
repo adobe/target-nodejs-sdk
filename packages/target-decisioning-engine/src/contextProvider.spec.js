@@ -2,7 +2,8 @@ import * as MockDate from "mockdate";
 import {
   createDecisioningContext,
   createMboxContext,
-  createPageContext
+  createPageContext,
+  createGeoContext
 } from "./contextProvider";
 
 const DELIVERY_REQUEST = {
@@ -89,6 +90,13 @@ describe("contextProvider", () => {
       current_day: expect.any(Number),
       current_time: expect.any(String),
       current_timestamp: expect.any(Number),
+      geo: {
+        latitude: undefined,
+        longitude: undefined,
+        countryCode: undefined,
+        stateCode: undefined,
+        city: undefined
+      },
       page: {
         domain: "",
         domain_lc: "",
@@ -295,5 +303,39 @@ describe("contextProvider", () => {
 
     expect(createMboxContext({})).toEqual({});
     expect(createMboxContext(undefined)).toEqual({});
+  });
+
+  it("produces geo context", () => {
+    expect(
+      createGeoContext({
+        countryCode: "US",
+        stateCode: "CA",
+        city: "SANFRANCISCO",
+        latitude: 37.773972,
+        longitude: -122.431297
+      })
+    ).toEqual({
+      country: "US",
+      region: "CA",
+      city: "SANFRANCISCO",
+      latitude: 37.773972,
+      longitude: -122.431297
+    });
+
+    expect(createGeoContext({})).toEqual({
+      country: undefined,
+      region: undefined,
+      city: undefined,
+      latitude: undefined,
+      longitude: undefined
+    });
+
+    expect(createGeoContext(undefined)).toEqual({
+      country: undefined,
+      region: undefined,
+      city: undefined,
+      latitude: undefined,
+      longitude: undefined
+    });
   });
 });

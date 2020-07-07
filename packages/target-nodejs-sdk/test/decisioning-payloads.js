@@ -22,7 +22,7 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T17:36:30.886Z"
+    generatedAt: "2020-06-23T22:29:36.910Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -140,7 +140,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T17:36:30.886Z"
+    generatedAt: "2020-06-23T22:29:36.910Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -330,7 +330,7 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T17:36:30.886Z"
+    generatedAt: "2020-06-23T22:29:36.910Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -494,7 +494,7 @@ export const DECISIONING_PAYLOAD_PARAMS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T17:36:30.886Z"
+    generatedAt: "2020-06-23T22:29:36.910Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -614,7 +614,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T17:36:30.886Z"
+    generatedAt: "2020-06-23T22:29:36.910Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -830,7 +830,7 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T17:36:30.886Z"
+    generatedAt: "2020-06-23T22:29:36.910Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -938,7 +938,7 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T17:36:30.886Z"
+    generatedAt: "2020-06-23T22:29:36.910Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -1111,7 +1111,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T17:36:30.886Z"
+    generatedAt: "2020-06-23T22:29:36.910Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -1477,7 +1477,7 @@ export const DECISIONING_PAYLOAD_FEATURE_FLAG = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T17:36:30.886Z"
+    generatedAt: "2020-06-23T22:29:36.910Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -1603,7 +1603,7 @@ export const DECISIONING_PAYLOAD_ATJS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T17:36:30.886Z"
+    generatedAt: "2020-06-23T22:29:36.910Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -2026,7 +2026,7 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T17:36:30.886Z"
+    generatedAt: "2020-06-23T22:29:36.910Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -2314,6 +2314,200 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
   }
 };
 
+// https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/greg_geo_test_a_bjun0220201434
+export const DECISIONING_PAYLOAD_GEO = {
+  version: "1.0.0",
+  meta: {
+    clientCode: "adobesummit2018",
+    environment: "production",
+    generatedAt: "2020-06-23T22:29:36.910Z"
+  },
+  globalMbox: "target-global-mbox",
+  geoTargetingEnabled: true,
+  responseTokens: [
+    "activity.id",
+    "activity.name",
+    "experience.id",
+    "geo.country",
+    "geo.city",
+    "geo.state"
+  ],
+  remoteMboxes: ["geo", "target-global-mbox"],
+  remoteViews: ["home"],
+  localMboxes: [
+    "offer2",
+    "multinot",
+    "demo-geo-offer1",
+    "demo-marketing-offer2",
+    "demo-marketing-offer1",
+    "alloy-test-scope-1",
+    "sam-mbox-2",
+    "specialk",
+    "target-global-mbox",
+    "kitty",
+    "geo",
+    "daterange-mbox",
+    "browser-mbox",
+    "onboarding-mbox-1",
+    "demo-engineering-flags",
+    "redundant-mbox",
+    "composite2",
+    "jason-flags",
+    "superfluous-mbox",
+    "expendable-mbox",
+    "local123456",
+    "sam-mbox"
+  ],
+  localViews: ["contact", "home"],
+  rules: {
+    mboxes: {
+      geo: [
+        {
+          ruleKey: "349133",
+          activityId: 349133,
+          meta: {
+            activityId: 349133,
+            activityType: "ab",
+            experienceId: 0,
+            locationName: "geo",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [5753100],
+            offerIds: [651951]
+          },
+          condition: {
+            and: [
+              { "<": [0, { var: "allocation" }, 50] },
+              {
+                and: [
+                  {
+                    or: [
+                      { "==": ["UNITED STATES", { var: "geo.country" }] },
+                      { "==": ["US", { var: "geo.country" }] },
+                      { "==": ["CANADA", { var: "geo.country" }] },
+                      { "==": ["CA", { var: "geo.country" }] }
+                    ]
+                  },
+                  {
+                    or: [
+                      { "==": ["CALIFORNIA", { var: "geo.region" }] },
+                      { "==": ["CA", { var: "geo.region" }] },
+                      { "==": ["BRITISH COLUMBIA", { var: "geo.region" }] },
+                      { "==": ["BC", { var: "geo.region" }] }
+                    ]
+                  },
+                  {
+                    or: [
+                      { "==": ["SAN FRANCISCO", { var: "geo.city" }] },
+                      { "==": ["SANFRANCISCO", { var: "geo.city" }] },
+                      { "==": ["VANCOUVER", { var: "geo.city" }] }
+                    ]
+                  },
+                  { "<": ["37.70", { var: "geo.latitude" }] },
+                  { ">=": ["37.80", { var: "geo.latitude" }] },
+                  { "<=": ["-122.5", { var: "geo.longitude" }] },
+                  { ">": ["-122.3", { var: "geo.longitude" }] },
+                  {
+                    "!": {
+                      or: [
+                        { "==": ["SOUTH SAN FRANCISCO", { var: "geo.city" }] },
+                        { "==": ["SOUTHSANFRANCISCO", { var: "geo.city" }] }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          consequence: {
+            name: "geo",
+            options: [
+              {
+                type: "json",
+                eventToken:
+                  "LYJSFrgKxsp5ZlEO5o4jpGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: { geo: true, exp: "geo.a" }
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          ruleKey: "349133",
+          activityId: 349133,
+          meta: {
+            activityId: 349133,
+            activityType: "ab",
+            experienceId: 1,
+            locationName: "geo",
+            locationType: "mbox",
+            locationId: 0,
+            audienceIds: [5753100],
+            offerIds: [650379]
+          },
+          condition: {
+            and: [
+              { "<": [50, { var: "allocation" }, 100] },
+              {
+                and: [
+                  {
+                    or: [
+                      { "==": ["UNITED STATES", { var: "geo.country" }] },
+                      { "==": ["US", { var: "geo.country" }] },
+                      { "==": ["CANADA", { var: "geo.country" }] },
+                      { "==": ["CA", { var: "geo.country" }] }
+                    ]
+                  },
+                  {
+                    or: [
+                      { "==": ["CALIFORNIA", { var: "geo.region" }] },
+                      { "==": ["CA", { var: "geo.region" }] },
+                      { "==": ["BRITISH COLUMBIA", { var: "geo.region" }] },
+                      { "==": ["BC", { var: "geo.region" }] }
+                    ]
+                  },
+                  {
+                    or: [
+                      { "==": ["SAN FRANCISCO", { var: "geo.city" }] },
+                      { "==": ["SANFRANCISCO", { var: "geo.city" }] },
+                      { "==": ["VANCOUVER", { var: "geo.city" }] }
+                    ]
+                  },
+                  { "<": ["37.70", { var: "geo.latitude" }] },
+                  { ">=": ["37.80", { var: "geo.latitude" }] },
+                  { "<=": ["-122.5", { var: "geo.longitude" }] },
+                  { ">": ["-122.3", { var: "geo.longitude" }] },
+                  {
+                    "!": {
+                      or: [
+                        { "==": ["SOUTH SAN FRANCISCO", { var: "geo.city" }] },
+                        { "==": ["SOUTHSANFRANCISCO", { var: "geo.city" }] }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          consequence: {
+            name: "geo",
+            options: [
+              {
+                type: "json",
+                eventToken:
+                  "LYJSFrgKxsp5ZlEO5o4jpJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: { geo: true, exp: "geo.b" }
+              }
+            ],
+            metrics: []
+          }
+        }
+      ]
+    },
+    views: {}
+  }
+};
+
 // https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/Experience-Targeting/xt_spa_add_text_tocontactpage
 // https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/ab_spa_view_changemultipletextnoaudiences
 // https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/ab_spa_view_changeaddtextwithaudiences
@@ -2322,7 +2516,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T17:36:30.886Z"
+    generatedAt: "2020-06-23T22:29:36.910Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -3414,7 +3608,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T17:36:30.886Z"
+    generatedAt: "2020-06-23T22:29:36.910Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -3995,7 +4189,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T17:36:30.886Z"
+    generatedAt: "2020-06-23T22:29:36.910Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,

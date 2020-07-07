@@ -23,7 +23,7 @@ export interface Rule {
 export interface DecisioningArtifact {
   version: string;
   globalMbox: string;
-  hasGeoTargeting: boolean;
+  geoTargetingEnabled: boolean;
   responseTokens: Array<string>;
   remoteMboxes: Array<string>;
   localMboxes: Array<string>;
