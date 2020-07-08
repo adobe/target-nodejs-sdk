@@ -1,6 +1,6 @@
 {
   "name": "@adobe/target-nodejs-sdk",
-  "version": "2.0.0-alpha.16",
+  "version": "2.0.0-alpha.17",
   "description": "Adobe Target Node.js SDK, Delivery API client",
   "main": "dist/targetclient.server.js",
   "browser": "dist/targetclient.browser.js",
@@ -58,8 +58,8 @@
   "author": "Adobe Systems Inc.",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@adobe/target-decisioning-engine": "^1.2.0",
-    "@adobe/target-tools": "^1.0.7",
+    "@adobe/target-decisioning-engine": "^1.2.1",
+    "@adobe/target-tools": "^1.0.8",
     "@babel/plugin-transform-regenerator": "^7.8.3",
     "@babel/preset-env": "^7.9.5",
     "@rollup/plugin-commonjs": "^11.0.1",
