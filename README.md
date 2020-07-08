@@ -1078,6 +1078,65 @@ Some activities are not supported due to audience rules.  Below is a list of aud
 | Traffic Sources  | Not Supported        | Supported             |
 | Time Frame       | Supported            | Supported             |
 
+### Geo support in local execution
+In order to maintain zero latency in local decisioned requests with geo-based audiences, we recommend that you provide the geo values yourself in the call to `getOffers`. You can do this by setting the `Geo` object in the `Context` of the request.
+This means your server will need a way to determine the location of each end user, for instance by doing an IP-to-Geo lookup using a service you will need to set up yourself. Also, some hosting providers such as Google Cloud provide this functionality via custom headers in each `HttpServletRequest`.
+```js
+const CONFIG = {
+    client: "acmeclient",
+    organizationId: "1234567890@AdobeOrg",
+    executionMode: "local"
+};
+
+const targetClient = TargetClient.create(CONFIG);
+
+targetClient.getOffers({
+    request: {
+        context: {
+            geo: {
+                city: "SAN FRANCISCO",
+                countryCode: "US",
+                stateCode: "CA",
+                latitude: 37.75,
+                longitude: -122.4
+            }               
+        },       
+        execute: {
+            pageLoad: {}
+        }          
+    }
+})    
+```
+However, if you don't have the ability to perform IP-to-Geo lookups in your server and you still want to be able to perform local execution of `getOffers` requests that contain geo-based audiences, this is also supported.
+The downside of this approach is that it will use a remote IP-to-Geo lookup that will add latency to each `getOffers` call. This latency should be lower than a remote `getOffers` call since it hits a CDN that should be closer to the end user than the target server.
+You can signal to the targetClient that you want to perform an IP-to-Geo lookup in your local execution request by setting *only* the `ipAddress` object in the `Geo` object in the `Context` of your request. 
+```js
+const CONFIG = {
+    client: "acmeclient",
+    organizationId: "1234567890@AdobeOrg",
+    executionMode: "local"
+};
+
+const targetClient = TargetClient.create(CONFIG);
+
+targetClient.getOffers({
+    request: {
+        context: {
+            geo: {
+                ipAddress: "127.0.0.1"
+            }               
+        },       
+        execute: {
+            pageLoad: {}
+        }          
+    }
+})   
+```
+Note that if you specify the IP address in the `Geo` object in the `Context` and you don't currently have any local execution activities that use geo-based audiences then the IP-to-Geo lookup will be skipped as a latency optimization.
+---
+
+
+
 #### Hybrid mode
 
 Although all activities are not yet supported by local execution mode, there is a way to get the best of both worlds.  If you set `executionMode` to `hybrid`, then the SDK will determine on it's own whether to make decisions locally or remotely.  This way, if a `getOffers` request can be completed locally, the SDK will do so.  But if the request includes activities that are not supported, a request to the target delivery API will be made instead.  This may be useful as you begin to adopt local decisioning.
@@ -1153,7 +1212,6 @@ app.listen(3000, function () {
   console.log("Listening on port 3000 and watching!");
 });
 ```
-
 ---
 
 ## Target Traces
