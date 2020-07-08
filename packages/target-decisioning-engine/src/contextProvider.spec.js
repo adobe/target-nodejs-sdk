@@ -21,7 +21,6 @@ const DELIVERY_REQUEST = {
     beacon: false
   },
   execute: {
-    pageLoad: null,
     mboxes: [
       {
         address: {
@@ -75,7 +74,6 @@ const DELIVERY_REQUEST = {
         }
       }
     ],
-    pageLoad: null,
     mboxes: []
   }
 };

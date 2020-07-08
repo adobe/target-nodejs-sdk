@@ -3,15 +3,17 @@ import {
   createUUID,
   decisioningEngineReady,
   getMboxNames,
+  getProperty,
+  getPropertyToken,
+  getViewNames,
+  hasRequestedViews,
+  isDefined,
   isUndefined,
+  isValidIpAddress,
   noop,
   objectWithoutUndefinedValues,
   requiresDecisioningEngine,
-  getProperty,
-  getPropertyToken,
-  isDefined,
-  timeLimitExceeded,
-  isValidIpAddress
+  timeLimitExceeded
 } from "./utils";
 import { ChannelType } from "../delivery-api-client";
 import { EXECUTION_MODE } from "./enums";
@@ -39,6 +41,26 @@ describe("utils", () => {
       },
       prefetch: {
         mboxes: [{ name: "three" }, { name: "four" }]
+      }
+    });
+
+    expect(result instanceof Set).toEqual(true);
+    expect(result.size).toEqual(4);
+
+    expect(result.has("one")).toEqual(true);
+    expect(result.has("two")).toEqual(true);
+    expect(result.has("three")).toEqual(true);
+    expect(result.has("four")).toEqual(true);
+  });
+
+  it("has getViewNames", () => {
+    const result = getViewNames({
+      context: { channel: "web" },
+      execute: {
+        views: [{ name: "one" }, { name: "two" }]
+      },
+      prefetch: {
+        views: [{ name: "three" }, { name: "four" }]
       }
     });
 
@@ -256,6 +278,34 @@ describe("utils", () => {
     expect(timeLimitExceeded(now - 1100, 500)).toBeTruthy();
     expect(timeLimitExceeded(now - 1100, 2000)).toBeFalsy();
     expect(timeLimitExceeded(now, -1)).toBeFalsy();
+  });
+
+  describe("hasRequestedViews", () => {
+    it("is true when views is empty array", () => {
+      expect(
+        hasRequestedViews({
+          context: {
+            channel: ChannelType.Web
+          },
+          prefetch: {
+            views: []
+          }
+        })
+      ).toEqual(true);
+    });
+
+    it("is false when views is missing", () => {
+      expect(
+        hasRequestedViews({
+          context: {
+            channel: ChannelType.Web
+          },
+          prefetch: {
+            mboxes: [{ name: "mboxname", index: 0 }]
+          }
+        })
+      ).toEqual(false);
+    });
   });
 
   it("isValidIpAddress", () => {

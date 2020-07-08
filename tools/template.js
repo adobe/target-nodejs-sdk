@@ -5,8 +5,12 @@
 export const DUMMY_ARTIFACT_PAYLOAD = {
   version: "1.0.0",
   globalMbox: "target-global-mbox",
+  hasGeoTargeting: false,
   responseTokens: [],
   remoteMboxes: [],
+  localMboxes: [],
+  remoteViews: [],
+  localViews: [],
   meta: {},
   rules: { mboxes: {}, views: {} }
 };

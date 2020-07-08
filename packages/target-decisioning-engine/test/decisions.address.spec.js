@@ -51,7 +51,6 @@ describe("decisioning outcomes - url params", () => {
           beacon: false
         },
         execute: {
-          pageLoad: null,
           mboxes: [
             {
               name: "offer2",
@@ -115,7 +114,6 @@ describe("decisioning outcomes - url params", () => {
           beacon: false
         },
         execute: {
-          pageLoad: null,
           mboxes: [
             {
               name: "offer2",
@@ -182,7 +180,6 @@ describe("decisioning outcomes - url params", () => {
           beacon: false
         },
         execute: {
-          pageLoad: null,
           mboxes: [
             {
               name: "offer2",

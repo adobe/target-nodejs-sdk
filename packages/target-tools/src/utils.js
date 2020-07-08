@@ -3,6 +3,9 @@ import { EXECUTION_MODE } from "./enums";
 import { getLogger } from "./logging";
 import { PROPERTY_TOKEN_MISMATCH } from "./messages";
 
+const VIEWS = "views";
+const MBOXES = "mboxes";
+
 export function isUndefined(value) {
   return typeof value === "undefined";
 }
@@ -12,25 +15,77 @@ export function isDefined(value) {
 }
 
 /**
+ *
+ * @param {"mboxes"|"views"} itemsKey
+ * @param {import("../delivery-api-client/models/DeliveryRequest").DeliveryRequest} deliveryRequest Target Delivery API request
+ * @returns {Set<String>} Set of names
+ */
+function getNamesForRequested(itemsKey, deliveryRequest) {
+  const resultSet = new Set();
+
+  ["prefetch", "execute"].forEach(type => {
+    const items =
+      deliveryRequest &&
+      deliveryRequest[type] &&
+      deliveryRequest[type][itemsKey] instanceof Array
+        ? deliveryRequest[type][itemsKey]
+        : [];
+    items.forEach(item => {
+      resultSet.add(item.name);
+    });
+  });
+
+  return resultSet;
+}
+
+/**
  * @param {import("../delivery-api-client/models/DeliveryRequest").DeliveryRequest} deliveryRequest Target Delivery API request, required
  * @returns {Set<String>} Set of mbox names
  */
 export function getMboxNames(deliveryRequest) {
-  const requestMboxes = new Set();
+  return getNamesForRequested(MBOXES, deliveryRequest);
+}
 
-  ["prefetch", "execute"].forEach(type => {
-    const mboxes =
+/**
+ * @param {import("../delivery-api-client/models/DeliveryRequest").DeliveryRequest} deliveryRequest Target Delivery API request, required
+ * @returns {Set<String>} Set of view names
+ */
+export function getViewNames(deliveryRequest) {
+  return getNamesForRequested(VIEWS, deliveryRequest);
+}
+
+/**
+ * @param {"mboxes"|"views"} itemsKey
+ * @param {import("../delivery-api-client/models/DeliveryRequest").DeliveryRequest} deliveryRequest Target Delivery API request, required
+ * @returns {boolean}
+ */
+function hasRequested(itemsKey, deliveryRequest) {
+  const types = ["prefetch", "execute"];
+
+  for (let i = 0; i < types.length; i++) {
+    const type = types[i];
+    const items =
       deliveryRequest &&
       deliveryRequest[type] &&
-      deliveryRequest[type].mboxes instanceof Array
-        ? deliveryRequest[type].mboxes
-        : [];
-    mboxes.forEach(mbox => {
-      requestMboxes.add(mbox.name);
-    });
-  });
+      deliveryRequest[type][itemsKey] instanceof Array
+        ? deliveryRequest[type][itemsKey]
+        : undefined;
 
-  return requestMboxes;
+    if (isDefined(items) && items instanceof Array) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+/**
+ *
+ * @param {import("../delivery-api-client/models/DeliveryRequest").DeliveryRequest} deliveryRequest Target Delivery API request, required
+ * @returns {boolean}
+ */
+export function hasRequestedViews(deliveryRequest) {
+  return hasRequested(VIEWS, deliveryRequest);
 }
 
 /**

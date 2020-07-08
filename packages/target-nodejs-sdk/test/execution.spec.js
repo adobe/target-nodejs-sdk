@@ -176,7 +176,8 @@ describe("execution mode", () => {
           expect(result.meta).toEqual(
             expect.objectContaining({
               executionMode: EXECUTION_MODE.LOCAL,
-              remoteMboxes: []
+              remoteMboxes: [],
+              remoteViews: []
             })
           );
           done();
@@ -343,7 +344,9 @@ describe("execution mode", () => {
                   expect(result).toEqual(
                     expect.objectContaining({
                       meta: {
-                        executionMode: EXECUTION_MODE.REMOTE
+                        executionMode: EXECUTION_MODE.REMOTE,
+                        remoteMboxes: [],
+                        remoteViews: []
                       }
                     })
                   );

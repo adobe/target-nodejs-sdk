@@ -55,7 +55,6 @@ describe("decisioning outcomes - single activity", () => {
             beacon: false
           },
           execute: {
-            pageLoad: null,
             mboxes: [
               {
                 name: "superfluous-mbox",

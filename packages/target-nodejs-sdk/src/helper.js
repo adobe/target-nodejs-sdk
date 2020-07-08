@@ -741,7 +741,10 @@ function getAnalyticsDetails(response) {
  * @param decisioningEngine
  * */
 function getResponseMeta(request, response, executionMode, decisioningEngine) {
-  let { remoteMboxes } = response;
+  let { remoteMboxes = [], remoteViews = [] } = response;
+
+  delete response.remoteMboxes;
+  delete response.remoteViews;
 
   if (decisioningEngine) {
     const decisioningDependency = decisioningEngine.hasRemoteDependency(
@@ -749,11 +752,14 @@ function getResponseMeta(request, response, executionMode, decisioningEngine) {
     );
     // eslint-disable-next-line prefer-destructuring
     remoteMboxes = decisioningDependency.remoteMboxes;
+    // eslint-disable-next-line prefer-destructuring
+    remoteViews = decisioningDependency.remoteViews;
   }
 
   return {
     executionMode,
-    remoteMboxes
+    remoteMboxes,
+    remoteViews
   };
 }
 

@@ -4,6 +4,8 @@ import {
   ENVIRONMENT_PROD,
   getLogger,
   getMboxNames,
+  getViewNames,
+  hasRequestedViews,
   isBrowser,
   isDefined,
   isUndefined,
@@ -89,15 +91,34 @@ export function hasRemoteDependency(artifact, request) {
     throw new Error(Messages.ARTIFACT_NOT_AVAILABLE);
   }
 
-  const requestedMboxes = getMboxNames(request);
+  const requestedMboxes = Array.from(getMboxNames(request));
+  const requestedViews = Array.from(getViewNames(request));
 
-  const remoteMboxes = (artifact.remoteMboxes || []).filter(mboxName =>
-    requestedMboxes.has(mboxName)
-  );
+  const {
+    remoteMboxes = [],
+    localMboxes = [],
+    remoteViews = [],
+    localViews = []
+  } = artifact;
+
+  const mboxesThatRequireRemote = new Set([
+    ...remoteMboxes.filter(mboxName => requestedMboxes.includes(mboxName)),
+    ...requestedMboxes.filter(mboxName => !localMboxes.includes(mboxName))
+  ]);
+
+  const viewsThatRequireRemote =
+    hasRequestedViews(request) && requestedViews.length === 0
+      ? new Set(remoteViews)
+      : new Set([
+          ...remoteViews.filter(viewName => requestedViews.includes(viewName)),
+          ...requestedViews.filter(viewName => !localViews.includes(viewName))
+        ]);
 
   return {
-    remoteNeeded: remoteMboxes.length > 0,
-    remoteMboxes
+    remoteNeeded:
+      mboxesThatRequireRemote.size > 0 || viewsThatRequireRemote.size > 0,
+    remoteMboxes: Array.from(mboxesThatRequireRemote),
+    remoteViews: Array.from(viewsThatRequireRemote)
   };
 }
 

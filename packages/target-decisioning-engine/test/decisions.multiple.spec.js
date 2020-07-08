@@ -54,7 +54,6 @@ describe("decisioning outcomes - multiple activities", () => {
             beacon: false
           },
           execute: {
-            pageLoad: null,
             mboxes: [
               {
                 name: "superfluous-mbox",
@@ -121,7 +120,6 @@ describe("decisioning outcomes - multiple activities", () => {
             beacon: false
           },
           execute: {
-            pageLoad: null,
             mboxes: [
               {
                 name: "superfluous-mbox",
@@ -204,7 +202,6 @@ describe("decisioning outcomes - multiple activities", () => {
             beacon: false
           },
           prefetch: {
-            pageLoad: null,
             mboxes: [
               {
                 name: "superfluous-mbox",
@@ -273,7 +270,6 @@ describe("decisioning outcomes - multiple activities", () => {
             beacon: false
           },
           prefetch: {
-            pageLoad: null,
             mboxes: [
               {
                 name: "superfluous-mbox",

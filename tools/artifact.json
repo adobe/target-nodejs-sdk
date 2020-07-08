@@ -3,7 +3,7 @@
   "meta": {
     "clientCode": "adobesummit2018",
     "environment": "production",
-    "generatedAt": "2020-06-23T22:29:36.910Z"
+    "generatedAt": "2020-07-07T23:07:33.253Z"
   },
   "globalMbox": "target-global-mbox",
   "geoTargetingEnabled": true,
@@ -13,14 +13,20 @@
     "experience.id",
     "geo.country",
     "geo.city",
-    "geo.state"
+    "geo.state",
+    "offer.id",
+    "offer.name",
+    "option.id",
+    "option.name",
+    "experience.name",
+    "experience.trafficAllocationId",
+    "experience.trafficAllocationType"
   ],
   "remoteMboxes": ["geo", "target-global-mbox"],
   "remoteViews": ["home"],
   "localMboxes": [
     "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -179,70 +185,6 @@
                 "type": "json",
                 "eventToken": "kplSqQZ8KW7crrfwwf1lSpNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": { "multinot": true }
-              }
-            ],
-            "metrics": []
-          }
-        }
-      ],
-      "demo-geo-offer1": [
-        {
-          "ruleKey": "348159",
-          "activityId": 348159,
-          "meta": {
-            "activityId": 348159,
-            "activityType": "landing",
-            "experienceId": 0,
-            "locationName": "demo-geo-offer1",
-            "locationType": "mbox",
-            "locationId": 0,
-            "audienceIds": [5726147],
-            "offerIds": [649223]
-          },
-          "condition": {
-            "or": [
-              { "==": ["JAPAN", { "var": "geo.country" }] },
-              { "==": ["JP", { "var": "geo.country" }] }
-            ]
-          },
-          "consequence": {
-            "name": "demo-geo-offer1",
-            "options": [
-              {
-                "type": "html",
-                "eventToken": "jrsoKbgyQonnEM54yVY072qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                "content": "<h1>Hello Japan!!</h1>"
-              }
-            ],
-            "metrics": []
-          }
-        },
-        {
-          "ruleKey": "348159",
-          "activityId": 348159,
-          "meta": {
-            "activityId": 348159,
-            "activityType": "landing",
-            "experienceId": 1,
-            "locationName": "demo-geo-offer1",
-            "locationType": "mbox",
-            "locationId": 0,
-            "audienceIds": [5726143],
-            "offerIds": [649224]
-          },
-          "condition": {
-            "or": [
-              { "==": ["UNITED STATES", { "var": "geo.country" }] },
-              { "==": ["US", { "var": "geo.country" }] }
-            ]
-          },
-          "consequence": {
-            "name": "demo-geo-offer1",
-            "options": [
-              {
-                "type": "html",
-                "eventToken": "jrsoKbgyQonnEM54yVY075NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                "content": "<h1>Hello USA!!</h1>"
               }
             ],
             "metrics": []
@@ -413,7 +355,7 @@
                 "type": "json",
                 "eventToken": "JMCbGRpym+rKWXPzwB7iEGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": {
-                  "hello": "Experience AAAAAA for sam-test-property-2"
+                  "hello": "Experience AAAAAA for sam-test-property sam-test-property-2"
                 }
               }
             ],
@@ -445,7 +387,7 @@
                 "type": "json",
                 "eventToken": "JMCbGRpym+rKWXPzwB7iEJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": {
-                  "hello": "Experience BBBBBBB for sam-test-property-2"
+                  "hello": "Experience BBBBBBB for sam-test-property sam-test-property-2"
                 }
               }
             ],
@@ -4417,6 +4359,148 @@
           }
         },
         {
+          "ruleKey": "354029-0",
+          "activityId": 354029,
+          "meta": {
+            "activityId": 354029,
+            "activityType": "landing",
+            "experienceId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "locationId": 0,
+            "audienceIds": [5852798, 5852799]
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "in": ["nina", { "var": "page.query_lc" }] },
+                  { "in": ["aecd", { "var": "page.query_lc" }] }
+                ]
+              },
+              {
+                "and": [
+                  { "==": ["localhost", { "var": "page.domain" }] },
+                  {
+                    "or": [
+                      { "==": ["/hosted.html/", { "var": "page.path" }] },
+                      { "==": ["/hosted.html", { "var": "page.path" }] }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "TzgRfhshvzSCXAe2uKBYHGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "insertAfter",
+                    "selector": "#hero > HEADER:nth-of-type(1) > P:nth-of-type(1)",
+                    "cssSelector": "#hero > HEADER:nth-of-type(1) > P:nth-of-type(1)",
+                    "content": "<span id=\"action_insert_1594083032931720\">HELLO HERE</span>"
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "353996-0",
+          "activityId": 353996,
+          "meta": {
+            "activityId": 353996,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "locationId": 0,
+            "audienceIds": [5852399]
+          },
+          "condition": {
+            "and": [
+              { "<": [0.0, { "var": "allocation" }, 50.0] },
+              {
+                "and": [
+                  {
+                    "==": ["targetabtest.glitch.me", { "var": "page.domain" }]
+                  },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "F/Bd9j+sMo7a56oOPf85/mqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    "content": "Hello at.js Experience AAAAAAAA"
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          },
+          "propertyTokens": ["a4d17d78-cb39-6171-b12d-a222a62ebe49"]
+        },
+        {
+          "ruleKey": "353996-0",
+          "activityId": 353996,
+          "meta": {
+            "activityId": 353996,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "locationId": 0,
+            "audienceIds": [5852399]
+          },
+          "condition": {
+            "and": [
+              { "<": [50.0, { "var": "allocation" }, 100.0] },
+              {
+                "and": [
+                  {
+                    "==": ["targetabtest.glitch.me", { "var": "page.domain" }]
+                  },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "F/Bd9j+sMo7a56oOPf85/pNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    "content": "Hello at.js Experience BBBBBB"
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          },
+          "propertyTokens": ["a4d17d78-cb39-6171-b12d-a222a62ebe49"]
+        },
+        {
           "ruleKey": "350437-0",
           "activityId": 350437,
           "meta": {
@@ -4567,92 +4651,6 @@
             ],
             "metrics": []
           }
-        },
-        {
-          "ruleKey": "349546-0",
-          "activityId": 349546,
-          "meta": {
-            "activityId": 349546,
-            "activityType": "ab",
-            "experienceId": 0,
-            "locationName": "target-global-mbox",
-            "locationType": "view",
-            "locationId": 0,
-            "audienceIds": [5762320]
-          },
-          "condition": {
-            "and": [
-              { "<": [0.0, { "var": "allocation" }, 50.0] },
-              {
-                "and": [
-                  { "==": ["sam-local", { "var": "page.domain" }] },
-                  { "==": ["/", { "var": "page.path" }] }
-                ]
-              }
-            ]
-          },
-          "consequence": {
-            "name": "target-global-mbox",
-            "options": [
-              {
-                "type": "actions",
-                "eventToken": "tGPgHsGuI/Id4GquqeTVf2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                "content": [
-                  {
-                    "type": "insertAfter",
-                    "selector": "HTML > BODY > DIV:nth-of-type(1)",
-                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1)",
-                    "content": "<span id=\"action_insert_15913082890281545\">Experience AAAAAAAAA!</span>"
-                  }
-                ]
-              }
-            ],
-            "metrics": []
-          },
-          "propertyTokens": ["a4d17d78-cb39-6171-b12d-a222a62ebe49"]
-        },
-        {
-          "ruleKey": "349546-0",
-          "activityId": 349546,
-          "meta": {
-            "activityId": 349546,
-            "activityType": "ab",
-            "experienceId": 1,
-            "locationName": "target-global-mbox",
-            "locationType": "view",
-            "locationId": 0,
-            "audienceIds": [5762320]
-          },
-          "condition": {
-            "and": [
-              { "<": [50.0, { "var": "allocation" }, 100.0] },
-              {
-                "and": [
-                  { "==": ["sam-local", { "var": "page.domain" }] },
-                  { "==": ["/", { "var": "page.path" }] }
-                ]
-              }
-            ]
-          },
-          "consequence": {
-            "name": "target-global-mbox",
-            "options": [
-              {
-                "type": "actions",
-                "eventToken": "tGPgHsGuI/Id4GquqeTVf5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                "content": [
-                  {
-                    "type": "insertAfter",
-                    "selector": "HTML > BODY > DIV:nth-of-type(1)",
-                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1)",
-                    "content": "<span id=\"action_insert_15913083055611569\">Experience BBBBBBBB!</span>"
-                  }
-                ]
-              }
-            ],
-            "metrics": []
-          },
-          "propertyTokens": ["a4d17d78-cb39-6171-b12d-a222a62ebe49"]
         },
         {
           "ruleKey": "347502-0",

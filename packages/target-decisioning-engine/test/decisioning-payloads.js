@@ -5,8 +5,12 @@
 export const DUMMY_ARTIFACT_PAYLOAD = {
   version: "1.0.0",
   globalMbox: "target-global-mbox",
+  hasGeoTargeting: false,
   responseTokens: [],
   remoteMboxes: [],
+  localMboxes: [],
+  remoteViews: [],
+  localViews: [],
   meta: {},
   rules: { mboxes: {}, views: {} }
 };
@@ -22,7 +26,7 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T22:29:36.910Z"
+    generatedAt: "2020-07-07T23:07:33.253Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -32,14 +36,20 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
     "experience.id",
     "geo.country",
     "geo.city",
-    "geo.state"
+    "geo.state",
+    "offer.id",
+    "offer.name",
+    "option.id",
+    "option.name",
+    "experience.name",
+    "experience.trafficAllocationId",
+    "experience.trafficAllocationType"
   ],
   remoteMboxes: ["geo", "target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
     "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -140,7 +150,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T22:29:36.910Z"
+    generatedAt: "2020-07-07T23:07:33.253Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -150,14 +160,20 @@ export const DECISIONING_PAYLOAD_BROWSER = {
     "experience.id",
     "geo.country",
     "geo.city",
-    "geo.state"
+    "geo.state",
+    "offer.id",
+    "offer.name",
+    "option.id",
+    "option.name",
+    "experience.name",
+    "experience.trafficAllocationId",
+    "experience.trafficAllocationType"
   ],
   remoteMboxes: ["geo", "target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
     "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -330,7 +346,7 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T22:29:36.910Z"
+    generatedAt: "2020-07-07T23:07:33.253Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -340,14 +356,20 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
     "experience.id",
     "geo.country",
     "geo.city",
-    "geo.state"
+    "geo.state",
+    "offer.id",
+    "offer.name",
+    "option.id",
+    "option.name",
+    "experience.name",
+    "experience.trafficAllocationId",
+    "experience.trafficAllocationType"
   ],
   remoteMboxes: ["geo", "target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
     "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -494,7 +516,7 @@ export const DECISIONING_PAYLOAD_PARAMS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T22:29:36.910Z"
+    generatedAt: "2020-07-07T23:07:33.253Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -504,14 +526,20 @@ export const DECISIONING_PAYLOAD_PARAMS = {
     "experience.id",
     "geo.country",
     "geo.city",
-    "geo.state"
+    "geo.state",
+    "offer.id",
+    "offer.name",
+    "option.id",
+    "option.name",
+    "experience.name",
+    "experience.trafficAllocationId",
+    "experience.trafficAllocationType"
   ],
   remoteMboxes: ["geo", "target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
     "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -614,7 +642,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T22:29:36.910Z"
+    generatedAt: "2020-07-07T23:07:33.253Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -624,14 +652,20 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
     "experience.id",
     "geo.country",
     "geo.city",
-    "geo.state"
+    "geo.state",
+    "offer.id",
+    "offer.name",
+    "option.id",
+    "option.name",
+    "experience.name",
+    "experience.trafficAllocationId",
+    "experience.trafficAllocationType"
   ],
   remoteMboxes: ["geo", "target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
     "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -830,7 +864,7 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T22:29:36.910Z"
+    generatedAt: "2020-07-07T23:07:33.253Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -840,14 +874,20 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
     "experience.id",
     "geo.country",
     "geo.city",
-    "geo.state"
+    "geo.state",
+    "offer.id",
+    "offer.name",
+    "option.id",
+    "option.name",
+    "experience.name",
+    "experience.trafficAllocationId",
+    "experience.trafficAllocationType"
   ],
   remoteMboxes: ["geo", "target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
     "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -938,7 +978,7 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T22:29:36.910Z"
+    generatedAt: "2020-07-07T23:07:33.253Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -948,14 +988,20 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
     "experience.id",
     "geo.country",
     "geo.city",
-    "geo.state"
+    "geo.state",
+    "offer.id",
+    "offer.name",
+    "option.id",
+    "option.name",
+    "experience.name",
+    "experience.trafficAllocationId",
+    "experience.trafficAllocationType"
   ],
   remoteMboxes: ["remote-only-mbox-a", "geo", "target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
     "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -1111,7 +1157,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T22:29:36.910Z"
+    generatedAt: "2020-07-07T23:07:33.253Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -1121,14 +1167,20 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
     "experience.id",
     "geo.country",
     "geo.city",
-    "geo.state"
+    "geo.state",
+    "offer.id",
+    "offer.name",
+    "option.id",
+    "option.name",
+    "experience.name",
+    "experience.trafficAllocationId",
+    "experience.trafficAllocationType"
   ],
   remoteMboxes: ["target-global-mbox", "geo"],
   remoteViews: ["home"],
   localMboxes: [
     "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -1477,7 +1529,7 @@ export const DECISIONING_PAYLOAD_FEATURE_FLAG = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T22:29:36.910Z"
+    generatedAt: "2020-07-07T23:07:33.253Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -1487,7 +1539,14 @@ export const DECISIONING_PAYLOAD_FEATURE_FLAG = {
     "experience.id",
     "geo.country",
     "geo.city",
-    "geo.state"
+    "geo.state",
+    "offer.id",
+    "offer.name",
+    "option.id",
+    "option.name",
+    "experience.name",
+    "experience.trafficAllocationId",
+    "experience.trafficAllocationType"
   ],
   remoteMboxes: [
     "remote-only-mbox-a",
@@ -1499,7 +1558,6 @@ export const DECISIONING_PAYLOAD_FEATURE_FLAG = {
   localMboxes: [
     "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -1603,7 +1661,7 @@ export const DECISIONING_PAYLOAD_ATJS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T22:29:36.910Z"
+    generatedAt: "2020-07-07T23:07:33.253Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -1613,14 +1671,20 @@ export const DECISIONING_PAYLOAD_ATJS = {
     "experience.id",
     "geo.country",
     "geo.city",
-    "geo.state"
+    "geo.state",
+    "offer.id",
+    "offer.name",
+    "option.id",
+    "option.name",
+    "experience.name",
+    "experience.trafficAllocationId",
+    "experience.trafficAllocationType"
   ],
   remoteMboxes: ["browser-mbox", "geo", "target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
     "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -2026,7 +2090,7 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T22:29:36.910Z"
+    generatedAt: "2020-07-07T23:07:33.253Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -2036,14 +2100,20 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
     "experience.id",
     "geo.country",
     "geo.city",
-    "geo.state"
+    "geo.state",
+    "offer.id",
+    "offer.name",
+    "option.id",
+    "option.name",
+    "experience.name",
+    "experience.trafficAllocationId",
+    "experience.trafficAllocationType"
   ],
   remoteMboxes: ["geo", "target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
     "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -2320,7 +2390,7 @@ export const DECISIONING_PAYLOAD_GEO = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T22:29:36.910Z"
+    generatedAt: "2020-07-07T23:07:33.253Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -2330,14 +2400,20 @@ export const DECISIONING_PAYLOAD_GEO = {
     "experience.id",
     "geo.country",
     "geo.city",
-    "geo.state"
+    "geo.state",
+    "offer.id",
+    "offer.name",
+    "option.id",
+    "option.name",
+    "experience.name",
+    "experience.trafficAllocationId",
+    "experience.trafficAllocationType"
   ],
   remoteMboxes: ["geo", "target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
     "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -2516,7 +2592,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T22:29:36.910Z"
+    generatedAt: "2020-07-07T23:07:33.253Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -2526,14 +2602,20 @@ export const DECISIONING_PAYLOAD_VIEWS = {
     "experience.id",
     "geo.country",
     "geo.city",
-    "geo.state"
+    "geo.state",
+    "offer.id",
+    "offer.name",
+    "option.id",
+    "option.name",
+    "experience.name",
+    "experience.trafficAllocationId",
+    "experience.trafficAllocationType"
   ],
   remoteMboxes: ["geo", "target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
     "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -3608,7 +3690,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T22:29:36.910Z"
+    generatedAt: "2020-07-07T23:07:33.253Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -3618,14 +3700,20 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
     "experience.id",
     "geo.country",
     "geo.city",
-    "geo.state"
+    "geo.state",
+    "offer.id",
+    "offer.name",
+    "option.id",
+    "option.name",
+    "experience.name",
+    "experience.trafficAllocationId",
+    "experience.trafficAllocationType"
   ],
   remoteMboxes: ["geo", "target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
     "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -4189,7 +4277,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-06-23T22:29:36.910Z"
+    generatedAt: "2020-07-07T23:07:33.253Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -4199,14 +4287,20 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
     "experience.id",
     "geo.country",
     "geo.city",
-    "geo.state"
+    "geo.state",
+    "offer.id",
+    "offer.name",
+    "option.id",
+    "option.name",
+    "experience.name",
+    "experience.trafficAllocationId",
+    "experience.trafficAllocationType"
   ],
   remoteMboxes: ["geo", "target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
     "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",

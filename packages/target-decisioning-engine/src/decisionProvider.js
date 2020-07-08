@@ -294,6 +294,7 @@ function DecisionProvider(
   const response = objectWithoutUndefinedValues({
     status: dependency.remoteNeeded ? PARTIAL_CONTENT : OK,
     remoteMboxes: dependency.remoteMboxes,
+    remoteViews: dependency.remoteViews,
     requestId: request.requestId,
     id: {
       ...request.id

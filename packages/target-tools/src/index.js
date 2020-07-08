@@ -3,6 +3,8 @@ export {
   createUUID,
   decisioningEngineReady,
   getMboxNames,
+  getViewNames,
+  hasRequestedViews,
   isBrowser,
   isNodeJS,
   isUndefined,

@@ -423,11 +423,11 @@ describe("target local decisioning", () => {
             ...targetResult,
             meta: {
               executionMode: "local",
-              remoteMboxes: []
+              remoteMboxes: [],
+              remoteViews: []
             },
             response: {
-              ...targetResult.response,
-              remoteMboxes: []
+              ...targetResult.response
             }
           })
         );
