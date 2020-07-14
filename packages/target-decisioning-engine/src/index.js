@@ -1,18 +1,16 @@
 import {
+  DEFAULT_MAXIMUM_WAIT_READY,
   getLogger,
   isDefined,
   isUndefined,
-  timeLimitExceeded
+  whenReady
 } from "@adobe/target-tools";
 import { createDecisioningContext } from "./contextProvider";
 import DecisionProvider from "./decisionProvider";
 import ArtifactProvider from "./artifactProvider";
 import Messages from "./messages";
 import { hasRemoteDependency, matchMajorVersion } from "./utils";
-import {
-  DEFAULT_MAXIMUM_WAIT_READY,
-  SUPPORTED_ARTIFACT_MAJOR_VERSION
-} from "./constants";
+import { SUPPORTED_ARTIFACT_MAJOR_VERSION } from "./constants";
 import { validDeliveryRequest } from "./requestProvider";
 import { TraceProvider } from "./traceProvider";
 import { GeoProvider } from "./geoProvider";
@@ -23,7 +21,6 @@ import { GeoProvider } from "./geoProvider";
  */
 export default async function TargetDecisioningEngine(config) {
   const { maximumWaitReady = DEFAULT_MAXIMUM_WAIT_READY } = config;
-  const initTime = new Date().getTime();
   const logger = getLogger(config.logger);
 
   const artifactProvider = await ArtifactProvider({
@@ -32,7 +29,6 @@ export default async function TargetDecisioningEngine(config) {
   });
 
   let artifact = artifactProvider.getArtifact();
-  let geoContext = artifactProvider.getGeoContext();
 
   // subscribe to new artifacts that are downloaded on the polling interval
   artifactProvider.subscribe(data => {
@@ -94,23 +90,13 @@ export default async function TargetDecisioningEngine(config) {
     return isDefined(artifact);
   }
 
-  function whenReady(maximumWaitTime = DEFAULT_MAXIMUM_WAIT_READY) {
-    return new Promise((resolve, reject) => {
-      (function wait(count) {
-        if (timeLimitExceeded(initTime, maximumWaitTime)) {
-          reject(new Error(Messages.ARTIFACT_NOT_AVAILABLE));
-          return;
-        }
-        if (isReady()) {
-          resolve();
-          return;
-        }
-        setTimeout(() => wait(count + 1), 100);
-      })(0);
-    });
-  }
+  const whenArtifactReady = whenReady(
+    isReady,
+    maximumWaitReady,
+    Messages.ARTIFACT_NOT_AVAILABLE
+  );
 
-  return whenReady(maximumWaitReady).then(() => {
+  return whenArtifactReady.then(() => {
     return {
       getRawArtifact: () => artifact,
       stopPolling: () => artifactProvider.stopPolling(),

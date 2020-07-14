@@ -13,7 +13,8 @@ import {
   noop,
   objectWithoutUndefinedValues,
   requiresDecisioningEngine,
-  timeLimitExceeded
+  timeLimitExceeded,
+  whenReady
 } from "./utils";
 import { ChannelType } from "../delivery-api-client";
 import { EXECUTION_MODE } from "./enums";
@@ -316,5 +317,64 @@ describe("utils", () => {
       true
     );
     expect(isValidIpAddress("invalid_ip")).toEqual(false);
+  });
+
+  describe("whenReady", () => {
+    it("is not ready", () => {
+      const isReady = () => false;
+
+      expect(whenReady(isReady, 500, "not ready, yo")).rejects.toEqual(
+        new Error("not ready, yo")
+      );
+    });
+
+    it("is ready", () => {
+      expect.assertions(1);
+
+      return new Promise(done => {
+        const isReady = () => true;
+
+        whenReady(isReady, 200, "not ready, yo").then(value => {
+          expect(value).toBeUndefined();
+          done();
+        });
+      });
+    });
+
+    it("is eventually ready", () => {
+      expect.assertions(1);
+
+      return new Promise(done => {
+        let itsReady = false;
+
+        setTimeout(() => {
+          itsReady = true;
+        }, 200);
+
+        const isReady = () => {
+          return itsReady;
+        };
+
+        whenReady(isReady, 500, "not ready, yo").then(value => {
+          expect(value).toBeUndefined();
+          done();
+        });
+      });
+    });
+
+    it("rejects if exceeds wait time", () => {
+      let itsReady = false;
+      setTimeout(() => {
+        itsReady = true;
+      }, 500);
+
+      const isReady = () => {
+        return itsReady;
+      };
+
+      expect(whenReady(isReady, 100, "not ready in time")).rejects.toEqual(
+        new Error("not ready in time")
+      );
+    });
   });
 });

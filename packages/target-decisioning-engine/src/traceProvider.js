@@ -1,6 +1,5 @@
 import Messages from "./messages";
-import { ChannelType } from "@adobe/target-tools/delivery-api-client";
-import { isDefined, isUndefined } from "@adobe/target-tools";
+import { isDefined, isUndefined, ChannelType } from "@adobe/target-tools";
 
 const byOrder = (a, b) => a.order - b.order;
 

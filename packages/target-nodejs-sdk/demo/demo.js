@@ -62,11 +62,11 @@ function getOffers() {
 client = TargetClient.create({
   client: "adobesummit2018",
   organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
-  fetchApi: getFetchWithProxy(),
+  fetchApi: fetch, //getFetchWithProxy(),
   executionMode: "local",
   // environment: "staging",
   // cdnEnvironment: "staging",
-  clientReadyCallback: getOffers,
+  events: { clientReady: getOffers },
   logger: {
     debug: (...messages) => console.log(...messages),
     error: (...messages) => console.log(...messages)

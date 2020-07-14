@@ -1,5 +1,6 @@
 /* eslint-disable prefer-destructuring,import/prefer-default-export */
-import Url from "url-parse";
+import parseUriInternal from "parse-uri";
+
 import {
   ENVIRONMENT_PROD,
   getLogger,
@@ -14,13 +15,6 @@ import {
 import Messages from "./messages";
 import { RequestType } from "./enums";
 import { CDN_BASE, SUPPORTED_ARTIFACT_MAJOR_VERSION } from "./constants";
-
-function caseSensitiveVersion(caseSenstiveString, lowercaseString) {
-  const start = caseSenstiveString.toLowerCase().indexOf(lowercaseString);
-  const end = start + lowercaseString.length;
-
-  return caseSenstiveString.substring(start, end);
-}
 
 /**
  *
@@ -41,38 +35,38 @@ export function parseURL(url) {
     url = "";
   }
 
-  const parsed = new Url(url);
+  const parsed = parseUriInternal(url);
+
+  const { host, path, query, anchor } = parsed;
 
   const result = {
     url,
-    path: parsed.pathname,
-    query: parsed.query.replace("?", ""),
-    fragment: parsed.hash.replace("#", "")
+    path,
+    query,
+    fragment: anchor
   };
 
-  const hostnameCaseSensitive = caseSensitiveVersion(url, parsed.hostname);
-
-  const domainParts = hostnameCaseSensitive.split(".");
+  const domainParts = host.split(".");
 
   switch (domainParts.length) {
     case 1:
       result.subdomain = "";
-      result.domain = hostnameCaseSensitive;
+      result.domain = host;
       result.topLevelDomain = "";
       break;
     case 2:
       result.subdomain = "";
-      result.domain = hostnameCaseSensitive;
+      result.domain = host;
       result.topLevelDomain = domainParts[1];
       break;
     case 3:
       result.subdomain = domainParts[0] === "www" ? "" : domainParts[0];
-      result.domain = hostnameCaseSensitive;
+      result.domain = host;
       result.topLevelDomain = domainParts[2];
       break;
     case 4:
       result.subdomain = domainParts[0] === "www" ? "" : domainParts[0];
-      result.domain = hostnameCaseSensitive;
+      result.domain = host;
       result.topLevelDomain = `${domainParts[2]}.${domainParts[3]}`;
       break;
     default:

@@ -1,8 +1,4 @@
-import {
-  ChannelType,
-  MetricType
-} from "@adobe/target-tools/delivery-api-client";
-import { getLogger } from "@adobe/target-tools";
+import { getLogger, ChannelType, MetricType } from "@adobe/target-tools";
 import NotificationProvider from "./notificationProvider";
 import { validVisitorId } from "./requestProvider";
 

@@ -1,5 +1,4 @@
-import { createUUID } from "@adobe/target-tools";
-import { AuthenticatedState } from "@adobe/target-tools/delivery-api-client";
+import { createUUID, AuthenticatedState } from "@adobe/target-tools";
 
 /**
  *

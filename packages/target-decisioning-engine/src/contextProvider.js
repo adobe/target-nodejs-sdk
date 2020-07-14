@@ -1,8 +1,10 @@
-import UAParser from "ua-parser-js";
-import { ChannelType } from "@adobe/target-tools/delivery-api-client";
-import { isDefined } from "@adobe/target-tools";
+import {
+  browserFromUserAgent,
+  ChannelType,
+  operatingSystemFromUserAgent
+} from "@adobe/target-tools";
 import { parseURL } from "./utils";
-import Messages from "./messages";
+
 /**
  * @type { import("@adobe/target-tools/delivery-api-client/models/Context").Context }
  */
@@ -26,15 +28,16 @@ function getLowerCaseAttributes(obj) {
  * @return { import("../types/DecisioningContext").UserContext }
  */
 function createBrowserContext(context) {
-  const userAgent = UAParser(context.userAgent);
+  const { userAgent = "" } = context;
+
+  const browser = browserFromUserAgent(userAgent);
+  const platform = operatingSystemFromUserAgent(userAgent);
 
   return {
-    browserType: (userAgent.browser.name || Messages.UNKNOWN).toLowerCase(),
-    platform: userAgent.os.name || Messages.UNKNOWN,
+    browserType: browser.name.toLowerCase(),
+    platform,
     locale: "en", // TODO: determine where this comes from
-    browserVersion: isDefined(userAgent.browser.major)
-      ? parseInt(userAgent.browser.major, 10)
-      : -1
+    browserVersion: browser.version
   };
 }
 

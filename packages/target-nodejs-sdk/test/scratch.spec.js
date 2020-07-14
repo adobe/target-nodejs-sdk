@@ -34,21 +34,23 @@ describe.skip("target-nodejs-sdk scratch", () => {
         propertyToken,
         executionMode: "local",
         pollingInterval: 0,
-        clientReadyCallback: async () => {
-          const result = await client.getOffers({
-            request: {
-              ...targetRequest,
-              execute: {
-                pageLoad: {}
-              },
-              property: {
-                token: propertyToken
+        events: {
+          clientReady: async () => {
+            const result = await client.getOffers({
+              request: {
+                ...targetRequest,
+                execute: {
+                  pageLoad: {}
+                },
+                property: {
+                  token: propertyToken
+                }
               }
-            }
-          });
-          expect(result.response.status).toEqual(200);
+            });
+            expect(result.response.status).toEqual(200);
 
-          done();
+            done();
+          }
         },
         logger: {
           // eslint-disable-next-line no-console

@@ -64,14 +64,13 @@ export default [
                 browsers: [
                   "last 2 Chrome versions",
                   "last 2 Firefox versions",
-                  "last 2 Safari versions",
-                  "Explorer >= 10"
+                  "last 2 Safari versions"
                 ]
               }
             }
           ]
         ],
-        plugins: ["@babel/plugin-transform-regenerator"]
+        plugins: []
       },
       {
         filename: "bundlesize-stats.browser.html"

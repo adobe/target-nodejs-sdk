@@ -1,6 +1,9 @@
 /* eslint-disable no-unused-vars */
-import { MetricType } from "@adobe/target-tools/delivery-api-client";
-import { isUndefined, objectWithoutUndefinedValues } from "@adobe/target-tools";
+import {
+  isUndefined,
+  objectWithoutUndefinedValues,
+  MetricType
+} from "@adobe/target-tools";
 import { RequestType } from "./enums";
 
 function noBlankOptions(option) {

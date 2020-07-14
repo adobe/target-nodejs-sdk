@@ -91,8 +91,8 @@ describe("contextProvider", () => {
       geo: {
         latitude: undefined,
         longitude: undefined,
-        countryCode: undefined,
-        stateCode: undefined,
+        country: undefined,
+        region: undefined,
         city: undefined
       },
       page: {
@@ -131,7 +131,7 @@ describe("contextProvider", () => {
         browserType: "unknown",
         browserVersion: -1,
         locale: "en",
-        platform: "unknown"
+        platform: "Unknown"
       }
     });
   });

@@ -1,5 +1,4 @@
-import { createUUID, isDefined, noop } from "@adobe/target-tools";
-import { MetricType } from "@adobe/target-tools/delivery-api-client";
+import { createUUID, isDefined, noop, MetricType } from "@adobe/target-tools";
 import { LOG_PREFIX } from "./constants";
 
 const LOG_TAG = `${LOG_PREFIX}.NotificationProvider`;
