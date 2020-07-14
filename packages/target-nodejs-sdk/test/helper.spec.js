@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*
 Copyright 2019 Adobe. All rights reserved.
 This file is licensed to you under the Apache License, Version 2.0 (the "License");
@@ -243,7 +244,10 @@ describe("Target Helper", () => {
   });
 
   it("createDeliveryRequest should create Delivery request", () => {
+    const context = { channel: "web", timeOffsetInMinutes: 0 };
+
     let request = {
+      context,
       execute: {
         pageLoad: {
           address: {
@@ -310,6 +314,7 @@ describe("Target Helper", () => {
     });
 
     request = {
+      context,
       property: {
         token: "at_property1"
       },
@@ -364,6 +369,7 @@ describe("Target Helper", () => {
     });
 
     request = {
+      context,
       execute: {
         mboxes: []
       },
@@ -386,6 +392,7 @@ describe("Target Helper", () => {
     });
 
     request = {
+      context,
       notifications: [
         {
           id: "id",
@@ -442,6 +449,7 @@ describe("Target Helper", () => {
     });
 
     request = {
+      context,
       notifications: [
         {
           id: "id",

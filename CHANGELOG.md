@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [1.1.0] - 2020-06-09
+### Added
+- Support for providing an IP Address when a getOffers call is made using the request>context>geo object. [see sample usage](https://gist.github.com/jasonwaters/9a408ac65717c272efbce12d43d62c4d)
+
 ## [1.0.3] - 2019-10-10
 ### Changed
 - Minor [README](README.md) updates
@@ -58,6 +62,7 @@ method declaration [here](https://www.npmjs.com/package/@adobe/target-node-clien
 - [getOffer() API method](https://www.npmjs.com/package/@adobe/target-node-client#targetnodeclientgetoffer) has been removed,
 use [getOffers() API method](README.md#targetclientgetoffers) instead 
 
-[Unreleased]: https://github.com/adobe/target-nodejs-sdk/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/adobe/target-nodejs-sdk/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/adobe/target-nodejs-sdk/compare/v1.0.3...v1.1.0
 [1.0.3]: https://github.com/adobe/target-nodejs-sdk/compare/v1.0.1...v1.0.3
 [1.0.1]: https://github.com/adobe/target-nodejs-sdk/releases/tag/v1.0.1
