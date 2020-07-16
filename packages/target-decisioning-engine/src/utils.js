@@ -156,7 +156,7 @@ export function getCdnBasePath(config) {
  */
 export function getGeoLookupPath(config) {
   const cdnBasePath = getCdnBasePath(config);
-  return `${cdnBasePath}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/geo/`;
+  return `${cdnBasePath}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/geo`;
 }
 
 /**
