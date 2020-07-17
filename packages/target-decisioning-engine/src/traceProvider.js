@@ -1,5 +1,6 @@
 import Messages from "./messages";
 import { isDefined, isUndefined, ChannelType } from "@adobe/target-tools";
+import { ACTIVITY_ID, ACTIVITY_TYPE, EXPERIENCE_ID } from "./constants";
 
 const byOrder = (a, b) => a.order - b.order;
 
@@ -105,15 +106,16 @@ export function RequestTracer(traceProvider, artifact) {
    */
   function addCampaign(rule, ruleSatisfied) {
     const { meta } = rule;
+    const activityId = meta[ACTIVITY_ID];
 
-    if (ruleSatisfied && isUndefined(campaigns[meta.activityId])) {
+    if (ruleSatisfied && isUndefined(campaigns[activityId])) {
       campaignOrder += 1;
 
-      campaigns[meta.activityId] = {
-        id: meta.activityId,
+      campaigns[activityId] = {
+        id: activityId,
         order: campaignOrder,
-        campaignType: meta.activityType,
-        branchId: meta.experienceId,
+        campaignType: meta[ACTIVITY_TYPE],
+        branchId: meta[EXPERIENCE_ID],
         offers: meta.offerIds || [],
         environment: artifact.meta.environment
       };
@@ -129,15 +131,16 @@ export function RequestTracer(traceProvider, artifact) {
   function addEvaluatedCampaignTarget(rule, ruleContext, ruleSatisfied) {
     const { meta } = rule;
     const { audienceIds = [] } = meta;
+    const activityId = meta[ACTIVITY_ID];
 
-    if (isUndefined(evaluatedCampaignTargets[meta.activityId])) {
+    if (isUndefined(evaluatedCampaignTargets[activityId])) {
       evaluatedCampaignTargetOrder += 1;
 
-      evaluatedCampaignTargets[meta.activityId] = {
+      evaluatedCampaignTargets[activityId] = {
         order: evaluatedCampaignTargetOrder,
         context: ruleContext,
-        campaignId: meta.activityId,
-        campaignType: meta.activityType,
+        campaignId: activityId,
+        campaignType: meta[ACTIVITY_TYPE],
         matchedSegmentIds: new Set(),
         unmatchedSegmentIds: new Set(),
         matchedRuleConditions: [],
@@ -146,12 +149,12 @@ export function RequestTracer(traceProvider, artifact) {
     }
 
     audienceIds.forEach(audienceId => {
-      evaluatedCampaignTargets[meta.activityId][
+      evaluatedCampaignTargets[activityId][
         ruleSatisfied ? "matchedSegmentIds" : "unmatchedSegmentIds"
       ].add(audienceId);
     });
 
-    evaluatedCampaignTargets[meta.activityId][
+    evaluatedCampaignTargets[activityId][
       ruleSatisfied ? "matchedRuleConditions" : "unmatchedRuleConditions"
     ].push(rule.condition);
   }
@@ -180,12 +183,14 @@ export function RequestTracer(traceProvider, artifact) {
    */
   function traceNotification(rule) {
     const { meta } = rule;
-    if (!(campaigns[meta.activityId].notifications instanceof Array)) {
-      campaigns[meta.activityId].notifications = [];
+    const activityId = meta[ACTIVITY_ID];
+
+    if (!(campaigns[activityId].notifications instanceof Array)) {
+      campaigns[activityId].notifications = [];
     }
 
     return notification => {
-      campaigns[meta.activityId].notifications.push(notification);
+      campaigns[activityId].notifications.push(notification);
     };
   }
 

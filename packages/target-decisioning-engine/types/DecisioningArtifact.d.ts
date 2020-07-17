@@ -9,6 +9,19 @@ export interface Rule {
   condition: Object;
   consequence: Consequence;
   meta: {
+    "activity.id": number;
+    "activity.name": string;
+    "activity.type": string;
+    "audience.ids": number[];
+    "experience.id": number;
+    "experience.name": string;
+    "location.id": number;
+    "location.name": string;
+    "location.type": string;
+    "offer.id": number;
+    "offer.name": string;
+    "option.id": number;
+    "option.name": string;
     activityId: number;
     experienceId: number;
     activityType: string;

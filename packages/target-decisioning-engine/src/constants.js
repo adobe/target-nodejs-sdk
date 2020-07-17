@@ -27,3 +27,23 @@ CDN_BASE[ENVIRONMENT_STAGE] = CDN_BASE_STAGE;
 CDN_BASE[ENVIRONMENT_DEV] = CDN_BASE_DEV;
 
 export { CDN_BASE };
+
+// Response token keys
+export const ACTIVITY_DECISIONING_METHOD = "activity.decisioningMethod";
+export const ACTIVITY_ID = "activity.id";
+export const ACTIVITY_NAME = "activity.name";
+export const ACTIVITY_TYPE = "activity.type";
+export const EXPERIENCE_ID = "experience.id";
+export const EXPERIENCE_NAME = "experience.name";
+export const LOCATION_ID = "location.id";
+export const LOCATION_NAME = "location.name";
+export const LOCATION_TYPE = "location.type";
+export const OFFER_ID = "offer.id";
+export const OFFER_NAME = "offer.name";
+export const OPTION_ID = "option.id";
+export const OPTION_NAME = "option.name";
+export const GEO_CITY = "geo.city";
+export const GEO_COUNTRY = "geo.country";
+export const GEO_STATE = "geo.state";
+export const GEO_LATITUDE = "geo.latitude";
+export const GEO_LONGITUDE = "geo.longitude";

@@ -73,7 +73,8 @@ describe("decisioning outcomes - browser", () => {
                   type: "html",
                   content: "<h1>it's chrome</h1>",
                   eventToken:
-                    "B8C2FP2IuBgmeJcDfXHjGpZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                    "B8C2FP2IuBgmeJcDfXHjGpZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  responseTokens: expect.any(Object)
                 }
               ]
             }
@@ -113,7 +114,8 @@ describe("decisioning outcomes - browser", () => {
                   type: "html",
                   content: "<h1>it's firefox</h1>",
                   eventToken:
-                    "B8C2FP2IuBgmeJcDfXHjGpNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                    "B8C2FP2IuBgmeJcDfXHjGpNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  responseTokens: expect.any(Object)
                 }
               ]
             }
@@ -153,7 +155,8 @@ describe("decisioning outcomes - browser", () => {
                   type: "html",
                   content: "<h1>it's safari</h1>",
                   eventToken:
-                    "B8C2FP2IuBgmeJcDfXHjGgreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                    "B8C2FP2IuBgmeJcDfXHjGgreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  responseTokens: expect.any(Object)
                 }
               ]
             }
@@ -193,7 +196,8 @@ describe("decisioning outcomes - browser", () => {
                   type: "html",
                   content: "<h1>it's internet explorer</h1>",
                   eventToken:
-                    "B8C2FP2IuBgmeJcDfXHjGhB3JWElmEno9qwHyGr0QvSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                    "B8C2FP2IuBgmeJcDfXHjGhB3JWElmEno9qwHyGr0QvSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  responseTokens: expect.any(Object)
                 }
               ]
             }

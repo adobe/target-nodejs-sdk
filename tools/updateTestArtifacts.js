@@ -56,7 +56,7 @@ function getRules(what, activityIds, artifact) {
   names.forEach(name => {
     const rules = things[name];
     for (const rule of rules) {
-      if (activityIds.includes(rule.meta.activityId)) {
+      if (activityIds.includes(rule.meta["activity.id"])) {
         if (!(result[name] instanceof Array)) {
           result[name] = [];
         }

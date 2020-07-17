@@ -78,7 +78,8 @@ describe("decisioning outcomes - multiple activities", () => {
                     content: {
                       doMagic: true,
                       importantValue: 150
-                    }
+                    },
+                    responseTokens: expect.any(Object)
                   }
                 ]
               }
@@ -148,7 +149,8 @@ describe("decisioning outcomes - multiple activities", () => {
                     content: {
                       doMagic: true,
                       importantValue: 150
-                    }
+                    },
+                    responseTokens: expect.any(Object)
                   }
                 ]
               },
@@ -158,7 +160,8 @@ describe("decisioning outcomes - multiple activities", () => {
                 options: [
                   {
                     type: "html",
-                    content: "<div>goodbye</div>"
+                    content: "<div>goodbye</div>",
+                    responseTokens: expect.any(Object)
                   }
                 ]
               }
@@ -228,7 +231,8 @@ describe("decisioning outcomes - multiple activities", () => {
                       importantValue: 150
                     },
                     eventToken:
-                      "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                      "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                    responseTokens: expect.any(Object)
                   }
                 ]
               }
@@ -300,7 +304,8 @@ describe("decisioning outcomes - multiple activities", () => {
                       importantValue: 150
                     },
                     eventToken:
-                      "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                      "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                    responseTokens: expect.any(Object)
                   }
                 ]
               },
@@ -312,7 +317,8 @@ describe("decisioning outcomes - multiple activities", () => {
                     type: "html",
                     content: "<div>goodbye</div>",
                     eventToken:
-                      "YPoPRnGmGGit+QxnpxYFjZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                      "YPoPRnGmGGit+QxnpxYFjZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                    responseTokens: expect.any(Object)
                   }
                 ]
               }

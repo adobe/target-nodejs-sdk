@@ -4,6 +4,7 @@ import { isDefined } from "@adobe/target-tools";
 import { createMboxContext, createPageContext } from "./contextProvider";
 import { computeAllocation } from "./allocationProvider";
 import { cloneDeep } from "./utils";
+import { ACTIVITY_ID } from "./constants";
 
 /**
  *
@@ -41,7 +42,7 @@ export function ruleEvaluator(clientId, visitorId) {
       page,
       referring,
       mbox: createMboxContext(requestDetail),
-      allocation: computeAllocation(clientId, rule.meta.activityId, visitorId)
+      allocation: computeAllocation(clientId, rule.meta[ACTIVITY_ID], visitorId)
     };
 
     const ruleSatisfied = jsonLogic.apply(rule.condition, ruleContext);
@@ -63,6 +64,6 @@ export function ruleEvaluator(clientId, visitorId) {
         consequence = postProcessFunc(rule, consequence, requestType, tracer);
       });
     }
-    return cloneDeep(consequence); // we return a new object because at.js has a tendency to mutate reponses and we don't want it to mutate the rule consequence itself
+    return cloneDeep(consequence); // we return a new object because at.js has a tendency to mutate response and we don't want it to mutate the rule consequence itself
   };
 }

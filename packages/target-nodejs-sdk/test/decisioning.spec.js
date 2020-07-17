@@ -194,7 +194,8 @@ describe("target local decisioning", () => {
                 content: { doMagic: true, importantValue: 150 },
                 type: "json",
                 eventToken:
-                  "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                responseTokens: expect.any(Object)
               }
             ]
           }
@@ -323,7 +324,8 @@ describe("target local decisioning", () => {
                   },
                   eventToken:
                     "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                  type: "json"
+                  type: "json",
+                  responseTokens: expect.any(Object)
                 }
               ]
             }

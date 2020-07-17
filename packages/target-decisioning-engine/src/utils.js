@@ -13,7 +13,6 @@ import {
   POSSIBLE_ENVIRONMENTS
 } from "@adobe/target-tools";
 import Messages from "./messages";
-import { RequestType } from "./enums";
 import { CDN_BASE, SUPPORTED_ARTIFACT_MAJOR_VERSION } from "./constants";
 
 /**
@@ -22,11 +21,7 @@ import { CDN_BASE, SUPPORTED_ARTIFACT_MAJOR_VERSION } from "./constants";
  * @return {string}
  */
 export function getRuleKey(rule) {
-  const { locationType, activityId, locationId = 0 } = rule.meta;
-
-  return locationType === RequestType.VIEW
-    ? `${activityId}-${locationId}`
-    : `${activityId}`;
+  return rule.ruleKey;
 }
 
 export function parseURL(url) {

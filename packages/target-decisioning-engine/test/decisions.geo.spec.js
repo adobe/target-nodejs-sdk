@@ -77,7 +77,8 @@ describe("decisioning outcomes - geo params", () => {
                   content: {
                     geo: true,
                     exp: "geo.b"
-                  }
+                  },
+                  responseTokens: expect.any(Object)
                 }
               ]
             }
@@ -147,7 +148,8 @@ describe("decisioning outcomes - geo params", () => {
                   content: {
                     geo: true,
                     exp: "geo.b"
-                  }
+                  },
+                  responseTokens: expect.any(Object)
                 }
               ]
             }

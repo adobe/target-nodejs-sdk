@@ -74,7 +74,8 @@ describe("decisioning outcomes - timeframe", () => {
                   type: "html",
                   content: "<strong>date range 1 (feb 27-29)</strong>",
                   eventToken:
-                    "wQY/V1IOYec8T4fAT5ww7unJlneZxJu5VqGhXCosHhWCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                    "wQY/V1IOYec8T4fAT5ww7unJlneZxJu5VqGhXCosHhWCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  responseTokens: expect.any(Object)
                 }
               ]
             }
@@ -111,7 +112,8 @@ describe("decisioning outcomes - timeframe", () => {
                   type: "html",
                   content: "<strong>date range 2 (mar 2 - 6)</strong>",
                   eventToken:
-                    "wQY/V1IOYec8T4fAT5ww7pNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                    "wQY/V1IOYec8T4fAT5ww7pNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  responseTokens: expect.any(Object)
                 }
               ]
             }
@@ -148,7 +150,8 @@ describe("decisioning outcomes - timeframe", () => {
                   type: "html",
                   content: "<strong>it's friday</strong>",
                   eventToken:
-                    "wQY/V1IOYec8T4fAT5ww7hB3JWElmEno9qwHyGr0QvSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                    "wQY/V1IOYec8T4fAT5ww7hB3JWElmEno9qwHyGr0QvSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  responseTokens: expect.any(Object)
                 }
               ]
             }
@@ -185,7 +188,8 @@ describe("decisioning outcomes - timeframe", () => {
                   type: "html",
                   content: "<strong>it's friday</strong>",
                   eventToken:
-                    "wQY/V1IOYec8T4fAT5ww7hB3JWElmEno9qwHyGr0QvSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                    "wQY/V1IOYec8T4fAT5ww7hB3JWElmEno9qwHyGr0QvSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  responseTokens: expect.any(Object)
                 }
               ]
             }
@@ -222,7 +226,8 @@ describe("decisioning outcomes - timeframe", () => {
                   type: "html",
                   content: "<strong>default result</strong>",
                   eventToken:
-                    "wQY/V1IOYec8T4fAT5ww7mqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                    "wQY/V1IOYec8T4fAT5ww7mqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  responseTokens: expect.any(Object)
                 }
               ]
             }

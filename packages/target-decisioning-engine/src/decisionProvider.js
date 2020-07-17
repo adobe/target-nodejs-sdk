@@ -12,6 +12,7 @@ import { RequestType } from "./enums";
 import {
   addTrace,
   cleanUp,
+  createResponseTokensPostProcessor,
   prepareExecuteResponse,
   preparePrefetchResponse,
   removePageLoadAttributes
@@ -41,7 +42,7 @@ function DecisionProvider(
   logger,
   traceProvider
 ) {
-  const { rules } = artifact;
+  const { responseTokens, rules } = artifact;
   const globalMboxName = artifact.globalMbox || DEFAULT_GLOBAL_MBOX;
 
   const clientId = config.client;
@@ -263,7 +264,7 @@ function DecisionProvider(
     return response;
   }
 
-  function getExecuteDecisions() {
+  function getExecuteDecisions(postProcessors) {
     const decisions = getDecisions("execute", [
       function prepareNotification(rule, mboxResponse, requestType, tracer) {
         notificationProvider.addNotification(
@@ -274,8 +275,7 @@ function DecisionProvider(
         return mboxResponse;
       },
       prepareExecuteResponse,
-      addTrace,
-      cleanUp
+      ...postProcessors
     ]);
 
     notificationProvider.sendNotifications();
@@ -283,13 +283,18 @@ function DecisionProvider(
     return decisions;
   }
 
-  function getPrefetchDecisions() {
+  function getPrefetchDecisions(postProcessors) {
     return getDecisions("prefetch", [
       preparePrefetchResponse,
-      addTrace,
-      cleanUp
+      ...postProcessors
     ]);
   }
+
+  const addResponseTokens = createResponseTokensPostProcessor(
+    context,
+    responseTokens
+  );
+  const commonPostProcessor = [addResponseTokens, addTrace, cleanUp];
 
   const response = objectWithoutUndefinedValues({
     status: dependency.remoteNeeded ? PARTIAL_CONTENT : OK,
@@ -301,8 +306,8 @@ function DecisionProvider(
     },
     client: clientId,
     edgeHost: undefined,
-    execute: getExecuteDecisions(),
-    prefetch: getPrefetchDecisions()
+    execute: getExecuteDecisions(commonPostProcessor),
+    prefetch: getPrefetchDecisions(commonPostProcessor)
   });
 
   logger.debug(`${LOG_TAG}`, request, response);

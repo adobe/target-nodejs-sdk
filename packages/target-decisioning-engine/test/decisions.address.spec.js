@@ -74,7 +74,8 @@ describe("decisioning outcomes - url params", () => {
                   type: "json",
                   content: {
                     baz: 2
-                  }
+                  },
+                  responseTokens: expect.any(Object)
                 }
               ]
             }
@@ -140,7 +141,8 @@ describe("decisioning outcomes - url params", () => {
                   type: "json",
                   content: {
                     baz: 2
-                  }
+                  },
+                  responseTokens: expect.any(Object)
                 }
               ]
             }

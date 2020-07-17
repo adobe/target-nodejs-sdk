@@ -86,7 +86,8 @@ describe("decisioning outcomes - single activity", () => {
                     content: {
                       doMagic: true,
                       importantValue: 150
-                    }
+                    },
+                    responseTokens: expect.any(Object)
                   }
                 ]
               }
@@ -156,7 +157,8 @@ describe("decisioning outcomes - single activity", () => {
                       importantValue: 150
                     },
                     eventToken:
-                      "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                      "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                    responseTokens: expect.any(Object)
                   }
                 ]
               }

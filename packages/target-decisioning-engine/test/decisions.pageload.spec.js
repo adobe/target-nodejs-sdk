@@ -80,13 +80,15 @@ describe("decisioning outcomes - pageload", () => {
                 type: "html",
                 content: "<div>Firetime</div>",
                 eventToken:
-                  "9FNM3ikASssS+sVoFXNulJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "9FNM3ikASssS+sVoFXNulJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                responseTokens: expect.any(Object)
               },
               {
                 type: "html",
                 content: "<div>mouse</div>",
                 eventToken:
-                  "5C2cbrGD+bQ5qOATNGy1AZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "5C2cbrGD+bQ5qOATNGy1AZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                responseTokens: expect.any(Object)
               }
             ]
           }
@@ -140,11 +142,13 @@ describe("decisioning outcomes - pageload", () => {
             options: [
               {
                 type: "html",
-                content: "<div>Firetime</div>"
+                content: "<div>Firetime</div>",
+                responseTokens: expect.any(Object)
               },
               {
                 type: "html",
-                content: "<div>mouse</div>"
+                content: "<div>mouse</div>",
+                responseTokens: expect.any(Object)
               }
             ]
           }
@@ -197,14 +201,17 @@ describe("decisioning outcomes - pageload", () => {
     expect(result.execute.pageLoad.options.sort(byContent)).toEqual([
       {
         content: "<div>Chrometastic</div>",
+        responseTokens: expect.any(Object),
         type: "html"
       },
       {
         content: "<div>foo=bar experience A</div>",
+        responseTokens: expect.any(Object),
         type: "html"
       },
       {
         content: "<div>mouse</div>",
+        responseTokens: expect.any(Object),
         type: "html"
       }
     ]);

@@ -67,7 +67,8 @@ describe("decisioning outcomes - views", () => {
                 }
               ],
               type: "actions",
-              eventToken: expect.any(String)
+              eventToken: expect.any(String),
+              responseTokens: expect.any(Object)
             },
             {
               content: [
@@ -79,7 +80,8 @@ describe("decisioning outcomes - views", () => {
                 }
               ],
               type: "actions",
-              eventToken: expect.any(String)
+              eventToken: expect.any(String),
+              responseTokens: expect.any(Object)
             },
             {
               content: [
@@ -91,7 +93,8 @@ describe("decisioning outcomes - views", () => {
                 }
               ],
               type: "actions",
-              eventToken: expect.any(String)
+              eventToken: expect.any(String),
+              responseTokens: expect.any(Object)
             },
             {
               content: [
@@ -104,7 +107,8 @@ describe("decisioning outcomes - views", () => {
                 }
               ],
               type: "actions",
-              eventToken: expect.any(String)
+              eventToken: expect.any(String),
+              responseTokens: expect.any(Object)
             }
           ])
         );
@@ -139,7 +143,8 @@ describe("decisioning outcomes - views", () => {
                 }
               ],
               type: "actions",
-              eventToken: expect.any(String)
+              eventToken: expect.any(String),
+              responseTokens: expect.any(Object)
             },
             {
               content: [
@@ -151,7 +156,8 @@ describe("decisioning outcomes - views", () => {
                 }
               ],
               type: "actions",
-              eventToken: expect.any(String)
+              eventToken: expect.any(String),
+              responseTokens: expect.any(Object)
             },
             {
               content: [
@@ -164,7 +170,8 @@ describe("decisioning outcomes - views", () => {
                 }
               ],
               type: "actions",
-              eventToken: expect.any(String)
+              eventToken: expect.any(String),
+              responseTokens: expect.any(Object)
             },
             {
               content: [
@@ -176,7 +183,8 @@ describe("decisioning outcomes - views", () => {
                 }
               ],
               type: "actions",
-              eventToken: expect.any(String)
+              eventToken: expect.any(String),
+              responseTokens: expect.any(Object)
             },
             {
               content: [
@@ -188,7 +196,8 @@ describe("decisioning outcomes - views", () => {
                 }
               ],
               type: "actions",
-              eventToken: expect.any(String)
+              eventToken: expect.any(String),
+              responseTokens: expect.any(Object)
             },
             {
               content: [
@@ -201,7 +210,8 @@ describe("decisioning outcomes - views", () => {
                 }
               ],
               type: "actions",
-              eventToken: expect.any(String)
+              eventToken: expect.any(String),
+              responseTokens: expect.any(Object)
             }
           ])
         );
@@ -236,7 +246,8 @@ describe("decisioning outcomes - views", () => {
                 }
               ],
               type: "actions",
-              eventToken: expect.any(String)
+              eventToken: expect.any(String),
+              responseTokens: expect.any(Object)
             },
             {
               content: [
@@ -251,7 +262,8 @@ describe("decisioning outcomes - views", () => {
                 }
               ],
               type: "actions",
-              eventToken: expect.any(String)
+              eventToken: expect.any(String),
+              responseTokens: expect.any(Object)
             }
           ])
         );
@@ -283,7 +295,8 @@ describe("decisioning outcomes - views", () => {
                 }
               ],
               type: "actions",
-              eventToken: expect.any(String)
+              eventToken: expect.any(String),
+              responseTokens: expect.any(Object)
             },
             {
               content: [
@@ -298,7 +311,8 @@ describe("decisioning outcomes - views", () => {
                 }
               ],
               type: "actions",
-              eventToken: expect.any(String)
+              eventToken: expect.any(String),
+              responseTokens: expect.any(Object)
             }
           ])
         );
@@ -326,7 +340,8 @@ describe("decisioning outcomes - views", () => {
                 }
               ],
               type: "actions",
-              eventToken: expect.any(String)
+              eventToken: expect.any(String),
+              responseTokens: expect.any(Object)
             },
             {
               content: [
@@ -341,7 +356,8 @@ describe("decisioning outcomes - views", () => {
                 }
               ],
               type: "actions",
-              eventToken: expect.any(String)
+              eventToken: expect.any(String),
+              responseTokens: expect.any(Object)
             }
           ])
         );
@@ -379,9 +395,10 @@ describe("decisioning outcomes - views", () => {
                     "HTML > BODY > DIV:nth-of-type(2) > IMG:nth-of-type(1)",
                   selector:
                     "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
-                  type: "insertBefore"
+                  type: "insertBefore",
                 }
               ],
+              responseTokens: expect.any(Object),
               type: "actions"
             },
             {
@@ -396,6 +413,7 @@ describe("decisioning outcomes - views", () => {
                     '<p id="action_insert_15882853393943012">Life moves pretty fast. If you don’t stop and look around once in a while, you could miss it.</p>'
                 }
               ],
+              responseTokens: expect.any(Object),
               type: "actions"
             },
             {
@@ -410,6 +428,7 @@ describe("decisioning outcomes - views", () => {
                   }
                 }
               ],
+              responseTokens: expect.any(Object),
               type: "actions"
             }
           ])
@@ -458,6 +477,7 @@ describe("decisioning outcomes - views", () => {
                   content: "jason is correct"
                 }
               ],
+              responseTokens: expect.any(Object),
               type: "actions"
             },
             {
@@ -474,6 +494,7 @@ describe("decisioning outcomes - views", () => {
                   }
                 }
               ],
+              responseTokens: expect.any(Object),
               type: "actions"
             },
             {
@@ -488,6 +509,7 @@ describe("decisioning outcomes - views", () => {
                     '<p id="action_insert_15887183492726231">experience A</p>'
                 }
               ],
+              responseTokens: expect.any(Object),
               type: "actions"
             },
             {
@@ -502,6 +524,7 @@ describe("decisioning outcomes - views", () => {
                     '<p id="action_insert_15882853393943012">Life moves pretty fast. If you don’t stop and look around once in a while, you could miss it.</p>'
                 }
               ],
+              responseTokens: expect.any(Object),
               type: "actions"
             },
             {
@@ -516,6 +539,7 @@ describe("decisioning outcomes - views", () => {
                   }
                 }
               ],
+              responseTokens: expect.any(Object),
               type: "actions"
             }
           ])
@@ -550,6 +574,7 @@ describe("decisioning outcomes - views", () => {
                   content: "greg is correct"
                 }
               ],
+              responseTokens: expect.any(Object),
               type: "actions"
             },
             {
@@ -566,6 +591,7 @@ describe("decisioning outcomes - views", () => {
                   }
                 }
               ],
+              responseTokens: expect.any(Object),
               type: "actions"
             },
             {
@@ -579,6 +605,7 @@ describe("decisioning outcomes - views", () => {
                   content: "jason is correct"
                 }
               ],
+              responseTokens: expect.any(Object),
               type: "actions"
             },
             {
@@ -595,6 +622,7 @@ describe("decisioning outcomes - views", () => {
                   }
                 }
               ],
+              responseTokens: expect.any(Object),
               type: "actions"
             },
             {
@@ -609,6 +637,7 @@ describe("decisioning outcomes - views", () => {
                     '<p id="action_insert_15887183492726231">experience A</p>'
                 }
               ],
+              responseTokens: expect.any(Object),
               type: "actions"
             },
             {
@@ -623,6 +652,7 @@ describe("decisioning outcomes - views", () => {
                   type: "insertAfter"
                 }
               ],
+              responseTokens: expect.any(Object),
               type: "actions"
             },
             {
@@ -637,6 +667,7 @@ describe("decisioning outcomes - views", () => {
                   type: "setStyle"
                 }
               ],
+              responseTokens: expect.any(Object),
               type: "actions"
             }
           ])
@@ -679,6 +710,7 @@ describe("decisioning outcomes - views", () => {
                   content: "greg is correct"
                 }
               ],
+              responseTokens: expect.any(Object),
               type: "actions"
             },
             {
@@ -692,6 +724,7 @@ describe("decisioning outcomes - views", () => {
                   content: "Hello greg"
                 }
               ],
+              responseTokens: expect.any(Object),
               type: "actions"
             }
           ])
@@ -724,6 +757,7 @@ describe("decisioning outcomes - views", () => {
                   type: "setHtml"
                 }
               ],
+              responseTokens: expect.any(Object),
               type: "actions"
             },
             {
@@ -737,6 +771,7 @@ describe("decisioning outcomes - views", () => {
                   type: "setHtml"
                 }
               ],
+              responseTokens: expect.any(Object),
               type: "actions"
             }
           ])
@@ -765,6 +800,7 @@ describe("decisioning outcomes - views", () => {
                   content: "Hello everyone"
                 }
               ],
+              responseTokens: expect.any(Object),
               type: "actions"
             },
             {
@@ -778,6 +814,7 @@ describe("decisioning outcomes - views", () => {
                   content: "all visitors"
                 }
               ],
+              responseTokens: expect.any(Object),
               type: "actions"
             }
           ])
@@ -798,7 +835,8 @@ describe("decisioning outcomes - views", () => {
           expect.objectContaining([
             {
               eventToken:
-                "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+              responseTokens: expect.any(Object),
             },
             {
               content: [
@@ -813,11 +851,13 @@ describe("decisioning outcomes - views", () => {
               ],
               type: "actions",
               eventToken:
-                "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+              responseTokens: expect.any(Object),
             },
             {
               eventToken:
-                "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+              responseTokens: expect.any(Object),
             },
             {
               content: [
@@ -832,7 +872,8 @@ describe("decisioning outcomes - views", () => {
               ],
               type: "actions",
               eventToken:
-                "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+              responseTokens: expect.any(Object),
             }
           ])
         );

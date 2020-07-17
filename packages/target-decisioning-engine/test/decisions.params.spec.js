@@ -81,7 +81,8 @@ describe("decisioning outcomes - params", () => {
                     experience: "B"
                   },
                   eventToken:
-                    "Zhwxeqy1O2r9Ske1YDA9bJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                    "Zhwxeqy1O2r9Ske1YDA9bJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  responseTokens: expect.any(Object),
                 }
               ]
             }
