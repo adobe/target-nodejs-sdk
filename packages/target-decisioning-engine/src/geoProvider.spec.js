@@ -8,11 +8,11 @@ require("jest-fetch-mock").enableMocks();
 describe("geoProvider", () => {
   it("creates geo context from response", () => {
     const headers = {
-      "X-GEO-Latitude": 37.773972,
-      "X-GEO-Longitude": -122.431297,
-      "X-GEO-Country-Code": "US",
-      "X-GEO-Region-Code": "CA",
-      "X-GEO-City": "SANFRANCISCO"
+      "x-geo-latitude": 37.773972,
+      "x-geo-longitude": -122.431297,
+      "x-geo-country-code": "US",
+      "x-geo-region-code": "CA",
+      "x-geo-city": "SANFRANCISCO"
     };
     expect(
       createGeoObject({

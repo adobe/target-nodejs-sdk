@@ -14,12 +14,12 @@ export const CDN_BASE_PROD = "https://assets.adobetarget.com";
 export const CDN_BASE_STAGE = "https://assets.staging.adobetarget.com";
 export const CDN_BASE_DEV = "https://assets.staging.adobetarget.com";
 
-export const HTTP_HEADER_FORWARDED_FOR = "X-Forwarded-For";
-export const HTTP_HEADER_GEO_LATITUDE = "X-GEO-Latitude";
-export const HTTP_HEADER_GEO_LONGITUDE = "X-GEO-Longitude";
-export const HTTP_HEADER_GEO_COUNTRY = "X-GEO-Country-Code";
-export const HTTP_HEADER_GEO_REGION = "X-GEO-Region-Code";
-export const HTTP_HEADER_GEO_CITY = "X-GEO-City";
+export const HTTP_HEADER_FORWARDED_FOR = "x-forwarded-for";
+export const HTTP_HEADER_GEO_LATITUDE = "x-geo-latitude";
+export const HTTP_HEADER_GEO_LONGITUDE = "x-geo-longitude";
+export const HTTP_HEADER_GEO_COUNTRY = "x-geo-country-code";
+export const HTTP_HEADER_GEO_REGION = "x-geo-region-code";
+export const HTTP_HEADER_GEO_CITY = "x-geo-city";
 
 const CDN_BASE = {};
 CDN_BASE[ENVIRONMENT_PROD] = CDN_BASE_PROD;
