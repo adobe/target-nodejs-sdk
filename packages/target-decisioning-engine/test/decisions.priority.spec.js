@@ -68,7 +68,7 @@ describe("decisioning outcomes - priority", () => {
                   content: "<div>kitty high with targeting: Firefox</div>",
                   eventToken:
                     "/DhjxnVDh9heBZ0MrYFLF2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                  responseTokens: expect.any(Object),
+                  responseTokens: expect.any(Object)
                 }
               ]
             }
@@ -125,7 +125,7 @@ describe("decisioning outcomes - priority", () => {
                   content: "<div>kitty high A</div>",
                   eventToken:
                     "ruhwp7VESR7F74TJL2DV5WqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                  responseTokens: expect.any(Object),
+                  responseTokens: expect.any(Object)
                 }
               ]
             }

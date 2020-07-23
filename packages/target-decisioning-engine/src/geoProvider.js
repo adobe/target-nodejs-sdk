@@ -17,38 +17,70 @@ import {
   HTTP_HEADER_GEO_REGION
 } from "./constants";
 
+const GEO_MAPPINGS = [
+  {
+    headerName: HTTP_HEADER_FORWARDED_FOR,
+    parseValue: value => value,
+    valueKey: "ipAddress"
+  },
+  {
+    headerName: HTTP_HEADER_GEO_LATITUDE,
+    parseValue: value => parseFloat(value),
+    valueKey: "latitude"
+  },
+  {
+    headerName: HTTP_HEADER_GEO_LONGITUDE,
+    parseValue: value => parseFloat(value),
+    valueKey: "longitude"
+  },
+  {
+    headerName: HTTP_HEADER_GEO_COUNTRY,
+    parseValue: value => value,
+    valueKey: "countryCode"
+  },
+  {
+    headerName: HTTP_HEADER_GEO_REGION,
+    parseValue: value => value,
+    valueKey: "stateCode"
+  },
+  {
+    headerName: HTTP_HEADER_GEO_CITY,
+    parseValue: value => value,
+    valueKey: "city"
+  }
+];
+
 /**
- * @param { Response } fetchResponse;
+ *
+ * @param {Function} valueFn, function to lookup value by key
+ * @param initial
+ * @return {import("@adobe/target-tools/delivery-api-client/models/Geo").Geo}
+ */
+function mapGeoValues(valueFn, initial = {}) {
+  return GEO_MAPPINGS.reduce((result, mapping) => {
+    const value = valueFn.call(null, mapping.headerName);
+    if (value != null && isDefined(value)) {
+      // eslint-disable-next-line no-param-reassign
+      result[mapping.valueKey] = mapping.parseValue(value);
+    }
+    return result;
+  }, initial);
+}
+
+/**
+ * @param { import("node-fetch").Headers  } geoHeaders;
  * @return { import("@adobe/target-tools/delivery-api-client/models/Geo").Geo }
  */
-export function createGeoObject(fetchResponse) {
-  const geoObject = {};
+export function createGeoObjectFromHeaders(geoHeaders) {
+  return mapGeoValues(key => geoHeaders.get(key));
+}
 
-  const ipAddress = fetchResponse.headers.get(HTTP_HEADER_FORWARDED_FOR);
-  if (ipAddress != null && isDefined(ipAddress)) {
-    geoObject.ipAddress = ipAddress;
-  }
-  const latitude = fetchResponse.headers.get(HTTP_HEADER_GEO_LATITUDE);
-  if (latitude != null && isDefined(latitude)) {
-    geoObject.latitude = parseFloat(latitude);
-  }
-  const longitude = fetchResponse.headers.get(HTTP_HEADER_GEO_LONGITUDE);
-  if (longitude != null && isDefined(longitude)) {
-    geoObject.longitude = parseFloat(longitude);
-  }
-  const countryCode = fetchResponse.headers.get(HTTP_HEADER_GEO_COUNTRY);
-  if (countryCode != null && isDefined(countryCode)) {
-    geoObject.countryCode = countryCode;
-  }
-  const stateCode = fetchResponse.headers.get(HTTP_HEADER_GEO_REGION);
-  if (stateCode != null && isDefined(stateCode)) {
-    geoObject.stateCode = stateCode;
-  }
-  const city = fetchResponse.headers.get(HTTP_HEADER_GEO_CITY);
-  if (city != null && isDefined(city)) {
-    geoObject.city = city;
-  }
-  return geoObject;
+/**
+ * @param {Object.<string, any>} geoPayload
+ * @return { import("@adobe/target-tools/delivery-api-client/models/Geo").Geo }
+ */
+export function createGeoObjectFromPayload(geoPayload = {}) {
+  return mapGeoValues(key => geoPayload[key]);
 }
 
 /**
@@ -62,9 +94,9 @@ export function GeoProvider(config, artifact) {
 
   /**
    * @param {import("@adobe/target-tools/delivery-api-client/models/Geo").Geo} geoRequestContext
-   * @return { import("@adobe/target-tools/delivery-api-client/models/Geo").Geo }
+   * @return { Promise<import("@adobe/target-tools/delivery-api-client/models/Geo").Geo> }
    */
-  async function validGeoRequestContext(geoRequestContext = {}) {
+  function validGeoRequestContext(geoRequestContext = {}) {
     // When ipAddress is the only geo value passed in to getOffers(), do IP-to-Geo lookup.
     const geoLookupPath = getGeoLookupPath(config);
 
@@ -84,14 +116,22 @@ export function GeoProvider(config, artifact) {
         headers[HTTP_HEADER_FORWARDED_FOR] = geoRequestContext.ipAddress;
       }
 
-      const ipToGeoLookupResponse = await fetchApi(geoLookupPath, { headers });
-      const geoResponseHeaders = createGeoObject(ipToGeoLookupResponse);
-      Object.assign(geoRequestContext, geoResponseHeaders);
-
-      eventEmitter(GEO_LOCATION_UPDATED, { geoContext: geoRequestContext });
+      return fetchApi(geoLookupPath, {
+        headers
+      })
+        .then(geoResponse =>
+          geoResponse
+            .json()
+            .then(geoPayload => createGeoObjectFromPayload(geoPayload))
+        )
+        .then(fetchedGeoValues => {
+          Object.assign(geoRequestContext, fetchedGeoValues);
+          eventEmitter(GEO_LOCATION_UPDATED, { geoContext: geoRequestContext });
+          return geoRequestContext;
+        });
     }
 
-    return geoRequestContext;
+    return Promise.resolve(geoRequestContext);
   }
   return {
     validGeoRequestContext

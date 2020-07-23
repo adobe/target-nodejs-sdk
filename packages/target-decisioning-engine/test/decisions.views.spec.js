@@ -395,7 +395,7 @@ describe("decisioning outcomes - views", () => {
                     "HTML > BODY > DIV:nth-of-type(2) > IMG:nth-of-type(1)",
                   selector:
                     "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
-                  type: "insertBefore",
+                  type: "insertBefore"
                 }
               ],
               responseTokens: expect.any(Object),
@@ -836,7 +836,7 @@ describe("decisioning outcomes - views", () => {
             {
               eventToken:
                 "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-              responseTokens: expect.any(Object),
+              responseTokens: expect.any(Object)
             },
             {
               content: [
@@ -852,12 +852,12 @@ describe("decisioning outcomes - views", () => {
               type: "actions",
               eventToken:
                 "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-              responseTokens: expect.any(Object),
+              responseTokens: expect.any(Object)
             },
             {
               eventToken:
                 "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-              responseTokens: expect.any(Object),
+              responseTokens: expect.any(Object)
             },
             {
               content: [
@@ -873,7 +873,7 @@ describe("decisioning outcomes - views", () => {
               type: "actions",
               eventToken:
                 "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-              responseTokens: expect.any(Object),
+              responseTokens: expect.any(Object)
             }
           ])
         );

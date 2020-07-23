@@ -21,7 +21,7 @@ import {
   ARTIFACT_DOWNLOAD_SUCCEEDED,
   GEO_LOCATION_UPDATED
 } from "./events";
-import { createGeoObject } from "./geoProvider";
+import { createGeoObjectFromHeaders } from "./geoProvider";
 
 const LOG_TAG = `${LOG_PREFIX}.ArtifactProvider`;
 const NOT_MODIFIED = 304;
@@ -120,7 +120,7 @@ async function ArtifactProvider(config) {
             lastResponseData = responseData;
             lastResponseEtag = etag;
           }
-          geoContext = createGeoObject(res);
+          geoContext = createGeoObjectFromHeaders(res.headers);
           emitNewArtifact(responseData, geoContext);
         }
         return responseData;

@@ -89,15 +89,15 @@ describe("decisioning outcomes - geo params", () => {
   });
 
   it("can determine geo outcomes when geo context is missing but ipAddress exists in context", async () => {
-    fetch.mockResponse(JSON.stringify({ status: "OK" }), {
-      headers: {
-        "X-GEO-Longitude": -122.4,
-        "X-GEO-Latitude": 37.75,
-        "X-GEO-City": "SAN FRANCISCO",
-        "X-GEO-Region-Code": "CA",
-        "X-GEO-Country-Code": "US"
-      }
-    });
+    fetch.mockResponse(
+      JSON.stringify({
+        "x-geo-longitude": -122.4,
+        "x-geo-latitude": 37.75,
+        "x-geo-city": "SAN FRANCISCO",
+        "x-geo-region-code": "CA",
+        "x-geo-country-code": "US"
+      })
+    );
 
     decisioning = await TargetDecisioningEngine({
       ...TEST_CONF
