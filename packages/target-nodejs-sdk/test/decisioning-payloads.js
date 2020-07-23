@@ -26,7 +26,7 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-17T20:49:59.996Z"
+    generatedAt: "2020-07-23T17:36:42.314Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -48,6 +48,7 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
   remoteMboxes: ["target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
+    "dwalling-myFlags",
     "offer2",
     "multinot",
     "demo-geo-offer1",
@@ -59,6 +60,7 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
     "target-global-mbox",
     "kitty",
     "geo",
+    "perf1",
     "daterange-mbox",
     "browser-mbox",
     "onboarding-mbox-1",
@@ -90,6 +92,8 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
             "location.id": 0,
             "audience.ids": [5356811],
             "offer.id": 630815,
+            "offer.name":
+              "/form_based_activity-offer2-feb1920201034/experiences/0/pages/0/zones/0/1582137291528",
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 333312,
@@ -135,6 +139,8 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
             "location.id": 0,
             "audience.ids": [5356811],
             "offer.id": 630814,
+            "offer.name":
+              "/form_based_activity-offer2-feb1920201034/experiences/1/pages/0/zones/0/1582137291524",
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 333312,
@@ -177,7 +183,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-17T20:49:59.996Z"
+    generatedAt: "2020-07-23T17:36:42.314Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -199,6 +205,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
   remoteMboxes: ["target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
+    "dwalling-myFlags",
     "offer2",
     "multinot",
     "demo-geo-offer1",
@@ -210,6 +217,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
     "target-global-mbox",
     "kitty",
     "geo",
+    "perf1",
     "daterange-mbox",
     "browser-mbox",
     "onboarding-mbox-1",
@@ -240,6 +248,8 @@ export const DECISIONING_PAYLOAD_BROWSER = {
             "location.id": 0,
             "audience.ids": [4873452],
             "offer.id": 632439,
+            "offer.name":
+              "/browser-mbox/experiences/1/pages/0/zones/0/1582915910400",
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 334845,
@@ -279,6 +289,8 @@ export const DECISIONING_PAYLOAD_BROWSER = {
             "location.id": 0,
             "audience.ids": [4957566],
             "offer.id": 632440,
+            "offer.name":
+              "/browser-mbox/experiences/2/pages/0/zones/0/1582915910403",
             "option.id": 4,
             "option.name": "Offer4",
             activityId: 334845,
@@ -318,6 +330,8 @@ export const DECISIONING_PAYLOAD_BROWSER = {
             "location.id": 0,
             "audience.ids": [2170460],
             "offer.id": 632438,
+            "offer.name":
+              "/browser-mbox/experiences/3/pages/0/zones/0/1582915910396",
             "option.id": 5,
             "option.name": "Offer5",
             activityId: 334845,
@@ -357,6 +371,8 @@ export const DECISIONING_PAYLOAD_BROWSER = {
             "location.id": 0,
             "audience.ids": [5372368],
             "offer.id": 632446,
+            "offer.name":
+              "/browser-mbox/experiences/4/pages/0/zones/0/1582917563229",
             "option.id": 6,
             "option.name": "Offer6",
             activityId: 334845,
@@ -396,6 +412,8 @@ export const DECISIONING_PAYLOAD_BROWSER = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 632437,
+            "offer.name":
+              "/browser-mbox/experiences/0/pages/0/zones/0/1582915910375",
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 334845,
@@ -434,7 +452,7 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-17T20:49:59.996Z"
+    generatedAt: "2020-07-23T17:36:42.314Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -456,6 +474,7 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
   remoteMboxes: ["target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
+    "dwalling-myFlags",
     "offer2",
     "multinot",
     "demo-geo-offer1",
@@ -467,6 +486,7 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
     "target-global-mbox",
     "kitty",
     "geo",
+    "perf1",
     "daterange-mbox",
     "browser-mbox",
     "onboarding-mbox-1",
@@ -497,6 +517,8 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 631992,
+            "offer.name":
+              "/superfluous_ab_json/experiences/0/pages/0/zones/0/1582738346730",
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 334411,
@@ -536,6 +558,8 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 631991,
+            "offer.name":
+              "/superfluous_ab_json/experiences/1/pages/0/zones/0/1582738346722",
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 334411,
@@ -577,6 +601,8 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 632233,
+            "offer.name":
+              "/simple_ab_expendable-mbox/experiences/0/pages/0/zones/0/1582825446969",
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 334640,
@@ -616,6 +642,8 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 632234,
+            "offer.name":
+              "/simple_ab_expendable-mbox/experiences/1/pages/0/zones/0/1582825446975",
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 334640,
@@ -653,7 +681,7 @@ export const DECISIONING_PAYLOAD_PARAMS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-17T20:49:59.996Z"
+    generatedAt: "2020-07-23T17:36:42.314Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -675,6 +703,7 @@ export const DECISIONING_PAYLOAD_PARAMS = {
   remoteMboxes: ["target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
+    "dwalling-myFlags",
     "offer2",
     "multinot",
     "demo-geo-offer1",
@@ -686,6 +715,7 @@ export const DECISIONING_PAYLOAD_PARAMS = {
     "target-global-mbox",
     "kitty",
     "geo",
+    "perf1",
     "daterange-mbox",
     "browser-mbox",
     "onboarding-mbox-1",
@@ -716,6 +746,8 @@ export const DECISIONING_PAYLOAD_PARAMS = {
             "location.id": 0,
             "audience.ids": [5452799],
             "offer.id": 632331,
+            "offer.name":
+              "/redundant-mbox/experiences/0/pages/0/zones/0/1582842639909",
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 334717,
@@ -760,6 +792,8 @@ export const DECISIONING_PAYLOAD_PARAMS = {
             "location.id": 0,
             "audience.ids": [5452799],
             "offer.id": 632330,
+            "offer.name":
+              "/redundant-mbox/experiences/1/pages/0/zones/0/1582842639906",
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 334717,
@@ -804,7 +838,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-17T20:49:59.996Z"
+    generatedAt: "2020-07-23T17:36:42.314Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -826,6 +860,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
   remoteMboxes: ["target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
+    "dwalling-myFlags",
     "offer2",
     "multinot",
     "demo-geo-offer1",
@@ -837,6 +872,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
     "target-global-mbox",
     "kitty",
     "geo",
+    "perf1",
     "daterange-mbox",
     "browser-mbox",
     "onboarding-mbox-1",
@@ -867,6 +903,8 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
             "location.id": 0,
             "audience.ids": [4873452],
             "offer.id": 634862,
+            "offer.name":
+              "/kitty_high_with_targeting/experiences/0/pages/0/zones/0/1584124723844",
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 336973,
@@ -906,6 +944,8 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
             "location.id": 0,
             "audience.ids": [4957566],
             "offer.id": 634861,
+            "offer.name":
+              "/kitty_high_with_targeting/experiences/1/pages/0/zones/0/1584124723839",
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 336973,
@@ -945,6 +985,8 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 634836,
+            "offer.name":
+              "/kitty_high/experiences/0/pages/0/zones/0/1584119849432",
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 336951,
@@ -984,6 +1026,8 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 634837,
+            "offer.name":
+              "/kitty_high/experiences/1/pages/0/zones/0/1584119849437",
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 336951,
@@ -1023,6 +1067,8 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 634834,
+            "offer.name":
+              "/kitty_low/experiences/0/pages/0/zones/0/1584119759067",
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 336950,
@@ -1062,6 +1108,8 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 634835,
+            "offer.name":
+              "/kitty_low/experiences/1/pages/0/zones/0/1584119759075",
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 336950,
@@ -1099,7 +1147,7 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-17T20:49:59.996Z"
+    generatedAt: "2020-07-23T17:36:42.314Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -1121,6 +1169,7 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
   remoteMboxes: ["target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
+    "dwalling-myFlags",
     "offer2",
     "multinot",
     "demo-geo-offer1",
@@ -1132,6 +1181,7 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
     "target-global-mbox",
     "kitty",
     "geo",
+    "perf1",
     "daterange-mbox",
     "browser-mbox",
     "onboarding-mbox-1",
@@ -1162,6 +1212,8 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 631992,
+            "offer.name":
+              "/superfluous_ab_json/experiences/0/pages/0/zones/0/1582738346730",
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 334411,
@@ -1201,6 +1253,8 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 631991,
+            "offer.name":
+              "/superfluous_ab_json/experiences/1/pages/0/zones/0/1582738346722",
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 334411,
@@ -1238,7 +1292,7 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-17T20:49:59.996Z"
+    generatedAt: "2020-07-23T17:36:42.314Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -1260,6 +1314,7 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
   remoteMboxes: ["remote-only-mbox-a", "target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
+    "dwalling-myFlags",
     "offer2",
     "multinot",
     "demo-geo-offer1",
@@ -1271,6 +1326,7 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
     "target-global-mbox",
     "kitty",
     "geo",
+    "perf1",
     "daterange-mbox",
     "browser-mbox",
     "onboarding-mbox-1",
@@ -1301,6 +1357,8 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
             "location.id": 0,
             "audience.ids": [5372446],
             "offer.id": 632493,
+            "offer.name":
+              "/daterange-mbox/experiences/4/pages/0/zones/0/1582928389678",
             "option.id": 4,
             "option.name": "Offer4",
             activityId: 334853,
@@ -1345,6 +1403,8 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
             "location.id": 0,
             "audience.ids": [5372445],
             "offer.id": 632494,
+            "offer.name":
+              "/daterange-mbox/experiences/5/pages/0/zones/0/1582928389686",
             "option.id": 5,
             "option.name": "Offer5",
             activityId: 334853,
@@ -1386,6 +1446,8 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
             "location.id": 0,
             "audience.ids": [5372444],
             "offer.id": 632451,
+            "offer.name":
+              "/daterange-mbox/experiences/1/pages/0/zones/0/1582918990666",
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 334853,
@@ -1427,6 +1489,8 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 632450,
+            "offer.name":
+              "/daterange-mbox/experiences/0/pages/0/zones/0/1582918990663",
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 334853,
@@ -1466,7 +1530,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-17T20:49:59.996Z"
+    generatedAt: "2020-07-23T17:36:42.314Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -1488,6 +1552,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
   remoteMboxes: ["target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
+    "dwalling-myFlags",
     "offer2",
     "multinot",
     "demo-geo-offer1",
@@ -1499,6 +1564,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
     "target-global-mbox",
     "kitty",
     "geo",
+    "perf1",
     "daterange-mbox",
     "browser-mbox",
     "onboarding-mbox-1",
@@ -1529,6 +1595,8 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             "location.id": 0,
             "audience.ids": [2170460],
             "offer.id": 635716,
+            "offer.name":
+              "/global_mbox_browserhtml/experiences/0/pages/0/zones/0/1584640063509",
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 337795,
@@ -1568,6 +1636,8 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             "location.id": 0,
             "audience.ids": [4873452],
             "offer.id": 635715,
+            "offer.name":
+              "/global_mbox_browserhtml/experiences/1/pages/0/zones/0/1584640063505",
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 337795,
@@ -1607,6 +1677,8 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             "location.id": 0,
             "audience.ids": [4957566],
             "offer.id": 635713,
+            "offer.name":
+              "/global_mbox_browserhtml/experiences/2/pages/0/zones/0/1584640063487",
             "option.id": 4,
             "option.name": "Offer4",
             activityId: 337795,
@@ -1646,6 +1718,8 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 635714,
+            "offer.name":
+              "/global_mbox_browserhtml/experiences/3/pages/0/zones/0/1584640063501",
             "option.id": 5,
             "option.name": "Offer5",
             activityId: 337795,
@@ -1685,6 +1759,8 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             "location.id": 0,
             "audience.ids": [5272024],
             "offer.id": 635719,
+            "offer.name":
+              "/ab_tres_experienceglobalmbox/experiences/0/pages/0/zones/0/1584640298871",
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 337797,
@@ -1729,6 +1805,8 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             "location.id": 0,
             "audience.ids": [5272024],
             "offer.id": 635718,
+            "offer.name":
+              "/ab_tres_experienceglobalmbox/experiences/1/pages/0/zones/0/1584640298867",
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 337797,
@@ -1773,6 +1851,8 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             "location.id": 0,
             "audience.ids": [5272024],
             "offer.id": 635717,
+            "offer.name":
+              "/ab_tres_experienceglobalmbox/experiences/2/pages/0/zones/0/1584640298862",
             "option.id": 4,
             "option.name": "Offer4",
             activityId: 337797,
@@ -1817,6 +1897,8 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 635778,
+            "offer.name":
+              "/global_ab_html/experiences/0/pages/0/zones/0/1584661883900",
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 337888,
@@ -1856,6 +1938,8 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 635776,
+            "offer.name":
+              "/global_ab_html/experiences/1/pages/0/zones/0/1584661883883",
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 337888,
@@ -1895,6 +1979,8 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 635779,
+            "offer.name":
+              "/global_ab_html/experiences/2/pages/0/zones/0/1584661883905",
             "option.id": 4,
             "option.name": "Offer4",
             activityId: 337888,
@@ -1934,6 +2020,8 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 635777,
+            "offer.name":
+              "/global_ab_html/experiences/3/pages/0/zones/0/1584661883895",
             "option.id": 5,
             "option.name": "Offer5",
             activityId: 337888,
@@ -1971,7 +2059,7 @@ export const DECISIONING_PAYLOAD_FEATURE_FLAG = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-17T20:49:59.996Z"
+    generatedAt: "2020-07-23T17:36:42.314Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -1997,6 +2085,7 @@ export const DECISIONING_PAYLOAD_FEATURE_FLAG = {
   ],
   remoteViews: ["home"],
   localMboxes: [
+    "dwalling-myFlags",
     "offer2",
     "multinot",
     "demo-geo-offer1",
@@ -2008,6 +2097,7 @@ export const DECISIONING_PAYLOAD_FEATURE_FLAG = {
     "target-global-mbox",
     "kitty",
     "geo",
+    "perf1",
     "daterange-mbox",
     "browser-mbox",
     "onboarding-mbox-1",
@@ -2038,6 +2128,8 @@ export const DECISIONING_PAYLOAD_FEATURE_FLAG = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 632759,
+            "offer.name":
+              "/jason-flags/experiences/0/pages/0/zones/0/1583188989447",
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 335113,
@@ -2082,6 +2174,8 @@ export const DECISIONING_PAYLOAD_FEATURE_FLAG = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 632760,
+            "offer.name":
+              "/jason-flags/experiences/1/pages/0/zones/0/1583188989545",
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 335113,
@@ -2127,7 +2221,7 @@ export const DECISIONING_PAYLOAD_ATJS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-17T20:49:59.996Z"
+    generatedAt: "2020-07-23T17:36:42.314Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -2149,6 +2243,7 @@ export const DECISIONING_PAYLOAD_ATJS = {
   remoteMboxes: ["browser-mbox", "target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
+    "dwalling-myFlags",
     "offer2",
     "multinot",
     "demo-geo-offer1",
@@ -2160,6 +2255,7 @@ export const DECISIONING_PAYLOAD_ATJS = {
     "target-global-mbox",
     "kitty",
     "geo",
+    "perf1",
     "daterange-mbox",
     "browser-mbox",
     "onboarding-mbox-1",
@@ -2190,6 +2286,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
             "location.id": 0,
             "audience.ids": [2170460],
             "offer.id": 635716,
+            "offer.name":
+              "/global_mbox_browserhtml/experiences/0/pages/0/zones/0/1584640063509",
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 337795,
@@ -2229,6 +2327,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
             "location.id": 0,
             "audience.ids": [4873452],
             "offer.id": 635715,
+            "offer.name":
+              "/global_mbox_browserhtml/experiences/1/pages/0/zones/0/1584640063505",
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 337795,
@@ -2268,6 +2368,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
             "location.id": 0,
             "audience.ids": [4957566],
             "offer.id": 635713,
+            "offer.name":
+              "/global_mbox_browserhtml/experiences/2/pages/0/zones/0/1584640063487",
             "option.id": 4,
             "option.name": "Offer4",
             activityId: 337795,
@@ -2307,6 +2409,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 635714,
+            "offer.name":
+              "/global_mbox_browserhtml/experiences/3/pages/0/zones/0/1584640063501",
             "option.id": 5,
             "option.name": "Offer5",
             activityId: 337795,
@@ -2348,6 +2452,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
             "location.id": 0,
             "audience.ids": [4873452],
             "offer.id": 632439,
+            "offer.name":
+              "/browser-mbox/experiences/1/pages/0/zones/0/1582915910400",
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 334845,
@@ -2387,6 +2493,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
             "location.id": 0,
             "audience.ids": [4957566],
             "offer.id": 632440,
+            "offer.name":
+              "/browser-mbox/experiences/2/pages/0/zones/0/1582915910403",
             "option.id": 4,
             "option.name": "Offer4",
             activityId: 334845,
@@ -2426,6 +2534,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
             "location.id": 0,
             "audience.ids": [2170460],
             "offer.id": 632438,
+            "offer.name":
+              "/browser-mbox/experiences/3/pages/0/zones/0/1582915910396",
             "option.id": 5,
             "option.name": "Offer5",
             activityId: 334845,
@@ -2465,6 +2575,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
             "location.id": 0,
             "audience.ids": [5372368],
             "offer.id": 632446,
+            "offer.name":
+              "/browser-mbox/experiences/4/pages/0/zones/0/1582917563229",
             "option.id": 6,
             "option.name": "Offer6",
             activityId: 334845,
@@ -2504,6 +2616,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 632437,
+            "offer.name":
+              "/browser-mbox/experiences/0/pages/0/zones/0/1582915910375",
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 334845,
@@ -2545,6 +2659,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 632759,
+            "offer.name":
+              "/jason-flags/experiences/0/pages/0/zones/0/1583188989447",
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 335113,
@@ -2589,6 +2705,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 632760,
+            "offer.name":
+              "/jason-flags/experiences/1/pages/0/zones/0/1583188989545",
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 335113,
@@ -2635,6 +2753,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 631992,
+            "offer.name":
+              "/superfluous_ab_json/experiences/0/pages/0/zones/0/1582738346730",
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 334411,
@@ -2674,6 +2794,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 631991,
+            "offer.name":
+              "/superfluous_ab_json/experiences/1/pages/0/zones/0/1582738346722",
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 334411,
@@ -2713,7 +2835,7 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-17T20:49:59.996Z"
+    generatedAt: "2020-07-23T17:36:42.314Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -2735,6 +2857,7 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
   remoteMboxes: ["target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
+    "dwalling-myFlags",
     "offer2",
     "multinot",
     "demo-geo-offer1",
@@ -2746,6 +2869,7 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
     "target-global-mbox",
     "kitty",
     "geo",
+    "perf1",
     "daterange-mbox",
     "browser-mbox",
     "onboarding-mbox-1",
@@ -2776,6 +2900,8 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
             "location.id": 0,
             "audience.ids": [2170460],
             "offer.id": 635716,
+            "offer.name":
+              "/global_mbox_browserhtml/experiences/0/pages/0/zones/0/1584640063509",
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 337795,
@@ -2815,6 +2941,8 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
             "location.id": 0,
             "audience.ids": [4873452],
             "offer.id": 635715,
+            "offer.name":
+              "/global_mbox_browserhtml/experiences/1/pages/0/zones/0/1584640063505",
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 337795,
@@ -2854,6 +2982,8 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
             "location.id": 0,
             "audience.ids": [4957566],
             "offer.id": 635713,
+            "offer.name":
+              "/global_mbox_browserhtml/experiences/2/pages/0/zones/0/1584640063487",
             "option.id": 4,
             "option.name": "Offer4",
             activityId: 337795,
@@ -2893,6 +3023,8 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 635714,
+            "offer.name":
+              "/global_mbox_browserhtml/experiences/3/pages/0/zones/0/1584640063501",
             "option.id": 5,
             "option.name": "Offer5",
             activityId: 337795,
@@ -2932,6 +3064,8 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 652741,
+            "offer.name":
+              "/vegetable_ab_global-mbox/experiences/0/pages/0/zones/0/1591984699476",
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 350783,
@@ -2977,6 +3111,8 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 652740,
+            "offer.name":
+              "/vegetable_ab_global-mbox/experiences/1/pages/0/zones/0/1591984699471",
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 350783,
@@ -3022,6 +3158,8 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 652738,
+            "offer.name":
+              "/fruit_ab_global-mbox/experiences/0/pages/0/zones/0/1591984571136",
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 350782,
@@ -3067,6 +3205,8 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
             "location.id": 0,
             "audience.ids": [],
             "offer.id": 652739,
+            "offer.name":
+              "/fruit_ab_global-mbox/experiences/1/pages/0/zones/0/1591984571142",
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 350782,
@@ -3110,7 +3250,7 @@ export const DECISIONING_PAYLOAD_GEO = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-17T20:49:59.996Z"
+    generatedAt: "2020-07-23T17:36:42.314Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -3132,6 +3272,7 @@ export const DECISIONING_PAYLOAD_GEO = {
   remoteMboxes: ["target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
+    "dwalling-myFlags",
     "offer2",
     "multinot",
     "demo-geo-offer1",
@@ -3143,6 +3284,7 @@ export const DECISIONING_PAYLOAD_GEO = {
     "target-global-mbox",
     "kitty",
     "geo",
+    "perf1",
     "daterange-mbox",
     "browser-mbox",
     "onboarding-mbox-1",
@@ -3173,6 +3315,8 @@ export const DECISIONING_PAYLOAD_GEO = {
             "location.id": 0,
             "audience.ids": [5753100],
             "offer.id": 651951,
+            "offer.name":
+              "/greg_geo_test_a_bjun0220201434/experiences/0/pages/0/zones/0/1591737073425",
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 349133,
@@ -3255,6 +3399,8 @@ export const DECISIONING_PAYLOAD_GEO = {
             "location.id": 0,
             "audience.ids": [5753100],
             "offer.id": 650379,
+            "offer.name":
+              "/greg_geo_test_a_bjun0220201434/experiences/1/pages/0/zones/0/1591133667939",
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 349133,
@@ -3337,7 +3483,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-17T20:49:59.996Z"
+    generatedAt: "2020-07-23T17:36:42.314Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -3359,6 +3505,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
   remoteMboxes: ["target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
+    "dwalling-myFlags",
     "offer2",
     "multinot",
     "demo-geo-offer1",
@@ -3370,6 +3517,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
     "target-global-mbox",
     "kitty",
     "geo",
+    "perf1",
     "daterange-mbox",
     "browser-mbox",
     "onboarding-mbox-1",
@@ -4700,7 +4848,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-17T20:49:59.996Z"
+    generatedAt: "2020-07-23T17:36:42.314Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -4722,6 +4870,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
   remoteMboxes: ["target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
+    "dwalling-myFlags",
     "offer2",
     "multinot",
     "demo-geo-offer1",
@@ -4733,6 +4882,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
     "target-global-mbox",
     "kitty",
     "geo",
+    "perf1",
     "daterange-mbox",
     "browser-mbox",
     "onboarding-mbox-1",
@@ -5426,7 +5576,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-17T20:49:59.996Z"
+    generatedAt: "2020-07-23T17:36:42.314Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -5448,6 +5598,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
   remoteMboxes: ["target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
+    "dwalling-myFlags",
     "offer2",
     "multinot",
     "demo-geo-offer1",
@@ -5459,6 +5610,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
     "target-global-mbox",
     "kitty",
     "geo",
+    "perf1",
     "daterange-mbox",
     "browser-mbox",
     "onboarding-mbox-1",

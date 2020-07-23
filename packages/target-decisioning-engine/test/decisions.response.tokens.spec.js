@@ -79,6 +79,8 @@ describe("decisioning outcomes - response tokens", () => {
         "geo.country": "UNITED STATES",
         "geo.state": "CALIFORNIA",
         "offer.id": 650379,
+        "offer.name":
+          "/greg_geo_test_a_bjun0220201434/experiences/1/pages/0/zones/0/1591133667939",
         "option.id": 3,
         "option.name": "Offer3"
       });
@@ -140,6 +142,8 @@ describe("decisioning outcomes - response tokens", () => {
           "geo.country": "UNITED STATES",
           "geo.state": "CALIFORNIA",
           "offer.id": 650379,
+          "offer.name":
+            "/greg_geo_test_a_bjun0220201434/experiences/1/pages/0/zones/0/1591133667939",
           "option.id": 3,
           "option.name": "Offer3"
         }
