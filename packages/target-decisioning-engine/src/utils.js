@@ -132,29 +132,6 @@ export function cloneDeep(obj) {
 }
 
 /**
- * @param {import("../types/DecisioningConfig").DecisioningConfig} config
- * @return {string}
- */
-export function getCdnBasePath(config) {
-  const cdnEnvironment = getCdnEnvironment(config);
-
-  const env = POSSIBLE_ENVIRONMENTS.includes(cdnEnvironment)
-    ? cdnEnvironment
-    : ENVIRONMENT_PROD;
-
-  return CDN_BASE[env];
-}
-
-/**
- * @param {import("../types/DecisioningConfig").DecisioningConfig} config
- * @return {string}
- */
-export function getGeoLookupPath(config) {
-  const cdnBasePath = getCdnBasePath(config);
-  return `${cdnBasePath}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/geo`;
-}
-
-/**
  *
  * @param {String} environmentName
  * @param logger
@@ -187,6 +164,29 @@ export function getCdnEnvironment(config) {
   const { cdnEnvironment = ENVIRONMENT_PROD } = config;
 
   return getValidEnvironment(cdnEnvironment, config.logger);
+}
+
+/**
+ * @param {import("../types/DecisioningConfig").DecisioningConfig} config
+ * @return {string}
+ */
+export function getCdnBasePath(config) {
+  const cdnEnvironment = getCdnEnvironment(config);
+
+  const env = POSSIBLE_ENVIRONMENTS.includes(cdnEnvironment)
+    ? cdnEnvironment
+    : ENVIRONMENT_PROD;
+
+  return CDN_BASE[env];
+}
+
+/**
+ * @param {import("../types/DecisioningConfig").DecisioningConfig} config
+ * @return {string}
+ */
+export function getGeoLookupPath(config) {
+  const cdnBasePath = getCdnBasePath(config);
+  return `${cdnBasePath}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/geo`;
 }
 
 /**

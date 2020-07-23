@@ -133,7 +133,5 @@ export function GeoProvider(config, artifact) {
 
     return Promise.resolve(geoRequestContext);
   }
-  return {
-    validGeoRequestContext
-  };
+  return validGeoRequestContext;
 }

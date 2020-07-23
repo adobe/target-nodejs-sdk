@@ -1,4 +1,5 @@
 import * as HttpStatus from "http-status-codes";
+import { isDefined } from "@adobe/target-tools";
 import TargetDecisioningEngine from "./index";
 import * as constants from "./constants";
 import { SUPPORTED_ARTIFACT_MAJOR_VERSION } from "./constants";
@@ -7,7 +8,6 @@ import {
   DUMMY_ARTIFACT_PAYLOAD,
   DUMMY_ARTIFACT_PAYLOAD_UNSUPPORTED_VERSION
 } from "../test/decisioning-payloads";
-import { isDefined } from "@adobe/target-tools";
 import { ARTIFACT_DOWNLOAD_FAILED } from "./events";
 
 require("jest-fetch-mock").enableMocks();
@@ -71,7 +71,7 @@ describe("TargetDecisioningEngine", () => {
   // eslint-disable-next-line jest/no-test-callback
   it("updates the artifact on the polling interval", async done => {
     const responses = [];
-    for (let i = 1; i < 50; i++) {
+    for (let i = 1; i < 50; i += 1) {
       responses.push([
         JSON.stringify(
           Object.assign({}, DUMMY_ARTIFACT_PAYLOAD, { version: i })
@@ -106,42 +106,44 @@ describe("TargetDecisioningEngine", () => {
     }, 7);
   });
 
-  it("provides an error if the artifact is not available", done => {
-    expect.assertions(3);
-    const eventEmitter = jest.fn();
+  it("provides an error if the artifact is not available", () => {
+    return new Promise(done => {
+      expect.assertions(3);
+      const eventEmitter = jest.fn();
 
-    fetch.mockResponses(
-      ["", { status: HttpStatus.UNAUTHORIZED }],
-      ["", { status: HttpStatus.NOT_FOUND }],
-      ["", { status: HttpStatus.NOT_ACCEPTABLE }],
-      ["", { status: HttpStatus.NOT_IMPLEMENTED }],
-      ["", { status: HttpStatus.FORBIDDEN }],
-      ["", { status: HttpStatus.SERVICE_UNAVAILABLE }],
-      ["", { status: HttpStatus.BAD_REQUEST }],
-      ["", { status: HttpStatus.BAD_GATEWAY }],
-      ["", { status: HttpStatus.TOO_MANY_REQUESTS }],
-      ["", { status: HttpStatus.GONE }],
-      ["", { status: HttpStatus.INTERNAL_SERVER_ERROR }]
-    );
+      fetch.mockResponses(
+        ["", { status: HttpStatus.UNAUTHORIZED }],
+        ["", { status: HttpStatus.NOT_FOUND }],
+        ["", { status: HttpStatus.NOT_ACCEPTABLE }],
+        ["", { status: HttpStatus.NOT_IMPLEMENTED }],
+        ["", { status: HttpStatus.FORBIDDEN }],
+        ["", { status: HttpStatus.SERVICE_UNAVAILABLE }],
+        ["", { status: HttpStatus.BAD_REQUEST }],
+        ["", { status: HttpStatus.BAD_GATEWAY }],
+        ["", { status: HttpStatus.TOO_MANY_REQUESTS }],
+        ["", { status: HttpStatus.GONE }],
+        ["", { status: HttpStatus.INTERNAL_SERVER_ERROR }]
+      );
 
-    TargetDecisioningEngine({
-      ...CONFIG,
-      pollingInterval: 0,
-      eventEmitter
-    })
-      .then(instance => {
-        decisioning = instance;
+      TargetDecisioningEngine({
+        ...CONFIG,
+        pollingInterval: 0,
+        eventEmitter
       })
-      .catch(err => {
-        expect(err).toEqual(new Error(Messages.ARTIFACT_NOT_AVAILABLE));
-      });
+        .then(instance => {
+          decisioning = instance;
+        })
+        .catch(err => {
+          expect(err).toEqual(new Error(Messages.ARTIFACT_NOT_AVAILABLE));
+        });
 
-    setTimeout(() => {
-      expect(eventEmitter).toHaveBeenCalledTimes(11);
+      setTimeout(() => {
+        expect(eventEmitter).toHaveBeenCalledTimes(11);
 
-      expect(eventEmitter.mock.calls[0][0]).toEqual(ARTIFACT_DOWNLOAD_FAILED);
-      done();
-    }, 1000);
+        expect(eventEmitter.mock.calls[0][0]).toEqual(ARTIFACT_DOWNLOAD_FAILED);
+        done();
+      }, 1000);
+    });
   });
 
   it("getOffers resolves", async () => {

@@ -15,9 +15,12 @@ function byContent(a, b) {
 
   if (contentA > contentB) {
     return 1;
-  } else if (contentA < contentB) {
+  }
+
+  if (contentA < contentB) {
     return -1;
   }
+
   return 0;
 }
 

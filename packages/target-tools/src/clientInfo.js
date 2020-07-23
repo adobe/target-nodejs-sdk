@@ -7,8 +7,8 @@ function matchUserAgent(matchersList, processFunc) {
   processFunc =
     typeof processFunc === "function" ? processFunc : matcher => matcher.name;
 
-  return function(userAgent) {
-    for (let i = 0; i < matchersList.length; i++) {
+  return function checkMatches(userAgent) {
+    for (let i = 0; i < matchersList.length; i += 1) {
       const matcher = matchersList[i];
 
       const matches = userAgent.match(matcher.regex);
@@ -31,29 +31,29 @@ export const browserFromUserAgent = (userAgent = "") =>
     [
       {
         name: "Edge",
-        regex: /(edge|edgios|edga|edg)\/((\d+)?[\w\.]+)/i,
+        regex: /(edge|edgios|edga|edg)\/((\d+)?[\w.]+)/i,
         versionGroupIndex: 2
       },
       {
         name: "Mobile Safari",
-        regex: /version\/([\w\.]+).+?mobile\/\w+\s(safari)/i,
+        regex: /version\/([\w.]+).+?mobile\/\w+\s(safari)/i,
         versionGroupIndex: 1
       },
       {
         name: "Safari",
-        regex: /version\/([\w\.]+).+?(mobile\s?safari|safari)/i,
+        regex: /version\/([\w.]+).+?(mobile\s?safari|safari)/i,
         versionGroupIndex: 1
       },
-      { name: "Chrome", regex: /(chrome)\/v?([\w\.]+)/i, versionGroupIndex: 2 },
+      { name: "Chrome", regex: /(chrome)\/v?([\w.]+)/i, versionGroupIndex: 2 },
       {
         name: "Firefox",
-        regex: /(firefox)\/([\w\.-]+)$/i,
+        regex: /(firefox)\/([\w.-]+)$/i,
         versionGroupIndex: 2
       },
-      { name: "IE", regex: /(?:ms|\()(ie)\s([\w\.]+)/i, versionGroupIndex: 2 },
+      { name: "IE", regex: /(?:ms|\()(ie)\s([\w.]+)/i, versionGroupIndex: 2 },
       {
         name: "IE",
-        regex: /(trident).+rv[:\s]([\w\.]+).+like\sgecko/i,
+        regex: /(trident).+rv[:\s]([\w.]+).+like\sgecko/i,
         versionGroupIndex: 2,
         version: 11
       }
@@ -82,10 +82,10 @@ export const browserFromUserAgent = (userAgent = "") =>
 export const operatingSystemFromUserAgent = userAgent =>
   matchUserAgent([
     { name: "iOS", regex: /iPhone|iPad|iPod/ },
-    { name: "Android", regex: /Android [0-9\.]+;/ },
+    { name: "Android", regex: /Android [0-9.]+;/ },
     { name: "Linux", regex: / Linux / },
     { name: "Unix", regex: /FreeBSD|OpenBSD|CrOS/ },
-    { name: "Windows", regex: /[\( ]Windows / },
+    { name: "Windows", regex: /[( ]Windows / },
     { name: "Mac OS", regex: /Macintosh;/ }
   ])(userAgent);
 
@@ -102,6 +102,6 @@ export const deviceTypeFromUserAgent = userAgent =>
     { name: "Nokia", regex: /SymbOS|Maemo/ },
     { name: "Windows Phone", regex: /IEMobile/ },
     { name: "Blackberry", regex: /BlackBerry/ },
-    { name: "Android", regex: /Android [0-9\.]+;/ },
+    { name: "Android", regex: /Android [0-9.]+;/ },
     { name: "Desktop", regex: /.*/ }
   ])(userAgent);

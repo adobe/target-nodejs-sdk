@@ -63,7 +63,7 @@ export function getViewNames(deliveryRequest) {
 function hasRequested(itemsKey, deliveryRequest) {
   const types = ["prefetch", "execute"];
 
-  for (let i = 0; i < types.length; i++) {
+  for (let i = 0; i < types.length; i += 1) {
     const type = types[i];
     const items =
       deliveryRequest &&

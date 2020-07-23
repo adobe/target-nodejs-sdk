@@ -31,7 +31,7 @@ const OK = 200;
  * The ArtifactProvider initialize method
  * @param {import("../types/DecisioningConfig").DecisioningConfig} config Options map, required
  */
-async function ArtifactProvider(config) {
+function ArtifactProvider(config) {
   const logger = getLogger(config.logger);
   const { eventEmitter = noop } = config;
 
@@ -60,7 +60,6 @@ async function ArtifactProvider(config) {
   let pollingTimer;
 
   let artifact;
-  let geoContext = {};
 
   const subscriptions = {};
   let subscriptionCount = 0;
@@ -80,14 +79,16 @@ async function ArtifactProvider(config) {
     error => eventEmitter(ARTIFACT_DOWNLOAD_FAILED, { artifactLocation, error })
   );
 
-  function emitNewArtifact(artifactPayload, geoContext) {
+  function emitNewArtifact(artifactPayload, geoContext = {}) {
     eventEmitter(ARTIFACT_DOWNLOAD_SUCCEEDED, {
       artifactLocation,
       artifactPayload
     });
+
     eventEmitter(GEO_LOCATION_UPDATED, {
       geoContext
     });
+
     Object.values(subscriptions).forEach(subscriptionFunc =>
       subscriptionFunc(artifactPayload)
     );
@@ -105,25 +106,28 @@ async function ArtifactProvider(config) {
       headers,
       cache: "default"
     })
-      .then(async res => {
+      .then(res => {
         logger.debug(`${LOG_TAG} artifact received - status=${res.status}`);
 
         if (res.status === NOT_MODIFIED && lastResponseData) {
           return lastResponseData;
         }
 
-        let responseData;
         if (res.ok && res.status === OK) {
-          responseData = await res.json();
-          const etag = res.headers.get("Etag");
-          if (etag != null && isDefined(etag)) {
-            lastResponseData = responseData;
-            lastResponseEtag = etag;
-          }
-          geoContext = createGeoObjectFromHeaders(res.headers);
-          emitNewArtifact(responseData, geoContext);
+          return res.json().then(responseData => {
+            const etag = res.headers.get("Etag");
+            if (etag != null && isDefined(etag)) {
+              lastResponseData = responseData;
+              lastResponseEtag = etag;
+            }
+            emitNewArtifact(
+              responseData,
+              createGeoObjectFromHeaders(res.headers)
+            );
+            return responseData;
+          });
         }
-        return responseData;
+        return undefined;
       })
       .catch(err => {
         const reason = err.message || err.toString();
@@ -141,18 +145,16 @@ async function ArtifactProvider(config) {
     delete subscriptions[id];
   }
 
-  function removeAllSubscriptions() {
-    const ids = Object.keys(subscriptions);
-    ids.forEach(id => removeSubscription(id));
-  }
-
   function scheduleNextUpdate() {
     if (pollingInterval === 0 || pollingHalted) {
       return;
     }
 
-    pollingTimer = setTimeout(async () => {
-      artifact = await fetchArtifact(artifactLocation);
+    pollingTimer = setTimeout(() => {
+      fetchArtifact(artifactLocation).then(newArtifact => {
+        artifact = newArtifact;
+        return newArtifact;
+      });
       scheduleNextUpdate();
     }, pollingInterval);
   }
@@ -178,40 +180,38 @@ async function ArtifactProvider(config) {
     return artifact;
   }
 
-  /**
-   *
-   * @return { import("@adobe/target-tools/delivery-api-client/models/Context").Geo  }
-   */
-  function getGeoContext() {
-    return geoContext;
+  function getInitialArtifact() {
+    return typeof config.artifactPayload === "object"
+      ? Promise.resolve(config.artifactPayload)
+      : fetchArtifact(artifactLocation);
   }
 
-  if (typeof config.artifactPayload === "object") {
-    artifact = config.artifactPayload;
-  } else {
-    artifact = await fetchArtifact(artifactLocation);
-  }
-  scheduleNextUpdate();
+  return getInitialArtifact()
+    .then(newArtifact => {
+      artifact = newArtifact;
 
-  const artifactTracer = ArtifactTracer(
-    artifactLocation,
-    config.artifactPayload,
-    pollingInterval,
-    pollingHalted,
-    artifact
-  );
+      const artifactTracer = ArtifactTracer(
+        artifactLocation,
+        config.artifactPayload,
+        pollingInterval,
+        pollingHalted,
+        artifact
+      );
 
-  addSubscription(value => artifactTracer.provideNewArtifact(value));
+      addSubscription(value => artifactTracer.provideNewArtifact(value));
 
-  return Promise.resolve({
-    getArtifact: () => getArtifact(),
-    getGeoContext: () => getGeoContext(),
-    subscribe: callbackFunc => addSubscription(callbackFunc),
-    unsubscribe: id => removeSubscription(id),
-    stopPolling: () => stopAllPolling(),
-    resumePolling: () => resumePolling(),
-    getTrace: () => artifactTracer.toJSON()
-  });
+      return {
+        getArtifact: () => getArtifact(),
+        subscribe: callbackFunc => addSubscription(callbackFunc),
+        unsubscribe: id => removeSubscription(id),
+        stopPolling: () => stopAllPolling(),
+        resumePolling: () => resumePolling(),
+        getTrace: () => artifactTracer.toJSON()
+      };
+    })
+    .finally(() => {
+      scheduleNextUpdate();
+    });
 }
 
 export default ArtifactProvider;

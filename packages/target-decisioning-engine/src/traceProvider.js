@@ -1,5 +1,5 @@
+import { isDefined, isUndefined } from "@adobe/target-tools";
 import Messages from "./messages";
-import { isDefined, isUndefined, ChannelType } from "@adobe/target-tools";
 import { ACTIVITY_ID, ACTIVITY_TYPE, EXPERIENCE_ID } from "./constants";
 
 const byOrder = (a, b) => a.order - b.order;
@@ -78,24 +78,6 @@ export function RequestTracer(traceProvider, artifact) {
     request[requestType] = {
       ...mboxRequest,
       type: mode
-    };
-  }
-
-  /**
-   *
-   * @param { 'execute'|'prefetch' } mode
-   * @param mboxRequest
-   * @param context
-   */
-  function traceViewRequest(mode, mboxRequest, context) {
-    request = {
-      view: {
-        ...mboxRequest,
-        type: mode,
-        channelType: ChannelType.Web
-      },
-      pageURL: context.page.url,
-      host: context.page.domain
     };
   }
 

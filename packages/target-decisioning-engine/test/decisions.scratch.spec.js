@@ -6,6 +6,7 @@ import TargetDecisioningEngine from "../src";
 /**
  * Use this method to proxy requests to Proxyman or Charles Proxy
  */
+// eslint-disable-next-line no-unused-vars
 function getFetchWithProxy() {
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 

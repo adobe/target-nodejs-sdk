@@ -74,7 +74,7 @@ function DecisionProvider(
 
     /**
      *
-     * @param { import("@adobe/target-tools/delivery-api-client/models/RequestDetails").RequestDetails } requestDetails
+     * @param { import("@adobe/target-tools/delivery-api-client/models/RequestDetails").RequestDetails | import("@adobe/target-tools/delivery-api-client/models/MboxRequest").MboxRequest } requestDetails
      * @param {Array<Function>} additionalPostProcessors
      */
     function processViewRequest(requestDetails, additionalPostProcessors = []) {
@@ -89,7 +89,7 @@ function DecisionProvider(
 
       let viewRules = [];
       if (
-        requestDetails.hasOwnProperty("name") &&
+        Object.prototype.hasOwnProperty.call(requestDetails, "name") &&
         isDefined(requestDetails.name)
       ) {
         viewRules = rules.views[requestDetails.name] || [];
@@ -208,7 +208,7 @@ function DecisionProvider(
           name: globalMboxName
         },
         [
-          function preserveTrace(rule, mboxResponse, requestType, tracer) {
+          function preserveTrace(rule, mboxResponse) {
             // eslint-disable-next-line prefer-destructuring
             trace = mboxResponse.trace;
             return mboxResponse;

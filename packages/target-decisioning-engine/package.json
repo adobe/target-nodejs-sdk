@@ -13,9 +13,11 @@
     "access": "public"
   },
   "scripts": {
+    "lint": "eslint src/** test/**",
     "clean": "rimraf dist",
-    "prebuild": "npm run clean",
+    "prebuild": "npm run clean && npm run lint",
     "build": "NODE_ENV=production rollup -c",
+    "pretest": "npm run lint",
     "test": "NODE_ENV=development jest",
     "prepublishOnly": "echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc",
     "prepare": "rollup --config"
@@ -30,11 +32,12 @@
     "@babel/core": "^7.8.4",
     "@babel/preset-env": "^7.9.5",
     "@babel/runtime": "^7.8.4",
+    "@lwc/eslint-plugin-lwc": "^0.10.0",
     "@rollup/plugin-commonjs": "^11.0.1",
     "@rollup/plugin-json": "^4.0.1",
     "@rollup/plugin-node-resolve": "^7.0.0",
     "core-js": "^3.6.5",
-    "eslint": "^5.3.0",
+    "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-import": "^2.18.2",

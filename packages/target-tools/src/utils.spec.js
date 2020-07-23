@@ -323,7 +323,7 @@ describe("utils", () => {
     it("is not ready", () => {
       const isReady = () => false;
 
-      expect(whenReady(isReady, 500, "not ready, yo")).rejects.toEqual(
+      return expect(whenReady(isReady, 500, "not ready, yo")).rejects.toEqual(
         new Error("not ready, yo")
       );
     });
@@ -372,9 +372,9 @@ describe("utils", () => {
         return itsReady;
       };
 
-      expect(whenReady(isReady, 100, "not ready in time")).rejects.toEqual(
-        new Error("not ready in time")
-      );
+      return expect(
+        whenReady(isReady, 100, "not ready in time")
+      ).rejects.toEqual(new Error("not ready in time"));
     });
   });
 });

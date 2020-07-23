@@ -1,6 +1,5 @@
 import { UNKNOWN_IP_ADDRESS } from "@adobe/target-tools";
 import {
-  createGeoObject,
   createGeoObjectFromHeaders,
   createGeoObjectFromPayload,
   GeoProvider
@@ -61,7 +60,7 @@ describe("geoProvider", () => {
     });
 
     it("does not make a request for geo details if geoTargetingEnabled is false", async () => {
-      const { validGeoRequestContext } = GeoProvider(
+      const validGeoRequestContext = GeoProvider(
         {},
         {
           ...DUMMY_ARTIFACT_PAYLOAD,
@@ -79,7 +78,7 @@ describe("geoProvider", () => {
     });
 
     it("makes a request for geo details if a valid ip address is provided", async () => {
-      const { validGeoRequestContext } = GeoProvider(
+      const validGeoRequestContext = GeoProvider(
         {},
         {
           ...DUMMY_ARTIFACT_PAYLOAD,
@@ -108,7 +107,7 @@ describe("geoProvider", () => {
     });
 
     it('makes a request for geo details if "unknownIpAddress" is provided', async () => {
-      const { validGeoRequestContext } = GeoProvider(
+      const validGeoRequestContext = GeoProvider(
         {},
         {
           ...DUMMY_ARTIFACT_PAYLOAD,
@@ -139,7 +138,7 @@ describe("geoProvider", () => {
     });
 
     it("will not make a request for geo details geo details besides ipAddress are specified", async () => {
-      const { validGeoRequestContext } = GeoProvider(
+      const validGeoRequestContext = GeoProvider(
         {},
         {
           ...DUMMY_ARTIFACT_PAYLOAD,
@@ -168,7 +167,7 @@ describe("geoProvider", () => {
         headers: {}
       });
 
-      const { validGeoRequestContext } = GeoProvider(
+      const validGeoRequestContext = GeoProvider(
         {},
         {
           ...DUMMY_ARTIFACT_PAYLOAD,

@@ -5,7 +5,7 @@ module.exports = {
     node: true,
     "jest/globals": true
   },
-  plugins: ["prettier", "jest"],
+  plugins: ["prettier", "jest", "@lwc/eslint-plugin-lwc"],
   rules: {
     "prettier/prettier": "error",
     "no-underscore-dangle": "off",
@@ -16,17 +16,20 @@ module.exports = {
         optionalDependencies: false,
         peerDependencies: false
       }
-    ]
+    ],
+    "@lwc/lwc/no-async-await": "error"
   },
   overrides: [
     {
-      files: ["test/*.spec.js"],
+      files: ["*.spec.js"],
       globals: {
         expectAsync: "readonly",
         fetch: true,
         window: true
       },
-      rules: {}
+      rules: {
+        "@lwc/lwc/no-async-await": "off"
+      }
     }
   ]
 };

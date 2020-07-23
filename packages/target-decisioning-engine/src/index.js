@@ -19,27 +19,30 @@ import { GeoProvider } from "./geoProvider";
  * The TargetDecisioningEngine initialize method
  * @param {import("../types/DecisioningConfig").DecisioningConfig} config Options map, required
  */
-export default async function TargetDecisioningEngine(config) {
+export default function TargetDecisioningEngine(config) {
   const { maximumWaitReady = DEFAULT_MAXIMUM_WAIT_READY } = config;
   const logger = getLogger(config.logger);
+  let artifactProvider;
+  let artifact;
 
-  const artifactProvider = await ArtifactProvider({
+  ArtifactProvider({
     ...config,
     logger
-  });
+  }).then(providerInstance => {
+    artifactProvider = providerInstance;
+    artifact = artifactProvider.getArtifact();
 
-  let artifact = artifactProvider.getArtifact();
-
-  // subscribe to new artifacts that are downloaded on the polling interval
-  artifactProvider.subscribe(data => {
-    artifact = data;
+    // subscribe to new artifacts that are downloaded on the polling interval
+    artifactProvider.subscribe(data => {
+      artifact = data;
+    });
   });
 
   /**
    * The get offers method
    * @param {import("../types/TargetOptions").TargetOptions} targetOptions
    */
-  async function getOffers(targetOptions) {
+  function getOffers(targetOptions) {
     let { request } = targetOptions;
 
     if (isUndefined(artifact)) {
@@ -59,31 +62,33 @@ export default async function TargetDecisioningEngine(config) {
       );
     }
 
-    request = await validDeliveryRequest(
+    return validDeliveryRequest(
       request,
       targetOptions.targetLocationHint,
-      GeoProvider(config, artifact).validGeoRequestContext
-    );
+      GeoProvider(config, artifact)
+    ).then(validRequest => {
+      request = validRequest;
 
-    const options = {
-      ...targetOptions,
-      request
-    };
+      const options = {
+        ...targetOptions,
+        request
+      };
 
-    const traceProvider = TraceProvider(
-      config,
-      options,
-      artifactProvider.getTrace()
-    );
+      const traceProvider = TraceProvider(
+        config,
+        options,
+        artifactProvider.getTrace()
+      );
 
-    return DecisionProvider(
-      config,
-      options,
-      createDecisioningContext(request),
-      artifact,
-      logger,
-      traceProvider
-    );
+      return DecisionProvider(
+        config,
+        options,
+        createDecisioningContext(request),
+        artifact,
+        logger,
+        traceProvider
+      );
+    });
   }
 
   function isReady() {

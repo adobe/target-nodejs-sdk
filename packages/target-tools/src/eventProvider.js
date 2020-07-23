@@ -3,7 +3,9 @@ import { isDefined, isUndefined } from "./utils";
 
 function TargetEvent(type, payload = {}) {
   this.type = type;
-  Object.keys(payload).forEach(key => (this[key] = payload[key]));
+  Object.keys(payload).forEach(key => {
+    this[key] = payload[key];
+  });
 }
 
 /**
