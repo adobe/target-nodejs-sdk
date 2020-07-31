@@ -1,4 +1,6 @@
 /* eslint-disable import/prefer-default-export */
+import { assign } from "./lodash";
+
 const AT_PREFIX = "AT:";
 
 const NOOP_LOGGER = {
@@ -16,7 +18,7 @@ export function getLogger(logger = {}) {
 
   const { debug, error } = logger;
 
-  const targetLogger = Object.assign({ built: true }, NOOP_LOGGER);
+  const targetLogger = assign({ built: true }, NOOP_LOGGER);
 
   if (typeof debug === "function") {
     targetLogger.debug = (...messages) => {

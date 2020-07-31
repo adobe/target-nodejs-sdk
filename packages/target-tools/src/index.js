@@ -1,4 +1,42 @@
 export {
+  assign,
+  filter,
+  first,
+  flatten,
+  flow,
+  forEach,
+  hash,
+  identity,
+  includes,
+  isArray,
+  isArrayLike,
+  isBlank,
+  isEmpty,
+  isFunction,
+  isLength,
+  isNil,
+  isNotBlank,
+  isNumber,
+  isObject,
+  isObjectLike,
+  isPlainObject,
+  isString,
+  join,
+  keys,
+  map,
+  now,
+  reduce,
+  reverse,
+  split,
+  toArray,
+  trim,
+  uuid,
+  values,
+  delay,
+  cancelDelay
+} from "./lodash";
+
+export {
   addMboxesToRequest,
   createUUID,
   decisioningEngineReady,
@@ -10,7 +48,7 @@ export {
   isUndefined,
   isDefined,
   noop,
-  now,
+  noopPromise,
   objectWithoutUndefinedValues,
   requiresDecisioningEngine,
   getProperty,
@@ -55,3 +93,5 @@ export {
   DECISIONING_ENGINE_NOT_READY,
   PROPERTY_TOKEN_MISMATCH
 } from "./messages";
+
+export { default as parseURI } from "parse-uri";

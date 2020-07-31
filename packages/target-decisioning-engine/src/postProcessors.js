@@ -3,7 +3,8 @@ import {
   isDefined,
   isUndefined,
   objectWithoutUndefinedValues,
-  MetricType
+  MetricType,
+  includes
 } from "@adobe/target-tools";
 import { RequestType } from "./enums";
 import {
@@ -162,31 +163,31 @@ export function createResponseTokensPostProcessor(
   responseTokens[ACTIVITY_DECISIONING_METHOD] = "on-device";
 
   if (
-    responseTokensInArtifact.includes(GEO_CITY) &&
+    includes(GEO_CITY, responseTokensInArtifact) &&
     isDefined(context.geo.city)
   ) {
     responseTokens[GEO_CITY] = context.geo.city;
   }
   if (
-    responseTokensInArtifact.includes(GEO_COUNTRY) &&
+    includes(GEO_COUNTRY, responseTokensInArtifact) &&
     isDefined(context.geo.country)
   ) {
     responseTokens[GEO_COUNTRY] = context.geo.country;
   }
   if (
-    responseTokensInArtifact.includes(GEO_STATE) &&
+    includes(GEO_STATE, responseTokensInArtifact) &&
     isDefined(context.geo.region)
   ) {
     responseTokens[GEO_STATE] = context.geo.region;
   }
   if (
-    responseTokensInArtifact.includes(GEO_LATITUDE) &&
+    includes(GEO_LATITUDE, responseTokensInArtifact) &&
     isDefined(context.geo.latitude)
   ) {
     responseTokens[GEO_LATITUDE] = context.geo.latitude;
   }
   if (
-    responseTokensInArtifact.includes(GEO_LONGITUDE) &&
+    includes(GEO_LONGITUDE, responseTokensInArtifact) &&
     isDefined(context.geo.longitude)
   ) {
     responseTokens[GEO_LONGITUDE] = context.geo.longitude;
@@ -212,7 +213,7 @@ export function createResponseTokensPostProcessor(
       OPTION_ID,
       OPTION_NAME
     ].reduce((accumulator, key) => {
-      if (responseTokensInArtifact.includes(key) && isDefined(meta[key])) {
+      if (includes(key, responseTokensInArtifact) && isDefined(meta[key])) {
         accumulator[key] = meta[key];
       }
       return accumulator;

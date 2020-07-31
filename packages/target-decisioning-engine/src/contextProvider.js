@@ -107,8 +107,10 @@ export function createGeoContext(geoContext = {}) {
 function createTimingContext() {
   const now = new Date();
 
-  const currentHours = String(now.getUTCHours()).padStart(2, "0");
-  const currentMinutes = String(now.getUTCMinutes()).padStart(2, "0");
+  const twoDigitString = value => (value < 10 ? `0${value}` : String(value));
+
+  const currentHours = twoDigitString(now.getUTCHours());
+  const currentMinutes = twoDigitString(now.getUTCMinutes());
 
   const currentTime = `${currentHours}${currentMinutes}`;
   const currentDay = now.getUTCDay(); // 0 for Sunday, 1 for Monday, 2 for Tuesday, and so on.

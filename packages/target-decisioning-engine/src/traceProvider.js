@@ -1,4 +1,4 @@
-import { isDefined, isUndefined } from "@adobe/target-tools";
+import { isDefined, isUndefined, values } from "@adobe/target-tools";
 import Messages from "./messages";
 import { ACTIVITY_ID, ACTIVITY_TYPE, EXPERIENCE_ID } from "./constants";
 
@@ -178,7 +178,7 @@ export function RequestTracer(traceProvider, artifact) {
 
   function toJSON() {
     return {
-      campaigns: Object.values(campaigns)
+      campaigns: values(campaigns)
         .sort(byOrder)
         .map(campaign => {
           const result = {
@@ -187,7 +187,7 @@ export function RequestTracer(traceProvider, artifact) {
           delete result.order;
           return result;
         }),
-      evaluatedCampaignTargets: Object.values(evaluatedCampaignTargets)
+      evaluatedCampaignTargets: values(evaluatedCampaignTargets)
         .sort(byOrder)
         .map(evaluatedCampaignTarget => {
           const result = {

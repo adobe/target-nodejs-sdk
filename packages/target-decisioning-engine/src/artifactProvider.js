@@ -5,7 +5,8 @@ import {
   isBrowser,
   isDefined,
   isNodeJS,
-  noop
+  noop,
+  values
 } from "@adobe/target-tools";
 import Messages from "./messages";
 import {
@@ -89,7 +90,7 @@ function ArtifactProvider(config) {
       geoContext
     });
 
-    Object.values(subscriptions).forEach(subscriptionFunc =>
+    values(subscriptions).forEach(subscriptionFunc =>
       subscriptionFunc(artifactPayload)
     );
   }

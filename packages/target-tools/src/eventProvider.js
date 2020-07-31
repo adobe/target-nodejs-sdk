@@ -1,4 +1,5 @@
 /* eslint-disable import/prefer-default-export */
+import { values } from "./lodash";
 import { isDefined, isUndefined } from "./utils";
 
 function TargetEvent(type, payload = {}) {
@@ -51,7 +52,7 @@ export function EventProvider(events = {}) {
    */
   function emit(eventName, payload = {}) {
     const subscribed = subscriptions[eventName] || [];
-    Object.values(subscribed).forEach(subscriber =>
+    values(subscribed).forEach(subscriber =>
       subscriber.call(undefined, new TargetEvent(eventName, payload))
     );
   }

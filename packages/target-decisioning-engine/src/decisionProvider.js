@@ -1,9 +1,11 @@
 import {
   DEFAULT_GLOBAL_MBOX,
+  flatten,
   getPropertyToken,
   isDefined,
   isUndefined,
-  objectWithoutUndefinedValues
+  objectWithoutUndefinedValues,
+  values
 } from "@adobe/target-tools";
 import { getRuleKey, hasRemoteDependency } from "./utils";
 import NotificationProvider from "./notificationProvider";
@@ -141,7 +143,7 @@ function DecisionProvider(
         }
       }
 
-      return Object.values(consequences);
+      return values(consequences);
     }
 
     /**
@@ -217,9 +219,9 @@ function DecisionProvider(
         ]
       );
 
-      const options = consequences
-        .map(consequence => consequence.options)
-        .flat();
+      const options = flatten(
+        consequences.map(consequence => consequence.options)
+      );
 
       const result = {
         options,
@@ -236,7 +238,7 @@ function DecisionProvider(
         return indexed;
       }, {});
 
-      const metrics = Object.values(indexedMetrics);
+      const metrics = values(indexedMetrics);
       if (metrics.length > 0) {
         result.metrics = metrics;
       }
@@ -247,15 +249,17 @@ function DecisionProvider(
     const response = {};
 
     if (request[mode].mboxes) {
-      response.mboxes = request[mode].mboxes
-        .map(mboxRequest => processMboxRequest(mboxRequest))
-        .flat();
+      response.mboxes = flatten(
+        request[mode].mboxes.map(mboxRequest => processMboxRequest(mboxRequest))
+      );
     }
 
     if (request[mode].views) {
-      response.views = request[mode].views
-        .map(requestDetails => processViewRequest(requestDetails))
-        .flat();
+      response.views = flatten(
+        request[mode].views.map(requestDetails =>
+          processViewRequest(requestDetails)
+        )
+      );
     }
 
     if (request[mode].pageLoad) {

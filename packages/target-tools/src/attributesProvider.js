@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 
+import { assign } from "./lodash";
 import { ATTRIBUTE_NOT_EXIST } from "./messages";
 import { isDefined, isUndefined } from "./utils";
 
@@ -20,7 +21,7 @@ function createIndexed(response) {
         options.forEach(option => {
           const { type, content } = option;
           if (type === "json" && isDefined(content)) {
-            result[name] = Object.assign({}, result[name], content);
+            result[name] = assign({}, result[name], content);
           }
         });
       });

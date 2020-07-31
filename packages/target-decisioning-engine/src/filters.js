@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { isUndefined } from "@adobe/target-tools";
+import { includes, isUndefined } from "@adobe/target-tools";
 
 /**
  *
@@ -16,7 +16,7 @@ export function byPropertyToken(propertyToken) {
 
     return isUndefined(propertyToken)
       ? propertyTokens.length === 0
-      : propertyTokens.length === 0 || propertyTokens.includes(propertyToken);
+      : propertyTokens.length === 0 || includes(propertyToken, propertyTokens);
   }
   return filter;
 }

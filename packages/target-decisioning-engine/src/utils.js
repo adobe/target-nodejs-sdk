@@ -1,5 +1,4 @@
 /* eslint-disable prefer-destructuring,import/prefer-default-export */
-import parseUriInternal from "parse-uri";
 
 import {
   ENVIRONMENT_PROD,
@@ -7,11 +6,14 @@ import {
   getMboxNames,
   getViewNames,
   hasRequestedViews,
+  includes,
   isBrowser,
   isDefined,
   isUndefined,
+  parseURI,
   POSSIBLE_ENVIRONMENTS
 } from "@adobe/target-tools";
+
 import Messages from "./messages";
 import { CDN_BASE, SUPPORTED_ARTIFACT_MAJOR_VERSION } from "./constants";
 
@@ -30,7 +32,7 @@ export function parseURL(url) {
     url = "";
   }
 
-  const parsed = parseUriInternal(url);
+  const parsed = parseURI(url);
 
   const { host, path, query, anchor } = parsed;
 
@@ -91,16 +93,16 @@ export function hasRemoteDependency(artifact, request) {
   } = artifact;
 
   const mboxesThatRequireRemote = new Set([
-    ...remoteMboxes.filter(mboxName => requestedMboxes.includes(mboxName)),
-    ...requestedMboxes.filter(mboxName => !localMboxes.includes(mboxName))
+    ...remoteMboxes.filter(mboxName => includes(mboxName, requestedMboxes)),
+    ...requestedMboxes.filter(mboxName => !includes(mboxName, localMboxes))
   ]);
 
   const viewsThatRequireRemote =
     hasRequestedViews(request) && requestedViews.length === 0
       ? new Set(remoteViews)
       : new Set([
-          ...remoteViews.filter(viewName => requestedViews.includes(viewName)),
-          ...requestedViews.filter(viewName => !localViews.includes(viewName))
+          ...remoteViews.filter(viewName => includes(viewName, requestedViews)),
+          ...requestedViews.filter(viewName => !includes(viewName, localViews))
         ]);
 
   return {
@@ -137,7 +139,7 @@ export function cloneDeep(obj) {
  * @param logger
  */
 export function getValidEnvironment(environmentName, logger) {
-  const isValid = POSSIBLE_ENVIRONMENTS.includes(environmentName);
+  const isValid = includes(environmentName, POSSIBLE_ENVIRONMENTS);
 
   if (!isValid) {
     getLogger(logger).debug(
@@ -173,7 +175,7 @@ export function getCdnEnvironment(config) {
 export function getCdnBasePath(config) {
   const cdnEnvironment = getCdnEnvironment(config);
 
-  const env = POSSIBLE_ENVIRONMENTS.includes(cdnEnvironment)
+  const env = includes(cdnEnvironment, POSSIBLE_ENVIRONMENTS)
     ? cdnEnvironment
     : ENVIRONMENT_PROD;
 

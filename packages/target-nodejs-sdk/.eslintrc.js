@@ -7,7 +7,8 @@ const config = {
 config.overrides.push({
   files: ["*.js"],
   rules: {
-    "@lwc/lwc/no-async-await": "off"
+    "@lwc/lwc/no-async-await": "off",
+    "no-restricted-properties": "off"
   }
 });
 

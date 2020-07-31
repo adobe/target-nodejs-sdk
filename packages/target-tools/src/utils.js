@@ -1,4 +1,4 @@
-import { uuid } from "./lodash";
+import { includes, now, uuid } from "./lodash";
 import { EXECUTION_MODE } from "./enums";
 import { getLogger } from "./logging";
 import { PROPERTY_TOKEN_MISMATCH } from "./messages";
@@ -149,10 +149,10 @@ export function isNodeJS() {
 
 export const createUUID = () => uuid();
 export const noop = () => undefined;
-export { now } from "./lodash";
+export const noopPromise = value => Promise.resolve(value);
 
 export function requiresDecisioningEngine(executionMode) {
-  return [EXECUTION_MODE.LOCAL, EXECUTION_MODE.HYBRID].includes(executionMode);
+  return includes(executionMode, [EXECUTION_MODE.LOCAL, EXECUTION_MODE.HYBRID]);
 }
 
 export function decisioningEngineReady(decisioningEngine) {
@@ -206,8 +206,7 @@ export function getProperty(config = {}, request = {}, logger) {
 export function timeLimitExceeded(startTimeMillis, limit = -1) {
   if (limit === -1) return false;
 
-  const now = new Date().getTime();
-  return now - startTimeMillis > limit;
+  return now() - startTimeMillis > limit;
 }
 
 export function isValidIpAddress(ipAddress) {
@@ -227,7 +226,7 @@ export function whenReady(
   maximumWaitTime = DEFAULT_MAXIMUM_WAIT_READY,
   errorMessage
 ) {
-  const initTime = new Date().getTime();
+  const initTime = now();
 
   return new Promise((resolve, reject) => {
     (function wait(count) {

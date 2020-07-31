@@ -4,6 +4,7 @@ import {
   isUndefined,
   isValidIpAddress,
   noop,
+  assign,
   UNKNOWN_IP_ADDRESS
 } from "@adobe/target-tools";
 import { GEO_LOCATION_UPDATED } from "./events";
@@ -125,7 +126,7 @@ export function GeoProvider(config, artifact) {
             .then(geoPayload => createGeoObjectFromPayload(geoPayload))
         )
         .then(fetchedGeoValues => {
-          Object.assign(geoRequestContext, fetchedGeoValues);
+          assign(geoRequestContext, fetchedGeoValues);
           eventEmitter(GEO_LOCATION_UPDATED, { geoContext: geoRequestContext });
           return geoRequestContext;
         });
