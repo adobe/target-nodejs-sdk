@@ -15,7 +15,7 @@ import {
   AttributesProvider,
   EMPTY_REQUEST,
   EventProvider,
-  EXECUTION_MODE,
+  DECISIONING_METHOD,
   getFetchApi,
   getLogger,
   requiresDecisioningEngine
@@ -57,7 +57,7 @@ export default function bootstrap(fetchApi) {
       this.logger = getLogger(options.logger);
       const eventEmitter = EventProvider(this.config.events).emit;
 
-      if (requiresDecisioningEngine(options.executionMode)) {
+      if (requiresDecisioningEngine(options.decisioningMethod)) {
         Promise.all([
           requestLocationHintCookie(this, this.config.targetLocationHint),
           TargetDecisioningEngine({
@@ -101,7 +101,7 @@ export default function bootstrap(fetchApi) {
      * @param {String} options.targetLocationHint Target Location Hint, optional
      * @param {boolean} options.secure Unset to enforce HTTP scheme, default: true
      * @param {Object} options.logger Replaces the default noop logger, optional
-     * @param {('local'|'remote'|'hybrid')} options.executionMode The execution mode, defaults to remote, optional
+     * @param {('on-device'|'server-side'|'hybrid')} options.decisioningMethod The decisioning method, defaults to remote, optional
      * @param {Number} options.pollingInterval (Local Decisioning) Polling interval in ms, default: 30000
      * @param {Number} options.maximumWaitReady (Local Decisioning) The maximum amount of time (in ms) to wait for clientReady.  Default is to wait indefinitely.
      * @param {String} options.artifactLocation (Local Decisioning) Fully qualified url to the location of the artifact, optional
@@ -124,7 +124,7 @@ export default function bootstrap(fetchApi) {
         Object.assign(
           {
             internal: true,
-            executionMode: EXECUTION_MODE.REMOTE,
+            decisioningMethod: DECISIONING_METHOD.SERVER_SIDE,
             fetchApi: fetchImpl
           },
           options
@@ -143,7 +143,7 @@ export default function bootstrap(fetchApi) {
      * @param {Array}  options.customerIds An array of Customer Ids in VisitorId-compatible format, optional
      * @param {String} options.sessionId Session Id, used for linking multiple requests, optional
      * @param {Object} options.visitor Supply an external VisitorId instance, optional
-     * @param {('local'|'remote'|'hybrid')} options.executionMode The execution mode, defaults to remote, optional
+     * @param {('on-device'|'server-side'|'hybrid')} options.decisioningMethod The execution mode, defaults to remote, optional
      */
     getOffers(options) {
       const error = validateGetOffersOptions(options);
@@ -159,7 +159,8 @@ export default function bootstrap(fetchApi) {
           visitor,
           config: {
             ...this.config,
-            executionMode: options.executionMode || this.config.executionMode
+            decisioningMethod:
+              options.decisioningMethod || this.config.decisioningMethod
           },
           logger: this.logger
         },
@@ -220,7 +221,7 @@ export default function bootstrap(fetchApi) {
         visitor,
         config: {
           ...this.config,
-          executionMode: EXECUTION_MODE.REMOTE // execution mode for sending notifications must always be remote
+          decisioningMethod: DECISIONING_METHOD.SERVER_SIDE // execution mode for sending notifications must always be remote
         },
         logger: this.logger,
         useBeacon: true,

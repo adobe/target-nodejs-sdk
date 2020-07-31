@@ -1,6 +1,6 @@
 import {
   DECISIONING_ENGINE_NOT_READY,
-  EXECUTION_MODE
+  DECISIONING_METHOD
 } from "@adobe/target-tools";
 import { DECISIONING_PAYLOAD_FEATURE_FLAG } from "./decisioning-payloads";
 
@@ -103,7 +103,7 @@ describe("execution mode", () => {
     }
   });
 
-  describe("local", () => {
+  describe("on-device", () => {
     it("returns a list of mbox names that require remote", () => {
       expect.assertions(1);
 
@@ -136,7 +136,7 @@ describe("execution mode", () => {
 
           expect(result.meta).toEqual(
             expect.objectContaining({
-              executionMode: EXECUTION_MODE.LOCAL,
+              decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
               remoteMboxes: ["remote-only-mbox-a", "remote-only-mbox-b"]
             })
           );
@@ -144,7 +144,7 @@ describe("execution mode", () => {
         }
 
         client = TargetClient.create({
-          executionMode: EXECUTION_MODE.LOCAL,
+          decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
           ...targetClientOptions,
           events: { clientReady }
         });
@@ -175,7 +175,7 @@ describe("execution mode", () => {
 
           expect(result.meta).toEqual(
             expect.objectContaining({
-              executionMode: EXECUTION_MODE.LOCAL,
+              decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
               remoteMboxes: [],
               remoteViews: []
             })
@@ -184,7 +184,7 @@ describe("execution mode", () => {
         }
 
         client = TargetClient.create({
-          executionMode: EXECUTION_MODE.LOCAL,
+          decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
           ...targetClientOptions,
           events: { clientReady }
         });
@@ -226,7 +226,7 @@ describe("execution mode", () => {
 
           expect(result.meta).toEqual(
             expect.objectContaining({
-              executionMode: EXECUTION_MODE.REMOTE,
+              decisioningMethod: DECISIONING_METHOD.SERVER_SIDE,
               remoteMboxes: ["remote-only-mbox-a", "remote-only-mbox-b"]
             })
           );
@@ -234,7 +234,7 @@ describe("execution mode", () => {
         }
 
         client = TargetClient.create({
-          executionMode: EXECUTION_MODE.HYBRID,
+          decisioningMethod: DECISIONING_METHOD.HYBRID,
           ...targetClientOptions,
           events: { clientReady }
         });
@@ -265,7 +265,7 @@ describe("execution mode", () => {
 
           expect(result.meta).toEqual(
             expect.objectContaining({
-              executionMode: EXECUTION_MODE.LOCAL,
+              decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
               remoteMboxes: []
             })
           );
@@ -273,7 +273,7 @@ describe("execution mode", () => {
         }
 
         client = TargetClient.create({
-          executionMode: EXECUTION_MODE.HYBRID,
+          decisioningMethod: DECISIONING_METHOD.HYBRID,
           ...targetClientOptions,
           events: { clientReady }
         });
@@ -281,18 +281,18 @@ describe("execution mode", () => {
     });
   });
 
-  describe("remote", () => {
-    it("throws an error if local executionMode is used in getOffers call but the global executionMode is remote", () => {
+  describe("server side", () => {
+    it("throws an error if local decisioningMethod is used in getOffers call but the global decisioningMethod is remote", () => {
       expect.assertions(1);
       return new Promise(done => {
         client = TargetClient.create({
-          executionMode: EXECUTION_MODE.REMOTE,
+          decisioningMethod: DECISIONING_METHOD.SERVER_SIDE,
           ...targetClientOptions,
           events: {
             clientReady: () => {
               client
                 .getOffers({
-                  executionMode: EXECUTION_MODE.LOCAL,
+                  decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
                   request: {
                     ...targetRequest,
                     prefetch: {
@@ -315,19 +315,19 @@ describe("execution mode", () => {
       });
     });
 
-    it("makes a request to delivery API if hybrid executionMode is used in a getOffers call and decisioning engine is not ready", () => {
+    it("makes a request to delivery API if hybrid decisioningMethod is used in a getOffers call and decisioning engine is not ready", () => {
       fetch.once(JSON.stringify(DELIVERY_RESPONSE));
 
       expect.assertions(1);
       return new Promise(done => {
         client = TargetClient.create({
-          executionMode: EXECUTION_MODE.REMOTE,
+          decisioningMethod: DECISIONING_METHOD.SERVER_SIDE,
           ...targetClientOptions,
           events: {
             clientReady: () => {
               client
                 .getOffers({
-                  executionMode: EXECUTION_MODE.HYBRID,
+                  decisioningMethod: DECISIONING_METHOD.HYBRID,
                   request: {
                     ...targetRequest,
                     prefetch: {
@@ -344,7 +344,7 @@ describe("execution mode", () => {
                   expect(result).toEqual(
                     expect.objectContaining({
                       meta: {
-                        executionMode: EXECUTION_MODE.REMOTE,
+                        decisioningMethod: DECISIONING_METHOD.SERVER_SIDE,
                         remoteMboxes: [],
                         remoteViews: []
                       }

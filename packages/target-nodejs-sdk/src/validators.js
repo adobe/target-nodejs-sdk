@@ -10,7 +10,11 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import { EXECUTION_MODE, isDefined, isUndefined } from "@adobe/target-tools";
+import {
+  DECISIONING_METHOD,
+  isDefined,
+  isUndefined
+} from "@adobe/target-tools";
 import { Messages } from "./messages";
 
 import {
@@ -25,7 +29,7 @@ export function validateClientOptions(options) {
     return Messages.OPTIONS_REQUIRED;
   }
 
-  const { client, organizationId, executionMode } = options;
+  const { client, organizationId, decisioningMethod } = options;
 
   if (isEmptyString(client)) {
     return Messages.CLIENT_REQUIRED;
@@ -36,10 +40,10 @@ export function validateClientOptions(options) {
   }
 
   if (
-    isDefined(executionMode) &&
-    !Object.values(EXECUTION_MODE).includes(executionMode)
+    isDefined(decisioningMethod) &&
+    !Object.values(DECISIONING_METHOD).includes(decisioningMethod)
   ) {
-    return Messages.EXECUTION_MODE_INVALID;
+    return Messages.DECISIONING_METHOD_INVALID;
   }
 
   return null;

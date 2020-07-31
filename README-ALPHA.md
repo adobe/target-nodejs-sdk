@@ -1,6 +1,6 @@
 # Adobe Target Node.js SDK ( Alpha )
 
-Thank you for taking the time to try the alpha version of the Adobe Target Node.js SDK.  This version of the SDK includes the new local execution mode and `getAttributes` functionality.  This document will help you get started.
+Thank you for taking the time to try the alpha version of the Adobe Target Node.js SDK.  This version of the SDK includes the new on-device decisioning method and `getAttributes` functionality.  This document will help you get started.
 
 
 ## Getting started
@@ -23,17 +23,17 @@ Then run `npm install` and you'll have the latest alpha installed.
 
 If you are adding the SDK to a new project for the first time, simply run `npm install @adobe/target-nodejs-sdk@alpha` from the command line and you're all set.
 
-## Local execution mode
+## On-device decisioning method
 
-Take a look at the following resources to learn about local execution mode and how it works.
+Take a look at the following resources to learn about on-device decisioning method and how it works.
 
-- [All about local execution mode](./README.md#local-execution-mode)
+- [All about on-device decisioning method](./README.md#on-device-decisioning-method)
 - Sample project: [Local execution sample](https://github.com/jasonwaters/target-nodejs-sdk-samples/tree/master/local-execution)
 
 
 ### Decisioning Artifact
 
-The decisioning artifact is a JSON definition file that describes target activity rules.  This artifact is used in local execution mode to determine experience outcomes locally rather than make a request to the delivery API.  In the future, this artifact will be automatically built and distributed by the target infrastructure so the SDK can magically discover and consume it.  But during the alpha, you will need to manually generate an artifact and supply it to the SDK on instantiation.
+The decisioning artifact is a JSON definition file that describes target activity rules.  This artifact is used in on-device decisioning method to determine experience outcomes locally rather than make a request to the delivery API.  In the future, this artifact will be automatically built and distributed by the target infrastructure so the SDK can magically discover and consume it.  But during the alpha, you will need to manually generate an artifact and supply it to the SDK on instantiation.
 
 #### Generating the artifact
 
@@ -59,7 +59,7 @@ The first way is by specifying `artifactPayload` in the config options.  This is
 
 ```js
 const CONFIG = {
-    executionMode: "local",
+    decisioningMethod: "on-device",
     artifactPayload: require("./sampleRules"), // loads sampleRules.json and provides it to TargetClient
     events: { clientReady: onTargetClientReady }
 };
@@ -76,7 +76,7 @@ The second way is by specifying `artifactLocation` in the config options.  When 
 
 ```js
 const CONFIG = {
-    executionMode: "local",
+    decisioningMethod: "on-device",
     artifactLocation: "http://cdn.mywebsite.com/path/to/decisioning/rules.json", // provide a URL for the SDK to load the artifact from
     events: { clientReady: onTargetClientReady }
 };

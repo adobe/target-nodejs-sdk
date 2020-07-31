@@ -1,3 +1,4 @@
+import { DECISIONING_METHOD } from "@adobe/target-tools";
 import TargetDecisioningEngine from "../src";
 import {
   DECISIONING_PAYLOAD_GEO,
@@ -10,7 +11,7 @@ const TEST_CONF = {
   client: "someClientId",
   organizationId: "someOrgId",
   pollingInterval: 0,
-  executionMode: "local"
+  decisioningMethod: DECISIONING_METHOD.ON_DEVICE
 };
 
 describe("decisioning outcomes - response tokens", () => {

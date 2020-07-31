@@ -17,7 +17,7 @@ import {
   whenReady
 } from "./utils";
 import { ChannelType } from "../delivery-api-client";
-import { EXECUTION_MODE } from "./enums";
+import { DECISIONING_METHOD } from "./enums";
 
 describe("utils", () => {
   it("has createUUID", () => {
@@ -75,9 +75,13 @@ describe("utils", () => {
   });
 
   it("has requiresDecisioningEngine", () => {
-    expect(requiresDecisioningEngine(EXECUTION_MODE.REMOTE)).toEqual(false);
-    expect(requiresDecisioningEngine(EXECUTION_MODE.LOCAL)).toEqual(true);
-    expect(requiresDecisioningEngine(EXECUTION_MODE.HYBRID)).toEqual(true);
+    expect(requiresDecisioningEngine(DECISIONING_METHOD.SERVER_SIDE)).toEqual(
+      false
+    );
+    expect(requiresDecisioningEngine(DECISIONING_METHOD.ON_DEVICE)).toEqual(
+      true
+    );
+    expect(requiresDecisioningEngine(DECISIONING_METHOD.HYBRID)).toEqual(true);
   });
 
   it("has decisioningEngineReady", () => {

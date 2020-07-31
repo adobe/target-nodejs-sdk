@@ -26,7 +26,7 @@ library (ECID).
   * [Custom rendering of Target offers](#custom-rendering-of-target-offers)
   * [JSON offers simplified](#json-offers-simplified)
   * [Enterprise Permissions and Property Support](#enterprise-permissions-and-property-support)
-  * [Local execution mode](#local-execution-mode)
+  * [On-device decisioning method](#on-device-decisioning-method)
   * [Troubleshooting](#troubleshooting)
   * [Target Traces](#target-traces)
   * [Target Node.js SDK API](#target-nodejs-sdk-api)
@@ -1031,17 +1031,17 @@ targetClient.getOffers({
 ```
 
 
-## Local execution mode
+## On-device decisioning method
 
-The Target Node.js SDK can be configured to run in local execution mode.  In this mode, the SDK loads a rules definition file on startup and uses it to determine the outcomes for subsequent `getOffers` calls instead of making repeated requests to the delivery API each time. This can greatly improve performance if you are concerned about network latency and would like to limit the number of requests made to target edge servers.
+The Target Node.js SDK can be configured to run in on-device decisioning method.  In this mode, the SDK loads a rules definition file on startup and uses it to determine the outcomes for subsequent `getOffers` calls instead of making repeated requests to the delivery API each time. This can greatly improve performance if you are concerned about network latency and would like to limit the number of requests made to target edge servers.
 
-By default, the SDK is configured to always make a request to the target delivery API for each getOffers call.  But you can configure the SDK to use local execution mode instead using the `executionMode` configuration option.
+By default, the SDK is configured to always make a request to the target delivery API for each getOffers call.  But you can configure the SDK to use on-device decisioning method instead using the `decisioningMethod` configuration option.
 
 ```js
 const CONFIG = {
     client: "acmeclient",
     organizationId: "1234567890@AdobeOrg",
-    executionMode: "local",
+    decisioningMethod: "on-device",
     events: {clientReady: targetClientReady }
 };
 
@@ -1065,18 +1065,18 @@ Not all target activities can be decided locally.
 Some activities are not supported due to audience rules.  Below is a list of audience rules with an indication for they are supported by local decisioning or will require a request to target edge servers to fulfill:
 
 
-| Audience Rule    | Local execution mode | Remote execution mode |
-|------------------|----------------------|-----------------------|
-| Geo              | Supported            | Supported             |
-| Network          | Not Supported        | Supported             |
-| Mobile           | Not Supported        | Supported             |
-| Custom           | Supported            | Supported             |
-| Operating System | Supported            | Supported             |
-| Site Pages       | Supported            | Supported             |
-| Browser          | Supported            | Supported             |
-| Visitor Profile  | Not Supported        | Supported             |
-| Traffic Sources  | Not Supported        | Supported             |
-| Time Frame       | Supported            | Supported             |
+| Audience Rule    | on-device decisioning method | Remote execution mode |
+|------------------|------------------------------|-----------------------|
+| Geo              | Supported                    | Supported             |
+| Network          | Not Supported                | Supported             |
+| Mobile           | Not Supported                | Supported             |
+| Custom           | Supported                    | Supported             |
+| Operating System | Supported                    | Supported             |
+| Site Pages       | Supported                    | Supported             |
+| Browser          | Supported                    | Supported             |
+| Visitor Profile  | Not Supported                | Supported             |
+| Traffic Sources  | Not Supported                | Supported             |
+| Time Frame       | Supported                    | Supported             |
 
 ### Geo support in local execution
 In order to maintain zero latency in local decisioned requests with geo-based audiences, we recommend that you provide the geo values yourself in the call to `getOffers`. You can do this by setting the `Geo` object in the `Context` of the request.
@@ -1085,7 +1085,7 @@ This means your server will need a way to determine the location of each end use
 const CONFIG = {
     client: "acmeclient",
     organizationId: "1234567890@AdobeOrg",
-    executionMode: "local"
+    decisioningMethod: "on-device"
 };
 
 const targetClient = TargetClient.create(CONFIG);
@@ -1114,7 +1114,7 @@ You can signal to the targetClient that you want to perform an IP-to-Geo lookup 
 const CONFIG = {
     client: "acmeclient",
     organizationId: "1234567890@AdobeOrg",
-    executionMode: "local"
+    decisioningMethod: "on-device"
 };
 
 const targetClient = TargetClient.create(CONFIG);
@@ -1139,7 +1139,7 @@ Note that if you specify the IP address in the `Geo` object in the `Context` and
 
 #### Hybrid mode
 
-Although all activities are not yet supported by local execution mode, there is a way to get the best of both worlds.  If you set `executionMode` to `hybrid`, then the SDK will determine on it's own whether to make decisions locally or remotely.  This way, if a `getOffers` request can be completed locally, the SDK will do so.  But if the request includes activities that are not supported, a request to the target delivery API will be made instead.  This may be useful as you begin to adopt local decisioning.
+Although all activities are not yet supported by on-device decisioning method, there is a way to get the best of both worlds.  If you set `decisioningMethod` to `hybrid`, then the SDK will determine on it's own whether to make decisions locally or remotely.  This way, if a `getOffers` request can be completed locally, the SDK will do so.  But if the request includes activities that are not supported, a request to the target delivery API will be made instead.  This may be useful as you begin to adopt local decisioning.
 
 
 ## Troubleshooting
@@ -1267,7 +1267,7 @@ The `options` object has the following structure:
 | fetchApi                  |  Function| No      | global.fetch or window.fetch     | [fetch](https://fetch.spec.whatwg.org) is used by the SDK for http requests.  By default node-fetch or the browser implementation of fetch is used.  But an alternative implementation can be provided using `fetchApi` |
 | propertyToken             |  String  | No      | None                             | Target Property Token. If specified here, all getOffers calls will use this value.  |
 | version                   |  String  | No      | None                             | The version number for at.js if applicable |
-| executionMode             |  String  | No      | remote                           | Execution mode (local, remote or hybrid)   |
+| decisioningMethod         |  String  | No      | remote                           | Execution mode (local, remote or hybrid)   |
 | pollingInterval           |  Number  | No      | 300000 (5 minutes)               | Polling interval for the local decisioning artifact (in ms) |
 | artifactLocation          |  String  | No      | None                             | A fully qualified url to a target decisioning JSON artifact.  Overrides internally determined location. |
 | artifactPayload           |  Object  | No      | None                             | A target decisioning JSON artifact. If specified, it is used instead of requesting one from a URL.      |
@@ -1282,18 +1282,18 @@ The `options.events` object is an optional object with event name keys and callb
 
 When the callback function is called, an event object is passed in.  Each event has a `type` corresponding to the event name.  And some events include additional properties with pertinent information.
 
-| Event Name (type)         | Description                                                                        | Additional Event Properties |
-|---------------------------|------------------------------------------------------------------------------------|-----------------------------|
-| clientReady               | Emitted when the artifact has downloaded and the SDK is ready for getOffers calls. Recommended when using local execution mode. | None |
-| artifactDownloadSucceeded | Emitted each time a new artifact is downloaded. | artifactPayload, artifactLocation |                                    |
-| artifactDownloadFailed    | Emitted each time an artifact fails to download.                                   | artifactLocation, error |
+| Event Name (type)         | Description                                                                                                                             | Additional Event Properties       |
+|---------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
+| clientReady               | Emitted when the artifact has downloaded and the SDK is ready for getOffers calls. Recommended when using on-device decisioning method. | None                              |
+| artifactDownloadSucceeded | Emitted each time a new artifact is downloaded.                                                                                         | artifactPayload, artifactLocation |                                    |
+| artifactDownloadFailed    | Emitted each time an artifact fails to download.                                                                                        | artifactLocation, error           |
 
 ```js
 
 const targetClient = TargetClient.create({
     client: "acmeclient",
     organizationId: "1234567890@AdobeOrg",
-    executionMode: "local",
+    decisioningMethod: "on-device",
     events: {
         clientReady: onTargetClientReady,
         artifactDownloadSucceeded: onArtifactDownloadSucceeded,

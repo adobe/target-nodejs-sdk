@@ -19,7 +19,7 @@
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
 
-      const doLocalDecisioning = urlParams.get("local") !== null;
+      const doLocalDecisioning = urlParams.get("on-device") !== null;
 
       let client;
 
@@ -88,7 +88,7 @@
         doLocalDecisioning
           ? {
             ...targetClientOptions,
-            executionMode: "local",
+            decisioningMethod: "on-device",
           }
           : {...targetClientOptions}
       );

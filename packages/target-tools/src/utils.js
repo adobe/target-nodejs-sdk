@@ -1,5 +1,5 @@
 import { includes, now, uuid } from "./lodash";
-import { EXECUTION_MODE } from "./enums";
+import { DECISIONING_METHOD } from "./enums";
 import { getLogger } from "./logging";
 import { PROPERTY_TOKEN_MISMATCH } from "./messages";
 import { DEFAULT_MAXIMUM_WAIT_READY } from "./constants";
@@ -151,8 +151,11 @@ export const createUUID = () => uuid();
 export const noop = () => undefined;
 export const noopPromise = value => Promise.resolve(value);
 
-export function requiresDecisioningEngine(executionMode) {
-  return includes(executionMode, [EXECUTION_MODE.LOCAL, EXECUTION_MODE.HYBRID]);
+export function requiresDecisioningEngine(decisioningMethod) {
+  return includes(decisioningMethod, [
+    DECISIONING_METHOD.ON_DEVICE,
+    DECISIONING_METHOD.HYBRID
+  ]);
 }
 
 export function decisioningEngineReady(decisioningEngine) {

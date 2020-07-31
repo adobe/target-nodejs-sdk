@@ -14,7 +14,7 @@ governing permissions and limitations under the License.
 import {
   DECISIONING_ENGINE_NOT_READY,
   decisioningEngineReady,
-  EXECUTION_MODE,
+  DECISIONING_METHOD,
   getFetchWithRetry,
   getProperty,
   isDefined,
@@ -53,7 +53,7 @@ export function executeDelivery(options, decisioningEngine) {
 
   const { serverDomain, client, timeout, secure, environmentId } = config;
 
-  let { executionMode } = config;
+  let { decisioningMethod } = config;
 
   const fetchWithRetry = getFetchWithRetry(config.fetchApi);
 
@@ -61,12 +61,12 @@ export function executeDelivery(options, decisioningEngine) {
     options.targetLocationHint || config.targetLocationHint;
 
   if (
-    requiresDecisioningEngine(executionMode) &&
+    requiresDecisioningEngine(decisioningMethod) &&
     !decisioningEngineReady(decisioningEngine)
   ) {
     // fulfill the request remotely if hybrid execution mode and decisioning engine is unavailable
-    if (executionMode === EXECUTION_MODE.HYBRID) {
-      executionMode = EXECUTION_MODE.REMOTE;
+    if (decisioningMethod === DECISIONING_METHOD.HYBRID) {
+      decisioningMethod = DECISIONING_METHOD.SERVER_SIDE;
     } else {
       return Promise.reject(new Error(DECISIONING_ENGINE_NOT_READY));
     }
@@ -102,7 +102,7 @@ export function executeDelivery(options, decisioningEngine) {
     configuration,
     visitor,
     useBeacon,
-    executionMode,
+    decisioningMethod,
     targetLocationHint,
     deliveryRequest,
     decisioningEngine
@@ -122,7 +122,7 @@ export function executeDelivery(options, decisioningEngine) {
           cluster,
           deliveryRequest,
           response,
-          deliveryMethod.executionMode,
+          deliveryMethod.decisioningMethod,
           decisioningEngine
         )
       );

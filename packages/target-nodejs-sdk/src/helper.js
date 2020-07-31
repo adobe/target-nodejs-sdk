@@ -15,7 +15,7 @@ import {
   DECISIONING_ENGINE_NOT_READY,
   DEFAULT_GLOBAL_MBOX,
   EMPTY_REQUEST,
-  EXECUTION_MODE,
+  DECISIONING_METHOD,
   isDefined,
   isUndefined,
   requiresDecisioningEngine
@@ -86,7 +86,7 @@ const SESSION_ID_MAX_AGE = 1860;
 const DEVICE_ID_MAX_AGE = 63244800;
 const LOCATION_HINT_MAX_AGE = 1860;
 
-DeliveryAPIApi.prototype.executionMode = EXECUTION_MODE.REMOTE;
+DeliveryAPIApi.prototype.decisioningMethod = DECISIONING_METHOD.SERVER_SIDE;
 
 export function extractClusterFromDeviceId(id) {
   if (isEmptyString(id)) {
@@ -545,7 +545,7 @@ function createLocalDeliveryApi(
         visitor
       });
     },
-    executionMode: EXECUTION_MODE.LOCAL
+    decisioningMethod: DECISIONING_METHOD.ON_DEVICE
   };
 }
 
@@ -575,7 +575,7 @@ function createBeaconDeliveryApi(configuration) {
       );
       return success ? Promise.resolve() : Promise.reject();
     },
-    executionMode: EXECUTION_MODE.REMOTE
+    decisioningMethod: DECISIONING_METHOD.SERVER_SIDE
   };
 }
 
@@ -589,7 +589,7 @@ function createRemoteDeliveryApi(configuration, useBeacon) {
  * @param {import("@adobe/target-tools/delivery-api-client/runtime").Configuration} configuration
  * @param visitor VisitorId instance
  * @param { Boolean } useBeacon
- * @param executionMode
+ * @param decisioningMethod
  * @param { String } targetLocationHint
  * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} deliveryRequest
  * @param decisioningEngine
@@ -598,18 +598,18 @@ export function createDeliveryApi(
   configuration,
   visitor,
   useBeacon = false,
-  executionMode = EXECUTION_MODE.REMOTE,
+  decisioningMethod = DECISIONING_METHOD.SERVER_SIDE,
   targetLocationHint = undefined,
   deliveryRequest = undefined,
   decisioningEngine = undefined
 ) {
-  if (requiresDecisioningEngine(executionMode)) {
+  if (requiresDecisioningEngine(decisioningMethod)) {
     const decisioningDependency = decisioningEngine.hasRemoteDependency(
       deliveryRequest
     );
 
     if (
-      executionMode === EXECUTION_MODE.HYBRID &&
+      decisioningMethod === DECISIONING_METHOD.HYBRID &&
       decisioningDependency.remoteNeeded
     ) {
       return createRemoteDeliveryApi(configuration, useBeacon);
@@ -686,7 +686,7 @@ export function requestLocationHintCookie(targetClient, targetLocationHint) {
     : targetClient
         .getOffers({
           sessionId: "ping123",
-          executionMode: EXECUTION_MODE.REMOTE,
+          decisioningMethod: DECISIONING_METHOD.SERVER_SIDE,
           request: EMPTY_REQUEST
         })
         .catch(() => new Error(Messages.LOCATION_HINT_REQUEST_FAILED));
@@ -737,10 +737,15 @@ function getAnalyticsDetails(response) {
 /**
  * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} request Target Delivery API request, required
  * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryResponse").DeliveryResponse} response Target Delivery API response, required
- * @param executionMode
+ * @param decisioningMethod
  * @param decisioningEngine
  * */
-function getResponseMeta(request, response, executionMode, decisioningEngine) {
+function getResponseMeta(
+  request,
+  response,
+  decisioningMethod,
+  decisioningEngine
+) {
   let { remoteMboxes = [], remoteViews = [] } = response;
 
   delete response.remoteMboxes;
@@ -757,7 +762,7 @@ function getResponseMeta(request, response, executionMode, decisioningEngine) {
   }
 
   return {
-    executionMode,
+    decisioningMethod,
     remoteMboxes,
     remoteViews
   };
@@ -841,7 +846,7 @@ function getResponseTokens(response) {
  * @param { string } cluster
  * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} request Target Delivery API request
  * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryResponse").DeliveryResponse} response Target Delivery API response
- * @param {('local'|'remote'|'hybrid')} executionMode
+ * @param {('on-device'|'server-side'|'hybrid')} decisioningMethod
  * @param { Object } decisioningEngine
  */
 export function processResponse(
@@ -849,7 +854,7 @@ export function processResponse(
   cluster,
   request,
   response,
-  executionMode = EXECUTION_MODE.REMOTE,
+  decisioningMethod = DECISIONING_METHOD.SERVER_SIDE,
   decisioningEngine = undefined
 ) {
   const { id = {}, edgeHost } = response;
@@ -860,7 +865,12 @@ export function processResponse(
     analyticsDetails: getAnalyticsDetails(response),
     trace: getTraceDetails(response),
     responseTokens: getResponseTokens(response),
-    meta: getResponseMeta(request, response, executionMode, decisioningEngine),
+    meta: getResponseMeta(
+      request,
+      response,
+      decisioningMethod,
+      decisioningEngine
+    ),
     response
   };
 

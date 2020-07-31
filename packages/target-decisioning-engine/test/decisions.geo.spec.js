@@ -7,7 +7,7 @@ const TEST_CONF = {
   client: "someClientId",
   organizationId: "someOrgId",
   pollingInterval: 0,
-  executionMode: "local",
+  decisioningMethod: "on-device",
   artifactPayload: DECISIONING_PAYLOAD_GEO
 };
 

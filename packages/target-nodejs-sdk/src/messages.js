@@ -11,13 +11,13 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import { EXECUTION_MODE } from "@adobe/target-tools";
+import { DECISIONING_METHOD } from "@adobe/target-tools";
 
 export const Messages = {
   PRIVATE_CONSTRUCTOR: "Please use TargetClient.create static method instead",
   ORG_ID_REQUIRED: "Organization Id is required",
-  EXECUTION_MODE_INVALID: `Invalid Execution Mode.  Must be set to one of: ${Object.values(
-    EXECUTION_MODE
+  DECISIONING_METHOD_INVALID: `Invalid Decisioning Method.  Must be set to one of: ${Object.values(
+    DECISIONING_METHOD
   ).join(",")}`,
   FETCH_API_REQUIRED: "Fetch API is required",
   REQUEST_REQUIRED: "Request object is required",

@@ -1,5 +1,9 @@
 /* eslint-disable jest/no-test-callback */
-import { DECISIONING_ENGINE_NOT_READY } from "@adobe/target-tools";
+import {
+  DECISIONING_ENGINE_NOT_READY,
+  DECISIONING_METHOD
+} from "@adobe/target-tools";
+
 import {
   DECISIONING_PAYLOAD_AB_SIMPLE,
   DUMMY_ARTIFACT_PAYLOAD
@@ -9,7 +13,6 @@ const HttpStatus = require("http-status-codes");
 
 const MockDate = require("mockdate");
 require("jest-fetch-mock").enableMocks();
-const { EXECUTION_MODE } = require("@adobe/target-tools");
 const TargetClient = require("../src/index.server").default;
 
 const TARGET_REQUEST = {
@@ -49,7 +52,7 @@ describe("target local decisioning", () => {
       return new Promise(done => {
         client = TargetClient.create({
           ...CONFIG,
-          executionMode: EXECUTION_MODE.LOCAL,
+          decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
           events: {
             clientReady: () => {
               expect(client.decisioningEngine).not.toBeUndefined();
@@ -68,7 +71,7 @@ describe("target local decisioning", () => {
 
       client = TargetClient.create({
         ...CONFIG,
-        executionMode: EXECUTION_MODE.REMOTE,
+        decisioningMethod: DECISIONING_METHOD.SERVER_SIDE,
         events: {
           clientReady: () => {
             expect(client).toBeDefined();
@@ -96,7 +99,7 @@ describe("target local decisioning", () => {
 
       client = TargetClient.create({
         ...CONFIG,
-        executionMode: EXECUTION_MODE.LOCAL
+        decisioningMethod: DECISIONING_METHOD.ON_DEVICE
       });
 
       // make the request immediately (before the artifact has been fetched)
@@ -132,7 +135,7 @@ describe("target local decisioning", () => {
 
       client = TargetClient.create({
         ...CONFIG,
-        executionMode: EXECUTION_MODE.LOCAL,
+        decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
         maximumWaitReady: 500,
         events: {
           clientReady,
@@ -362,7 +365,7 @@ describe("target local decisioning", () => {
 
         client = TargetClient.create({
           ...targetClientOptions,
-          executionMode: EXECUTION_MODE.LOCAL,
+          decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
           events: { clientReady }
         });
       });
@@ -385,7 +388,7 @@ describe("target local decisioning", () => {
 
         client = TargetClient.create({
           ...targetClientOptions,
-          executionMode: EXECUTION_MODE.LOCAL,
+          decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
           events: { clientReady }
         });
       });
@@ -406,7 +409,7 @@ describe("target local decisioning", () => {
 
         client = TargetClient.create({
           ...targetClientOptions,
-          executionMode: EXECUTION_MODE.LOCAL,
+          decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
           pollingInterval: 0,
           targetLocationHint: "28",
           events: { clientReady }
@@ -414,7 +417,7 @@ describe("target local decisioning", () => {
       });
     });
 
-    it("produces a valid response in local execution mode", async done => {
+    it("produces a valid response in on-device decisioning method", async done => {
       fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_AB_SIMPLE));
 
       async function clientReady() {
@@ -424,7 +427,7 @@ describe("target local decisioning", () => {
           expect.objectContaining({
             ...targetResult,
             meta: {
-              executionMode: "local",
+              decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
               remoteMboxes: [],
               remoteViews: []
             },
@@ -438,7 +441,7 @@ describe("target local decisioning", () => {
 
       client = TargetClient.create({
         ...targetClientOptions,
-        executionMode: EXECUTION_MODE.LOCAL,
+        decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
         targetLocationHint: "28",
         pollingInterval: 0,
         events: { clientReady }
@@ -495,7 +498,7 @@ describe("target local decisioning", () => {
 
       client = TargetClient.create({
         ...targetClientOptions,
-        executionMode: EXECUTION_MODE.LOCAL,
+        decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
         pollingInterval: 0,
         targetLocationHint: "28",
 
@@ -528,7 +531,7 @@ describe("target local decisioning", () => {
 
       client = TargetClient.create({
         ...targetClientOptions,
-        executionMode: EXECUTION_MODE.REMOTE,
+        decisioningMethod: DECISIONING_METHOD.SERVER_SIDE,
         events: { clientReady }
       });
     });

@@ -63,7 +63,7 @@ client = TargetClient.create({
   client: "adobesummit2018",
   organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
   fetchApi: fetch, //getFetchWithProxy(),
-  executionMode: "local",
+  decisioningMethod: "on-device",
   // environment: "staging",
   // cdnEnvironment: "staging",
   events: { clientReady: getOffers },
