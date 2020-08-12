@@ -65,6 +65,7 @@ export default function bootstrap(fetchApi) {
             organizationId: options.organizationId,
             pollingInterval: options.pollingInterval,
             maximumWaitReady: options.maximumWaitReady,
+            artifactFormat: options.artifactFormat,
             artifactLocation: options.artifactLocation,
             artifactPayload: options.artifactPayload,
             propertyToken: options.propertyToken,

@@ -90,6 +90,7 @@
   },
   "dependencies": {
     "@adobe-mcid/visitor-js-server": "^2.0.0",
+    "fast-text-encoding": "^1.0.3",
     "form-data": "^3.0.0",
     "http-status-codes": "^1.4.0",
     "node-fetch": "^2.6.0",

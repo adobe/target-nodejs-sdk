@@ -15,7 +15,14 @@ import {
 } from "@adobe/target-tools";
 
 import Messages from "./messages";
-import { CDN_BASE, SUPPORTED_ARTIFACT_MAJOR_VERSION } from "./constants";
+import {
+  ARTIFACT_FORMAT_BINARY,
+  ARTIFACT_FILENAME,
+  ARTIFACT_FORMAT_JSON,
+  CDN_BASE,
+  REGEX_ARTIFACT_FILENAME_BINARY,
+  SUPPORTED_ARTIFACT_MAJOR_VERSION
+} from "./constants";
 
 /**
  *
@@ -192,7 +199,6 @@ export function getGeoLookupPath(config) {
 }
 
 /**
- * The ArtifactProvider initialize method
  * @param {import("../types/DecisioningConfig").DecisioningConfig} config Options map, required
  * @param {Boolean} addPropertyToken
  */
@@ -209,8 +215,18 @@ export function determineArtifactLocation(
     targetEnvironment,
     `v${SUPPORTED_ARTIFACT_MAJOR_VERSION}`,
     addPropertyToken ? propertyToken : undefined,
-    "rules.json"
+    ARTIFACT_FILENAME
   ]
     .filter(value => isDefined(value))
     .join("/");
+}
+
+/**
+ *
+ * @param {string} artifactLocation
+ */
+export function determineArtifactFormat(artifactLocation) {
+  return artifactLocation.match(REGEX_ARTIFACT_FILENAME_BINARY) != null
+    ? ARTIFACT_FORMAT_BINARY
+    : ARTIFACT_FORMAT_JSON;
 }

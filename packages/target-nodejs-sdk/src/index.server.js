@@ -1,6 +1,7 @@
 import FormData from "form-data";
 import { URLSearchParams } from "url";
 import * as nodeFetch from "node-fetch";
+import "fast-text-encoding";
 
 import { isDefined } from "@adobe/target-tools";
 import bootstrap from "./index";

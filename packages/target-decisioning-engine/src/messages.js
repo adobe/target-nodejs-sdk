@@ -8,6 +8,7 @@ const Messages = {
   INVALID_ENVIRONMENT: (expectedEnvironment, defaultEnvironment) =>
     `'${expectedEnvironment}' is not a valid target environment, defaulting to '${defaultEnvironment}'.`,
   NOT_APPLICABLE: "Not Applicable",
+  ARTIFACT_OBFUSCATION_ERROR: "Unable to read artifact JSON",
   UNKNOWN: "unknown"
 };
 

@@ -4,6 +4,8 @@ import { ENVIRONMENT_PROD, ENVIRONMENT_STAGE } from "@adobe/target-tools";
 import ArtifactProvider from "./artifactProvider";
 import * as constants from "./constants";
 import {
+  ARTIFACT_FILENAME,
+  ARTIFACT_FORMAT_JSON,
   CDN_BASE_PROD,
   CDN_BASE_STAGE,
   SUPPORTED_ARTIFACT_MAJOR_VERSION
@@ -21,6 +23,13 @@ require("jest-fetch-mock").enableMocks();
 describe("artifactProvider", () => {
   let provider;
 
+  const TEST_CONF = {
+    client: "clientId",
+    organizationId: "orgId",
+    pollingInterval: 0,
+    artifactFormat: ARTIFACT_FORMAT_JSON // setting this tells the artifactProvider deobfuscation is not needed
+  };
+
   beforeEach(() => {
     fetch.resetMocks();
     constants.MINIMUM_POLLING_INTERVAL = 0;
@@ -35,8 +44,7 @@ describe("artifactProvider", () => {
     fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
 
     provider = await ArtifactProvider({
-      client: "clientId",
-      organizationId: "orgId",
+      ...TEST_CONF,
       artifactPayload: DUMMY_ARTIFACT_PAYLOAD,
       maximumWaitReady: 500
     });
@@ -48,8 +56,7 @@ describe("artifactProvider", () => {
     fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
 
     provider = await ArtifactProvider({
-      client: "clientId",
-      organizationId: "orgId",
+      ...TEST_CONF,
       pollingInterval: 10
     });
 
@@ -67,8 +74,7 @@ describe("artifactProvider", () => {
     fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
 
     provider = await ArtifactProvider({
-      client: "clientId",
-      organizationId: "orgId",
+      ...TEST_CONF,
       pollingInterval: 10
     });
 
@@ -87,8 +93,7 @@ describe("artifactProvider", () => {
     expect.assertions(1);
 
     provider = await ArtifactProvider({
-      client: "clientId",
-      organizationId: "orgId",
+      ...TEST_CONF,
       artifactPayload: DUMMY_ARTIFACT_PAYLOAD,
       pollingInterval: 10
     });
@@ -119,8 +124,7 @@ describe("artifactProvider", () => {
     );
 
     provider = await ArtifactProvider({
-      client: "clientId",
-      organizationId: "orgId",
+      ...TEST_CONF,
       pollingInterval: 0
     });
 
@@ -155,8 +159,7 @@ describe("artifactProvider", () => {
     };
 
     provider = await ArtifactProvider({
-      client: "clientId",
-      organizationId: "orgId",
+      ...TEST_CONF,
       pollingInterval: 0,
       logger
     });
@@ -174,8 +177,7 @@ describe("artifactProvider", () => {
       .doMockIf(artifactURL);
 
     provider = await ArtifactProvider({
-      client: "clientId",
-      organizationId: "orgId",
+      ...TEST_CONF,
       pollingInterval: 0,
       artifactLocation: artifactURL
     });
@@ -265,7 +267,7 @@ describe("artifactProvider", () => {
       client: "clientId",
       organizationId: "orgId",
       pollingInterval: 100,
-      artifactLocation: "rules.json"
+      artifactFormat: ARTIFACT_FORMAT_JSON
     });
 
     provider.subscribe(artifactUpdated);
@@ -288,7 +290,7 @@ describe("artifactProvider", () => {
       expect(payload).toEqual(
         expect.objectContaining({
           artifactLocation:
-            "https://assets.adobetarget.com/clientId/production/v1/rules.json",
+            "https://assets.adobetarget.com/clientId/production/v1/rules.bin",
           artifactPayload: expect.any(Object)
         })
       );
@@ -296,8 +298,7 @@ describe("artifactProvider", () => {
     }
 
     provider = await ArtifactProvider({
-      client: "clientId",
-      organizationId: "orgId",
+      ...TEST_CONF,
       pollingInterval: 0,
       eventEmitter
     });
@@ -313,7 +314,7 @@ describe("artifactProvider", () => {
       expect(payload).toEqual(
         expect.objectContaining({
           artifactLocation:
-            "https://assets.adobetarget.com/clientId/production/v1/rules.json",
+            "https://assets.adobetarget.com/clientId/production/v1/rules.bin",
           error: expect.objectContaining({
             stack: expect.any(String),
             message: "Forbidden"
@@ -324,8 +325,7 @@ describe("artifactProvider", () => {
     }
 
     provider = await ArtifactProvider({
-      client: "clientId",
-      organizationId: "orgId",
+      ...TEST_CONF,
       pollingInterval: 0,
       eventEmitter
     });
@@ -340,7 +340,7 @@ describe("determineArtifactLocation", () => {
         cdnEnvironment: "staging"
       })
     ).toEqual(
-      `${CDN_BASE_STAGE}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.json`
+      `${CDN_BASE_STAGE}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/${ARTIFACT_FILENAME}`
     );
   });
 
@@ -350,7 +350,7 @@ describe("determineArtifactLocation", () => {
         client: "someClientId"
       })
     ).toEqual(
-      `${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.json`
+      `${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/${ARTIFACT_FILENAME}`
     );
   });
 
@@ -361,7 +361,7 @@ describe("determineArtifactLocation", () => {
         environment: ENVIRONMENT_STAGE
       })
     ).toEqual(
-      `${CDN_BASE_PROD}/someClientId/${ENVIRONMENT_STAGE}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.json`
+      `${CDN_BASE_PROD}/someClientId/${ENVIRONMENT_STAGE}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/${ARTIFACT_FILENAME}`
     );
   });
 
@@ -380,7 +380,7 @@ describe("determineArtifactLocation", () => {
         }
       })
     ).toEqual(
-      `${CDN_BASE_PROD}/someClientId/${ENVIRONMENT_PROD}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.json`
+      `${CDN_BASE_PROD}/someClientId/${ENVIRONMENT_PROD}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/${ARTIFACT_FILENAME}`
     );
   });
 
@@ -391,7 +391,7 @@ describe("determineArtifactLocation", () => {
         propertyToken: "xyz-123-abc"
       })
     ).toEqual(
-      `${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.json`
+      `${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/${ARTIFACT_FILENAME}`
     );
   });
 
@@ -405,7 +405,7 @@ describe("determineArtifactLocation", () => {
         true
       )
     ).toEqual(
-      `${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/xyz-123-abc/rules.json`
+      `${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/xyz-123-abc/${ARTIFACT_FILENAME}`
     );
   });
 });

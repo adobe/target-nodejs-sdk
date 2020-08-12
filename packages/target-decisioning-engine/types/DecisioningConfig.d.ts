@@ -17,6 +17,11 @@ export interface DecisioningConfig {
   pollingInterval?: Number;
 
   /**
+   * The format of the artifact.  (json or bin)
+   */
+  artifactFormat?: String;
+
+  /**
    * Fully qualified url to the location of the artifact
    */
   artifactLocation?: String;

@@ -1,13 +1,15 @@
 import * as MockDate from "mockdate";
 import TargetDecisioningEngine from "../src";
 import { DECISIONING_PAYLOAD_TIMEFRAME } from "./decisioning-payloads";
+import { ARTIFACT_FORMAT_JSON } from "../src/constants";
 
 require("jest-fetch-mock").enableMocks();
 
 const TEST_CONF = {
   client: "someClientId",
   organizationId: "someOrgId",
-  pollingInterval: 0
+  pollingInterval: 0,
+  artifactFormat: ARTIFACT_FORMAT_JSON // setting this tells the artifactProvider deobfuscation is not needed
 };
 
 const TARGET_REQUEST = {

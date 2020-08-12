@@ -10,19 +10,21 @@ import {
 } from "@adobe/target-tools";
 import Messages from "./messages";
 import {
+  ARTIFACT_FORMAT_BINARY,
   DEFAULT_POLLING_INTERVAL,
   LOG_PREFIX,
   MINIMUM_POLLING_INTERVAL,
   NUM_FETCH_RETRIES
 } from "./constants";
 import { ArtifactTracer } from "./traceProvider";
-import { determineArtifactLocation } from "./utils";
+import { determineArtifactFormat, determineArtifactLocation } from "./utils";
 import {
   ARTIFACT_DOWNLOAD_FAILED,
   ARTIFACT_DOWNLOAD_SUCCEEDED,
   GEO_LOCATION_UPDATED
 } from "./events";
 import { createGeoObjectFromHeaders } from "./geoProvider";
+import ObfuscationProvider from "./obfuscationProvider";
 
 const LOG_TAG = `${LOG_PREFIX}.ArtifactProvider`;
 const NOT_MODIFIED = 304;
@@ -35,6 +37,7 @@ const OK = 200;
 function ArtifactProvider(config) {
   const logger = getLogger(config.logger);
   const { eventEmitter = noop } = config;
+  const obfuscationProvider = ObfuscationProvider(config);
 
   function getPollingInterval() {
     if (
@@ -73,6 +76,11 @@ function ArtifactProvider(config) {
       ? config.artifactLocation
       : determineArtifactLocation(config);
 
+  const artifactFormat =
+    typeof config.artifactFormat === "string"
+      ? config.artifactFormat
+      : determineArtifactFormat(artifactLocation);
+
   const fetchWithRetry = getFetchWithRetry(
     fetchApi,
     NUM_FETCH_RETRIES,
@@ -95,6 +103,19 @@ function ArtifactProvider(config) {
     );
   }
 
+  /**
+   *
+   * @param {import("node-fetch").Response} res
+   * @return {Promise<import("../types/DecisioningArtifact").DecisioningArtifact>}
+   */
+  function deobfuscate(res) {
+    return artifactFormat === ARTIFACT_FORMAT_BINARY
+      ? res
+          .arrayBuffer()
+          .then(buffer => obfuscationProvider.deobfuscate(buffer))
+      : res.json();
+  }
+
   function fetchArtifact(artifactUrl) {
     const headers = {};
     logger.debug(`${LOG_TAG} fetching artifact - ${artifactUrl}`);
@@ -115,7 +136,7 @@ function ArtifactProvider(config) {
         }
 
         if (res.ok && res.status === OK) {
-          return res.json().then(responseData => {
+          return deobfuscate(res).then(responseData => {
             const etag = res.headers.get("Etag");
             if (etag != null && isDefined(etag)) {
               lastResponseData = responseData;

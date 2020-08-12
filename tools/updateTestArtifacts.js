@@ -1,14 +1,13 @@
-const https = require("https");
+const fetch = require("node-fetch");
 const fs = require("fs");
 const path = require("path");
 const prettier = require("prettier");
 
 const clientId = "adobesummit2018";
+const organizationId = "65453EA95A70434F0A495D34@AdobeOrg";
 const environment = "production";
-const AKAMAI_BASE = "https://assets.adobetarget.com";
-const S3_BASE = "https://target-local-decisioning.s3.us-east-2.amazonaws.com";
 
-const artifactUrl = `${S3_BASE}/${clientId}/${environment}/v1/rules.json`;
+const TargetDecisioningEngine = require("../packages/target-decisioning-engine/dist/index");
 
 const outputFolders = [
   path.resolve(__dirname, "../packages/target-decisioning-engine/test"),
@@ -17,27 +16,21 @@ const outputFolders = [
 
 function fetchAndSaveArtifact() {
   const artifactLocation = `${__dirname}/artifact.json`;
-  return new Promise((resolve, reject) => {
-    https
-      .get(artifactUrl, response => {
-        let body = "";
 
-        response.on("data", chunk => {
-          body += chunk;
-        });
+  return TargetDecisioningEngine({
+    client: clientId,
+    organizationId,
+    environment,
+    pollingInterval: 0,
+    fetchApi: fetch
+  }).then(decisioningEngine => {
+    const artifact = decisioningEngine.getRawArtifact();
+    fs.writeFileSync(
+      artifactLocation,
+      prettier.format(JSON.stringify(artifact), { parser: "json" })
+    );
 
-        response.on("end", () => {
-          fs.writeFileSync(
-            artifactLocation,
-            prettier.format(body, { parser: "json" })
-          );
-
-          resolve(JSON.parse(body));
-        });
-      })
-      .on("error", e => {
-        reject(e);
-      });
+    return artifact;
   });
 }
 

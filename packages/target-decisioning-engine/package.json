@@ -13,7 +13,7 @@
     "access": "public"
   },
   "scripts": {
-    "lint": "eslint src/** test/**",
+    "lint": "eslint src/**/*.js test/**/*.js",
     "clean": "rimraf dist",
     "prebuild": "npm run clean && npm run lint",
     "build": "NODE_ENV=production rollup -c",
@@ -42,6 +42,7 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "^23.6.0",
     "eslint-plugin-prettier": "^3.1.0",
+    "fast-text-encoding": "^1.0.3",
     "http-status-codes": "^1.4.0",
     "https-proxy-agent": "^5.0.0",
     "jest": "^25.1.0",

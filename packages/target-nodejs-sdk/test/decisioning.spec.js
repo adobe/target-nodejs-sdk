@@ -4,6 +4,7 @@ import {
   DECISIONING_METHOD
 } from "@adobe/target-tools";
 
+import { ARTIFACT_FORMAT_JSON } from "@adobe/target-decisioning-engine/src/constants";
 import {
   DECISIONING_PAYLOAD_AB_SIMPLE,
   DUMMY_ARTIFACT_PAYLOAD
@@ -29,6 +30,7 @@ const TARGET_REQUEST = {
 const CONFIG = {
   client: "someClientId",
   organizationId: "someOrgId",
+  artifactFormat: ARTIFACT_FORMAT_JSON, // setting this tells the artifactProvider deobfuscation is not needed
   targetLocationHint: "28",
   pollingInterval: 0,
   maximumWaitReady: 500
@@ -46,7 +48,7 @@ describe("target local decisioning", () => {
   });
 
   describe("initializes", () => {
-    it("creates an instance of target-decisioning-engine if evaluation mode is local", () => {
+    it("creates an instance of target-decisioning-engine if decisioning method is on-device", () => {
       fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
 
       return new Promise(done => {
@@ -255,6 +257,7 @@ describe("target local decisioning", () => {
     const targetClientOptions = {
       client: "adobesummit2018",
       organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
+      artifactFormat: "json", // setting this tells the artifactProvider deobfuscation is not needed
       pollingInterval: 0,
       maximumWaitReady: 500
     };

@@ -1,6 +1,7 @@
 /* eslint-disable jest/no-test-callback */
 import TargetDecisioningEngine from "../src";
 import { DECISIONING_PAYLOAD_AB_MULTI_SIMPLE } from "./decisioning-payloads";
+import { ARTIFACT_FORMAT_JSON } from "../src/constants";
 
 const MockDate = require("mockdate");
 require("jest-fetch-mock").enableMocks();
@@ -11,6 +12,7 @@ const TEST_CONF = {
   client: "someClientId",
   organizationId: "someOrgId",
   pollingInterval: 0,
+  artifactFormat: ARTIFACT_FORMAT_JSON, // setting this tells the artifactProvider deobfuscation is not needed
   sendNotificationFunc
 };
 

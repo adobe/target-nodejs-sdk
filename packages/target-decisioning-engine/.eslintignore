@@ -4,3 +4,4 @@ node_modules/**
 coverage/**
 babel.config.js
 decisioning-payloads.js
+test/artifact/**

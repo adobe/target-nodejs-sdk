@@ -26,7 +26,7 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-23T17:36:42.314Z"
+    generatedAt: "2020-08-11T18:43:30.262Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -48,10 +48,7 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
   remoteMboxes: ["target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
-    "dwalling-myFlags",
-    "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -60,16 +57,20 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
     "target-global-mbox",
     "kitty",
     "geo",
-    "perf1",
-    "daterange-mbox",
-    "browser-mbox",
     "onboarding-mbox-1",
-    "demo-engineering-flags",
     "redundant-mbox",
     "composite2",
     "jason-flags",
     "superfluous-mbox",
     "expendable-mbox",
+    "dwalling-myFlags",
+    "offer2",
+    "demo-geo-offer1",
+    "fullhtml",
+    "perf1",
+    "daterange-mbox",
+    "browser-mbox",
+    "demo-engineering-flags",
     "local123456",
     "sam-mbox"
   ],
@@ -183,7 +184,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-23T17:36:42.314Z"
+    generatedAt: "2020-08-11T18:43:30.262Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -205,10 +206,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
   remoteMboxes: ["target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
-    "dwalling-myFlags",
-    "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -217,16 +215,20 @@ export const DECISIONING_PAYLOAD_BROWSER = {
     "target-global-mbox",
     "kitty",
     "geo",
-    "perf1",
-    "daterange-mbox",
-    "browser-mbox",
     "onboarding-mbox-1",
-    "demo-engineering-flags",
     "redundant-mbox",
     "composite2",
     "jason-flags",
     "superfluous-mbox",
     "expendable-mbox",
+    "dwalling-myFlags",
+    "offer2",
+    "demo-geo-offer1",
+    "fullhtml",
+    "perf1",
+    "daterange-mbox",
+    "browser-mbox",
+    "demo-engineering-flags",
     "local123456",
     "sam-mbox"
   ],
@@ -452,7 +454,7 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-23T17:36:42.314Z"
+    generatedAt: "2020-08-11T18:43:30.262Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -474,10 +476,7 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
   remoteMboxes: ["target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
-    "dwalling-myFlags",
-    "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -486,16 +485,20 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
     "target-global-mbox",
     "kitty",
     "geo",
-    "perf1",
-    "daterange-mbox",
-    "browser-mbox",
     "onboarding-mbox-1",
-    "demo-engineering-flags",
     "redundant-mbox",
     "composite2",
     "jason-flags",
     "superfluous-mbox",
     "expendable-mbox",
+    "dwalling-myFlags",
+    "offer2",
+    "demo-geo-offer1",
+    "fullhtml",
+    "perf1",
+    "daterange-mbox",
+    "browser-mbox",
+    "demo-engineering-flags",
     "local123456",
     "sam-mbox"
   ],
@@ -681,7 +684,7 @@ export const DECISIONING_PAYLOAD_PARAMS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-23T17:36:42.314Z"
+    generatedAt: "2020-08-11T18:43:30.262Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -703,10 +706,7 @@ export const DECISIONING_PAYLOAD_PARAMS = {
   remoteMboxes: ["target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
-    "dwalling-myFlags",
-    "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -715,16 +715,20 @@ export const DECISIONING_PAYLOAD_PARAMS = {
     "target-global-mbox",
     "kitty",
     "geo",
-    "perf1",
-    "daterange-mbox",
-    "browser-mbox",
     "onboarding-mbox-1",
-    "demo-engineering-flags",
     "redundant-mbox",
     "composite2",
     "jason-flags",
     "superfluous-mbox",
     "expendable-mbox",
+    "dwalling-myFlags",
+    "offer2",
+    "demo-geo-offer1",
+    "fullhtml",
+    "perf1",
+    "daterange-mbox",
+    "browser-mbox",
+    "demo-engineering-flags",
     "local123456",
     "sam-mbox"
   ],
@@ -838,7 +842,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-23T17:36:42.314Z"
+    generatedAt: "2020-08-11T18:43:30.262Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -860,10 +864,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
   remoteMboxes: ["target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
-    "dwalling-myFlags",
-    "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -872,16 +873,20 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
     "target-global-mbox",
     "kitty",
     "geo",
-    "perf1",
-    "daterange-mbox",
-    "browser-mbox",
     "onboarding-mbox-1",
-    "demo-engineering-flags",
     "redundant-mbox",
     "composite2",
     "jason-flags",
     "superfluous-mbox",
     "expendable-mbox",
+    "dwalling-myFlags",
+    "offer2",
+    "demo-geo-offer1",
+    "fullhtml",
+    "perf1",
+    "daterange-mbox",
+    "browser-mbox",
+    "demo-engineering-flags",
     "local123456",
     "sam-mbox"
   ],
@@ -1147,7 +1152,7 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-23T17:36:42.314Z"
+    generatedAt: "2020-08-11T18:43:30.262Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -1169,10 +1174,7 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
   remoteMboxes: ["target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
-    "dwalling-myFlags",
-    "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -1181,16 +1183,20 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
     "target-global-mbox",
     "kitty",
     "geo",
-    "perf1",
-    "daterange-mbox",
-    "browser-mbox",
     "onboarding-mbox-1",
-    "demo-engineering-flags",
     "redundant-mbox",
     "composite2",
     "jason-flags",
     "superfluous-mbox",
     "expendable-mbox",
+    "dwalling-myFlags",
+    "offer2",
+    "demo-geo-offer1",
+    "fullhtml",
+    "perf1",
+    "daterange-mbox",
+    "browser-mbox",
+    "demo-engineering-flags",
     "local123456",
     "sam-mbox"
   ],
@@ -1292,7 +1298,7 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-23T17:36:42.314Z"
+    generatedAt: "2020-08-11T18:43:30.262Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -1314,10 +1320,7 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
   remoteMboxes: ["remote-only-mbox-a", "target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
-    "dwalling-myFlags",
-    "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -1326,16 +1329,20 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
     "target-global-mbox",
     "kitty",
     "geo",
-    "perf1",
-    "daterange-mbox",
-    "browser-mbox",
     "onboarding-mbox-1",
-    "demo-engineering-flags",
     "redundant-mbox",
     "composite2",
     "jason-flags",
     "superfluous-mbox",
     "expendable-mbox",
+    "dwalling-myFlags",
+    "offer2",
+    "demo-geo-offer1",
+    "fullhtml",
+    "perf1",
+    "daterange-mbox",
+    "browser-mbox",
+    "demo-engineering-flags",
     "local123456",
     "sam-mbox"
   ],
@@ -1530,7 +1537,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-23T17:36:42.314Z"
+    generatedAt: "2020-08-11T18:43:30.262Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -1552,10 +1559,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
   remoteMboxes: ["target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
-    "dwalling-myFlags",
-    "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -1564,16 +1568,20 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
     "target-global-mbox",
     "kitty",
     "geo",
-    "perf1",
-    "daterange-mbox",
-    "browser-mbox",
     "onboarding-mbox-1",
-    "demo-engineering-flags",
     "redundant-mbox",
     "composite2",
     "jason-flags",
     "superfluous-mbox",
     "expendable-mbox",
+    "dwalling-myFlags",
+    "offer2",
+    "demo-geo-offer1",
+    "fullhtml",
+    "perf1",
+    "daterange-mbox",
+    "browser-mbox",
+    "demo-engineering-flags",
     "local123456",
     "sam-mbox"
   ],
@@ -2059,7 +2067,7 @@ export const DECISIONING_PAYLOAD_FEATURE_FLAG = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-23T17:36:42.314Z"
+    generatedAt: "2020-08-11T18:43:30.262Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -2085,10 +2093,7 @@ export const DECISIONING_PAYLOAD_FEATURE_FLAG = {
   ],
   remoteViews: ["home"],
   localMboxes: [
-    "dwalling-myFlags",
-    "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -2097,16 +2102,20 @@ export const DECISIONING_PAYLOAD_FEATURE_FLAG = {
     "target-global-mbox",
     "kitty",
     "geo",
-    "perf1",
-    "daterange-mbox",
-    "browser-mbox",
     "onboarding-mbox-1",
-    "demo-engineering-flags",
     "redundant-mbox",
     "composite2",
     "jason-flags",
     "superfluous-mbox",
     "expendable-mbox",
+    "dwalling-myFlags",
+    "offer2",
+    "demo-geo-offer1",
+    "fullhtml",
+    "perf1",
+    "daterange-mbox",
+    "browser-mbox",
+    "demo-engineering-flags",
     "local123456",
     "sam-mbox"
   ],
@@ -2221,7 +2230,7 @@ export const DECISIONING_PAYLOAD_ATJS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-23T17:36:42.314Z"
+    generatedAt: "2020-08-11T18:43:30.262Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -2243,10 +2252,7 @@ export const DECISIONING_PAYLOAD_ATJS = {
   remoteMboxes: ["browser-mbox", "target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
-    "dwalling-myFlags",
-    "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -2255,16 +2261,20 @@ export const DECISIONING_PAYLOAD_ATJS = {
     "target-global-mbox",
     "kitty",
     "geo",
-    "perf1",
-    "daterange-mbox",
-    "browser-mbox",
     "onboarding-mbox-1",
-    "demo-engineering-flags",
     "redundant-mbox",
     "composite2",
     "jason-flags",
     "superfluous-mbox",
     "expendable-mbox",
+    "dwalling-myFlags",
+    "offer2",
+    "demo-geo-offer1",
+    "fullhtml",
+    "perf1",
+    "daterange-mbox",
+    "browser-mbox",
+    "demo-engineering-flags",
     "local123456",
     "sam-mbox"
   ],
@@ -2431,6 +2441,184 @@ export const DECISIONING_PAYLOAD_ATJS = {
                 eventToken:
                   "9FNM3ikASssS+sVoFXNulJZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 content: "<div>Srsly, who dis?</div>"
+              }
+            ],
+            metrics: []
+          }
+        }
+      ],
+      "jason-flags": [
+        {
+          ruleKey: "335113",
+          activityId: 335113,
+          meta: {
+            "activity.id": 335113,
+            "activity.name": "jason-flags",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "jason-flags",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [],
+            "offer.id": 632759,
+            "offer.name":
+              "/jason-flags/experiences/0/pages/0/zones/0/1583188989447",
+            "option.id": 2,
+            "option.name": "Offer2",
+            activityId: 335113,
+            activityType: "ab",
+            experienceId: 0,
+            locationId: 0,
+            locationName: "jason-flags",
+            locationType: "mbox",
+            audienceIds: [],
+            offerIds: [632759]
+          },
+          condition: { "<": [0, { var: "allocation" }, 50] },
+          consequence: {
+            name: "jason-flags",
+            options: [
+              {
+                type: "json",
+                eventToken:
+                  "8MDICvd7bsTPYn79fLBNQmqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: {
+                  paymentExperience: "legacy",
+                  showFeatureX: false,
+                  paymentGatewayVersion: 2.3,
+                  customerFeedbackValue: 10
+                }
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          ruleKey: "335113",
+          activityId: 335113,
+          meta: {
+            "activity.id": 335113,
+            "activity.name": "jason-flags",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "jason-flags",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [],
+            "offer.id": 632760,
+            "offer.name":
+              "/jason-flags/experiences/1/pages/0/zones/0/1583188989545",
+            "option.id": 3,
+            "option.name": "Offer3",
+            activityId: 335113,
+            activityType: "ab",
+            experienceId: 1,
+            locationId: 0,
+            locationName: "jason-flags",
+            locationType: "mbox",
+            audienceIds: [],
+            offerIds: [632760]
+          },
+          condition: { "<": [50, { var: "allocation" }, 100] },
+          consequence: {
+            name: "jason-flags",
+            options: [
+              {
+                type: "json",
+                eventToken:
+                  "8MDICvd7bsTPYn79fLBNQpNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: {
+                  paymentExperience: "alpha10",
+                  showFeatureX: true,
+                  paymentGatewayVersion: 3.1,
+                  customerFeedbackValue: 99
+                }
+              }
+            ],
+            metrics: []
+          }
+        }
+      ],
+      "superfluous-mbox": [
+        {
+          ruleKey: "334411",
+          activityId: 334411,
+          meta: {
+            "activity.id": 334411,
+            "activity.name": "superfluous ab json",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "superfluous-mbox",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [],
+            "offer.id": 631992,
+            "offer.name":
+              "/superfluous_ab_json/experiences/0/pages/0/zones/0/1582738346730",
+            "option.id": 2,
+            "option.name": "Offer2",
+            activityId: 334411,
+            activityType: "ab",
+            experienceId: 0,
+            locationId: 0,
+            locationName: "superfluous-mbox",
+            locationType: "mbox",
+            audienceIds: [],
+            offerIds: [631992]
+          },
+          condition: { "<": [0, { var: "allocation" }, 50] },
+          consequence: {
+            name: "superfluous-mbox",
+            options: [
+              {
+                type: "json",
+                eventToken:
+                  "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: { doMagic: true, importantValue: 150 }
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          ruleKey: "334411",
+          activityId: 334411,
+          meta: {
+            "activity.id": 334411,
+            "activity.name": "superfluous ab json",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "superfluous-mbox",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [],
+            "offer.id": 631991,
+            "offer.name":
+              "/superfluous_ab_json/experiences/1/pages/0/zones/0/1582738346722",
+            "option.id": 3,
+            "option.name": "Offer3",
+            activityId: 334411,
+            activityType: "ab",
+            experienceId: 1,
+            locationId: 0,
+            locationName: "superfluous-mbox",
+            locationType: "mbox",
+            audienceIds: [],
+            offerIds: [631991]
+          },
+          condition: { "<": [50, { var: "allocation" }, 100] },
+          consequence: {
+            name: "superfluous-mbox",
+            options: [
+              {
+                type: "json",
+                eventToken:
+                  "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: { doMagic: false, importantValue: 75 }
               }
             ],
             metrics: []
@@ -2643,184 +2831,6 @@ export const DECISIONING_PAYLOAD_ATJS = {
             metrics: []
           }
         }
-      ],
-      "jason-flags": [
-        {
-          ruleKey: "335113",
-          activityId: 335113,
-          meta: {
-            "activity.id": 335113,
-            "activity.name": "jason-flags",
-            "activity.type": "ab",
-            "experience.id": 0,
-            "experience.name": "Experience A",
-            "location.name": "jason-flags",
-            "location.type": "mbox",
-            "location.id": 0,
-            "audience.ids": [],
-            "offer.id": 632759,
-            "offer.name":
-              "/jason-flags/experiences/0/pages/0/zones/0/1583188989447",
-            "option.id": 2,
-            "option.name": "Offer2",
-            activityId: 335113,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "jason-flags",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [632759]
-          },
-          condition: { "<": [0, { var: "allocation" }, 50] },
-          consequence: {
-            name: "jason-flags",
-            options: [
-              {
-                type: "json",
-                eventToken:
-                  "8MDICvd7bsTPYn79fLBNQmqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                content: {
-                  paymentExperience: "legacy",
-                  showFeatureX: false,
-                  paymentGatewayVersion: 2.3,
-                  customerFeedbackValue: 10
-                }
-              }
-            ],
-            metrics: []
-          }
-        },
-        {
-          ruleKey: "335113",
-          activityId: 335113,
-          meta: {
-            "activity.id": 335113,
-            "activity.name": "jason-flags",
-            "activity.type": "ab",
-            "experience.id": 1,
-            "experience.name": "Experience B",
-            "location.name": "jason-flags",
-            "location.type": "mbox",
-            "location.id": 0,
-            "audience.ids": [],
-            "offer.id": 632760,
-            "offer.name":
-              "/jason-flags/experiences/1/pages/0/zones/0/1583188989545",
-            "option.id": 3,
-            "option.name": "Offer3",
-            activityId: 335113,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "jason-flags",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [632760]
-          },
-          condition: { "<": [50, { var: "allocation" }, 100] },
-          consequence: {
-            name: "jason-flags",
-            options: [
-              {
-                type: "json",
-                eventToken:
-                  "8MDICvd7bsTPYn79fLBNQpNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                content: {
-                  paymentExperience: "alpha10",
-                  showFeatureX: true,
-                  paymentGatewayVersion: 3.1,
-                  customerFeedbackValue: 99
-                }
-              }
-            ],
-            metrics: []
-          }
-        }
-      ],
-      "superfluous-mbox": [
-        {
-          ruleKey: "334411",
-          activityId: 334411,
-          meta: {
-            "activity.id": 334411,
-            "activity.name": "superfluous ab json",
-            "activity.type": "ab",
-            "experience.id": 0,
-            "experience.name": "Experience A",
-            "location.name": "superfluous-mbox",
-            "location.type": "mbox",
-            "location.id": 0,
-            "audience.ids": [],
-            "offer.id": 631992,
-            "offer.name":
-              "/superfluous_ab_json/experiences/0/pages/0/zones/0/1582738346730",
-            "option.id": 2,
-            "option.name": "Offer2",
-            activityId: 334411,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "superfluous-mbox",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [631992]
-          },
-          condition: { "<": [0, { var: "allocation" }, 50] },
-          consequence: {
-            name: "superfluous-mbox",
-            options: [
-              {
-                type: "json",
-                eventToken:
-                  "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                content: { doMagic: true, importantValue: 150 }
-              }
-            ],
-            metrics: []
-          }
-        },
-        {
-          ruleKey: "334411",
-          activityId: 334411,
-          meta: {
-            "activity.id": 334411,
-            "activity.name": "superfluous ab json",
-            "activity.type": "ab",
-            "experience.id": 1,
-            "experience.name": "Experience B",
-            "location.name": "superfluous-mbox",
-            "location.type": "mbox",
-            "location.id": 0,
-            "audience.ids": [],
-            "offer.id": 631991,
-            "offer.name":
-              "/superfluous_ab_json/experiences/1/pages/0/zones/0/1582738346722",
-            "option.id": 3,
-            "option.name": "Offer3",
-            activityId: 334411,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "superfluous-mbox",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [631991]
-          },
-          condition: { "<": [50, { var: "allocation" }, 100] },
-          consequence: {
-            name: "superfluous-mbox",
-            options: [
-              {
-                type: "json",
-                eventToken:
-                  "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                content: { doMagic: false, importantValue: 75 }
-              }
-            ],
-            metrics: []
-          }
-        }
       ]
     },
     views: {}
@@ -2835,7 +2845,7 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-23T17:36:42.314Z"
+    generatedAt: "2020-08-11T18:43:30.262Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -2857,10 +2867,7 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
   remoteMboxes: ["target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
-    "dwalling-myFlags",
-    "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -2869,16 +2876,20 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
     "target-global-mbox",
     "kitty",
     "geo",
-    "perf1",
-    "daterange-mbox",
-    "browser-mbox",
     "onboarding-mbox-1",
-    "demo-engineering-flags",
     "redundant-mbox",
     "composite2",
     "jason-flags",
     "superfluous-mbox",
     "expendable-mbox",
+    "dwalling-myFlags",
+    "offer2",
+    "demo-geo-offer1",
+    "fullhtml",
+    "perf1",
+    "daterange-mbox",
+    "browser-mbox",
+    "demo-engineering-flags",
     "local123456",
     "sam-mbox"
   ],
@@ -3250,7 +3261,7 @@ export const DECISIONING_PAYLOAD_GEO = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-23T17:36:42.314Z"
+    generatedAt: "2020-08-11T18:43:30.262Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -3272,10 +3283,7 @@ export const DECISIONING_PAYLOAD_GEO = {
   remoteMboxes: ["target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
-    "dwalling-myFlags",
-    "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -3284,16 +3292,20 @@ export const DECISIONING_PAYLOAD_GEO = {
     "target-global-mbox",
     "kitty",
     "geo",
-    "perf1",
-    "daterange-mbox",
-    "browser-mbox",
     "onboarding-mbox-1",
-    "demo-engineering-flags",
     "redundant-mbox",
     "composite2",
     "jason-flags",
     "superfluous-mbox",
     "expendable-mbox",
+    "dwalling-myFlags",
+    "offer2",
+    "demo-geo-offer1",
+    "fullhtml",
+    "perf1",
+    "daterange-mbox",
+    "browser-mbox",
+    "demo-engineering-flags",
     "local123456",
     "sam-mbox"
   ],
@@ -3483,7 +3495,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-23T17:36:42.314Z"
+    generatedAt: "2020-08-11T18:43:30.262Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -3505,10 +3517,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
   remoteMboxes: ["target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
-    "dwalling-myFlags",
-    "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -3517,16 +3526,20 @@ export const DECISIONING_PAYLOAD_VIEWS = {
     "target-global-mbox",
     "kitty",
     "geo",
-    "perf1",
-    "daterange-mbox",
-    "browser-mbox",
     "onboarding-mbox-1",
-    "demo-engineering-flags",
     "redundant-mbox",
     "composite2",
     "jason-flags",
     "superfluous-mbox",
     "expendable-mbox",
+    "dwalling-myFlags",
+    "offer2",
+    "demo-geo-offer1",
+    "fullhtml",
+    "perf1",
+    "daterange-mbox",
+    "browser-mbox",
+    "demo-engineering-flags",
     "local123456",
     "sam-mbox"
   ],
@@ -4848,7 +4861,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-23T17:36:42.314Z"
+    generatedAt: "2020-08-11T18:43:30.262Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -4870,10 +4883,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
   remoteMboxes: ["target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
-    "dwalling-myFlags",
-    "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -4882,16 +4892,20 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
     "target-global-mbox",
     "kitty",
     "geo",
-    "perf1",
-    "daterange-mbox",
-    "browser-mbox",
     "onboarding-mbox-1",
-    "demo-engineering-flags",
     "redundant-mbox",
     "composite2",
     "jason-flags",
     "superfluous-mbox",
     "expendable-mbox",
+    "dwalling-myFlags",
+    "offer2",
+    "demo-geo-offer1",
+    "fullhtml",
+    "perf1",
+    "daterange-mbox",
+    "browser-mbox",
+    "demo-engineering-flags",
     "local123456",
     "sam-mbox"
   ],
@@ -5576,7 +5590,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-07-23T17:36:42.314Z"
+    generatedAt: "2020-08-11T18:43:30.262Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -5598,10 +5612,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
   remoteMboxes: ["target-global-mbox"],
   remoteViews: ["home"],
   localMboxes: [
-    "dwalling-myFlags",
-    "offer2",
     "multinot",
-    "demo-geo-offer1",
     "demo-marketing-offer2",
     "demo-marketing-offer1",
     "alloy-test-scope-1",
@@ -5610,16 +5621,20 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
     "target-global-mbox",
     "kitty",
     "geo",
-    "perf1",
-    "daterange-mbox",
-    "browser-mbox",
     "onboarding-mbox-1",
-    "demo-engineering-flags",
     "redundant-mbox",
     "composite2",
     "jason-flags",
     "superfluous-mbox",
     "expendable-mbox",
+    "dwalling-myFlags",
+    "offer2",
+    "demo-geo-offer1",
+    "fullhtml",
+    "perf1",
+    "daterange-mbox",
+    "browser-mbox",
+    "demo-engineering-flags",
     "local123456",
     "sam-mbox"
   ],

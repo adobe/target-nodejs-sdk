@@ -2,7 +2,11 @@ import * as HttpStatus from "http-status-codes";
 import { isDefined } from "@adobe/target-tools";
 import TargetDecisioningEngine from "./index";
 import * as constants from "./constants";
-import { SUPPORTED_ARTIFACT_MAJOR_VERSION } from "./constants";
+import {
+  ARTIFACT_FORMAT_BINARY,
+  ARTIFACT_FORMAT_JSON,
+  SUPPORTED_ARTIFACT_MAJOR_VERSION
+} from "./constants";
 import Messages from "./messages";
 import {
   DUMMY_ARTIFACT_PAYLOAD,
@@ -39,6 +43,7 @@ const TARGET_REQUEST = {
 const CONFIG = {
   client: "clientId",
   organizationId: "orgId",
+  artifactFormat: ARTIFACT_FORMAT_JSON, // setting this tells the artifactProvider deobfuscation is not needed
   maximumWaitReady: 500
 };
 
@@ -143,6 +148,31 @@ describe("TargetDecisioningEngine", () => {
         expect(eventEmitter.mock.calls[0][0]).toEqual(ARTIFACT_DOWNLOAD_FAILED);
         done();
       }, 1000);
+    });
+  });
+
+  it("provides an error if the artifact cannot be deobfuscated", () => {
+    return new Promise(done => {
+      expect.assertions(1);
+      const eventEmitter = jest.fn();
+
+      fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
+
+      TargetDecisioningEngine({
+        ...CONFIG,
+        artifactFormat: ARTIFACT_FORMAT_BINARY,
+        artifactLocation: "rules.bin", // an obfuscated artifact
+        pollingInterval: 0,
+        eventEmitter
+      })
+        .then(instance => {
+          decisioning = instance;
+        })
+        .catch(err => {
+          // the decision provider is expecting an obfuscated artifact (rules.bin), but it received a raw artifact (rules.json) and deobfuscation failed
+          expect(err).toEqual(new Error(Messages.ARTIFACT_NOT_AVAILABLE));
+          done();
+        });
     });
   });
 

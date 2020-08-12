@@ -1,5 +1,6 @@
 import TargetDecisioningEngine from "../src";
 import { DECISIONING_PAYLOAD_GEO } from "./decisioning-payloads";
+import { ARTIFACT_FORMAT_JSON } from "../src/constants";
 
 require("jest-fetch-mock").enableMocks();
 
@@ -7,6 +8,7 @@ const TEST_CONF = {
   client: "someClientId",
   organizationId: "someOrgId",
   pollingInterval: 0,
+  artifactFormat: ARTIFACT_FORMAT_JSON, // setting this tells the artifactProvider deobfuscation is not needed
   decisioningMethod: "on-device",
   artifactPayload: DECISIONING_PAYLOAD_GEO
 };
