@@ -13,7 +13,7 @@ describe("perfTool", () => {
         expect(perfTool.getTimings()).toEqual({
           moo: expect.any(Number)
         });
-        expect(perfTool.getTimings().moo).toBeGreaterThanOrEqual(100);
+        expect(perfTool.getTimings().moo).toBeGreaterThanOrEqual(90);
         done();
       }, 100);
     });
@@ -49,9 +49,9 @@ describe("perfTool", () => {
           meow: expect.any(Number),
           woof: expect.any(Number)
         });
-        expect(perfTool.getTimings().moo).toBeGreaterThanOrEqual(100);
-        expect(perfTool.getTimings().meow).toBeGreaterThanOrEqual(200);
-        expect(perfTool.getTimings().woof).toBeGreaterThanOrEqual(300);
+        expect(perfTool.getTimings().moo).toBeGreaterThanOrEqual(90);
+        expect(perfTool.getTimings().meow).toBeGreaterThanOrEqual(180);
+        expect(perfTool.getTimings().woof).toBeGreaterThanOrEqual(270);
         done();
       }, 300);
     });
