@@ -1,10 +1,4 @@
-import {
-  DEFAULT_MAXIMUM_WAIT_READY,
-  getLogger,
-  isDefined,
-  isUndefined,
-  whenReady
-} from "@adobe/target-tools";
+import { getLogger, isDefined, isUndefined } from "@adobe/target-tools";
 import { createDecisioningContext } from "./contextProvider";
 import DecisionProvider from "./decisionProvider";
 import ArtifactProvider from "./artifactProvider";
@@ -20,23 +14,9 @@ import { GeoProvider } from "./geoProvider";
  * @param {import("../types/DecisioningConfig").DecisioningConfig} config Options map, required
  */
 export default function TargetDecisioningEngine(config) {
-  const { maximumWaitReady = DEFAULT_MAXIMUM_WAIT_READY } = config;
   const logger = getLogger(config.logger);
   let artifactProvider;
   let artifact;
-
-  ArtifactProvider({
-    ...config,
-    logger
-  }).then(providerInstance => {
-    artifactProvider = providerInstance;
-    artifact = artifactProvider.getArtifact();
-
-    // subscribe to new artifacts that are downloaded on the polling interval
-    artifactProvider.subscribe(data => {
-      artifact = data;
-    });
-  });
 
   /**
    * The get offers method
@@ -95,13 +75,22 @@ export default function TargetDecisioningEngine(config) {
     return isDefined(artifact);
   }
 
-  const whenArtifactReady = whenReady(
-    isReady,
-    maximumWaitReady,
-    Messages.ARTIFACT_NOT_AVAILABLE
-  );
+  return ArtifactProvider({
+    ...config,
+    logger
+  }).then(providerInstance => {
+    artifactProvider = providerInstance;
+    artifact = artifactProvider.getArtifact();
 
-  return whenArtifactReady.then(() => {
+    if (isUndefined(artifact)) {
+      throw new Error(Messages.ARTIFACT_NOT_AVAILABLE);
+    }
+
+    // subscribe to new artifacts that are downloaded on the polling interval
+    artifactProvider.subscribe(data => {
+      artifact = data;
+    });
+
     return {
       getRawArtifact: () => artifact,
       stopPolling: () => artifactProvider.stopPolling(),

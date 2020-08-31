@@ -16,9 +16,9 @@ export const ARTIFACT_FORMAT_JSON = "json";
 
 export const LOG_PREFIX = "LD";
 
-export const CDN_BASE_PROD = "https://assets.adobetarget.com";
-export const CDN_BASE_STAGE = "https://assets.staging.adobetarget.com";
-export const CDN_BASE_DEV = "https://assets.staging.adobetarget.com";
+export const CDN_BASE_PROD = "assets.adobetarget.com";
+export const CDN_BASE_STAGE = "assets.staging.adobetarget.com";
+export const CDN_BASE_DEV = "assets.staging.adobetarget.com";
 
 export const HTTP_HEADER_FORWARDED_FOR = "x-forwarded-for";
 export const HTTP_HEADER_GEO_LATITUDE = "x-geo-latitude";

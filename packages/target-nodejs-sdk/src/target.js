@@ -89,8 +89,6 @@ export function executeDelivery(options, decisioningEngine) {
 
   const deliveryRequest = createDeliveryRequest(request, requestOptions);
 
-  logger.debug(Messages.REQUEST_SENT, JSON.stringify(deliveryRequest, null, 2));
-
   const configuration = createConfiguration(
     fetchWithRetry,
     host,
@@ -106,6 +104,12 @@ export function executeDelivery(options, decisioningEngine) {
     targetLocationHint,
     deliveryRequest,
     decisioningEngine
+  );
+
+  logger.debug(
+    Messages.REQUEST_SENT,
+    deliveryMethod.decisioningMethod,
+    JSON.stringify(deliveryRequest, null, 2)
   );
 
   return deliveryMethod

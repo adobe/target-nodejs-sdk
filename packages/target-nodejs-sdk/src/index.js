@@ -71,6 +71,7 @@ export default function bootstrap(fetchApi) {
             propertyToken: options.propertyToken,
             environment: options.environment,
             cdnEnvironment: options.cdnEnvironment,
+            cdnBasePath: options.cdnBasePath,
             logger: this.logger,
             fetchApi: fetchImpl,
             eventEmitter,
@@ -185,6 +186,7 @@ export default function bootstrap(fetchApi) {
      * @param {Array}  options.customerIds An array of Customer Ids in VisitorId-compatible format, optional
      * @param {String} options.sessionId Session Id, used for linking multiple requests, optional
      * @param {Object} options.visitor Supply an external VisitorId instance, optional
+     * @param {('on-device'|'server-side'|'hybrid')} options.decisioningMethod The execution mode, defaults to remote, optional
      */
     getAttributes(mboxNames, options = {}) {
       // eslint-disable-next-line no-param-reassign

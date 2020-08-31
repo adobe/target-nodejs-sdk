@@ -63,7 +63,7 @@ function ObfuscationProvider(config) {
     const header = getHeader(buffer.slice(0, HEADER_BOUNDARY));
 
     if (header.version !== SUPPORTED_ARTIFACT_OBFUSCATION_VERSION) {
-      throw new Error("Invalid Artifact");
+      throw new Error(Messages.ARTIFACT_INVALID);
     }
 
     return getArtifact(header.key, buffer.slice(HEADER_BOUNDARY));

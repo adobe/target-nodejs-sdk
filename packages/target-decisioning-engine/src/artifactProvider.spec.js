@@ -1,6 +1,10 @@
 /* eslint-disable jest/no-test-callback */
 import * as HttpStatus from "http-status-codes";
-import { ENVIRONMENT_PROD, ENVIRONMENT_STAGE } from "@adobe/target-tools";
+import {
+  ENVIRONMENT_PROD,
+  ENVIRONMENT_STAGE,
+  isDefined
+} from "@adobe/target-tools";
 import ArtifactProvider from "./artifactProvider";
 import * as constants from "./constants";
 import {
@@ -36,7 +40,9 @@ describe("artifactProvider", () => {
   });
 
   afterEach(() => {
-    provider.stopPolling();
+    if (isDefined(provider)) {
+      provider.stopPolling();
+    }
     provider = undefined;
   });
 
@@ -134,6 +140,8 @@ describe("artifactProvider", () => {
 
   // eslint-disable-next-line jest/no-test-callback
   it("reports an error if it failed to retrieve the artifact after 10 tries", async () => {
+    expect.assertions(3);
+
     fetch.mockResponses(
       ["", { status: HttpStatus.UNAUTHORIZED }],
       ["", { status: HttpStatus.NOT_FOUND }],
@@ -283,24 +291,25 @@ describe("artifactProvider", () => {
 
   it("emits artifactDownloadSucceeded event", async done => {
     fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
-    expect.assertions(3);
+    expect.assertions(2);
 
     function eventEmitter(eventName, payload) {
       expect(eventName).toEqual(ARTIFACT_DOWNLOAD_SUCCEEDED);
-      expect(payload).toEqual(
-        expect.objectContaining({
-          artifactLocation:
-            "https://assets.adobetarget.com/clientId/production/v1/rules.bin",
-          artifactPayload: expect.any(Object)
-        })
-      );
-      setTimeout(() => done(), 100);
+      expect(payload).toMatchObject({
+        artifactLocation:
+          "https://assets.adobetarget.com/clientId/production/v1/rules.bin",
+        artifactPayload: expect.any(Object)
+      });
+      done();
     }
 
     provider = await ArtifactProvider({
       ...TEST_CONF,
       pollingInterval: 0,
-      eventEmitter
+      eventEmitter: (eventName, payload) =>
+        eventName === ARTIFACT_DOWNLOAD_SUCCEEDED
+          ? eventEmitter(eventName, payload)
+          : undefined
     });
   });
 
@@ -340,7 +349,7 @@ describe("determineArtifactLocation", () => {
         cdnEnvironment: "staging"
       })
     ).toEqual(
-      `${CDN_BASE_STAGE}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/${ARTIFACT_FILENAME}`
+      `https://${CDN_BASE_STAGE}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/${ARTIFACT_FILENAME}`
     );
   });
 
@@ -350,7 +359,7 @@ describe("determineArtifactLocation", () => {
         client: "someClientId"
       })
     ).toEqual(
-      `${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/${ARTIFACT_FILENAME}`
+      `https://${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/${ARTIFACT_FILENAME}`
     );
   });
 
@@ -361,7 +370,7 @@ describe("determineArtifactLocation", () => {
         environment: ENVIRONMENT_STAGE
       })
     ).toEqual(
-      `${CDN_BASE_PROD}/someClientId/${ENVIRONMENT_STAGE}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/${ARTIFACT_FILENAME}`
+      `https://${CDN_BASE_PROD}/someClientId/${ENVIRONMENT_STAGE}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/${ARTIFACT_FILENAME}`
     );
   });
 
@@ -380,7 +389,7 @@ describe("determineArtifactLocation", () => {
         }
       })
     ).toEqual(
-      `${CDN_BASE_PROD}/someClientId/${ENVIRONMENT_PROD}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/${ARTIFACT_FILENAME}`
+      `https://${CDN_BASE_PROD}/someClientId/${ENVIRONMENT_PROD}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/${ARTIFACT_FILENAME}`
     );
   });
 
@@ -391,7 +400,7 @@ describe("determineArtifactLocation", () => {
         propertyToken: "xyz-123-abc"
       })
     ).toEqual(
-      `${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/${ARTIFACT_FILENAME}`
+      `https://${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/${ARTIFACT_FILENAME}`
     );
   });
 
@@ -405,7 +414,7 @@ describe("determineArtifactLocation", () => {
         true
       )
     ).toEqual(
-      `${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/xyz-123-abc/${ARTIFACT_FILENAME}`
+      `https://${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/xyz-123-abc/${ARTIFACT_FILENAME}`
     );
   });
 });

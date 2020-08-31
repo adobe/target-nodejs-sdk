@@ -180,13 +180,18 @@ export function getCdnEnvironment(config) {
  * @return {string}
  */
 export function getCdnBasePath(config) {
-  const cdnEnvironment = getCdnEnvironment(config);
+  let { cdnBasePath } = config;
 
-  const env = includes(cdnEnvironment, POSSIBLE_ENVIRONMENTS)
-    ? cdnEnvironment
-    : ENVIRONMENT_PROD;
+  if (!isDefined(cdnBasePath)) {
+    const cdnEnvironment = getCdnEnvironment(config);
 
-  return CDN_BASE[env];
+    const env = includes(cdnEnvironment, POSSIBLE_ENVIRONMENTS)
+      ? cdnEnvironment
+      : ENVIRONMENT_PROD;
+    cdnBasePath = CDN_BASE[env];
+  }
+
+  return `https://${cdnBasePath}`;
 }
 
 /**

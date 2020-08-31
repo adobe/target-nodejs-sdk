@@ -47,6 +47,11 @@ export interface DecisioningConfig {
   cdnEnvironment?: String;
 
   /**
+   * A CDN base URL to override the default based on cdnEnvironment.
+   */
+  cdnBasePath?: String;
+
+  /**
    * Replaces the default noop logger
    */
   logger?: Object;
