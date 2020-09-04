@@ -61,7 +61,13 @@ export function ruleEvaluator(clientId, visitorId) {
       };
 
       postProcessors.forEach(postProcessFunc => {
-        consequence = postProcessFunc(rule, consequence, requestType, tracer);
+        consequence = postProcessFunc(
+          rule,
+          consequence,
+          requestType,
+          requestDetail,
+          tracer
+        );
       });
     }
     return cloneDeep(consequence); // we return a new object because at.js has a tendency to mutate response and we don't want it to mutate the rule consequence itself

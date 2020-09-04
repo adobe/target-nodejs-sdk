@@ -1,4 +1,4 @@
-import { hasRemoteDependency } from "./utils";
+import { firstMatch, hasRemoteDependency } from "./utils";
 import { DUMMY_ARTIFACT_PAYLOAD } from "../test/decisioning-payloads";
 
 describe("utils", () => {
@@ -213,6 +213,29 @@ describe("utils", () => {
         remoteMboxes: [],
         remoteViews: ["remoteView"]
       });
+    });
+  });
+
+  describe("fistMatch", () => {
+    it("returns default value if key is not found", () => {
+      expect(firstMatch("blippi", [{}, {}, {}, {}], "not found")).toEqual(
+        "not found"
+      );
+    });
+
+    it("returns a value when key is found", () => {
+      expect(
+        firstMatch("blippi", [{}, { blippi: "hello" }, {}, {}], "not found")
+      ).toEqual("hello");
+    });
+
+    it("handles invalid search objects", () => {
+      expect(firstMatch("blippi", undefined, "not found")).toEqual("not found");
+      expect(firstMatch("blippi")).toEqual(undefined);
+      expect(firstMatch("blippi", [{}])).toEqual(undefined);
+      expect(
+        firstMatch("blippi", [true, false, [], "hi", { blippi: "moo" }])
+      ).toEqual("moo");
     });
   });
 });

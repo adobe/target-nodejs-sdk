@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 import {
+  includes,
   isDefined,
   isUndefined,
-  objectWithoutUndefinedValues,
   MetricType,
-  includes
+  objectWithoutUndefinedValues
 } from "@adobe/target-tools";
-import { RequestType } from "./enums";
+import { OptionType, RequestType } from "./enums";
 import {
   ACTIVITY_DECISIONING_METHOD,
   ACTIVITY_ID,
@@ -27,6 +27,21 @@ import {
   OPTION_ID,
   OPTION_NAME
 } from "./constants";
+import { firstMatch } from "./utils";
+
+const MACRO_PATTERN_REGEX = /\$\{([a-zA-Z0-9_.]*?)\}/gi;
+
+const MACRO_NAME_REPLACEMENTS = {
+  campaign: "activity",
+  recipe: "experience"
+};
+
+const MACRO_NAME_REPLACEMENTS_REGEX = new RegExp(
+  Object.keys(MACRO_NAME_REPLACEMENTS).join("|"),
+  "gi"
+);
+
+const MACRO_NAME_REMOVALS = ["mbox"];
 
 function noBlankOptions(option) {
   return !(isUndefined(option.type) && isUndefined(option.content));
@@ -36,12 +51,14 @@ function noBlankOptions(option) {
  * @param {import("../types/DecisioningArtifact").Rule} rule
  * @param {import("@adobe/target-tools/delivery-api-client/models/MboxResponse").MboxResponse} mboxResponse
  * @param { 'mbox'|'view'|'pageLoad' } requestType
+ * @param {import("@adobe/target-tools/delivery-api-client/models/MboxRequest").MboxRequest|import("@adobe/target-tools/delivery-api-client/models/RequestDetails").RequestDetails} requestDetail
  * @param tracer
  */
 export function prepareExecuteResponse(
   rule,
   mboxResponse,
   requestType,
+  requestDetail,
   tracer
 ) {
   const { metrics = [], options = [] } = mboxResponse;
@@ -67,12 +84,14 @@ export function prepareExecuteResponse(
  * @param {import("../types/DecisioningArtifact").Rule} rule
  * @param {import("@adobe/target-tools/delivery-api-client/models/MboxResponse").MboxResponse} mboxResponse
  * @param { 'mbox'|'view'|'pageLoad' } requestType
+ * @param {import("@adobe/target-tools/delivery-api-client/models/MboxRequest").MboxRequest|import("@adobe/target-tools/delivery-api-client/models/RequestDetails").RequestDetails} requestDetail
  * @param tracer
  */
 export function preparePrefetchResponse(
   rule,
   mboxResponse,
   requestType,
+  requestDetail,
   tracer
 ) {
   const { options = [] } = mboxResponse;
@@ -107,9 +126,16 @@ export function preparePrefetchResponse(
  * @param {import("../types/DecisioningArtifact").Rule} rule
  * @param {import("@adobe/target-tools/delivery-api-client/models/MboxResponse").MboxResponse} mboxResponse
  * @param { 'mbox'|'view'|'pageLoad' } requestType
+ * @param {import("@adobe/target-tools/delivery-api-client/models/MboxRequest").MboxRequest|import("@adobe/target-tools/delivery-api-client/models/RequestDetails").RequestDetails} requestDetail
  * @param tracer
  */
-export function addTrace(rule, mboxResponse, requestType, tracer) {
+export function addTrace(
+  rule,
+  mboxResponse,
+  requestType,
+  requestDetail,
+  tracer
+) {
   return {
     ...mboxResponse,
     trace: tracer.getTraceResult()
@@ -120,9 +146,16 @@ export function addTrace(rule, mboxResponse, requestType, tracer) {
  * @param {import("../types/DecisioningArtifact").Rule} rule
  * @param {import("@adobe/target-tools/delivery-api-client/models/MboxResponse").MboxResponse} mboxResponse
  * @param { 'mbox'|'view'|'pageLoad' } requestType
+ * @param {import("@adobe/target-tools/delivery-api-client/models/MboxRequest").MboxRequest|import("@adobe/target-tools/delivery-api-client/models/RequestDetails").RequestDetails} requestDetail
  * @param tracer
  */
-export function cleanUp(rule, mboxResponse, requestType, tracer) {
+export function cleanUp(
+  rule,
+  mboxResponse,
+  requestType,
+  requestDetail,
+  tracer
+) {
   const result = objectWithoutUndefinedValues(mboxResponse);
 
   return result;
@@ -132,12 +165,14 @@ export function cleanUp(rule, mboxResponse, requestType, tracer) {
  * @param {import("../types/DecisioningArtifact").Rule} rule
  * @param {import("@adobe/target-tools/delivery-api-client/models/MboxResponse").MboxResponse} mboxResponse
  * @param { 'mbox'|'view'|'pageLoad' } requestType
+ * @param {import("@adobe/target-tools/delivery-api-client/models/MboxRequest").MboxRequest|import("@adobe/target-tools/delivery-api-client/models/RequestDetails").RequestDetails} requestDetail
  * @param tracer
  */
 export function removePageLoadAttributes(
   rule,
   mboxResponse,
   requestType,
+  requestDetail,
   tracer
 ) {
   const processed = {
@@ -152,7 +187,7 @@ export function removePageLoadAttributes(
 }
 
 /**
- * @param {Object} context
+ * @param {import("../types/DecisioningContext").DecisioningContext} context
  * @param {Array<string>} responseTokensInArtifact
  */
 export function createResponseTokensPostProcessor(
@@ -233,5 +268,84 @@ export function createResponseTokensPostProcessor(
       ...mboxResponse,
       options
     };
+  };
+}
+
+/**
+ * @param {import("../types/DecisioningArtifact").Rule} rule
+ * @param {import("@adobe/target-tools/delivery-api-client/models/MboxResponse").MboxResponse} mboxResponse
+ * @param { 'mbox'|'view'|'pageLoad' } requestType
+ * @param {import("@adobe/target-tools/delivery-api-client/models/MboxRequest").MboxRequest|import("@adobe/target-tools/delivery-api-client/models/RequestDetails").RequestDetails} requestDetail
+ * @param tracer
+ */
+export function replaceCampaignMacros(
+  rule,
+  mboxResponse,
+  requestType,
+  requestDetail,
+  tracer
+) {
+  function addCampainMacroValues(htmlContent) {
+    if (!isDefined(htmlContent) || typeof htmlContent !== "string")
+      return htmlContent;
+
+    return htmlContent.replace(
+      MACRO_PATTERN_REGEX,
+      (defaultValue, macroKey) => {
+        const parts = macroKey
+          .replace(
+            MACRO_NAME_REPLACEMENTS_REGEX,
+            matched => MACRO_NAME_REPLACEMENTS[matched]
+          )
+          .split(".");
+
+        if (parts.length > 2) {
+          parts.shift();
+        }
+
+        const key = parts
+          .filter(part => !includes(part, MACRO_NAME_REMOVALS))
+          .join(".");
+
+        const { parameters = {} } = requestDetail;
+
+        return firstMatch(
+          key,
+          [rule.meta, requestDetail, parameters],
+          defaultValue
+        );
+      }
+    );
+  }
+
+  return {
+    ...mboxResponse,
+    options: mboxResponse.options.map(
+      /**
+       * @param {import("@adobe/target-tools/delivery-api-client/models/Option").Option} option
+       */
+      option => {
+        if (option.type === OptionType.Html) {
+          return {
+            ...option,
+            content: addCampainMacroValues(option.content)
+          };
+        }
+
+        if (option.type === OptionType.Actions) {
+          return {
+            ...option,
+            content: option.content.map(action => {
+              return {
+                ...action,
+                content: addCampainMacroValues(action.content)
+              };
+            })
+          };
+        }
+
+        return option;
+      }
+    )
   };
 }

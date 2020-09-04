@@ -17,7 +17,8 @@ import {
   createResponseTokensPostProcessor,
   prepareExecuteResponse,
   preparePrefetchResponse,
-  removePageLoadAttributes
+  removePageLoadAttributes,
+  replaceCampaignMacros
 } from "./postProcessors";
 import { ruleEvaluator } from "./ruleEvaluator";
 import { LOG_PREFIX } from "./constants";
@@ -31,7 +32,7 @@ const OK = 200;
  *
  * @param {import("../types/DecisioningConfig").DecisioningConfig} config
  * @param {import("../types/TargetOptions").TargetOptions} targetOptions
- * @param { Object } context
+ * @param {import("../types/DecisioningContext").DecisioningContext} context
  * @param { import("../types/DecisioningArtifact").DecisioningArtifact } artifact
  * @param { Object } logger
  * @param traceProvider
@@ -270,7 +271,13 @@ function DecisionProvider(
 
   function getExecuteDecisions(postProcessors) {
     const decisions = getDecisions("execute", [
-      function prepareNotification(rule, mboxResponse, requestType, tracer) {
+      function prepareNotification(
+        rule,
+        mboxResponse,
+        requestType,
+        requestDetail,
+        tracer
+      ) {
         notificationProvider.addNotification(
           mboxResponse,
           tracer.traceNotification(rule)
@@ -298,7 +305,13 @@ function DecisionProvider(
     context,
     responseTokens
   );
-  const commonPostProcessor = [addResponseTokens, addTrace, cleanUp];
+
+  const commonPostProcessor = [
+    addResponseTokens,
+    replaceCampaignMacros,
+    addTrace,
+    cleanUp
+  ];
 
   const response = objectWithoutUndefinedValues({
     status: dependency.remoteNeeded ? PARTIAL_CONTENT : OK,

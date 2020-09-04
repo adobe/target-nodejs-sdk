@@ -26,7 +26,7 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-08-11T18:43:30.262Z"
+    generatedAt: "2020-09-03T16:15:34.603Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -45,8 +45,8 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
     "experience.trafficAllocationType",
     "offer.id"
   ],
-  remoteMboxes: ["target-global-mbox"],
-  remoteViews: ["home"],
+  remoteMboxes: ["sam-mbox-2"],
+  remoteViews: ["contact"],
   localMboxes: [
     "multinot",
     "demo-marketing-offer2",
@@ -65,14 +65,15 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
     "expendable-mbox",
     "dwalling-myFlags",
     "offer2",
+    "macros",
     "demo-geo-offer1",
     "fullhtml",
     "perf1",
     "daterange-mbox",
     "browser-mbox",
     "demo-engineering-flags",
-    "local123456",
-    "sam-mbox"
+    "sam-mbox",
+    "local123456"
   ],
   localViews: ["contact", "about", "home"],
   rules: {
@@ -184,7 +185,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-08-11T18:43:30.262Z"
+    generatedAt: "2020-09-03T16:15:34.603Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -203,8 +204,8 @@ export const DECISIONING_PAYLOAD_BROWSER = {
     "experience.trafficAllocationType",
     "offer.id"
   ],
-  remoteMboxes: ["target-global-mbox"],
-  remoteViews: ["home"],
+  remoteMboxes: ["sam-mbox-2"],
+  remoteViews: ["contact"],
   localMboxes: [
     "multinot",
     "demo-marketing-offer2",
@@ -223,14 +224,15 @@ export const DECISIONING_PAYLOAD_BROWSER = {
     "expendable-mbox",
     "dwalling-myFlags",
     "offer2",
+    "macros",
     "demo-geo-offer1",
     "fullhtml",
     "perf1",
     "daterange-mbox",
     "browser-mbox",
     "demo-engineering-flags",
-    "local123456",
-    "sam-mbox"
+    "sam-mbox",
+    "local123456"
   ],
   localViews: ["contact", "about", "home"],
   rules: {
@@ -242,7 +244,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
           meta: {
             "activity.id": 334845,
             "activity.name": "browser-mbox",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "browser-mbox",
@@ -255,7 +257,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 334845,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 1,
             locationId: 0,
             locationName: "browser-mbox",
@@ -283,7 +285,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
           meta: {
             "activity.id": 334845,
             "activity.name": "browser-mbox",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 2,
             "experience.name": "Experience C",
             "location.name": "browser-mbox",
@@ -296,7 +298,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
             "option.id": 4,
             "option.name": "Offer4",
             activityId: 334845,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 2,
             locationId: 0,
             locationName: "browser-mbox",
@@ -324,7 +326,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
           meta: {
             "activity.id": 334845,
             "activity.name": "browser-mbox",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 3,
             "experience.name": "Experience D",
             "location.name": "browser-mbox",
@@ -337,7 +339,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
             "option.id": 5,
             "option.name": "Offer5",
             activityId: 334845,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 3,
             locationId: 0,
             locationName: "browser-mbox",
@@ -365,7 +367,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
           meta: {
             "activity.id": 334845,
             "activity.name": "browser-mbox",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 4,
             "experience.name": "Experience E",
             "location.name": "browser-mbox",
@@ -378,7 +380,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
             "option.id": 6,
             "option.name": "Offer6",
             activityId: 334845,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 4,
             locationId: 0,
             locationName: "browser-mbox",
@@ -406,7 +408,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
           meta: {
             "activity.id": 334845,
             "activity.name": "browser-mbox",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "browser-mbox",
@@ -419,7 +421,7 @@ export const DECISIONING_PAYLOAD_BROWSER = {
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 334845,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 0,
             locationId: 0,
             locationName: "browser-mbox",
@@ -454,7 +456,7 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-08-11T18:43:30.262Z"
+    generatedAt: "2020-09-03T16:15:34.603Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -473,8 +475,8 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
     "experience.trafficAllocationType",
     "offer.id"
   ],
-  remoteMboxes: ["target-global-mbox"],
-  remoteViews: ["home"],
+  remoteMboxes: ["sam-mbox-2"],
+  remoteViews: ["contact"],
   localMboxes: [
     "multinot",
     "demo-marketing-offer2",
@@ -493,14 +495,15 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
     "expendable-mbox",
     "dwalling-myFlags",
     "offer2",
+    "macros",
     "demo-geo-offer1",
     "fullhtml",
     "perf1",
     "daterange-mbox",
     "browser-mbox",
     "demo-engineering-flags",
-    "local123456",
-    "sam-mbox"
+    "sam-mbox",
+    "local123456"
   ],
   localViews: ["contact", "about", "home"],
   rules: {
@@ -512,7 +515,7 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
           meta: {
             "activity.id": 334411,
             "activity.name": "superfluous ab json",
-            "activity.type": "ab",
+            "activity.type": "landing",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "superfluous-mbox",
@@ -525,7 +528,7 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 334411,
-            activityType: "ab",
+            activityType: "landing",
             experienceId: 0,
             locationId: 0,
             locationName: "superfluous-mbox",
@@ -553,7 +556,7 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
           meta: {
             "activity.id": 334411,
             "activity.name": "superfluous ab json",
-            "activity.type": "ab",
+            "activity.type": "landing",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "superfluous-mbox",
@@ -566,7 +569,7 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 334411,
-            activityType: "ab",
+            activityType: "landing",
             experienceId: 1,
             locationId: 0,
             locationName: "superfluous-mbox",
@@ -684,7 +687,7 @@ export const DECISIONING_PAYLOAD_PARAMS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-08-11T18:43:30.262Z"
+    generatedAt: "2020-09-03T16:15:34.603Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -703,8 +706,8 @@ export const DECISIONING_PAYLOAD_PARAMS = {
     "experience.trafficAllocationType",
     "offer.id"
   ],
-  remoteMboxes: ["target-global-mbox"],
-  remoteViews: ["home"],
+  remoteMboxes: ["sam-mbox-2"],
+  remoteViews: ["contact"],
   localMboxes: [
     "multinot",
     "demo-marketing-offer2",
@@ -723,14 +726,15 @@ export const DECISIONING_PAYLOAD_PARAMS = {
     "expendable-mbox",
     "dwalling-myFlags",
     "offer2",
+    "macros",
     "demo-geo-offer1",
     "fullhtml",
     "perf1",
     "daterange-mbox",
     "browser-mbox",
     "demo-engineering-flags",
-    "local123456",
-    "sam-mbox"
+    "sam-mbox",
+    "local123456"
   ],
   localViews: ["contact", "about", "home"],
   rules: {
@@ -842,7 +846,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-08-11T18:43:30.262Z"
+    generatedAt: "2020-09-03T16:15:34.603Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -861,8 +865,8 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
     "experience.trafficAllocationType",
     "offer.id"
   ],
-  remoteMboxes: ["target-global-mbox"],
-  remoteViews: ["home"],
+  remoteMboxes: ["sam-mbox-2"],
+  remoteViews: ["contact"],
   localMboxes: [
     "multinot",
     "demo-marketing-offer2",
@@ -881,14 +885,15 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
     "expendable-mbox",
     "dwalling-myFlags",
     "offer2",
+    "macros",
     "demo-geo-offer1",
     "fullhtml",
     "perf1",
     "daterange-mbox",
     "browser-mbox",
     "demo-engineering-flags",
-    "local123456",
-    "sam-mbox"
+    "sam-mbox",
+    "local123456"
   ],
   localViews: ["contact", "about", "home"],
   rules: {
@@ -982,7 +987,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
           meta: {
             "activity.id": 336951,
             "activity.name": "kitty high",
-            "activity.type": "ab",
+            "activity.type": "landing",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "kitty",
@@ -995,7 +1000,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 336951,
-            activityType: "ab",
+            activityType: "landing",
             experienceId: 0,
             locationId: 0,
             locationName: "kitty",
@@ -1023,7 +1028,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
           meta: {
             "activity.id": 336951,
             "activity.name": "kitty high",
-            "activity.type": "ab",
+            "activity.type": "landing",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "kitty",
@@ -1036,7 +1041,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 336951,
-            activityType: "ab",
+            activityType: "landing",
             experienceId: 1,
             locationId: 0,
             locationName: "kitty",
@@ -1064,7 +1069,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
           meta: {
             "activity.id": 336950,
             "activity.name": "kitty low",
-            "activity.type": "ab",
+            "activity.type": "landing",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "kitty",
@@ -1077,7 +1082,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 336950,
-            activityType: "ab",
+            activityType: "landing",
             experienceId: 0,
             locationId: 0,
             locationName: "kitty",
@@ -1105,7 +1110,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
           meta: {
             "activity.id": 336950,
             "activity.name": "kitty low",
-            "activity.type": "ab",
+            "activity.type": "landing",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "kitty",
@@ -1118,7 +1123,7 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 336950,
-            activityType: "ab",
+            activityType: "landing",
             experienceId: 1,
             locationId: 0,
             locationName: "kitty",
@@ -1152,7 +1157,7 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-08-11T18:43:30.262Z"
+    generatedAt: "2020-09-03T16:15:34.603Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -1171,8 +1176,8 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
     "experience.trafficAllocationType",
     "offer.id"
   ],
-  remoteMboxes: ["target-global-mbox"],
-  remoteViews: ["home"],
+  remoteMboxes: ["sam-mbox-2"],
+  remoteViews: ["contact"],
   localMboxes: [
     "multinot",
     "demo-marketing-offer2",
@@ -1191,14 +1196,15 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
     "expendable-mbox",
     "dwalling-myFlags",
     "offer2",
+    "macros",
     "demo-geo-offer1",
     "fullhtml",
     "perf1",
     "daterange-mbox",
     "browser-mbox",
     "demo-engineering-flags",
-    "local123456",
-    "sam-mbox"
+    "sam-mbox",
+    "local123456"
   ],
   localViews: ["contact", "about", "home"],
   rules: {
@@ -1210,7 +1216,7 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
           meta: {
             "activity.id": 334411,
             "activity.name": "superfluous ab json",
-            "activity.type": "ab",
+            "activity.type": "landing",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "superfluous-mbox",
@@ -1223,7 +1229,7 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 334411,
-            activityType: "ab",
+            activityType: "landing",
             experienceId: 0,
             locationId: 0,
             locationName: "superfluous-mbox",
@@ -1251,7 +1257,7 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
           meta: {
             "activity.id": 334411,
             "activity.name": "superfluous ab json",
-            "activity.type": "ab",
+            "activity.type": "landing",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "superfluous-mbox",
@@ -1264,7 +1270,7 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 334411,
-            activityType: "ab",
+            activityType: "landing",
             experienceId: 1,
             locationId: 0,
             locationName: "superfluous-mbox",
@@ -1298,7 +1304,7 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-08-11T18:43:30.262Z"
+    generatedAt: "2020-09-03T16:15:34.603Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -1317,8 +1323,8 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
     "experience.trafficAllocationType",
     "offer.id"
   ],
-  remoteMboxes: ["remote-only-mbox-a", "target-global-mbox"],
-  remoteViews: ["home"],
+  remoteMboxes: ["remote-only-mbox-a", "sam-mbox-2"],
+  remoteViews: ["contact"],
   localMboxes: [
     "multinot",
     "demo-marketing-offer2",
@@ -1337,14 +1343,15 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
     "expendable-mbox",
     "dwalling-myFlags",
     "offer2",
+    "macros",
     "demo-geo-offer1",
     "fullhtml",
     "perf1",
     "daterange-mbox",
     "browser-mbox",
     "demo-engineering-flags",
-    "local123456",
-    "sam-mbox"
+    "sam-mbox",
+    "local123456"
   ],
   localViews: ["contact", "about", "home"],
   rules: {
@@ -1537,7 +1544,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-08-11T18:43:30.262Z"
+    generatedAt: "2020-09-03T16:15:34.603Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -1556,8 +1563,8 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
     "experience.trafficAllocationType",
     "offer.id"
   ],
-  remoteMboxes: ["target-global-mbox"],
-  remoteViews: ["home"],
+  remoteMboxes: ["target-global-mbox", "sam-mbox-2"],
+  remoteViews: ["contact"],
   localMboxes: [
     "multinot",
     "demo-marketing-offer2",
@@ -1576,14 +1583,15 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
     "expendable-mbox",
     "dwalling-myFlags",
     "offer2",
+    "macros",
     "demo-geo-offer1",
     "fullhtml",
     "perf1",
     "daterange-mbox",
     "browser-mbox",
     "demo-engineering-flags",
-    "local123456",
-    "sam-mbox"
+    "sam-mbox",
+    "local123456"
   ],
   localViews: ["contact", "about", "home"],
   rules: {
@@ -1897,7 +1905,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           meta: {
             "activity.id": 337888,
             "activity.name": "global ab html",
-            "activity.type": "ab",
+            "activity.type": "landing",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "target-global-mbox",
@@ -1910,7 +1918,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 337888,
-            activityType: "ab",
+            activityType: "landing",
             experienceId: 0,
             locationId: 0,
             locationName: "target-global-mbox",
@@ -1938,7 +1946,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           meta: {
             "activity.id": 337888,
             "activity.name": "global ab html",
-            "activity.type": "ab",
+            "activity.type": "landing",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "target-global-mbox",
@@ -1951,7 +1959,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 337888,
-            activityType: "ab",
+            activityType: "landing",
             experienceId: 1,
             locationId: 0,
             locationName: "target-global-mbox",
@@ -1979,7 +1987,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           meta: {
             "activity.id": 337888,
             "activity.name": "global ab html",
-            "activity.type": "ab",
+            "activity.type": "landing",
             "experience.id": 2,
             "experience.name": "Experience C",
             "location.name": "target-global-mbox",
@@ -1992,7 +2000,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             "option.id": 4,
             "option.name": "Offer4",
             activityId: 337888,
-            activityType: "ab",
+            activityType: "landing",
             experienceId: 2,
             locationId: 0,
             locationName: "target-global-mbox",
@@ -2020,7 +2028,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
           meta: {
             "activity.id": 337888,
             "activity.name": "global ab html",
-            "activity.type": "ab",
+            "activity.type": "landing",
             "experience.id": 3,
             "experience.name": "Experience D",
             "location.name": "target-global-mbox",
@@ -2033,7 +2041,7 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
             "option.id": 5,
             "option.name": "Offer5",
             activityId: 337888,
-            activityType: "ab",
+            activityType: "landing",
             experienceId: 3,
             locationId: 0,
             locationName: "target-global-mbox",
@@ -2067,7 +2075,7 @@ export const DECISIONING_PAYLOAD_FEATURE_FLAG = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-08-11T18:43:30.262Z"
+    generatedAt: "2020-09-03T16:15:34.603Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -2086,12 +2094,8 @@ export const DECISIONING_PAYLOAD_FEATURE_FLAG = {
     "experience.trafficAllocationType",
     "offer.id"
   ],
-  remoteMboxes: [
-    "remote-only-mbox-a",
-    "remote-only-mbox-b",
-    "target-global-mbox"
-  ],
-  remoteViews: ["home"],
+  remoteMboxes: ["remote-only-mbox-a", "remote-only-mbox-b", "sam-mbox-2"],
+  remoteViews: ["contact"],
   localMboxes: [
     "multinot",
     "demo-marketing-offer2",
@@ -2110,14 +2114,15 @@ export const DECISIONING_PAYLOAD_FEATURE_FLAG = {
     "expendable-mbox",
     "dwalling-myFlags",
     "offer2",
+    "macros",
     "demo-geo-offer1",
     "fullhtml",
     "perf1",
     "daterange-mbox",
     "browser-mbox",
     "demo-engineering-flags",
-    "local123456",
-    "sam-mbox"
+    "sam-mbox",
+    "local123456"
   ],
   localViews: ["contact", "about", "home"],
   rules: {
@@ -2230,7 +2235,7 @@ export const DECISIONING_PAYLOAD_ATJS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-08-11T18:43:30.262Z"
+    generatedAt: "2020-09-03T16:15:34.603Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -2249,8 +2254,8 @@ export const DECISIONING_PAYLOAD_ATJS = {
     "experience.trafficAllocationType",
     "offer.id"
   ],
-  remoteMboxes: ["browser-mbox", "target-global-mbox"],
-  remoteViews: ["home"],
+  remoteMboxes: ["browser-mbox", "sam-mbox-2"],
+  remoteViews: ["contact"],
   localMboxes: [
     "multinot",
     "demo-marketing-offer2",
@@ -2269,14 +2274,15 @@ export const DECISIONING_PAYLOAD_ATJS = {
     "expendable-mbox",
     "dwalling-myFlags",
     "offer2",
+    "macros",
     "demo-geo-offer1",
     "fullhtml",
     "perf1",
     "daterange-mbox",
     "browser-mbox",
     "demo-engineering-flags",
-    "local123456",
-    "sam-mbox"
+    "sam-mbox",
+    "local123456"
   ],
   localViews: ["contact", "about", "home"],
   rules: {
@@ -2548,7 +2554,7 @@ export const DECISIONING_PAYLOAD_ATJS = {
           meta: {
             "activity.id": 334411,
             "activity.name": "superfluous ab json",
-            "activity.type": "ab",
+            "activity.type": "landing",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "superfluous-mbox",
@@ -2561,7 +2567,7 @@ export const DECISIONING_PAYLOAD_ATJS = {
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 334411,
-            activityType: "ab",
+            activityType: "landing",
             experienceId: 0,
             locationId: 0,
             locationName: "superfluous-mbox",
@@ -2589,7 +2595,7 @@ export const DECISIONING_PAYLOAD_ATJS = {
           meta: {
             "activity.id": 334411,
             "activity.name": "superfluous ab json",
-            "activity.type": "ab",
+            "activity.type": "landing",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "superfluous-mbox",
@@ -2602,7 +2608,7 @@ export const DECISIONING_PAYLOAD_ATJS = {
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 334411,
-            activityType: "ab",
+            activityType: "landing",
             experienceId: 1,
             locationId: 0,
             locationName: "superfluous-mbox",
@@ -2632,7 +2638,7 @@ export const DECISIONING_PAYLOAD_ATJS = {
           meta: {
             "activity.id": 334845,
             "activity.name": "browser-mbox",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "browser-mbox",
@@ -2645,7 +2651,7 @@ export const DECISIONING_PAYLOAD_ATJS = {
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 334845,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 1,
             locationId: 0,
             locationName: "browser-mbox",
@@ -2673,7 +2679,7 @@ export const DECISIONING_PAYLOAD_ATJS = {
           meta: {
             "activity.id": 334845,
             "activity.name": "browser-mbox",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 2,
             "experience.name": "Experience C",
             "location.name": "browser-mbox",
@@ -2686,7 +2692,7 @@ export const DECISIONING_PAYLOAD_ATJS = {
             "option.id": 4,
             "option.name": "Offer4",
             activityId: 334845,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 2,
             locationId: 0,
             locationName: "browser-mbox",
@@ -2714,7 +2720,7 @@ export const DECISIONING_PAYLOAD_ATJS = {
           meta: {
             "activity.id": 334845,
             "activity.name": "browser-mbox",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 3,
             "experience.name": "Experience D",
             "location.name": "browser-mbox",
@@ -2727,7 +2733,7 @@ export const DECISIONING_PAYLOAD_ATJS = {
             "option.id": 5,
             "option.name": "Offer5",
             activityId: 334845,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 3,
             locationId: 0,
             locationName: "browser-mbox",
@@ -2755,7 +2761,7 @@ export const DECISIONING_PAYLOAD_ATJS = {
           meta: {
             "activity.id": 334845,
             "activity.name": "browser-mbox",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 4,
             "experience.name": "Experience E",
             "location.name": "browser-mbox",
@@ -2768,7 +2774,7 @@ export const DECISIONING_PAYLOAD_ATJS = {
             "option.id": 6,
             "option.name": "Offer6",
             activityId: 334845,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 4,
             locationId: 0,
             locationName: "browser-mbox",
@@ -2796,7 +2802,7 @@ export const DECISIONING_PAYLOAD_ATJS = {
           meta: {
             "activity.id": 334845,
             "activity.name": "browser-mbox",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "browser-mbox",
@@ -2809,7 +2815,7 @@ export const DECISIONING_PAYLOAD_ATJS = {
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 334845,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 0,
             locationId: 0,
             locationName: "browser-mbox",
@@ -2845,7 +2851,7 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-08-11T18:43:30.262Z"
+    generatedAt: "2020-09-03T16:15:34.603Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -2864,8 +2870,8 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
     "experience.trafficAllocationType",
     "offer.id"
   ],
-  remoteMboxes: ["target-global-mbox"],
-  remoteViews: ["home"],
+  remoteMboxes: ["sam-mbox-2"],
+  remoteViews: ["contact"],
   localMboxes: [
     "multinot",
     "demo-marketing-offer2",
@@ -2884,14 +2890,15 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
     "expendable-mbox",
     "dwalling-myFlags",
     "offer2",
+    "macros",
     "demo-geo-offer1",
     "fullhtml",
     "perf1",
     "daterange-mbox",
     "browser-mbox",
     "demo-engineering-flags",
-    "local123456",
-    "sam-mbox"
+    "sam-mbox",
+    "local123456"
   ],
   localViews: ["contact", "about", "home"],
   rules: {
@@ -3067,7 +3074,7 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
           meta: {
             "activity.id": 350783,
             "activity.name": "vegetable ab global-mbox",
-            "activity.type": "ab",
+            "activity.type": "landing",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "target-global-mbox",
@@ -3080,7 +3087,7 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 350783,
-            activityType: "ab",
+            activityType: "landing",
             experienceId: 0,
             locationId: 0,
             locationName: "target-global-mbox",
@@ -3114,7 +3121,7 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
           meta: {
             "activity.id": 350783,
             "activity.name": "vegetable ab global-mbox",
-            "activity.type": "ab",
+            "activity.type": "landing",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "target-global-mbox",
@@ -3127,7 +3134,7 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 350783,
-            activityType: "ab",
+            activityType: "landing",
             experienceId: 1,
             locationId: 0,
             locationName: "target-global-mbox",
@@ -3261,7 +3268,7 @@ export const DECISIONING_PAYLOAD_GEO = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-08-11T18:43:30.262Z"
+    generatedAt: "2020-09-03T16:15:34.603Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -3280,8 +3287,8 @@ export const DECISIONING_PAYLOAD_GEO = {
     "experience.trafficAllocationType",
     "offer.id"
   ],
-  remoteMboxes: ["target-global-mbox"],
-  remoteViews: ["home"],
+  remoteMboxes: ["sam-mbox-2"],
+  remoteViews: ["contact"],
   localMboxes: [
     "multinot",
     "demo-marketing-offer2",
@@ -3300,14 +3307,15 @@ export const DECISIONING_PAYLOAD_GEO = {
     "expendable-mbox",
     "dwalling-myFlags",
     "offer2",
+    "macros",
     "demo-geo-offer1",
     "fullhtml",
     "perf1",
     "daterange-mbox",
     "browser-mbox",
     "demo-engineering-flags",
-    "local123456",
-    "sam-mbox"
+    "sam-mbox",
+    "local123456"
   ],
   localViews: ["contact", "about", "home"],
   rules: {
@@ -3319,7 +3327,7 @@ export const DECISIONING_PAYLOAD_GEO = {
           meta: {
             "activity.id": 349133,
             "activity.name": "Greg Geo Test A/B Jun 02 2020, 14:34",
-            "activity.type": "ab",
+            "activity.type": "landing",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "geo",
@@ -3332,7 +3340,7 @@ export const DECISIONING_PAYLOAD_GEO = {
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 349133,
-            activityType: "ab",
+            activityType: "landing",
             experienceId: 0,
             locationId: 0,
             locationName: "geo",
@@ -3403,7 +3411,7 @@ export const DECISIONING_PAYLOAD_GEO = {
           meta: {
             "activity.id": 349133,
             "activity.name": "Greg Geo Test A/B Jun 02 2020, 14:34",
-            "activity.type": "ab",
+            "activity.type": "landing",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "geo",
@@ -3416,7 +3424,7 @@ export const DECISIONING_PAYLOAD_GEO = {
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 349133,
-            activityType: "ab",
+            activityType: "landing",
             experienceId: 1,
             locationId: 0,
             locationName: "geo",
@@ -3495,7 +3503,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-08-11T18:43:30.262Z"
+    generatedAt: "2020-09-03T16:15:34.603Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -3514,8 +3522,8 @@ export const DECISIONING_PAYLOAD_VIEWS = {
     "experience.trafficAllocationType",
     "offer.id"
   ],
-  remoteMboxes: ["target-global-mbox"],
-  remoteViews: ["home"],
+  remoteMboxes: ["sam-mbox-2"],
+  remoteViews: ["contact"],
   localMboxes: [
     "multinot",
     "demo-marketing-offer2",
@@ -3534,14 +3542,15 @@ export const DECISIONING_PAYLOAD_VIEWS = {
     "expendable-mbox",
     "dwalling-myFlags",
     "offer2",
+    "macros",
     "demo-geo-offer1",
     "fullhtml",
     "perf1",
     "daterange-mbox",
     "browser-mbox",
     "demo-engineering-flags",
-    "local123456",
-    "sam-mbox"
+    "sam-mbox",
+    "local123456"
   ],
   localViews: ["contact", "about", "home"],
   rules: {
@@ -3554,7 +3563,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           meta: {
             "activity.id": 345798,
             "activity.name": "xt spa add text to contact page",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "contact",
@@ -3564,7 +3573,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 345798,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 0,
             locationId: 0,
             locationName: "contact",
@@ -3610,7 +3619,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           meta: {
             "activity.id": 345798,
             "activity.name": "xt spa add text to contact page",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "contact",
@@ -3620,7 +3629,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 345798,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 0,
             locationId: 1,
             locationName: "contact",
@@ -3668,7 +3677,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           meta: {
             "activity.id": 345798,
             "activity.name": "xt spa add text to contact page",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "contact",
@@ -3678,7 +3687,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "option.id": 4,
             "option.name": "Offer4",
             activityId: 345798,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 1,
             locationId: 0,
             locationName: "contact",
@@ -3724,7 +3733,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           meta: {
             "activity.id": 345798,
             "activity.name": "xt spa add text to contact page",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "contact",
@@ -3734,7 +3743,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "option.id": 5,
             "option.name": "Offer5",
             activityId: 345798,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 1,
             locationId: 1,
             locationName: "contact",
@@ -3782,7 +3791,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           meta: {
             "activity.id": 345798,
             "activity.name": "xt spa add text to contact page",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 2,
             "experience.name": "Experience C",
             "location.name": "contact",
@@ -3792,7 +3801,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "option.id": 6,
             "option.name": "Offer6",
             activityId: 345798,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 2,
             locationId: 0,
             locationName: "contact",
@@ -3833,7 +3842,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
           meta: {
             "activity.id": 345798,
             "activity.name": "xt spa add text to contact page",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 2,
             "experience.name": "Experience C",
             "location.name": "contact",
@@ -3843,7 +3852,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "option.id": 7,
             "option.name": "Offer7",
             activityId: 345798,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 2,
             locationId: 1,
             locationName: "contact",
@@ -4861,7 +4870,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-08-11T18:43:30.262Z"
+    generatedAt: "2020-09-03T16:15:34.603Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -4880,8 +4889,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
     "experience.trafficAllocationType",
     "offer.id"
   ],
-  remoteMboxes: ["target-global-mbox"],
-  remoteViews: ["home"],
+  remoteMboxes: ["sam-mbox-2"],
+  remoteViews: ["contact"],
   localMboxes: [
     "multinot",
     "demo-marketing-offer2",
@@ -4900,14 +4909,15 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
     "expendable-mbox",
     "dwalling-myFlags",
     "offer2",
+    "macros",
     "demo-geo-offer1",
     "fullhtml",
     "perf1",
     "daterange-mbox",
     "browser-mbox",
     "demo-engineering-flags",
-    "local123456",
-    "sam-mbox"
+    "sam-mbox",
+    "local123456"
   ],
   localViews: ["contact", "about", "home"],
   rules: {
@@ -4919,7 +4929,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
           meta: {
             "activity.id": 345717,
             "activity.name": "xt vec non-spa correct params local-target-test",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "target-global-mbox",
@@ -4929,7 +4939,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             "option.id": 2,
             "option.name": "Offer2",
             activityId: 345717,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 0,
             locationId: 0,
             locationName: "target-global-mbox",
@@ -4982,7 +4992,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
           meta: {
             "activity.id": 345717,
             "activity.name": "xt vec non-spa correct params local-target-test",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "target-global-mbox",
@@ -4992,7 +5002,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             "option.id": 3,
             "option.name": "Offer3",
             activityId: 345717,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 0,
             locationId: 1,
             locationName: "target-global-mbox",
@@ -5045,7 +5055,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
           meta: {
             "activity.id": 345717,
             "activity.name": "xt vec non-spa correct params local-target-test",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "target-global-mbox",
@@ -5054,7 +5064,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             "audience.ids": [5634157, 5652249],
             "option.id": 0,
             activityId: 345717,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 0,
             locationId: 2,
             locationName: "target-global-mbox",
@@ -5096,7 +5106,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
           meta: {
             "activity.id": 345717,
             "activity.name": "xt vec non-spa correct params local-target-test",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "target-global-mbox",
@@ -5105,7 +5115,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             "audience.ids": [5634157, 5652249],
             "option.id": 0,
             activityId: 345717,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 0,
             locationId: 3,
             locationName: "target-global-mbox",
@@ -5147,7 +5157,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
           meta: {
             "activity.id": 345717,
             "activity.name": "xt vec non-spa correct params local-target-test",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "target-global-mbox",
@@ -5156,7 +5166,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             "audience.ids": [5634562, 5652249],
             "option.id": 0,
             activityId: 345717,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 1,
             locationId: 0,
             locationName: "target-global-mbox",
@@ -5198,7 +5208,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
           meta: {
             "activity.id": 345717,
             "activity.name": "xt vec non-spa correct params local-target-test",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "target-global-mbox",
@@ -5208,7 +5218,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             "option.id": 5,
             "option.name": "Offer5",
             activityId: 345717,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 1,
             locationId: 1,
             locationName: "target-global-mbox",
@@ -5261,7 +5271,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
           meta: {
             "activity.id": 345717,
             "activity.name": "xt vec non-spa correct params local-target-test",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "target-global-mbox",
@@ -5271,7 +5281,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             "option.id": 4,
             "option.name": "Offer4",
             activityId: 345717,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 1,
             locationId: 2,
             locationName: "target-global-mbox",
@@ -5324,7 +5334,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
           meta: {
             "activity.id": 345717,
             "activity.name": "xt vec non-spa correct params local-target-test",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "target-global-mbox",
@@ -5333,7 +5343,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             "audience.ids": [5634562, 5652249],
             "option.id": 0,
             activityId: 345717,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 1,
             locationId: 3,
             locationName: "target-global-mbox",
@@ -5375,7 +5385,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
           meta: {
             "activity.id": 345717,
             "activity.name": "xt vec non-spa correct params local-target-test",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 2,
             "experience.name": "Experience C",
             "location.name": "target-global-mbox",
@@ -5384,7 +5394,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             "audience.ids": [5652249],
             "option.id": 0,
             activityId: 345717,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 2,
             locationId: 0,
             locationName: "target-global-mbox",
@@ -5421,7 +5431,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
           meta: {
             "activity.id": 345717,
             "activity.name": "xt vec non-spa correct params local-target-test",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 2,
             "experience.name": "Experience C",
             "location.name": "target-global-mbox",
@@ -5431,7 +5441,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             "option.id": 7,
             "option.name": "Offer7",
             activityId: 345717,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 2,
             locationId: 1,
             locationName: "target-global-mbox",
@@ -5479,7 +5489,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
           meta: {
             "activity.id": 345717,
             "activity.name": "xt vec non-spa correct params local-target-test",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 2,
             "experience.name": "Experience C",
             "location.name": "target-global-mbox",
@@ -5488,7 +5498,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             "audience.ids": [5652249],
             "option.id": 0,
             activityId: 345717,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 2,
             locationId: 2,
             locationName: "target-global-mbox",
@@ -5525,7 +5535,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
           meta: {
             "activity.id": 345717,
             "activity.name": "xt vec non-spa correct params local-target-test",
-            "activity.type": "landing",
+            "activity.type": "ab",
             "experience.id": 2,
             "experience.name": "Experience C",
             "location.name": "target-global-mbox",
@@ -5535,7 +5545,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             "option.id": 6,
             "option.name": "Offer6",
             activityId: 345717,
-            activityType: "landing",
+            activityType: "ab",
             experienceId: 2,
             locationId: 3,
             locationName: "target-global-mbox",
@@ -5590,7 +5600,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
   meta: {
     clientCode: "adobesummit2018",
     environment: "production",
-    generatedAt: "2020-08-11T18:43:30.262Z"
+    generatedAt: "2020-09-03T16:15:34.603Z"
   },
   globalMbox: "target-global-mbox",
   geoTargetingEnabled: true,
@@ -5609,8 +5619,8 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
     "experience.trafficAllocationType",
     "offer.id"
   ],
-  remoteMboxes: ["target-global-mbox"],
-  remoteViews: ["home"],
+  remoteMboxes: ["sam-mbox-2"],
+  remoteViews: ["contact"],
   localMboxes: [
     "multinot",
     "demo-marketing-offer2",
@@ -5629,14 +5639,15 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
     "expendable-mbox",
     "dwalling-myFlags",
     "offer2",
+    "macros",
     "demo-geo-offer1",
     "fullhtml",
     "perf1",
     "daterange-mbox",
     "browser-mbox",
     "demo-engineering-flags",
-    "local123456",
-    "sam-mbox"
+    "sam-mbox",
+    "local123456"
   ],
   localViews: ["contact", "about", "home"],
   rules: {
@@ -7093,5 +7104,729 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
       ]
     },
     views: {}
+  }
+};
+
+// https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/campaign_macros
+// https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/macros_pageload
+// https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/campaign_macros_view
+export const DECISIONING_PAYLOAD_CAMPAIGN_MACROS = {
+  version: "1.0.0",
+  meta: {
+    clientCode: "adobesummit2018",
+    environment: "production",
+    generatedAt: "2020-09-03T16:15:34.603Z"
+  },
+  globalMbox: "target-global-mbox",
+  geoTargetingEnabled: true,
+  responseTokens: [
+    "experience.id",
+    "activity.name",
+    "geo.city",
+    "activity.id",
+    "geo.state",
+    "option.name",
+    "experience.name",
+    "experience.trafficAllocationId",
+    "option.id",
+    "geo.country",
+    "offer.name",
+    "experience.trafficAllocationType",
+    "offer.id"
+  ],
+  remoteMboxes: ["sam-mbox-2"],
+  remoteViews: ["contact"],
+  localMboxes: [
+    "multinot",
+    "demo-marketing-offer2",
+    "demo-marketing-offer1",
+    "alloy-test-scope-1",
+    "sam-mbox-2",
+    "specialk",
+    "target-global-mbox",
+    "kitty",
+    "geo",
+    "onboarding-mbox-1",
+    "redundant-mbox",
+    "composite2",
+    "jason-flags",
+    "superfluous-mbox",
+    "expendable-mbox",
+    "dwalling-myFlags",
+    "offer2",
+    "macros",
+    "demo-geo-offer1",
+    "fullhtml",
+    "perf1",
+    "daterange-mbox",
+    "browser-mbox",
+    "demo-engineering-flags",
+    "sam-mbox",
+    "local123456"
+  ],
+  localViews: ["contact", "about", "home"],
+  rules: {
+    mboxes: {
+      "target-global-mbox": [
+        {
+          ruleKey: "362225-0",
+          activityId: 362225,
+          meta: {
+            "activity.id": 362225,
+            "activity.name": "macros pageLoad",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [6050517],
+            "option.id": 2,
+            "option.name": "Offer2",
+            activityId: 362225,
+            activityType: "ab",
+            experienceId: 0,
+            locationId: 0,
+            locationName: "target-global-mbox",
+            locationType: "view",
+            audienceIds: [6050517],
+            offerIds: []
+          },
+          condition: {
+            and: [
+              { "<": [0, { var: "allocation" }, 50] },
+              {
+                and: [
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
+                ]
+              }
+            ]
+          },
+          consequence: {
+            name: "target-global-mbox",
+            options: [
+              {
+                type: "actions",
+                eventToken:
+                  "9y/BeTC6FllfKjSSLwOOfGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: [
+                  {
+                    type: "setHtml",
+                    selector:
+                      "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
+                    cssSelector:
+                      "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
+                    content: "${activity.id}"
+                  }
+                ]
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          ruleKey: "362225-1",
+          activityId: 362225,
+          meta: {
+            "activity.id": 362225,
+            "activity.name": "macros pageLoad",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 1,
+            "audience.ids": [6050517],
+            "option.id": 3,
+            "option.name": "Offer3",
+            activityId: 362225,
+            activityType: "ab",
+            experienceId: 0,
+            locationId: 1,
+            locationName: "target-global-mbox",
+            locationType: "view",
+            audienceIds: [6050517],
+            offerIds: []
+          },
+          condition: {
+            and: [
+              { "<": [0, { var: "allocation" }, 50] },
+              {
+                and: [
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
+                ]
+              }
+            ]
+          },
+          consequence: {
+            name: "target-global-mbox",
+            options: [
+              {
+                type: "actions",
+                eventToken:
+                  "9y/BeTC6FllfKjSSLwOOfGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: [
+                  {
+                    type: "setHtml",
+                    selector:
+                      "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
+                    cssSelector:
+                      "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
+                    content: "${activity.name}"
+                  }
+                ]
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          ruleKey: "362225-2",
+          activityId: 362225,
+          meta: {
+            "activity.id": 362225,
+            "activity.name": "macros pageLoad",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 2,
+            "audience.ids": [6050517],
+            "option.id": 4,
+            "option.name": "Offer4",
+            activityId: 362225,
+            activityType: "ab",
+            experienceId: 0,
+            locationId: 2,
+            locationName: "target-global-mbox",
+            locationType: "view",
+            audienceIds: [6050517],
+            offerIds: []
+          },
+          condition: {
+            and: [
+              { "<": [0, { var: "allocation" }, 50] },
+              {
+                and: [
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
+                ]
+              }
+            ]
+          },
+          consequence: {
+            name: "target-global-mbox",
+            options: [
+              {
+                type: "actions",
+                eventToken:
+                  "9y/BeTC6FllfKjSSLwOOfGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: [
+                  {
+                    type: "setHtml",
+                    selector:
+                      "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
+                    cssSelector:
+                      "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
+                    content: "${mbox.name}"
+                  }
+                ]
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          ruleKey: "362225-3",
+          activityId: 362225,
+          meta: {
+            "activity.id": 362225,
+            "activity.name": "macros pageLoad",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 3,
+            "audience.ids": [6050517],
+            "option.id": 5,
+            "option.name": "Offer5",
+            activityId: 362225,
+            activityType: "ab",
+            experienceId: 0,
+            locationId: 3,
+            locationName: "target-global-mbox",
+            locationType: "view",
+            audienceIds: [6050517],
+            offerIds: []
+          },
+          condition: {
+            and: [
+              { "<": [0, { var: "allocation" }, 50] },
+              {
+                and: [
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
+                ]
+              }
+            ]
+          },
+          consequence: {
+            name: "target-global-mbox",
+            options: [
+              {
+                type: "actions",
+                eventToken:
+                  "9y/BeTC6FllfKjSSLwOOfGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: [
+                  {
+                    type: "setHtml",
+                    selector:
+                      "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    cssSelector:
+                      "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    content: "Hello ${mbox.user}"
+                  }
+                ]
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          ruleKey: "362225-0",
+          activityId: 362225,
+          meta: {
+            "activity.id": 362225,
+            "activity.name": "macros pageLoad",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience A0",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [6050517],
+            "option.id": 2,
+            "option.name": "Offer2",
+            activityId: 362225,
+            activityType: "ab",
+            experienceId: 1,
+            locationId: 0,
+            locationName: "target-global-mbox",
+            locationType: "view",
+            audienceIds: [6050517],
+            offerIds: []
+          },
+          condition: {
+            and: [
+              { "<": [50, { var: "allocation" }, 100] },
+              {
+                and: [
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
+                ]
+              }
+            ]
+          },
+          consequence: {
+            name: "target-global-mbox",
+            options: [
+              {
+                type: "actions",
+                eventToken:
+                  "9y/BeTC6FllfKjSSLwOOfJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: [
+                  {
+                    type: "setHtml",
+                    selector:
+                      "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
+                    cssSelector:
+                      "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
+                    content: "${activity.id}"
+                  }
+                ]
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          ruleKey: "362225-1",
+          activityId: 362225,
+          meta: {
+            "activity.id": 362225,
+            "activity.name": "macros pageLoad",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience A0",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 1,
+            "audience.ids": [6050517],
+            "option.id": 3,
+            "option.name": "Offer3",
+            activityId: 362225,
+            activityType: "ab",
+            experienceId: 1,
+            locationId: 1,
+            locationName: "target-global-mbox",
+            locationType: "view",
+            audienceIds: [6050517],
+            offerIds: []
+          },
+          condition: {
+            and: [
+              { "<": [50, { var: "allocation" }, 100] },
+              {
+                and: [
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
+                ]
+              }
+            ]
+          },
+          consequence: {
+            name: "target-global-mbox",
+            options: [
+              {
+                type: "actions",
+                eventToken:
+                  "9y/BeTC6FllfKjSSLwOOfJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: [
+                  {
+                    type: "setHtml",
+                    selector:
+                      "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
+                    cssSelector:
+                      "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
+                    content: "${activity.name}"
+                  }
+                ]
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          ruleKey: "362225-2",
+          activityId: 362225,
+          meta: {
+            "activity.id": 362225,
+            "activity.name": "macros pageLoad",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience A0",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 2,
+            "audience.ids": [6050517],
+            "option.id": 4,
+            "option.name": "Offer4",
+            activityId: 362225,
+            activityType: "ab",
+            experienceId: 1,
+            locationId: 2,
+            locationName: "target-global-mbox",
+            locationType: "view",
+            audienceIds: [6050517],
+            offerIds: []
+          },
+          condition: {
+            and: [
+              { "<": [50, { var: "allocation" }, 100] },
+              {
+                and: [
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
+                ]
+              }
+            ]
+          },
+          consequence: {
+            name: "target-global-mbox",
+            options: [
+              {
+                type: "actions",
+                eventToken:
+                  "9y/BeTC6FllfKjSSLwOOfJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: [
+                  {
+                    type: "setHtml",
+                    selector:
+                      "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
+                    cssSelector:
+                      "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
+                    content: "${mbox.name}"
+                  }
+                ]
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          ruleKey: "362225-3",
+          activityId: 362225,
+          meta: {
+            "activity.id": 362225,
+            "activity.name": "macros pageLoad",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience A0",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 3,
+            "audience.ids": [6050517],
+            "option.id": 6,
+            "option.name": "Offer6",
+            activityId: 362225,
+            activityType: "ab",
+            experienceId: 1,
+            locationId: 3,
+            locationName: "target-global-mbox",
+            locationType: "view",
+            audienceIds: [6050517],
+            offerIds: []
+          },
+          condition: {
+            and: [
+              { "<": [50, { var: "allocation" }, 100] },
+              {
+                and: [
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
+                ]
+              }
+            ]
+          },
+          consequence: {
+            name: "target-global-mbox",
+            options: [
+              {
+                type: "actions",
+                eventToken:
+                  "9y/BeTC6FllfKjSSLwOOfJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: [
+                  {
+                    type: "setHtml",
+                    selector:
+                      "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    cssSelector:
+                      "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    content: "What Up ${mbox.user}"
+                  }
+                ]
+              }
+            ],
+            metrics: []
+          }
+        }
+      ],
+      macros: [
+        {
+          ruleKey: "362147",
+          activityId: 362147,
+          meta: {
+            "activity.id": 362147,
+            "activity.name": "campaign macros",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "macros",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [],
+            "offer.id": 667871,
+            "offer.name":
+              "/campaign_macros/experiences/0/pages/0/zones/0/1599065324791",
+            "option.id": 2,
+            "option.name": "Offer2",
+            activityId: 362147,
+            activityType: "ab",
+            experienceId: 0,
+            locationId: 0,
+            locationName: "macros",
+            locationType: "mbox",
+            audienceIds: [],
+            offerIds: [667871]
+          },
+          condition: { "<": [0, { var: "allocation" }, 50] },
+          consequence: {
+            name: "macros",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "efH5bqgzESJWpSYmTxCCCGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content:
+                  "<ul>\n  <li>${offer.id}</li>\n  <li>${offer.name}</li>\n  <li>${campaign.id}</li>\n  <li>${campaign.name}</li>\n  <li>${campaign.recipe.id}</li>\n  <li>${campaign.recipe.name}</li>\n  <li>${activity.id}</li>\n  <li>${activity.name}</li>\n  <li>${activity.experience.id}</li>\n  <li>${activity.experience.name}</li>\n  <li>${mbox.name}</li>\n  <li>${mbox.user}</li>\n  <li>${mbox.pgname}</li>\n  <li>${mbox.browserWidth}</li>\n</ul>"
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          ruleKey: "362147",
+          activityId: 362147,
+          meta: {
+            "activity.id": 362147,
+            "activity.name": "campaign macros",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "macros",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [],
+            "offer.id": 667870,
+            "offer.name":
+              "/campaign_macros/experiences/1/pages/0/zones/0/1599065324776",
+            "option.id": 3,
+            "option.name": "Offer3",
+            activityId: 362147,
+            activityType: "ab",
+            experienceId: 1,
+            locationId: 0,
+            locationName: "macros",
+            locationType: "mbox",
+            audienceIds: [],
+            offerIds: [667870]
+          },
+          condition: { "<": [50, { var: "allocation" }, 100] },
+          consequence: {
+            name: "macros",
+            options: [
+              {
+                type: "html",
+                eventToken:
+                  "efH5bqgzESJWpSYmTxCCCJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content:
+                  "<ol>\n  <li>${offer.id}</li>\n  <li>${offer.name}</li>\n  <li>${campaign.id}</li>\n  <li>${campaign.name}</li>\n  <li>${campaign.recipe.id}</li>\n  <li>${campaign.recipe.name}</li>\n  <li>${activity.id}</li>\n  <li>${activity.name}</li>\n  <li>${activity.experience.id}</li>\n  <li>${activity.experience.name}</li>\n  <li>${mbox.name}</li>\n  <li>${mbox.user}</li>\n  <li>${mbox.pgname}</li>\n  <li>${mbox.browserWidth}</li>\n</ol>"
+              }
+            ],
+            metrics: []
+          }
+        }
+      ]
+    },
+    views: {
+      contact: [
+        {
+          ruleKey: "362237-0",
+          activityId: 362237,
+          meta: {
+            "activity.id": 362237,
+            "activity.name": "campaign macros view",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "contact",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [6050872],
+            "option.id": 2,
+            "option.name": "Offer2",
+            activityId: 362237,
+            activityType: "ab",
+            experienceId: 0,
+            locationId: 0,
+            locationName: "contact",
+            locationType: "view",
+            audienceIds: [6050872],
+            offerIds: []
+          },
+          condition: {
+            and: [
+              { "<": [0, { var: "allocation" }, 50] },
+              {
+                and: [
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
+                ]
+              }
+            ]
+          },
+          consequence: {
+            name: "contact",
+            options: [
+              {
+                type: "actions",
+                eventToken:
+                  "tQFHWnWUwSTiTftbAGXrA2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: [
+                  {
+                    type: "insertBefore",
+                    selector: "#spa-content > P:nth-of-type(1)",
+                    cssSelector: "#spa-content > P:nth-of-type(1)",
+                    content:
+                      '<div id="action_insert_1599086396006761">${campaign.name}</div>'
+                  }
+                ]
+              }
+            ],
+            metrics: []
+          }
+        },
+        {
+          ruleKey: "362237-0",
+          activityId: 362237,
+          meta: {
+            "activity.id": 362237,
+            "activity.name": "campaign macros view",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "contact",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [6050872],
+            "option.id": 3,
+            "option.name": "Offer3",
+            activityId: 362237,
+            activityType: "ab",
+            experienceId: 1,
+            locationId: 0,
+            locationName: "contact",
+            locationType: "view",
+            audienceIds: [6050872],
+            offerIds: []
+          },
+          condition: {
+            and: [
+              { "<": [50, { var: "allocation" }, 100] },
+              {
+                and: [
+                  { "==": ["local-target-test", { var: "page.domain" }] },
+                  { "==": ["/", { var: "page.path" }] }
+                ]
+              }
+            ]
+          },
+          consequence: {
+            name: "contact",
+            options: [
+              {
+                type: "actions",
+                eventToken:
+                  "tQFHWnWUwSTiTftbAGXrA5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                content: [
+                  {
+                    type: "insertBefore",
+                    selector: "#spa-content > P:nth-of-type(1)",
+                    cssSelector: "#spa-content > P:nth-of-type(1)",
+                    content:
+                      '<div id="action_insert_1599086448339872">${activity.name}</div>'
+                  }
+                ]
+              }
+            ],
+            metrics: []
+          }
+        }
+      ]
+    }
   }
 };

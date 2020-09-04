@@ -235,3 +235,23 @@ export function determineArtifactFormat(artifactLocation) {
     ? ARTIFACT_FORMAT_BINARY
     : ARTIFACT_FORMAT_JSON;
 }
+
+/**
+ * firstMatch looks through a list of objects (in order) and returns a value from the first object that has a matching key
+ * @param key
+ * @param {Array<Object>} searchObjects
+ * @param defaultValue
+ */
+export function firstMatch(key, searchObjects = [], defaultValue = undefined) {
+  for (let i = 0; i < searchObjects.length; i += 1) {
+    const haystack = searchObjects[i];
+    if (
+      typeof haystack === "object" &&
+      haystack !== null &&
+      isDefined(haystack[key])
+    ) {
+      return haystack[key];
+    }
+  }
+  return defaultValue;
+}

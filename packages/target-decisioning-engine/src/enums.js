@@ -5,3 +5,11 @@ export const RequestType = {
   VIEW: "view",
   PAGELOAD: "pageLoad"
 };
+
+export const OptionType = {
+  Html: "html",
+  Json: "json",
+  Redirect: "redirect",
+  Dynamic: "dynamic",
+  Actions: "actions"
+};

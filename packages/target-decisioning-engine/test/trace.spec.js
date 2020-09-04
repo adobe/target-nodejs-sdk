@@ -107,7 +107,7 @@ describe("trace", () => {
       campaigns: [
         {
           id: 334411,
-          campaignType: "ab",
+          campaignType: "landing",
           branchId: 1,
           offers: [631991],
           environment: expect.any(String)
@@ -122,7 +122,7 @@ describe("trace", () => {
       evaluatedCampaignTargets: [
         {
           campaignId: 334411,
-          campaignType: "ab",
+          campaignType: "landing",
           matchedSegmentIds: [],
           unmatchedSegmentIds: []
         }
@@ -167,7 +167,7 @@ describe("trace", () => {
       campaigns: [
         {
           id: 334845,
-          campaignType: "landing",
+          campaignType: "ab",
           branchId: 3,
           offers: [632438],
           environment: expect.any(String)
@@ -182,7 +182,7 @@ describe("trace", () => {
       evaluatedCampaignTargets: [
         {
           campaignId: 334845,
-          campaignType: "landing",
+          campaignType: "ab",
           matchedSegmentIds: [2170460],
           unmatchedSegmentIds: [4873452, 4957566]
         }
@@ -227,7 +227,7 @@ describe("trace", () => {
       campaigns: [
         {
           id: 334845,
-          campaignType: "landing",
+          campaignType: "ab",
           branchId: 3,
           offers: [632438],
           notifications: [
@@ -256,7 +256,7 @@ describe("trace", () => {
       evaluatedCampaignTargets: [
         {
           campaignId: 334845,
-          campaignType: "landing",
+          campaignType: "ab",
           matchedSegmentIds: [2170460],
           unmatchedSegmentIds: [4873452, 4957566]
         }
@@ -334,7 +334,7 @@ describe("trace", () => {
         },
         {
           id: 337888,
-          campaignType: "ab",
+          campaignType: "landing",
           branchId: 1,
           offers: [635776],
           environment: expect.any(String),
@@ -372,7 +372,7 @@ describe("trace", () => {
         },
         {
           campaignId: 337888,
-          campaignType: "ab",
+          campaignType: "landing",
           matchedSegmentIds: [],
           unmatchedSegmentIds: []
         }
@@ -441,7 +441,7 @@ describe("trace", () => {
         campaigns: [
           {
             branchId: 0,
-            campaignType: "landing",
+            campaignType: "ab",
             environment: expect.any(String),
             id: 345798,
             offers: expect.any(Array)
@@ -458,7 +458,7 @@ describe("trace", () => {
               allocation: expect.any(Number)
             }),
             campaignId: 345798,
-            campaignType: "landing",
+            campaignType: "ab",
             matchedSegmentIds: [5634562, 5653736],
             unmatchedSegmentIds: [],
             matchedRuleConditions: expect.any(Array),
