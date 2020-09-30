@@ -9,10 +9,15 @@ export const MINIMUM_POLLING_INTERVAL = 300000; // five minutes (in milliseconds
 export const NUM_FETCH_RETRIES = 10;
 export const SUPPORTED_ARTIFACT_MAJOR_VERSION = 1;
 export const SUPPORTED_ARTIFACT_OBFUSCATION_VERSION = 1;
-export const ARTIFACT_FILENAME = "rules.bin";
 export const REGEX_ARTIFACT_FILENAME_BINARY = /.+\.bin$/i;
 export const ARTIFACT_FORMAT_BINARY = "bin";
 export const ARTIFACT_FORMAT_JSON = "json";
+export const ARTIFACT_FORMAT_DEFAULT = ARTIFACT_FORMAT_JSON;
+export const ARTIFACT_FORMATS = [ARTIFACT_FORMAT_BINARY, ARTIFACT_FORMAT_JSON];
+
+export const ARTIFACT_FILENAME = {};
+ARTIFACT_FILENAME[ARTIFACT_FORMAT_BINARY] = "rules.bin";
+ARTIFACT_FILENAME[ARTIFACT_FORMAT_JSON] = "rules.json";
 
 export const LOG_PREFIX = "LD";
 

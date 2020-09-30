@@ -67,6 +67,11 @@ export interface DecisioningConfig {
   sendNotificationFunc?: Function;
 
   /**
+   * If set to false, telemetry data will not be sent to Adobe
+   */
+  telemetryEnabled?: Boolean;
+
+  /**
    * Function used to emit events
    */
   eventEmitter: (eventName: string, payload?: Object) => undefined;

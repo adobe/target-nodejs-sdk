@@ -13,7 +13,8 @@ const TEST_CONF = {
   organizationId: "someOrgId",
   pollingInterval: 0,
   artifactFormat: ARTIFACT_FORMAT_JSON, // setting this tells the artifactProvider deobfuscation is not needed
-  sendNotificationFunc
+  sendNotificationFunc,
+  telemetryEnabled: false
 };
 
 const targetRequest = {

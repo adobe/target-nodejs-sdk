@@ -292,7 +292,7 @@ export function replaceCampaignMacros(
     return htmlContent.replace(
       MACRO_PATTERN_REGEX,
       (defaultValue, macroKey) => {
-        const parts = macroKey
+        let parts = macroKey
           .replace(
             MACRO_NAME_REPLACEMENTS_REGEX,
             matched => MACRO_NAME_REPLACEMENTS[matched]
@@ -300,7 +300,7 @@ export function replaceCampaignMacros(
           .split(".");
 
         if (parts.length > 2) {
-          parts.shift();
+          parts = parts.slice(parts.length - 2);
         }
 
         const key = parts

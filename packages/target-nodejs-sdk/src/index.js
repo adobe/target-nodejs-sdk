@@ -72,6 +72,7 @@ export default function bootstrap(fetchApi) {
             environment: options.environment,
             cdnEnvironment: options.cdnEnvironment,
             cdnBasePath: options.cdnBasePath,
+            telemetryEnabled: options.telemetryEnabled,
             logger: this.logger,
             fetchApi: fetchImpl,
             eventEmitter,
@@ -111,6 +112,7 @@ export default function bootstrap(fetchApi) {
      * @param {Number} options.environmentId The Target environment ID, defaults to production, optional
      * @param {String} options.environment The Target environment name, defaults to production, optional
      * @param {String} options.cdnEnvironment The CDN environment name, defaults to production, optional
+     * @param {boolean} options.telemetryEnabled If set to false, telemetry data will not be sent to Adobe
      * @param {String} options.version The version number of at.js, optional
      * @param {String} options.propertyToken A property token used to limit the scope of evaluated target activities, optional
      * @param {Object.<String, Function>} options.events An object with event name keys and callback function values, optional

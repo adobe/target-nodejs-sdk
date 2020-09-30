@@ -21,7 +21,9 @@ import {
   ARTIFACT_FORMAT_JSON,
   CDN_BASE,
   REGEX_ARTIFACT_FILENAME_BINARY,
-  SUPPORTED_ARTIFACT_MAJOR_VERSION
+  SUPPORTED_ARTIFACT_MAJOR_VERSION,
+  ARTIFACT_FORMAT_DEFAULT,
+  ARTIFACT_FORMATS
 } from "./constants";
 
 /**
@@ -194,6 +196,15 @@ export function getCdnBasePath(config) {
   return `https://${cdnBasePath}`;
 }
 
+export function getArtifactFileName(artifactFormat = ARTIFACT_FORMAT_DEFAULT) {
+  // eslint-disable-next-line no-param-reassign
+  artifactFormat = includes(artifactFormat, ARTIFACT_FORMATS)
+    ? artifactFormat
+    : ARTIFACT_FORMAT_DEFAULT;
+
+  return ARTIFACT_FILENAME[artifactFormat];
+}
+
 /**
  * @param {import("../types/DecisioningConfig").DecisioningConfig} config
  * @return {string}
@@ -211,7 +222,7 @@ export function determineArtifactLocation(
   config,
   addPropertyToken = isBrowser()
 ) {
-  const { client, propertyToken } = config;
+  const { client, propertyToken, artifactFormat } = config;
   const targetEnvironment = getTargetEnvironment(config);
 
   return [
@@ -220,7 +231,7 @@ export function determineArtifactLocation(
     targetEnvironment,
     `v${SUPPORTED_ARTIFACT_MAJOR_VERSION}`,
     addPropertyToken ? propertyToken : undefined,
-    ARTIFACT_FILENAME
+    getArtifactFileName(artifactFormat)
   ]
     .filter(value => isDefined(value))
     .join("/");

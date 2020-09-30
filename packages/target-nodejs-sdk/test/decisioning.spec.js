@@ -1,4 +1,3 @@
-/* eslint-disable jest/no-test-callback */
 import {
   DECISIONING_ENGINE_NOT_READY,
   DECISIONING_METHOD
@@ -33,7 +32,8 @@ const CONFIG = {
   artifactFormat: ARTIFACT_FORMAT_JSON, // setting this tells the artifactProvider deobfuscation is not needed
   targetLocationHint: "28",
   pollingInterval: 0,
-  maximumWaitReady: 500
+  maximumWaitReady: 500,
+  telemetryEnabled: false
 };
 
 describe("target local decisioning", () => {
@@ -68,27 +68,34 @@ describe("target local decisioning", () => {
       });
     });
 
-    it("does not create an instance of target-decisioning-engine if evaluation mode is remote", async done => {
+    it("does not create an instance of target-decisioning-engine if evaluation mode is remote", () => {
+      expect.assertions(2);
       fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
 
-      client = TargetClient.create({
-        ...CONFIG,
-        decisioningMethod: DECISIONING_METHOD.SERVER_SIDE,
-        events: {
-          clientReady: () => {
-            expect(client).toBeDefined();
-            expect(
-              Object.prototype.hasOwnProperty.call(client, "decisioningEngine")
-            ).toEqual(false);
-            done();
+      return new Promise(done => {
+        client = TargetClient.create({
+          ...CONFIG,
+          decisioningMethod: DECISIONING_METHOD.SERVER_SIDE,
+          events: {
+            clientReady: () => {
+              expect(client).toBeDefined();
+              expect(
+                Object.prototype.hasOwnProperty.call(
+                  client,
+                  "decisioningEngine"
+                )
+              ).toEqual(false);
+              done();
+            }
           }
-        }
+        });
       });
     });
   });
 
   describe("throws an error", () => {
-    it("if a getOffers request is made before the decisioning artifact is available", async done => {
+    it("if a getOffers request is made before the decisioning artifact is available", () => {
+      expect.assertions(1);
       let timer;
 
       fetch.mockResponse(() => {
@@ -99,24 +106,26 @@ describe("target local decisioning", () => {
         });
       });
 
-      client = TargetClient.create({
-        ...CONFIG,
-        decisioningMethod: DECISIONING_METHOD.ON_DEVICE
+      return new Promise(async done => {
+        client = TargetClient.create({
+          ...CONFIG,
+          decisioningMethod: DECISIONING_METHOD.ON_DEVICE
+        });
+
+        // make the request immediately (before the artifact has been fetched)
+        await expect(
+          client.getOffers({
+            request: TARGET_REQUEST,
+            sessionId: "dummy_session"
+          })
+        ).rejects.toEqual(new Error(DECISIONING_ENGINE_NOT_READY));
+
+        if (timer) clearTimeout(timer);
+        done();
       });
-
-      // make the request immediately (before the artifact has been fetched)
-      await expect(
-        client.getOffers({
-          request: TARGET_REQUEST,
-          sessionId: "dummy_session"
-        })
-      ).rejects.toEqual(new Error(DECISIONING_ENGINE_NOT_READY));
-
-      if (timer) clearTimeout(timer);
-      done();
     });
 
-    it("if getOffers is called, but the artifact could not be retrieved", async done => {
+    it("if getOffers is called, but the artifact could not be retrieved", () => {
       fetch.mockResponses(
         ["", { status: HttpStatus.UNAUTHORIZED }],
         ["", { status: HttpStatus.NOT_FOUND }],
@@ -135,25 +144,18 @@ describe("target local decisioning", () => {
       const artifactDownloadSucceeded = jest.fn();
       const clientReady = jest.fn();
 
-      client = TargetClient.create({
-        ...CONFIG,
-        decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
-        maximumWaitReady: 500,
-        events: {
-          clientReady,
-          artifactDownloadFailed,
-          artifactDownloadSucceeded
-        }
-      });
+      return new Promise(async done => {
+        client = TargetClient.create({
+          ...CONFIG,
+          decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
+          maximumWaitReady: 500,
+          events: {
+            clientReady,
+            artifactDownloadFailed,
+            artifactDownloadSucceeded
+          }
+        });
 
-      await expect(
-        client.getOffers({
-          request: TARGET_REQUEST,
-          sessionId: "dummy_session"
-        })
-      ).rejects.toEqual(new Error(DECISIONING_ENGINE_NOT_READY));
-
-      const timer = setTimeout(async () => {
         await expect(
           client.getOffers({
             request: TARGET_REQUEST,
@@ -161,25 +163,34 @@ describe("target local decisioning", () => {
           })
         ).rejects.toEqual(new Error(DECISIONING_ENGINE_NOT_READY));
 
-        expect(clientReady).not.toHaveBeenCalled();
-        expect(artifactDownloadSucceeded).not.toHaveBeenCalled();
-        expect(artifactDownloadFailed).toHaveBeenCalledTimes(11);
+        const timer = setTimeout(async () => {
+          await expect(
+            client.getOffers({
+              request: TARGET_REQUEST,
+              sessionId: "dummy_session"
+            })
+          ).rejects.toEqual(new Error(DECISIONING_ENGINE_NOT_READY));
 
-        expect(artifactDownloadFailed.mock.calls[0][0]).toEqual(
-          expect.objectContaining({
-            type: "artifactDownloadFailed",
-            artifactLocation: expect.any(String),
-            error: expect.any(Error)
-          })
-        );
+          expect(clientReady).not.toHaveBeenCalled();
+          expect(artifactDownloadSucceeded).not.toHaveBeenCalled();
+          expect(artifactDownloadFailed).toHaveBeenCalledTimes(11);
 
-        clearTimeout(timer);
-        done();
-      }, 500);
+          expect(artifactDownloadFailed.mock.calls[0][0]).toEqual(
+            expect.objectContaining({
+              type: "artifactDownloadFailed",
+              artifactLocation: expect.any(String),
+              error: expect.any(Error)
+            })
+          );
+
+          clearTimeout(timer);
+          done();
+        }, 500);
+      });
     });
   });
 
-  describe("models delivery api responses", () => {
+  describe("models delivery api", () => {
     const DELIVERY_API_RESPONSE = {
       status: 200,
       requestId: "0979a315df524c74aa420a9d03c8d921",
@@ -259,7 +270,8 @@ describe("target local decisioning", () => {
       organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
       artifactFormat: "json", // setting this tells the artifactProvider deobfuscation is not needed
       pollingInterval: 0,
-      maximumWaitReady: 500
+      maximumWaitReady: 500,
+      telemetryEnabled: false
     };
 
     const targetResult = {
@@ -340,7 +352,7 @@ describe("target local decisioning", () => {
       }
     };
     describe("targetLocationHintCookie", () => {
-      it("is makes a preemptive delivery request to get the mboxEdgeCluster on init", async done => {
+      it("is makes a preemptive delivery request to get the mboxEdgeCluster on init", () => {
         fetch
           .once(
             JSON.stringify({
@@ -355,25 +367,27 @@ describe("target local decisioning", () => {
           )
           .once(JSON.stringify(DECISIONING_PAYLOAD_AB_SIMPLE));
 
-        async function clientReady() {
-          const result = await client.getOffers(prefetchRequestOptions);
+        return new Promise(done => {
+          async function clientReady() {
+            const result = await client.getOffers(prefetchRequestOptions);
 
-          expect(result.targetLocationHintCookie).toEqual({
-            name: "mboxEdgeCluster",
-            value: "28",
-            maxAge: 1860
+            expect(result.targetLocationHintCookie).toEqual({
+              name: "mboxEdgeCluster",
+              value: "28",
+              maxAge: 1860
+            });
+            done();
+          }
+
+          client = TargetClient.create({
+            ...targetClientOptions,
+            decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
+            events: { clientReady }
           });
-          done();
-        }
-
-        client = TargetClient.create({
-          ...targetClientOptions,
-          decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
-          events: { clientReady }
         });
       });
 
-      it("it recovers if the delivery request fails", async done => {
+      it("it recovers if the delivery request fails", () => {
         fetch.mockResponses(
           ["", { status: HttpStatus.SERVICE_UNAVAILABLE }],
           [
@@ -382,160 +396,172 @@ describe("target local decisioning", () => {
           ]
         );
 
-        async function clientReady() {
-          const result = await client.getOffers(prefetchRequestOptions);
+        return new Promise(done => {
+          async function clientReady() {
+            const result = await client.getOffers(prefetchRequestOptions);
 
-          expect(result.targetLocationHintCookie).toBeUndefined();
-          done();
-        }
+            expect(result.targetLocationHintCookie).toBeUndefined();
+            done();
+          }
 
-        client = TargetClient.create({
-          ...targetClientOptions,
-          decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
-          events: { clientReady }
+          client = TargetClient.create({
+            ...targetClientOptions,
+            decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
+            events: { clientReady }
+          });
         });
       });
 
-      it("can be passed in as a config option to be used instead of of a preemptive delivery request", async done => {
+      it("can be passed in as a config option to be used instead of of a preemptive delivery request", () => {
         fetch.once(JSON.stringify(DECISIONING_PAYLOAD_AB_SIMPLE));
 
-        async function clientReady() {
-          const result = await client.getOffers(prefetchRequestOptions);
+        return new Promise(done => {
+          async function clientReady() {
+            const result = await client.getOffers(prefetchRequestOptions);
 
-          expect(result.targetLocationHintCookie).toEqual({
-            name: "mboxEdgeCluster",
-            value: "28",
-            maxAge: 1860
-          });
-          done();
-        }
-
-        client = TargetClient.create({
-          ...targetClientOptions,
-          decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
-          pollingInterval: 0,
-          targetLocationHint: "28",
-          events: { clientReady }
-        });
-      });
-    });
-
-    it("produces a valid response in on-device decisioning method", async done => {
-      fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_AB_SIMPLE));
-
-      async function clientReady() {
-        const result = await client.getOffers(prefetchRequestOptions);
-
-        expect(result).toEqual(
-          expect.objectContaining({
-            ...targetResult,
-            meta: {
-              decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
-              remoteMboxes: [],
-              remoteViews: []
-            },
-            response: {
-              ...targetResult.response
-            }
-          })
-        );
-        done();
-      }
-
-      client = TargetClient.create({
-        ...targetClientOptions,
-        decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
-        targetLocationHint: "28",
-        pollingInterval: 0,
-        events: { clientReady }
-      });
-    });
-
-    it("emits notifications for local decision outcomes; execute request", async done => {
-      const now = new Date("2020-02-25T01:05:00");
-      MockDate.set(now);
-
-      let notificationRequest;
-      let notificationPayload;
-
-      fetch.once(JSON.stringify(DECISIONING_PAYLOAD_AB_SIMPLE)).once(
-        async req => {
-          notificationRequest = req;
-          notificationPayload = await req.json();
-          return Promise.resolve("");
-        },
-        {
-          status: HttpStatus.NO_CONTENT
-        }
-      );
-
-      async function clientReady() {
-        await expect(
-          client.getOffers(executeRequestOptions)
-        ).resolves.toBeDefined();
-        expect(fetch.mock.calls.length).toEqual(2);
-
-        expect(notificationRequest).not.toBeUndefined();
-        expect(notificationRequest.method).toEqual("POST");
-
-        expect(notificationPayload).toMatchObject({
-          ...targetRequest,
-          notifications: [
-            {
-              id: expect.any(String),
-              impressionId: expect.any(String),
-              timestamp: now.getTime(),
-              type: "display",
-              mbox: {
-                name: "superfluous-mbox"
-              },
-              tokens: [
-                "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              ]
-            }
-          ]
-        });
-
-        done();
-      }
-
-      client = TargetClient.create({
-        ...targetClientOptions,
-        decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
-        pollingInterval: 0,
-        targetLocationHint: "28",
-
-        events: { clientReady }
-      });
-    });
-
-    it("produces a valid response in remote execution mode", async done => {
-      fetch.mockResponse(JSON.stringify(DELIVERY_API_RESPONSE));
-
-      async function clientReady() {
-        const result = await client.getOffers(prefetchRequestOptions);
-
-        expect(result).toEqual(
-          expect.objectContaining({
-            ...targetResult,
-            response: {
-              ...targetResult.response,
-              edgeHost: "mboxedge28.tt.omtrdc.net"
-            },
-            targetLocationHintCookie: {
+            expect(result.targetLocationHintCookie).toEqual({
               name: "mboxEdgeCluster",
               value: "28",
               maxAge: 1860
-            }
-          })
-        );
-        done();
-      }
+            });
+            done();
+          }
 
-      client = TargetClient.create({
-        ...targetClientOptions,
-        decisioningMethod: DECISIONING_METHOD.SERVER_SIDE,
-        events: { clientReady }
+          client = TargetClient.create({
+            ...targetClientOptions,
+            decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
+            pollingInterval: 0,
+            targetLocationHint: "28",
+            events: { clientReady }
+          });
+        });
+      });
+    });
+
+    describe("responses", () => {
+      it("produces a valid response in on-device decisioning method", () => {
+        fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_AB_SIMPLE));
+
+        return new Promise(done => {
+          async function clientReady() {
+            const result = await client.getOffers(prefetchRequestOptions);
+
+            expect(result).toEqual(
+              expect.objectContaining({
+                ...targetResult,
+                meta: {
+                  decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
+                  remoteMboxes: [],
+                  remoteViews: []
+                },
+                response: {
+                  ...targetResult.response
+                }
+              })
+            );
+            done();
+          }
+
+          client = TargetClient.create({
+            ...targetClientOptions,
+            decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
+            targetLocationHint: "28",
+            pollingInterval: 0,
+            events: { clientReady }
+          });
+        });
+      });
+
+      it("emits notifications for local decision outcomes; execute request", () => {
+        const now = new Date("2020-02-25T01:05:00");
+        MockDate.set(now);
+
+        let notificationRequest;
+        let notificationPayload;
+
+        fetch.once(JSON.stringify(DECISIONING_PAYLOAD_AB_SIMPLE)).once(
+          async req => {
+            notificationRequest = req;
+            notificationPayload = await req.json();
+            return Promise.resolve("");
+          },
+          {
+            status: HttpStatus.NO_CONTENT
+          }
+        );
+
+        return new Promise(done => {
+          async function clientReady() {
+            await expect(
+              client.getOffers(executeRequestOptions)
+            ).resolves.toBeDefined();
+            expect(fetch.mock.calls.length).toEqual(2);
+
+            expect(notificationRequest).not.toBeUndefined();
+            expect(notificationRequest.method).toEqual("POST");
+
+            expect(notificationPayload).toMatchObject({
+              ...targetRequest,
+              notifications: [
+                {
+                  id: expect.any(String),
+                  impressionId: expect.any(String),
+                  timestamp: now.getTime(),
+                  type: "display",
+                  mbox: {
+                    name: "superfluous-mbox"
+                  },
+                  tokens: [
+                    "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  ]
+                }
+              ]
+            });
+
+            done();
+          }
+
+          client = TargetClient.create({
+            ...targetClientOptions,
+            decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
+            pollingInterval: 0,
+            targetLocationHint: "28",
+
+            events: { clientReady }
+          });
+        });
+      });
+
+      it("produces a valid response in remote execution mode", () => {
+        fetch.mockResponse(JSON.stringify(DELIVERY_API_RESPONSE));
+
+        return new Promise(done => {
+          async function clientReady() {
+            const result = await client.getOffers(prefetchRequestOptions);
+
+            expect(result).toEqual(
+              expect.objectContaining({
+                ...targetResult,
+                response: {
+                  ...targetResult.response,
+                  edgeHost: "mboxedge28.tt.omtrdc.net"
+                },
+                targetLocationHintCookie: {
+                  name: "mboxEdgeCluster",
+                  value: "28",
+                  maxAge: 1860
+                }
+              })
+            );
+            done();
+          }
+
+          client = TargetClient.create({
+            ...targetClientOptions,
+            decisioningMethod: DECISIONING_METHOD.SERVER_SIDE,
+            events: { clientReady }
+          });
+        });
       });
     });
   });

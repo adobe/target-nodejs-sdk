@@ -8,7 +8,7 @@ import {
 import ArtifactProvider from "./artifactProvider";
 import * as constants from "./constants";
 import {
-  ARTIFACT_FILENAME,
+  ARTIFACT_FORMAT_DEFAULT,
   ARTIFACT_FORMAT_JSON,
   CDN_BASE_PROD,
   CDN_BASE_STAGE,
@@ -297,7 +297,7 @@ describe("artifactProvider", () => {
       expect(eventName).toEqual(ARTIFACT_DOWNLOAD_SUCCEEDED);
       expect(payload).toMatchObject({
         artifactLocation:
-          "https://assets.adobetarget.com/clientId/production/v1/rules.bin",
+          "https://assets.adobetarget.com/clientId/production/v1/rules.json",
         artifactPayload: expect.any(Object)
       });
       done();
@@ -323,7 +323,7 @@ describe("artifactProvider", () => {
       expect(payload).toEqual(
         expect.objectContaining({
           artifactLocation:
-            "https://assets.adobetarget.com/clientId/production/v1/rules.bin",
+            "https://assets.adobetarget.com/clientId/production/v1/rules.json",
           error: expect.objectContaining({
             stack: expect.any(String),
             message: "Forbidden"
@@ -349,7 +349,7 @@ describe("determineArtifactLocation", () => {
         cdnEnvironment: "staging"
       })
     ).toEqual(
-      `https://${CDN_BASE_STAGE}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/${ARTIFACT_FILENAME}`
+      `https://${CDN_BASE_STAGE}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.json`
     );
   });
 
@@ -359,7 +359,29 @@ describe("determineArtifactLocation", () => {
         client: "someClientId"
       })
     ).toEqual(
-      `https://${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/${ARTIFACT_FILENAME}`
+      `https://${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.json`
+    );
+  });
+
+  it("honors artifactFormat", () => {
+    expect(
+      determineArtifactLocation({
+        client: "someClientId",
+        artifactFormat: "bin"
+      })
+    ).toEqual(
+      `https://${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.bin`
+    );
+  });
+
+  it("handles invalid artifactFormat", () => {
+    expect(
+      determineArtifactLocation({
+        client: "someClientId",
+        artifactFormat: "wonk"
+      })
+    ).toEqual(
+      `https://${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.${ARTIFACT_FORMAT_DEFAULT}`
     );
   });
 
@@ -370,7 +392,7 @@ describe("determineArtifactLocation", () => {
         environment: ENVIRONMENT_STAGE
       })
     ).toEqual(
-      `https://${CDN_BASE_PROD}/someClientId/${ENVIRONMENT_STAGE}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/${ARTIFACT_FILENAME}`
+      `https://${CDN_BASE_PROD}/someClientId/${ENVIRONMENT_STAGE}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.json`
     );
   });
 
@@ -389,7 +411,7 @@ describe("determineArtifactLocation", () => {
         }
       })
     ).toEqual(
-      `https://${CDN_BASE_PROD}/someClientId/${ENVIRONMENT_PROD}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/${ARTIFACT_FILENAME}`
+      `https://${CDN_BASE_PROD}/someClientId/${ENVIRONMENT_PROD}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.json`
     );
   });
 
@@ -400,7 +422,7 @@ describe("determineArtifactLocation", () => {
         propertyToken: "xyz-123-abc"
       })
     ).toEqual(
-      `https://${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/${ARTIFACT_FILENAME}`
+      `https://${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.json`
     );
   });
 
@@ -414,7 +436,7 @@ describe("determineArtifactLocation", () => {
         true
       )
     ).toEqual(
-      `https://${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/xyz-123-abc/${ARTIFACT_FILENAME}`
+      `https://${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/xyz-123-abc/rules.json`
     );
   });
 });

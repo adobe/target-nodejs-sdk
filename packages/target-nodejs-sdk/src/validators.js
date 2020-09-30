@@ -93,9 +93,9 @@ export function validateSendNotificationsOptions(options) {
     return Messages.REQUEST_REQUIRED;
   }
 
-  const { notifications } = request;
+  const { notifications, telemetry } = request;
 
-  if (isEmptyArray(notifications)) {
+  if (isEmptyArray(notifications) && isUndefined(telemetry)) {
     return Messages.NOTIFICATIONS_REQUIRED;
   }
 

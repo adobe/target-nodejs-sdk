@@ -1,4 +1,4 @@
-import { perfTool } from "./perftool";
+import { perfTool, createPerfToolInstance } from "./perftool";
 
 describe("perfTool", () => {
   beforeEach(() => {
@@ -9,11 +9,12 @@ describe("perfTool", () => {
     return new Promise(done => {
       perfTool.timeStart("moo");
       setTimeout(() => {
-        perfTool.timeEnd("moo");
+        const timing = perfTool.timeEnd("moo");
         expect(perfTool.getTimings()).toEqual({
           moo: expect.any(Number)
         });
         expect(perfTool.getTimings().moo).toBeGreaterThanOrEqual(90);
+        expect(timing).toBeGreaterThanOrEqual(90);
         done();
       }, 100);
     });
@@ -58,7 +59,7 @@ describe("perfTool", () => {
   });
 
   it("fails gracefully", () => {
-    expect(perfTool.timeEnd("bleh")).toEqual('No timer was started for "bleh"');
+    expect(perfTool.timeEnd("bleh")).toEqual(-1);
   });
 
   it("can time repeats", () => {
@@ -85,5 +86,12 @@ describe("perfTool", () => {
         done();
       }, 100);
     });
+  });
+
+  it("has microsecond precision", () => {
+    const timingTool = createPerfToolInstance();
+    timingTool.timeStart("abcdefg");
+
+    expect(timingTool.timeEnd("abcdefg")).toBeGreaterThan(0);
   });
 });

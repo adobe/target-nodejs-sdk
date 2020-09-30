@@ -94,6 +94,6 @@ export {
   PROPERTY_TOKEN_MISMATCH
 } from "./messages";
 
-export { perfTool } from "./perftool";
+export { perfTool, createPerfToolInstance } from "./perftool";
 
 export { default as parseURI } from "parse-uri";

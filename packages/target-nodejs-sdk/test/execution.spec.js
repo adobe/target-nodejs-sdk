@@ -91,7 +91,8 @@ const targetClientOptions = {
   artifactFormat: "json", // setting this tells the artifactProvider deobfuscation is not needed
   targetLocationHint: "28",
   pollingInterval: 0,
-  maximumWaitReady: 500
+  maximumWaitReady: 500,
+  telemetryEnabled: false
 };
 
 describe("execution mode", () => {
