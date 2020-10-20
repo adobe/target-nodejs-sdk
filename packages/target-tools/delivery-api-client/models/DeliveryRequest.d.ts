@@ -1,4 +1,4 @@
-import { Context, ExecuteRequest, ExperienceCloud, Notification, PrefetchRequest, Property, QAMode, Trace, VisitorId } from './';
+import { Context, ExecuteRequest, ExperienceCloud, Notification, PrefetchRequest, Property, QAMode, Telemetry, Trace, VisitorId } from './';
 export interface DeliveryRequest {
     requestId?: string;
     impressionId?: string;
@@ -10,6 +10,7 @@ export interface DeliveryRequest {
     experienceCloud?: ExperienceCloud;
     execute?: ExecuteRequest;
     prefetch?: PrefetchRequest;
+    telemetry?: Telemetry;
     notifications?: Array<Notification>;
     qaMode?: QAMode;
 }

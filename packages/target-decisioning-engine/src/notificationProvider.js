@@ -70,7 +70,7 @@ function NotificationProvider(
   }
 
   /**
-   * @param {import("../types/TelemetryEntry.d.ts").TelemetryEntry} entry
+   * @param {import("@adobe/target-tools/delivery-api-client/models/TelemetryEntry").TelemetryEntry} entry
    */
   function addTelemetryEntry(entry) {
     if (!telemetryEnabled) return;
