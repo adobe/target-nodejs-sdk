@@ -109,6 +109,7 @@ export function executeDelivery(options, decisioningEngine) {
   logger.debug(
     Messages.REQUEST_SENT,
     deliveryMethod.decisioningMethod,
+    host,
     JSON.stringify(deliveryRequest, null, 2)
   );
 

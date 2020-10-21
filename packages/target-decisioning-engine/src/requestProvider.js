@@ -60,7 +60,7 @@ export function validDeliveryRequest(
   targetLocationHint,
   validGeoRequestContext
 ) {
-  const { context } = request;
+  const { context = {} } = request;
 
   return validGeoRequestContext(context.geo || {}).then(geo => {
     return {
