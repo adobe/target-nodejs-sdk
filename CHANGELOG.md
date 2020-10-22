@@ -6,8 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.0.0] - 2020-10-26
 ### Added
-- Support for on-device decisioning -- the ability to download and evaluate target activities locally.
-- Added the getAttributes method which can be used to fetch experimentation and personalized experiences from Target and extract attribute values. 
+- Support for on-device decisioning
+- New parameters added in create() when initializing the Node.js SDK
+    - decisioningMethod
+    - pollingInterval
+    - artifactLocation
+    - artifactPayload
+    - events
+- New method getAttributes() to fetch experimentation and personalized experiences from Target and extract attribute values. 
 - Campaign macro support
 
 ### Changed

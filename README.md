@@ -14,7 +14,7 @@ library (ECID).
   * [Getting started](#getting-started)
     + [Prerequisites](#prerequisites)
     + [Installation](#installation)
-    + [Using the SDK](#using-the-sdk)
+    + [Super Simple to Use](#super-simple-to-use)
   * [Development](#development)
   * [Additional code](#additional-code)
 
@@ -33,9 +33,9 @@ To get started with Target Node.js SDK, just add it as a dependency by installin
 npm i @adobe/target-nodejs-sdk -P
 ```
 
-### Using the SDK
+### Super Simple to Use
 
-For in depth documentation about how to use this SDK please read the official [Adobe Target Node.js SDK Documentation](https://adobetarget-sdks.gitbook.io/docs/sdk-reference-guides/nodejs-sdk)
+Please take a look at [our documentation](https://adobetarget-sdks.gitbook.io/docs/sdk-reference-guides/nodejs-sdk) to learn how to use the Node.js SDK.
 
 ## Development
 
