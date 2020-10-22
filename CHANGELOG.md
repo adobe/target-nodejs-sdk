@@ -4,19 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.0.0] - 2020-10-26
 ### Added
+- Support for on-device decisioning -- the ability to download and evaluate target activities locally.
+- Added the getAttributes method which can be used to fetch experimentation and personalized experiences from Target and extract attribute values. 
+- Support specifying geo parameters in delivery requests.
+- Campaign macro support
+
+### Changed
+- renamed `locationHintCookie` to `locationHint` in getOffers call
 - Replaced the the delivery request implementation with one based on [Fetch](https://fetch.spec.whatwg.org).  This allows the sdk to function in both node.js and browser environments.
 - Modified sendNotifications to use [Navigator.sendBeacon](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/sendBeacon) if run in a browser environment.
 - Migrated tests from jasmine to jest
-- Added support for local decisioning -- the ability to download and evaluate target activities locally instead of making repeat delivery api requests
-
 - Changed to a mono repo structure using lerna to support multiple packages
   - target-nodejs-sdk - the sdk was moved inside the packages folder
   - target-decisioning-engine - adds the ability to load target rules and evaluate them locally instead of making a delivery api request
   - target-tools - shared code and config between the above packages
-
-
 
 ## [1.1.0] - 2020-06-09
 ### Added
@@ -62,7 +65,8 @@ method declaration [here](https://www.npmjs.com/package/@adobe/target-node-clien
 - [getOffer() API method](https://www.npmjs.com/package/@adobe/target-node-client#targetnodeclientgetoffer) has been removed,
 use [getOffers() API method](README.md#targetclientgetoffers) instead 
 
-[Unreleased]: https://github.com/adobe/target-nodejs-sdk/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/adobe/target-nodejs-sdk/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/adobe/target-nodejs-sdk/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/adobe/target-nodejs-sdk/compare/v1.0.3...v1.1.0
 [1.0.3]: https://github.com/adobe/target-nodejs-sdk/compare/v1.0.1...v1.0.3
 [1.0.1]: https://github.com/adobe/target-nodejs-sdk/releases/tag/v1.0.1
