@@ -8,7 +8,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Support for on-device decisioning -- the ability to download and evaluate target activities locally.
 - Added the getAttributes method which can be used to fetch experimentation and personalized experiences from Target and extract attribute values. 
-- Support specifying geo parameters in delivery requests.
 - Campaign macro support
 
 ### Changed
