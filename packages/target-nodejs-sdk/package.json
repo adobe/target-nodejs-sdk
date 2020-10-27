@@ -1,0 +1,92 @@
+{
+  "name": "@adobe/target-nodejs-sdk",
+  "version": "2.0.0-alpha.26",
+  "description": "Adobe Target Node.js SDK, Delivery API client",
+  "main": "dist/targetclient.server.js",
+  "browser": "dist/targetclient.browser.js",
+  "module": "src/index.js",
+  "engines": {
+    "node": ">=8.16.0"
+  },
+  "files": [
+    "dist/*.js",
+    "src/**/!(*.spec).js",
+    "*.md",
+    "LICENSE*"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean && npm run format && npm run lint",
+    "build": "NODE_ENV=production rollup -c rollup.config.js",
+    "postbuild": "cp dist/targetclient.browser* demo/assets",
+    "www": "npm run build && node ./sample/server.js",
+    "pretest": "npm run format && npm run lint",
+    "test": "NODE_ENV=development jest",
+    "coverage": "nyc --reporter=lcov --reporter=text-summary npm run test",
+    "lint-src": "eslint src/**",
+    "lint-test": "eslint test/**",
+    "lint": "npm run lint-src && npm run lint-test",
+    "format": "prettier '**/*.js' '**/*.json' --write --config '../../.prettierrc.json' --ignore-path '../../.prettierignore'",
+    "prepack": "for file in $(<packfiles.txt); do cp \"../../$file\" .; done",
+    "postpack": "for file in $(<packfiles.txt); do rm \"$file\"; done",
+    "prepublishOnly": "echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:adobe/target-nodejs-sdk.git"
+  },
+  "keywords": [
+    "NodeJS",
+    "Server",
+    "API",
+    "Adobe",
+    "Target",
+    "MCID",
+    "Visitor",
+    "Delivery"
+  ],
+  "author": "Adobe Systems Inc.",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@adobe/target-decisioning-engine": "^1.4.3",
+    "@adobe/target-tools": "^1.2.4",
+    "@babel/plugin-transform-regenerator": "^7.8.3",
+    "@babel/preset-env": "^7.9.5",
+    "@lwc/eslint-plugin-lwc": "^0.10.0",
+    "@rollup/plugin-commonjs": "^11.0.1",
+    "@rollup/plugin-json": "^4.0.1",
+    "@rollup/plugin-node-resolve": "^7.0.0",
+    "ajv": "^5.5.2",
+    "cookie-parser": "^1.4.4",
+    "core-js": "^3.6.5",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^23.6.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "express": "^4.17.1",
+    "jest": "^25.1.0",
+    "jest-fetch-mock": "^3.0.1",
+    "mockdate": "^2.0.5",
+    "nyc": "^14.1.1",
+    "prettier": "^1.18.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^1.17.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-license": "^0.12.1",
+    "rollup-plugin-terser": "^5.1.1",
+    "rollup-plugin-visualizer": "^3.3.2"
+  },
+  "dependencies": {
+    "@adobe-mcid/visitor-js-server": "^2.0.0",
+    "fast-text-encoding": "^1.0.3",
+    "form-data": "^3.0.0",
+    "http-status-codes": "^1.4.0",
+    "node-fetch": "^2.6.0",
+    "whatwg-fetch": "^3.0.0"
+  }
+}

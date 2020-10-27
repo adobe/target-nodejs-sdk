@@ -6,7 +6,12 @@ build
 coverage
 checkstyle
 lib
+dist
 node_modules
 npm-debug.log
 .DS_Store
 *.iml
+*.map
+*.tgz
+bundlesize-stats*.html
+.npmrc

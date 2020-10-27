@@ -1,0 +1,16 @@
+{
+  "name": "target-nodejs-sdk-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "demo.js",
+  "scripts": {
+    "start": "node demo.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "https-proxy-agent": "^5.0.0",
+    "node-fetch": "^2.6.0"
+  }
+}

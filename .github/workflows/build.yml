@@ -1,28 +1,38 @@
 name: CI
-on: [push, pull_request]
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         node-version: [8.x, 10.x, 12.x, 14.x]
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@master
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@master
         with:
           node-version: ${{ matrix.node-version }}
       - name: build, test, generate coverage
         run: |
-          npm i
-          npm run build
-          npm run coverage
+          npm ci
+          npm test
+        env:
+          CI: true
       - name: coveralls
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: Node.js-${{ matrix.node-version }}
           parallel: true
+
   coverage:
     needs: build
     runs-on: ubuntu-latest

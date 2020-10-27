@@ -1,0 +1,12 @@
+.idea
+.git
+node_modules
+lib
+coverage
+dist
+sample
+VisitorAPI.js
+AppMeasurement.js
+package-lock.json
+public
+delivery-api-client

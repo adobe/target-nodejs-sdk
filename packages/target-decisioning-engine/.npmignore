@@ -1,0 +1,14 @@
+*.log
+/.*/
+/.eslint*
+/.editorconfig
+/.gitignore
+/.npmignore
+/webpack.*
+*.iws
+src/
+coverage/
+*.spec.js
+*.config.js
+*.tgz
+*.map

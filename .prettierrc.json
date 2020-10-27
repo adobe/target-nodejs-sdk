@@ -1,0 +1,5 @@
+{
+  "quoteProps": "consistent",
+  "arrowParens": "avoid",
+  "trailingComma": "none"
+}

@@ -1,0 +1,63 @@
+{
+  "name": "@adobe/target-decisioning-engine",
+  "version": "1.4.3",
+  "description": "Adobe Target JavaScript decisioning engine",
+  "main": "dist/index.js",
+  "module": "src/index.js",
+  "files": [
+    "dist/*",
+    "types/*",
+    "src/**/!(*.spec).js"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "lint": "eslint src/**/*.js test/**/*.js",
+    "format": "prettier '**/*.js' '**/*.json' --write --config '../../.prettierrc.json' --ignore-path '../../.prettierignore'",
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean && npm run lint",
+    "build": "NODE_ENV=production rollup -c",
+    "pretest": "npm run format && npm run lint",
+    "test": "NODE_ENV=development jest",
+    "prepublishOnly": "echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc",
+    "prepare": "rollup --config"
+  },
+  "dependencies": {
+    "@adobe/target-tools": "^1.2.4",
+    "imurmurhash": "^0.1.4",
+    "json-logic-js": "^1.2.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/runtime": "^7.8.4",
+    "@lwc/eslint-plugin-lwc": "^0.10.0",
+    "@rollup/plugin-commonjs": "^11.0.1",
+    "@rollup/plugin-json": "^4.0.1",
+    "@rollup/plugin-node-resolve": "^7.0.0",
+    "core-js": "^3.6.5",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^23.6.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "fast-text-encoding": "^1.0.3",
+    "http-status-codes": "^1.4.0",
+    "https-proxy-agent": "^5.0.0",
+    "jest": "^25.1.0",
+    "jest-fetch-mock": "^3.0.1",
+    "mockdate": "^2.0.5",
+    "node-fetch": "^2.6.0",
+    "prettier": "^1.18.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^1.17.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-license": "^0.12.1",
+    "rollup-plugin-terser": "^5.1.1",
+    "rollup-plugin-visualizer": "^3.3.2"
+  },
+  "author": "",
+  "license": "Apache-2.0"
+}
