@@ -15,8 +15,7 @@
     "LICENSE*"
   ],
   "publishConfig": {
-    "access": "public",
-    "tag": "alpha"
+    "access": "public"
   },
   "scripts": {
     "clean": "rimraf dist",
