@@ -20,7 +20,7 @@ describe("filter", () => {
   });
 
   it("filter object key", () => {
-    const obj = filter((v, k) => k !== "", { a: 1, b: 2, "": 3 });
+    const obj = filter((v, k) => k !== "", { "a": 1, "b": 2, "": 3 });
 
     expect(obj).toEqual({ a: 1, b: 2 });
   });

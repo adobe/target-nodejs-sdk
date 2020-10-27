@@ -523,7 +523,7 @@ describe("Target Helper", () => {
                 eventToken: "token1",
                 responseTokens: {
                   "profile.token1": "token1",
-                  token2: "token2"
+                  "token2": "token2"
                 }
               }
             ],
@@ -548,7 +548,7 @@ describe("Target Helper", () => {
                 eventToken: "token2",
                 responseTokens: {
                   "profile.token21": "token21",
-                  token22: "token22"
+                  "token22": "token22"
                 }
               }
             ],
@@ -575,7 +575,7 @@ describe("Target Helper", () => {
                 eventToken: "token3",
                 responseTokens: {
                   "profile.token31": "token31",
-                  token32: "token32"
+                  "token32": "token32"
                 }
               }
             ],
@@ -617,9 +617,9 @@ describe("Target Helper", () => {
         { tracekey3: "traceval3" }
       ],
       responseTokens: [
-        { "profile.token1": "token1", token2: "token2" },
-        { "profile.token21": "token21", token22: "token22" },
-        { "profile.token31": "token31", token32: "token32" }
+        { "profile.token1": "token1", "token2": "token2" },
+        { "profile.token21": "token21", "token22": "token22" },
+        { "profile.token31": "token31", "token32": "token32" }
       ],
       response: {
         id: { tntId: "tntId" },
@@ -637,7 +637,7 @@ describe("Target Helper", () => {
                   eventToken: "token1",
                   responseTokens: {
                     "profile.token1": "token1",
-                    token2: "token2"
+                    "token2": "token2"
                   }
                 }
               ],
@@ -655,7 +655,7 @@ describe("Target Helper", () => {
                   eventToken: "token2",
                   responseTokens: {
                     "profile.token21": "token21",
-                    token22: "token22"
+                    "token22": "token22"
                   }
                 }
               ],
@@ -675,7 +675,7 @@ describe("Target Helper", () => {
                   eventToken: "token3",
                   responseTokens: {
                     "profile.token31": "token31",
-                    token32: "token32"
+                    "token32": "token32"
                   }
                 }
               ],
@@ -703,7 +703,7 @@ describe("Target Helper", () => {
               eventToken: "token1",
               responseTokens: {
                 "profile.token1": "token1",
-                token2: "token2"
+                "token2": "token2"
               }
             }
           ],
@@ -734,7 +734,7 @@ describe("Target Helper", () => {
       },
       analyticsDetails: [{ payload: { pe: "pe1", tnta: "tnta1" } }],
       trace: [{ tracekey1: "traceval1" }],
-      responseTokens: [{ "profile.token1": "token1", token2: "token2" }],
+      responseTokens: [{ "profile.token1": "token1", "token2": "token2" }],
       response: {
         id: { tntId: "tntId" },
         client: "testclient",
@@ -748,7 +748,7 @@ describe("Target Helper", () => {
                 eventToken: "token1",
                 responseTokens: {
                   "profile.token1": "token1",
-                  token2: "token2"
+                  "token2": "token2"
                 }
               }
             ],

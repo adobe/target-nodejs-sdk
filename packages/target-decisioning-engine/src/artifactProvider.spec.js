@@ -222,7 +222,7 @@ describe("artifactProvider", () => {
       .once(JSON.stringify(FIRST_PAYLOAD), {
         status: HttpStatus.OK,
         headers: {
-          ETag: eTagIdentifier,
+          "ETag": eTagIdentifier,
           "Content-Type": "application/json"
         }
       })
@@ -235,7 +235,7 @@ describe("artifactProvider", () => {
         {
           status: HttpStatus.NOT_MODIFIED,
           headers: {
-            ETag: eTagIdentifier,
+            "ETag": eTagIdentifier,
             "Content-Type": "application/json"
           }
         }
@@ -249,7 +249,7 @@ describe("artifactProvider", () => {
         {
           status: HttpStatus.OK,
           headers: {
-            ETag: eTagIdentifierNew,
+            "ETag": eTagIdentifierNew,
             "Content-Type": "application/json"
           }
         }
@@ -263,7 +263,7 @@ describe("artifactProvider", () => {
         {
           status: HttpStatus.NOT_MODIFIED,
           headers: {
-            ETag: eTagIdentifierNew,
+            "ETag": eTagIdentifierNew,
             "Content-Type": "application/json"
           }
         }

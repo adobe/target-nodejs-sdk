@@ -259,7 +259,7 @@ describe("decisioning outcomes - views", () => {
                   cssSelector: "#spa-content > P:nth-of-type(1)",
                   content: {
                     "background-color": "rgba(255,255,170,1)",
-                    priority: "important"
+                    "priority": "important"
                   }
                 }
               ],
@@ -308,7 +308,7 @@ describe("decisioning outcomes - views", () => {
                   cssSelector: "#spa-content > P:nth-of-type(1)",
                   content: {
                     "background-color": "rgba(170,255,255,1)",
-                    priority: "important"
+                    "priority": "important"
                   }
                 }
               ],
@@ -353,7 +353,7 @@ describe("decisioning outcomes - views", () => {
                   cssSelector: "#spa-content > P:nth-of-type(1)",
                   content: {
                     "background-color": "rgba(127,0,0,1)",
-                    priority: "important"
+                    "priority": "important"
                   }
                 }
               ],
@@ -426,7 +426,7 @@ describe("decisioning outcomes - views", () => {
                   cssSelector: "#action_insert_15882853393943012",
                   content: {
                     "background-color": "rgba(86,255,86,1)",
-                    priority: "important"
+                    "priority": "important"
                   }
                 }
               ],
@@ -492,7 +492,7 @@ describe("decisioning outcomes - views", () => {
                     "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
                   content: {
                     "background-color": "rgba(170,255,255,1)",
-                    priority: "important"
+                    "priority": "important"
                   }
                 }
               ],
@@ -537,7 +537,7 @@ describe("decisioning outcomes - views", () => {
                   cssSelector: "#action_insert_15882853393943012",
                   content: {
                     "background-color": "rgba(86,255,86,1)",
-                    priority: "important"
+                    "priority": "important"
                   }
                 }
               ],
@@ -589,7 +589,7 @@ describe("decisioning outcomes - views", () => {
                     "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
                   content: {
                     "background-color": "rgba(127,255,0,1)",
-                    priority: "important"
+                    "priority": "important"
                   }
                 }
               ],
@@ -620,7 +620,7 @@ describe("decisioning outcomes - views", () => {
                     "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
                   content: {
                     "background-color": "rgba(170,255,255,1)",
-                    priority: "important"
+                    "priority": "important"
                   }
                 }
               ],
@@ -662,7 +662,7 @@ describe("decisioning outcomes - views", () => {
                 {
                   content: {
                     "background-color": "rgba(86,255,86,1)",
-                    priority: "important"
+                    "priority": "important"
                   },
                   cssSelector: "#action_insert_15882853393943012",
                   selector: "#action_insert_15882853393943012",

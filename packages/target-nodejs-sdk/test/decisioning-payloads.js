@@ -98,14 +98,14 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
               "/form_based_activity-offer2-feb1920201034/experiences/0/pages/0/zones/0/1582137291528",
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 333312,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "offer2",
-            locationType: "mbox",
-            audienceIds: [5356811],
-            offerIds: [630815]
+            "activityId": 333312,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "offer2",
+            "locationType": "mbox",
+            "audienceIds": [5356811],
+            "offerIds": [630815]
           },
           condition: {
             and: [
@@ -145,14 +145,14 @@ export const DECISIONING_PAYLOAD_ADDRESS = {
               "/form_based_activity-offer2-feb1920201034/experiences/1/pages/0/zones/0/1582137291524",
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 333312,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "offer2",
-            locationType: "mbox",
-            audienceIds: [5356811],
-            offerIds: [630814]
+            "activityId": 333312,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "offer2",
+            "locationType": "mbox",
+            "audienceIds": [5356811],
+            "offerIds": [630814]
           },
           condition: {
             and: [
@@ -256,14 +256,14 @@ export const DECISIONING_PAYLOAD_BROWSER = {
               "/browser-mbox/experiences/1/pages/0/zones/0/1582915910400",
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 334845,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "browser-mbox",
-            locationType: "mbox",
-            audienceIds: [4873452],
-            offerIds: [632439]
+            "activityId": 334845,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "browser-mbox",
+            "locationType": "mbox",
+            "audienceIds": [4873452],
+            "offerIds": [632439]
           },
           condition: { "==": [{ var: "user.browserType" }, "firefox"] },
           consequence: {
@@ -297,14 +297,14 @@ export const DECISIONING_PAYLOAD_BROWSER = {
               "/browser-mbox/experiences/2/pages/0/zones/0/1582915910403",
             "option.id": 4,
             "option.name": "Offer4",
-            activityId: 334845,
-            activityType: "ab",
-            experienceId: 2,
-            locationId: 0,
-            locationName: "browser-mbox",
-            locationType: "mbox",
-            audienceIds: [4957566],
-            offerIds: [632440]
+            "activityId": 334845,
+            "activityType": "ab",
+            "experienceId": 2,
+            "locationId": 0,
+            "locationName": "browser-mbox",
+            "locationType": "mbox",
+            "audienceIds": [4957566],
+            "offerIds": [632440]
           },
           condition: { "==": [{ var: "user.browserType" }, "safari"] },
           consequence: {
@@ -338,14 +338,14 @@ export const DECISIONING_PAYLOAD_BROWSER = {
               "/browser-mbox/experiences/3/pages/0/zones/0/1582915910396",
             "option.id": 5,
             "option.name": "Offer5",
-            activityId: 334845,
-            activityType: "ab",
-            experienceId: 3,
-            locationId: 0,
-            locationName: "browser-mbox",
-            locationType: "mbox",
-            audienceIds: [2170460],
-            offerIds: [632438]
+            "activityId": 334845,
+            "activityType": "ab",
+            "experienceId": 3,
+            "locationId": 0,
+            "locationName": "browser-mbox",
+            "locationType": "mbox",
+            "audienceIds": [2170460],
+            "offerIds": [632438]
           },
           condition: { "==": [{ var: "user.browserType" }, "chrome"] },
           consequence: {
@@ -379,14 +379,14 @@ export const DECISIONING_PAYLOAD_BROWSER = {
               "/browser-mbox/experiences/4/pages/0/zones/0/1582917563229",
             "option.id": 6,
             "option.name": "Offer6",
-            activityId: 334845,
-            activityType: "ab",
-            experienceId: 4,
-            locationId: 0,
-            locationName: "browser-mbox",
-            locationType: "mbox",
-            audienceIds: [5372368],
-            offerIds: [632446]
+            "activityId": 334845,
+            "activityType": "ab",
+            "experienceId": 4,
+            "locationId": 0,
+            "locationName": "browser-mbox",
+            "locationType": "mbox",
+            "audienceIds": [5372368],
+            "offerIds": [632446]
           },
           condition: { "==": [{ var: "user.browserType" }, "ie"] },
           consequence: {
@@ -420,14 +420,14 @@ export const DECISIONING_PAYLOAD_BROWSER = {
               "/browser-mbox/experiences/0/pages/0/zones/0/1582915910375",
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 334845,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "browser-mbox",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [632437]
+            "activityId": 334845,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "browser-mbox",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [632437]
           },
           condition: true,
           consequence: {
@@ -527,14 +527,14 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
               "/superfluous_ab_json/experiences/0/pages/0/zones/0/1582738346730",
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 334411,
-            activityType: "landing",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "superfluous-mbox",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [631992]
+            "activityId": 334411,
+            "activityType": "landing",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "superfluous-mbox",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [631992]
           },
           condition: { "<": [0, { var: "allocation" }, 50] },
           consequence: {
@@ -568,14 +568,14 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
               "/superfluous_ab_json/experiences/1/pages/0/zones/0/1582738346722",
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 334411,
-            activityType: "landing",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "superfluous-mbox",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [631991]
+            "activityId": 334411,
+            "activityType": "landing",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "superfluous-mbox",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [631991]
           },
           condition: { "<": [50, { var: "allocation" }, 100] },
           consequence: {
@@ -611,14 +611,14 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
               "/simple_ab_expendable-mbox/experiences/0/pages/0/zones/0/1582825446969",
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 334640,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "expendable-mbox",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [632233]
+            "activityId": 334640,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "expendable-mbox",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [632233]
           },
           condition: { "<": [0, { var: "allocation" }, 50] },
           consequence: {
@@ -652,14 +652,14 @@ export const DECISIONING_PAYLOAD_AB_MULTI_SIMPLE = {
               "/simple_ab_expendable-mbox/experiences/1/pages/0/zones/0/1582825446975",
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 334640,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "expendable-mbox",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [632234]
+            "activityId": 334640,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "expendable-mbox",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [632234]
           },
           condition: { "<": [50, { var: "allocation" }, 100] },
           consequence: {
@@ -758,14 +758,14 @@ export const DECISIONING_PAYLOAD_PARAMS = {
               "/redundant-mbox/experiences/0/pages/0/zones/0/1582842639909",
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 334717,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "redundant-mbox",
-            locationType: "mbox",
-            audienceIds: [5452799],
-            offerIds: [632331]
+            "activityId": 334717,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "redundant-mbox",
+            "locationType": "mbox",
+            "audienceIds": [5452799],
+            "offerIds": [632331]
           },
           condition: {
             and: [
@@ -804,14 +804,14 @@ export const DECISIONING_PAYLOAD_PARAMS = {
               "/redundant-mbox/experiences/1/pages/0/zones/0/1582842639906",
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 334717,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "redundant-mbox",
-            locationType: "mbox",
-            audienceIds: [5452799],
-            offerIds: [632330]
+            "activityId": 334717,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "redundant-mbox",
+            "locationType": "mbox",
+            "audienceIds": [5452799],
+            "offerIds": [632330]
           },
           condition: {
             and: [
@@ -917,14 +917,14 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
               "/kitty_high_with_targeting/experiences/0/pages/0/zones/0/1584124723844",
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 336973,
-            activityType: "landing",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "kitty",
-            locationType: "mbox",
-            audienceIds: [4873452],
-            offerIds: [634862]
+            "activityId": 336973,
+            "activityType": "landing",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "kitty",
+            "locationType": "mbox",
+            "audienceIds": [4873452],
+            "offerIds": [634862]
           },
           condition: { "==": [{ var: "user.browserType" }, "firefox"] },
           consequence: {
@@ -958,14 +958,14 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
               "/kitty_high_with_targeting/experiences/1/pages/0/zones/0/1584124723839",
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 336973,
-            activityType: "landing",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "kitty",
-            locationType: "mbox",
-            audienceIds: [4957566],
-            offerIds: [634861]
+            "activityId": 336973,
+            "activityType": "landing",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "kitty",
+            "locationType": "mbox",
+            "audienceIds": [4957566],
+            "offerIds": [634861]
           },
           condition: { "==": [{ var: "user.browserType" }, "safari"] },
           consequence: {
@@ -999,14 +999,14 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
               "/kitty_high/experiences/0/pages/0/zones/0/1584119849432",
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 336951,
-            activityType: "landing",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "kitty",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [634836]
+            "activityId": 336951,
+            "activityType": "landing",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "kitty",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [634836]
           },
           condition: { "<": [0, { var: "allocation" }, 50] },
           consequence: {
@@ -1040,14 +1040,14 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
               "/kitty_high/experiences/1/pages/0/zones/0/1584119849437",
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 336951,
-            activityType: "landing",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "kitty",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [634837]
+            "activityId": 336951,
+            "activityType": "landing",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "kitty",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [634837]
           },
           condition: { "<": [50, { var: "allocation" }, 100] },
           consequence: {
@@ -1081,14 +1081,14 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
               "/kitty_low/experiences/0/pages/0/zones/0/1584119759067",
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 336950,
-            activityType: "landing",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "kitty",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [634834]
+            "activityId": 336950,
+            "activityType": "landing",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "kitty",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [634834]
           },
           condition: { "<": [0, { var: "allocation" }, 50] },
           consequence: {
@@ -1122,14 +1122,14 @@ export const DECISIONING_PAYLOAD_PRIORITIES = {
               "/kitty_low/experiences/1/pages/0/zones/0/1584119759075",
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 336950,
-            activityType: "landing",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "kitty",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [634835]
+            "activityId": 336950,
+            "activityType": "landing",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "kitty",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [634835]
           },
           condition: { "<": [50, { var: "allocation" }, 100] },
           consequence: {
@@ -1228,14 +1228,14 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
               "/superfluous_ab_json/experiences/0/pages/0/zones/0/1582738346730",
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 334411,
-            activityType: "landing",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "superfluous-mbox",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [631992]
+            "activityId": 334411,
+            "activityType": "landing",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "superfluous-mbox",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [631992]
           },
           condition: { "<": [0, { var: "allocation" }, 50] },
           consequence: {
@@ -1269,14 +1269,14 @@ export const DECISIONING_PAYLOAD_AB_SIMPLE = {
               "/superfluous_ab_json/experiences/1/pages/0/zones/0/1582738346722",
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 334411,
-            activityType: "landing",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "superfluous-mbox",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [631991]
+            "activityId": 334411,
+            "activityType": "landing",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "superfluous-mbox",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [631991]
           },
           condition: { "<": [50, { var: "allocation" }, 100] },
           consequence: {
@@ -1375,14 +1375,14 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
               "/daterange-mbox/experiences/4/pages/0/zones/0/1582928389678",
             "option.id": 4,
             "option.name": "Offer4",
-            activityId: 334853,
-            activityType: "landing",
-            experienceId: 4,
-            locationId: 0,
-            locationName: "daterange-mbox",
-            locationType: "mbox",
-            audienceIds: [5372446],
-            offerIds: [632493]
+            "activityId": 334853,
+            "activityType": "landing",
+            "experienceId": 4,
+            "locationId": 0,
+            "locationName": "daterange-mbox",
+            "locationType": "mbox",
+            "audienceIds": [5372446],
+            "offerIds": [632493]
           },
           condition: {
             and: [
@@ -1421,14 +1421,14 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
               "/daterange-mbox/experiences/5/pages/0/zones/0/1582928389686",
             "option.id": 5,
             "option.name": "Offer5",
-            activityId: 334853,
-            activityType: "landing",
-            experienceId: 5,
-            locationId: 0,
-            locationName: "daterange-mbox",
-            locationType: "mbox",
-            audienceIds: [5372445],
-            offerIds: [632494]
+            "activityId": 334853,
+            "activityType": "landing",
+            "experienceId": 5,
+            "locationId": 0,
+            "locationName": "daterange-mbox",
+            "locationType": "mbox",
+            "audienceIds": [5372445],
+            "offerIds": [632494]
           },
           condition: {
             "<=": [1582794000000, { var: "current_timestamp" }, 1582999200000]
@@ -1464,14 +1464,14 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
               "/daterange-mbox/experiences/1/pages/0/zones/0/1582918990666",
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 334853,
-            activityType: "landing",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "daterange-mbox",
-            locationType: "mbox",
-            audienceIds: [5372444],
-            offerIds: [632451]
+            "activityId": 334853,
+            "activityType": "landing",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "daterange-mbox",
+            "locationType": "mbox",
+            "audienceIds": [5372444],
+            "offerIds": [632451]
           },
           condition: {
             "<=": [1583149200000, { var: "current_timestamp" }, 1583494800000]
@@ -1507,14 +1507,14 @@ export const DECISIONING_PAYLOAD_TIMEFRAME = {
               "/daterange-mbox/experiences/0/pages/0/zones/0/1582918990663",
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 334853,
-            activityType: "landing",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "daterange-mbox",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [632450]
+            "activityId": 334853,
+            "activityType": "landing",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "daterange-mbox",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [632450]
           },
           condition: true,
           consequence: {
@@ -1615,14 +1615,14 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
               "/global_mbox_browserhtml/experiences/0/pages/0/zones/0/1584640063509",
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 337795,
-            activityType: "landing",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            audienceIds: [2170460],
-            offerIds: [635716]
+            "activityId": 337795,
+            "activityType": "landing",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [2170460],
+            "offerIds": [635716]
           },
           condition: { "==": [{ var: "user.browserType" }, "chrome"] },
           consequence: {
@@ -1656,14 +1656,14 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
               "/global_mbox_browserhtml/experiences/1/pages/0/zones/0/1584640063505",
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 337795,
-            activityType: "landing",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            audienceIds: [4873452],
-            offerIds: [635715]
+            "activityId": 337795,
+            "activityType": "landing",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [4873452],
+            "offerIds": [635715]
           },
           condition: { "==": [{ var: "user.browserType" }, "firefox"] },
           consequence: {
@@ -1697,14 +1697,14 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
               "/global_mbox_browserhtml/experiences/2/pages/0/zones/0/1584640063487",
             "option.id": 4,
             "option.name": "Offer4",
-            activityId: 337795,
-            activityType: "landing",
-            experienceId: 2,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            audienceIds: [4957566],
-            offerIds: [635713]
+            "activityId": 337795,
+            "activityType": "landing",
+            "experienceId": 2,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [4957566],
+            "offerIds": [635713]
           },
           condition: { "==": [{ var: "user.browserType" }, "safari"] },
           consequence: {
@@ -1738,14 +1738,14 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
               "/global_mbox_browserhtml/experiences/3/pages/0/zones/0/1584640063501",
             "option.id": 5,
             "option.name": "Offer5",
-            activityId: 337795,
-            activityType: "landing",
-            experienceId: 3,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [635714]
+            "activityId": 337795,
+            "activityType": "landing",
+            "experienceId": 3,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [635714]
           },
           condition: true,
           consequence: {
@@ -1779,14 +1779,14 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
               "/ab_tres_experienceglobalmbox/experiences/0/pages/0/zones/0/1584640298871",
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 337797,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            audienceIds: [5272024],
-            offerIds: [635719]
+            "activityId": 337797,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [5272024],
+            "offerIds": [635719]
           },
           condition: {
             and: [
@@ -1825,14 +1825,14 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
               "/ab_tres_experienceglobalmbox/experiences/1/pages/0/zones/0/1584640298867",
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 337797,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            audienceIds: [5272024],
-            offerIds: [635718]
+            "activityId": 337797,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [5272024],
+            "offerIds": [635718]
           },
           condition: {
             and: [
@@ -1871,14 +1871,14 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
               "/ab_tres_experienceglobalmbox/experiences/2/pages/0/zones/0/1584640298862",
             "option.id": 4,
             "option.name": "Offer4",
-            activityId: 337797,
-            activityType: "ab",
-            experienceId: 2,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            audienceIds: [5272024],
-            offerIds: [635717]
+            "activityId": 337797,
+            "activityType": "ab",
+            "experienceId": 2,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [5272024],
+            "offerIds": [635717]
           },
           condition: {
             and: [
@@ -1917,14 +1917,14 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
               "/global_ab_html/experiences/0/pages/0/zones/0/1584661883900",
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 337888,
-            activityType: "landing",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [635778]
+            "activityId": 337888,
+            "activityType": "landing",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [635778]
           },
           condition: { "<": [0, { var: "allocation" }, 25] },
           consequence: {
@@ -1958,14 +1958,14 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
               "/global_ab_html/experiences/1/pages/0/zones/0/1584661883883",
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 337888,
-            activityType: "landing",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [635776]
+            "activityId": 337888,
+            "activityType": "landing",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [635776]
           },
           condition: { "<": [25, { var: "allocation" }, 50] },
           consequence: {
@@ -1999,14 +1999,14 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
               "/global_ab_html/experiences/2/pages/0/zones/0/1584661883905",
             "option.id": 4,
             "option.name": "Offer4",
-            activityId: 337888,
-            activityType: "landing",
-            experienceId: 2,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [635779]
+            "activityId": 337888,
+            "activityType": "landing",
+            "experienceId": 2,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [635779]
           },
           condition: { "<": [50, { var: "allocation" }, 75] },
           consequence: {
@@ -2040,14 +2040,14 @@ export const DECISIONING_PAYLOAD_GLOBAL_MBOX = {
               "/global_ab_html/experiences/3/pages/0/zones/0/1584661883895",
             "option.id": 5,
             "option.name": "Offer5",
-            activityId: 337888,
-            activityType: "landing",
-            experienceId: 3,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [635777]
+            "activityId": 337888,
+            "activityType": "landing",
+            "experienceId": 3,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [635777]
           },
           condition: { "<": [75, { var: "allocation" }, 100] },
           consequence: {
@@ -2146,14 +2146,14 @@ export const DECISIONING_PAYLOAD_FEATURE_FLAG = {
               "/jason-flags/experiences/0/pages/0/zones/0/1583188989447",
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 335113,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "jason-flags",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [632759]
+            "activityId": 335113,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "jason-flags",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [632759]
           },
           condition: { "<": [0, { var: "allocation" }, 50] },
           consequence: {
@@ -2192,14 +2192,14 @@ export const DECISIONING_PAYLOAD_FEATURE_FLAG = {
               "/jason-flags/experiences/1/pages/0/zones/0/1583188989545",
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 335113,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "jason-flags",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [632760]
+            "activityId": 335113,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "jason-flags",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [632760]
           },
           condition: { "<": [50, { var: "allocation" }, 100] },
           consequence: {
@@ -2306,14 +2306,14 @@ export const DECISIONING_PAYLOAD_ATJS = {
               "/global_mbox_browserhtml/experiences/0/pages/0/zones/0/1584640063509",
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 337795,
-            activityType: "landing",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            audienceIds: [2170460],
-            offerIds: [635716]
+            "activityId": 337795,
+            "activityType": "landing",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [2170460],
+            "offerIds": [635716]
           },
           condition: { "==": [{ var: "user.browserType" }, "chrome"] },
           consequence: {
@@ -2347,14 +2347,14 @@ export const DECISIONING_PAYLOAD_ATJS = {
               "/global_mbox_browserhtml/experiences/1/pages/0/zones/0/1584640063505",
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 337795,
-            activityType: "landing",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            audienceIds: [4873452],
-            offerIds: [635715]
+            "activityId": 337795,
+            "activityType": "landing",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [4873452],
+            "offerIds": [635715]
           },
           condition: { "==": [{ var: "user.browserType" }, "firefox"] },
           consequence: {
@@ -2388,14 +2388,14 @@ export const DECISIONING_PAYLOAD_ATJS = {
               "/global_mbox_browserhtml/experiences/2/pages/0/zones/0/1584640063487",
             "option.id": 4,
             "option.name": "Offer4",
-            activityId: 337795,
-            activityType: "landing",
-            experienceId: 2,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            audienceIds: [4957566],
-            offerIds: [635713]
+            "activityId": 337795,
+            "activityType": "landing",
+            "experienceId": 2,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [4957566],
+            "offerIds": [635713]
           },
           condition: { "==": [{ var: "user.browserType" }, "safari"] },
           consequence: {
@@ -2429,14 +2429,14 @@ export const DECISIONING_PAYLOAD_ATJS = {
               "/global_mbox_browserhtml/experiences/3/pages/0/zones/0/1584640063501",
             "option.id": 5,
             "option.name": "Offer5",
-            activityId: 337795,
-            activityType: "landing",
-            experienceId: 3,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [635714]
+            "activityId": 337795,
+            "activityType": "landing",
+            "experienceId": 3,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [635714]
           },
           condition: true,
           consequence: {
@@ -2472,14 +2472,14 @@ export const DECISIONING_PAYLOAD_ATJS = {
               "/jason-flags/experiences/0/pages/0/zones/0/1583188989447",
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 335113,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "jason-flags",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [632759]
+            "activityId": 335113,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "jason-flags",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [632759]
           },
           condition: { "<": [0, { var: "allocation" }, 50] },
           consequence: {
@@ -2518,14 +2518,14 @@ export const DECISIONING_PAYLOAD_ATJS = {
               "/jason-flags/experiences/1/pages/0/zones/0/1583188989545",
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 335113,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "jason-flags",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [632760]
+            "activityId": 335113,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "jason-flags",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [632760]
           },
           condition: { "<": [50, { var: "allocation" }, 100] },
           consequence: {
@@ -2566,14 +2566,14 @@ export const DECISIONING_PAYLOAD_ATJS = {
               "/superfluous_ab_json/experiences/0/pages/0/zones/0/1582738346730",
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 334411,
-            activityType: "landing",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "superfluous-mbox",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [631992]
+            "activityId": 334411,
+            "activityType": "landing",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "superfluous-mbox",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [631992]
           },
           condition: { "<": [0, { var: "allocation" }, 50] },
           consequence: {
@@ -2607,14 +2607,14 @@ export const DECISIONING_PAYLOAD_ATJS = {
               "/superfluous_ab_json/experiences/1/pages/0/zones/0/1582738346722",
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 334411,
-            activityType: "landing",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "superfluous-mbox",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [631991]
+            "activityId": 334411,
+            "activityType": "landing",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "superfluous-mbox",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [631991]
           },
           condition: { "<": [50, { var: "allocation" }, 100] },
           consequence: {
@@ -2650,14 +2650,14 @@ export const DECISIONING_PAYLOAD_ATJS = {
               "/browser-mbox/experiences/1/pages/0/zones/0/1582915910400",
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 334845,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "browser-mbox",
-            locationType: "mbox",
-            audienceIds: [4873452],
-            offerIds: [632439]
+            "activityId": 334845,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "browser-mbox",
+            "locationType": "mbox",
+            "audienceIds": [4873452],
+            "offerIds": [632439]
           },
           condition: { "==": [{ var: "user.browserType" }, "firefox"] },
           consequence: {
@@ -2691,14 +2691,14 @@ export const DECISIONING_PAYLOAD_ATJS = {
               "/browser-mbox/experiences/2/pages/0/zones/0/1582915910403",
             "option.id": 4,
             "option.name": "Offer4",
-            activityId: 334845,
-            activityType: "ab",
-            experienceId: 2,
-            locationId: 0,
-            locationName: "browser-mbox",
-            locationType: "mbox",
-            audienceIds: [4957566],
-            offerIds: [632440]
+            "activityId": 334845,
+            "activityType": "ab",
+            "experienceId": 2,
+            "locationId": 0,
+            "locationName": "browser-mbox",
+            "locationType": "mbox",
+            "audienceIds": [4957566],
+            "offerIds": [632440]
           },
           condition: { "==": [{ var: "user.browserType" }, "safari"] },
           consequence: {
@@ -2732,14 +2732,14 @@ export const DECISIONING_PAYLOAD_ATJS = {
               "/browser-mbox/experiences/3/pages/0/zones/0/1582915910396",
             "option.id": 5,
             "option.name": "Offer5",
-            activityId: 334845,
-            activityType: "ab",
-            experienceId: 3,
-            locationId: 0,
-            locationName: "browser-mbox",
-            locationType: "mbox",
-            audienceIds: [2170460],
-            offerIds: [632438]
+            "activityId": 334845,
+            "activityType": "ab",
+            "experienceId": 3,
+            "locationId": 0,
+            "locationName": "browser-mbox",
+            "locationType": "mbox",
+            "audienceIds": [2170460],
+            "offerIds": [632438]
           },
           condition: { "==": [{ var: "user.browserType" }, "chrome"] },
           consequence: {
@@ -2773,14 +2773,14 @@ export const DECISIONING_PAYLOAD_ATJS = {
               "/browser-mbox/experiences/4/pages/0/zones/0/1582917563229",
             "option.id": 6,
             "option.name": "Offer6",
-            activityId: 334845,
-            activityType: "ab",
-            experienceId: 4,
-            locationId: 0,
-            locationName: "browser-mbox",
-            locationType: "mbox",
-            audienceIds: [5372368],
-            offerIds: [632446]
+            "activityId": 334845,
+            "activityType": "ab",
+            "experienceId": 4,
+            "locationId": 0,
+            "locationName": "browser-mbox",
+            "locationType": "mbox",
+            "audienceIds": [5372368],
+            "offerIds": [632446]
           },
           condition: { "==": [{ var: "user.browserType" }, "ie"] },
           consequence: {
@@ -2814,14 +2814,14 @@ export const DECISIONING_PAYLOAD_ATJS = {
               "/browser-mbox/experiences/0/pages/0/zones/0/1582915910375",
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 334845,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "browser-mbox",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [632437]
+            "activityId": 334845,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "browser-mbox",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [632437]
           },
           condition: true,
           consequence: {
@@ -2922,14 +2922,14 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
               "/global_mbox_browserhtml/experiences/0/pages/0/zones/0/1584640063509",
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 337795,
-            activityType: "landing",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            audienceIds: [2170460],
-            offerIds: [635716]
+            "activityId": 337795,
+            "activityType": "landing",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [2170460],
+            "offerIds": [635716]
           },
           condition: { "==": [{ var: "user.browserType" }, "chrome"] },
           consequence: {
@@ -2963,14 +2963,14 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
               "/global_mbox_browserhtml/experiences/1/pages/0/zones/0/1584640063505",
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 337795,
-            activityType: "landing",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            audienceIds: [4873452],
-            offerIds: [635715]
+            "activityId": 337795,
+            "activityType": "landing",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [4873452],
+            "offerIds": [635715]
           },
           condition: { "==": [{ var: "user.browserType" }, "firefox"] },
           consequence: {
@@ -3004,14 +3004,14 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
               "/global_mbox_browserhtml/experiences/2/pages/0/zones/0/1584640063487",
             "option.id": 4,
             "option.name": "Offer4",
-            activityId: 337795,
-            activityType: "landing",
-            experienceId: 2,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            audienceIds: [4957566],
-            offerIds: [635713]
+            "activityId": 337795,
+            "activityType": "landing",
+            "experienceId": 2,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [4957566],
+            "offerIds": [635713]
           },
           condition: { "==": [{ var: "user.browserType" }, "safari"] },
           consequence: {
@@ -3045,14 +3045,14 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
               "/global_mbox_browserhtml/experiences/3/pages/0/zones/0/1584640063501",
             "option.id": 5,
             "option.name": "Offer5",
-            activityId: 337795,
-            activityType: "landing",
-            experienceId: 3,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [635714]
+            "activityId": 337795,
+            "activityType": "landing",
+            "experienceId": 3,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [635714]
           },
           condition: true,
           consequence: {
@@ -3086,14 +3086,14 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
               "/vegetable_ab_global-mbox/experiences/0/pages/0/zones/0/1591984699476",
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 350783,
-            activityType: "landing",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [652741]
+            "activityId": 350783,
+            "activityType": "landing",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [652741]
           },
           condition: { "<": [0, { var: "allocation" }, 50] },
           consequence: {
@@ -3133,14 +3133,14 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
               "/vegetable_ab_global-mbox/experiences/1/pages/0/zones/0/1591984699471",
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 350783,
-            activityType: "landing",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [652740]
+            "activityId": 350783,
+            "activityType": "landing",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [652740]
           },
           condition: { "<": [50, { var: "allocation" }, 100] },
           consequence: {
@@ -3180,14 +3180,14 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
               "/fruit_ab_global-mbox/experiences/0/pages/0/zones/0/1591984571136",
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 350782,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [652738]
+            "activityId": 350782,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [652738]
           },
           condition: { "<": [0, { var: "allocation" }, 50] },
           consequence: {
@@ -3227,14 +3227,14 @@ export const DECISIONING_PAYLOAD_PROPERTIES = {
               "/fruit_ab_global-mbox/experiences/1/pages/0/zones/0/1591984571142",
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 350782,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [652739]
+            "activityId": 350782,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [652739]
           },
           condition: { "<": [50, { var: "allocation" }, 100] },
           consequence: {
@@ -3339,14 +3339,14 @@ export const DECISIONING_PAYLOAD_GEO = {
               "/greg_geo_test_a_bjun0220201434/experiences/0/pages/0/zones/0/1591737073425",
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 349133,
-            activityType: "landing",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "geo",
-            locationType: "mbox",
-            audienceIds: [5753100],
-            offerIds: [651951]
+            "activityId": 349133,
+            "activityType": "landing",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "geo",
+            "locationType": "mbox",
+            "audienceIds": [5753100],
+            "offerIds": [651951]
           },
           condition: {
             and: [
@@ -3423,14 +3423,14 @@ export const DECISIONING_PAYLOAD_GEO = {
               "/greg_geo_test_a_bjun0220201434/experiences/1/pages/0/zones/0/1591133667939",
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 349133,
-            activityType: "landing",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "geo",
-            locationType: "mbox",
-            audienceIds: [5753100],
-            offerIds: [650379]
+            "activityId": 349133,
+            "activityType": "landing",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "geo",
+            "locationType": "mbox",
+            "audienceIds": [5753100],
+            "offerIds": [650379]
           },
           condition: {
             and: [
@@ -3572,14 +3572,14 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "audience.ids": [5634562, 5653736],
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 345798,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "contact",
-            locationType: "view",
-            audienceIds: [5634562, 5653736],
-            offerIds: []
+            "activityId": 345798,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "contact",
+            "locationType": "view",
+            "audienceIds": [5634562, 5653736],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -3628,14 +3628,14 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "audience.ids": [5634562, 5653736],
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 345798,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 1,
-            locationName: "contact",
-            locationType: "view",
-            audienceIds: [5634562, 5653736],
-            offerIds: []
+            "activityId": 345798,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 1,
+            "locationName": "contact",
+            "locationType": "view",
+            "audienceIds": [5634562, 5653736],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -3662,7 +3662,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                     cssSelector: "#spa-content > P:nth-of-type(1)",
                     content: {
                       "background-color": "rgba(255,255,170,1)",
-                      priority: "important"
+                      "priority": "important"
                     }
                   }
                 ]
@@ -3686,14 +3686,14 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "audience.ids": [5634157, 5653736],
             "option.id": 4,
             "option.name": "Offer4",
-            activityId: 345798,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "contact",
-            locationType: "view",
-            audienceIds: [5634157, 5653736],
-            offerIds: []
+            "activityId": 345798,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "contact",
+            "locationType": "view",
+            "audienceIds": [5634157, 5653736],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -3742,14 +3742,14 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "audience.ids": [5634157, 5653736],
             "option.id": 5,
             "option.name": "Offer5",
-            activityId: 345798,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 1,
-            locationName: "contact",
-            locationType: "view",
-            audienceIds: [5634157, 5653736],
-            offerIds: []
+            "activityId": 345798,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 1,
+            "locationName": "contact",
+            "locationType": "view",
+            "audienceIds": [5634157, 5653736],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -3776,7 +3776,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                     cssSelector: "#spa-content > P:nth-of-type(1)",
                     content: {
                       "background-color": "rgba(170,255,255,1)",
-                      priority: "important"
+                      "priority": "important"
                     }
                   }
                 ]
@@ -3800,14 +3800,14 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "audience.ids": [5653736],
             "option.id": 6,
             "option.name": "Offer6",
-            activityId: 345798,
-            activityType: "ab",
-            experienceId: 2,
-            locationId: 0,
-            locationName: "contact",
-            locationType: "view",
-            audienceIds: [5653736],
-            offerIds: []
+            "activityId": 345798,
+            "activityType": "ab",
+            "experienceId": 2,
+            "locationId": 0,
+            "locationName": "contact",
+            "locationType": "view",
+            "audienceIds": [5653736],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -3851,14 +3851,14 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "audience.ids": [5653736],
             "option.id": 7,
             "option.name": "Offer7",
-            activityId: 345798,
-            activityType: "ab",
-            experienceId: 2,
-            locationId: 1,
-            locationName: "contact",
-            locationType: "view",
-            audienceIds: [5653736],
-            offerIds: []
+            "activityId": 345798,
+            "activityType": "ab",
+            "experienceId": 2,
+            "locationId": 1,
+            "locationName": "contact",
+            "locationType": "view",
+            "audienceIds": [5653736],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -3880,7 +3880,7 @@ export const DECISIONING_PAYLOAD_VIEWS = {
                     cssSelector: "#spa-content > P:nth-of-type(1)",
                     content: {
                       "background-color": "rgba(127,0,0,1)",
-                      priority: "important"
+                      "priority": "important"
                     }
                   }
                 ]
@@ -3906,14 +3906,14 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "audience.ids": [5653493, 5634562],
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 345782,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "home",
-            locationType: "view",
-            audienceIds: [5653493, 5634562],
-            offerIds: []
+            "activityId": 345782,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "home",
+            "locationType": "view",
+            "audienceIds": [5653493, 5634562],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -3969,14 +3969,14 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "audience.ids": [5653493, 5634562],
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 345782,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 1,
-            locationName: "home",
-            locationType: "view",
-            audienceIds: [5653493, 5634562],
-            offerIds: []
+            "activityId": 345782,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 1,
+            "locationName": "home",
+            "locationType": "view",
+            "audienceIds": [5653493, 5634562],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -4031,14 +4031,14 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "audience.ids": [5653493, 5634157],
             "option.id": 4,
             "option.name": "Offer4",
-            activityId: 345782,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 2,
-            locationName: "home",
-            locationType: "view",
-            audienceIds: [5653493, 5634157],
-            offerIds: []
+            "activityId": 345782,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 2,
+            "locationName": "home",
+            "locationType": "view",
+            "audienceIds": [5653493, 5634157],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -4094,14 +4094,14 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "audience.ids": [5653493, 5634157],
             "option.id": 5,
             "option.name": "Offer5",
-            activityId: 345782,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 3,
-            locationName: "home",
-            locationType: "view",
-            audienceIds: [5653493, 5634157],
-            offerIds: []
+            "activityId": 345782,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 3,
+            "locationName": "home",
+            "locationType": "view",
+            "audienceIds": [5653493, 5634157],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -4156,14 +4156,14 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "audience.ids": [5653493],
             "option.id": 6,
             "option.name": "Offer6",
-            activityId: 345782,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 4,
-            locationName: "home",
-            locationType: "view",
-            audienceIds: [5653493],
-            offerIds: []
+            "activityId": 345782,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 4,
+            "locationName": "home",
+            "locationType": "view",
+            "audienceIds": [5653493],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -4218,14 +4218,14 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "audience.ids": [5653493],
             "option.id": 7,
             "option.name": "Offer7",
-            activityId: 345782,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 5,
-            locationName: "home",
-            locationType: "view",
-            audienceIds: [5653493],
-            offerIds: []
+            "activityId": 345782,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 5,
+            "locationName": "home",
+            "locationType": "view",
+            "audienceIds": [5653493],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -4279,14 +4279,14 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "audience.ids": [5653493, 5634562],
             "option.id": 8,
             "option.name": "Offer8",
-            activityId: 345782,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "home",
-            locationType: "view",
-            audienceIds: [5653493, 5634562],
-            offerIds: []
+            "activityId": 345782,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "home",
+            "locationType": "view",
+            "audienceIds": [5653493, 5634562],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -4342,14 +4342,14 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "audience.ids": [5653493, 5634562],
             "option.id": 9,
             "option.name": "Offer9",
-            activityId: 345782,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 1,
-            locationName: "home",
-            locationType: "view",
-            audienceIds: [5653493, 5634562],
-            offerIds: []
+            "activityId": 345782,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 1,
+            "locationName": "home",
+            "locationType": "view",
+            "audienceIds": [5653493, 5634562],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -4404,14 +4404,14 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "audience.ids": [5653493, 5634157],
             "option.id": 10,
             "option.name": "Offer10",
-            activityId: 345782,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 2,
-            locationName: "home",
-            locationType: "view",
-            audienceIds: [5653493, 5634157],
-            offerIds: []
+            "activityId": 345782,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 2,
+            "locationName": "home",
+            "locationType": "view",
+            "audienceIds": [5653493, 5634157],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -4467,14 +4467,14 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "audience.ids": [5653493, 5634157],
             "option.id": 11,
             "option.name": "Offer11",
-            activityId: 345782,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 3,
-            locationName: "home",
-            locationType: "view",
-            audienceIds: [5653493, 5634157],
-            offerIds: []
+            "activityId": 345782,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 3,
+            "locationName": "home",
+            "locationType": "view",
+            "audienceIds": [5653493, 5634157],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -4529,14 +4529,14 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "audience.ids": [5653493],
             "option.id": 12,
             "option.name": "Offer12",
-            activityId: 345782,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 4,
-            locationName: "home",
-            locationType: "view",
-            audienceIds: [5653493],
-            offerIds: []
+            "activityId": 345782,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 4,
+            "locationName": "home",
+            "locationType": "view",
+            "audienceIds": [5653493],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -4591,14 +4591,14 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "audience.ids": [5653493],
             "option.id": 13,
             "option.name": "Offer13",
-            activityId: 345782,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 5,
-            locationName: "home",
-            locationType: "view",
-            audienceIds: [5653493],
-            offerIds: []
+            "activityId": 345782,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 5,
+            "locationName": "home",
+            "locationType": "view",
+            "audienceIds": [5653493],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -4652,14 +4652,14 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "audience.ids": [5653426],
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 345779,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "home",
-            locationType: "view",
-            audienceIds: [5653426],
-            offerIds: []
+            "activityId": 345779,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "home",
+            "locationType": "view",
+            "audienceIds": [5653426],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -4707,14 +4707,14 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "audience.ids": [5653426],
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 345779,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 1,
-            locationName: "home",
-            locationType: "view",
-            audienceIds: [5653426],
-            offerIds: []
+            "activityId": 345779,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 1,
+            "locationName": "home",
+            "locationType": "view",
+            "audienceIds": [5653426],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -4763,14 +4763,14 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "audience.ids": [5653426],
             "option.id": 4,
             "option.name": "Offer4",
-            activityId: 345779,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "home",
-            locationType: "view",
-            audienceIds: [5653426],
-            offerIds: []
+            "activityId": 345779,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "home",
+            "locationType": "view",
+            "audienceIds": [5653426],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -4818,14 +4818,14 @@ export const DECISIONING_PAYLOAD_VIEWS = {
             "audience.ids": [5653426],
             "option.id": 5,
             "option.name": "Offer5",
-            activityId: 345779,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 1,
-            locationName: "home",
-            locationType: "view",
-            audienceIds: [5653426],
-            offerIds: []
+            "activityId": 345779,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 1,
+            "locationName": "home",
+            "locationType": "view",
+            "audienceIds": [5653426],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -4938,14 +4938,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             "audience.ids": [5634157, 5652249],
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 345717,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5634157, 5652249],
-            offerIds: []
+            "activityId": 345717,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5634157, 5652249],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -5001,14 +5001,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             "audience.ids": [5634157, 5652249],
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 345717,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 1,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5634157, 5652249],
-            offerIds: []
+            "activityId": 345717,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 1,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5634157, 5652249],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -5063,14 +5063,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             "location.id": 2,
             "audience.ids": [5634157, 5652249],
             "option.id": 0,
-            activityId: 345717,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 2,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5634157, 5652249],
-            offerIds: []
+            "activityId": 345717,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 2,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5634157, 5652249],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -5114,14 +5114,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             "location.id": 3,
             "audience.ids": [5634157, 5652249],
             "option.id": 0,
-            activityId: 345717,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 3,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5634157, 5652249],
-            offerIds: []
+            "activityId": 345717,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 3,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5634157, 5652249],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -5165,14 +5165,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             "location.id": 0,
             "audience.ids": [5634562, 5652249],
             "option.id": 0,
-            activityId: 345717,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5634562, 5652249],
-            offerIds: []
+            "activityId": 345717,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5634562, 5652249],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -5217,14 +5217,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             "audience.ids": [5634562, 5652249],
             "option.id": 5,
             "option.name": "Offer5",
-            activityId: 345717,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 1,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5634562, 5652249],
-            offerIds: []
+            "activityId": 345717,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 1,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5634562, 5652249],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -5280,14 +5280,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             "audience.ids": [5634562, 5652249],
             "option.id": 4,
             "option.name": "Offer4",
-            activityId: 345717,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 2,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5634562, 5652249],
-            offerIds: []
+            "activityId": 345717,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 2,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5634562, 5652249],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -5342,14 +5342,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             "location.id": 3,
             "audience.ids": [5634562, 5652249],
             "option.id": 0,
-            activityId: 345717,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 3,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5634562, 5652249],
-            offerIds: []
+            "activityId": 345717,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 3,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5634562, 5652249],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -5393,14 +5393,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             "location.id": 0,
             "audience.ids": [5652249],
             "option.id": 0,
-            activityId: 345717,
-            activityType: "ab",
-            experienceId: 2,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5652249],
-            offerIds: []
+            "activityId": 345717,
+            "activityType": "ab",
+            "experienceId": 2,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5652249],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -5440,14 +5440,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             "audience.ids": [5652249],
             "option.id": 7,
             "option.name": "Offer7",
-            activityId: 345717,
-            activityType: "ab",
-            experienceId: 2,
-            locationId: 1,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5652249],
-            offerIds: []
+            "activityId": 345717,
+            "activityType": "ab",
+            "experienceId": 2,
+            "locationId": 1,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5652249],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -5497,14 +5497,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             "location.id": 2,
             "audience.ids": [5652249],
             "option.id": 0,
-            activityId: 345717,
-            activityType: "ab",
-            experienceId: 2,
-            locationId: 2,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5652249],
-            offerIds: []
+            "activityId": 345717,
+            "activityType": "ab",
+            "experienceId": 2,
+            "locationId": 2,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5652249],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -5544,14 +5544,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_XT = {
             "audience.ids": [5652249],
             "option.id": 6,
             "option.name": "Offer6",
-            activityId: 345717,
-            activityType: "ab",
-            experienceId: 2,
-            locationId: 3,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5652249],
-            offerIds: []
+            "activityId": 345717,
+            "activityType": "ab",
+            "experienceId": 2,
+            "locationId": 3,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5652249],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -5668,14 +5668,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             "audience.ids": [5639015, 5634157],
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 345139,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5639015, 5634157],
-            offerIds: []
+            "activityId": 345139,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5639015, 5634157],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -5732,14 +5732,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             "audience.ids": [5639015, 5634157],
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 345139,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 1,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5639015, 5634157],
-            offerIds: []
+            "activityId": 345139,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 1,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5639015, 5634157],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -5769,7 +5769,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
                       "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
                     content: {
                       "background-color": "rgba(127,255,0,1)",
-                      priority: "important"
+                      "priority": "important"
                     }
                   }
                 ]
@@ -5799,14 +5799,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             "audience.ids": [5639015, 5634562],
             "option.id": 4,
             "option.name": "Offer4",
-            activityId: 345139,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 2,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5639015, 5634562],
-            offerIds: []
+            "activityId": 345139,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 2,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5639015, 5634562],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -5863,14 +5863,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             "audience.ids": [5639015, 5634562],
             "option.id": 5,
             "option.name": "Offer5",
-            activityId: 345139,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 3,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5639015, 5634562],
-            offerIds: []
+            "activityId": 345139,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 3,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5639015, 5634562],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -5900,7 +5900,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
                       "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
                     content: {
                       "background-color": "rgba(170,255,255,1)",
-                      priority: "important"
+                      "priority": "important"
                     }
                   }
                 ]
@@ -5930,14 +5930,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             "audience.ids": [5639015],
             "option.id": 6,
             "option.name": "Offer6",
-            activityId: 345139,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 4,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5639015],
-            offerIds: []
+            "activityId": 345139,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 4,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5639015],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -5993,14 +5993,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             "location.id": 5,
             "audience.ids": [5639015, 5634157],
             "option.id": 0,
-            activityId: 345139,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 5,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5639015, 5634157],
-            offerIds: []
+            "activityId": 345139,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 5,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5639015, 5634157],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -6045,14 +6045,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             "location.id": 6,
             "audience.ids": [5639015, 5634157],
             "option.id": 0,
-            activityId: 345139,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 6,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5639015, 5634157],
-            offerIds: []
+            "activityId": 345139,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 6,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5639015, 5634157],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -6097,14 +6097,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             "location.id": 7,
             "audience.ids": [5639015, 5634562],
             "option.id": 0,
-            activityId: 345139,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 7,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5639015, 5634562],
-            offerIds: []
+            "activityId": 345139,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 7,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5639015, 5634562],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -6149,14 +6149,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             "location.id": 8,
             "audience.ids": [5639015, 5634562],
             "option.id": 0,
-            activityId: 345139,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 8,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5639015, 5634562],
-            offerIds: []
+            "activityId": 345139,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 8,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5639015, 5634562],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -6201,14 +6201,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             "location.id": 0,
             "audience.ids": [5639015, 5634157],
             "option.id": 0,
-            activityId: 345139,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5639015, 5634157],
-            offerIds: []
+            "activityId": 345139,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5639015, 5634157],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -6253,14 +6253,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             "location.id": 1,
             "audience.ids": [5639015, 5634157],
             "option.id": 0,
-            activityId: 345139,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 1,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5639015, 5634157],
-            offerIds: []
+            "activityId": 345139,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 1,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5639015, 5634157],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -6305,14 +6305,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             "location.id": 2,
             "audience.ids": [5639015, 5634562],
             "option.id": 0,
-            activityId: 345139,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 2,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5639015, 5634562],
-            offerIds: []
+            "activityId": 345139,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 2,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5639015, 5634562],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -6357,14 +6357,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             "location.id": 3,
             "audience.ids": [5639015, 5634562],
             "option.id": 0,
-            activityId: 345139,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 3,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5639015, 5634562],
-            offerIds: []
+            "activityId": 345139,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 3,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5639015, 5634562],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -6410,14 +6410,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             "audience.ids": [5639015],
             "option.id": 11,
             "option.name": "Offer11",
-            activityId: 345139,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 4,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5639015],
-            offerIds: []
+            "activityId": 345139,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 4,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5639015],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -6474,14 +6474,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             "audience.ids": [5639015, 5634157],
             "option.id": 7,
             "option.name": "Offer7",
-            activityId: 345139,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 5,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5639015, 5634157],
-            offerIds: []
+            "activityId": 345139,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 5,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5639015, 5634157],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -6538,14 +6538,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             "audience.ids": [5639015, 5634157],
             "option.id": 8,
             "option.name": "Offer8",
-            activityId: 345139,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 6,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5639015, 5634157],
-            offerIds: []
+            "activityId": 345139,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 6,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5639015, 5634157],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -6601,14 +6601,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             "audience.ids": [5639015, 5634562],
             "option.id": 9,
             "option.name": "Offer9",
-            activityId: 345139,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 7,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5639015, 5634562],
-            offerIds: []
+            "activityId": 345139,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 7,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5639015, 5634562],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -6665,14 +6665,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             "audience.ids": [5639015, 5634562],
             "option.id": 10,
             "option.name": "Offer10",
-            activityId: 345139,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 8,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5639015, 5634562],
-            offerIds: []
+            "activityId": 345139,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 8,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5639015, 5634562],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -6728,14 +6728,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             "audience.ids": [5614593],
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 344512,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5614593],
-            offerIds: []
+            "activityId": 344512,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5614593],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -6797,14 +6797,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             "audience.ids": [5614593],
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 344512,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 1,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5614593],
-            offerIds: []
+            "activityId": 344512,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 1,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5614593],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -6836,7 +6836,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
                     cssSelector: "#action_insert_15882850825432970",
                     content: {
                       "background-color": "rgba(255,255,170,1)",
-                      priority: "important"
+                      "priority": "important"
                     }
                   }
                 ]
@@ -6865,14 +6865,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             "location.id": 2,
             "audience.ids": [5614593],
             "option.id": 0,
-            activityId: 344512,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 2,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5614593],
-            offerIds: []
+            "activityId": 344512,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 2,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5614593],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -6922,14 +6922,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             "audience.ids": [5614593],
             "option.id": 4,
             "option.name": "Offer4",
-            activityId: 344512,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5614593],
-            offerIds: []
+            "activityId": 344512,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5614593],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -6990,14 +6990,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             "location.id": 1,
             "audience.ids": [5614593],
             "option.id": 0,
-            activityId: 344512,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 1,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5614593],
-            offerIds: []
+            "activityId": 344512,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 1,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5614593],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -7047,14 +7047,14 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
             "audience.ids": [5614593],
             "option.id": 5,
             "option.name": "Offer5",
-            activityId: 344512,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 2,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [5614593],
-            offerIds: []
+            "activityId": 344512,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 2,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [5614593],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -7086,7 +7086,7 @@ export const DECISIONING_PAYLOAD_PAGELOAD_VEC_AB = {
                     cssSelector: "#action_insert_15882853393943012",
                     content: {
                       "background-color": "rgba(86,255,86,1)",
-                      priority: "important"
+                      "priority": "important"
                     }
                   }
                 ]
@@ -7183,14 +7183,14 @@ export const DECISIONING_PAYLOAD_CAMPAIGN_MACROS = {
             "audience.ids": [6050517],
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 362225,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [6050517],
-            offerIds: []
+            "activityId": 362225,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [6050517],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -7240,14 +7240,14 @@ export const DECISIONING_PAYLOAD_CAMPAIGN_MACROS = {
             "audience.ids": [6050517],
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 362225,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 1,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [6050517],
-            offerIds: []
+            "activityId": 362225,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 1,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [6050517],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -7297,14 +7297,14 @@ export const DECISIONING_PAYLOAD_CAMPAIGN_MACROS = {
             "audience.ids": [6050517],
             "option.id": 4,
             "option.name": "Offer4",
-            activityId: 362225,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 2,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [6050517],
-            offerIds: []
+            "activityId": 362225,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 2,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [6050517],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -7354,14 +7354,14 @@ export const DECISIONING_PAYLOAD_CAMPAIGN_MACROS = {
             "audience.ids": [6050517],
             "option.id": 5,
             "option.name": "Offer5",
-            activityId: 362225,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 3,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [6050517],
-            offerIds: []
+            "activityId": 362225,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 3,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [6050517],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -7411,14 +7411,14 @@ export const DECISIONING_PAYLOAD_CAMPAIGN_MACROS = {
             "audience.ids": [6050517],
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 362225,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [6050517],
-            offerIds: []
+            "activityId": 362225,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [6050517],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -7468,14 +7468,14 @@ export const DECISIONING_PAYLOAD_CAMPAIGN_MACROS = {
             "audience.ids": [6050517],
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 362225,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 1,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [6050517],
-            offerIds: []
+            "activityId": 362225,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 1,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [6050517],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -7525,14 +7525,14 @@ export const DECISIONING_PAYLOAD_CAMPAIGN_MACROS = {
             "audience.ids": [6050517],
             "option.id": 4,
             "option.name": "Offer4",
-            activityId: 362225,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 2,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [6050517],
-            offerIds: []
+            "activityId": 362225,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 2,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [6050517],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -7582,14 +7582,14 @@ export const DECISIONING_PAYLOAD_CAMPAIGN_MACROS = {
             "audience.ids": [6050517],
             "option.id": 6,
             "option.name": "Offer6",
-            activityId: 362225,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 3,
-            locationName: "target-global-mbox",
-            locationType: "view",
-            audienceIds: [6050517],
-            offerIds: []
+            "activityId": 362225,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 3,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [6050517],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -7625,7 +7625,7 @@ export const DECISIONING_PAYLOAD_CAMPAIGN_MACROS = {
           }
         }
       ],
-      macros: [
+      "macros": [
         {
           ruleKey: "362147",
           activityId: 362147,
@@ -7644,14 +7644,14 @@ export const DECISIONING_PAYLOAD_CAMPAIGN_MACROS = {
               "/campaign_macros/experiences/0/pages/0/zones/0/1599065324791",
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 362147,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "macros",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [667871]
+            "activityId": 362147,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "macros",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [667871]
           },
           condition: { "<": [0, { var: "allocation" }, 50] },
           consequence: {
@@ -7686,14 +7686,14 @@ export const DECISIONING_PAYLOAD_CAMPAIGN_MACROS = {
               "/campaign_macros/experiences/1/pages/0/zones/0/1599065324776",
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 362147,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "macros",
-            locationType: "mbox",
-            audienceIds: [],
-            offerIds: [667870]
+            "activityId": 362147,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "macros",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [667870]
           },
           condition: { "<": [50, { var: "allocation" }, 100] },
           consequence: {
@@ -7729,14 +7729,14 @@ export const DECISIONING_PAYLOAD_CAMPAIGN_MACROS = {
             "audience.ids": [6050872],
             "option.id": 2,
             "option.name": "Offer2",
-            activityId: 362237,
-            activityType: "ab",
-            experienceId: 0,
-            locationId: 0,
-            locationName: "contact",
-            locationType: "view",
-            audienceIds: [6050872],
-            offerIds: []
+            "activityId": 362237,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "contact",
+            "locationType": "view",
+            "audienceIds": [6050872],
+            "offerIds": []
           },
           condition: {
             and: [
@@ -7785,14 +7785,14 @@ export const DECISIONING_PAYLOAD_CAMPAIGN_MACROS = {
             "audience.ids": [6050872],
             "option.id": 3,
             "option.name": "Offer3",
-            activityId: 362237,
-            activityType: "ab",
-            experienceId: 1,
-            locationId: 0,
-            locationName: "contact",
-            locationType: "view",
-            audienceIds: [6050872],
-            offerIds: []
+            "activityId": 362237,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "contact",
+            "locationType": "view",
+            "audienceIds": [6050872],
+            "offerIds": []
           },
           condition: {
             and: [

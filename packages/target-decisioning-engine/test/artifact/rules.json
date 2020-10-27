@@ -1,73 +1,935 @@
-{"version":"1.0.0","meta":{"clientCode":"targettesting","environment":"production","generatedAt":"2020-08-01T05:48:44.644Z"},"globalMbox":"target-global-mbox","geoTargetingEnabled":true,"responseTokens":["experience.id","offer.name","activity.name","geo.city","activity.id","geo.state","experience.name","option.name","option.id","offer.id","geo.country"],"remoteMboxes":[],"remoteViews":[],"localMboxes":["target-global-mbox"],"localViews":[],"rules":{"mboxes":{"target-global-mbox":[{"ruleKey":"119280-0","activityId":119280,"meta":{"activity.id":119280,"activity.name":"browser icon","activity.type":"landing","experience.id":0,"experience.name":"Experience A","location.name":"target-global-mbox","location.type":"view","location.id":0,"audience.ids":[1750991,1751424],"option.id":2,"option.name":"Offer2","activityId":119280,"activityType":"landing","experienceId":0,"locationId":0,"locationName":"target-global-mbox","locationType":"view","audienceIds":[1750991,1751424],"offerIds":[]},"condition":{"and":[{"==":[{"var":"user.browserType"},"safari"]},{"and":[{"==":["target-perf-site.netlify.app",{"var":"page.domain"}]},{"==":["/",{"var":"page.path"}]}]}]},"consequence":{"name":"target-global-mbox","options":[{"type":"actions","eventToken":"kkMyBLVeMK3bm9bSd+mWkWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==","content":[{
-  "type": "insertAfter",
-  "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > IMG.img-responsive:eq(0)",
-  "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > MAIN:nth-of-type(1) > SECTION:nth-of-type(1) > DIV:nth-of-type(2) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > IMG:nth-of-type(1)",
-  "content": "<div id=\"action_insert_1596060322140763\"><br>\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 48 48\" width=\"48px\" height=\"48px\"><path fill=\"#cfd8dc\" d=\"M44,24c0,11.044-8.956,20-20,20S4,35.044,4,24S12.956,4,24,4S44,12.956,44,24z\"></path><path fill=\"#448aff\" d=\"M41,24c0,9.391-7.609,17-17,17S7,33.391,7,24S14.609,7,24,7S41,14.609,41,24z\"></path><path fill=\"#ff3d00\" d=\"M21.898,21.898l4.203,4.203l9.199-13.402L21.898,21.898z\"></path><path fill=\"#bf360c\" d=\"M24,24l11.301-11.301l-9.199,13.402L24,24z\"></path><path fill=\"#fff\" d=\"M21.898,21.898l-9.199,13.402l13.402-9.199L21.898,21.898z\"></path><path fill=\"#bdbdbd\" d=\"M24,24L12.699,35.301l13.402-9.199L24,24z\"></path><path fill=\"#bbdefb\" d=\"M17.102,10.699c0.598-0.301,1.199-0.598,1.797-0.801l1.203,2.703l-1.801,0.797L17.102,10.699z M36,25h2.898c0-0.301,0.102-0.699,0.102-1s0-0.699-0.102-1H36V25z M12.699,14.102l2.102,2.098l1.398-1.398l-2.098-2.102C13.602,13.199,13.199,13.602,12.699,14.102z M25,9.102C24.699,9,24.301,9,24,9s-0.699,0-1,0.102V12h2V9.102z M30.398,10.5c-0.598-0.301-1.199-0.5-1.898-0.699l-1.102,2.801l1.902,0.699L30.398,10.5z M12.5,20.5l0.699-1.898L10.5,17.5c-0.301,0.602-0.5,1.199-0.699,1.898L12.5,20.5z M12,23H9.102C9,23.301,9,23.699,9,24s0,0.699,0.102,1H12V23z M35.5,27.5l-0.699,1.898L37.5,30.5c0.301-0.602,0.5-1.199,0.699-1.898L35.5,27.5z M38.102,18.898c-0.203-0.598-0.5-1.199-0.801-1.797l-2.699,1.199l0.797,1.801L38.102,18.898z M35.301,33.898l-2.102-2.098l-1.398,1.398l2.098,2.102C34.398,34.801,34.801,34.398,35.301,33.898z M13.398,29.699l-0.797-1.801l-2.703,1.203c0.203,0.598,0.5,1.199,0.801,1.797L13.398,29.699z M29.699,34.602l-1.801,0.797l1.203,2.703c0.598-0.203,1.199-0.5,1.797-0.801L29.699,34.602z M20.5,35.5l-1.898-0.699L17.5,37.5c0.602,0.301,1.199,0.5,1.898,0.699L20.5,35.5z M25,38.898V36h-2v2.898c0.301,0,0.699,0.102,1,0.102S24.699,39,25,38.898z\"></path></svg></div>"
-}
-]}],"metrics":[{"type":"click","selector":"HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV.group:eq(0) > A.btn:eq(1)","eventToken":"a0PY0dWsFLz82rhSGa8fOQ=="}]},"propertyTokens":["be92ac4c-e72f-9f82-2a80-2c211ea86578","693de2cd-ac92-d2c7-59fc-a3c0f2bce646"]},{"ruleKey":"119280-0","activityId":119280,"meta":{"activity.id":119280,"activity.name":"browser icon","activity.type":"landing","experience.id":1,"experience.name":"Experience B","location.name":"target-global-mbox","location.type":"view","location.id":0,"audience.ids":[1750975,1751424],"option.id":3,"option.name":"Offer3","activityId":119280,"activityType":"landing","experienceId":1,"locationId":0,"locationName":"target-global-mbox","locationType":"view","audienceIds":[1750975,1751424],"offerIds":[]},"condition":{"and":[{"==":[{"var":"user.browserType"},"firefox"]},{"and":[{"==":["target-perf-site.netlify.app",{"var":"page.domain"}]},{"==":["/",{"var":"page.path"}]}]}]},"consequence":{"name":"target-global-mbox","options":[{"type":"actions","eventToken":"kkMyBLVeMK3bm9bSd+mWkZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==","content":[{
-  "type": "insertAfter",
-  "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > IMG.img-responsive:eq(0)",
-  "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > MAIN:nth-of-type(1) > SECTION:nth-of-type(1) > DIV:nth-of-type(2) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > IMG:nth-of-type(1)",
-  "content": "<div id=\"action_insert_15960603635191072\"><br>\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 48 48\" width=\"48px\" height=\"48px\"><path fill=\"#01579B\" d=\"M24 5A19 19 0 1 0 24 43A19 19 0 1 0 24 5Z\"></path><path fill=\"#0277BD\" d=\"M34,20.8c0-0.6,0-2.9-1.5-4.7c-0.1-0.1-0.2-0.3-0.2-0.4c-0.1-0.1-0.1-0.2-0.2-0.4L31.9,15l-0.2-0.3c-0.2-0.3-0.3-0.5-0.3-0.5c-0.4-0.6-0.5-1.4-0.1-2.1c0.1-0.2,0.3-0.4,0.4-0.6c-0.1-0.1-0.2-0.2-0.3-0.2c0,0,0,0-0.1,0c-0.3-0.2-0.6-0.4-0.8-0.6l-0.7-0.5l0,0C29.3,9.9,29,9.8,29,9.7c-0.7-0.4-1.1-1.1-1-1.9c0.1-0.8,0.6-1.5,1.4-1.7c0.1,0,0.3-0.1,0.5-0.1c0,0,0,0-0.1-0.1C28,5.3,26,5,24,5C16.6,5,10.1,9.3,7,15.5c0,0.2,0,0.3,0,0.5c0,7.2,6.3,13,14,13C26.9,29,31.9,25.6,34,20.8z\"></path><path fill=\"#FFF176\" d=\"M30,8c0,0,0.3-0.1,0.9-0.1c0.3,0,0.6,0,1,0c0.4,0,0.8,0.1,1.3,0.2c0.5,0.1,1,0.3,1.5,0.5c0.5,0.2,1.1,0.5,1.6,0.9c0.5,0.3,1,0.8,1.5,1.2c0.5,0.4,0.9,1,1.3,1.5c0.3,0.6,0.7,1.1,1,1.7c0.3,0.6,0.5,1.2,0.7,1.8c0.2,0.6,0.3,1.2,0.4,1.7c0.1,0.6,0.1,1.1,0.1,1.5c0,0.2,0,0.5,0,0.7c0,0.2,0,0.4-0.1,0.6c0,0.4-0.1,0.7-0.1,1C41.1,21.7,41,22,41,22s-0.2-0.3-0.4-0.8c-0.1-0.2-0.3-0.5-0.4-0.9c-0.1-0.3-0.3-0.7-0.5-1.1c-0.2-0.4-0.4-0.8-0.6-1.3c-0.2-0.4-0.5-0.9-0.7-1.4c-0.2-0.5-0.5-0.9-0.8-1.4c-0.3-0.5-0.6-0.9-0.9-1.3c-0.3-0.4-0.6-0.9-1-1.2c-0.4-0.4-0.7-0.8-1.1-1.1c-0.3-0.4-0.7-0.7-1.1-1c-0.4-0.3-0.7-0.6-1.1-0.8c-0.3-0.3-0.7-0.5-1-0.7c-0.3-0.2-0.6-0.4-0.8-0.5C30.3,8.2,30,8,30,8z\"></path><path fill=\"#FDD835\" d=\"M43.1,17.6c-0.3-2.2-1.2-4.2-2.2-5.6c-0.5-0.7-1-1.2-1.3-1.5C39.2,10.2,39,10,39,10s0,0.3,0.1,0.8c0.1,0.5,0.1,1.1,0.2,1.9c0.1,0.4,0.1,0.8,0.2,1.2c-0.4-0.6-0.9-1.2-1.4-1.6c-0.5-0.5-1.1-0.8-1.4-1C36.2,11.1,36,11,36,11s0.1,0.2,0.2,0.6c0.1,0.4,0.3,0.9,0.5,1.6c0.2,0.7,0.5,1.6,0.8,2.5c-0.6-0.7-1.2-1.3-1.8-1.7c-0.7-0.4-1.3-0.7-1.8-0.8C33.3,13,33,13,33,13s0.2,0.2,0.4,0.6c0.1,0.2,0.3,0.4,0.4,0.7c0.2,0.3,0.3,0.6,0.5,0.9c0.3,0.6,0.7,1.3,1,2.1c0.2,0.4,0.3,0.8,0.5,1.2c0.1,0.4,0.4,0.8,0.5,1.3c0.2,0.4,0.3,0.8,0.5,1.3c0.1,0.4,0.3,0.8,0.4,1.3c0.1,0.4,0.3,0.8,0.4,1.2c0.1,0.4,0.2,0.8,0.4,1.1c0.3,0.7,0.5,1.3,0.7,1.7C38.9,26.8,39,27,39,27s0.1-0.2,0.3-0.7c0.1-0.2,0.2-0.5,0.2-0.8c0.1-0.3,0.2-0.7,0.2-1.1c0-0.3,0.1-0.6,0.1-0.9C39.9,23.8,40,24,40,24s0.1-0.2,0.3-0.6c0.1-0.2,0.2-0.4,0.3-0.7c0,0,0-0.1,0-0.1c0,0.2,0,0.5,0.1,0.7c0,0.4,0.1,0.7,0.1,1c0,0.3,0,0.6,0,0.9c0,0.5,0.1,0.8,0.1,0.8s0.2-0.2,0.5-0.6c0.1-0.2,0.3-0.4,0.5-0.7c0.2-0.3,0.3-0.6,0.5-1c0.2-0.4,0.3-0.8,0.4-1.3c0.1-0.5,0.2-1,0.3-1.5c0.1-0.5,0.1-1.1,0.1-1.6C43.3,18.7,43.2,18.1,43.1,17.6z\"></path><path fill=\"#FFB300\" d=\"M44.1,19.8C44.1,19.3,44,19,44,19s-0.2,0.3-0.5,0.7c-0.3,0.5-0.6,1.1-1,1.9c-0.3,0.7-0.7,1.5-1.1,2.3c0-0.8,0-1.5-0.1-2.2c-0.1-0.6-0.2-1.1-0.3-1.6c-0.2-0.5-0.3-1-0.5-1.4c-0.3-0.9-0.7-1.5-1-2C39.2,16.2,39,16,39,16s-0.1,1.2-0.1,3c0,0.9-0.1,1.8-0.2,2.9c0,0.5-0.1,1-0.1,1.6c0,0.5-0.1,1.1-0.2,1.6c0,0.1,0,0.3,0,0.4c-0.1-0.9-0.4-1.8-0.8-2.4c-0.3-0.7-0.7-1.2-1-1.5C36.2,21.1,36,21,36,21s0,0.3,0,0.7c0,0.4,0,1-0.1,1.7c-0.1,1.3-0.3,3-0.5,4.6c-0.1,0.4-0.2,0.8-0.2,1.2c-0.1,0.4-0.2,0.8-0.2,1.2c-0.1,0.4-0.2,0.8-0.3,1.1c-0.1,0.4-0.2,0.7-0.2,1c-0.1,0.3-0.1,0.7-0.2,0.9c-0.1,0.3-0.1,0.5-0.2,0.8C34,34.7,34,35,34,35s0.2-0.1,0.6-0.4c0.4-0.3,0.9-0.6,1.4-1.2c0.2-0.3,0.5-0.6,0.8-1c0.2-0.4,0.5-0.7,0.7-1.1c0,0.3-0.1,0.6-0.1,0.9c-0.1,0.3-0.1,0.7-0.2,0.9C37,33.7,37,34,37,34c0.1-0.1,0.4,0,0.7,0.1c0,0.1-0.1,0.2-0.1,0.2c-0.1,0.3-0.2,0.6-0.3,0.9C37.1,35.7,37,36,37,36s0.3-0.1,0.7-0.4c0.2-0.2,0.5-0.3,0.8-0.6c0.3-0.2,0.6-0.5,0.9-0.9c0.3-0.3,0.6-0.7,1-1.1c0.3-0.4,0.6-0.9,0.9-1.4c0.6-1,1.1-2.1,1.5-3.2c0.4-1.1,0.8-2.3,1-3.4c0.2-1.1,0.3-2.1,0.4-3C44.2,21.1,44.2,20.4,44.1,19.8z\"></path><path fill=\"#FF9800\" d=\"M41.4,30.4c-0.4,0.2-0.8,0.6-1.4,1c-0.8,0.6-1.7,1.4-2.6,2.3c0.1-0.3,0.3-0.6,0.4-0.9c0.3-0.9,0.4-1.7,0.5-2.4c0-0.7,0-1.3-0.1-1.7C38.1,28.2,38,28,38,28s-0.2,0.2-0.4,0.5c-0.2,0.3-0.6,0.8-1,1.3c-0.4,0.5-0.8,1.2-1.2,1.8c-0.1,0.1-0.1,0.2-0.2,0.3c0.2-0.6,0.2-1.3,0.2-1.9c0-0.8-0.2-1.6-0.4-2.2c-0.2-0.6-0.5-1.1-0.7-1.4C34.2,26.2,34,26,34,26s-0.1,0.2-0.2,0.6c-0.1,0.3-0.3,0.8-0.5,1.4c-0.2,0.5-0.3,1.1-0.5,1.8c-0.1,0.3-0.2,0.6-0.3,1c-0.1,0.3-0.2,0.6-0.3,0.8c-1.9,1.9-4.2,2.4-6.4,2.5c-1.2,0-2.3-0.2-3.3-0.5c0,0,0,0,0,0c0,0,0,0,0,0c-1.5-0.5-2.9-1.4-4.2-2.6c1.9,0.2,3.7-0.2,5.2-0.9l2.5-1.6l0,0c0.3-0.1,0.6-0.1,0.9,0c0.6-0.1,0.8-0.4,0.6-1c-0.3-0.4-0.8-0.8-1.3-1.1c-1.3-0.7-2.6-0.6-4,0.3c-1.3,0.7-2.5,0.6-3.8-0.1c-3.1-1.6-1.9-5.7,1.4-3.6c0.2-1-0.1-2.1-0.7-3.2c0,0,0,0,0,0c-2.9-5.3,0.4-9.6,1.5-10.3c-2,0.2-3.8,1.1-5.4,2.6C4.9,10.9,4,20.9,4,21l1.2-1.1c-0.4,1.1-0.7,2.2-0.8,3.4C4,27.2,5.1,31,7.7,34.8C11.7,39.9,18,43,24,43c6.8,0,11.2-2.5,14.1-5.7c0.2-0.2,0.4-0.4,0.6-0.6c0.6-0.7,1.2-1.4,1.7-2.2c0.5-0.7,0.8-1.5,1.1-2.2c0.2-0.7,0.4-1.3,0.5-1.7C42,30.3,42,30,42,30S41.8,30.1,41.4,30.4z\"></path><path fill=\"#EF6C00\" d=\"M12,28c-0.2-7,4.3-6.4,6.6-5.6C17,22.1,16.3,23.6,17,25C16.7,25,13.6,24.7,12,28z M18.3,30.9c1.9,0.2,3.7-0.2,5.2-0.9l2.5-1.6l0,0c0.2-0.1,0.5-0.1,0.7,0l0,0c-2.9-1.7-6,1.9-12.8,0.8C15.6,30.5,18.3,30.9,18.3,30.9z M18.1,14.5c-0.2,1.5,0.1,3.3,1.1,5.2c0,0,0,0,0,0c0,0,0,0,0,0C20.6,18.9,22,18,22,18s2-2,0-2C20.1,16,18.8,15.2,18.1,14.5z M10.3,12.4C9.4,11.6,8,10,8,8c0,0-2.4,3.9-1.5,7C7.4,13.9,8.7,13,10.3,12.4z\"></path><path fill=\"#FFCC80\" d=\"M19.2,19.7C19.2,19.7,19.2,19.7,19.2,19.7C19.2,19.7,19.2,19.7,19.2,19.7C20.6,18.9,22,18,22,18s0.2-0.2,0.4-0.4L22,17h-3.8C18.4,17.9,18.7,18.8,19.2,19.7z\"></path><path fill=\"#5D4037\" d=\"M22,16c-0.3,0-0.6,0-0.9-0.1L21,16c0,0,0.8,1.3,1,2C22,18,24,16,22,16z\"></path></svg></div>"
-}
-]}],"metrics":[{"type":"click","selector":"HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV.group:eq(0) > A.btn:eq(1)","eventToken":"a0PY0dWsFLz82rhSGa8fOQ=="}]},"propertyTokens":["be92ac4c-e72f-9f82-2a80-2c211ea86578","693de2cd-ac92-d2c7-59fc-a3c0f2bce646"]},{"ruleKey":"119280-0","activityId":119280,"meta":{"activity.id":119280,"activity.name":"browser icon","activity.type":"landing","experience.id":2,"experience.name":"Experience C","location.name":"target-global-mbox","location.type":"view","location.id":0,"audience.ids":[1751423,1751424],"option.id":4,"option.name":"Offer4","activityId":119280,"activityType":"landing","experienceId":2,"locationId":0,"locationName":"target-global-mbox","locationType":"view","audienceIds":[1751423,1751424],"offerIds":[]},"condition":{"and":[{"==":[{"var":"user.browserType"},"ie"]},{"and":[{"==":["target-perf-site.netlify.app",{"var":"page.domain"}]},{"==":["/",{"var":"page.path"}]}]}]},"consequence":{"name":"target-global-mbox","options":[{"type":"actions","eventToken":"kkMyBLVeMK3bm9bSd+mWkQreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==","content":[{
-  "type": "insertAfter",
-  "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > IMG.img-responsive:eq(0)",
-  "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > MAIN:nth-of-type(1) > SECTION:nth-of-type(1) > DIV:nth-of-type(2) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > IMG:nth-of-type(1)",
-  "content": "<div id=\"action_insert_15960604076111209\"><br>\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 48 48\" width=\"48px\" height=\"48px\"><path fill=\"#29B6F6\" d=\"M29.4,8.4c1.1-0.7,5.3-3.3,8.8-3.3c6.6,0,3.5,7.7,3.5,7.7l0.2,0.2C45.7,3.3,38.4,4,38.4,4c-4.1,0-9.3,3.4-10.4,4.2c-1-0.1-2-0.2-3.1-0.2C9.7,8,7.4,19.6,7.1,23C7,23.5,7,23.8,7,23.8c0,0,0,0,0,0C7,23.9,7,24,7,24c0-0.1,0-0.2,0-0.3c6.1-8.7,14.5-12.2,14.5-12.2v0.6C9,20.6,6,33.2,5.3,35.7C4.5,38.3,5,44,10.3,44s10.4-4.2,10.4-4.2S21.9,40,25,40c13.2,0,16.7-12,16.7-12H30c0,0-1.2,4-5.4,4c-5.8,0-5.6-6-5.6-6h23c0.4-5.5-1.1-9.3-3.3-11.9C36.9,11.5,34,9.3,29.4,8.4z M20,39.6c0,0-7.8,4.9-11.4,1.5c-1.9-3.4,1.2-8.2,1.2-8.2S12.2,37.8,20,39.6z M18.8,10.3C18.8,10.3,18.7,10.3,18.8,10.3L18.8,10.3L18.8,10.3z M19,21c0,0-0.1-5,5.5-5c5.4,0,5.5,5,5.5,5H19z\"></path></svg></div>"
-}
-]}],"metrics":[{"type":"click","selector":"HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV.group:eq(0) > A.btn:eq(1)","eventToken":"a0PY0dWsFLz82rhSGa8fOQ=="}]},"propertyTokens":["be92ac4c-e72f-9f82-2a80-2c211ea86578","693de2cd-ac92-d2c7-59fc-a3c0f2bce646"]},{"ruleKey":"119280-0","activityId":119280,"meta":{"activity.id":119280,"activity.name":"browser icon","activity.type":"landing","experience.id":3,"experience.name":"Experience D","location.name":"target-global-mbox","location.type":"view","location.id":0,"audience.ids":[1750953,1751424],"option.id":5,"option.name":"Offer5","activityId":119280,"activityType":"landing","experienceId":3,"locationId":0,"locationName":"target-global-mbox","locationType":"view","audienceIds":[1750953,1751424],"offerIds":[]},"condition":{"and":[{"==":[{"var":"user.browserType"},"chrome"]},{"and":[{"==":["target-perf-site.netlify.app",{"var":"page.domain"}]},{"==":["/",{"var":"page.path"}]}]}]},"consequence":{"name":"target-global-mbox","options":[{"type":"actions","eventToken":"kkMyBLVeMK3bm9bSd+mWkZZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==","content":[{
-  "type": "insertAfter",
-  "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > IMG.img-responsive:eq(0)",
-  "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > MAIN:nth-of-type(1) > SECTION:nth-of-type(1) > DIV:nth-of-type(2) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > IMG:nth-of-type(1)",
-  "content": "<div id=\"action_insert_15960604422991312\"><br>\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 48 48\" width=\"48px\" height=\"48px\"><path fill=\"#fff\" d=\"M34,24c0,5.521-4.479,10-10,10s-10-4.479-10-10s4.479-10,10-10S34,18.479,34,24z\"></path><linearGradient id=\"Pax8JcnMzivu8f~SZ~k1ya\" x1=\"5.789\" x2=\"31.324\" y1=\"34.356\" y2=\"20.779\" gradientTransform=\"matrix(1 0 0 -1 0 50)\" gradientUnits=\"userSpaceOnUse\"><stop offset=\"0\" stop-color=\"#4caf50\"></stop><stop offset=\".489\" stop-color=\"#4aaf50\"></stop><stop offset=\".665\" stop-color=\"#43ad50\"></stop><stop offset=\".79\" stop-color=\"#38aa50\"></stop><stop offset=\".892\" stop-color=\"#27a550\"></stop><stop offset=\".978\" stop-color=\"#11a050\"></stop><stop offset=\"1\" stop-color=\"#0a9e50\"></stop></linearGradient><path fill=\"url(#Pax8JcnMzivu8f~SZ~k1ya)\" d=\"M31.33,29.21l-8.16,14.77C12.51,43.55,4,34.76,4,24C4,12.96,12.96,4,24,4v11 c-4.97,0-9,4.03-9,9s4.03,9,9,9C27.03,33,29.7,31.51,31.33,29.21z\"></path><linearGradient id=\"Pax8JcnMzivu8f~SZ~k1yb\" x1=\"33.58\" x2=\"33.58\" y1=\"6\" y2=\"34.797\" gradientTransform=\"matrix(1 0 0 -1 0 50)\" gradientUnits=\"userSpaceOnUse\"><stop offset=\"0\" stop-color=\"#ffd747\"></stop><stop offset=\".482\" stop-color=\"#ffd645\"></stop><stop offset=\".655\" stop-color=\"#fed43e\"></stop><stop offset=\".779\" stop-color=\"#fccf33\"></stop><stop offset=\".879\" stop-color=\"#fac922\"></stop><stop offset=\".964\" stop-color=\"#f7c10c\"></stop><stop offset=\"1\" stop-color=\"#f5bc00\"></stop></linearGradient><path fill=\"url(#Pax8JcnMzivu8f~SZ~k1yb)\" d=\"M44,24c0,11.05-8.95,20-20,20h-0.84l8.17-14.79C32.38,27.74,33,25.94,33,24 c0-4.97-4.03-9-9-9V4c7.81,0,14.55,4.48,17.85,11C43.21,17.71,44,20.76,44,24z\"></path><linearGradient id=\"Pax8JcnMzivu8f~SZ~k1yc\" x1=\"36.128\" x2=\"11.574\" y1=\"44.297\" y2=\"28.954\" gradientTransform=\"matrix(1 0 0 -1 0 50)\" gradientUnits=\"userSpaceOnUse\"><stop offset=\"0\" stop-color=\"#f7572f\"></stop><stop offset=\".523\" stop-color=\"#f7552d\"></stop><stop offset=\".712\" stop-color=\"#f75026\"></stop><stop offset=\".846\" stop-color=\"#f7461b\"></stop><stop offset=\".954\" stop-color=\"#f7390a\"></stop><stop offset=\"1\" stop-color=\"#f73100\"></stop></linearGradient><path fill=\"url(#Pax8JcnMzivu8f~SZ~k1yc)\" d=\"M41.84,15H24c-4.97,0-9,4.03-9,9c0,1.49,0.36,2.89,1.01,4.13H16L7.16,13.26H7.14 C10.68,7.69,16.91,4,24,4C31.8,4,38.55,8.48,41.84,15z\"></path><linearGradient id=\"Pax8JcnMzivu8f~SZ~k1yd\" x1=\"19.05\" x2=\"28.95\" y1=\"30.95\" y2=\"21.05\" gradientTransform=\"matrix(1 0 0 -1 0 50)\" gradientUnits=\"userSpaceOnUse\"><stop offset=\"0\" stop-color=\"#2aa4f4\"></stop><stop offset=\"1\" stop-color=\"#007ad9\"></stop></linearGradient><path fill=\"url(#Pax8JcnMzivu8f~SZ~k1yd)\" d=\"M31,24c0,3.867-3.133,7-7,7s-7-3.133-7-7s3.133-7,7-7S31,20.133,31,24z\"></path></svg></div>"
-}
-]}],"metrics":[{"type":"click","selector":"HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV.group:eq(0) > A.btn:eq(1)","eventToken":"a0PY0dWsFLz82rhSGa8fOQ=="}]},"propertyTokens":["be92ac4c-e72f-9f82-2a80-2c211ea86578","693de2cd-ac92-d2c7-59fc-a3c0f2bce646"]},{"ruleKey":"119279-0","activityId":119279,"meta":{"activity.id":119279,"activity.name":"conference location","activity.type":"landing","experience.id":0,"experience.name":"Experience A","location.name":"target-global-mbox","location.type":"view","location.id":0,"audience.ids":[1751419,1751422],"option.id":2,"option.name":"Offer2","activityId":119279,"activityType":"landing","experienceId":0,"locationId":0,"locationName":"target-global-mbox","locationType":"view","audienceIds":[1751419,1751422],"offerIds":[]},"condition":{"and":[{"or":[{"==":["UNITED STATES",{"var":"geo.country"}]},{"==":["US",{"var":"geo.country"}]}]},{"and":[{"==":["target-perf-site.netlify.app",{"var":"page.domain"}]},{"==":["/",{"var":"page.path"}]}]}]},"consequence":{"name":"target-global-mbox","options":[{"type":"actions","eventToken":"g9GObIuEdcKut6IGbUKv6WqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==","content":[{
-  "type":"setHtml",
-  "selector":"HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV:nth-of-type(1) > DIV.reveal-inline-block:eq(1) > SPAN.text-middle:eq(1)",
-  "cssSelector":"HTML > BODY > DIV:nth-of-type(1) > MAIN:nth-of-type(1) > SECTION:nth-of-type(1) > DIV:nth-of-type(2) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(2) > SPAN:nth-of-type(2)",
-  "content":"Dallas, TX"
-}
-]}],"metrics":[{"type":"click","selector":"HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV.group:eq(0) > A.btn:eq(0)","eventToken":"h2Wd4SWm+ylJPwnWsJSPsQ=="}]},"propertyTokens":["be92ac4c-e72f-9f82-2a80-2c211ea86578","693de2cd-ac92-d2c7-59fc-a3c0f2bce646"]},{"ruleKey":"119279-0","activityId":119279,"meta":{"activity.id":119279,"activity.name":"conference location","activity.type":"landing","experience.id":1,"experience.name":"Experience B","location.name":"target-global-mbox","location.type":"view","location.id":0,"audience.ids":[1751420,1751422],"option.id":3,"option.name":"Offer3","activityId":119279,"activityType":"landing","experienceId":1,"locationId":0,"locationName":"target-global-mbox","locationType":"view","audienceIds":[1751420,1751422],"offerIds":[]},"condition":{"and":[{"or":[{"==":["JAPAN",{"var":"geo.country"}]},{"==":["JP",{"var":"geo.country"}]}]},{"and":[{"==":["target-perf-site.netlify.app",{"var":"page.domain"}]},{"==":["/",{"var":"page.path"}]}]}]},"consequence":{"name":"target-global-mbox","options":[{"type":"actions","eventToken":"g9GObIuEdcKut6IGbUKv6ZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==","content":[{
-  "type":"setHtml",
-  "selector":"HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV:nth-of-type(1) > DIV.reveal-inline-block:eq(1) > SPAN.text-middle:eq(1)",
-  "cssSelector":"HTML > BODY > DIV:nth-of-type(1) > MAIN:nth-of-type(1) > SECTION:nth-of-type(1) > DIV:nth-of-type(2) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(2) > SPAN:nth-of-type(2)",
-  "content":"Tokyo, JAPAN"
-}
-]}],"metrics":[{"type":"click","selector":"HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV.group:eq(0) > A.btn:eq(0)","eventToken":"h2Wd4SWm+ylJPwnWsJSPsQ=="}]},"propertyTokens":["be92ac4c-e72f-9f82-2a80-2c211ea86578","693de2cd-ac92-d2c7-59fc-a3c0f2bce646"]},{"ruleKey":"119279-0","activityId":119279,"meta":{"activity.id":119279,"activity.name":"conference location","activity.type":"landing","experience.id":2,"experience.name":"Experience C","location.name":"target-global-mbox","location.type":"view","location.id":0,"audience.ids":[1751421,1751422],"option.id":4,"option.name":"Offer4","activityId":119279,"activityType":"landing","experienceId":2,"locationId":0,"locationName":"target-global-mbox","locationType":"view","audienceIds":[1751421,1751422],"offerIds":[]},"condition":{"and":[{"or":[{"==":["SOUTH AFRICA",{"var":"geo.country"}]},{"==":["ZA",{"var":"geo.country"}]}]},{"and":[{"==":["target-perf-site.netlify.app",{"var":"page.domain"}]},{"==":["/",{"var":"page.path"}]}]}]},"consequence":{"name":"target-global-mbox","options":[{"type":"actions","eventToken":"g9GObIuEdcKut6IGbUKv6QreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==","content":[{
-  "type":"setHtml",
-  "selector":"HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV:nth-of-type(1) > DIV.reveal-inline-block:eq(1) > SPAN.text-middle:eq(1)",
-  "cssSelector":"HTML > BODY > DIV:nth-of-type(1) > MAIN:nth-of-type(1) > SECTION:nth-of-type(1) > DIV:nth-of-type(2) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(2) > SPAN:nth-of-type(2)",
-  "content":"Cape Town, SOUTH AFRICA"
-}
-]}],"metrics":[{"type":"click","selector":"HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV.group:eq(0) > A.btn:eq(0)","eventToken":"h2Wd4SWm+ylJPwnWsJSPsQ=="}]},"propertyTokens":["be92ac4c-e72f-9f82-2a80-2c211ea86578","693de2cd-ac92-d2c7-59fc-a3c0f2bce646"]},{"ruleKey":"119140-0","activityId":119140,"meta":{"activity.id":119140,"activity.name":"hero text","activity.type":"ab","experience.id":0,"experience.name":"Experience A","location.name":"target-global-mbox","location.type":"view","location.id":0,"audience.ids":[1751412],"option.id":2,"option.name":"Offer2","activityId":119140,"activityType":"ab","experienceId":0,"locationId":0,"locationName":"target-global-mbox","locationType":"view","audienceIds":[1751412],"offerIds":[]},"condition":{"and":[{"<":[0.0,{"var":"allocation"},34.0]},{"and":[{"==":["target-perf-site.netlify.app",{"var":"page.domain"}]},{"==":["/",{"var":"page.path"}]}]}]},"consequence":{"name":"target-global-mbox","options":[{"type":"actions","eventToken":"g8Rc1xzKsUGgFyNy7EsOVGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==","content":[{
-  "type":"setHtml",
-  "selector":"HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > P.offset-top-36:eq(0)",
-  "cssSelector":"HTML > BODY > DIV:nth-of-type(1) > MAIN:nth-of-type(1) > SECTION:nth-of-type(1) > DIV:nth-of-type(2) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > P:nth-of-type(1)",
-  "content":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ipsum ante, varius id placerat eu, fringilla in mi. Nulla ultrices ipsum vel libero posuere, dignissim tincidunt metus scelerisque. Nullam id rhoncus arcu. Sed lectus mauris, faucibus sed libero vel, aliquet porta massa. Suspendisse potenti. Ut purus urna, ultrices non iaculis sed, vulputate at lorem. Vivamus sed tincidunt velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed gravida lacinia justo, sit amet vulputate sapien pretium vel. In sodales eros quis arcu imperdiet malesuada. Sed porta odio nunc, vitae consectetur sapien tincidunt pretium."
-}
-]}],"metrics":[]},"propertyTokens":["be92ac4c-e72f-9f82-2a80-2c211ea86578","693de2cd-ac92-d2c7-59fc-a3c0f2bce646"]},{"ruleKey":"119140-0","activityId":119140,"meta":{"activity.id":119140,"activity.name":"hero text","activity.type":"ab","experience.id":1,"experience.name":"Experience B","location.name":"target-global-mbox","location.type":"view","location.id":0,"audience.ids":[1751412],"option.id":3,"option.name":"Offer3","activityId":119140,"activityType":"ab","experienceId":1,"locationId":0,"locationName":"target-global-mbox","locationType":"view","audienceIds":[1751412],"offerIds":[]},"condition":{"and":[{"<":[34.0,{"var":"allocation"},67.0]},{"and":[{"==":["target-perf-site.netlify.app",{"var":"page.domain"}]},{"==":["/",{"var":"page.path"}]}]}]},"consequence":{"name":"target-global-mbox","options":[{"type":"actions","eventToken":"g8Rc1xzKsUGgFyNy7EsOVJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==","content":[{
-  "type":"setHtml",
-  "selector":"HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > P.offset-top-36:eq(0)",
-  "cssSelector":"HTML > BODY > DIV:nth-of-type(1) > MAIN:nth-of-type(1) > SECTION:nth-of-type(1) > DIV:nth-of-type(2) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > P:nth-of-type(1)",
-  "content":"Duis quam tortor, rutrum tincidunt ligula ac, imperdiet lacinia risus. Donec vitae molestie ligula. Pellentesque id ex eget ex scelerisque maximus ut sed dui. Cras vitae elementum turpis. In finibus mi sit amet pharetra tincidunt. Aliquam sollicitudin lorem eu tellus gravida, a accumsan dui facilisis. Vivamus feugiat risus molestie semper commodo. Phasellus blandit magna sit amet lorem finibus hendrerit. Fusce sagittis in metus tincidunt posuere. Nam mattis augue in sagittis luctus. Proin facilisis sagittis turpis id porta. Maecenas erat quam, placerat vitae hendrerit scelerisque, viverra ut quam."
-}
-]}],"metrics":[]},"propertyTokens":["be92ac4c-e72f-9f82-2a80-2c211ea86578","693de2cd-ac92-d2c7-59fc-a3c0f2bce646"]},{"ruleKey":"119140-0","activityId":119140,"meta":{"activity.id":119140,"activity.name":"hero text","activity.type":"ab","experience.id":2,"experience.name":"Experience C","location.name":"target-global-mbox","location.type":"view","location.id":0,"audience.ids":[1751412],"option.id":0,"activityId":119140,"activityType":"ab","experienceId":2,"locationId":0,"locationName":"target-global-mbox","locationType":"view","audienceIds":[1751412],"offerIds":[]},"condition":{"and":[{"<":[67.0,{"var":"allocation"},100.0]},{"and":[{"==":["target-perf-site.netlify.app",{"var":"page.domain"}]},{"==":["/",{"var":"page.path"}]}]}]},"consequence":{"name":"target-global-mbox","options":[{"eventToken":"g8Rc1xzKsUGgFyNy7EsOVAreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="}],"metrics":[]},"propertyTokens":["be92ac4c-e72f-9f82-2a80-2c211ea86578","693de2cd-ac92-d2c7-59fc-a3c0f2bce646"]},{"ruleKey":"119138-0","activityId":119138,"meta":{"activity.id":119138,"activity.name":"Buy button color","activity.type":"ab","experience.id":0,"experience.name":"Experience A","location.name":"target-global-mbox","location.type":"view","location.id":0,"audience.ids":[1751416],"option.id":2,"option.name":"Offer2","activityId":119138,"activityType":"ab","experienceId":0,"locationId":0,"locationName":"target-global-mbox","locationType":"view","audienceIds":[1751416],"offerIds":[]},"condition":{"and":[{"<":[0.0,{"var":"allocation"},50.0]},{"and":[{"==":["target-perf-site.netlify.app",{"var":"page.domain"}]},{"==":["/",{"var":"page.path"}]}]}]},"consequence":{"name":"target-global-mbox","options":[{"type":"actions","eventToken":"KT6+ry2VWwQQACQ59nVjE2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==","content":[{
-  "type": "setStyle",
-  "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV.group:eq(0) > A.btn:eq(0)",
-  "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > MAIN:nth-of-type(1) > SECTION:nth-of-type(1) > DIV:nth-of-type(2) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(2) > A:nth-of-type(1)",
-  "content": {
-    "background-color": "rgba(0,0,0,1)",
-    "priority": "important"
+{
+  "version": "1.0.0",
+  "meta": {
+    "clientCode": "targettesting",
+    "environment": "production",
+    "generatedAt": "2020-08-01T05:48:44.644Z"
+  },
+  "globalMbox": "target-global-mbox",
+  "geoTargetingEnabled": true,
+  "responseTokens": [
+    "experience.id",
+    "offer.name",
+    "activity.name",
+    "geo.city",
+    "activity.id",
+    "geo.state",
+    "experience.name",
+    "option.name",
+    "option.id",
+    "offer.id",
+    "geo.country"
+  ],
+  "remoteMboxes": [],
+  "remoteViews": [],
+  "localMboxes": ["target-global-mbox"],
+  "localViews": [],
+  "rules": {
+    "mboxes": {
+      "target-global-mbox": [
+        {
+          "ruleKey": "119280-0",
+          "activityId": 119280,
+          "meta": {
+            "activity.id": 119280,
+            "activity.name": "browser icon",
+            "activity.type": "landing",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [1750991, 1751424],
+            "option.id": 2,
+            "option.name": "Offer2",
+            "activityId": 119280,
+            "activityType": "landing",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [1750991, 1751424],
+            "offerIds": []
+          },
+          "condition": {
+            "and": [
+              { "==": [{ "var": "user.browserType" }, "safari"] },
+              {
+                "and": [
+                  {
+                    "==": [
+                      "target-perf-site.netlify.app",
+                      { "var": "page.domain" }
+                    ]
+                  },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "kkMyBLVeMK3bm9bSd+mWkWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "insertAfter",
+                    "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > IMG.img-responsive:eq(0)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > MAIN:nth-of-type(1) > SECTION:nth-of-type(1) > DIV:nth-of-type(2) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > IMG:nth-of-type(1)",
+                    "content": "<div id=\"action_insert_1596060322140763\"><br>\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 48 48\" width=\"48px\" height=\"48px\"><path fill=\"#cfd8dc\" d=\"M44,24c0,11.044-8.956,20-20,20S4,35.044,4,24S12.956,4,24,4S44,12.956,44,24z\"></path><path fill=\"#448aff\" d=\"M41,24c0,9.391-7.609,17-17,17S7,33.391,7,24S14.609,7,24,7S41,14.609,41,24z\"></path><path fill=\"#ff3d00\" d=\"M21.898,21.898l4.203,4.203l9.199-13.402L21.898,21.898z\"></path><path fill=\"#bf360c\" d=\"M24,24l11.301-11.301l-9.199,13.402L24,24z\"></path><path fill=\"#fff\" d=\"M21.898,21.898l-9.199,13.402l13.402-9.199L21.898,21.898z\"></path><path fill=\"#bdbdbd\" d=\"M24,24L12.699,35.301l13.402-9.199L24,24z\"></path><path fill=\"#bbdefb\" d=\"M17.102,10.699c0.598-0.301,1.199-0.598,1.797-0.801l1.203,2.703l-1.801,0.797L17.102,10.699z M36,25h2.898c0-0.301,0.102-0.699,0.102-1s0-0.699-0.102-1H36V25z M12.699,14.102l2.102,2.098l1.398-1.398l-2.098-2.102C13.602,13.199,13.199,13.602,12.699,14.102z M25,9.102C24.699,9,24.301,9,24,9s-0.699,0-1,0.102V12h2V9.102z M30.398,10.5c-0.598-0.301-1.199-0.5-1.898-0.699l-1.102,2.801l1.902,0.699L30.398,10.5z M12.5,20.5l0.699-1.898L10.5,17.5c-0.301,0.602-0.5,1.199-0.699,1.898L12.5,20.5z M12,23H9.102C9,23.301,9,23.699,9,24s0,0.699,0.102,1H12V23z M35.5,27.5l-0.699,1.898L37.5,30.5c0.301-0.602,0.5-1.199,0.699-1.898L35.5,27.5z M38.102,18.898c-0.203-0.598-0.5-1.199-0.801-1.797l-2.699,1.199l0.797,1.801L38.102,18.898z M35.301,33.898l-2.102-2.098l-1.398,1.398l2.098,2.102C34.398,34.801,34.801,34.398,35.301,33.898z M13.398,29.699l-0.797-1.801l-2.703,1.203c0.203,0.598,0.5,1.199,0.801,1.797L13.398,29.699z M29.699,34.602l-1.801,0.797l1.203,2.703c0.598-0.203,1.199-0.5,1.797-0.801L29.699,34.602z M20.5,35.5l-1.898-0.699L17.5,37.5c0.602,0.301,1.199,0.5,1.898,0.699L20.5,35.5z M25,38.898V36h-2v2.898c0.301,0,0.699,0.102,1,0.102S24.699,39,25,38.898z\"></path></svg></div>"
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "type": "click",
+                "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV.group:eq(0) > A.btn:eq(1)",
+                "eventToken": "a0PY0dWsFLz82rhSGa8fOQ=="
+              }
+            ]
+          },
+          "propertyTokens": [
+            "be92ac4c-e72f-9f82-2a80-2c211ea86578",
+            "693de2cd-ac92-d2c7-59fc-a3c0f2bce646"
+          ]
+        },
+        {
+          "ruleKey": "119280-0",
+          "activityId": 119280,
+          "meta": {
+            "activity.id": 119280,
+            "activity.name": "browser icon",
+            "activity.type": "landing",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [1750975, 1751424],
+            "option.id": 3,
+            "option.name": "Offer3",
+            "activityId": 119280,
+            "activityType": "landing",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [1750975, 1751424],
+            "offerIds": []
+          },
+          "condition": {
+            "and": [
+              { "==": [{ "var": "user.browserType" }, "firefox"] },
+              {
+                "and": [
+                  {
+                    "==": [
+                      "target-perf-site.netlify.app",
+                      { "var": "page.domain" }
+                    ]
+                  },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "kkMyBLVeMK3bm9bSd+mWkZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "insertAfter",
+                    "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > IMG.img-responsive:eq(0)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > MAIN:nth-of-type(1) > SECTION:nth-of-type(1) > DIV:nth-of-type(2) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > IMG:nth-of-type(1)",
+                    "content": "<div id=\"action_insert_15960603635191072\"><br>\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 48 48\" width=\"48px\" height=\"48px\"><path fill=\"#01579B\" d=\"M24 5A19 19 0 1 0 24 43A19 19 0 1 0 24 5Z\"></path><path fill=\"#0277BD\" d=\"M34,20.8c0-0.6,0-2.9-1.5-4.7c-0.1-0.1-0.2-0.3-0.2-0.4c-0.1-0.1-0.1-0.2-0.2-0.4L31.9,15l-0.2-0.3c-0.2-0.3-0.3-0.5-0.3-0.5c-0.4-0.6-0.5-1.4-0.1-2.1c0.1-0.2,0.3-0.4,0.4-0.6c-0.1-0.1-0.2-0.2-0.3-0.2c0,0,0,0-0.1,0c-0.3-0.2-0.6-0.4-0.8-0.6l-0.7-0.5l0,0C29.3,9.9,29,9.8,29,9.7c-0.7-0.4-1.1-1.1-1-1.9c0.1-0.8,0.6-1.5,1.4-1.7c0.1,0,0.3-0.1,0.5-0.1c0,0,0,0-0.1-0.1C28,5.3,26,5,24,5C16.6,5,10.1,9.3,7,15.5c0,0.2,0,0.3,0,0.5c0,7.2,6.3,13,14,13C26.9,29,31.9,25.6,34,20.8z\"></path><path fill=\"#FFF176\" d=\"M30,8c0,0,0.3-0.1,0.9-0.1c0.3,0,0.6,0,1,0c0.4,0,0.8,0.1,1.3,0.2c0.5,0.1,1,0.3,1.5,0.5c0.5,0.2,1.1,0.5,1.6,0.9c0.5,0.3,1,0.8,1.5,1.2c0.5,0.4,0.9,1,1.3,1.5c0.3,0.6,0.7,1.1,1,1.7c0.3,0.6,0.5,1.2,0.7,1.8c0.2,0.6,0.3,1.2,0.4,1.7c0.1,0.6,0.1,1.1,0.1,1.5c0,0.2,0,0.5,0,0.7c0,0.2,0,0.4-0.1,0.6c0,0.4-0.1,0.7-0.1,1C41.1,21.7,41,22,41,22s-0.2-0.3-0.4-0.8c-0.1-0.2-0.3-0.5-0.4-0.9c-0.1-0.3-0.3-0.7-0.5-1.1c-0.2-0.4-0.4-0.8-0.6-1.3c-0.2-0.4-0.5-0.9-0.7-1.4c-0.2-0.5-0.5-0.9-0.8-1.4c-0.3-0.5-0.6-0.9-0.9-1.3c-0.3-0.4-0.6-0.9-1-1.2c-0.4-0.4-0.7-0.8-1.1-1.1c-0.3-0.4-0.7-0.7-1.1-1c-0.4-0.3-0.7-0.6-1.1-0.8c-0.3-0.3-0.7-0.5-1-0.7c-0.3-0.2-0.6-0.4-0.8-0.5C30.3,8.2,30,8,30,8z\"></path><path fill=\"#FDD835\" d=\"M43.1,17.6c-0.3-2.2-1.2-4.2-2.2-5.6c-0.5-0.7-1-1.2-1.3-1.5C39.2,10.2,39,10,39,10s0,0.3,0.1,0.8c0.1,0.5,0.1,1.1,0.2,1.9c0.1,0.4,0.1,0.8,0.2,1.2c-0.4-0.6-0.9-1.2-1.4-1.6c-0.5-0.5-1.1-0.8-1.4-1C36.2,11.1,36,11,36,11s0.1,0.2,0.2,0.6c0.1,0.4,0.3,0.9,0.5,1.6c0.2,0.7,0.5,1.6,0.8,2.5c-0.6-0.7-1.2-1.3-1.8-1.7c-0.7-0.4-1.3-0.7-1.8-0.8C33.3,13,33,13,33,13s0.2,0.2,0.4,0.6c0.1,0.2,0.3,0.4,0.4,0.7c0.2,0.3,0.3,0.6,0.5,0.9c0.3,0.6,0.7,1.3,1,2.1c0.2,0.4,0.3,0.8,0.5,1.2c0.1,0.4,0.4,0.8,0.5,1.3c0.2,0.4,0.3,0.8,0.5,1.3c0.1,0.4,0.3,0.8,0.4,1.3c0.1,0.4,0.3,0.8,0.4,1.2c0.1,0.4,0.2,0.8,0.4,1.1c0.3,0.7,0.5,1.3,0.7,1.7C38.9,26.8,39,27,39,27s0.1-0.2,0.3-0.7c0.1-0.2,0.2-0.5,0.2-0.8c0.1-0.3,0.2-0.7,0.2-1.1c0-0.3,0.1-0.6,0.1-0.9C39.9,23.8,40,24,40,24s0.1-0.2,0.3-0.6c0.1-0.2,0.2-0.4,0.3-0.7c0,0,0-0.1,0-0.1c0,0.2,0,0.5,0.1,0.7c0,0.4,0.1,0.7,0.1,1c0,0.3,0,0.6,0,0.9c0,0.5,0.1,0.8,0.1,0.8s0.2-0.2,0.5-0.6c0.1-0.2,0.3-0.4,0.5-0.7c0.2-0.3,0.3-0.6,0.5-1c0.2-0.4,0.3-0.8,0.4-1.3c0.1-0.5,0.2-1,0.3-1.5c0.1-0.5,0.1-1.1,0.1-1.6C43.3,18.7,43.2,18.1,43.1,17.6z\"></path><path fill=\"#FFB300\" d=\"M44.1,19.8C44.1,19.3,44,19,44,19s-0.2,0.3-0.5,0.7c-0.3,0.5-0.6,1.1-1,1.9c-0.3,0.7-0.7,1.5-1.1,2.3c0-0.8,0-1.5-0.1-2.2c-0.1-0.6-0.2-1.1-0.3-1.6c-0.2-0.5-0.3-1-0.5-1.4c-0.3-0.9-0.7-1.5-1-2C39.2,16.2,39,16,39,16s-0.1,1.2-0.1,3c0,0.9-0.1,1.8-0.2,2.9c0,0.5-0.1,1-0.1,1.6c0,0.5-0.1,1.1-0.2,1.6c0,0.1,0,0.3,0,0.4c-0.1-0.9-0.4-1.8-0.8-2.4c-0.3-0.7-0.7-1.2-1-1.5C36.2,21.1,36,21,36,21s0,0.3,0,0.7c0,0.4,0,1-0.1,1.7c-0.1,1.3-0.3,3-0.5,4.6c-0.1,0.4-0.2,0.8-0.2,1.2c-0.1,0.4-0.2,0.8-0.2,1.2c-0.1,0.4-0.2,0.8-0.3,1.1c-0.1,0.4-0.2,0.7-0.2,1c-0.1,0.3-0.1,0.7-0.2,0.9c-0.1,0.3-0.1,0.5-0.2,0.8C34,34.7,34,35,34,35s0.2-0.1,0.6-0.4c0.4-0.3,0.9-0.6,1.4-1.2c0.2-0.3,0.5-0.6,0.8-1c0.2-0.4,0.5-0.7,0.7-1.1c0,0.3-0.1,0.6-0.1,0.9c-0.1,0.3-0.1,0.7-0.2,0.9C37,33.7,37,34,37,34c0.1-0.1,0.4,0,0.7,0.1c0,0.1-0.1,0.2-0.1,0.2c-0.1,0.3-0.2,0.6-0.3,0.9C37.1,35.7,37,36,37,36s0.3-0.1,0.7-0.4c0.2-0.2,0.5-0.3,0.8-0.6c0.3-0.2,0.6-0.5,0.9-0.9c0.3-0.3,0.6-0.7,1-1.1c0.3-0.4,0.6-0.9,0.9-1.4c0.6-1,1.1-2.1,1.5-3.2c0.4-1.1,0.8-2.3,1-3.4c0.2-1.1,0.3-2.1,0.4-3C44.2,21.1,44.2,20.4,44.1,19.8z\"></path><path fill=\"#FF9800\" d=\"M41.4,30.4c-0.4,0.2-0.8,0.6-1.4,1c-0.8,0.6-1.7,1.4-2.6,2.3c0.1-0.3,0.3-0.6,0.4-0.9c0.3-0.9,0.4-1.7,0.5-2.4c0-0.7,0-1.3-0.1-1.7C38.1,28.2,38,28,38,28s-0.2,0.2-0.4,0.5c-0.2,0.3-0.6,0.8-1,1.3c-0.4,0.5-0.8,1.2-1.2,1.8c-0.1,0.1-0.1,0.2-0.2,0.3c0.2-0.6,0.2-1.3,0.2-1.9c0-0.8-0.2-1.6-0.4-2.2c-0.2-0.6-0.5-1.1-0.7-1.4C34.2,26.2,34,26,34,26s-0.1,0.2-0.2,0.6c-0.1,0.3-0.3,0.8-0.5,1.4c-0.2,0.5-0.3,1.1-0.5,1.8c-0.1,0.3-0.2,0.6-0.3,1c-0.1,0.3-0.2,0.6-0.3,0.8c-1.9,1.9-4.2,2.4-6.4,2.5c-1.2,0-2.3-0.2-3.3-0.5c0,0,0,0,0,0c0,0,0,0,0,0c-1.5-0.5-2.9-1.4-4.2-2.6c1.9,0.2,3.7-0.2,5.2-0.9l2.5-1.6l0,0c0.3-0.1,0.6-0.1,0.9,0c0.6-0.1,0.8-0.4,0.6-1c-0.3-0.4-0.8-0.8-1.3-1.1c-1.3-0.7-2.6-0.6-4,0.3c-1.3,0.7-2.5,0.6-3.8-0.1c-3.1-1.6-1.9-5.7,1.4-3.6c0.2-1-0.1-2.1-0.7-3.2c0,0,0,0,0,0c-2.9-5.3,0.4-9.6,1.5-10.3c-2,0.2-3.8,1.1-5.4,2.6C4.9,10.9,4,20.9,4,21l1.2-1.1c-0.4,1.1-0.7,2.2-0.8,3.4C4,27.2,5.1,31,7.7,34.8C11.7,39.9,18,43,24,43c6.8,0,11.2-2.5,14.1-5.7c0.2-0.2,0.4-0.4,0.6-0.6c0.6-0.7,1.2-1.4,1.7-2.2c0.5-0.7,0.8-1.5,1.1-2.2c0.2-0.7,0.4-1.3,0.5-1.7C42,30.3,42,30,42,30S41.8,30.1,41.4,30.4z\"></path><path fill=\"#EF6C00\" d=\"M12,28c-0.2-7,4.3-6.4,6.6-5.6C17,22.1,16.3,23.6,17,25C16.7,25,13.6,24.7,12,28z M18.3,30.9c1.9,0.2,3.7-0.2,5.2-0.9l2.5-1.6l0,0c0.2-0.1,0.5-0.1,0.7,0l0,0c-2.9-1.7-6,1.9-12.8,0.8C15.6,30.5,18.3,30.9,18.3,30.9z M18.1,14.5c-0.2,1.5,0.1,3.3,1.1,5.2c0,0,0,0,0,0c0,0,0,0,0,0C20.6,18.9,22,18,22,18s2-2,0-2C20.1,16,18.8,15.2,18.1,14.5z M10.3,12.4C9.4,11.6,8,10,8,8c0,0-2.4,3.9-1.5,7C7.4,13.9,8.7,13,10.3,12.4z\"></path><path fill=\"#FFCC80\" d=\"M19.2,19.7C19.2,19.7,19.2,19.7,19.2,19.7C19.2,19.7,19.2,19.7,19.2,19.7C20.6,18.9,22,18,22,18s0.2-0.2,0.4-0.4L22,17h-3.8C18.4,17.9,18.7,18.8,19.2,19.7z\"></path><path fill=\"#5D4037\" d=\"M22,16c-0.3,0-0.6,0-0.9-0.1L21,16c0,0,0.8,1.3,1,2C22,18,24,16,22,16z\"></path></svg></div>"
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "type": "click",
+                "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV.group:eq(0) > A.btn:eq(1)",
+                "eventToken": "a0PY0dWsFLz82rhSGa8fOQ=="
+              }
+            ]
+          },
+          "propertyTokens": [
+            "be92ac4c-e72f-9f82-2a80-2c211ea86578",
+            "693de2cd-ac92-d2c7-59fc-a3c0f2bce646"
+          ]
+        },
+        {
+          "ruleKey": "119280-0",
+          "activityId": 119280,
+          "meta": {
+            "activity.id": 119280,
+            "activity.name": "browser icon",
+            "activity.type": "landing",
+            "experience.id": 2,
+            "experience.name": "Experience C",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [1751423, 1751424],
+            "option.id": 4,
+            "option.name": "Offer4",
+            "activityId": 119280,
+            "activityType": "landing",
+            "experienceId": 2,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [1751423, 1751424],
+            "offerIds": []
+          },
+          "condition": {
+            "and": [
+              { "==": [{ "var": "user.browserType" }, "ie"] },
+              {
+                "and": [
+                  {
+                    "==": [
+                      "target-perf-site.netlify.app",
+                      { "var": "page.domain" }
+                    ]
+                  },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "kkMyBLVeMK3bm9bSd+mWkQreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "insertAfter",
+                    "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > IMG.img-responsive:eq(0)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > MAIN:nth-of-type(1) > SECTION:nth-of-type(1) > DIV:nth-of-type(2) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > IMG:nth-of-type(1)",
+                    "content": "<div id=\"action_insert_15960604076111209\"><br>\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 48 48\" width=\"48px\" height=\"48px\"><path fill=\"#29B6F6\" d=\"M29.4,8.4c1.1-0.7,5.3-3.3,8.8-3.3c6.6,0,3.5,7.7,3.5,7.7l0.2,0.2C45.7,3.3,38.4,4,38.4,4c-4.1,0-9.3,3.4-10.4,4.2c-1-0.1-2-0.2-3.1-0.2C9.7,8,7.4,19.6,7.1,23C7,23.5,7,23.8,7,23.8c0,0,0,0,0,0C7,23.9,7,24,7,24c0-0.1,0-0.2,0-0.3c6.1-8.7,14.5-12.2,14.5-12.2v0.6C9,20.6,6,33.2,5.3,35.7C4.5,38.3,5,44,10.3,44s10.4-4.2,10.4-4.2S21.9,40,25,40c13.2,0,16.7-12,16.7-12H30c0,0-1.2,4-5.4,4c-5.8,0-5.6-6-5.6-6h23c0.4-5.5-1.1-9.3-3.3-11.9C36.9,11.5,34,9.3,29.4,8.4z M20,39.6c0,0-7.8,4.9-11.4,1.5c-1.9-3.4,1.2-8.2,1.2-8.2S12.2,37.8,20,39.6z M18.8,10.3C18.8,10.3,18.7,10.3,18.8,10.3L18.8,10.3L18.8,10.3z M19,21c0,0-0.1-5,5.5-5c5.4,0,5.5,5,5.5,5H19z\"></path></svg></div>"
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "type": "click",
+                "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV.group:eq(0) > A.btn:eq(1)",
+                "eventToken": "a0PY0dWsFLz82rhSGa8fOQ=="
+              }
+            ]
+          },
+          "propertyTokens": [
+            "be92ac4c-e72f-9f82-2a80-2c211ea86578",
+            "693de2cd-ac92-d2c7-59fc-a3c0f2bce646"
+          ]
+        },
+        {
+          "ruleKey": "119280-0",
+          "activityId": 119280,
+          "meta": {
+            "activity.id": 119280,
+            "activity.name": "browser icon",
+            "activity.type": "landing",
+            "experience.id": 3,
+            "experience.name": "Experience D",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [1750953, 1751424],
+            "option.id": 5,
+            "option.name": "Offer5",
+            "activityId": 119280,
+            "activityType": "landing",
+            "experienceId": 3,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [1750953, 1751424],
+            "offerIds": []
+          },
+          "condition": {
+            "and": [
+              { "==": [{ "var": "user.browserType" }, "chrome"] },
+              {
+                "and": [
+                  {
+                    "==": [
+                      "target-perf-site.netlify.app",
+                      { "var": "page.domain" }
+                    ]
+                  },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "kkMyBLVeMK3bm9bSd+mWkZZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "insertAfter",
+                    "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > IMG.img-responsive:eq(0)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > MAIN:nth-of-type(1) > SECTION:nth-of-type(1) > DIV:nth-of-type(2) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > IMG:nth-of-type(1)",
+                    "content": "<div id=\"action_insert_15960604422991312\"><br>\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 48 48\" width=\"48px\" height=\"48px\"><path fill=\"#fff\" d=\"M34,24c0,5.521-4.479,10-10,10s-10-4.479-10-10s4.479-10,10-10S34,18.479,34,24z\"></path><linearGradient id=\"Pax8JcnMzivu8f~SZ~k1ya\" x1=\"5.789\" x2=\"31.324\" y1=\"34.356\" y2=\"20.779\" gradientTransform=\"matrix(1 0 0 -1 0 50)\" gradientUnits=\"userSpaceOnUse\"><stop offset=\"0\" stop-color=\"#4caf50\"></stop><stop offset=\".489\" stop-color=\"#4aaf50\"></stop><stop offset=\".665\" stop-color=\"#43ad50\"></stop><stop offset=\".79\" stop-color=\"#38aa50\"></stop><stop offset=\".892\" stop-color=\"#27a550\"></stop><stop offset=\".978\" stop-color=\"#11a050\"></stop><stop offset=\"1\" stop-color=\"#0a9e50\"></stop></linearGradient><path fill=\"url(#Pax8JcnMzivu8f~SZ~k1ya)\" d=\"M31.33,29.21l-8.16,14.77C12.51,43.55,4,34.76,4,24C4,12.96,12.96,4,24,4v11 c-4.97,0-9,4.03-9,9s4.03,9,9,9C27.03,33,29.7,31.51,31.33,29.21z\"></path><linearGradient id=\"Pax8JcnMzivu8f~SZ~k1yb\" x1=\"33.58\" x2=\"33.58\" y1=\"6\" y2=\"34.797\" gradientTransform=\"matrix(1 0 0 -1 0 50)\" gradientUnits=\"userSpaceOnUse\"><stop offset=\"0\" stop-color=\"#ffd747\"></stop><stop offset=\".482\" stop-color=\"#ffd645\"></stop><stop offset=\".655\" stop-color=\"#fed43e\"></stop><stop offset=\".779\" stop-color=\"#fccf33\"></stop><stop offset=\".879\" stop-color=\"#fac922\"></stop><stop offset=\".964\" stop-color=\"#f7c10c\"></stop><stop offset=\"1\" stop-color=\"#f5bc00\"></stop></linearGradient><path fill=\"url(#Pax8JcnMzivu8f~SZ~k1yb)\" d=\"M44,24c0,11.05-8.95,20-20,20h-0.84l8.17-14.79C32.38,27.74,33,25.94,33,24 c0-4.97-4.03-9-9-9V4c7.81,0,14.55,4.48,17.85,11C43.21,17.71,44,20.76,44,24z\"></path><linearGradient id=\"Pax8JcnMzivu8f~SZ~k1yc\" x1=\"36.128\" x2=\"11.574\" y1=\"44.297\" y2=\"28.954\" gradientTransform=\"matrix(1 0 0 -1 0 50)\" gradientUnits=\"userSpaceOnUse\"><stop offset=\"0\" stop-color=\"#f7572f\"></stop><stop offset=\".523\" stop-color=\"#f7552d\"></stop><stop offset=\".712\" stop-color=\"#f75026\"></stop><stop offset=\".846\" stop-color=\"#f7461b\"></stop><stop offset=\".954\" stop-color=\"#f7390a\"></stop><stop offset=\"1\" stop-color=\"#f73100\"></stop></linearGradient><path fill=\"url(#Pax8JcnMzivu8f~SZ~k1yc)\" d=\"M41.84,15H24c-4.97,0-9,4.03-9,9c0,1.49,0.36,2.89,1.01,4.13H16L7.16,13.26H7.14 C10.68,7.69,16.91,4,24,4C31.8,4,38.55,8.48,41.84,15z\"></path><linearGradient id=\"Pax8JcnMzivu8f~SZ~k1yd\" x1=\"19.05\" x2=\"28.95\" y1=\"30.95\" y2=\"21.05\" gradientTransform=\"matrix(1 0 0 -1 0 50)\" gradientUnits=\"userSpaceOnUse\"><stop offset=\"0\" stop-color=\"#2aa4f4\"></stop><stop offset=\"1\" stop-color=\"#007ad9\"></stop></linearGradient><path fill=\"url(#Pax8JcnMzivu8f~SZ~k1yd)\" d=\"M31,24c0,3.867-3.133,7-7,7s-7-3.133-7-7s3.133-7,7-7S31,20.133,31,24z\"></path></svg></div>"
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "type": "click",
+                "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV.group:eq(0) > A.btn:eq(1)",
+                "eventToken": "a0PY0dWsFLz82rhSGa8fOQ=="
+              }
+            ]
+          },
+          "propertyTokens": [
+            "be92ac4c-e72f-9f82-2a80-2c211ea86578",
+            "693de2cd-ac92-d2c7-59fc-a3c0f2bce646"
+          ]
+        },
+        {
+          "ruleKey": "119279-0",
+          "activityId": 119279,
+          "meta": {
+            "activity.id": 119279,
+            "activity.name": "conference location",
+            "activity.type": "landing",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [1751419, 1751422],
+            "option.id": 2,
+            "option.name": "Offer2",
+            "activityId": 119279,
+            "activityType": "landing",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [1751419, 1751422],
+            "offerIds": []
+          },
+          "condition": {
+            "and": [
+              {
+                "or": [
+                  { "==": ["UNITED STATES", { "var": "geo.country" }] },
+                  { "==": ["US", { "var": "geo.country" }] }
+                ]
+              },
+              {
+                "and": [
+                  {
+                    "==": [
+                      "target-perf-site.netlify.app",
+                      { "var": "page.domain" }
+                    ]
+                  },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "g9GObIuEdcKut6IGbUKv6WqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV:nth-of-type(1) > DIV.reveal-inline-block:eq(1) > SPAN.text-middle:eq(1)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > MAIN:nth-of-type(1) > SECTION:nth-of-type(1) > DIV:nth-of-type(2) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(2) > SPAN:nth-of-type(2)",
+                    "content": "Dallas, TX"
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "type": "click",
+                "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV.group:eq(0) > A.btn:eq(0)",
+                "eventToken": "h2Wd4SWm+ylJPwnWsJSPsQ=="
+              }
+            ]
+          },
+          "propertyTokens": [
+            "be92ac4c-e72f-9f82-2a80-2c211ea86578",
+            "693de2cd-ac92-d2c7-59fc-a3c0f2bce646"
+          ]
+        },
+        {
+          "ruleKey": "119279-0",
+          "activityId": 119279,
+          "meta": {
+            "activity.id": 119279,
+            "activity.name": "conference location",
+            "activity.type": "landing",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [1751420, 1751422],
+            "option.id": 3,
+            "option.name": "Offer3",
+            "activityId": 119279,
+            "activityType": "landing",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [1751420, 1751422],
+            "offerIds": []
+          },
+          "condition": {
+            "and": [
+              {
+                "or": [
+                  { "==": ["JAPAN", { "var": "geo.country" }] },
+                  { "==": ["JP", { "var": "geo.country" }] }
+                ]
+              },
+              {
+                "and": [
+                  {
+                    "==": [
+                      "target-perf-site.netlify.app",
+                      { "var": "page.domain" }
+                    ]
+                  },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "g9GObIuEdcKut6IGbUKv6ZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV:nth-of-type(1) > DIV.reveal-inline-block:eq(1) > SPAN.text-middle:eq(1)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > MAIN:nth-of-type(1) > SECTION:nth-of-type(1) > DIV:nth-of-type(2) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(2) > SPAN:nth-of-type(2)",
+                    "content": "Tokyo, JAPAN"
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "type": "click",
+                "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV.group:eq(0) > A.btn:eq(0)",
+                "eventToken": "h2Wd4SWm+ylJPwnWsJSPsQ=="
+              }
+            ]
+          },
+          "propertyTokens": [
+            "be92ac4c-e72f-9f82-2a80-2c211ea86578",
+            "693de2cd-ac92-d2c7-59fc-a3c0f2bce646"
+          ]
+        },
+        {
+          "ruleKey": "119279-0",
+          "activityId": 119279,
+          "meta": {
+            "activity.id": 119279,
+            "activity.name": "conference location",
+            "activity.type": "landing",
+            "experience.id": 2,
+            "experience.name": "Experience C",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [1751421, 1751422],
+            "option.id": 4,
+            "option.name": "Offer4",
+            "activityId": 119279,
+            "activityType": "landing",
+            "experienceId": 2,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [1751421, 1751422],
+            "offerIds": []
+          },
+          "condition": {
+            "and": [
+              {
+                "or": [
+                  { "==": ["SOUTH AFRICA", { "var": "geo.country" }] },
+                  { "==": ["ZA", { "var": "geo.country" }] }
+                ]
+              },
+              {
+                "and": [
+                  {
+                    "==": [
+                      "target-perf-site.netlify.app",
+                      { "var": "page.domain" }
+                    ]
+                  },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "g9GObIuEdcKut6IGbUKv6QreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV:nth-of-type(1) > DIV.reveal-inline-block:eq(1) > SPAN.text-middle:eq(1)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > MAIN:nth-of-type(1) > SECTION:nth-of-type(1) > DIV:nth-of-type(2) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(2) > SPAN:nth-of-type(2)",
+                    "content": "Cape Town, SOUTH AFRICA"
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "type": "click",
+                "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV.group:eq(0) > A.btn:eq(0)",
+                "eventToken": "h2Wd4SWm+ylJPwnWsJSPsQ=="
+              }
+            ]
+          },
+          "propertyTokens": [
+            "be92ac4c-e72f-9f82-2a80-2c211ea86578",
+            "693de2cd-ac92-d2c7-59fc-a3c0f2bce646"
+          ]
+        },
+        {
+          "ruleKey": "119140-0",
+          "activityId": 119140,
+          "meta": {
+            "activity.id": 119140,
+            "activity.name": "hero text",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [1751412],
+            "option.id": 2,
+            "option.name": "Offer2",
+            "activityId": 119140,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [1751412],
+            "offerIds": []
+          },
+          "condition": {
+            "and": [
+              { "<": [0.0, { "var": "allocation" }, 34.0] },
+              {
+                "and": [
+                  {
+                    "==": [
+                      "target-perf-site.netlify.app",
+                      { "var": "page.domain" }
+                    ]
+                  },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "g8Rc1xzKsUGgFyNy7EsOVGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > P.offset-top-36:eq(0)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > MAIN:nth-of-type(1) > SECTION:nth-of-type(1) > DIV:nth-of-type(2) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > P:nth-of-type(1)",
+                    "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ipsum ante, varius id placerat eu, fringilla in mi. Nulla ultrices ipsum vel libero posuere, dignissim tincidunt metus scelerisque. Nullam id rhoncus arcu. Sed lectus mauris, faucibus sed libero vel, aliquet porta massa. Suspendisse potenti. Ut purus urna, ultrices non iaculis sed, vulputate at lorem. Vivamus sed tincidunt velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed gravida lacinia justo, sit amet vulputate sapien pretium vel. In sodales eros quis arcu imperdiet malesuada. Sed porta odio nunc, vitae consectetur sapien tincidunt pretium."
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          },
+          "propertyTokens": [
+            "be92ac4c-e72f-9f82-2a80-2c211ea86578",
+            "693de2cd-ac92-d2c7-59fc-a3c0f2bce646"
+          ]
+        },
+        {
+          "ruleKey": "119140-0",
+          "activityId": 119140,
+          "meta": {
+            "activity.id": 119140,
+            "activity.name": "hero text",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [1751412],
+            "option.id": 3,
+            "option.name": "Offer3",
+            "activityId": 119140,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [1751412],
+            "offerIds": []
+          },
+          "condition": {
+            "and": [
+              { "<": [34.0, { "var": "allocation" }, 67.0] },
+              {
+                "and": [
+                  {
+                    "==": [
+                      "target-perf-site.netlify.app",
+                      { "var": "page.domain" }
+                    ]
+                  },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "g8Rc1xzKsUGgFyNy7EsOVJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > P.offset-top-36:eq(0)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > MAIN:nth-of-type(1) > SECTION:nth-of-type(1) > DIV:nth-of-type(2) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > P:nth-of-type(1)",
+                    "content": "Duis quam tortor, rutrum tincidunt ligula ac, imperdiet lacinia risus. Donec vitae molestie ligula. Pellentesque id ex eget ex scelerisque maximus ut sed dui. Cras vitae elementum turpis. In finibus mi sit amet pharetra tincidunt. Aliquam sollicitudin lorem eu tellus gravida, a accumsan dui facilisis. Vivamus feugiat risus molestie semper commodo. Phasellus blandit magna sit amet lorem finibus hendrerit. Fusce sagittis in metus tincidunt posuere. Nam mattis augue in sagittis luctus. Proin facilisis sagittis turpis id porta. Maecenas erat quam, placerat vitae hendrerit scelerisque, viverra ut quam."
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          },
+          "propertyTokens": [
+            "be92ac4c-e72f-9f82-2a80-2c211ea86578",
+            "693de2cd-ac92-d2c7-59fc-a3c0f2bce646"
+          ]
+        },
+        {
+          "ruleKey": "119140-0",
+          "activityId": 119140,
+          "meta": {
+            "activity.id": 119140,
+            "activity.name": "hero text",
+            "activity.type": "ab",
+            "experience.id": 2,
+            "experience.name": "Experience C",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [1751412],
+            "option.id": 0,
+            "activityId": 119140,
+            "activityType": "ab",
+            "experienceId": 2,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [1751412],
+            "offerIds": []
+          },
+          "condition": {
+            "and": [
+              { "<": [67.0, { "var": "allocation" }, 100.0] },
+              {
+                "and": [
+                  {
+                    "==": [
+                      "target-perf-site.netlify.app",
+                      { "var": "page.domain" }
+                    ]
+                  },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "eventToken": "g8Rc1xzKsUGgFyNy7EsOVAreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+              }
+            ],
+            "metrics": []
+          },
+          "propertyTokens": [
+            "be92ac4c-e72f-9f82-2a80-2c211ea86578",
+            "693de2cd-ac92-d2c7-59fc-a3c0f2bce646"
+          ]
+        },
+        {
+          "ruleKey": "119138-0",
+          "activityId": 119138,
+          "meta": {
+            "activity.id": 119138,
+            "activity.name": "Buy button color",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [1751416],
+            "option.id": 2,
+            "option.name": "Offer2",
+            "activityId": 119138,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [1751416],
+            "offerIds": []
+          },
+          "condition": {
+            "and": [
+              { "<": [0.0, { "var": "allocation" }, 50.0] },
+              {
+                "and": [
+                  {
+                    "==": [
+                      "target-perf-site.netlify.app",
+                      { "var": "page.domain" }
+                    ]
+                  },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "KT6+ry2VWwQQACQ59nVjE2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setStyle",
+                    "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV.group:eq(0) > A.btn:eq(0)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > MAIN:nth-of-type(1) > SECTION:nth-of-type(1) > DIV:nth-of-type(2) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(2) > A:nth-of-type(1)",
+                    "content": {
+                      "background-color": "rgba(0,0,0,1)",
+                      "priority": "important"
+                    }
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "type": "click",
+                "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV.group:eq(0) > A.btn:eq(0)",
+                "eventToken": "z2uDHwAZNXX6NmQh/vkAGw=="
+              }
+            ]
+          },
+          "propertyTokens": [
+            "be92ac4c-e72f-9f82-2a80-2c211ea86578",
+            "693de2cd-ac92-d2c7-59fc-a3c0f2bce646"
+          ]
+        },
+        {
+          "ruleKey": "119138-0",
+          "activityId": 119138,
+          "meta": {
+            "activity.id": 119138,
+            "activity.name": "Buy button color",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [1751416],
+            "option.id": 3,
+            "option.name": "Offer3",
+            "activityId": 119138,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "view",
+            "audienceIds": [1751416],
+            "offerIds": []
+          },
+          "condition": {
+            "and": [
+              { "<": [50.0, { "var": "allocation" }, 100.0] },
+              {
+                "and": [
+                  {
+                    "==": [
+                      "target-perf-site.netlify.app",
+                      { "var": "page.domain" }
+                    ]
+                  },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "KT6+ry2VWwQQACQ59nVjE5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setStyle",
+                    "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV.group:eq(0) > A.btn:eq(0)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > MAIN:nth-of-type(1) > SECTION:nth-of-type(1) > DIV:nth-of-type(2) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(2) > A:nth-of-type(1)",
+                    "content": {
+                      "background-color": "rgba(86,86,255,1)",
+                      "priority": "important"
+                    }
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "type": "click",
+                "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV.group:eq(0) > A.btn:eq(0)",
+                "eventToken": "z2uDHwAZNXX6NmQh/vkAGw=="
+              }
+            ]
+          },
+          "propertyTokens": [
+            "be92ac4c-e72f-9f82-2a80-2c211ea86578",
+            "693de2cd-ac92-d2c7-59fc-a3c0f2bce646"
+          ]
+        },
+        {
+          "ruleKey": "119283",
+          "activityId": 119283,
+          "meta": {
+            "activity.id": 119283,
+            "activity.name": "ab target-global-mbox",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "target-global-mbox",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [],
+            "offer.id": 231970,
+            "offer.name": "/ab_target-global-mbox/experiences/0/pages/0/zones/0/1596064713723",
+            "option.id": 2,
+            "option.name": "Offer2",
+            "activityId": 119283,
+            "activityType": "ab",
+            "experienceId": 0,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [231970]
+          },
+          "condition": { "<": [0.0, { "var": "allocation" }, 50.0] },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "html",
+                "eventToken": "+AmuYBb3fr5J6T6cuosul2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<div>\n\t<p>Vm5sSNxcCrpjlEotuIuZp68rgOgzXeMvPku76A9Swptv5ntKYUusGRbT5zmUFZIhUcPvYlTz0ppDPepXkCFf5OXsWBpblxTrK0uOjOc6CBT10qHt9gpwZF6A7TqGSYFuFuySxkN8SlVoDpZsK4O9ttcfCz0L7PrKPNyeiltyUaZmS3hkkE3s1hy1OX03YhEUGJKACQTKw3luLEUHYpGfsaLspBrxoqnMLpAnqNNcjaZchCWBNjGzgSFtpFcK1mnfee1JmpEBTxiZ7YZso0xAO9HY7kQRq9apz92834WNyL3s3wuTEDAYQfAflTOfVlHZt4ZyRFtOGlEjyIgyT3ET6LHWFrcryb6L5MMxDFvYNBT9gB6eRT4bQaiuzgGmPWrF30ru2y6ZMJdWatUJfzumqs6UvAhbRm0Plu2xLrH3igyQHalebq3t57Zd</p>\n\t<p>pjIQP2Cv9TYgjqlYc3o6ZufoT9fLvk2HBPIx5ekanSbfB40Az1xQ9pDfMB3tg1rCjovA9Cl7BK1TaQE9GFZyhpkTloUpSMHLY4aZGo7AHmZFAEnpzrbUEzDRCtWsM9PSYbpUN6UuOUrc0ira6Vkv2SEDfMrTQh1ebAOM7b6PuAWa9mbKH9vBj1Tfij5DTDRRThaNWFnHpffAkcxycbvJ1KVYC3G3EjyNf9ewodW1g2GG4A54nrO6cBpqJHLEe5sj8pFXBZyz52M8NljXxKMrwK65XRI8bp2zBS3rslddgOcSGucshA2e6ewycC4iAUZXwpoNgnCazMhlKhSWgIXU8jXJRfcj2cPy3PkS6m1UOt6LpXhBaK0d3MTOQtlQw2RKlATPHV856wMEhI7pHamArJYIom2UcrcMylTHaK8pwW0ZwUvvjN7Adwnw</p>\n</div>"
+              }
+            ],
+            "metrics": []
+          },
+          "propertyTokens": ["be92ac4c-e72f-9f82-2a80-2c211ea86578"]
+        },
+        {
+          "ruleKey": "119283",
+          "activityId": 119283,
+          "meta": {
+            "activity.id": 119283,
+            "activity.name": "ab target-global-mbox",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "target-global-mbox",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [],
+            "offer.id": 231971,
+            "offer.name": "/ab_target-global-mbox/experiences/1/pages/0/zones/0/1596064713731",
+            "option.id": 3,
+            "option.name": "Offer3",
+            "activityId": 119283,
+            "activityType": "ab",
+            "experienceId": 1,
+            "locationId": 0,
+            "locationName": "target-global-mbox",
+            "locationType": "mbox",
+            "audienceIds": [],
+            "offerIds": [231971]
+          },
+          "condition": { "<": [50.0, { "var": "allocation" }, 100.0] },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "html",
+                "eventToken": "+AmuYBb3fr5J6T6cuosul5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<div>\n\t<p>4NXqPDxt6MmySskjsu9cYuLTG2tLbaMeIUmWKYNWTZDJf6ejiuTyhkHx2eneLg5s5h3aVt0hkCseREaB6StTZOFdoB1EfaZOJQWpG2k6zhs6tSaWaESqSEBTg1SMLnTRmGbDsb0z4zvugXFq57bRaaA5qzHn8uVJhdKV4MVt9aWenzfnEVIYKyrAgTxx0NTnKutIIFw0JFf66pg3uYFZ3mwkzjGaN8msFwWnRJdXS4Q4Nxfb8IOkxC8CP253J8qVRk78KyyOziucWiZEH7epD2tWXydFUNYGktLnhMrFyqqshOWf1S3IkYIbLf2DRQgmtVkmzFsFwcrzbAcuclnDHSNShaXXEY3t4gZCxuG9s4sVirqQSruzFDZn6ezVmLX3CJXxELgZ6rdZcjTL3M8oEsAS3ZIhkK8qmjjFG9wRW4drDUt3HW3xwlrQ</p>\n\t<p>bxeEgdFwRfQgCMDzZiddbJZvV7o9AP1Q3IIhC0WaaVV5Wy7nJJkc21oeHbF3bWY0mvwwgWOISZnVjifxFaL1tW8PIC944sdgsG5YWAJSFqcjRIrymXoHYf07MQQLHTEbdLn2TI5JDh7JTCriIIy7LJc2KC5FpaHZZ0VOqJ2PtnW2aHF3sdIT5uAQDjKN7lfxiRIWxbu7Jho0RG20NhGvvkSj3g82do0aonuQoRcjnKm87MCqFEQGjOVt2fzQnFTITZthfs6MOMivtMK4RGKN7OoFA7a8GLmHyHZ6WuMhrjnYawxXwgT0L4Ydlr5nsV91YhoxdJADIn5s2jvKMkXu2xstATvGG7XAiCXcbdW6n2NkwazTSTuQ0jcmxoT4AE1JLLssJ5S754rF5HnxnoUIGbG9etCbbSEfQWGSiAH4muDNNgnCde4CQD0Q</p>\n</div>"
+              }
+            ],
+            "metrics": []
+          },
+          "propertyTokens": ["be92ac4c-e72f-9f82-2a80-2c211ea86578"]
+        }
+      ]
+    },
+    "views": {}
   }
 }
-]}],"metrics":[{"type":"click","selector":"HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV.group:eq(0) > A.btn:eq(0)","eventToken":"z2uDHwAZNXX6NmQh/vkAGw=="}]},"propertyTokens":["be92ac4c-e72f-9f82-2a80-2c211ea86578","693de2cd-ac92-d2c7-59fc-a3c0f2bce646"]},{"ruleKey":"119138-0","activityId":119138,"meta":{"activity.id":119138,"activity.name":"Buy button color","activity.type":"ab","experience.id":1,"experience.name":"Experience B","location.name":"target-global-mbox","location.type":"view","location.id":0,"audience.ids":[1751416],"option.id":3,"option.name":"Offer3","activityId":119138,"activityType":"ab","experienceId":1,"locationId":0,"locationName":"target-global-mbox","locationType":"view","audienceIds":[1751416],"offerIds":[]},"condition":{"and":[{"<":[50.0,{"var":"allocation"},100.0]},{"and":[{"==":["target-perf-site.netlify.app",{"var":"page.domain"}]},{"==":["/",{"var":"page.path"}]}]}]},"consequence":{"name":"target-global-mbox","options":[{"type":"actions","eventToken":"KT6+ry2VWwQQACQ59nVjE5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==","content":[{
-  "type": "setStyle",
-  "selector": "HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV.group:eq(0) > A.btn:eq(0)",
-  "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > MAIN:nth-of-type(1) > SECTION:nth-of-type(1) > DIV:nth-of-type(2) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(2) > A:nth-of-type(1)",
-  "content": {
-    "background-color": "rgba(86,86,255,1)",
-    "priority": "important"
-  }
-}
-]}],"metrics":[{"type":"click","selector":"HTML > BODY > DIV.page:eq(0) > MAIN.page-content:eq(0) > SECTION.section:eq(0) > DIV.parallax-content:eq(0) > DIV.shell:eq(0) > DIV.range:eq(0) > DIV.range:eq(0) > DIV.cell-xs-10:eq(0) > DIV.group:eq(0) > A.btn:eq(0)","eventToken":"z2uDHwAZNXX6NmQh/vkAGw=="}]},"propertyTokens":["be92ac4c-e72f-9f82-2a80-2c211ea86578","693de2cd-ac92-d2c7-59fc-a3c0f2bce646"]},{"ruleKey":"119283","activityId":119283,"meta":{"activity.id":119283,"activity.name":"ab target-global-mbox","activity.type":"ab","experience.id":0,"experience.name":"Experience A","location.name":"target-global-mbox","location.type":"mbox","location.id":0,"audience.ids":[],"offer.id":231970,"offer.name":"/ab_target-global-mbox/experiences/0/pages/0/zones/0/1596064713723","option.id":2,"option.name":"Offer2","activityId":119283,"activityType":"ab","experienceId":0,"locationId":0,"locationName":"target-global-mbox","locationType":"mbox","audienceIds":[],"offerIds":[231970]},"condition":{"<":[0.0,{"var":"allocation"},50.0]},"consequence":{"name":"target-global-mbox","options":[{"type":"html","eventToken":"+AmuYBb3fr5J6T6cuosul2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==","content":"<div>\n\t<p>Vm5sSNxcCrpjlEotuIuZp68rgOgzXeMvPku76A9Swptv5ntKYUusGRbT5zmUFZIhUcPvYlTz0ppDPepXkCFf5OXsWBpblxTrK0uOjOc6CBT10qHt9gpwZF6A7TqGSYFuFuySxkN8SlVoDpZsK4O9ttcfCz0L7PrKPNyeiltyUaZmS3hkkE3s1hy1OX03YhEUGJKACQTKw3luLEUHYpGfsaLspBrxoqnMLpAnqNNcjaZchCWBNjGzgSFtpFcK1mnfee1JmpEBTxiZ7YZso0xAO9HY7kQRq9apz92834WNyL3s3wuTEDAYQfAflTOfVlHZt4ZyRFtOGlEjyIgyT3ET6LHWFrcryb6L5MMxDFvYNBT9gB6eRT4bQaiuzgGmPWrF30ru2y6ZMJdWatUJfzumqs6UvAhbRm0Plu2xLrH3igyQHalebq3t57Zd</p>\n\t<p>pjIQP2Cv9TYgjqlYc3o6ZufoT9fLvk2HBPIx5ekanSbfB40Az1xQ9pDfMB3tg1rCjovA9Cl7BK1TaQE9GFZyhpkTloUpSMHLY4aZGo7AHmZFAEnpzrbUEzDRCtWsM9PSYbpUN6UuOUrc0ira6Vkv2SEDfMrTQh1ebAOM7b6PuAWa9mbKH9vBj1Tfij5DTDRRThaNWFnHpffAkcxycbvJ1KVYC3G3EjyNf9ewodW1g2GG4A54nrO6cBpqJHLEe5sj8pFXBZyz52M8NljXxKMrwK65XRI8bp2zBS3rslddgOcSGucshA2e6ewycC4iAUZXwpoNgnCazMhlKhSWgIXU8jXJRfcj2cPy3PkS6m1UOt6LpXhBaK0d3MTOQtlQw2RKlATPHV856wMEhI7pHamArJYIom2UcrcMylTHaK8pwW0ZwUvvjN7Adwnw</p>\n</div>"}],"metrics":[]},"propertyTokens":["be92ac4c-e72f-9f82-2a80-2c211ea86578"]},{"ruleKey":"119283","activityId":119283,"meta":{"activity.id":119283,"activity.name":"ab target-global-mbox","activity.type":"ab","experience.id":1,"experience.name":"Experience B","location.name":"target-global-mbox","location.type":"mbox","location.id":0,"audience.ids":[],"offer.id":231971,"offer.name":"/ab_target-global-mbox/experiences/1/pages/0/zones/0/1596064713731","option.id":3,"option.name":"Offer3","activityId":119283,"activityType":"ab","experienceId":1,"locationId":0,"locationName":"target-global-mbox","locationType":"mbox","audienceIds":[],"offerIds":[231971]},"condition":{"<":[50.0,{"var":"allocation"},100.0]},"consequence":{"name":"target-global-mbox","options":[{"type":"html","eventToken":"+AmuYBb3fr5J6T6cuosul5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==","content":"<div>\n\t<p>4NXqPDxt6MmySskjsu9cYuLTG2tLbaMeIUmWKYNWTZDJf6ejiuTyhkHx2eneLg5s5h3aVt0hkCseREaB6StTZOFdoB1EfaZOJQWpG2k6zhs6tSaWaESqSEBTg1SMLnTRmGbDsb0z4zvugXFq57bRaaA5qzHn8uVJhdKV4MVt9aWenzfnEVIYKyrAgTxx0NTnKutIIFw0JFf66pg3uYFZ3mwkzjGaN8msFwWnRJdXS4Q4Nxfb8IOkxC8CP253J8qVRk78KyyOziucWiZEH7epD2tWXydFUNYGktLnhMrFyqqshOWf1S3IkYIbLf2DRQgmtVkmzFsFwcrzbAcuclnDHSNShaXXEY3t4gZCxuG9s4sVirqQSruzFDZn6ezVmLX3CJXxELgZ6rdZcjTL3M8oEsAS3ZIhkK8qmjjFG9wRW4drDUt3HW3xwlrQ</p>\n\t<p>bxeEgdFwRfQgCMDzZiddbJZvV7o9AP1Q3IIhC0WaaVV5Wy7nJJkc21oeHbF3bWY0mvwwgWOISZnVjifxFaL1tW8PIC944sdgsG5YWAJSFqcjRIrymXoHYf07MQQLHTEbdLn2TI5JDh7JTCriIIy7LJc2KC5FpaHZZ0VOqJ2PtnW2aHF3sdIT5uAQDjKN7lfxiRIWxbu7Jho0RG20NhGvvkSj3g82do0aonuQoRcjnKm87MCqFEQGjOVt2fzQnFTITZthfs6MOMivtMK4RGKN7OoFA7a8GLmHyHZ6WuMhrjnYawxXwgT0L4Ydlr5nsV91YhoxdJADIn5s2jvKMkXu2xstATvGG7XAiCXcbdW6n2NkwazTSTuQ0jcmxoT4AE1JLLssJ5S754rF5HnxnoUIGbG9etCbbSEfQWGSiAH4muDNNgnCde4CQD0Q</p>\n</div>"}],"metrics":[]},"propertyTokens":["be92ac4c-e72f-9f82-2a80-2c211ea86578"]}]},"views":{}}}

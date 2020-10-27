@@ -1,8 +1,8 @@
 module.exports = {
   extends: ["airbnb-base", "prettier", "plugin:jest/recommended"],
   env: {
-    es6: true,
-    node: true,
+    "es6": true,
+    "node": true,
     "jest/globals": true
   },
   plugins: ["prettier", "jest", "@lwc/eslint-plugin-lwc"],

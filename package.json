@@ -4,19 +4,29 @@
   "scripts": {
     "build": "lerna bootstrap && lerna run build",
     "clean": "lerna run clean",
+    "coverage": "node tools/mapCoverage.js",
+    "format": "lerna run format",
+    "lint": "lerna run lint",
     "prepublish": "npm run build",
-    "version": "lerna version",
+    "pretty-quick": "pretty-quick",
     "publish": "npm run version && lerna publish from-package",
     "test": "lerna run test --stream && npm run coverage",
-    "coverage": "node tools/mapCoverage.js",
-    "updateTestArtifacts": "node tools/updateTestArtifacts.js"
+    "updateTestArtifacts": "node tools/updateTestArtifacts.js",
+    "version": "lerna version"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   },
   "devDependencies": {
+    "husky": "^4.3.0",
     "istanbul-lib-coverage": "^3.0.0",
     "istanbul-lib-report": "^3.0.0",
     "istanbul-reports": "^3.0.1",
     "lerna": "^3.20.2",
     "node-fetch": "^2.6.0",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "pretty-quick": "^3.1.0"
   }
 }
