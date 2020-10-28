@@ -13,14 +13,14 @@
     "access": "public"
   },
   "scripts": {
-    "lint": "eslint src/**/*.js test/**/*.js",
+    "lint": "./node_modules/.bin/eslint src/**/*.js test/**/*.js",
     "format": "prettier '**/*.js' '**/*.json' --write --config '../../.prettierrc.json' --ignore-path '../../.prettierignore'",
     "clean": "rimraf dist",
     "prebuild": "npm run clean && npm run lint",
     "build": "NODE_ENV=production rollup -c",
     "pretest": "npm run format && npm run lint",
     "test": "NODE_ENV=development jest",
-    "prepublishOnly": "echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc",
+    "prepublishOnly": "echo //${NPM_REGISTRY}/:_authToken=${NPM_AUTH_TOKEN} > .npmrc",
     "prepare": "rollup --config"
   },
   "dependencies": {
@@ -37,8 +37,8 @@
     "@rollup/plugin-json": "^4.0.1",
     "@rollup/plugin-node-resolve": "^7.0.0",
     "core-js": "^3.6.5",
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.2.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "^23.6.0",
@@ -49,8 +49,8 @@
     "jest": "^25.1.0",
     "jest-fetch-mock": "^3.0.1",
     "mockdate": "^2.0.5",
-    "node-fetch": "^2.6.0",
-    "prettier": "^1.18.2",
+    "node-fetch": "^2.6.1",
+    "prettier": "^2.1.2",
     "rimraf": "^3.0.2",
     "rollup": "^1.17.0",
     "rollup-plugin-babel": "^4.3.3",

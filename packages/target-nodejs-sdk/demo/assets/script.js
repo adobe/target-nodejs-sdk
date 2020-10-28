@@ -24,7 +24,7 @@ function persistVisitorCookies(visitor, targetResponse) {
   if (!visitor) throw new Error("visitor is undefined");
   if (!targetResponse) throw new Error("targetResponse is undefined");
 
-  visitor.getVisitorValues(function(ids) {
+  visitor.getVisitorValues(function (ids) {
     const visitorCookie = getCookie(visitor.cookieName);
     const storageValue = {
       targetCookie: targetResponse.targetCookie.value,

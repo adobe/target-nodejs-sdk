@@ -9,7 +9,7 @@
     "lint": "lerna run lint",
     "prepublish": "npm run build",
     "pretty-quick": "pretty-quick",
-    "publish": "npm run version && lerna publish from-package",
+    "publish": "node tools/npm-publish.js",
     "test": "lerna run test --stream && npm run coverage",
     "updateTestArtifacts": "node tools/updateTestArtifacts.js",
     "version": "lerna version"
@@ -25,8 +25,8 @@
     "istanbul-lib-report": "^3.0.0",
     "istanbul-reports": "^3.0.1",
     "lerna": "^3.20.2",
-    "node-fetch": "^2.6.0",
-    "prettier": "^1.19.1",
+    "node-fetch": "^2.6.1",
+    "prettier": "^2.1.2",
     "pretty-quick": "^3.1.0"
   }
 }
