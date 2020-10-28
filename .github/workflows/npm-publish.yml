@@ -2,7 +2,7 @@ name: npm-publish
 on:
   workflow_dispatch:
     inputs:
-      versionSdk:
+      versionBump:
         description: "Bump which version number? (major, minor, patch)"
         required: true
         default: "patch"
