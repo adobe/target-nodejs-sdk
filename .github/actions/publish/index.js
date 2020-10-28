@@ -36,12 +36,13 @@ const ACCEPTABLE_VERSION_BUMP_OPTIONS = ["major", "minor", "patch"];
 try {
   // `who-to-greet` input defined in action metadata file
   const nameToGreet = core.getInput("who-to-greet");
-  const versionBump = core.getInput("versionBump");
+  const versionBump = core.getInput("version-to-bump");
 
   if (!ACCEPTABLE_VERSION_BUMP_OPTIONS.includes(versionBump.toLowerCase())) {
     throw new Error(
-      "${versionBump} is not valid.  Valid options are: " +
-        ACCEPTABLE_VERSION_BUMP_OPTIONS.join(", ")
+      `${versionBump} is not valid.  Valid options are: ${ACCEPTABLE_VERSION_BUMP_OPTIONS.join(
+        ", "
+      )}`
     );
   }
 
