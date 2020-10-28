@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       semverBump:
-        description: "Bump which version number? (major, minor, patch)"
+        description: "Bump which semver version number? (major, minor, patch)"
         required: true
         default: "patch"
 
@@ -30,7 +30,7 @@ jobs:
         run: |
           npm ci
           npm run publish ${{ github.event.inputs.semverBump }}
-        env: # More info about the environment variables in the README
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this as is, it's automatically generated
           NPM_AUTH_TOKEN: ${{ secrets.ADOBE_BOT_NPM_TOKEN }} # This will be shared with your repo as an org secret
           NPM_AUTH: ${{ secrets.ADOBE_BOT_NPM_TOKEN }} # This will be shared with your repo as an org secret

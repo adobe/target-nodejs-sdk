@@ -41,16 +41,10 @@ async function main() {
     }
   });
 
-  const versionArgs = [
-    versionBump,
-    "--yes",
-    "--no-git-tag-version",
-    "--no-push",
-    "--no-commit-hooks"
-  ];
-  // const publishArgs = ["from-package", "--yes"];
+  const versionArgs = [versionBump, "--yes"];
+  const publishArgs = ["from-package", "--yes"];
   await run(dir, "npm", "run", "version", ...versionArgs);
-  // await run(dir, "lerna", "publish", ...publishArgs);
+  await run(dir, "lerna", "publish", ...publishArgs);
 }
 
 function run(cwd, command, ...args) {
