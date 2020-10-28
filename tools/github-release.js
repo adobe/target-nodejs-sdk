@@ -1,11 +1,14 @@
 #!/usr/bin/env node
-const process = require("process");
 const path = require("path");
-const { spawn, exec } = require("child_process");
-const { readFile } = require("fs");
+const { spawn } = require("child_process");
 
 const REQUIRED_RELEASE_BRANCH = "main";
 const ACCEPTABLE_VERSION_BUMP_OPTIONS = ["major", "minor", "patch"];
+const REQUIRED_ENVIRONMENT_VARIABLES = [
+  "GITHUB_TOKEN",
+  "NPM_AUTH_TOKEN",
+  "NPM_REGISTRY"
+];
 
 async function main() {
   const dir = path.resolve(__dirname, "../");
@@ -28,17 +31,27 @@ async function main() {
     );
   }
 
-  const versionArgs = [
-    versionBump,
-    "--yes",
-    "--no-git-tag-version",
-    "--no-push",
-    "--no-commit-hooks"
-  ];
-  const publishArgs = ["from-package", "--yes"];
+  const environmentVars = Object.keys(process.env);
 
-  await run(dir, "npm", "run", "version", ...versionArgs);
-  await run(dir, "lerna", "publish", ...publishArgs);
+  REQUIRED_ENVIRONMENT_VARIABLES.forEach(environmentVariable => {
+    if (!environmentVars.includes(environmentVariable)) {
+      throw new Error(
+        `The environment variable "${environmentVariable}" was not found.`
+      );
+    }
+  });
+
+  Object.keys(process.env)
+    .filter(key => key.startsWith("NPM_") || key.startsWith("GITHUB_"))
+    .forEach(key => {
+      const value = process.env[key].charAt(0);
+      console.log(`environment variable ${key}: ${value}`);
+    });
+
+  // const versionArgs = [versionBump, "--yes"];
+  // const publishArgs = ["from-package", "--yes"];
+  // await run(dir, "npm", "run", "version", ...versionArgs);
+  // await run(dir, "lerna", "publish", ...publishArgs);
 }
 
 function run(cwd, command, ...args) {
