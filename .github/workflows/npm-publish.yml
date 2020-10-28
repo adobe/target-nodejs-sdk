@@ -18,8 +18,13 @@ jobs:
         uses: actions/setup-node@master
         with:
           node-version: 14
+      - name: build, test, generate coverage
+        run: |
+          npm ci
+        env:
+          CI: true
       - name: Publish if version has been updated
-        uses: ./.github/publish
+        uses: ./.github/actions/publish
         id: hello
         with:
           who-to-greet: "Mona the Octocat"
