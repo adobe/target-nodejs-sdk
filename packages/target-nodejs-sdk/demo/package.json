@@ -11,6 +11,6 @@
   "license": "Apache-2.0",
   "dependencies": {
     "https-proxy-agent": "^5.0.0",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.1"
   }
 }

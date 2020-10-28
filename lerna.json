@@ -1,13 +1,11 @@
 {
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*"],
   "command": {
     "version": {
-      "allowBranch": "master"
+      "allowBranch": "main"
     },
     "publish": {
-      "allowBranch": "master"
+      "allowBranch": "main"
     }
   },
   "version": "independent"

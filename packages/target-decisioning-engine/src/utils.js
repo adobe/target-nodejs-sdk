@@ -41,9 +41,9 @@ export function parseURL(url) {
     url = "";
   }
 
-  const parsed = parseURI(url);
+  const parsed = parseURI(url) || {};
 
-  const { host, path, query, anchor } = parsed;
+  const { host = "", path = "", query = "", anchor = "" } = parsed;
 
   const result = {
     url,

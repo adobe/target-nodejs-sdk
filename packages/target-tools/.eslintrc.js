@@ -8,6 +8,7 @@ module.exports = {
   plugins: ["prettier", "jest", "@lwc/eslint-plugin-lwc"],
   rules: {
     "prettier/prettier": "error",
+    "prefer-object-spread": "off",
     "no-underscore-dangle": "off",
     "import/no-extraneous-dependencies": [
       "error",
@@ -56,7 +57,8 @@ module.exports = {
       },
       rules: {
         "@lwc/lwc/no-async-await": "off",
-        "no-restricted-properties": "off"
+        "no-restricted-properties": "off",
+        "no-async-promise-executor": "off"
       }
     }
   ]

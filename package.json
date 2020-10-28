@@ -20,13 +20,15 @@
     }
   },
   "devDependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0",
     "husky": "^4.3.0",
     "istanbul-lib-coverage": "^3.0.0",
     "istanbul-lib-report": "^3.0.0",
     "istanbul-reports": "^3.0.1",
     "lerna": "^3.20.2",
-    "node-fetch": "^2.6.0",
-    "prettier": "^1.19.1",
+    "node-fetch": "^2.6.1",
+    "prettier": "^2.1.2",
     "pretty-quick": "^3.1.0"
   }
 }

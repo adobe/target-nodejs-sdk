@@ -16,7 +16,7 @@
     "access": "public"
   },
   "scripts": {
-    "lint": "eslint src/**",
+    "lint": "./node_modules/.bin/eslint src/**",
     "format": "prettier '**/*.js' '**/*.json' --write --config '../../.prettierrc.json' --ignore-path '../../.prettierignore'",
     "clean": "rimraf dist",
     "prebuild": "npm run clean && npm run lint",
@@ -41,8 +41,8 @@
     "@rollup/plugin-multi-entry": "^3.0.0",
     "@rollup/plugin-node-resolve": "^7.0.0",
     "core-js": "^3.6.5",
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.2.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "^23.6.0",
@@ -50,7 +50,7 @@
     "http-status-codes": "^1.4.0",
     "jest": "^25.1.0",
     "jest-fetch-mock": "^3.0.1",
-    "prettier": "^1.18.2",
+    "prettier": "^2.1.2",
     "rimraf": "^3.0.2",
     "rollup": "^1.17.0",
     "rollup-plugin-babel": "^4.3.3",
