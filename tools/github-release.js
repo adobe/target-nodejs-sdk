@@ -35,10 +35,10 @@ async function main() {
     "--no-push",
     "--no-commit-hooks"
   ];
+  const publishArgs = ["from-package", "--yes"];
 
   await run(dir, "npm", "run", "version", ...versionArgs);
-
-  // await run(dir, "lerna", "publish", "from-package", "--yes");
+  await run(dir, "lerna", "publish", ...publishArgs);
 }
 
 function run(cwd, command, ...args) {
