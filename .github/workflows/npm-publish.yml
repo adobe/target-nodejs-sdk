@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@master
+        with:
+          fetch-depth: 0
       - name: Set up Node.js
         uses: actions/setup-node@master
         with:
@@ -23,12 +25,15 @@ jobs:
           npm ci
         env:
           CI: true
-      - name: Publish if version has been updated
-        uses: ./.github/actions/publish
-        id: hello
-        with:
-          who-to-greet: "Mona the Octocat"
-          semver-bump: ${{ github.event.inputs.semverBump }}"
+      - name: Configure git user for release commits
+        env:
+          X_GITHUB_USERNAME: ${{ secrets.ADOBE_BOT_GITHUB_USERNAME  }}
+        run: |
+          git config user.email "Grp-opensourceoffice@adobe.com"
+          git config user.name "${X_GITHUB_USERNAME}"
+      - name: Publish
+        run: |
+          npm run github-release ${{ github.event.inputs.semverBump }}
         env: # More info about the environment variables in the README
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this as is, it's automatically generated
           NPM_AUTH_TOKEN: ${{ secrets.ADOBE_BOT_NPM_TOKEN }} # This will be shared with your repo as an org secret

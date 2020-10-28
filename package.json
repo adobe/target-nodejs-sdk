@@ -10,6 +10,7 @@
     "prepublish": "npm run build",
     "pretty-quick": "pretty-quick",
     "publish": "npm run version && lerna publish from-package",
+    "github-release": "node tools/github-release.js",
     "test": "lerna run test --stream && npm run coverage",
     "updateTestArtifacts": "node tools/updateTestArtifacts.js",
     "version": "lerna version"
