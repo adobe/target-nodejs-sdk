@@ -10,7 +10,6 @@ const ACCEPTABLE_VERSION_BUMP_OPTIONS = ["major", "minor", "patch"];
 async function main() {
   const dir = path.resolve(__dirname, "../");
 
-  // const pwd = await run(dir, "pwd");
   const branchName = await run(dir, "git", "branch", "--show-current");
 
   if (branchName !== REQUIRED_RELEASE_BRANCH) {
@@ -29,8 +28,17 @@ async function main() {
     );
   }
 
-  // npm run version ${versionBump}
-  // lerna publish from-package
+  const versionArgs = [
+    versionBump,
+    "--yes",
+    "--no-git-tag-version",
+    "--no-push",
+    "--no-commit-hooks"
+  ];
+
+  await run(dir, "npm", "run", "version", ...versionArgs);
+
+  // await run(dir, "lerna", "publish", "from-package", "--yes");
 }
 
 function run(cwd, command, ...args) {
@@ -58,6 +66,7 @@ function run(cwd, command, ...args) {
     proc.on("exit", code => {
       if (code === 0) {
         const stdout = Buffer.concat(outBuffer).toString("utf8").trim();
+        stdout.split("\n").forEach(line => console.log(`  >>${line}`));
         resolve(stdout);
       } else {
         const stderr = Buffer.concat(errBuffer).toString("utf8").trim();
@@ -69,19 +78,6 @@ function run(cwd, command, ...args) {
       }
     });
   });
-}
-
-async function readJson(file) {
-  const data = await new Promise((resolve, reject) =>
-    readFile(file, "utf8", (err, data) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(data);
-      }
-    })
-  );
-  return JSON.parse(data);
 }
 
 class ExitError extends Error {
