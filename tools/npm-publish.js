@@ -41,16 +41,15 @@ async function main() {
     }
   });
 
-  Object.keys(process.env)
-    .filter(key => key.startsWith("NPM_") || key.startsWith("GITHUB_"))
-    .forEach(key => {
-      const value = process.env[key].charAt(0);
-      console.log(`environment variable ${key}: ${value}`);
-    });
-
-  // const versionArgs = [versionBump, "--yes"];
+  const versionArgs = [
+    versionBump,
+    "--yes",
+    "--no-git-tag-version",
+    "--no-push",
+    "--no-commit-hooks"
+  ];
   // const publishArgs = ["from-package", "--yes"];
-  // await run(dir, "npm", "run", "version", ...versionArgs);
+  await run(dir, "npm", "run", "version", ...versionArgs);
   // await run(dir, "lerna", "publish", ...publishArgs);
 }
 
