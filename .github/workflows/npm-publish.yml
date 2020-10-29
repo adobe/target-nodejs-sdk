@@ -29,10 +29,11 @@ jobs:
         with:
           node-version: 14
           registry-url: "https://registry.npmjs.org"
-        run: npm ci
 
       - name: Publish to registry.npmjs.org
-        run: npm run publish ${{ github.event.inputs.semverBump }}
+        run: |
+          npm ci
+          npm run publish ${{ github.event.inputs.semverBump }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
