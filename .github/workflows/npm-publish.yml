@@ -18,11 +18,12 @@ jobs:
           fetch-depth: 0
 
       - name: Configure git user for release commits
-        env:
-          X_GITHUB_USERNAME: ${{ secrets.ADOBE_BOT_GITHUB_USERNAME  }}
         run: |
           git config user.email "Grp-opensourceoffice@adobe.com"
-          git config user.name "${X_GITHUB_USERNAME}"
+          git config user.name "Adobe Release Bot"
+          git config user.password "${GITHUB_TOKEN}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Node.js
         uses: actions/setup-node@master
