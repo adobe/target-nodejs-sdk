@@ -35,6 +35,8 @@ jobs:
           cd packages/target-nodejs-sdk
           npm run prepack
           ls
+          npm run postpack
+          ls
         #          npm run publish ${{ github.event.inputs.semverBump }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
