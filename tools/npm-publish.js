@@ -5,7 +5,10 @@ const { spawn } = require("child_process");
 const REQUIRED_RELEASE_BRANCH = "main";
 const ACCEPTABLE_VERSION_BUMP_OPTIONS = ["major", "minor", "patch"];
 const REQUIRED_ENVIRONMENT_VARIABLES = [
+  "GH_TOKEN",
   "GITHUB_TOKEN",
+  "NODE_AUTH_TOKEN",
+  "NPM_AUTH",
   "NPM_AUTH_TOKEN",
   "NPM_REGISTRY"
 ];
@@ -41,10 +44,18 @@ async function main() {
     }
   });
 
-  const versionArgs = [versionBump, "--yes"];
-  const publishArgs = ["from-package", "--yes"];
-  await run(dir, "npm", "run", "version", ...versionArgs);
-  await run(dir, "lerna", "publish", ...publishArgs);
+  const lerna = "./node_modules/.bin/lerna";
+  const versionArgs = [
+    versionBump,
+    "--yes",
+    "--no-git-tag-version",
+    "--no-push",
+    "--no-commit-hooks"
+  ];
+  await run(dir, lerna, "version", ...versionArgs);
+
+  // const publishArgs = ["from-package", "--yes"];
+  // await run(dir, lerna, "publish", ...publishArgs);
 }
 
 function run(cwd, command, ...args) {
