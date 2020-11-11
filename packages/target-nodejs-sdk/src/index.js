@@ -108,7 +108,7 @@ export default function bootstrap(fetchApi) {
      * @param {Number} options.pollingInterval (Local Decisioning) Polling interval in ms, default: 30000
      * @param {Number} options.maximumWaitReady (Local Decisioning) The maximum amount of time (in ms) to wait for clientReady.  Default is to wait indefinitely.
      * @param {String} options.artifactLocation (Local Decisioning) Fully qualified url to the location of the artifact, optional
-     * @param {String} options.artifactPayload (Local Decisioning) A pre-fetched artifact, optional
+     * @param {import("@adobe/target-decisioning-engine/types/DecisioningArtifact").DecisioningArtifact} options.artifactPayload (Local Decisioning) A pre-fetched artifact, optional
      * @param {Number} options.environmentId The Target environment ID, defaults to production, optional
      * @param {String} options.environment The Target environment name, defaults to production, optional
      * @param {String} options.cdnEnvironment The CDN environment name, defaults to production, optional
@@ -197,7 +197,7 @@ export default function bootstrap(fetchApi) {
       return this.getOffers({
         ...options,
         request: addMboxesToRequest(mboxNames, options.request, "execute")
-      }).then(res => AttributesProvider(mboxNames, res));
+      }).then(res => AttributesProvider(res));
     }
 
     /**

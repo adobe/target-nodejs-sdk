@@ -23,6 +23,17 @@ describe("allocationProvider", () => {
     ).toEqual(8.48);
   });
 
+  it("computed allocation for tntId does not include location hint", () => {
+    expect(
+      computeAllocation(
+        "someClientId",
+        "123456",
+        { tntId: "tntId123.28_0" },
+        "salty"
+      )
+    ).toEqual(8.48);
+  });
+
   it("computes allocation for thirdPartyId", () => {
     expect(
       computeAllocation(
