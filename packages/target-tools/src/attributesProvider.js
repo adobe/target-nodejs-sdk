@@ -31,10 +31,9 @@ function createIndexed(response) {
 }
 
 /**
- * @param {Array<String>} mboxNames A list of mbox names that contains JSON content attributes, required
  * @param { OffersResponse } offersResponse
  */
-export function AttributesProvider(mboxNames, offersResponse) {
+export function AttributesProvider(offersResponse) {
   const indexed = createIndexed(offersResponse.response);
 
   function getValue(mboxName, key) {

@@ -13,7 +13,6 @@ const TEST_CONF = {
 
 const TARGET_REQUEST = {
   id: {
-    tntId: "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
     marketingCloudVisitorId: "07327024324407615852294135870030620007"
   },
   context: {

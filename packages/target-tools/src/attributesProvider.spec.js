@@ -108,7 +108,7 @@ const targetResponse = {
 
 describe("attributesProvider", () => {
   it("has appropriate method calls", () => {
-    const feature = AttributesProvider(["feature-flag-a"], targetResponse);
+    const feature = AttributesProvider(targetResponse);
 
     expect(typeof feature.getValue).toEqual("function");
     expect(typeof feature.asObject).toEqual("function");
@@ -119,7 +119,7 @@ describe("attributesProvider", () => {
   });
 
   it("gets value for a single mbox", () => {
-    const featureA = AttributesProvider(["feature-flag-a"], targetResponse);
+    const featureA = AttributesProvider(targetResponse);
 
     expect(featureA.getValue("feature-flag-a", "paymentExperience")).toEqual(
       "legacy"
@@ -132,7 +132,7 @@ describe("attributesProvider", () => {
       featureA.getValue("feature-flag-a", "customerFeedbackValue")
     ).toEqual(10);
 
-    const featureB = AttributesProvider(["feature-flag-b"], targetResponse);
+    const featureB = AttributesProvider(targetResponse);
 
     expect(featureB.getValue("feature-flag-b", "purchaseExperience")).toEqual(
       "beta2"
@@ -145,10 +145,7 @@ describe("attributesProvider", () => {
   });
 
   it("gets value for multiple mboxes at once", () => {
-    const features = AttributesProvider(
-      ["feature-flag-a", "feature-flag-b"],
-      targetResponse
-    );
+    const features = AttributesProvider(targetResponse);
 
     expect(features.getValue("feature-flag-a", "paymentExperience")).toEqual(
       "legacy"
@@ -172,10 +169,7 @@ describe("attributesProvider", () => {
   });
 
   it("gets as object", () => {
-    const features = AttributesProvider(
-      ["feature-flag-a", "feature-flag-b"],
-      targetResponse
-    );
+    const features = AttributesProvider(targetResponse);
 
     expect(features.asObject("feature-flag-a")).toMatchObject({
       paymentExperience: "legacy",
@@ -223,10 +217,7 @@ describe("attributesProvider", () => {
   });
 
   it("throws an error if an attribute does not exist", () => {
-    const features = AttributesProvider(
-      ["feature-flag-a", "feature-flag-b"],
-      targetResponse
-    );
+    const features = AttributesProvider(targetResponse);
 
     expect(features.getValue("feature-flag-a", "myPropertyName")).toEqual(
       new Error(ATTRIBUTE_NOT_EXIST("myPropertyName", "feature-flag-a"))

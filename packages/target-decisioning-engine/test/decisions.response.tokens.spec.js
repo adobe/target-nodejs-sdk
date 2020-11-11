@@ -38,7 +38,7 @@ describe("decisioning outcomes - response tokens", () => {
       const result = await decisioning.getOffers({
         request: {
           id: {
-            tntId: "338e3c1e51f7416a8e1ccba4f81acea0.28_0"
+            thirdPartyId: "338e3c1e51f7416a8e1ccba4f81acea0.28_0"
           },
           context: {
             channel: "web",
@@ -100,7 +100,7 @@ describe("decisioning outcomes - response tokens", () => {
       const result = await decisioning.getOffers({
         request: {
           id: {
-            tntId: "338e3c1e51f7416a8e1ccba4f81acea0.28_0"
+            thirdPartyId: "338e3c1e51f7416a8e1ccba4f81acea0.28_0"
           },
           context: {
             channel: "web",

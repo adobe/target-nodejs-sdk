@@ -2,6 +2,12 @@ import MurmurHash3 from "imurmurhash";
 import { createUUID } from "@adobe/target-tools";
 import { getCustomerId } from "./requestProvider";
 
+function validTntId(tntId = createUUID()) {
+  // eslint-disable-next-line no-unused-vars
+  const [id, locationHint] = tntId.split(".");
+  return id;
+}
+
 /**
  *
  * @param { import("@adobe/target-tools/delivery-api-client/models/VisitorId").VisitorId } visitorId
@@ -13,8 +19,7 @@ export function getOrCreateVisitorId(visitorId) {
       visitorId.thirdPartyId ||
       getCustomerId(visitorId) ||
       visitorId.marketingCloudVisitorId ||
-      visitorId.tntId ||
-      createUUID()
+      validTntId(visitorId.tntId)
     );
   }
   return createUUID();
