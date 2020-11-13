@@ -33,7 +33,7 @@ const OK = 200;
 /**
  *
  * @param {import("../types/DecisioningConfig").DecisioningConfig} config
- * @param {import("../types/TargetOptions").TargetOptions} targetOptions
+ * @param {import("../types/TargetDeliveryRequest").TargetDeliveryRequest} targetOptions
  * @param {import("../types/DecisioningContext").DecisioningContext} context
  * @param { import("../types/DecisioningArtifact").DecisioningArtifact } artifact
  * @param { Object } logger

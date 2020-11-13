@@ -1,3 +1,4 @@
+/* eslint-disable jest/no-disabled-tests */
 import * as nodeFetch from "node-fetch";
 import * as HttpsProxyAgent from "https-proxy-agent";
 

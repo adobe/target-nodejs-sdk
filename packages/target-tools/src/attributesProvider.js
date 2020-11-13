@@ -31,7 +31,7 @@ function createIndexed(response) {
 }
 
 /**
- * @param { OffersResponse } offersResponse
+ * @param { TargetDeliveryResponse } offersResponse
  */
 export function AttributesProvider(offersResponse) {
   const indexed = createIndexed(offersResponse.response);
