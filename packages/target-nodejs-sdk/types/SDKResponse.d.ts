@@ -1,4 +1,7 @@
-import {DeliveryRequest, DeliveryResponse} from "@adobe/target-tools/delivery-api-client";
+import {
+  DeliveryRequest,
+  DeliveryResponse
+} from "@adobe/target-tools/delivery-api-client";
 
 export interface Cookie {
   name: String;
@@ -6,20 +9,20 @@ export interface Cookie {
   maxAge: Number;
 }
 
-export interface ResponseStatus {
-  status: Number;
-  message: String;
+export interface ResponseMeta {
+  decisioningMethod: String;
   remoteMboxes: String[];
+  remoteViews: String[];
 }
 
-export interface OffersResponse {
-    request: DeliveryRequest;
-    response: DeliveryResponse;
-    visitorState?:Object;
-    targetCookie?:Cookie;
-    targetLocationHintCookie?:Cookie;
-    analyticsDetails?:Array<any>;
-    responseTokens?:Array<any>;
-    trace?:Array<any>;
-    status?:ResponseStatus;
+export interface TargetDeliveryResponse {
+  request: DeliveryRequest;
+  response: DeliveryResponse;
+  visitorState?: Object;
+  targetCookie?: Cookie;
+  targetLocationHintCookie?: Cookie;
+  analyticsDetails?: Array<any>;
+  responseTokens?: Array<any>;
+  trace?: Array<any>;
+  meta?: ResponseMeta;
 }

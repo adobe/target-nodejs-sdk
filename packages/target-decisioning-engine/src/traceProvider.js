@@ -6,7 +6,7 @@ const byOrder = (a, b) => a.order - b.order;
 
 /**
  * @param {import("../types/DecisioningConfig").DecisioningConfig} config Options map, required
- * @param {import("../types/TargetOptions").TargetOptions} targetOptions
+ * @param {import("../types/TargetDeliveryRequest").TargetDeliveryRequest} targetOptions
  * @param { object } artifactTrace
  */
 export function TraceProvider(config, targetOptions, artifactTrace) {

@@ -1,3 +1,4 @@
+/* eslint-disable jest/no-disabled-tests */
 const TargetClient = require("../src/index.server").default;
 
 /**

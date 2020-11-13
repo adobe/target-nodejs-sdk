@@ -20,7 +20,7 @@ export default function TargetDecisioningEngine(config) {
 
   /**
    * The get offers method
-   * @param {import("../types/TargetOptions").TargetOptions} targetOptions
+   * @param {import("../types/TargetDeliveryRequest").TargetDeliveryRequest} targetOptions
    */
   function getOffers(targetOptions) {
     let { request } = targetOptions;

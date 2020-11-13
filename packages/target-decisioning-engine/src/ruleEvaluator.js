@@ -15,7 +15,7 @@ import { ACTIVITY_ID } from "./constants";
 export function ruleEvaluator(clientId, visitorId) {
   /**
    * @param {import("../types/DecisioningArtifact").Rule} rule
-   * @param { Object } context
+   * @param { import("../types/DecisioningContext").DecisioningContext } context
    * @param { 'mbox'|'view'|'pageLoad' } requestType
    * @param {import("@adobe/target-tools/delivery-api-client/models/MboxRequest").MboxRequest|import("@adobe/target-tools/delivery-api-client/models/RequestDetails").RequestDetails} requestDetail
    * @param { Array<Function> } postProcessors

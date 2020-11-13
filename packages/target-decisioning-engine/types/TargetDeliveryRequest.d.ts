@@ -1,7 +1,10 @@
-import {CustomerId, DeliveryRequest} from "@adobe/target-tools/delivery-api-client";
+import {
+  CustomerId,
+  DeliveryRequest,
+  Trace
+} from "@adobe/target-tools/delivery-api-client";
 
-
-export interface TargetOptions {
+export interface TargetDeliveryRequest {
   /**
    * Target Delivery Request
    */
@@ -10,35 +13,40 @@ export interface TargetOptions {
   /**
    * VisitorId cookie value
    */
-  visitorCookie?:String;
+  visitorCookie?: String;
 
   /**
    * Target cookie value
    */
-  targetCookie?:String;
+  targetCookie?: String;
 
   /**
    * Target location hint value
    */
-  targetLocationHint?:String;
+  targetLocationHint?: String;
 
   /**
    * When stitching multiple calls, different consumerIds should be provided,
    */
-  consumerId?:String;
+  consumerId?: String;
 
   /**
    * An array of Customer Ids in VisitorId-compatible format
    */
-  customerIds?:Array<CustomerId>
+  customerIds?: Array<CustomerId>;
 
   /**
    * Session Id, used for linking multiple requests
    */
-  sessionId?:String;
+  sessionId?: String;
 
   /**
    * Supply an external VisitorId instance
    */
-  visitor?:Object;
+  visitor?: Object;
+
+  /**
+   * Enables the trace. A valid authorizationToken is requried for Delivery API.
+   */
+  trace?: Trace;
 }

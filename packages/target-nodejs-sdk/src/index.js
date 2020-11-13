@@ -148,6 +148,7 @@ export default function bootstrap(fetchApi) {
      * @param {String} options.sessionId Session Id, used for linking multiple requests, optional
      * @param {Object} options.visitor Supply an external VisitorId instance, optional
      * @param {('on-device'|'server-side'|'hybrid')} options.decisioningMethod The execution mode, defaults to remote, optional
+     * @returns Promise<TargetDeliveryResponse>
      */
     getOffers(options) {
       const error = validateGetOffersOptions(options);
