@@ -130,7 +130,6 @@ describe("geoProvider", () => {
       expect(geo).toEqual({
         city: "SAN FRANCISCO",
         countryCode: "US",
-        ipAddress: UNKNOWN_IP_ADDRESS,
         latitude: 37.75,
         longitude: -122.4,
         stateCode: "CA"
@@ -154,7 +153,6 @@ describe("geoProvider", () => {
       expect(fetch.mock.calls.length).toEqual(0);
 
       expect(geo).toEqual({
-        ipAddress: UNKNOWN_IP_ADDRESS,
         city: "Reno"
       });
     });

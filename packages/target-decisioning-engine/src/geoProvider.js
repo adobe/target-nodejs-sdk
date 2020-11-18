@@ -98,6 +98,15 @@ export function GeoProvider(config, artifact) {
    * @return { Promise<import("@adobe/target-tools/delivery-api-client/models/Geo").Geo> }
    */
   function validGeoRequestContext(geoRequestContext = {}) {
+    const validatedGeoRequestContext = { ...geoRequestContext };
+
+    if (
+      geoRequestContext.ipAddress === UNKNOWN_IP_ADDRESS ||
+      !isValidIpAddress(geoRequestContext.ipAddress)
+    ) {
+      delete validatedGeoRequestContext.ipAddress;
+    }
+
     // When ipAddress is the only geo value passed in to getOffers(), do IP-to-Geo lookup.
     const geoLookupPath = getGeoLookupPath(config);
 
@@ -126,13 +135,15 @@ export function GeoProvider(config, artifact) {
             .then(geoPayload => createGeoObjectFromPayload(geoPayload))
         )
         .then(fetchedGeoValues => {
-          assign(geoRequestContext, fetchedGeoValues);
-          eventEmitter(GEO_LOCATION_UPDATED, { geoContext: geoRequestContext });
-          return geoRequestContext;
+          assign(validatedGeoRequestContext, fetchedGeoValues);
+          eventEmitter(GEO_LOCATION_UPDATED, {
+            geoContext: validatedGeoRequestContext
+          });
+          return validatedGeoRequestContext;
         });
     }
 
-    return Promise.resolve(geoRequestContext);
+    return Promise.resolve(validatedGeoRequestContext);
   }
   return validGeoRequestContext;
 }

@@ -6,6 +6,7 @@ import {
   isDefined,
   isNodeJS,
   noop,
+  perfTool,
   values
 } from "@adobe/target-tools";
 import Messages from "./messages";
@@ -25,6 +26,12 @@ import {
 } from "./events";
 import { createGeoObjectFromHeaders } from "./geoProvider";
 import ObfuscationProvider from "./obfuscationProvider";
+import {
+  TIMING_ARTIFACT_DEOBFUSCATE,
+  TIMING_ARTIFACT_DOWNLOADED_FETCH,
+  TIMING_ARTIFACT_DOWNLOADED_TOTAL,
+  TIMING_ARTIFACT_READ_JSON
+} from "./timings";
 
 const LOG_TAG = `${LOG_PREFIX}.ArtifactProvider`;
 const NOT_MODIFIED = 304;
@@ -109,14 +116,24 @@ function ArtifactProvider(config) {
    * @return {Promise<import("../types/DecisioningArtifact").DecisioningArtifact>}
    */
   function deobfuscate(res) {
-    return artifactFormat === ARTIFACT_FORMAT_BINARY
-      ? res
-          .arrayBuffer()
-          .then(buffer => obfuscationProvider.deobfuscate(buffer))
-      : res.json();
+    if (artifactFormat === ARTIFACT_FORMAT_BINARY) {
+      perfTool.timeStart(TIMING_ARTIFACT_DEOBFUSCATE);
+      return res.arrayBuffer().then(buffer => {
+        return obfuscationProvider.deobfuscate(buffer).then(deobfuscated => {
+          perfTool.timeEnd(TIMING_ARTIFACT_DEOBFUSCATE);
+          return deobfuscated;
+        });
+      });
+    }
+    perfTool.timeStart(TIMING_ARTIFACT_READ_JSON);
+    return res.json().then(data => {
+      perfTool.timeEnd(TIMING_ARTIFACT_READ_JSON);
+      return data;
+    });
   }
 
   function fetchArtifact(artifactUrl) {
+    perfTool.timeStart(TIMING_ARTIFACT_DOWNLOADED_TOTAL);
     const headers = {};
     logger.debug(`${LOG_TAG} fetching artifact - ${artifactUrl}`);
 
@@ -124,11 +141,13 @@ function ArtifactProvider(config) {
       headers["If-None-Match"] = lastResponseEtag;
     }
 
+    perfTool.timeStart(TIMING_ARTIFACT_DOWNLOADED_FETCH);
     return fetchWithRetry(artifactUrl, {
       headers,
       cache: "default"
     })
       .then(res => {
+        perfTool.timeEnd(TIMING_ARTIFACT_DOWNLOADED_FETCH);
         logger.debug(`${LOG_TAG} artifact received - status=${res.status}`);
 
         if (res.status === NOT_MODIFIED && lastResponseData) {
@@ -146,6 +165,8 @@ function ArtifactProvider(config) {
               responseData,
               createGeoObjectFromHeaders(res.headers)
             );
+
+            perfTool.timeEnd(TIMING_ARTIFACT_DOWNLOADED_TOTAL);
             return responseData;
           });
         }
