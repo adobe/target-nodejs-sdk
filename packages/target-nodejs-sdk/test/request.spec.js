@@ -110,45 +110,6 @@ describe("Requests to target delivery API", () => {
     expect(fetch.mock.calls.length).toEqual(1);
   });
 
-  describe("environment ID", () => {
-    it("includes environmentID in request if specified", async () => {
-      const client = TargetClient.create({
-        client: "someClientId",
-        organizationId: "someOrgId",
-        environmentId: 12345
-      });
-
-      const result = await client.getOffers({
-        request: TARGET_REQUEST,
-        sessionId: "dummy_session"
-      });
-      expect(result).not.toBeUndefined();
-
-      expect(fetch.mock.calls.length).toEqual(1);
-      const fetchRequestBody = JSON.parse(fetch.mock.calls[0][1].body);
-
-      expect(fetchRequestBody.environmentId).toEqual(12345);
-    });
-
-    it("does not include environmentID in request if not specified", async () => {
-      const client = TargetClient.create({
-        client: "someClientId",
-        organizationId: "someOrgId"
-      });
-
-      const result = await client.getOffers({
-        request: TARGET_REQUEST,
-        sessionId: "dummy_session"
-      });
-      expect(result).not.toBeUndefined();
-
-      expect(fetch.mock.calls.length).toEqual(1);
-      const fetchRequestBody = JSON.parse(fetch.mock.calls[0][1].body);
-
-      expect(fetchRequestBody.environmentId).toBeUndefined();
-    });
-  });
-
   describe("property token", () => {
     it("includes propertyToken in request if specified in global config", async () => {
       const client = TargetClient.create({
