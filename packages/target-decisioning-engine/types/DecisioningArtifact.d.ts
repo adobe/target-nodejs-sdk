@@ -22,14 +22,12 @@ export interface Rule {
     "offer.name": string;
     "option.id": number;
     "option.name": string;
-    activityId: number;
-    experienceId: number;
-    activityType: string;
-    locationName: string;
-    locationType: string;
-    offerIds: number[];
-    audienceIds: number[];
-    displayResponseType: string;
+    "activityId": number;
+    "experienceId": number;
+    "activityType": string;
+    "locationName": string;
+    "locationType": string;
+    "displayResponseType": string;
   };
 }
 
