@@ -487,7 +487,7 @@ export function createDeliveryRequest(requestParam, options) {
 
   const result = DeliveryRequestFromJSON({
     requestId: uuidMethod(),
-    environmentId: options.environmentId,
+    organizationId: options.organizationId,
     ...requestParam
   });
 

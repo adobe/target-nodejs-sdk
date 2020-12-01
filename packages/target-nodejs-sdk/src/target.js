@@ -51,7 +51,7 @@ export function executeDelivery(options, decisioningEngine) {
     request.property = property;
   }
 
-  const { serverDomain, client, timeout, secure, environmentId } = config;
+  const { serverDomain, client, timeout, secure, organizationId } = config;
 
   let { decisioningMethod } = config;
 
@@ -84,7 +84,7 @@ export function executeDelivery(options, decisioningEngine) {
     visitor,
     deviceId,
     consumerId,
-    environmentId
+    organizationId
   };
 
   const deliveryRequest = createDeliveryRequest(request, requestOptions);
