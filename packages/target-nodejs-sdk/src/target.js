@@ -114,7 +114,7 @@ export function executeDelivery(options, decisioningEngine) {
   );
 
   return deliveryMethod
-    .execute(client, sessionId, deliveryRequest, config.version)
+    .execute(organizationId, sessionId, deliveryRequest, config.version)
     .then((response = {}) => {
       logger.debug(
         Messages.RESPONSE_RECEIVED,
