@@ -171,6 +171,8 @@ describe("Requests to target delivery API", () => {
       }
     });
     expect(fetch.mock.calls.length).toEqual(1);
+    const fetchRequestBody = JSON.parse(fetch.mock.calls[0][1].body);
+    expect(fetchRequestBody.organizationId).toEqual("someOrgId");
   });
 
   describe("property token", () => {
