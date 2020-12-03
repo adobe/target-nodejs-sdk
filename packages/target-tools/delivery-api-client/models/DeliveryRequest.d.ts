@@ -3,7 +3,8 @@ export interface DeliveryRequest {
     requestId?: string;
     impressionId?: string;
     id?: VisitorId;
-    organizationId?: number;
+    environmentId?: number;
+    organizationId: string;
     property?: Property;
     trace?: Trace;
     context: Context;
