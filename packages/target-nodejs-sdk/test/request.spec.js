@@ -110,6 +110,71 @@ describe("Requests to target delivery API", () => {
     expect(fetch.mock.calls.length).toEqual(1);
   });
 
+  it("Can make a request with only the organizationId as param to the target API", async () => {
+    const client = TargetClient.create({
+      organizationId: "someOrgId"
+    });
+
+    const result = await client.getOffers({
+      request: TARGET_REQUEST,
+      sessionId: "dummy_session"
+    });
+    expect(result).not.toBeUndefined();
+    expect(fetch.mock.calls.length).toEqual(1);
+    expect(result).toMatchObject({
+      request: {
+        requestId: expect.any(String),
+        context: {
+          channel: "web",
+          timeOffsetInMinutes: expect.any(Number)
+        },
+        experienceCloud: {
+          analytics: {
+            supplementalDataId: expect.any(String),
+            logging: "server_side"
+          }
+        },
+        prefetch: {
+          mboxes: [
+            {
+              index: 1,
+              name: "mbox-something"
+            }
+          ]
+        }
+      },
+      response: {
+        status: 200,
+        requestId: expect.any(String),
+        id: {
+          tntId: "dummy_session.28_0"
+        },
+        client: "someClientId",
+        edgeHost: "mboxedge28.tt.omtrdc.net",
+        prefetch: {
+          mboxes: [
+            {
+              index: 1,
+              name: "mbox-something",
+              options: [
+                {
+                  type: "json",
+                  content: {
+                    browserName: "Google Chrome"
+                  },
+                  eventToken: expect.any(String)
+                }
+              ]
+            }
+          ]
+        }
+      }
+    });
+    expect(fetch.mock.calls.length).toEqual(1);
+    const fetchRequestBody = JSON.parse(fetch.mock.calls[0][1].body);
+    expect(fetchRequestBody.organizationId).toEqual("someOrgId");
+  });
+
   describe("environment ID", () => {
     it("includes environmentID in request if specified", async () => {
       const client = TargetClient.create({

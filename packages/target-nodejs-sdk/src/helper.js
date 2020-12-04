@@ -488,6 +488,7 @@ export function createDeliveryRequest(requestParam, options) {
   const result = DeliveryRequestFromJSON({
     requestId: uuidMethod(),
     environmentId: options.environmentId,
+    organizationId: options.organizationId,
     ...requestParam
   });
 
@@ -533,7 +534,7 @@ function createLocalDeliveryApi(
 ) {
   return {
     // eslint-disable-next-line no-unused-vars
-    execute: (client, sessionId, deliveryRequest, atjsVersion) => {
+    execute: (organizationId, sessionId, deliveryRequest, atjsVersion) => {
       if (isUndefined(decisioningEngine)) {
         return Promise.reject(new Error(DECISIONING_ENGINE_NOT_READY));
       }
@@ -551,9 +552,9 @@ function createLocalDeliveryApi(
 
 function createBeaconDeliveryApi(configuration) {
   return {
-    execute: (client, sessionId, deliveryRequest, atjsVersion) => {
+    execute: (organizationId, sessionId, deliveryRequest, atjsVersion) => {
       const query = {
-        client,
+        organizationId,
         sessionId
       };
 
