@@ -29,7 +29,11 @@ export function validateClientOptions(options) {
     return Messages.OPTIONS_REQUIRED;
   }
 
-  const { organizationId, decisioningMethod } = options;
+  const { client, organizationId, decisioningMethod } = options;
+
+  if (isEmptyString(client)) {
+    return Messages.CLIENT_REQUIRED;
+  }
 
   if (isEmptyString(organizationId)) {
     return Messages.ORG_ID_REQUIRED;
