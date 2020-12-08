@@ -549,7 +549,6 @@ function DeliveryRequestFromJSONTyped(json, ignoreDiscriminator) {
         'impressionId': !exists(json, 'impressionId') ? undefined : json['impressionId'],
         'id': !exists(json, 'id') ? undefined : VisitorIdFromJSON(json['id']),
         'environmentId': !exists(json, 'environmentId') ? undefined : json['environmentId'],
-        'organizationId': !exists(json, 'organizationId') ? undefined : json['organizationId'],
         'property': !exists(json, 'property') ? undefined : PropertyFromJSON(json['property']),
         'trace': !exists(json, 'trace') ? undefined : TraceFromJSON(json['trace']),
         'context': ContextFromJSON(json['context']),
@@ -573,7 +572,6 @@ function DeliveryRequestToJSON(value) {
         'impressionId': value.impressionId,
         'id': VisitorIdToJSON(value.id),
         'environmentId': value.environmentId,
-        'organizationId': value.organizationId,
         'property': PropertyToJSON(value.property),
         'trace': TraceToJSON(value.trace),
         'context': ContextToJSON(value.context),
@@ -1812,8 +1810,8 @@ function OneOfstringobjectarrayToJSON(value) {
 
 class DeliveryAPIApi extends BaseAPI {
     async executeRaw(requestParameters) {
-        if (requestParameters.imsOrgId === null || requestParameters.imsOrgId === undefined) {
-            throw new RequiredError('imsOrgId', 'Required parameter requestParameters.imsOrgId was null or undefined when calling execute.');
+        if (requestParameters.client === null || requestParameters.client === undefined) {
+            throw new RequiredError('client', 'Required parameter requestParameters.client was null or undefined when calling execute.');
         }
         if (requestParameters.sessionId === null || requestParameters.sessionId === undefined) {
             throw new RequiredError('sessionId', 'Required parameter requestParameters.sessionId was null or undefined when calling execute.');
@@ -1822,8 +1820,8 @@ class DeliveryAPIApi extends BaseAPI {
             throw new RequiredError('deliveryRequest', 'Required parameter requestParameters.deliveryRequest was null or undefined when calling execute.');
         }
         const queryParameters = {};
-        if (requestParameters.imsOrgId !== undefined) {
-            queryParameters['imsOrgId'] = requestParameters.imsOrgId;
+        if (requestParameters.client !== undefined) {
+            queryParameters['client'] = requestParameters.client;
         }
         if (requestParameters.sessionId !== undefined) {
             queryParameters['sessionId'] = requestParameters.sessionId;
@@ -1842,8 +1840,8 @@ class DeliveryAPIApi extends BaseAPI {
         });
         return new JSONApiResponse(response, (jsonValue) => DeliveryResponseFromJSON(jsonValue));
     }
-    async execute(imsOrgId, sessionId, deliveryRequest, version) {
-        const response = await this.executeRaw({ imsOrgId: imsOrgId, sessionId: sessionId, deliveryRequest: deliveryRequest, version: version });
+    async execute(client, sessionId, deliveryRequest, version) {
+        const response = await this.executeRaw({ client: client, sessionId: sessionId, deliveryRequest: deliveryRequest, version: version });
         return await response.value();
     }
 }
