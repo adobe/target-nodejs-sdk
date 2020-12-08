@@ -51,7 +51,13 @@ export function executeDelivery(options, decisioningEngine) {
     request.property = property;
   }
 
-  const { serverDomain, client, timeout, secure, environmentId } = config;
+  const {
+    serverDomain,
+    organizationId,
+    timeout,
+    secure,
+    environmentId
+  } = config;
 
   let { decisioningMethod } = config;
 
@@ -75,7 +81,7 @@ export function executeDelivery(options, decisioningEngine) {
   const cookies = parseCookies(targetCookie);
   const deviceId = getDeviceId(cookies);
   const cluster = getCluster(deviceId, targetLocationHint);
-  const host = getTargetHost(serverDomain, cluster, client, secure);
+  const host = getTargetHost(serverDomain, cluster, organizationId, secure);
   const sessionId = getSessionId(cookies, options.sessionId);
   const headers = createHeaders();
 
@@ -84,7 +90,8 @@ export function executeDelivery(options, decisioningEngine) {
     visitor,
     deviceId,
     consumerId,
-    environmentId
+    environmentId,
+    organizationId
   };
 
   const deliveryRequest = createDeliveryRequest(request, requestOptions);
@@ -114,7 +121,7 @@ export function executeDelivery(options, decisioningEngine) {
   );
 
   return deliveryMethod
-    .execute(client, sessionId, deliveryRequest, config.version)
+    .execute(organizationId, sessionId, deliveryRequest, config.version)
     .then((response = {}) => {
       logger.debug(
         Messages.RESPONSE_RECEIVED,

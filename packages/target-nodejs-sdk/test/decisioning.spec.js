@@ -306,6 +306,7 @@ describe("target on-device decisioning", () => {
             logging: "server_side"
           }
         },
+        organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
         prefetch: {
           mboxes: [
             {
