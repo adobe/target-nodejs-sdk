@@ -53,6 +53,7 @@ export function executeDelivery(options, decisioningEngine) {
 
   const {
     serverDomain,
+    client,
     organizationId,
     timeout,
     secure,
@@ -81,7 +82,7 @@ export function executeDelivery(options, decisioningEngine) {
   const cookies = parseCookies(targetCookie);
   const deviceId = getDeviceId(cookies);
   const cluster = getCluster(deviceId, targetLocationHint);
-  const host = getTargetHost(serverDomain, cluster, organizationId, secure);
+  const host = getTargetHost(serverDomain, cluster, client, secure);
   const sessionId = getSessionId(cookies, options.sessionId);
   const headers = createHeaders();
 
