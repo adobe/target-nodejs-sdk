@@ -17,6 +17,7 @@ import {
 } from "./decisioning-payloads";
 
 export const TEST_AB_SIMPLE = {
+  description: "decisioning outcomes - single activity",
   artifact: DECISIONING_PAYLOAD_AB_SIMPLE,
   conf: {
     client: "someClientId",
@@ -25,6 +26,7 @@ export const TEST_AB_SIMPLE = {
   },
   test: {
     ab_execute: {
+      description: "execute - simple ab form-based activity",
       input: {
         request: {
           requestId: "request123456",
@@ -66,7 +68,8 @@ export const TEST_AB_SIMPLE = {
               options: [
                 {
                   type: "json",
-                  content: { doMagic: false, importantValue: 75 }
+                  content: { doMagic: false, importantValue: 75 },
+                  responseTokens: "expect.any(Object)"
                 }
               ]
             }
@@ -75,6 +78,7 @@ export const TEST_AB_SIMPLE = {
       }
     },
     ab_prefetch: {
+      description: "prefetch - simple ab form-based activity",
       input: {
         request: {
           id: {
@@ -110,7 +114,8 @@ export const TEST_AB_SIMPLE = {
                   type: "json",
                   content: { doMagic: false, importantValue: 75 },
                   eventToken:
-                    "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                    "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  responseTokens: "expect.any(Object)"
                 }
               ]
             }
@@ -122,6 +127,7 @@ export const TEST_AB_SIMPLE = {
 };
 
 export const TEST_MULTIPLE = {
+  description: "decisioning outcomes - multiple activities",
   artifact: DECISIONING_PAYLOAD_AB_MULTI_SIMPLE,
   conf: {
     client: "someClientId",
@@ -130,6 +136,7 @@ export const TEST_MULTIPLE = {
   },
   test: {
     execute_single_mbox: {
+      description: "execute - only returns for the mbox requested",
       input: {
         request: {
           id: {
@@ -176,6 +183,7 @@ export const TEST_MULTIPLE = {
       }
     },
     execute_multiple_mbox: {
+      description: "execute - returns results for multiple mboxes",
       input: {
         request: {
           id: {
@@ -237,6 +245,7 @@ export const TEST_MULTIPLE = {
       }
     },
     prefetch_single_mbox: {
+      description: "prefetch - only returns for the mbox requested",
       input: {
         request: {
           id: {
@@ -286,6 +295,7 @@ export const TEST_MULTIPLE = {
       }
     },
     prefetch_multiple_mbox: {
+      description: "prefetch - returns results for multiple mboxes",
       input: {
         request: {
           id: {
@@ -354,6 +364,7 @@ export const TEST_MULTIPLE = {
 };
 
 export const TEST_ADDRESS = {
+  description: "decisioning outcomes - url params",
   artifact: DECISIONING_PAYLOAD_ADDRESS,
   conf: {
     client: "someClientId",
@@ -362,6 +373,7 @@ export const TEST_ADDRESS = {
   },
   test: {
     request_context: {
+      description: "keys off of the url provided in the base context",
       input: {
         request: {
           id: {
@@ -408,6 +420,7 @@ export const TEST_ADDRESS = {
       }
     },
     mbox_context: {
+      description: "address attributes override context url",
       input: {
         request: {
           id: {
@@ -457,6 +470,7 @@ export const TEST_ADDRESS = {
       }
     },
     mbox_context_empty: {
+      description: "address attributes override context url return empty",
       input: {
         request: {
           id: {
@@ -501,6 +515,7 @@ export const TEST_ADDRESS = {
 };
 
 export const TEST_BROWSER = {
+  description: "decisioning outcomes - browser",
   artifact: DECISIONING_PAYLOAD_BROWSER,
   conf: {
     client: "someClientId",
@@ -509,6 +524,7 @@ export const TEST_BROWSER = {
   },
   test: {
     chrome: {
+      description: "can identify chrome outcomes",
       input: {
         request: {
           id: {
@@ -554,6 +570,7 @@ export const TEST_BROWSER = {
       }
     },
     firefox: {
+      description: "can identify firefox outcomes",
       input: {
         request: {
           id: {
@@ -599,6 +616,7 @@ export const TEST_BROWSER = {
       }
     },
     safari: {
+      description: "can identify safari outcomes",
       input: {
         request: {
           id: {
@@ -644,6 +662,7 @@ export const TEST_BROWSER = {
       }
     },
     explorer: {
+      description: "can identify internet explorer outcomes",
       input: {
         request: {
           id: {
@@ -692,6 +711,7 @@ export const TEST_BROWSER = {
 };
 
 export const TEST_TIMEFRAME = {
+  description: "decisioning outcomes - timeframe",
   artifact: DECISIONING_PAYLOAD_TIMEFRAME,
   conf: {
     client: "someClientId",
@@ -700,6 +720,7 @@ export const TEST_TIMEFRAME = {
   },
   test: {
     date_range_1: {
+      description: "targets date range 1 (feb 27 - feb 29 2020)",
       mockDate: {
         year: 2020,
         month: 1,
@@ -753,6 +774,7 @@ export const TEST_TIMEFRAME = {
       }
     },
     date_range_2: {
+      description: "targets date range 2 (mar 2 - mar 6 2020)",
       mockDate: {
         year: 2020,
         month: 2,
@@ -806,6 +828,7 @@ export const TEST_TIMEFRAME = {
       }
     },
     friday_in_range: {
+      description: "targets friday, even if within range of other rules",
       mockDate: {
         year: 2020,
         month: 2,
@@ -859,6 +882,7 @@ export const TEST_TIMEFRAME = {
       }
     },
     friday_out_of_range: {
+      description: "targets friday out of range of other rules",
       mockDate: {
         year: 2020,
         month: 2,
@@ -912,6 +936,7 @@ export const TEST_TIMEFRAME = {
       }
     },
     criteria_unmet: {
+      description: "doesn't match any date rules",
       mockDate: {
         year: 2020,
         month: 4,
@@ -968,6 +993,7 @@ export const TEST_TIMEFRAME = {
 };
 
 export const TEST_PARAMS = {
+  description: "decisioning outcomes - params",
   artifact: DECISIONING_PAYLOAD_PARAMS,
   conf: {
     client: "someClientId",
@@ -976,6 +1002,7 @@ export const TEST_PARAMS = {
   },
   test: {
     mbox_params: {
+      description: "provides decisions based on mbox parameters",
       input: {
         request: {
           id: {
@@ -1037,6 +1064,7 @@ export const TEST_PARAMS = {
       }
     },
     matching_params_only: {
+      description: "only returns decisions if match params",
       input: {
         request: {
           id: {
@@ -1089,6 +1117,7 @@ export const TEST_PARAMS = {
 };
 
 export const TEST_PRIORITY = {
+  description: "decisioning outcomes - priority",
   artifact: DECISIONING_PAYLOAD_PRIORITIES,
   conf: {
     client: "someClientId",
@@ -1097,6 +1126,8 @@ export const TEST_PRIORITY = {
   },
   test: {
     audience_targeting: {
+      description:
+        "prefers audience targeted rules and returns one result for the mbox requested",
       input: {
         request: {
           id: {
@@ -1142,6 +1173,7 @@ export const TEST_PRIORITY = {
       }
     },
     one_mbox: {
+      description: "only returns one result for the mbox requested",
       input: {
         request: {
           id: {
@@ -1191,6 +1223,7 @@ export const TEST_PRIORITY = {
 };
 
 export const TEST_MACROS = {
+  description: "campaign macros",
   artifact: DECISIONING_PAYLOAD_CAMPAIGN_MACROS,
   conf: {
     client: "adobesummit2018",
@@ -1199,6 +1232,7 @@ export const TEST_MACROS = {
   },
   test: {
     mbox_template: {
+      description: "replaces html mbox macro template strings with values",
       input: {
         request: {
           id: {
@@ -1251,6 +1285,8 @@ export const TEST_MACROS = {
       }
     },
     no_value_for_template: {
+      description:
+        "does not replace macro template strings if acceptable values are not available",
       input: {
         request: {
           id: {
@@ -1301,6 +1337,8 @@ export const TEST_MACROS = {
       }
     },
     pageload_template: {
+      description:
+        "replaces pageload option macro template strings with values",
       input: {
         request: {
           id: {
@@ -1390,6 +1428,7 @@ export const TEST_MACROS = {
       }
     },
     view_template: {
+      description: "replaces view option macro template strings with values",
       input: {
         request: {
           id: {
@@ -1442,6 +1481,7 @@ export const TEST_MACROS = {
 };
 
 export const TEST_PROPERTIES = {
+  description: "properties",
   artifact: DECISIONING_PAYLOAD_PROPERTIES,
   conf: {
     client: "adobesummit2018",
@@ -1450,6 +1490,7 @@ export const TEST_PROPERTIES = {
   },
   test: {
     property_x: {
+      description: "evaluates experiences for property x and not property y",
       input: {
         request: {
           id: {
@@ -1501,6 +1542,7 @@ export const TEST_PROPERTIES = {
       }
     },
     property_y: {
+      description: "evaluates experiences for property y and not property x",
       input: {
         request: {
           id: {
@@ -1552,6 +1594,8 @@ export const TEST_PROPERTIES = {
       }
     },
     no_property_designation: {
+      description:
+        "evaluates only activities without a property designation when no property token is specified",
       input: {
         request: {
           id: {
@@ -1589,6 +1633,8 @@ export const TEST_PROPERTIES = {
       }
     },
     filter_rules: {
+      description:
+        "filters out rules with propertyTokens that don't match the one specified",
       input: {
         request: {
           id: {
@@ -1632,6 +1678,7 @@ export const TEST_PROPERTIES = {
 };
 
 export const TEST_RESPONSE_TOKENS = {
+  description: "decisioning outcomes - response tokens",
   conf: {
     client: "someClientId",
     organizationId: "someOrgId",
@@ -1639,6 +1686,7 @@ export const TEST_RESPONSE_TOKENS = {
   },
   test: {
     execute_mbox: {
+      description: "execute - has correct response tokens for execute",
       artifact: DECISIONING_PAYLOAD_GEO,
       input: {
         request: {
@@ -1710,6 +1758,7 @@ export const TEST_RESPONSE_TOKENS = {
       }
     },
     prefetch_mbox: {
+      description: "prefetch - has correct response tokens for prefetch",
       artifact: DECISIONING_PAYLOAD_GEO,
       input: {
         request: {
@@ -1783,6 +1832,7 @@ export const TEST_RESPONSE_TOKENS = {
       }
     },
     prefetch_view: {
+      description: "prefetch - has correct response tokens for views",
       artifact: DECISIONING_PAYLOAD_VIEWS,
       input: {
         request: {
@@ -1981,6 +2031,7 @@ export const TEST_RESPONSE_TOKENS = {
 };
 
 export const TEST_VIEWS = {
+  description: "decisioning outcomes - views",
   artifact: DECISIONING_PAYLOAD_VIEWS,
   conf: {
     client: "someClientId",
@@ -1989,6 +2040,8 @@ export const TEST_VIEWS = {
   },
   test: {
     ab_without_audiences: {
+      description:
+        "ab - no audiences - shows all outcomes for the chosen experience",
       input: {
         request: {
           id: {
@@ -2125,6 +2178,8 @@ export const TEST_VIEWS = {
       }
     },
     ab_with_audiences: {
+      description:
+        "ab - with audiences - shows all outcomes for the chosen experience and matching audiences",
       input: {
         request: {
           id: {
@@ -2304,6 +2359,8 @@ export const TEST_VIEWS = {
       }
     },
     xt_muli_param: {
+      description:
+        "xt - multiple matching params, returns experiences for just one experience",
       input: {
         request: {
           id: {
@@ -2521,6 +2578,8 @@ export const TEST_VIEWS = {
       }
     },
     xt_single_param: {
+      description:
+        "xt - single matching param, returns experiences for just one experience",
       input: {
         request: {
           id: {
@@ -2710,6 +2769,8 @@ export const TEST_VIEWS = {
       }
     },
     xt_no_params: {
+      description:
+        "xt - no params, returns experiences for just one experience",
       input: {
         request: {
           id: {
@@ -2849,6 +2910,7 @@ export const TEST_VIEWS = {
 };
 
 export const TEST_PAGELOAD_VEC_AB = {
+  description: "decisioning outcomes - pageLoad options (VEC selectors) - AB",
   artifact: DECISIONING_PAYLOAD_PAGELOAD_VEC_AB,
   conf: {
     client: "someClientId",
@@ -2857,6 +2919,8 @@ export const TEST_PAGELOAD_VEC_AB = {
   },
   test: {
     without_params: {
+      description:
+        "returns outcomes for both activities in the artifact - no params",
       input: {
         request: {
           id: {
@@ -2942,6 +3006,8 @@ export const TEST_PAGELOAD_VEC_AB = {
       }
     },
     single_param: {
+      description:
+        "returns all applicable outcomes when an experiences has audiences - single param",
       input: {
         request: {
           id: {
@@ -3056,6 +3122,8 @@ export const TEST_PAGELOAD_VEC_AB = {
       }
     },
     multi_param: {
+      description:
+        "returns all applicable outcomes when an experiences has audiences - multi param",
       input: {
         request: {
           id: {
@@ -3208,6 +3276,7 @@ export const TEST_PAGELOAD_VEC_AB = {
 };
 
 export const TEST_PAGELOAD_VEC_XT = {
+  description: "decisioning outcomes - pageLoad options (VEC selectors) - XT",
   artifact: DECISIONING_PAYLOAD_PAGELOAD_VEC_XT,
   conf: {
     client: "someClientId",
@@ -3216,6 +3285,8 @@ export const TEST_PAGELOAD_VEC_XT = {
   },
   test: {
     multi_param: {
+      description:
+        "multiple matching params, returns experiences for just one experience",
       input: {
         request: {
           id: {
@@ -3285,6 +3356,8 @@ export const TEST_PAGELOAD_VEC_XT = {
       }
     },
     single_param: {
+      description:
+        "single matching param, returns experiences for just one experience",
       input: {
         request: {
           id: {
@@ -3353,6 +3426,8 @@ export const TEST_PAGELOAD_VEC_XT = {
       }
     },
     without_params_execute: {
+      description:
+        "no params, returns experiences for just one experience - execute",
       input: {
         request: {
           id: {
@@ -3417,6 +3492,8 @@ export const TEST_PAGELOAD_VEC_XT = {
       }
     },
     without_params_prefetch: {
+      description:
+        "no params, returns experiences for just one experience - prefetch",
       input: {
         request: {
           id: {
@@ -3489,6 +3566,7 @@ export const TEST_PAGELOAD_VEC_XT = {
 };
 
 export const TEST_GEO = {
+  description: "decisioning outcomes - geo params",
   artifact: DECISIONING_PAYLOAD_GEO,
   conf: {
     client: "someClientId",
@@ -3497,6 +3575,7 @@ export const TEST_GEO = {
   },
   test: {
     geo_context: {
+      description: "can determine geo outcomes based on geo values in context",
       input: {
         request: {
           id: {
@@ -3552,6 +3631,8 @@ export const TEST_GEO = {
       }
     },
     ip_context: {
+      description:
+        "can determine geo outcomes when geo context is missing but ipAddress exists in context",
       input: {
         request: {
           id: {
@@ -3613,6 +3694,7 @@ export const TEST_GEO = {
 };
 
 export const TEST_PAGELOAD = {
+  description: "decisioning outcomes - pageload",
   artifact: DECISIONING_PAYLOAD_GLOBAL_MBOX,
   conf: {
     client: "someClientId",
@@ -3621,6 +3703,7 @@ export const TEST_PAGELOAD = {
   },
   test: {
     simple_prefetch: {
+      description: "does simple pageload - prefetch",
       input: {
         request: {
           id: {
@@ -3672,6 +3755,7 @@ export const TEST_PAGELOAD = {
       }
     },
     simple_execute: {
+      description: "does simple pageload - execute",
       input: {
         request: {
           id: {
@@ -3711,6 +3795,8 @@ export const TEST_PAGELOAD = {
       }
     },
     params_execute: {
+      description:
+        "returns multiple pageload decisions including one that matches params - pageload",
       input: {
         request: {
           id: {
@@ -3769,14 +3855,17 @@ export const TEST_PAGELOAD = {
 };
 
 export const TEST_NOTIFICATIONS = {
+  description: "notifications",
   artifact: DECISIONING_PAYLOAD_AB_MULTI_SIMPLE,
   conf: {
     client: "someClientId",
     organizationId: "someOrgId",
-    pollingInterval: 0
+    pollingInterval: 0,
+    telemetryEnabled: false
   },
   test: {
     execute_mbox_single: {
+      description: "sends notifications for execute of 1 mbox",
       input: {
         request: {
           id: {
@@ -3833,6 +3922,7 @@ export const TEST_NOTIFICATIONS = {
       }
     },
     execute_mbox_multiple: {
+      description: "sends notifications for execute of multiple mboxes",
       input: {
         request: {
           id: {
@@ -3905,6 +3995,8 @@ export const TEST_NOTIFICATIONS = {
       }
     },
     execute_mbox_none_match: {
+      description:
+        "does not send notifications if nothing to send (no matching mboxes)",
       input: {
         request: {
           id: {
@@ -3933,6 +4025,7 @@ export const TEST_NOTIFICATIONS = {
       notificationOutput: null
     },
     prefetch_no_notifications: {
+      description: "does not send a notifications for prefetch",
       input: {
         request: {
           id: {
@@ -3964,9 +4057,11 @@ export const TEST_NOTIFICATIONS = {
 };
 
 export const TEST_TELEMETRY = {
+  description: "telemetry",
   artifact: DECISIONING_PAYLOAD_AB_MULTI_SIMPLE,
   test: {
     sends_telemetry: {
+      description: "sends telemetry",
       conf: {
         client: "someClientId",
         organizationId: "someOrgId",
@@ -4017,6 +4112,7 @@ export const TEST_TELEMETRY = {
       }
     },
     doesnt_send: {
+      description: "does not send telemetry if telemetryEnabled=false",
       conf: {
         client: "someClientId",
         organizationId: "someOrgId",
@@ -4054,6 +4150,7 @@ export const TEST_TELEMETRY = {
 };
 
 export const TEST_TRACE = {
+  description: "trace",
   conf: {
     client: "someClientId",
     organizationId: "someOrgId",
@@ -4061,6 +4158,7 @@ export const TEST_TRACE = {
   },
   test: {
     no_trace: {
+      description: "does not have a trace object if not requested",
       artifact: DECISIONING_PAYLOAD_AB_SIMPLE,
       input: {
         request: {
@@ -4112,6 +4210,7 @@ export const TEST_TRACE = {
       }
     },
     mbox_ab_prefetch: {
+      description: "has a trace object if requested ab - prefetch",
       artifact: DECISIONING_PAYLOAD_AB_SIMPLE,
       input: {
         request: {
@@ -4287,6 +4386,7 @@ export const TEST_TRACE = {
       }
     },
     mbox_xt_prefetch: {
+      description: "has a trace object with metrics if requested xt - prefetch",
       artifact: DECISIONING_PAYLOAD_BROWSER,
       input: {
         request: {
@@ -4437,6 +4537,7 @@ export const TEST_TRACE = {
       }
     },
     mbox_xt_execute: {
+      description: "has a trace object if requested xt - execute",
       artifact: DECISIONING_PAYLOAD_BROWSER,
       input: {
         request: {
@@ -4601,6 +4702,7 @@ export const TEST_TRACE = {
       }
     },
     pageload_execute: {
+      description: "has a trace object for pageLoad - execute",
       artifact: DECISIONING_PAYLOAD_GLOBAL_MBOX,
       input: {
         request: {
@@ -5021,6 +5123,8 @@ export const TEST_TRACE = {
       }
     },
     views_prefetch_none: {
+      description:
+        "does not have a trace object for prefetch views if not requested",
       artifact: DECISIONING_PAYLOAD_VIEWS,
       input: {
         request: {
@@ -5060,6 +5164,7 @@ export const TEST_TRACE = {
       }
     },
     views_prefetch: {
+      description: "has a trace object for prefetch views when requested",
       artifact: DECISIONING_PAYLOAD_VIEWS,
       input: {
         request: {
