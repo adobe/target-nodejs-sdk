@@ -47,6 +47,7 @@ export {
   isNodeJS,
   isUndefined,
   isDefined,
+  isPojo,
   noop,
   noopPromise,
   objectWithoutUndefinedValues,

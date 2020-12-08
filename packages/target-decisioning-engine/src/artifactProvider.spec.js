@@ -15,12 +15,14 @@ import {
   SUPPORTED_ARTIFACT_MAJOR_VERSION
 } from "./constants";
 import Messages from "./messages";
-import { DUMMY_ARTIFACT_PAYLOAD } from "../test/decisioning-payloads";
+
 import { determineArtifactLocation } from "./utils";
 import {
   ARTIFACT_DOWNLOAD_FAILED,
   ARTIFACT_DOWNLOAD_SUCCEEDED
 } from "./events";
+
+const ARTIFACT_BLANK = require("../test/test-artifacts/TEST_ARTIFACT_BLANK.json");
 
 require("jest-fetch-mock").enableMocks();
 
@@ -47,19 +49,19 @@ describe("artifactProvider", () => {
   });
 
   it("initializes", async () => {
-    fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
+    fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
     provider = await ArtifactProvider({
       ...TEST_CONF,
-      artifactPayload: DUMMY_ARTIFACT_PAYLOAD,
+      artifactPayload: ARTIFACT_BLANK,
       maximumWaitReady: 500
     });
     expect(provider).not.toBeUndefined();
-    expect(provider.getArtifact()).toEqual(DUMMY_ARTIFACT_PAYLOAD);
+    expect(provider.getArtifact()).toEqual(ARTIFACT_BLANK);
   });
 
   it("subscribes", async done => {
-    fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
+    fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
     provider = await ArtifactProvider({
       ...TEST_CONF,
@@ -67,7 +69,7 @@ describe("artifactProvider", () => {
     });
 
     const subscriptionId = provider.subscribe(data => {
-      expect(data).toEqual(DUMMY_ARTIFACT_PAYLOAD);
+      expect(data).toEqual(ARTIFACT_BLANK);
 
       provider.unsubscribe(subscriptionId);
       done();
@@ -77,7 +79,7 @@ describe("artifactProvider", () => {
   });
 
   it("polls", async done => {
-    fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
+    fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
     provider = await ArtifactProvider({
       ...TEST_CONF,
@@ -95,12 +97,12 @@ describe("artifactProvider", () => {
   });
 
   it("polls even if artifactPayload is provided", async done => {
-    fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
+    fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
     expect.assertions(1);
 
     provider = await ArtifactProvider({
       ...TEST_CONF,
-      artifactPayload: DUMMY_ARTIFACT_PAYLOAD,
+      artifactPayload: ARTIFACT_BLANK,
       pollingInterval: 10
     });
 
@@ -126,7 +128,7 @@ describe("artifactProvider", () => {
       ["", { status: HttpStatus.BAD_GATEWAY }],
       ["", { status: HttpStatus.TOO_MANY_REQUESTS }],
       ["", { status: HttpStatus.GONE }],
-      [JSON.stringify(DUMMY_ARTIFACT_PAYLOAD), { status: HttpStatus.OK }]
+      [JSON.stringify(ARTIFACT_BLANK), { status: HttpStatus.OK }]
     );
 
     provider = await ArtifactProvider({
@@ -134,7 +136,7 @@ describe("artifactProvider", () => {
       pollingInterval: 0
     });
 
-    expect(provider.getArtifact()).toEqual(DUMMY_ARTIFACT_PAYLOAD);
+    expect(provider.getArtifact()).toEqual(ARTIFACT_BLANK);
     expect(fetch.mock.calls.length).toEqual(11);
   });
 
@@ -180,9 +182,7 @@ describe("artifactProvider", () => {
     const artifactURL =
       "https://target-local-decisioning-test.s3.us-west-2.amazonaws.com/adobesummit2018/waters_test/rules.json";
 
-    fetch
-      .mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD))
-      .doMockIf(artifactURL);
+    fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK)).doMockIf(artifactURL);
 
     provider = await ArtifactProvider({
       ...TEST_CONF,
@@ -190,7 +190,7 @@ describe("artifactProvider", () => {
       artifactLocation: artifactURL
     });
 
-    expect(provider.getArtifact()).toEqual(DUMMY_ARTIFACT_PAYLOAD);
+    expect(provider.getArtifact()).toEqual(ARTIFACT_BLANK);
     expect(fetch.mock.calls[0][0]).toEqual(artifactURL);
   });
 
@@ -200,19 +200,19 @@ describe("artifactProvider", () => {
     const eTagIdentifier = "the_original_eTag";
     const eTagIdentifierNew = "the_new_eTag";
 
-    const IRRELEVANT_PAYLOAD = Object.assign({}, DUMMY_ARTIFACT_PAYLOAD, {
+    const IRRELEVANT_PAYLOAD = Object.assign({}, ARTIFACT_BLANK, {
       meta: {
         message: "if this is delivered, caching is not working properly."
       }
     });
 
-    const FIRST_PAYLOAD = Object.assign({}, DUMMY_ARTIFACT_PAYLOAD, {
+    const FIRST_PAYLOAD = Object.assign({}, ARTIFACT_BLANK, {
       meta: {
         message: "this is the original"
       }
     });
 
-    const NEW_VERSION_PAYLOAD = Object.assign({}, DUMMY_ARTIFACT_PAYLOAD, {
+    const NEW_VERSION_PAYLOAD = Object.assign({}, ARTIFACT_BLANK, {
       meta: {
         message: "this is a new version"
       }
@@ -290,7 +290,7 @@ describe("artifactProvider", () => {
   });
 
   it("emits artifactDownloadSucceeded event", async done => {
-    fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
+    fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
     expect.assertions(2);
 
     function eventEmitter(eventName, payload) {

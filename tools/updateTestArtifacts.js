@@ -9,10 +9,10 @@ const environment = "production";
 
 const TargetDecisioningEngine = require("../packages/target-decisioning-engine/dist/index");
 
-const outputFolders = [
-  path.resolve(__dirname, "../packages/target-decisioning-engine/test"),
-  path.resolve(__dirname, "../packages/target-nodejs-sdk/test")
-];
+const outputFolder = path.resolve(
+  __dirname,
+  "../packages/target-decisioning-engine/test/test-artifacts"
+);
 
 function fetchAndSaveArtifact() {
   const artifactLocation = `${__dirname}/artifact.json`;
@@ -62,18 +62,11 @@ function getRules(what, activityIds, artifact) {
   return result;
 }
 
-function getTemplate() {
-  const template = fs.readFileSync(`${__dirname}/template.js`);
-  return `${template}\n`;
-}
-
 async function run() {
   const smokescreenArtifact = await fetchAndSaveArtifact();
 
   // https://wiki.corp.adobe.com/display/elm/Local+Decisioning%3A+Test+Artifacts
   const testArtifactDefinitions = require("./testArtifacts.json").artifacts;
-
-  let output = getTemplate();
 
   testArtifactDefinitions.forEach(artifactDefinition => {
     const {
@@ -95,19 +88,17 @@ async function run() {
       }
     };
 
-    const [name, ext] = artifactFilename.split(".");
-    if (adminUrls instanceof Array) {
-      adminUrls.forEach(url => {
-        output += `// ${url}\n`;
-      });
-    }
-    output += `export const ${name} = ${JSON.stringify(artifact)}\n\n`;
-  });
-
-  const fileContents = prettier.format(output, { parser: "babel" });
-
-  outputFolders.forEach(dir => {
-    fs.writeFileSync(`${dir}/decisioning-payloads.js`, fileContents);
+    fs.writeFileSync(
+      `${outputFolder}/${artifactFilename}`,
+      prettier.format(
+        JSON.stringify({
+          "**TEST--targetAdminUrls**":
+            adminUrls instanceof Array ? adminUrls : [],
+          ...artifact
+        }),
+        { parser: "json" }
+      )
+    );
   });
 }
 

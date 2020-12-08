@@ -58,7 +58,17 @@ module.exports = {
       rules: {
         "@lwc/lwc/no-async-await": "off",
         "no-restricted-properties": "off",
-        "no-async-promise-executor": "off"
+        "no-async-promise-executor": "off",
+        "jest/expect-expect": [
+          "error",
+          {
+            assertFunctionNames: [
+              "expect",
+              "expectObjectContaining",
+              "expectToMatchObject"
+            ]
+          }
+        ]
       }
     }
   ]

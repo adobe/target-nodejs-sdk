@@ -74,6 +74,18 @@ describe("utils", () => {
     expect(result.has("four")).toEqual(true);
   });
 
+  it("getViewNames empty", () => {
+    const result = getViewNames({
+      context: { channel: "web" },
+      prefetch: {
+        views: [{}]
+      }
+    });
+
+    expect(result instanceof Set).toEqual(true);
+    expect(result.size).toEqual(0);
+  });
+
   it("has requiresDecisioningEngine", () => {
     expect(requiresDecisioningEngine(DECISIONING_METHOD.SERVER_SIDE)).toEqual(
       false

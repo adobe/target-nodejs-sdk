@@ -7,7 +7,10 @@
   "files": [
     "dist/*",
     "types/*",
-    "src/**/!(*.spec).js"
+    "src/**/!(*.spec).js",
+    "test/test.utils.js",
+    "test/test-artifacts/*.json",
+    "test/test-models/*.json"
   ],
   "publishConfig": {
     "access": "public"

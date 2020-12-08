@@ -1,5 +1,6 @@
 import { firstMatch, hasRemoteDependency } from "./utils";
-import { DUMMY_ARTIFACT_PAYLOAD } from "../test/decisioning-payloads";
+
+const ARTIFACT_BLANK = require("../test/test-artifacts/TEST_ARTIFACT_BLANK.json");
 
 describe("utils", () => {
   const targetRequest = {
@@ -22,7 +23,7 @@ describe("utils", () => {
   describe("hasRemoteDependency", () => {
     it("is remote if mbox is in remoteMboxes array", () => {
       const artifact = {
-        ...DUMMY_ARTIFACT_PAYLOAD,
+        ...ARTIFACT_BLANK,
         remoteMboxes: ["my-remote-mbox"],
         localMboxes: ["my-local-mbox"]
       };
@@ -52,7 +53,7 @@ describe("utils", () => {
 
     it("is remote if mbox is NOT in localMboxes array", () => {
       const artifact = {
-        ...DUMMY_ARTIFACT_PAYLOAD,
+        ...ARTIFACT_BLANK,
         remoteMboxes: [],
         localMboxes: ["my-local-mbox"]
       };
@@ -82,7 +83,7 @@ describe("utils", () => {
 
     it("remote not needed if all requested mboxes are in the localMboxes array", () => {
       const artifact = {
-        ...DUMMY_ARTIFACT_PAYLOAD,
+        ...ARTIFACT_BLANK,
         remoteMboxes: ["my-remote-mbox"],
         localMboxes: ["my-local-mbox", "my-local-mbox2"]
       };
@@ -112,7 +113,7 @@ describe("utils", () => {
 
     it("is remote if view is in remoteViews array", () => {
       const artifact = {
-        ...DUMMY_ARTIFACT_PAYLOAD,
+        ...ARTIFACT_BLANK,
         remoteViews: ["remoteView"],
         localViews: ["localView"]
       };
@@ -140,7 +141,7 @@ describe("utils", () => {
 
     it("is remote if view is NOT in localViews array", () => {
       const artifact = {
-        ...DUMMY_ARTIFACT_PAYLOAD,
+        ...ARTIFACT_BLANK,
         remoteViews: [],
         localViews: ["localView"]
       };
@@ -168,7 +169,7 @@ describe("utils", () => {
 
     it("remote not needed if all requested views are in the localViews array", () => {
       const artifact = {
-        ...DUMMY_ARTIFACT_PAYLOAD,
+        ...ARTIFACT_BLANK,
         remoteViews: ["remoteView"],
         localViews: ["localView", "localView2"]
       };
@@ -196,7 +197,7 @@ describe("utils", () => {
 
     it("remote needed if no view names are specified (all views requested) and remoteViews is a non-empty array", () => {
       const artifact = {
-        ...DUMMY_ARTIFACT_PAYLOAD,
+        ...ARTIFACT_BLANK,
         remoteViews: ["remoteView"],
         localViews: ["localView", "localView2"]
       };

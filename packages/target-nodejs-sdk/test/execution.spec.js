@@ -2,7 +2,8 @@ import {
   DECISIONING_ENGINE_NOT_READY,
   DECISIONING_METHOD
 } from "@adobe/target-tools";
-import { DECISIONING_PAYLOAD_FEATURE_FLAG } from "./decisioning-payloads";
+
+const DECISIONING_PAYLOAD_FEATURE_FLAG = require("@adobe/target-decisioning-engine/test/test-artifacts/TEST_ARTIFACT_FEATURE_FLAG.json");
 
 require("jest-fetch-mock").enableMocks();
 

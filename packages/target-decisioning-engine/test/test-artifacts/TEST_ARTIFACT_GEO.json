@@ -1,0 +1,244 @@
+{
+  "**TEST--targetAdminUrls**": [
+    "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/greg_geo_test_a_bjun0220201434"
+  ],
+  "version": "1.0.0",
+  "meta": { "clientCode": "adobesummit2018", "environment": "production" },
+  "globalMbox": "target-global-mbox",
+  "geoTargetingEnabled": true,
+  "responseTokens": [
+    "activity.id",
+    "activity.name",
+    "experience.id",
+    "experience.name",
+    "experience.trafficAllocationId",
+    "experience.trafficAllocationType",
+    "geo.city",
+    "geo.country",
+    "geo.state",
+    "offer.id",
+    "offer.name",
+    "option.id",
+    "option.name"
+  ],
+  "remoteMboxes": ["target-global-mbox"],
+  "remoteViews": ["home"],
+  "localMboxes": [
+    "alloy-test-scope-1",
+    "bannedtest",
+    "blippi",
+    "boogie",
+    "browser-mbox",
+    "composite2",
+    "crazy2",
+    "daterange-mbox",
+    "dell-countdown-mbox",
+    "dell-greeting-mbox",
+    "demo-engineering-flags",
+    "demo-geo-offer1",
+    "demo-marketing-flags",
+    "demo-marketing-offer1",
+    "demo-marketing-offer2",
+    "disney",
+    "dwalling-myFlags",
+    "expendable-mbox",
+    "foo",
+    "geo",
+    "gregtest42",
+    "gw-amp-email",
+    "gw-amp-email-thumbnail",
+    "jason-flags",
+    "kitty",
+    "local123456",
+    "location",
+    "macros",
+    "multinot",
+    "offer1",
+    "offer2",
+    "offer3",
+    "onboarding-mbox-1",
+    "perf1",
+    "product",
+    "redundant-mbox",
+    "sam-mbox",
+    "sam-mbox-2",
+    "something",
+    "specialk",
+    "splendid-mbox",
+    "superfluous-mbox",
+    "target-global-mbox",
+    "testoffer",
+    "testoffer2",
+    "vanilla-mbox"
+  ],
+  "localViews": ["about", "contact"],
+  "rules": {
+    "mboxes": {
+      "geo": [
+        {
+          "ruleKey": "349133",
+          "activityId": 349133,
+          "meta": {
+            "activity.id": 349133,
+            "activity.name": "Greg Geo Test A/B Jun 02 2020, 14:34",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "geo",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [5753100],
+            "offer.id": 651951,
+            "offer.name": "/greg_geo_test_a_bjun0220201434/experiences/0/pages/0/zones/0/1591737073425",
+            "option.id": 2,
+            "option.name": "Offer2"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<=": [0, { "var": "allocation" }] },
+                  { ">=": [50, { "var": "allocation" }] }
+                ]
+              },
+              {
+                "and": [
+                  {
+                    "or": [
+                      { "==": ["UNITED STATES", { "var": "geo.country" }] },
+                      { "==": ["US", { "var": "geo.country" }] },
+                      { "==": ["CANADA", { "var": "geo.country" }] },
+                      { "==": ["CA", { "var": "geo.country" }] }
+                    ]
+                  },
+                  {
+                    "or": [
+                      { "==": ["CALIFORNIA", { "var": "geo.region" }] },
+                      { "==": ["CA", { "var": "geo.region" }] },
+                      { "==": ["BRITISH COLUMBIA", { "var": "geo.region" }] },
+                      { "==": ["BC", { "var": "geo.region" }] }
+                    ]
+                  },
+                  {
+                    "or": [
+                      { "==": ["SAN FRANCISCO", { "var": "geo.city" }] },
+                      { "==": ["SANFRANCISCO", { "var": "geo.city" }] },
+                      { "==": ["VANCOUVER", { "var": "geo.city" }] }
+                    ]
+                  },
+                  { "<": ["37.70", { "var": "geo.latitude" }] },
+                  { ">=": ["37.80", { "var": "geo.latitude" }] },
+                  { "<=": ["-122.5", { "var": "geo.longitude" }] },
+                  { ">": ["-122.3", { "var": "geo.longitude" }] },
+                  {
+                    "!": {
+                      "or": [
+                        {
+                          "==": ["SOUTH SAN FRANCISCO", { "var": "geo.city" }]
+                        },
+                        { "==": ["SOUTHSANFRANCISCO", { "var": "geo.city" }] }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "geo",
+            "options": [
+              {
+                "type": "json",
+                "eventToken": "LYJSFrgKxsp5ZlEO5o4jpGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": { "geo": true, "exp": "geo.a" }
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "349133",
+          "activityId": 349133,
+          "meta": {
+            "activity.id": 349133,
+            "activity.name": "Greg Geo Test A/B Jun 02 2020, 14:34",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "geo",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [5753100],
+            "offer.id": 650379,
+            "offer.name": "/greg_geo_test_a_bjun0220201434/experiences/1/pages/0/zones/0/1591133667939",
+            "option.id": 3,
+            "option.name": "Offer3"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<": [50, { "var": "allocation" }] },
+                  { ">=": [100, { "var": "allocation" }] }
+                ]
+              },
+              {
+                "and": [
+                  {
+                    "or": [
+                      { "==": ["UNITED STATES", { "var": "geo.country" }] },
+                      { "==": ["US", { "var": "geo.country" }] },
+                      { "==": ["CANADA", { "var": "geo.country" }] },
+                      { "==": ["CA", { "var": "geo.country" }] }
+                    ]
+                  },
+                  {
+                    "or": [
+                      { "==": ["CALIFORNIA", { "var": "geo.region" }] },
+                      { "==": ["CA", { "var": "geo.region" }] },
+                      { "==": ["BRITISH COLUMBIA", { "var": "geo.region" }] },
+                      { "==": ["BC", { "var": "geo.region" }] }
+                    ]
+                  },
+                  {
+                    "or": [
+                      { "==": ["SAN FRANCISCO", { "var": "geo.city" }] },
+                      { "==": ["SANFRANCISCO", { "var": "geo.city" }] },
+                      { "==": ["VANCOUVER", { "var": "geo.city" }] }
+                    ]
+                  },
+                  { "<": ["37.70", { "var": "geo.latitude" }] },
+                  { ">=": ["37.80", { "var": "geo.latitude" }] },
+                  { "<=": ["-122.5", { "var": "geo.longitude" }] },
+                  { ">": ["-122.3", { "var": "geo.longitude" }] },
+                  {
+                    "!": {
+                      "or": [
+                        {
+                          "==": ["SOUTH SAN FRANCISCO", { "var": "geo.city" }]
+                        },
+                        { "==": ["SOUTHSANFRANCISCO", { "var": "geo.city" }] }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "geo",
+            "options": [
+              {
+                "type": "json",
+                "eventToken": "LYJSFrgKxsp5ZlEO5o4jpJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": { "geo": true, "exp": "geo.b" }
+              }
+            ],
+            "metrics": []
+          }
+        }
+      ]
+    },
+    "views": {}
+  }
+}
