@@ -63,12 +63,6 @@ describe("Target Client factory", () => {
     );
   });
 
-  it("should throw when client is missing", () => {
-    expect(() => TargetClient.create({ organizationId: "orgId" })).toThrow(
-      new Error(Messages.CLIENT_REQUIRED)
-    );
-  });
-
   it("should throw when organization ID is missing", () => {
     expect(() => TargetClient.create({ client: "client" })).toThrow(
       new Error(Messages.ORG_ID_REQUIRED)
