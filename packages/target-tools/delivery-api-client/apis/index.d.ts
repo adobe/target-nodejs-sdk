@@ -1,1 +1,1 @@
-export * from './DeliveryAPIApi';
+export * from './DeliveryApi';

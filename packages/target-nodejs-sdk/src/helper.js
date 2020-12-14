@@ -29,7 +29,7 @@ import {
   Configuration,
   ContextFromJSON,
   CustomerIdFromJSON,
-  DeliveryAPIApi,
+  DeliveryApi,
   DeliveryRequestFromJSON,
   ExecuteRequestFromJSON,
   ExperienceCloudFromJSON,
@@ -86,7 +86,7 @@ const SESSION_ID_MAX_AGE = 1860;
 const DEVICE_ID_MAX_AGE = 63244800;
 const LOCATION_HINT_MAX_AGE = 1860;
 
-DeliveryAPIApi.prototype.decisioningMethod = DECISIONING_METHOD.SERVER_SIDE;
+DeliveryApi.prototype.decisioningMethod = DECISIONING_METHOD.SERVER_SIDE;
 
 export function extractClusterFromDeviceId(id) {
   if (isEmptyString(id)) {
@@ -582,7 +582,7 @@ function createBeaconDeliveryApi(configuration) {
 function createRemoteDeliveryApi(configuration, useBeacon) {
   return useBeacon && isBeaconSupported()
     ? createBeaconDeliveryApi(configuration)
-    : new DeliveryAPIApi(configuration);
+    : new DeliveryApi(configuration);
 }
 
 /**

@@ -15,7 +15,7 @@ require("jest-fetch-mock").enableMocks();
 const MockDate = require("mockdate");
 const {
   Configuration,
-  DeliveryAPIApi,
+  DeliveryApi,
   VisitorIdFromJSON,
   CustomerIdFromJSON,
   DeliveryRequestFromJSON
@@ -761,12 +761,12 @@ describe("Target Helper", () => {
     });
   });
 
-  it("createDeliveryApi should create DeliveryAPIApi", () => {
+  it("createDeliveryApi should create DeliveryApi", () => {
     const result = createDeliveryApi(
       new Configuration({
         basePath: "http://target.host.com"
       })
     );
-    expect(result instanceof DeliveryAPIApi).toBe(true);
+    expect(result instanceof DeliveryApi).toBe(true);
   });
 });
