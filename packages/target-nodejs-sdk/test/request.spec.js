@@ -112,7 +112,8 @@ describe("Requests to target delivery API", () => {
 
   it("Can make a request with only the organizationId as param to the target API", async () => {
     const client = TargetClient.create({
-      organizationId: "someOrgId"
+      organizationId: "someOrgId",
+      client: "someClientId"
     });
 
     const result = await client.getOffers({
@@ -172,7 +173,10 @@ describe("Requests to target delivery API", () => {
     });
     expect(fetch.mock.calls.length).toEqual(1);
     const fetchRequestBody = JSON.parse(fetch.mock.calls[0][1].body);
-    expect(fetchRequestBody.organizationId).toEqual("someOrgId");
+    expect(fetchRequestBody.organizationId).toBeUndefined();
+    expect(fetch.mock.calls[0][0]).toEqual(
+      "https://someClientId.tt.omtrdc.net/rest/v1/delivery?imsOrgId=someOrgId&sessionId=dummy_session"
+    );
   });
 
   describe("environment ID", () => {

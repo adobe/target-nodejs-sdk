@@ -488,7 +488,6 @@ export function createDeliveryRequest(requestParam, options) {
   const result = DeliveryRequestFromJSON({
     requestId: uuidMethod(),
     environmentId: options.environmentId,
-    organizationId: options.organizationId,
     ...requestParam
   });
 
@@ -554,7 +553,7 @@ function createBeaconDeliveryApi(configuration) {
   return {
     execute: (organizationId, sessionId, deliveryRequest, atjsVersion) => {
       const query = {
-        organizationId,
+        imsOrgId: organizationId,
         sessionId
       };
 
