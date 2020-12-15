@@ -94,12 +94,20 @@ export function setMockDate(mockDate) {
 
 const JSON_FILES = fileName => fileName.toLowerCase().endsWith(".json");
 
-export function getTestSuites(testSuiteName) {
-  const artifactFolder = path.resolve(__dirname, "schema/artifacts");
-  const testModelsFolder = path.resolve(__dirname, "schema/models");
+const TEST_ARTIFACTS_FOLDER = path.resolve(__dirname, "schema/artifacts");
+const TEST_MODELS_FOLDER = path.resolve(__dirname, "schema/models");
 
-  const artifacts = fs.readdirSync(artifactFolder).filter(JSON_FILES);
-  const testModels = fs.readdirSync(testModelsFolder).filter(JSON_FILES);
+export function getTestArtifacts() {
+  return fs.readdirSync(TEST_ARTIFACTS_FOLDER).filter(JSON_FILES);
+}
+
+export function getTestModels() {
+  return fs.readdirSync(TEST_MODELS_FOLDER).filter(JSON_FILES);
+}
+
+export function getTestSuites(testSuiteName) {
+  const artifacts = getTestArtifacts();
+  const testModels = getTestModels();
 
   return testModels
     .filter(testModelFileName =>
@@ -109,9 +117,9 @@ export function getTestSuites(testSuiteName) {
     )
     .map(testModelFileName => {
       const fileContents = fs.readFileSync(
-        path.resolve(testModelsFolder, testModelFileName)
+        path.resolve(TEST_MODELS_FOLDER, testModelFileName)
       );
       const suite = JSON.parse(fileContents.toString("utf-8"));
-      return hydrateArtifacts(suite, artifactFolder, artifacts);
+      return hydrateArtifacts(suite, TEST_ARTIFACTS_FOLDER, artifacts);
     });
 }

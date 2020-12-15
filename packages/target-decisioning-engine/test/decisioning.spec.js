@@ -24,6 +24,17 @@ const TEST_SUITES = getTestSuites(
 );
 
 describe("decisioning engine", () => {
+  it("has tests", () => {
+    expect(TEST_SUITES.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it("runs all tests on CI", () => {
+    const isCI = process.env.CI || false;
+    if (isCI) {
+      expect(JUST_THIS_TEST).toBeUndefined();
+    }
+  });
+
   describe.each(
     TEST_SUITES.map(suite => [suite.description, suite, undefined])
   )("%s", (suiteDescription, TEST_SUITE) => {
