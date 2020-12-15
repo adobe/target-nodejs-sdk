@@ -26,9 +26,7 @@ git checkout ${working_branch}
 if [ -d "$TEST_SCHEMA_DESTINATION_FOLDER" ]
 then
     # the schema folder exists, merge the latest with it
-    GIT_MERGE_AUTOEDIT=no
-    GIT_EDITOR=cat
-    git subtree merge -P ${TEST_SCHEMA_DESTINATION_FOLDER} schema --squash
+    GIT_MERGE_AUTOEDIT=no git subtree merge -P ${TEST_SCHEMA_DESTINATION_FOLDER} schema --squash
 else
     # the schema folder does not yet exist, add it
     git subtree add -P ${TEST_SCHEMA_DESTINATION_FOLDER} schema --squash
