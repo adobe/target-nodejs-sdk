@@ -18,12 +18,14 @@ git remote add -f target-sdk-testing git@github.com:adobe/target-sdk-testing.git
 git checkout -b temp target-sdk-testing/main
 
 # Create a synthetic "schema" branch using the commits in `/schema/` from `target-sdk-testing`
-git subtree split -P schema -b schema
+git subtree split --squash -P schema -b schema
 
 # Switch back to the working branch and add the new `schema` branch into `/path/to/test/schema/`.
 $(git checkout $working_branch)
-$(git subtree pull -P $SCHEMA_DESTINATION_FOLDER schema --squash)
-# add the first time, pull the second?
+#$(git subtree add -P $SCHEMA_DESTINATION_FOLDER schema)
+$(git subtree merge --allow-unrelated-histories -P $SCHEMA_DESTINATION_FOLDER schema)
+
+# first time, add, second time merge
 
 # clean up the branches used
 git branch -D schema temp
