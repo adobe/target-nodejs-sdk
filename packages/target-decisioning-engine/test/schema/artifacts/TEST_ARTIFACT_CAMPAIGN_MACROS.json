@@ -1,5 +1,5 @@
 {
-  "**TEST--targetAdminUrls**": [
+  "targetAdminActivityUrls": [
     "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/campaign_macros",
     "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/macros_pageload",
     "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/campaign_macros_view"

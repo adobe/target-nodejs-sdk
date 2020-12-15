@@ -95,8 +95,8 @@ export function setMockDate(mockDate) {
 const JSON_FILES = fileName => fileName.toLowerCase().endsWith(".json");
 
 export function getTestSuites(testSuiteName) {
-  const artifactFolder = path.resolve(__dirname, "test-artifacts");
-  const testModelsFolder = path.resolve(__dirname, "test-models");
+  const artifactFolder = path.resolve(__dirname, "schema/artifacts");
+  const testModelsFolder = path.resolve(__dirname, "schema/models");
 
   const artifacts = fs.readdirSync(artifactFolder).filter(JSON_FILES);
   const testModels = fs.readdirSync(testModelsFolder).filter(JSON_FILES);

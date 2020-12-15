@@ -1,5 +1,5 @@
 {
-  "**TEST--targetAdminUrls**": [
+  "targetAdminActivityUrls": [
     "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/kitty_low",
     "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/kitty_high",
     "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/Experience-Targeting/kitty_high_with_targeting"

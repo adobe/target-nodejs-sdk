@@ -3,7 +3,7 @@ import {
   DECISIONING_METHOD
 } from "@adobe/target-tools";
 
-const DECISIONING_PAYLOAD_FEATURE_FLAG = require("@adobe/target-decisioning-engine/test/test-artifacts/TEST_ARTIFACT_FEATURE_FLAG.json");
+const DECISIONING_PAYLOAD_FEATURE_FLAG = require("@adobe/target-decisioning-engine/test/schema/artifacts/TEST_ARTIFACT_FEATURE_FLAG.json");
 
 require("jest-fetch-mock").enableMocks();
 

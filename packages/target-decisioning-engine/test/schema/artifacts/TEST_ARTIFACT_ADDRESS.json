@@ -1,6 +1,6 @@
 {
-  "**TEST--targetAdminUrls**": [
-    "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/superfluous_ab_json"
+  "targetAdminActivityUrls": [
+    "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/form_based_activity-offer2-feb1920201034"
   ],
   "version": "1.0.0",
   "meta": { "clientCode": "adobesummit2018", "environment": "production" },
@@ -74,74 +74,84 @@
   "localViews": ["about", "contact"],
   "rules": {
     "mboxes": {
-      "superfluous-mbox": [
+      "offer2": [
         {
-          "ruleKey": "334411",
-          "activityId": 334411,
+          "ruleKey": "333312",
+          "activityId": 333312,
           "meta": {
-            "activity.id": 334411,
-            "activity.name": "superfluous ab json",
+            "activity.id": 333312,
+            "activity.name": "Form Based Activity - offer2 - Feb 19 2020, 10:34",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
-            "location.name": "superfluous-mbox",
+            "location.name": "offer2",
             "location.type": "mbox",
             "location.id": 0,
-            "audience.ids": [],
-            "offer.id": 631992,
-            "offer.name": "/superfluous_ab_json/experiences/0/pages/0/zones/0/1582738346730",
+            "audience.ids": [5356811],
+            "offer.id": 630815,
+            "offer.name": "/form_based_activity-offer2-feb1920201034/experiences/0/pages/0/zones/0/1582137291528",
             "option.id": 2,
             "option.name": "Offer2"
           },
           "condition": {
             "and": [
-              { "<=": [0, { "var": "allocation" }] },
-              { ">=": [50, { "var": "allocation" }] }
+              {
+                "and": [
+                  { "<=": [0, { "var": "allocation" }] },
+                  { ">=": [50, { "var": "allocation" }] }
+                ]
+              },
+              { "in": ["bar", { "var": "page.url_lc" }] }
             ]
           },
           "consequence": {
-            "name": "superfluous-mbox",
+            "name": "offer2",
             "options": [
               {
                 "type": "json",
-                "eventToken": "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                "content": { "doMagic": true, "importantValue": 150 }
+                "eventToken": "mWtD0yDAXMnesyQOa7/jS2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": { "baz": 1 }
               }
             ],
             "metrics": []
           }
         },
         {
-          "ruleKey": "334411",
-          "activityId": 334411,
+          "ruleKey": "333312",
+          "activityId": 333312,
           "meta": {
-            "activity.id": 334411,
-            "activity.name": "superfluous ab json",
+            "activity.id": 333312,
+            "activity.name": "Form Based Activity - offer2 - Feb 19 2020, 10:34",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
-            "location.name": "superfluous-mbox",
+            "location.name": "offer2",
             "location.type": "mbox",
             "location.id": 0,
-            "audience.ids": [],
-            "offer.id": 631991,
-            "offer.name": "/superfluous_ab_json/experiences/1/pages/0/zones/0/1582738346722",
+            "audience.ids": [5356811],
+            "offer.id": 630814,
+            "offer.name": "/form_based_activity-offer2-feb1920201034/experiences/1/pages/0/zones/0/1582137291524",
             "option.id": 3,
             "option.name": "Offer3"
           },
           "condition": {
             "and": [
-              { "<": [50, { "var": "allocation" }] },
-              { ">=": [100, { "var": "allocation" }] }
+              {
+                "and": [
+                  { "<": [50, { "var": "allocation" }] },
+                  { ">=": [100, { "var": "allocation" }] }
+                ]
+              },
+              { "in": ["bar", { "var": "page.url_lc" }] }
             ]
           },
           "consequence": {
-            "name": "superfluous-mbox",
+            "name": "offer2",
             "options": [
               {
                 "type": "json",
-                "eventToken": "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                "content": { "doMagic": false, "importantValue": 75 }
+                "eventToken": "mWtD0yDAXMnesyQOa7/jS5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": { "baz": 2 }
               }
             ],
             "metrics": []

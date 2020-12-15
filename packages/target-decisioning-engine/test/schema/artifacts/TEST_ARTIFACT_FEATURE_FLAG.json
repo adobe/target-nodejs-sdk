@@ -1,5 +1,5 @@
 {
-  "**TEST--targetAdminUrls**": [
+  "targetAdminActivityUrls": [
     "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/jason-flags"
   ],
   "version": "1.0.0",

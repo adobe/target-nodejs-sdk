@@ -1,5 +1,5 @@
 {
-  "**TEST--targetAdminUrls**": [
+  "targetAdminActivityUrls": [
     "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/Experience-Targeting/xt_spa_add_text_tocontactpage",
     "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/ab_spa_view_changemultipletextnoaudiences",
     "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/ab_spa_view_changeaddtextwithaudiences"

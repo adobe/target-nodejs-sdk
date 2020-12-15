@@ -11,8 +11,8 @@ import Messages from "./messages";
 
 import { ARTIFACT_DOWNLOAD_FAILED } from "./events";
 
-const ARTIFACT_BLANK = require("../test/test-artifacts/TEST_ARTIFACT_BLANK.json");
-const ARTIFACT_UNSUPPORTED_VERSION = require("../test/test-artifacts/TEST_ARTIFACT_UNSUPPORTED.json");
+const ARTIFACT_BLANK = require("../test/schema/artifacts/TEST_ARTIFACT_BLANK.json");
+const ARTIFACT_UNSUPPORTED_VERSION = require("../test/schema/artifacts/TEST_ARTIFACT_UNSUPPORTED.json");
 
 require("jest-fetch-mock").enableMocks();
 

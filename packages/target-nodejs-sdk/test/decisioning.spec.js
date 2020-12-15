@@ -5,8 +5,8 @@ import {
 
 import { ARTIFACT_FORMAT_JSON } from "@adobe/target-decisioning-engine/src/constants";
 
-const ARTIFACT_AB_SIMPLE = require("@adobe/target-decisioning-engine/test/test-artifacts/TEST_ARTIFACT_AB_SIMPLE.json");
-const ARTIFACT_BLANK = require("@adobe/target-decisioning-engine/test/test-artifacts/TEST_ARTIFACT_BLANK.json");
+const ARTIFACT_AB_SIMPLE = require("@adobe/target-decisioning-engine/test/schema/artifacts/TEST_ARTIFACT_AB_SIMPLE.json");
+const ARTIFACT_BLANK = require("@adobe/target-decisioning-engine/test/schema/artifacts/TEST_ARTIFACT_BLANK.json");
 
 const HttpStatus = require("http-status-codes");
 

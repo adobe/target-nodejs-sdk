@@ -9,8 +9,7 @@
     "types/*",
     "src/**/!(*.spec).js",
     "test/test.utils.js",
-    "test/test-artifacts/*.json",
-    "test/test-models/*.json"
+    "test/schema/**/*.json"
   ],
   "publishConfig": {
     "access": "public"

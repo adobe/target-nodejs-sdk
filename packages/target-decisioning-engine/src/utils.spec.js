@@ -1,6 +1,6 @@
 import { firstMatch, hasRemoteDependency } from "./utils";
 
-const ARTIFACT_BLANK = require("../test/test-artifacts/TEST_ARTIFACT_BLANK.json");
+const ARTIFACT_BLANK = require("../test/schema/artifacts/TEST_ARTIFACT_BLANK.json");
 
 describe("utils", () => {
   const targetRequest = {

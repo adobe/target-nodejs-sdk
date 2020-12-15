@@ -22,7 +22,7 @@ import {
   ARTIFACT_DOWNLOAD_SUCCEEDED
 } from "./events";
 
-const ARTIFACT_BLANK = require("../test/test-artifacts/TEST_ARTIFACT_BLANK.json");
+const ARTIFACT_BLANK = require("../test/schema/artifacts/TEST_ARTIFACT_BLANK.json");
 
 require("jest-fetch-mock").enableMocks();
 
