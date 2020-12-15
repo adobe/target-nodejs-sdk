@@ -1,0 +1,271 @@
+{
+  "description": "decisioning outcomes - timeframe",
+  "artifact": "TEST_ARTIFACT_TIMEFRAME",
+  "conf": {
+    "client": "someClientId",
+    "organizationId": "someOrgId",
+    "pollingInterval": 0
+  },
+  "test": {
+    "date_range_1": {
+      "description": "targets date range 1 (feb 27 - feb 29 2020)",
+      "mockDate": {
+        "year": 2020,
+        "month": 1,
+        "date": 27,
+        "hours": 19,
+        "human": "Thursday, February 27, 2020 11:00 AM (PST)"
+      },
+      "input": {
+        "request": {
+          "id": {
+            "tntId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
+            "marketingCloudVisitorId": "07327024324407615852294135870030620007"
+          },
+          "context": {
+            "channel": "web",
+            "address": {
+              "url": "http://local-target-test:8080/home?bar=true#hello"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
+            "beacon": false
+          },
+          "prefetch": {
+            "mboxes": [
+              {
+                "name": "daterange-mbox",
+                "index": 1
+              }
+            ]
+          }
+        },
+        "sessionId": "dummy_session"
+      },
+      "output": {
+        "prefetch": {
+          "mboxes": [
+            {
+              "index": 1,
+              "name": "daterange-mbox",
+              "options": [
+                {
+                  "type": "html",
+                  "content": "<strong>date range 1 (feb 27-29)</strong>",
+                  "eventToken": "wQY/V1IOYec8T4fAT5ww7unJlneZxJu5VqGhXCosHhWCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "date_range_2": {
+      "description": "targets date range 2 (mar 2 - mar 6 2020)",
+      "mockDate": {
+        "year": 2020,
+        "month": 2,
+        "date": 4,
+        "hours": 19,
+        "human": "Wednesday, March 4, 2020 11:00 AM (PST)"
+      },
+      "input": {
+        "request": {
+          "id": {
+            "tntId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
+            "marketingCloudVisitorId": "07327024324407615852294135870030620007"
+          },
+          "context": {
+            "channel": "web",
+            "address": {
+              "url": "http://local-target-test:8080/home?bar=true#hello"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
+            "beacon": false
+          },
+          "prefetch": {
+            "mboxes": [
+              {
+                "name": "daterange-mbox",
+                "index": 1
+              }
+            ]
+          }
+        },
+        "sessionId": "dummy_session"
+      },
+      "output": {
+        "prefetch": {
+          "mboxes": [
+            {
+              "index": 1,
+              "name": "daterange-mbox",
+              "options": [
+                {
+                  "type": "html",
+                  "content": "<strong>date range 2 (mar 2 - 6)</strong>",
+                  "eventToken": "wQY/V1IOYec8T4fAT5ww7pNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "friday_in_range": {
+      "description": "targets friday, even if within range of other rules",
+      "mockDate": {
+        "year": 2020,
+        "month": 2,
+        "date": 6,
+        "hours": 19,
+        "human": "Friday, March 6, 2020 11:00 AM (PST)"
+      },
+      "input": {
+        "request": {
+          "id": {
+            "tntId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
+            "marketingCloudVisitorId": "07327024324407615852294135870030620007"
+          },
+          "context": {
+            "channel": "web",
+            "address": {
+              "url": "http://local-target-test:8080/home?bar=true#hello"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
+            "beacon": false
+          },
+          "prefetch": {
+            "mboxes": [
+              {
+                "name": "daterange-mbox",
+                "index": 1
+              }
+            ]
+          }
+        },
+        "sessionId": "dummy_session"
+      },
+      "output": {
+        "prefetch": {
+          "mboxes": [
+            {
+              "index": 1,
+              "name": "daterange-mbox",
+              "options": [
+                {
+                  "type": "html",
+                  "content": "<strong>it's friday</strong>",
+                  "eventToken": "wQY/V1IOYec8T4fAT5ww7hB3JWElmEno9qwHyGr0QvSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "friday_out_of_range": {
+      "description": "targets friday out of range of other rules",
+      "mockDate": {
+        "year": 2020,
+        "month": 2,
+        "date": 20,
+        "hours": 18,
+        "human": "Friday, March 20, 2020 11:00 AM (PST)"
+      },
+      "input": {
+        "request": {
+          "id": {
+            "tntId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
+            "marketingCloudVisitorId": "07327024324407615852294135870030620007"
+          },
+          "context": {
+            "channel": "web",
+            "address": {
+              "url": "http://local-target-test:8080/home?bar=true#hello"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
+            "beacon": false
+          },
+          "prefetch": {
+            "mboxes": [
+              {
+                "name": "daterange-mbox",
+                "index": 1
+              }
+            ]
+          }
+        },
+        "sessionId": "dummy_session"
+      },
+      "output": {
+        "prefetch": {
+          "mboxes": [
+            {
+              "index": 1,
+              "name": "daterange-mbox",
+              "options": [
+                {
+                  "type": "html",
+                  "content": "<strong>it's friday</strong>",
+                  "eventToken": "wQY/V1IOYec8T4fAT5ww7hB3JWElmEno9qwHyGr0QvSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "criteria_unmet": {
+      "description": "doesn't match any date rules",
+      "mockDate": {
+        "year": 2020,
+        "month": 4,
+        "date": 26,
+        "hours": 18,
+        "human": "Tuesday, May 26, 2020 11:00 AM (PST)"
+      },
+      "input": {
+        "request": {
+          "id": {
+            "tntId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
+            "marketingCloudVisitorId": "07327024324407615852294135870030620007"
+          },
+          "context": {
+            "channel": "web",
+            "address": {
+              "url": "http://local-target-test:8080/home?bar=true#hello"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
+            "beacon": false
+          },
+          "prefetch": {
+            "mboxes": [
+              {
+                "name": "daterange-mbox",
+                "index": 1
+              }
+            ]
+          }
+        },
+        "sessionId": "dummy_session"
+      },
+      "output": {
+        "prefetch": {
+          "mboxes": [
+            {
+              "index": 1,
+              "name": "daterange-mbox",
+              "options": [
+                {
+                  "type": "html",
+                  "content": "<strong>default result</strong>",
+                  "eventToken": "wQY/V1IOYec8T4fAT5ww7mqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}
