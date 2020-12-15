@@ -3,7 +3,7 @@
 TEST_SCHEMA_DESTINATION_FOLDER=packages/target-decisioning-engine/test/schema
 
 if [[ `git status --porcelain` ]]; then
-  echo "There are uncommitted changes.  Please commit or stash and try again."
+  echo "Error: There are uncommitted changes.  Please commit or stash and try again."
   exit 1
 fi
 
@@ -22,10 +22,15 @@ git subtree split -P schema -b schema
 
 # Switch back to the working branch and add the new `schema` branch into `/path/to/test/schema/`.
 $(git checkout $working_branch)
-#$(git subtree add -P $SCHEMA_DESTINATION_FOLDER schema --squash)
-$(git subtree merge -P $SCHEMA_DESTINATION_FOLDER schema --squash)
 
-# first time, add, second time merge
+if [ -d "$TEST_SCHEMA_DESTINATION_FOLDER" ]
+then
+    # the schema folder exists, merge the latest with it
+    $(git subtree merge -P $SCHEMA_DESTINATION_FOLDER schema --squash --no-edit)
+else
+    # the schema folder does not yet exist, add it
+    $(git subtree add -P $SCHEMA_DESTINATION_FOLDER schema --squash)
+fi
 
 # clean up the branches used
 git branch -D schema temp
