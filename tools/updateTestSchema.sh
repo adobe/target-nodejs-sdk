@@ -21,15 +21,17 @@ git checkout -b temp target-sdk-testing/main
 git subtree split -P schema -b schema
 
 # Switch back to the working branch and add the new `schema` branch into `/path/to/test/schema/`.
-$(git checkout $working_branch)
+git checkout ${working_branch}
 
 if [ -d "$TEST_SCHEMA_DESTINATION_FOLDER" ]
 then
     # the schema folder exists, merge the latest with it
-    $(git subtree merge -P $SCHEMA_DESTINATION_FOLDER schema --squash)
+    GIT_MERGE_AUTOEDIT=no
+    GIT_EDITOR=cat
+    git subtree merge -P ${TEST_SCHEMA_DESTINATION_FOLDER} schema --squash
 else
     # the schema folder does not yet exist, add it
-    $(git subtree add -P $SCHEMA_DESTINATION_FOLDER schema --squash)
+    git subtree add -P ${TEST_SCHEMA_DESTINATION_FOLDER} schema --squash
 fi
 
 # clean up the branches used
