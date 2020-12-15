@@ -26,7 +26,7 @@
           "execute": {
             "mboxes": [
               {
-                "name": "asuperfluous-mbox",
+                "name": "superfluous-mbox",
                 "index": 2
               }
             ]
