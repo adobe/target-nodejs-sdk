@@ -22,7 +22,8 @@ git subtree split -P schema -b schema
 
 # Switch back to the working branch and add the new `schema` branch into `/path/to/test/schema/`.
 $(git checkout $working_branch)
-$(git subtree add -P $SCHEMA_DESTINATION_FOLDER schema)
+$(git subtree pull -P $SCHEMA_DESTINATION_FOLDER schema --squash)
+# add the first time, pull the second?
 
 # clean up the branches used
 git branch -D schema temp
