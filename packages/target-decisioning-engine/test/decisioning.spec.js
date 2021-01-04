@@ -15,7 +15,7 @@ const JUST_THIS_TEST = undefined;
  */
 
 // const JUST_THIS_TEST = {
-//   suite: "TEST_TIMEFRAME",
+//   suite: "TEST_SUITE_TIMEFRAME",
 //   test: "friday_out_of_range"
 // };
 
