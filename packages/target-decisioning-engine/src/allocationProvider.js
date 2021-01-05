@@ -1,11 +1,14 @@
 import MurmurHash3 from "imurmurhash";
 import { createUUID } from "@adobe/target-tools";
-import { getCustomerId } from "./requestProvider";
+import { CAMPAIGN_BUCKET_SALT } from "./constants";
 
-function validTntId(tntId = createUUID()) {
-  // eslint-disable-next-line no-unused-vars
-  const [id, locationHint] = tntId.split(".");
-  return id;
+export function validTntId(tntId = "") {
+  if (typeof tntId === "string" && tntId.length > 0) {
+    // eslint-disable-next-line no-unused-vars
+    const [id, locationHint] = tntId.split(".");
+    return id;
+  }
+  return undefined;
 }
 
 /**
@@ -16,10 +19,10 @@ function validTntId(tntId = createUUID()) {
 export function getOrCreateVisitorId(visitorId) {
   if (visitorId) {
     return (
-      visitorId.thirdPartyId ||
-      getCustomerId(visitorId) ||
       visitorId.marketingCloudVisitorId ||
-      validTntId(visitorId.tntId)
+      validTntId(visitorId.tntId) ||
+      visitorId.thirdPartyId ||
+      createUUID() // create a tntId
     );
   }
   return createUUID();
@@ -33,7 +36,12 @@ export function getOrCreateVisitorId(visitorId) {
  * @param { import("@adobe/target-tools/delivery-api-client/models/VisitorId").VisitorId } visitorId
  * @param {String} salt salt value, optional
  */
-export function computeAllocation(clientId, activityId, visitorId, salt = "") {
+export function computeAllocation(
+  clientId,
+  activityId,
+  visitorId,
+  salt = CAMPAIGN_BUCKET_SALT
+) {
   // TODO: may want to memoize this
 
   // Generate a unique visitor ID and persist it.

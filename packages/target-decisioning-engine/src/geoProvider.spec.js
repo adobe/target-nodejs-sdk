@@ -4,8 +4,9 @@ import {
   createGeoObjectFromPayload,
   GeoProvider
 } from "./geoProvider";
-import { DUMMY_ARTIFACT_PAYLOAD } from "../test/decisioning-payloads";
 import { HTTP_HEADER_FORWARDED_FOR } from "./constants";
+
+const ARTIFACT_BLANK = require("../test/schema/artifacts/TEST_ARTIFACT_BLANK.json");
 
 require("jest-fetch-mock").enableMocks();
 
@@ -63,7 +64,7 @@ describe("geoProvider", () => {
       const validGeoRequestContext = GeoProvider(
         {},
         {
-          ...DUMMY_ARTIFACT_PAYLOAD,
+          ...ARTIFACT_BLANK,
           geoTargetingEnabled: false
         }
       );
@@ -81,7 +82,7 @@ describe("geoProvider", () => {
       const validGeoRequestContext = GeoProvider(
         {},
         {
-          ...DUMMY_ARTIFACT_PAYLOAD,
+          ...ARTIFACT_BLANK,
           geoTargetingEnabled: true
         }
       );
@@ -110,7 +111,7 @@ describe("geoProvider", () => {
       const validGeoRequestContext = GeoProvider(
         {},
         {
-          ...DUMMY_ARTIFACT_PAYLOAD,
+          ...ARTIFACT_BLANK,
           geoTargetingEnabled: true
         }
       );
@@ -141,7 +142,7 @@ describe("geoProvider", () => {
       const validGeoRequestContext = GeoProvider(
         {},
         {
-          ...DUMMY_ARTIFACT_PAYLOAD,
+          ...ARTIFACT_BLANK,
           geoTargetingEnabled: true
         }
       );
@@ -170,7 +171,7 @@ describe("geoProvider", () => {
       const validGeoRequestContext = GeoProvider(
         {},
         {
-          ...DUMMY_ARTIFACT_PAYLOAD,
+          ...ARTIFACT_BLANK,
           geoTargetingEnabled: true
         }
       );
