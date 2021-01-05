@@ -134,7 +134,6 @@ describe("allocationProvider", () => {
         ]
       });
 
-      // tntId generated
       expect(typeof vid).toEqual("string");
       expect(vid.length).toBeGreaterThan(0);
 
