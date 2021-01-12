@@ -9,8 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- (On Device Decisioning) Updated allocation calculation to be identical to Target Delivery API ( Allocation is determined using the first non-null visitor id in this order 1. ECID, 2. TNTID, 3. Third Party ID )
-- (On Device Decisioning) Changed allocation calculation when using tntId to include just the ID without the locationHint
+- (on-device decisioning) Updated allocation calculation to be identical to Target Delivery API ( Allocation is determined using the first non-null visitor id in this order 1. ECID, 2. TNTID, 3. Third Party ID )
+- (on-device decisioning) Changed allocation calculation when using tntId to include just the ID without the locationHint
+- (server-side decisioning) Support for using imsOrgId in the config. This can be used instead of client for calls to Delivery API.
 
 ## [2.0.0] - 2020-10-26
 
