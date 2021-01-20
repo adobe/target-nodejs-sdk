@@ -33,7 +33,7 @@ describe.skip("target-nodejs-sdk scratch", () => {
         client: "adobesummit2018",
         organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
         propertyToken,
-        decisioningMethod: "on-device",
+        decisioningMethod: "server-side",
         pollingInterval: 0,
         events: {
           clientReady: async () => {

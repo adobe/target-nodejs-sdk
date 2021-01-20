@@ -11,7 +11,7 @@
     "pretty-quick": "pretty-quick",
     "publish": "node tools/npm-publish.js",
     "test": "lerna run test --stream && npm run coverage",
-    "updateTestArtifacts": "node tools/updateTestArtifacts.js"
+    "updateTestArtifacts": "bash tools/updateTestSchema.sh"
   },
   "husky": {
     "hooks": {

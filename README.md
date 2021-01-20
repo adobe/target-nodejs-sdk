@@ -41,11 +41,12 @@ Please take a look at [our documentation](https://adobetarget-sdks.gitbook.io/do
 
 ## Development
 
-Check out our [Contribution guidelines](../../.github/CONTRIBUTING.md) as well as [Code of Conduct](CODE_OF_CONDUCT.md) prior
+Check out our [Contribution guidelines](./.github/CONTRIBUTING.md) as well as [Code of Conduct](CODE_OF_CONDUCT.md) prior
 to contributing to Target Node.js SDK development.  
-To build the project: `npm run build`  
-To run the unit tests: `npm test`  
-To generate code coverage after running the tests: `npm run coverage`
+
+- To build the project: `npm run build`  
+- To run the unit tests: `npm test`  
+- To generate code coverage after running the tests: `npm run coverage`
 
 ## Additional code
 

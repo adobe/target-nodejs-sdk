@@ -15,6 +15,12 @@ export function isDefined(value) {
   return !isUndefined(value);
 }
 
+export function isPojo(obj) {
+  if (isUndefined(obj) || obj === null || typeof obj !== "object") return false;
+
+  return Object.getPrototypeOf(obj) === Object.prototype;
+}
+
 /**
  *
  * @param {"mboxes"|"views"} itemsKey
@@ -31,9 +37,11 @@ function getNamesForRequested(itemsKey, deliveryRequest) {
       deliveryRequest[type][itemsKey] instanceof Array
         ? deliveryRequest[type][itemsKey]
         : [];
-    items.forEach(item => {
-      resultSet.add(item.name);
-    });
+    items
+      .filter(item => isDefined(item.name))
+      .forEach(item => {
+        resultSet.add(item.name);
+      });
   });
 
   return resultSet;

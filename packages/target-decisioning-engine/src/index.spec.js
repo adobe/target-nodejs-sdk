@@ -8,11 +8,11 @@ import {
   SUPPORTED_ARTIFACT_MAJOR_VERSION
 } from "./constants";
 import Messages from "./messages";
-import {
-  DUMMY_ARTIFACT_PAYLOAD,
-  DUMMY_ARTIFACT_PAYLOAD_UNSUPPORTED_VERSION
-} from "../test/decisioning-payloads";
+
 import { ARTIFACT_DOWNLOAD_FAILED } from "./events";
+
+const ARTIFACT_BLANK = require("../test/schema/artifacts/TEST_ARTIFACT_BLANK.json");
+const ARTIFACT_UNSUPPORTED_VERSION = require("../test/schema/artifacts/TEST_ARTIFACT_UNSUPPORTED.json");
 
 require("jest-fetch-mock").enableMocks();
 
@@ -63,7 +63,7 @@ describe("TargetDecisioningEngine", () => {
   });
 
   it("initializes", async () => {
-    fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
+    fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
     decisioning = await TargetDecisioningEngine({
       ...CONFIG,
@@ -78,9 +78,7 @@ describe("TargetDecisioningEngine", () => {
     const responses = [];
     for (let i = 1; i < 50; i += 1) {
       responses.push([
-        JSON.stringify(
-          Object.assign({}, DUMMY_ARTIFACT_PAYLOAD, { version: i })
-        ),
+        JSON.stringify(Object.assign({}, ARTIFACT_BLANK, { version: i })),
         { status: 200 }
       ]);
     }
@@ -156,7 +154,7 @@ describe("TargetDecisioningEngine", () => {
       expect.assertions(1);
       const eventEmitter = jest.fn();
 
-      fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
+      fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
       TargetDecisioningEngine({
         ...CONFIG,
@@ -177,7 +175,7 @@ describe("TargetDecisioningEngine", () => {
   });
 
   it("getOffers resolves", async () => {
-    fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
+    fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
     decisioning = await TargetDecisioningEngine({
       ...CONFIG,
@@ -193,9 +191,7 @@ describe("TargetDecisioningEngine", () => {
   });
 
   it("getOffers gives an error if unsupported artifact version", async () => {
-    fetch.mockResponse(
-      JSON.stringify(DUMMY_ARTIFACT_PAYLOAD_UNSUPPORTED_VERSION)
-    );
+    fetch.mockResponse(JSON.stringify(ARTIFACT_UNSUPPORTED_VERSION));
 
     decisioning = await TargetDecisioningEngine({
       ...CONFIG,
@@ -210,7 +206,7 @@ describe("TargetDecisioningEngine", () => {
     ).rejects.toEqual(
       new Error(
         Messages.ARTIFACT_VERSION_UNSUPPORTED(
-          DUMMY_ARTIFACT_PAYLOAD_UNSUPPORTED_VERSION.version,
+          ARTIFACT_UNSUPPORTED_VERSION.version,
           SUPPORTED_ARTIFACT_MAJOR_VERSION
         )
       )

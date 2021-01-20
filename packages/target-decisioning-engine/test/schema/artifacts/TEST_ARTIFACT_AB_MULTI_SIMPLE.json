@@ -1,0 +1,229 @@
+{
+  "targetAdminActivityUrls": [
+    "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/simple_ab_expendable-mbox",
+    "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/superfluous_ab_json"
+  ],
+  "version": "1.0.0",
+  "meta": { "clientCode": "adobesummit2018", "environment": "production" },
+  "globalMbox": "target-global-mbox",
+  "geoTargetingEnabled": true,
+  "responseTokens": [
+    "activity.id",
+    "activity.name",
+    "experience.id",
+    "experience.name",
+    "experience.trafficAllocationId",
+    "experience.trafficAllocationType",
+    "geo.city",
+    "geo.country",
+    "geo.state",
+    "offer.id",
+    "offer.name",
+    "option.id",
+    "option.name"
+  ],
+  "remoteMboxes": ["target-global-mbox"],
+  "remoteViews": ["home"],
+  "localMboxes": [
+    "alloy-test-scope-1",
+    "bannedtest",
+    "blippi",
+    "boogie",
+    "browser-mbox",
+    "composite2",
+    "crazy2",
+    "daterange-mbox",
+    "dell-countdown-mbox",
+    "dell-greeting-mbox",
+    "demo-engineering-flags",
+    "demo-geo-offer1",
+    "demo-marketing-flags",
+    "demo-marketing-offer1",
+    "demo-marketing-offer2",
+    "disney",
+    "dwalling-myFlags",
+    "expendable-mbox",
+    "foo",
+    "geo",
+    "gregtest42",
+    "gw-amp-email",
+    "gw-amp-email-thumbnail",
+    "jason-flags",
+    "kitty",
+    "local123456",
+    "location",
+    "macros",
+    "multinot",
+    "offer1",
+    "offer2",
+    "offer3",
+    "onboarding-mbox-1",
+    "perf1",
+    "product",
+    "redundant-mbox",
+    "sam-mbox",
+    "sam-mbox-2",
+    "something",
+    "specialk",
+    "splendid-mbox",
+    "superfluous-mbox",
+    "target-global-mbox",
+    "testoffer",
+    "testoffer2",
+    "vanilla-mbox"
+  ],
+  "localViews": ["about", "contact"],
+  "rules": {
+    "mboxes": {
+      "superfluous-mbox": [
+        {
+          "ruleKey": "334411",
+          "activityId": 334411,
+          "meta": {
+            "activity.id": 334411,
+            "activity.name": "superfluous ab json",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "superfluous-mbox",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [],
+            "offer.id": 631992,
+            "offer.name": "/superfluous_ab_json/experiences/0/pages/0/zones/0/1582738346730",
+            "option.id": 2,
+            "option.name": "Offer2"
+          },
+          "condition": {
+            "and": [
+              { "<=": [0, { "var": "allocation" }] },
+              { ">=": [50, { "var": "allocation" }] }
+            ]
+          },
+          "consequence": {
+            "name": "superfluous-mbox",
+            "options": [
+              {
+                "type": "json",
+                "eventToken": "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": { "doMagic": true, "importantValue": 150 }
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "334411",
+          "activityId": 334411,
+          "meta": {
+            "activity.id": 334411,
+            "activity.name": "superfluous ab json",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "superfluous-mbox",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [],
+            "offer.id": 631991,
+            "offer.name": "/superfluous_ab_json/experiences/1/pages/0/zones/0/1582738346722",
+            "option.id": 3,
+            "option.name": "Offer3"
+          },
+          "condition": {
+            "and": [
+              { "<": [50, { "var": "allocation" }] },
+              { ">=": [100, { "var": "allocation" }] }
+            ]
+          },
+          "consequence": {
+            "name": "superfluous-mbox",
+            "options": [
+              {
+                "type": "json",
+                "eventToken": "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": { "doMagic": false, "importantValue": 75 }
+              }
+            ],
+            "metrics": []
+          }
+        }
+      ],
+      "expendable-mbox": [
+        {
+          "ruleKey": "334640",
+          "activityId": 334640,
+          "meta": {
+            "activity.id": 334640,
+            "activity.name": "simple ab expendable-mbox",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "expendable-mbox",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [],
+            "offer.id": 632233,
+            "offer.name": "/simple_ab_expendable-mbox/experiences/0/pages/0/zones/0/1582825446969",
+            "option.id": 2,
+            "option.name": "Offer2"
+          },
+          "condition": {
+            "and": [
+              { "<=": [0, { "var": "allocation" }] },
+              { ">=": [50, { "var": "allocation" }] }
+            ]
+          },
+          "consequence": {
+            "name": "expendable-mbox",
+            "options": [
+              {
+                "type": "html",
+                "eventToken": "YPoPRnGmGGit+QxnpxYFjWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<div>hello</div>"
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "334640",
+          "activityId": 334640,
+          "meta": {
+            "activity.id": 334640,
+            "activity.name": "simple ab expendable-mbox",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "expendable-mbox",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [],
+            "offer.id": 632234,
+            "offer.name": "/simple_ab_expendable-mbox/experiences/1/pages/0/zones/0/1582825446975",
+            "option.id": 3,
+            "option.name": "Offer3"
+          },
+          "condition": {
+            "and": [
+              { "<": [50, { "var": "allocation" }] },
+              { ">=": [100, { "var": "allocation" }] }
+            ]
+          },
+          "consequence": {
+            "name": "expendable-mbox",
+            "options": [
+              {
+                "type": "html",
+                "eventToken": "YPoPRnGmGGit+QxnpxYFjZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<div>goodbye</div>"
+              }
+            ],
+            "metrics": []
+          }
+        }
+      ]
+    },
+    "views": {}
+  }
+}

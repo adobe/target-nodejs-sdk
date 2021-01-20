@@ -1,0 +1,1257 @@
+{
+  "targetAdminActivityUrls": [
+    "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/Experience-Targeting/xt_spa_add_text_tocontactpage",
+    "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/ab_spa_view_changemultipletextnoaudiences",
+    "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/ab_spa_view_changeaddtextwithaudiences"
+  ],
+  "version": "1.0.0",
+  "meta": { "clientCode": "adobesummit2018", "environment": "production" },
+  "globalMbox": "target-global-mbox",
+  "geoTargetingEnabled": true,
+  "responseTokens": [
+    "activity.id",
+    "activity.name",
+    "experience.id",
+    "experience.name",
+    "experience.trafficAllocationId",
+    "experience.trafficAllocationType",
+    "geo.city",
+    "geo.country",
+    "geo.state",
+    "offer.id",
+    "offer.name",
+    "option.id",
+    "option.name"
+  ],
+  "remoteMboxes": ["target-global-mbox"],
+  "remoteViews": ["home"],
+  "localMboxes": [
+    "alloy-test-scope-1",
+    "bannedtest",
+    "blippi",
+    "boogie",
+    "browser-mbox",
+    "composite2",
+    "crazy2",
+    "daterange-mbox",
+    "dell-countdown-mbox",
+    "dell-greeting-mbox",
+    "demo-engineering-flags",
+    "demo-geo-offer1",
+    "demo-marketing-flags",
+    "demo-marketing-offer1",
+    "demo-marketing-offer2",
+    "disney",
+    "dwalling-myFlags",
+    "expendable-mbox",
+    "foo",
+    "geo",
+    "gregtest42",
+    "gw-amp-email",
+    "gw-amp-email-thumbnail",
+    "jason-flags",
+    "kitty",
+    "local123456",
+    "location",
+    "macros",
+    "multinot",
+    "offer1",
+    "offer2",
+    "offer3",
+    "onboarding-mbox-1",
+    "perf1",
+    "product",
+    "redundant-mbox",
+    "sam-mbox",
+    "sam-mbox-2",
+    "something",
+    "specialk",
+    "splendid-mbox",
+    "superfluous-mbox",
+    "target-global-mbox",
+    "testoffer",
+    "testoffer2",
+    "vanilla-mbox"
+  ],
+  "localViews": ["about", "contact"],
+  "rules": {
+    "mboxes": {},
+    "views": {
+      "contact": [
+        {
+          "ruleKey": "345798-0",
+          "activityId": 345798,
+          "meta": {
+            "activity.id": 345798,
+            "activity.name": "xt spa add text to contact page",
+            "activity.type": "landing",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "contact",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [5634562, 5653736],
+            "option.id": 2,
+            "option.name": "Offer2"
+          },
+          "condition": {
+            "and": [
+              { "==": ["correct", { "var": "mbox.jason" }] },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "contact",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "DKyEy8B6J+arIj6GhXNW/GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "insertBefore",
+                    "selector": "#spa-content > P:nth-of-type(1)",
+                    "cssSelector": "#spa-content > P:nth-of-type(1)",
+                    "content": "<div id=\"action_insert_15889714592501888\">Please call Jason immediately</div>"
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "345798-1",
+          "activityId": 345798,
+          "meta": {
+            "activity.id": 345798,
+            "activity.name": "xt spa add text to contact page",
+            "activity.type": "landing",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "contact",
+            "location.type": "view",
+            "location.id": 1,
+            "audience.ids": [5634562, 5653736],
+            "option.id": 3,
+            "option.name": "Offer3"
+          },
+          "condition": {
+            "and": [
+              { "==": ["correct", { "var": "mbox.jason" }] },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "contact",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "DKyEy8B6J+arIj6GhXNW/GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setStyle",
+                    "selector": "#spa-content > P:nth-of-type(1)",
+                    "cssSelector": "#spa-content > P:nth-of-type(1)",
+                    "content": {
+                      "background-color": "rgba(255,255,170,1)",
+                      "priority": "important"
+                    }
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "345798-0",
+          "activityId": 345798,
+          "meta": {
+            "activity.id": 345798,
+            "activity.name": "xt spa add text to contact page",
+            "activity.type": "landing",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "contact",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [5634157, 5653736],
+            "option.id": 4,
+            "option.name": "Offer4"
+          },
+          "condition": {
+            "and": [
+              { "==": ["correct", { "var": "mbox.greg" }] },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "contact",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "DKyEy8B6J+arIj6GhXNW/JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "insertBefore",
+                    "selector": "#spa-content > P:nth-of-type(1)",
+                    "cssSelector": "#spa-content > P:nth-of-type(1)",
+                    "content": "<span id=\"action_insert_15889714897491922\">Please email Greg immediately</span>"
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "345798-1",
+          "activityId": 345798,
+          "meta": {
+            "activity.id": 345798,
+            "activity.name": "xt spa add text to contact page",
+            "activity.type": "landing",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "contact",
+            "location.type": "view",
+            "location.id": 1,
+            "audience.ids": [5634157, 5653736],
+            "option.id": 5,
+            "option.name": "Offer5"
+          },
+          "condition": {
+            "and": [
+              { "==": ["correct", { "var": "mbox.greg" }] },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "contact",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "DKyEy8B6J+arIj6GhXNW/JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setStyle",
+                    "selector": "#spa-content > P:nth-of-type(1)",
+                    "cssSelector": "#spa-content > P:nth-of-type(1)",
+                    "content": {
+                      "background-color": "rgba(170,255,255,1)",
+                      "priority": "important"
+                    }
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "345798-0",
+          "activityId": 345798,
+          "meta": {
+            "activity.id": 345798,
+            "activity.name": "xt spa add text to contact page",
+            "activity.type": "landing",
+            "experience.id": 2,
+            "experience.name": "Experience C",
+            "location.name": "contact",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [5653736],
+            "option.id": 6,
+            "option.name": "Offer6"
+          },
+          "condition": {
+            "and": [
+              { "==": ["local-target-test", { "var": "page.domain" }] },
+              { "==": ["/", { "var": "page.path" }] }
+            ]
+          },
+          "consequence": {
+            "name": "contact",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "DKyEy8B6J+arIj6GhXNW/AreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "insertAfter",
+                    "selector": "#spa-content > P:nth-of-type(1)",
+                    "cssSelector": "#spa-content > P:nth-of-type(1)",
+                    "content": "<span id=\"action_insert_15889715194712006\">Please do not contact us.</span>"
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "345798-1",
+          "activityId": 345798,
+          "meta": {
+            "activity.id": 345798,
+            "activity.name": "xt spa add text to contact page",
+            "activity.type": "landing",
+            "experience.id": 2,
+            "experience.name": "Experience C",
+            "location.name": "contact",
+            "location.type": "view",
+            "location.id": 1,
+            "audience.ids": [5653736],
+            "option.id": 7,
+            "option.name": "Offer7"
+          },
+          "condition": {
+            "and": [
+              { "==": ["local-target-test", { "var": "page.domain" }] },
+              { "==": ["/", { "var": "page.path" }] }
+            ]
+          },
+          "consequence": {
+            "name": "contact",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "DKyEy8B6J+arIj6GhXNW/AreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setStyle",
+                    "selector": "#spa-content > P:nth-of-type(1)",
+                    "cssSelector": "#spa-content > P:nth-of-type(1)",
+                    "content": {
+                      "background-color": "rgba(127,0,0,1)",
+                      "priority": "important"
+                    }
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          }
+        }
+      ],
+      "home": [
+        {
+          "ruleKey": "345782-0",
+          "activityId": 345782,
+          "meta": {
+            "activity.id": 345782,
+            "activity.name": "ab spa view change add text with audiences",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "home",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [5653493, 5634562],
+            "option.id": 2,
+            "option.name": "Offer2"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<=": [0, { "var": "allocation" }] },
+                  { ">=": [50, { "var": "allocation" }] }
+                ]
+              },
+              { "==": ["correct", { "var": "mbox.jason" }] },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "home",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "ob3/yMzSVllQx2v2P7122GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "insertAfter",
+                    "selector": "#spa-content > P:nth-of-type(1)",
+                    "cssSelector": "#spa-content > P:nth-of-type(1)",
+                    "content": "<p id=\"action_insert_15889690271122446\">jason = correct</p>"
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                "selector": "#spa-content > P:nth-of-type(1)",
+                "type": "click"
+              }
+            ]
+          }
+        },
+        {
+          "ruleKey": "345782-1",
+          "activityId": 345782,
+          "meta": {
+            "activity.id": 345782,
+            "activity.name": "ab spa view change add text with audiences",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "home",
+            "location.type": "view",
+            "location.id": 1,
+            "audience.ids": [5653493, 5634562],
+            "option.id": 3,
+            "option.name": "Offer3"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<=": [0, { "var": "allocation" }] },
+                  { ">=": [50, { "var": "allocation" }] }
+                ]
+              },
+              { "==": ["correct", { "var": "mbox.jason" }] },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "home",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "ob3/yMzSVllQx2v2P7122GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "#spa-content > H3:nth-of-type(1)",
+                    "cssSelector": "#spa-content > H3:nth-of-type(1)",
+                    "content": "jason home - exp A"
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                "selector": "#spa-content > P:nth-of-type(1)",
+                "type": "click"
+              }
+            ]
+          }
+        },
+        {
+          "ruleKey": "345782-2",
+          "activityId": 345782,
+          "meta": {
+            "activity.id": 345782,
+            "activity.name": "ab spa view change add text with audiences",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "home",
+            "location.type": "view",
+            "location.id": 2,
+            "audience.ids": [5653493, 5634157],
+            "option.id": 4,
+            "option.name": "Offer4"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<=": [0, { "var": "allocation" }] },
+                  { ">=": [50, { "var": "allocation" }] }
+                ]
+              },
+              { "==": ["correct", { "var": "mbox.greg" }] },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "home",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "ob3/yMzSVllQx2v2P7122GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "insertAfter",
+                    "selector": "#spa-content > P:nth-of-type(1)",
+                    "cssSelector": "#spa-content > P:nth-of-type(1)",
+                    "content": "<p id=\"action_insert_15889690455422475\">greg = correct</p>"
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                "selector": "#spa-content > P:nth-of-type(1)",
+                "type": "click"
+              }
+            ]
+          }
+        },
+        {
+          "ruleKey": "345782-3",
+          "activityId": 345782,
+          "meta": {
+            "activity.id": 345782,
+            "activity.name": "ab spa view change add text with audiences",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "home",
+            "location.type": "view",
+            "location.id": 3,
+            "audience.ids": [5653493, 5634157],
+            "option.id": 5,
+            "option.name": "Offer5"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<=": [0, { "var": "allocation" }] },
+                  { ">=": [50, { "var": "allocation" }] }
+                ]
+              },
+              { "==": ["correct", { "var": "mbox.greg" }] },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "home",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "ob3/yMzSVllQx2v2P7122GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "#spa-content > H3:nth-of-type(1)",
+                    "cssSelector": "#spa-content > H3:nth-of-type(1)",
+                    "content": "greg home - exp A"
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                "selector": "#spa-content > P:nth-of-type(1)",
+                "type": "click"
+              }
+            ]
+          }
+        },
+        {
+          "ruleKey": "345782-4",
+          "activityId": 345782,
+          "meta": {
+            "activity.id": 345782,
+            "activity.name": "ab spa view change add text with audiences",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "home",
+            "location.type": "view",
+            "location.id": 4,
+            "audience.ids": [5653493],
+            "option.id": 6,
+            "option.name": "Offer6"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<=": [0, { "var": "allocation" }] },
+                  { ">=": [50, { "var": "allocation" }] }
+                ]
+              },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "home",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "ob3/yMzSVllQx2v2P7122GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "insertAfter",
+                    "selector": "#spa-content > P:nth-of-type(1)",
+                    "cssSelector": "#spa-content > P:nth-of-type(1)",
+                    "content": "<p id=\"action_insert_15889689998702412\">experience A</p>"
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                "selector": "#spa-content > P:nth-of-type(1)",
+                "type": "click"
+              }
+            ]
+          }
+        },
+        {
+          "ruleKey": "345782-5",
+          "activityId": 345782,
+          "meta": {
+            "activity.id": 345782,
+            "activity.name": "ab spa view change add text with audiences",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "home",
+            "location.type": "view",
+            "location.id": 5,
+            "audience.ids": [5653493],
+            "option.id": 7,
+            "option.name": "Offer7"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<=": [0, { "var": "allocation" }] },
+                  { ">=": [50, { "var": "allocation" }] }
+                ]
+              },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "home",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "ob3/yMzSVllQx2v2P7122GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "#spa-content > H3:nth-of-type(1)",
+                    "cssSelector": "#spa-content > H3:nth-of-type(1)",
+                    "content": "nobody home - exp A"
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                "selector": "#spa-content > P:nth-of-type(1)",
+                "type": "click"
+              }
+            ]
+          }
+        },
+        {
+          "ruleKey": "345782-0",
+          "activityId": 345782,
+          "meta": {
+            "activity.id": 345782,
+            "activity.name": "ab spa view change add text with audiences",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "home",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [5653493, 5634562],
+            "option.id": 8,
+            "option.name": "Offer8"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<": [50, { "var": "allocation" }] },
+                  { ">=": [100, { "var": "allocation" }] }
+                ]
+              },
+              { "==": ["correct", { "var": "mbox.jason" }] },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "home",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "insertBefore",
+                    "selector": "#spa-content > P:nth-of-type(1)",
+                    "cssSelector": "#spa-content > P:nth-of-type(1)",
+                    "content": "<p id=\"action_insert_15889691021902684\">jason = correct</p>"
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                "selector": "#spa-content > P:nth-of-type(1)",
+                "type": "click"
+              }
+            ]
+          }
+        },
+        {
+          "ruleKey": "345782-1",
+          "activityId": 345782,
+          "meta": {
+            "activity.id": 345782,
+            "activity.name": "ab spa view change add text with audiences",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "home",
+            "location.type": "view",
+            "location.id": 1,
+            "audience.ids": [5653493, 5634562],
+            "option.id": 9,
+            "option.name": "Offer9"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<": [50, { "var": "allocation" }] },
+                  { ">=": [100, { "var": "allocation" }] }
+                ]
+              },
+              { "==": ["correct", { "var": "mbox.jason" }] },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "home",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "#spa-content > H3:nth-of-type(1)",
+                    "cssSelector": "#spa-content > H3:nth-of-type(1)",
+                    "content": "JASON HOME - exp B"
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                "selector": "#spa-content > P:nth-of-type(1)",
+                "type": "click"
+              }
+            ]
+          }
+        },
+        {
+          "ruleKey": "345782-2",
+          "activityId": 345782,
+          "meta": {
+            "activity.id": 345782,
+            "activity.name": "ab spa view change add text with audiences",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "home",
+            "location.type": "view",
+            "location.id": 2,
+            "audience.ids": [5653493, 5634157],
+            "option.id": 10,
+            "option.name": "Offer10"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<": [50, { "var": "allocation" }] },
+                  { ">=": [100, { "var": "allocation" }] }
+                ]
+              },
+              { "==": ["correct", { "var": "mbox.greg" }] },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "home",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "insertBefore",
+                    "selector": "#spa-content > P:nth-of-type(1)",
+                    "cssSelector": "#spa-content > P:nth-of-type(1)",
+                    "content": "<p id=\"action_insert_15889690873022655\">greg = correct</p>"
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                "selector": "#spa-content > P:nth-of-type(1)",
+                "type": "click"
+              }
+            ]
+          }
+        },
+        {
+          "ruleKey": "345782-3",
+          "activityId": 345782,
+          "meta": {
+            "activity.id": 345782,
+            "activity.name": "ab spa view change add text with audiences",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "home",
+            "location.type": "view",
+            "location.id": 3,
+            "audience.ids": [5653493, 5634157],
+            "option.id": 11,
+            "option.name": "Offer11"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<": [50, { "var": "allocation" }] },
+                  { ">=": [100, { "var": "allocation" }] }
+                ]
+              },
+              { "==": ["correct", { "var": "mbox.greg" }] },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "home",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "#spa-content > H3:nth-of-type(1)",
+                    "cssSelector": "#spa-content > H3:nth-of-type(1)",
+                    "content": "GREG HOME - exp B"
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                "selector": "#spa-content > P:nth-of-type(1)",
+                "type": "click"
+              }
+            ]
+          }
+        },
+        {
+          "ruleKey": "345782-4",
+          "activityId": 345782,
+          "meta": {
+            "activity.id": 345782,
+            "activity.name": "ab spa view change add text with audiences",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "home",
+            "location.type": "view",
+            "location.id": 4,
+            "audience.ids": [5653493],
+            "option.id": 12,
+            "option.name": "Offer12"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<": [50, { "var": "allocation" }] },
+                  { ">=": [100, { "var": "allocation" }] }
+                ]
+              },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "home",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "insertBefore",
+                    "selector": "#spa-content > P:nth-of-type(1)",
+                    "cssSelector": "#spa-content > P:nth-of-type(1)",
+                    "content": "<p id=\"action_insert_15889690584632570\">Experience B</p>"
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                "selector": "#spa-content > P:nth-of-type(1)",
+                "type": "click"
+              }
+            ]
+          }
+        },
+        {
+          "ruleKey": "345782-5",
+          "activityId": 345782,
+          "meta": {
+            "activity.id": 345782,
+            "activity.name": "ab spa view change add text with audiences",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "home",
+            "location.type": "view",
+            "location.id": 5,
+            "audience.ids": [5653493],
+            "option.id": 13,
+            "option.name": "Offer13"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<": [50, { "var": "allocation" }] },
+                  { ">=": [100, { "var": "allocation" }] }
+                ]
+              },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "home",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "#spa-content > H3:nth-of-type(1)",
+                    "cssSelector": "#spa-content > H3:nth-of-type(1)",
+                    "content": "NOBODY HOME - exp B"
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                "selector": "#spa-content > P:nth-of-type(1)",
+                "type": "click"
+              }
+            ]
+          }
+        },
+        {
+          "ruleKey": "345779-0",
+          "activityId": 345779,
+          "meta": {
+            "activity.id": 345779,
+            "activity.name": "ab spa view change multiple text no audiences",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "home",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [5653426],
+            "option.id": 2,
+            "option.name": "Offer2"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<=": [0, { "var": "allocation" }] },
+                  { ">=": [50, { "var": "allocation" }] }
+                ]
+              },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "home",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "XQ6HqnRfrxl3ausAjtQJj2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "#spa-content > H3:nth-of-type(1)",
+                    "cssSelector": "#spa-content > H3:nth-of-type(1)",
+                    "content": "Home - Experience A"
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "345779-1",
+          "activityId": 345779,
+          "meta": {
+            "activity.id": 345779,
+            "activity.name": "ab spa view change multiple text no audiences",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "home",
+            "location.type": "view",
+            "location.id": 1,
+            "audience.ids": [5653426],
+            "option.id": 3,
+            "option.name": "Offer3"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<=": [0, { "var": "allocation" }] },
+                  { ">=": [50, { "var": "allocation" }] }
+                ]
+              },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "home",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "XQ6HqnRfrxl3ausAjtQJj2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "#spa-content > P:nth-of-type(1)",
+                    "cssSelector": "#spa-content > P:nth-of-type(1)",
+                    "content": "experience A! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus, magna et dignissim ullamcorper, magna ipsum pharetra velit, vel egestas magna leo interdum urna. Etiam purus massa, accumsan in elit sit amet, posuere maximus augue. Donec non velit sit amet ipsum feugiat aliquet id in metus. Integer a auctor nisl. Donec ac lacinia eros. Proin nisl magna, bibendum ut tellus vitae, mattis laoreet lacus. Pellentesque mauris lorem, scelerisque quis nisi ac, vulputate tincidunt est. Maecenas ex justo, ultrices non neque sed, fermentum maximus diam. Vestibulum at facilisis magna. Ut eu tristique lectus. Proin gravida leo eu fermentum ullamcorper. Suspendisse gravida nibh vitae ultricies ultricies. Donec fermentum, metus id tincidunt dapibus, tellus lacus tristique felis, non posuere nibh ligula sed est."
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "345779-0",
+          "activityId": 345779,
+          "meta": {
+            "activity.id": 345779,
+            "activity.name": "ab spa view change multiple text no audiences",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "home",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [5653426],
+            "option.id": 4,
+            "option.name": "Offer4"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<": [50, { "var": "allocation" }] },
+                  { ">=": [100, { "var": "allocation" }] }
+                ]
+              },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "home",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "XQ6HqnRfrxl3ausAjtQJj5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "#spa-content > H3:nth-of-type(1)",
+                    "cssSelector": "#spa-content > H3:nth-of-type(1)",
+                    "content": "Home - Experience B"
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "345779-1",
+          "activityId": 345779,
+          "meta": {
+            "activity.id": 345779,
+            "activity.name": "ab spa view change multiple text no audiences",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "home",
+            "location.type": "view",
+            "location.id": 1,
+            "audience.ids": [5653426],
+            "option.id": 5,
+            "option.name": "Offer5"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<": [50, { "var": "allocation" }] },
+                  { ">=": [100, { "var": "allocation" }] }
+                ]
+              },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "home",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "XQ6HqnRfrxl3ausAjtQJj5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "#spa-content > P:nth-of-type(1)",
+                    "cssSelector": "#spa-content > P:nth-of-type(1)",
+                    "content": "experience B! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus, magna et dignissim ullamcorper, magna ipsum pharetra velit, vel egestas magna leo interdum urna. Etiam purus massa, accumsan in elit sit amet, posuere maximus augue. Donec non velit sit amet ipsum feugiat aliquet id in metus. Integer a auctor nisl. Donec ac lacinia eros. Proin nisl magna, bibendum ut tellus vitae, mattis laoreet lacus. Pellentesque mauris lorem, scelerisque quis nisi ac, vulputate tincidunt est. Maecenas ex justo, ultrices non neque sed, fermentum maximus diam. Vestibulum at facilisis magna. Ut eu tristique lectus. Proin gravida leo eu fermentum ullamcorper. Suspendisse gravida nibh vitae ultricies ultricies. Donec fermentum, metus id tincidunt dapibus, tellus lacus tristique felis, non posuere nibh ligula sed est."
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          }
+        }
+      ]
+    }
+  }
+}

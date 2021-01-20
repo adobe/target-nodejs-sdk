@@ -4,10 +4,9 @@ import {
 } from "@adobe/target-tools";
 
 import { ARTIFACT_FORMAT_JSON } from "@adobe/target-decisioning-engine/src/constants";
-import {
-  DECISIONING_PAYLOAD_AB_SIMPLE,
-  DUMMY_ARTIFACT_PAYLOAD
-} from "./decisioning-payloads";
+
+const ARTIFACT_AB_SIMPLE = require("@adobe/target-decisioning-engine/test/schema/artifacts/TEST_ARTIFACT_AB_SIMPLE.json");
+const ARTIFACT_BLANK = require("@adobe/target-decisioning-engine/test/schema/artifacts/TEST_ARTIFACT_BLANK.json");
 
 const HttpStatus = require("http-status-codes");
 
@@ -36,7 +35,7 @@ const CONFIG = {
   telemetryEnabled: false
 };
 
-describe("target local decisioning", () => {
+describe("target on-device decisioning", () => {
   let client;
 
   beforeEach(() => {
@@ -49,7 +48,7 @@ describe("target local decisioning", () => {
 
   describe("initializes", () => {
     it("creates an instance of target-decisioning-engine if decisioning method is on-device", () => {
-      fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
+      fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
       return new Promise(done => {
         client = TargetClient.create({
@@ -70,7 +69,7 @@ describe("target local decisioning", () => {
 
     it("does not create an instance of target-decisioning-engine if evaluation mode is remote", () => {
       expect.assertions(2);
-      fetch.mockResponse(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
+      fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
       return new Promise(done => {
         client = TargetClient.create({
@@ -101,7 +100,7 @@ describe("target local decisioning", () => {
       fetch.mockResponse(() => {
         return new Promise(resolve => {
           timer = setTimeout(() => {
-            resolve(JSON.stringify(DUMMY_ARTIFACT_PAYLOAD));
+            resolve(JSON.stringify(ARTIFACT_BLANK));
           }, 100);
         });
       });
@@ -207,10 +206,10 @@ describe("target local decisioning", () => {
             name: "superfluous-mbox",
             options: [
               {
-                content: { doMagic: true, importantValue: 150 },
+                content: { doMagic: false, importantValue: 75 },
                 type: "json",
                 eventToken:
-                  "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 responseTokens: expect.any(Object)
               }
             ]
@@ -337,11 +336,11 @@ describe("target local decisioning", () => {
               options: [
                 {
                   content: {
-                    doMagic: true,
-                    importantValue: 150
+                    doMagic: false,
+                    importantValue: 75
                   },
                   eventToken:
-                    "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                    "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                   type: "json",
                   responseTokens: expect.any(Object)
                 }
@@ -365,7 +364,7 @@ describe("target local decisioning", () => {
               edgeHost: "mboxedge28.tt.omtrdc.net"
             })
           )
-          .once(JSON.stringify(DECISIONING_PAYLOAD_AB_SIMPLE));
+          .once(JSON.stringify(ARTIFACT_AB_SIMPLE));
 
         return new Promise(done => {
           async function clientReady() {
@@ -390,10 +389,7 @@ describe("target local decisioning", () => {
       it("it recovers if the delivery request fails", () => {
         fetch.mockResponses(
           ["", { status: HttpStatus.SERVICE_UNAVAILABLE }],
-          [
-            JSON.stringify(DECISIONING_PAYLOAD_AB_SIMPLE),
-            { status: HttpStatus.OK }
-          ]
+          [JSON.stringify(ARTIFACT_AB_SIMPLE), { status: HttpStatus.OK }]
         );
 
         return new Promise(done => {
@@ -413,7 +409,7 @@ describe("target local decisioning", () => {
       });
 
       it("can be passed in as a config option to be used instead of of a preemptive delivery request", () => {
-        fetch.once(JSON.stringify(DECISIONING_PAYLOAD_AB_SIMPLE));
+        fetch.once(JSON.stringify(ARTIFACT_AB_SIMPLE));
 
         return new Promise(done => {
           async function clientReady() {
@@ -440,25 +436,23 @@ describe("target local decisioning", () => {
 
     describe("responses", () => {
       it("produces a valid response in on-device decisioning method", () => {
-        fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_AB_SIMPLE));
+        fetch.mockResponse(JSON.stringify(ARTIFACT_AB_SIMPLE));
 
         return new Promise(done => {
           async function clientReady() {
             const result = await client.getOffers(prefetchRequestOptions);
 
-            expect(result).toEqual(
-              expect.objectContaining({
-                ...targetResult,
-                meta: {
-                  decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
-                  remoteMboxes: [],
-                  remoteViews: []
-                },
-                response: {
-                  ...targetResult.response
-                }
-              })
-            );
+            expect(result).toMatchObject({
+              ...targetResult,
+              meta: {
+                decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
+                remoteMboxes: [],
+                remoteViews: []
+              },
+              response: {
+                ...targetResult.response
+              }
+            });
             done();
           }
 
@@ -472,14 +466,14 @@ describe("target local decisioning", () => {
         });
       });
 
-      it("emits notifications for local decision outcomes; execute request", () => {
+      it("emits notifications for on-device decisioning outcomes; execute request", () => {
         const now = new Date("2020-02-25T01:05:00");
         MockDate.set(now);
 
         let notificationRequest;
         let notificationPayload;
 
-        fetch.once(JSON.stringify(DECISIONING_PAYLOAD_AB_SIMPLE)).once(
+        fetch.once(JSON.stringify(ARTIFACT_AB_SIMPLE)).once(
           async req => {
             notificationRequest = req;
             notificationPayload = await req.json();
@@ -512,7 +506,7 @@ describe("target local decisioning", () => {
                     name: "superfluous-mbox"
                   },
                   tokens: [
-                    "abzfLHwlBDBNtz9ALey2fGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                    "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
                   ]
                 }
               ]
@@ -539,20 +533,18 @@ describe("target local decisioning", () => {
           async function clientReady() {
             const result = await client.getOffers(prefetchRequestOptions);
 
-            expect(result).toEqual(
-              expect.objectContaining({
-                ...targetResult,
-                response: {
-                  ...targetResult.response,
-                  edgeHost: "mboxedge28.tt.omtrdc.net"
-                },
-                targetLocationHintCookie: {
-                  name: "mboxEdgeCluster",
-                  value: "28",
-                  maxAge: 1860
-                }
-              })
-            );
+            expect(result).toMatchObject({
+              ...targetResult,
+              response: {
+                ...targetResult.response,
+                edgeHost: "mboxedge28.tt.omtrdc.net"
+              },
+              targetLocationHintCookie: {
+                name: "mboxEdgeCluster",
+                value: "28",
+                maxAge: 1860
+              }
+            });
             done();
           }
 

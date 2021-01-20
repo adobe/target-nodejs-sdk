@@ -3,4 +3,3 @@ dist/**
 sample/**
 node_modules/**
 coverage/**
-decisioning-payloads.js

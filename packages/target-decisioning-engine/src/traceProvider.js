@@ -1,6 +1,12 @@
 import { isDefined, isUndefined, values } from "@adobe/target-tools";
 import Messages from "./messages";
-import { ACTIVITY_ID, ACTIVITY_TYPE, EXPERIENCE_ID } from "./constants";
+import {
+  ACTIVITY_ID,
+  ACTIVITY_TYPE,
+  AUDIENCE_IDS,
+  EXPERIENCE_ID,
+  OFFER_ID
+} from "./constants";
 
 const byOrder = (a, b) => a.order - b.order;
 
@@ -98,7 +104,7 @@ export function RequestTracer(traceProvider, artifact) {
         order: campaignOrder,
         campaignType: meta[ACTIVITY_TYPE],
         branchId: meta[EXPERIENCE_ID],
-        offers: meta.offerIds || [],
+        offers: isDefined(meta[OFFER_ID]) ? [meta[OFFER_ID]] : [],
         environment: artifact.meta.environment
       };
     }
@@ -112,7 +118,7 @@ export function RequestTracer(traceProvider, artifact) {
    */
   function addEvaluatedCampaignTarget(rule, ruleContext, ruleSatisfied) {
     const { meta } = rule;
-    const { audienceIds = [] } = meta;
+    const audienceIds = meta[AUDIENCE_IDS];
     const activityId = meta[ACTIVITY_ID];
 
     if (isUndefined(evaluatedCampaignTargets[activityId])) {
