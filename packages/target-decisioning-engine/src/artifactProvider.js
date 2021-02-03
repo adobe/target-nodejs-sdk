@@ -30,6 +30,7 @@ import {
   TIMING_ARTIFACT_DEOBFUSCATE,
   TIMING_ARTIFACT_DOWNLOADED_FETCH,
   TIMING_ARTIFACT_DOWNLOADED_TOTAL,
+  TIMING_ARTIFACT_GET_INITIAL,
   TIMING_ARTIFACT_READ_JSON
 } from "./timings";
 
@@ -224,6 +225,8 @@ function ArtifactProvider(config) {
   }
 
   function getInitialArtifact() {
+    perfTool.timeStart(TIMING_ARTIFACT_GET_INITIAL);
+
     return typeof config.artifactPayload === "object"
       ? Promise.resolve(config.artifactPayload)
       : fetchArtifact(artifactLocation);
@@ -231,6 +234,8 @@ function ArtifactProvider(config) {
 
   return getInitialArtifact()
     .then(newArtifact => {
+      perfTool.timeEnd(TIMING_ARTIFACT_GET_INITIAL);
+
       artifact = newArtifact;
 
       const artifactTracer = ArtifactTracer(
