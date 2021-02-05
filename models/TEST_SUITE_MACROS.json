@@ -1,0 +1,273 @@
+{
+  "description": "campaign macros",
+  "artifact": "TEST_ARTIFACT_CAMPAIGN_MACROS",
+  "conf": {
+    "client": "targettesting",
+    "organizationId": "74F652E95F1B16FE0A495C92@AdobeOrg",
+    "pollingInterval": 0
+  },
+  "test": {
+    "mbox_template": {
+      "description": "replaces html mbox macro template strings with values",
+      "input": {
+        "request": {
+          "id": {
+            "tntId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0"
+          },
+          "context": {
+            "channel": "web",
+            "browser": {
+              "host": "local-target-test"
+            },
+            "address": {
+              "url": "http://local-target-test/"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
+          },
+          "prefetch": {
+            "mboxes": [
+              {
+                "name": "mbox-macros",
+                "index": 0,
+                "parameters": {
+                  "user": "Mickey Mouse",
+                  "pgname": "blippi",
+                  "browserWidth": 1024
+                }
+              }
+            ]
+          }
+        }
+      },
+      "output": {
+        "prefetch": {
+          "mboxes": [
+            {
+              "name": "mbox-macros",
+              "options": [
+                {
+                  "type": "html",
+                  "eventToken": "expect.any(String)",
+                  "content": "<ul>\n  <li>246892</li>\n  <li>/_unit-test_mbox-macros/experiences/0/pages/0/zones/0/1612393051539</li>\n  <li>125891</li>\n  <li>[unit-test] mbox-macros</li>\n  <li>0</li>\n  <li>Experience A</li>\n  <li>125891</li>\n  <li>[unit-test] mbox-macros</li>\n  <li>0</li>\n  <li>Experience A</li>\n  <li>mbox-macros</li>\n  <li>Mickey Mouse</li>\n  <li>blippi</li>\n  <li>1024</li>\n</ul>"
+                }
+              ],
+              "index": 0
+            }
+          ]
+        }
+      }
+    },
+    "no_value_for_template": {
+      "description": "does not replace macro template strings if acceptable values are not available",
+      "input": {
+        "request": {
+          "id": {
+            "tntId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0"
+          },
+          "context": {
+            "channel": "web",
+            "browser": {
+              "host": "local-target-test"
+            },
+            "address": {
+              "url": "http://local-target-test/"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
+          },
+          "prefetch": {
+            "mboxes": [
+              {
+                "name": "mbox-macros",
+                "index": 0,
+                "parameters": {
+                  "user": "Donald"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "output": {
+        "prefetch": {
+          "mboxes": [
+            {
+              "name": "mbox-macros",
+              "options": [
+                {
+                  "type": "html",
+                  "eventToken": "expect.any(String)",
+                  "content": "<ul>\n  <li>246892</li>\n  <li>/_unit-test_mbox-macros/experiences/0/pages/0/zones/0/1612393051539</li>\n  <li>125891</li>\n  <li>[unit-test] mbox-macros</li>\n  <li>0</li>\n  <li>Experience A</li>\n  <li>125891</li>\n  <li>[unit-test] mbox-macros</li>\n  <li>0</li>\n  <li>Experience A</li>\n  <li>mbox-macros</li>\n  <li>Donald</li>\n  <li>${mbox.pgname}</li>\n  <li>${mbox.browserWidth}</li>\n</ul>"
+                }
+              ],
+              "index": 0
+            }
+          ]
+        }
+      }
+    },
+    "pageload_template": {
+      "description": "replaces pageload option macro template strings with values",
+      "input": {
+        "request": {
+          "id": {
+            "tntId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0"
+          },
+          "context": {
+            "channel": "web",
+            "browser": {
+              "host": "local-target-test"
+            },
+            "address": {
+              "url": "http://local-target-test/"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
+          },
+          "execute": {
+            "pageLoad": {
+              "parameters": {
+                "user": "Mickey Mouse",
+                "pgname": "blippi",
+                "browserWidth": 1024
+              }
+            }
+          }
+        }
+      },
+      "output": {
+        "execute": {
+          "pageLoad": {
+            "options": [
+              {
+                "type": "actions",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    "content": "What Up Mickey Mouse"
+                  }
+                ],
+                "responseTokens": {
+                  "activity.id": 125894,
+                  "activity.name": "[unit-test] VEC pageload macros",
+                  "experience.id": 1,
+                  "experience.name": "Experience B",
+                  "option.id": 6,
+                  "option.name": "Offer6",
+                  "activity.decisioningMethod": "on-device"
+                }
+              },
+              {
+                "type": "actions",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
+                    "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
+                    "content": "125894"
+                  }
+                ],
+                "responseTokens": {
+                  "activity.id": 125894,
+                  "activity.name": "[unit-test] VEC pageload macros",
+                  "experience.id": 1,
+                  "experience.name": "Experience B",
+                  "option.id": 3,
+                  "option.name": "Offer3",
+                  "activity.decisioningMethod": "on-device"
+                }
+              },
+              {
+                "type": "actions",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
+                    "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
+                    "content": "[unit-test] VEC pageload macros"
+                  }
+                ],
+                "responseTokens": {
+                  "activity.id": 125894,
+                  "activity.name": "[unit-test] VEC pageload macros",
+                  "experience.id": 1,
+                  "experience.name": "Experience B",
+                  "option.id": 4,
+                  "option.name": "Offer4",
+                  "activity.decisioningMethod": "on-device"
+                }
+              },
+              {
+                "type": "actions",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
+                    "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
+                    "content": "target-global-mbox"
+                  }
+                ],
+                "responseTokens": {
+                  "activity.id": 125894,
+                  "activity.name": "[unit-test] VEC pageload macros",
+                  "experience.id": 1,
+                  "experience.name": "Experience B",
+                  "option.id": 5,
+                  "option.name": "Offer5",
+                  "activity.decisioningMethod": "on-device"
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "view_template": {
+      "description": "replaces view option macro template strings with values",
+      "input": {
+        "request": {
+          "id": {
+            "tntId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0"
+          },
+          "context": {
+            "channel": "web",
+            "browser": {
+              "host": "local-target-test"
+            },
+            "address": {
+              "url": "http://local-target-test/"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
+          },
+          "prefetch": {
+            "views": [{}]
+          }
+        }
+      },
+      "output": {
+        "prefetch": {
+          "views": [
+            {
+              "name": "contact",
+              "options": [
+                {
+                  "type": "actions",
+                  "eventToken": "expect.any(String)",
+                  "content": [
+                    {
+                      "type": "insertBefore",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": "<span id=\"action_insert_16123953755954870\">[unit-test] VEC SPA macros</span>"
+                    }
+                  ]
+                }
+              ],
+              "metrics": []
+            }
+          ]
+        }
+      }
+    }
+  }
+}

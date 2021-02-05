@@ -1,0 +1,211 @@
+{
+  "targetAdminActivityUrls": [
+    "https://experience.adobe.com/#/@targettesting/target/activities/activitydetails/Experience-Targeting/_unit-test_mbox-browsers"
+  ],
+  "version": "1.0.0",
+  "meta": { "clientCode": "targettesting", "environment": "production" },
+  "globalMbox": "target-global-mbox",
+  "geoTargetingEnabled": true,
+  "responseTokens": [
+    "activity.id",
+    "activity.name",
+    "experience.id",
+    "experience.name",
+    "geo.city",
+    "geo.country",
+    "geo.state",
+    "offer.id",
+    "offer.name",
+    "option.id",
+    "option.name"
+  ],
+  "remoteMboxes": [],
+  "remoteViews": [],
+  "localMboxes": [
+    "100k",
+    "1MB",
+    "1MB2",
+    "1MB3",
+    "250k",
+    "500k",
+    "allmatches",
+    "browserTest",
+    "mbox-browsers",
+    "mbox-dateranges",
+    "mbox-feature-flags",
+    "mbox-geography",
+    "mbox-macros",
+    "mbox-magician",
+    "mbox-params",
+    "mbox-prioritized",
+    "mbox-salutations",
+    "mbox-urlcontains",
+    "perf-mbox",
+    "super-duper",
+    "target-global-mbox",
+    "testoffer"
+  ],
+  "localViews": ["contact", "home"],
+  "rules": {
+    "mboxes": {
+      "mbox-browsers": [
+        {
+          "ruleKey": "125871",
+          "activityId": 125871,
+          "meta": {
+            "activity.id": 125871,
+            "activity.name": "[unit-test] mbox-browsers",
+            "activity.type": "landing",
+            "experience.id": 0,
+            "experience.name": "Experience B",
+            "location.name": "mbox-browsers",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [1750975],
+            "offer.id": 246842,
+            "offer.name": "/_unit-test_mbox-browsers/experiences/0/pages/0/zones/0/1612382815070",
+            "option.id": 2,
+            "option.name": "Offer2"
+          },
+          "condition": { "==": [{ "var": "user.browserType" }, "firefox"] },
+          "consequence": {
+            "name": "mbox-browsers",
+            "options": [
+              {
+                "type": "html",
+                "eventToken": "hnriCPC1+WKdphJNCmqRW2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<h1>it's firefox</h1>"
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "125871",
+          "activityId": 125871,
+          "meta": {
+            "activity.id": 125871,
+            "activity.name": "[unit-test] mbox-browsers",
+            "activity.type": "landing",
+            "experience.id": 1,
+            "experience.name": "Experience C",
+            "location.name": "mbox-browsers",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [1750991],
+            "offer.id": 246843,
+            "offer.name": "/_unit-test_mbox-browsers/experiences/1/pages/0/zones/0/1612382815073",
+            "option.id": 3,
+            "option.name": "Offer3"
+          },
+          "condition": { "==": [{ "var": "user.browserType" }, "safari"] },
+          "consequence": {
+            "name": "mbox-browsers",
+            "options": [
+              {
+                "type": "html",
+                "eventToken": "hnriCPC1+WKdphJNCmqRW5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<h1>it's safari</h1>"
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "125871",
+          "activityId": 125871,
+          "meta": {
+            "activity.id": 125871,
+            "activity.name": "[unit-test] mbox-browsers",
+            "activity.type": "landing",
+            "experience.id": 2,
+            "experience.name": "Experience D",
+            "location.name": "mbox-browsers",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [1750953],
+            "offer.id": 246841,
+            "offer.name": "/_unit-test_mbox-browsers/experiences/2/pages/0/zones/0/1612382815066",
+            "option.id": 4,
+            "option.name": "Offer4"
+          },
+          "condition": { "==": [{ "var": "user.browserType" }, "chrome"] },
+          "consequence": {
+            "name": "mbox-browsers",
+            "options": [
+              {
+                "type": "html",
+                "eventToken": "hnriCPC1+WKdphJNCmqRWwreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<h1>it's chrome</h1>"
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "125871",
+          "activityId": 125871,
+          "meta": {
+            "activity.id": 125871,
+            "activity.name": "[unit-test] mbox-browsers",
+            "activity.type": "landing",
+            "experience.id": 3,
+            "experience.name": "Experience E",
+            "location.name": "mbox-browsers",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [1751423],
+            "offer.id": 246844,
+            "offer.name": "/_unit-test_mbox-browsers/experiences/3/pages/0/zones/0/1612382815076",
+            "option.id": 5,
+            "option.name": "Offer5"
+          },
+          "condition": { "==": [{ "var": "user.browserType" }, "ie"] },
+          "consequence": {
+            "name": "mbox-browsers",
+            "options": [
+              {
+                "type": "html",
+                "eventToken": "hnriCPC1+WKdphJNCmqRW5ZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<h1>it's internet explorer</h1>"
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "125871",
+          "activityId": 125871,
+          "meta": {
+            "activity.id": 125871,
+            "activity.name": "[unit-test] mbox-browsers",
+            "activity.type": "landing",
+            "experience.id": 4,
+            "experience.name": "Experience A",
+            "location.name": "mbox-browsers",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [],
+            "offer.id": 246845,
+            "offer.name": "/_unit-test_mbox-browsers/experiences/4/pages/0/zones/0/1612382815080",
+            "option.id": 6,
+            "option.name": "Offer6"
+          },
+          "condition": true,
+          "consequence": {
+            "name": "mbox-browsers",
+            "options": [
+              {
+                "type": "html",
+                "eventToken": "hnriCPC1+WKdphJNCmqRWxB3JWElmEno9qwHyGr0QvSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<h1>not firefox, safari, chrome or ie</h1>"
+              }
+            ],
+            "metrics": []
+          }
+        }
+      ]
+    },
+    "views": {}
+  }
+}
