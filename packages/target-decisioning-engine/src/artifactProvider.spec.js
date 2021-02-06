@@ -179,8 +179,7 @@ describe("artifactProvider", () => {
   });
 
   it("uses the artifactLocation if one is provided", async () => {
-    const artifactURL =
-      "https://target-local-decisioning-test.s3.us-west-2.amazonaws.com/adobesummit2018/waters_test/rules.json";
+    const artifactURL = "https://mywebsite.com/targettesting/rules.json";
 
     fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK)).doMockIf(artifactURL);
 

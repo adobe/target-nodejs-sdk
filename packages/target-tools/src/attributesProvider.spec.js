@@ -3,7 +3,7 @@ import { ATTRIBUTE_NOT_EXIST } from "./messages";
 
 const targetResponse = {
   visitorState: {
-    "65453EA95A70434F0A495D34@AdobeOrg": {
+    "74F652E95F1B16FE0A495C92@AdobeOrg": {
       sdid: {
         supplementalDataIDCurrent: "37D04BA8ED0E2962-71B165AC17259331",
         supplementalDataIDCurrentConsumed: {
@@ -61,7 +61,7 @@ const targetResponse = {
       tntId: "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
       marketingCloudVisitorId: "07327024324407615852294135870030620007"
     },
-    client: "adobesummit2018",
+    client: "targettesting",
     edgeHost: "mboxedge28.tt.omtrdc.net",
     prefetch: {
       mboxes: [

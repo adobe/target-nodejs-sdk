@@ -193,7 +193,7 @@ describe("target on-device decisioning", () => {
     const DELIVERY_API_RESPONSE = {
       status: 200,
       requestId: "0979a315df524c74aa420a9d03c8d921",
-      client: "adobesummit2018",
+      client: "targettesting",
       id: {
         tntId: "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
         marketingCloudVisitorId: "07327024324407615852294135870030620007"
@@ -203,14 +203,14 @@ describe("target on-device decisioning", () => {
         mboxes: [
           {
             index: 2,
-            name: "superfluous-mbox",
+            name: "mbox-magician",
             options: [
               {
                 content: { doMagic: false, importantValue: 75 },
                 type: "json",
                 eventToken:
                   "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                responseTokens: expect.any(Object)
+                responseTokens: {}
               }
             ]
           }
@@ -240,7 +240,7 @@ describe("target on-device decisioning", () => {
         prefetch: {
           mboxes: [
             {
-              name: "superfluous-mbox",
+              name: "mbox-magician",
               index: 2
             }
           ]
@@ -255,7 +255,7 @@ describe("target on-device decisioning", () => {
         execute: {
           mboxes: [
             {
-              name: "superfluous-mbox",
+              name: "mbox-magician",
               index: 2
             }
           ]
@@ -265,8 +265,8 @@ describe("target on-device decisioning", () => {
     };
 
     const targetClientOptions = {
-      client: "adobesummit2018",
-      organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
+      client: "targettesting",
+      organizationId: "74F652E95F1B16FE0A495C92@AdobeOrg",
       artifactFormat: "json", // setting this tells the artifactProvider deobfuscation is not needed
       pollingInterval: 0,
       maximumWaitReady: 500,
@@ -275,7 +275,7 @@ describe("target on-device decisioning", () => {
 
     const targetResult = {
       visitorState: {
-        "65453EA95A70434F0A495D34@AdobeOrg": {
+        "74F652E95F1B16FE0A495C92@AdobeOrg": {
           sdid: {
             supplementalDataIDCurrent: expect.any(String),
             supplementalDataIDCurrentConsumed: {
@@ -310,7 +310,7 @@ describe("target on-device decisioning", () => {
           mboxes: [
             {
               index: 2,
-              name: "superfluous-mbox"
+              name: "mbox-magician"
             }
           ]
         }
@@ -327,20 +327,19 @@ describe("target on-device decisioning", () => {
           tntId: "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
           marketingCloudVisitorId: "07327024324407615852294135870030620007"
         },
-        client: "adobesummit2018",
+        client: "targettesting",
         prefetch: {
           mboxes: [
             {
               index: 2,
-              name: "superfluous-mbox",
+              name: "mbox-magician",
               options: [
                 {
                   content: {
                     doMagic: false,
                     importantValue: 75
                   },
-                  eventToken:
-                    "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  eventToken: expect.any(String),
                   type: "json",
                   responseTokens: expect.any(Object)
                 }
@@ -503,11 +502,9 @@ describe("target on-device decisioning", () => {
                   timestamp: now.getTime(),
                   type: "display",
                   mbox: {
-                    name: "superfluous-mbox"
+                    name: "mbox-magician"
                   },
-                  tokens: [
-                    "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-                  ]
+                  tokens: [expect.any(String)]
                 }
               ]
             });
