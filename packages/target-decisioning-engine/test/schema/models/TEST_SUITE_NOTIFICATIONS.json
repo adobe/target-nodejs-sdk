@@ -27,7 +27,7 @@
           "execute": {
             "mboxes": [
               {
-                "name": "superfluous-mbox",
+                "name": "mbox-magician",
                 "index": 2
               }
             ]
@@ -47,10 +47,10 @@
               "timestamp": 1585098300000,
               "type": "display",
               "mbox": {
-                "name": "superfluous-mbox"
+                "name": "mbox-magician"
               },
               "tokens": [
-                "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                "eHKYleVZBTi/nM3Fv/fx1ZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               ]
             }
           ]
@@ -83,11 +83,11 @@
           "execute": {
             "mboxes": [
               {
-                "name": "superfluous-mbox",
+                "name": "mbox-magician",
                 "index": 1
               },
               {
-                "name": "expendable-mbox",
+                "name": "mbox-salutations",
                 "index": 2
               }
             ]
@@ -107,10 +107,10 @@
               "timestamp": 1585098300000,
               "type": "display",
               "mbox": {
-                "name": "superfluous-mbox"
+                "name": "mbox-magician"
               },
               "tokens": [
-                "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                "eHKYleVZBTi/nM3Fv/fx1ZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               ]
             },
             {
@@ -119,10 +119,10 @@
               "timestamp": 1585098300000,
               "type": "display",
               "mbox": {
-                "name": "expendable-mbox"
+                "name": "mbox-salutations"
               },
               "tokens": [
-                "YPoPRnGmGGit+QxnpxYFjZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                "avr5zuTFMrtFi7QuWrscBmqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               ]
             }
           ]
@@ -183,7 +183,7 @@
           "prefetch": {
             "mboxes": [
               {
-                "name": "superfluous-mbox",
+                "name": "mbox-magician",
                 "index": 2
               }
             ]

@@ -8,13 +8,13 @@
   },
   "test": {
     "date_range_1": {
-      "description": "targets date range 1 (feb 27 - feb 29 2020)",
+      "description": "targets date range 1 (feb 11 - feb 13 2021)",
       "mockDate": {
-        "year": 2020,
+        "year": 2021,
         "month": 1,
-        "date": 27,
+        "date": 11,
         "hours": 19,
-        "human": "Thursday, February 27, 2020 11:00 AM (PST)"
+        "human": "Thursday, February 11, 2021 11:00 AM (PST)"
       },
       "input": {
         "request": {
@@ -33,7 +33,7 @@
           "prefetch": {
             "mboxes": [
               {
-                "name": "daterange-mbox",
+                "name": "mbox-dateranges",
                 "index": 1
               }
             ]
@@ -46,12 +46,12 @@
           "mboxes": [
             {
               "index": 1,
-              "name": "daterange-mbox",
+              "name": "mbox-dateranges",
               "options": [
                 {
                   "type": "html",
-                  "content": "<strong>date range 1 (feb 27-29)</strong>",
-                  "eventToken": "wQY/V1IOYec8T4fAT5ww7unJlneZxJu5VqGhXCosHhWCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "content": "<strong>date range 1 (feb 11-13)</strong>",
+                  "eventToken": "gUwIlRvXckxF9guX7PpLqJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
                 }
               ]
             }
@@ -60,13 +60,13 @@
       }
     },
     "date_range_2": {
-      "description": "targets date range 2 (mar 2 - mar 6 2020)",
+      "description": "targets date range 2 (feb 15 - feb 19 2021)",
       "mockDate": {
-        "year": 2020,
-        "month": 2,
-        "date": 4,
+        "year": 2021,
+        "month": 1,
+        "date": 17,
         "hours": 19,
-        "human": "Wednesday, March 4, 2020 11:00 AM (PST)"
+        "human": "Wednesday, February 17, 2021 11:00 AM (PST)"
       },
       "input": {
         "request": {
@@ -85,7 +85,7 @@
           "prefetch": {
             "mboxes": [
               {
-                "name": "daterange-mbox",
+                "name": "mbox-dateranges",
                 "index": 1
               }
             ]
@@ -98,12 +98,12 @@
           "mboxes": [
             {
               "index": 1,
-              "name": "daterange-mbox",
+              "name": "mbox-dateranges",
               "options": [
                 {
                   "type": "html",
-                  "content": "<strong>date range 2 (mar 2 - 6)</strong>",
-                  "eventToken": "wQY/V1IOYec8T4fAT5ww7pNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "content": "<strong>date range 2 (feb 15 - 19, 2021)</strong>",
+                  "eventToken": "gUwIlRvXckxF9guX7PpLqAreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
                 }
               ]
             }
@@ -114,11 +114,11 @@
     "friday_in_range": {
       "description": "targets friday, even if within range of other rules",
       "mockDate": {
-        "year": 2020,
-        "month": 2,
-        "date": 6,
+        "year": 2021,
+        "month": 1,
+        "date": 19,
         "hours": 19,
-        "human": "Friday, March 6, 2020 11:00 AM (PST)"
+        "human": "Friday, February 19, 2020 11:00 AM (PST)"
       },
       "input": {
         "request": {
@@ -137,7 +137,7 @@
           "prefetch": {
             "mboxes": [
               {
-                "name": "daterange-mbox",
+                "name": "mbox-dateranges",
                 "index": 1
               }
             ]
@@ -150,12 +150,12 @@
           "mboxes": [
             {
               "index": 1,
-              "name": "daterange-mbox",
+              "name": "mbox-dateranges",
               "options": [
                 {
                   "type": "html",
                   "content": "<strong>it's friday</strong>",
-                  "eventToken": "wQY/V1IOYec8T4fAT5ww7hB3JWElmEno9qwHyGr0QvSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "eventToken": "gUwIlRvXckxF9guX7PpLqGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
                 }
               ]
             }
@@ -189,7 +189,7 @@
           "prefetch": {
             "mboxes": [
               {
-                "name": "daterange-mbox",
+                "name": "mbox-dateranges",
                 "index": 1
               }
             ]
@@ -202,12 +202,12 @@
           "mboxes": [
             {
               "index": 1,
-              "name": "daterange-mbox",
+              "name": "mbox-dateranges",
               "options": [
                 {
                   "type": "html",
                   "content": "<strong>it's friday</strong>",
-                  "eventToken": "wQY/V1IOYec8T4fAT5ww7hB3JWElmEno9qwHyGr0QvSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "eventToken": "gUwIlRvXckxF9guX7PpLqGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
                 }
               ]
             }
@@ -241,7 +241,7 @@
           "prefetch": {
             "mboxes": [
               {
-                "name": "daterange-mbox",
+                "name": "mbox-dateranges",
                 "index": 1
               }
             ]
@@ -254,12 +254,12 @@
           "mboxes": [
             {
               "index": 1,
-              "name": "daterange-mbox",
+              "name": "mbox-dateranges",
               "options": [
                 {
                   "type": "html",
                   "content": "<strong>default result</strong>",
-                  "eventToken": "wQY/V1IOYec8T4fAT5ww7mqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "eventToken": "gUwIlRvXckxF9guX7PpLqJZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
                 }
               ]
             }

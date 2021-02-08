@@ -43,9 +43,9 @@
                 "content": [
                   {
                     "type": "setHtml",
-                    "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
-                    "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
-                    "content": "greg is correct"
+                    "selector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    "content": "Hello greg"
                   }
                 ]
               },
@@ -54,17 +54,17 @@
                 "content": [
                   {
                     "type": "setHtml",
-                    "selector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
-                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
-                    "content": "Hello greg"
+                    "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
+                    "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
+                    "content": "greg is correct"
                   }
                 ]
               }
             ],
             "metrics": [
               {
-                "eventToken": "Esqg0GnzqW0Y/GMvVyT7lg==",
-                "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
+                "eventToken": "oxEgcYf3wVy4XTOQzn3RWA==",
+                "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
             ]
@@ -127,8 +127,8 @@
             ],
             "metrics": [
               {
-                "eventToken": "Esqg0GnzqW0Y/GMvVyT7lg==",
-                "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
+                "eventToken": "oxEgcYf3wVy4XTOQzn3RWA==",
+                "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
             ]
@@ -187,8 +187,8 @@
             ],
             "metrics": [
               {
-                "eventToken": "Esqg0GnzqW0Y/GMvVyT7lg==",
-                "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
+                "eventToken": "oxEgcYf3wVy4XTOQzn3RWA==",
+                "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
             ]
@@ -223,11 +223,8 @@
           "pageLoad": {
             "options": [
               {
-                "eventToken": "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-              },
-              {
                 "type": "actions",
-                "eventToken": "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "REn9frV6SK6mYNleRYo14greqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "setHtml",
@@ -238,11 +235,14 @@
                 ]
               },
               {
-                "eventToken": "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                "eventToken": "REn9frV6SK6mYNleRYo14greqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+              },
+              {
+                "eventToken": "REn9frV6SK6mYNleRYo14greqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               },
               {
                 "type": "actions",
-                "eventToken": "39UdigzDfmb97ogXP1PN6wreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "REn9frV6SK6mYNleRYo14greqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "setHtml",

@@ -34,7 +34,7 @@
           "prefetch": {
             "mboxes": [
               {
-                "name": "redundant-mbox",
+                "name": "mbox-params",
                 "parameters": {
                   "foo": "bar"
                 },
@@ -50,16 +50,16 @@
           "mboxes": [
             {
               "index": 1,
-              "name": "redundant-mbox",
+              "name": "mbox-params",
               "options": [
                 {
                   "type": "json",
                   "content": {
                     "foo": "bar",
                     "isFooBar": true,
-                    "experience": "A"
+                    "experience": "B"
                   },
-                  "eventToken": "Zhwxeqy1O2r9Ske1YDA9bGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "eventToken": "gsDuhGuCbuMhKLusIlPUI5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
                 }
               ]
             }
@@ -94,7 +94,7 @@
           "prefetch": {
             "mboxes": [
               {
-                "name": "redundant-mbox",
+                "name": "mbox-params",
                 "parameters": {
                   "foo": "cow"
                 },
@@ -110,7 +110,7 @@
           "mboxes": [
             {
               "index": 1,
-              "name": "redundant-mbox"
+              "name": "mbox-params"
             }
           ]
         }

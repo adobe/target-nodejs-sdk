@@ -26,7 +26,7 @@
           "execute": {
             "mboxes": [
               {
-                "name": "superfluous-mbox",
+                "name": "mbox-magician",
                 "index": 2
               }
             ]
@@ -45,7 +45,7 @@
           "mboxes": [
             {
               "index": 2,
-              "name": "superfluous-mbox",
+              "name": "mbox-magician",
               "options": [
                 {
                   "type": "json",
@@ -76,7 +76,7 @@
           "prefetch": {
             "mboxes": [
               {
-                "name": "superfluous-mbox",
+                "name": "mbox-magician",
                 "index": 4
               }
             ]
@@ -88,12 +88,12 @@
           "mboxes": [
             {
               "index": 4,
-              "name": "superfluous-mbox",
+              "name": "mbox-magician",
               "options": [
                 {
                   "type": "json",
                   "content": { "doMagic": false, "importantValue": 75 },
-                  "eventToken": "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "eventToken": "eHKYleVZBTi/nM3Fv/fx1ZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                   "responseTokens": "expect.any(Object)"
                 }
               ]

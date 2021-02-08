@@ -1,11 +1,11 @@
 {
   "targetAdminActivityUrls": [
-    "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/kitty_low",
-    "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/kitty_high",
-    "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/Experience-Targeting/kitty_high_with_targeting"
+    "https://experience.adobe.com/#/@targettesting/target/activities/activitydetails/A-B/_unit-test_mbox-prioritizedlow",
+    "https://experience.adobe.com/#/@targettesting/target/activities/activitydetails/A-B/_unit-test_mbox-prioritizedhigh",
+    "https://experience.adobe.com/#/@targettesting/target/activities/activitydetails/Experience-Targeting/_unit-test_mbox-prioritizedhighwithtargeting"
   ],
   "version": "1.0.0",
-  "meta": { "clientCode": "adobesummit2018", "environment": "production" },
+  "meta": { "clientCode": "targettesting", "environment": "production" },
   "globalMbox": "target-global-mbox",
   "geoTargetingEnabled": true,
   "responseTokens": [
@@ -13,8 +13,6 @@
     "activity.name",
     "experience.id",
     "experience.name",
-    "experience.trafficAllocationId",
-    "experience.trafficAllocationType",
     "geo.city",
     "geo.country",
     "geo.state",
@@ -23,137 +21,113 @@
     "option.id",
     "option.name"
   ],
-  "remoteMboxes": ["target-global-mbox"],
-  "remoteViews": ["home"],
+  "remoteMboxes": [],
+  "remoteViews": [],
   "localMboxes": [
-    "alloy-test-scope-1",
-    "bannedtest",
-    "blippi",
-    "boogie",
-    "browser-mbox",
-    "composite2",
-    "crazy2",
-    "daterange-mbox",
-    "dell-countdown-mbox",
-    "dell-greeting-mbox",
-    "demo-engineering-flags",
-    "demo-geo-offer1",
-    "demo-marketing-flags",
-    "demo-marketing-offer1",
-    "demo-marketing-offer2",
-    "disney",
-    "dwalling-myFlags",
-    "expendable-mbox",
-    "foo",
-    "geo",
-    "gregtest42",
-    "gw-amp-email",
-    "gw-amp-email-thumbnail",
-    "jason-flags",
-    "kitty",
-    "local123456",
-    "location",
-    "macros",
-    "multinot",
-    "offer1",
-    "offer2",
-    "offer3",
-    "onboarding-mbox-1",
-    "perf1",
-    "product",
-    "redundant-mbox",
-    "sam-mbox",
-    "sam-mbox-2",
-    "something",
-    "specialk",
-    "splendid-mbox",
-    "superfluous-mbox",
+    "100k",
+    "1MB",
+    "1MB2",
+    "1MB3",
+    "250k",
+    "500k",
+    "allmatches",
+    "browserTest",
+    "mbox-browsers",
+    "mbox-dateranges",
+    "mbox-feature-flags",
+    "mbox-geography",
+    "mbox-macros",
+    "mbox-magician",
+    "mbox-params",
+    "mbox-prioritized",
+    "mbox-salutations",
+    "mbox-urlcontains",
+    "perf-mbox",
+    "super-duper",
     "target-global-mbox",
-    "testoffer",
-    "testoffer2",
-    "vanilla-mbox"
+    "testoffer"
   ],
-  "localViews": ["about", "contact"],
+  "localViews": ["contact", "home"],
   "rules": {
     "mboxes": {
-      "kitty": [
+      "mbox-prioritized": [
         {
-          "ruleKey": "336973",
-          "activityId": 336973,
+          "ruleKey": "125877",
+          "activityId": 125877,
           "meta": {
-            "activity.id": 336973,
-            "activity.name": "kitty high with targeting",
+            "activity.id": 125877,
+            "activity.name": "[unit-test] mbox-prioritized high with targeting",
             "activity.type": "landing",
             "experience.id": 0,
             "experience.name": "Experience A",
-            "location.name": "kitty",
+            "location.name": "mbox-prioritized",
             "location.type": "mbox",
             "location.id": 0,
-            "audience.ids": [4873452],
-            "offer.id": 634862,
-            "offer.name": "/kitty_high_with_targeting/experiences/0/pages/0/zones/0/1584124723844",
+            "audience.ids": [1750975],
+            "offer.id": 246857,
+            "offer.name": "/_unit-test_mbox-prioritizedhighwithtargeting/experiences/0/pages/0/zones/0/1612387453374",
             "option.id": 2,
             "option.name": "Offer2"
           },
           "condition": { "==": [{ "var": "user.browserType" }, "firefox"] },
           "consequence": {
-            "name": "kitty",
+            "name": "mbox-prioritized",
             "options": [
               {
                 "type": "html",
-                "eventToken": "/DhjxnVDh9heBZ0MrYFLF2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                "content": "<div>kitty high with targeting: Firefox</div>"
+                "eventToken": "/pLXAvfJbFlti2W9k7cANWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<div>prioritized high with targeting: Firefox</div>"
               }
             ],
             "metrics": []
           }
         },
         {
-          "ruleKey": "336973",
-          "activityId": 336973,
+          "ruleKey": "125877",
+          "activityId": 125877,
           "meta": {
-            "activity.id": 336973,
-            "activity.name": "kitty high with targeting",
+            "activity.id": 125877,
+            "activity.name": "[unit-test] mbox-prioritized high with targeting",
             "activity.type": "landing",
             "experience.id": 1,
             "experience.name": "Experience B",
-            "location.name": "kitty",
+            "location.name": "mbox-prioritized",
             "location.type": "mbox",
             "location.id": 0,
-            "audience.ids": [4957566],
-            "offer.id": 634861,
-            "offer.name": "/kitty_high_with_targeting/experiences/1/pages/0/zones/0/1584124723839",
+            "audience.ids": [1750991],
+            "offer.id": 246858,
+            "offer.name": "/_unit-test_mbox-prioritizedhighwithtargeting/experiences/1/pages/0/zones/0/1612387453380",
             "option.id": 3,
             "option.name": "Offer3"
           },
           "condition": { "==": [{ "var": "user.browserType" }, "safari"] },
           "consequence": {
-            "name": "kitty",
+            "name": "mbox-prioritized",
             "options": [
               {
                 "type": "html",
-                "eventToken": "/DhjxnVDh9heBZ0MrYFLF5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                "content": "<div>kitty high with targeting: Safari</div>"
+                "eventToken": "/pLXAvfJbFlti2W9k7cANZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<div>prioritized high with targeting: Safari</div>"
               }
             ],
             "metrics": []
           }
         },
         {
-          "ruleKey": "336951",
-          "activityId": 336951,
+          "ruleKey": "125876",
+          "activityId": 125876,
           "meta": {
-            "activity.id": 336951,
-            "activity.name": "kitty high",
+            "activity.id": 125876,
+            "activity.name": "[unit-test] mbox-prioritized high",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
-            "location.name": "kitty",
+            "location.name": "mbox-prioritized",
             "location.type": "mbox",
             "location.id": 0,
             "audience.ids": [],
-            "offer.id": 634836,
-            "offer.name": "/kitty_high/experiences/0/pages/0/zones/0/1584119849432",
+            "offer.id": 246855,
+            "offer.name": "/_unit-test_mbox-prioritizedhigh/experiences/0/pages/0/zones/0/1612387280489",
             "option.id": 2,
             "option.name": "Offer2"
           },
@@ -164,32 +138,32 @@
             ]
           },
           "consequence": {
-            "name": "kitty",
+            "name": "mbox-prioritized",
             "options": [
               {
                 "type": "html",
-                "eventToken": "ruhwp7VESR7F74TJL2DV5WqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                "content": "<div>kitty high A</div>"
+                "eventToken": "K48CgydFcAttgrFpQ6oMaGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<div>prioritized high A</div>"
               }
             ],
             "metrics": []
           }
         },
         {
-          "ruleKey": "336951",
-          "activityId": 336951,
+          "ruleKey": "125876",
+          "activityId": 125876,
           "meta": {
-            "activity.id": 336951,
-            "activity.name": "kitty high",
+            "activity.id": 125876,
+            "activity.name": "[unit-test] mbox-prioritized high",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
-            "location.name": "kitty",
+            "location.name": "mbox-prioritized",
             "location.type": "mbox",
             "location.id": 0,
             "audience.ids": [],
-            "offer.id": 634837,
-            "offer.name": "/kitty_high/experiences/1/pages/0/zones/0/1584119849437",
+            "offer.id": 246856,
+            "offer.name": "/_unit-test_mbox-prioritizedhigh/experiences/1/pages/0/zones/0/1612387280498",
             "option.id": 3,
             "option.name": "Offer3"
           },
@@ -200,32 +174,32 @@
             ]
           },
           "consequence": {
-            "name": "kitty",
+            "name": "mbox-prioritized",
             "options": [
               {
                 "type": "html",
-                "eventToken": "ruhwp7VESR7F74TJL2DV5ZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                "content": "<div>kitty high B</div>"
+                "eventToken": "K48CgydFcAttgrFpQ6oMaJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<div>prioritized high B</div>"
               }
             ],
             "metrics": []
           }
         },
         {
-          "ruleKey": "336950",
-          "activityId": 336950,
+          "ruleKey": "125875",
+          "activityId": 125875,
           "meta": {
-            "activity.id": 336950,
-            "activity.name": "kitty low",
+            "activity.id": 125875,
+            "activity.name": "[unit-test] mbox-prioritized low",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
-            "location.name": "kitty",
+            "location.name": "mbox-prioritized",
             "location.type": "mbox",
             "location.id": 0,
             "audience.ids": [],
-            "offer.id": 634834,
-            "offer.name": "/kitty_low/experiences/0/pages/0/zones/0/1584119759067",
+            "offer.id": 246853,
+            "offer.name": "/_unit-test_mbox-prioritizedlow/experiences/0/pages/0/zones/0/1612387116413",
             "option.id": 2,
             "option.name": "Offer2"
           },
@@ -236,32 +210,32 @@
             ]
           },
           "consequence": {
-            "name": "kitty",
+            "name": "mbox-prioritized",
             "options": [
               {
                 "type": "html",
-                "eventToken": "Ww1ZcMj/ShY5tUV/rUzSjGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                "content": "<div>kitty low A</div>"
+                "eventToken": "5rESxhp5Gu3znJEt9Zbx7WqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<div>prioritized low A</div>"
               }
             ],
             "metrics": []
           }
         },
         {
-          "ruleKey": "336950",
-          "activityId": 336950,
+          "ruleKey": "125875",
+          "activityId": 125875,
           "meta": {
-            "activity.id": 336950,
-            "activity.name": "kitty low",
+            "activity.id": 125875,
+            "activity.name": "[unit-test] mbox-prioritized low",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
-            "location.name": "kitty",
+            "location.name": "mbox-prioritized",
             "location.type": "mbox",
             "location.id": 0,
             "audience.ids": [],
-            "offer.id": 634835,
-            "offer.name": "/kitty_low/experiences/1/pages/0/zones/0/1584119759075",
+            "offer.id": 246854,
+            "offer.name": "/_unit-test_mbox-prioritizedlow/experiences/1/pages/0/zones/0/1612387116418",
             "option.id": 3,
             "option.name": "Offer3"
           },
@@ -272,12 +246,12 @@
             ]
           },
           "consequence": {
-            "name": "kitty",
+            "name": "mbox-prioritized",
             "options": [
               {
                 "type": "html",
-                "eventToken": "Ww1ZcMj/ShY5tUV/rUzSjJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                "content": "<div>kitty low B</div>"
+                "eventToken": "5rESxhp5Gu3znJEt9Zbx7ZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<div>prioritized low B</div>"
               }
             ],
             "metrics": []

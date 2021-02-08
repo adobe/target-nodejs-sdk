@@ -25,7 +25,7 @@
           "prefetch": {
             "mboxes": [
               {
-                "name": "kitty",
+                "name": "mbox-prioritized",
                 "index": 7
               }
             ]
@@ -38,12 +38,12 @@
           "mboxes": [
             {
               "index": 7,
-              "name": "kitty",
+              "name": "mbox-prioritized",
               "options": [
                 {
                   "type": "html",
-                  "content": "<div>kitty high with targeting: Firefox</div>",
-                  "eventToken": "/DhjxnVDh9heBZ0MrYFLF2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "content": "<div>prioritized high with targeting: Firefox</div>",
+                  "eventToken": "/pLXAvfJbFlti2W9k7cANWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
                 }
               ]
             }
@@ -69,7 +69,7 @@
           "prefetch": {
             "mboxes": [
               {
-                "name": "kitty",
+                "name": "mbox-prioritized",
                 "index": 7
               }
             ]
@@ -82,12 +82,12 @@
           "mboxes": [
             {
               "index": 7,
-              "name": "kitty",
+              "name": "mbox-prioritized",
               "options": [
                 {
                   "type": "html",
-                  "content": "<div>kitty high A</div>",
-                  "eventToken": "ruhwp7VESR7F74TJL2DV5WqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": "<div>prioritized high A</div>",
+                  "eventToken": "K48CgydFcAttgrFpQ6oMaGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                   "responseTokens": "expect.any(Object)"
                 }
               ]

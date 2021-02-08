@@ -1,9 +1,9 @@
 {
   "targetAdminActivityUrls": [
-    "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/greg_geo_test_a_bjun0220201434"
+    "https://experience.adobe.com/#/@targettesting/target/activities/activitydetails/A-B/_unit-test_mbox-geography"
   ],
   "version": "1.0.0",
-  "meta": { "clientCode": "adobesummit2018", "environment": "production" },
+  "meta": { "clientCode": "targettesting", "environment": "production" },
   "globalMbox": "target-global-mbox",
   "geoTargetingEnabled": true,
   "responseTokens": [
@@ -11,8 +11,6 @@
     "activity.name",
     "experience.id",
     "experience.name",
-    "experience.trafficAllocationId",
-    "experience.trafficAllocationType",
     "geo.city",
     "geo.country",
     "geo.state",
@@ -21,75 +19,51 @@
     "option.id",
     "option.name"
   ],
-  "remoteMboxes": ["target-global-mbox"],
-  "remoteViews": ["home"],
+  "remoteMboxes": [],
+  "remoteViews": [],
   "localMboxes": [
-    "alloy-test-scope-1",
-    "bannedtest",
-    "blippi",
-    "boogie",
-    "browser-mbox",
-    "composite2",
-    "crazy2",
-    "daterange-mbox",
-    "dell-countdown-mbox",
-    "dell-greeting-mbox",
-    "demo-engineering-flags",
-    "demo-geo-offer1",
-    "demo-marketing-flags",
-    "demo-marketing-offer1",
-    "demo-marketing-offer2",
-    "disney",
-    "dwalling-myFlags",
-    "expendable-mbox",
-    "foo",
-    "geo",
-    "gregtest42",
-    "gw-amp-email",
-    "gw-amp-email-thumbnail",
-    "jason-flags",
-    "kitty",
-    "local123456",
-    "location",
-    "macros",
-    "multinot",
-    "offer1",
-    "offer2",
-    "offer3",
-    "onboarding-mbox-1",
-    "perf1",
-    "product",
-    "redundant-mbox",
-    "sam-mbox",
-    "sam-mbox-2",
-    "something",
-    "specialk",
-    "splendid-mbox",
-    "superfluous-mbox",
+    "100k",
+    "1MB",
+    "1MB2",
+    "1MB3",
+    "250k",
+    "500k",
+    "allmatches",
+    "browserTest",
+    "mbox-browsers",
+    "mbox-dateranges",
+    "mbox-feature-flags",
+    "mbox-geography",
+    "mbox-macros",
+    "mbox-magician",
+    "mbox-params",
+    "mbox-prioritized",
+    "mbox-salutations",
+    "mbox-urlcontains",
+    "perf-mbox",
+    "super-duper",
     "target-global-mbox",
-    "testoffer",
-    "testoffer2",
-    "vanilla-mbox"
+    "testoffer"
   ],
-  "localViews": ["about", "contact"],
+  "localViews": ["contact", "home"],
   "rules": {
     "mboxes": {
-      "geo": [
+      "mbox-geography": [
         {
-          "ruleKey": "349133",
-          "activityId": 349133,
+          "ruleKey": "125889",
+          "activityId": 125889,
           "meta": {
-            "activity.id": 349133,
-            "activity.name": "Greg Geo Test A/B Jun 02 2020, 14:34",
+            "activity.id": 125889,
+            "activity.name": "[unit-test] mbox-geography",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
-            "location.name": "geo",
+            "location.name": "mbox-geography",
             "location.type": "mbox",
             "location.id": 0,
-            "audience.ids": [5753100],
-            "offer.id": 651951,
-            "offer.name": "/greg_geo_test_a_bjun0220201434/experiences/0/pages/0/zones/0/1591737073425",
+            "audience.ids": [1821883],
+            "offer.id": 246889,
+            "offer.name": "/_unit-test_mbox-geography/experiences/0/pages/0/zones/0/1612391678374",
             "option.id": 2,
             "option.name": "Offer2"
           },
@@ -145,11 +119,11 @@
             ]
           },
           "consequence": {
-            "name": "geo",
+            "name": "mbox-geography",
             "options": [
               {
                 "type": "json",
-                "eventToken": "LYJSFrgKxsp5ZlEO5o4jpGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "coIgApD3Y5vSUJeOkfTmHWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": { "geo": true, "exp": "geo.a" }
               }
             ],
@@ -157,20 +131,20 @@
           }
         },
         {
-          "ruleKey": "349133",
-          "activityId": 349133,
+          "ruleKey": "125889",
+          "activityId": 125889,
           "meta": {
-            "activity.id": 349133,
-            "activity.name": "Greg Geo Test A/B Jun 02 2020, 14:34",
+            "activity.id": 125889,
+            "activity.name": "[unit-test] mbox-geography",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
-            "location.name": "geo",
+            "location.name": "mbox-geography",
             "location.type": "mbox",
             "location.id": 0,
-            "audience.ids": [5753100],
-            "offer.id": 650379,
-            "offer.name": "/greg_geo_test_a_bjun0220201434/experiences/1/pages/0/zones/0/1591133667939",
+            "audience.ids": [1821883],
+            "offer.id": 246888,
+            "offer.name": "/_unit-test_mbox-geography/experiences/1/pages/0/zones/0/1612391678370",
             "option.id": 3,
             "option.name": "Offer3"
           },
@@ -226,11 +200,11 @@
             ]
           },
           "consequence": {
-            "name": "geo",
+            "name": "mbox-geography",
             "options": [
               {
                 "type": "json",
-                "eventToken": "LYJSFrgKxsp5ZlEO5o4jpJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "coIgApD3Y5vSUJeOkfTmHZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": { "geo": true, "exp": "geo.b" }
               }
             ],

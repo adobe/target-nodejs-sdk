@@ -1,11 +1,11 @@
 {
   "targetAdminActivityUrls": [
-    "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/vegetable_ab_global-mbox",
-    "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/fruit_ab_global-mbox",
-    "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/Experience-Targeting/global_mbox_browserhtml"
+    "https://experience.adobe.com/#/@targettesting/target/activities/activitydetails/A-B/_unit-test_target-global-mboxvegetables",
+    "https://experience.adobe.com/#/@targettesting/target/activities/activitydetails/A-B/_unit-test_target-global-mboxfruits",
+    "https://experience.adobe.com/#/@targettesting/target/activities/activitydetails/Experience-Targeting/_unit-test_target-global-mboxbrowsers"
   ],
   "version": "1.0.0",
-  "meta": { "clientCode": "adobesummit2018", "environment": "production" },
+  "meta": { "clientCode": "targettesting", "environment": "production" },
   "globalMbox": "target-global-mbox",
   "geoTargetingEnabled": true,
   "responseTokens": [
@@ -13,8 +13,6 @@
     "activity.name",
     "experience.id",
     "experience.name",
-    "experience.trafficAllocationId",
-    "experience.trafficAllocationType",
     "geo.city",
     "geo.country",
     "geo.state",
@@ -23,75 +21,51 @@
     "option.id",
     "option.name"
   ],
-  "remoteMboxes": ["target-global-mbox"],
-  "remoteViews": ["home"],
+  "remoteMboxes": [],
+  "remoteViews": [],
   "localMboxes": [
-    "alloy-test-scope-1",
-    "bannedtest",
-    "blippi",
-    "boogie",
-    "browser-mbox",
-    "composite2",
-    "crazy2",
-    "daterange-mbox",
-    "dell-countdown-mbox",
-    "dell-greeting-mbox",
-    "demo-engineering-flags",
-    "demo-geo-offer1",
-    "demo-marketing-flags",
-    "demo-marketing-offer1",
-    "demo-marketing-offer2",
-    "disney",
-    "dwalling-myFlags",
-    "expendable-mbox",
-    "foo",
-    "geo",
-    "gregtest42",
-    "gw-amp-email",
-    "gw-amp-email-thumbnail",
-    "jason-flags",
-    "kitty",
-    "local123456",
-    "location",
-    "macros",
-    "multinot",
-    "offer1",
-    "offer2",
-    "offer3",
-    "onboarding-mbox-1",
-    "perf1",
-    "product",
-    "redundant-mbox",
-    "sam-mbox",
-    "sam-mbox-2",
-    "something",
-    "specialk",
-    "splendid-mbox",
-    "superfluous-mbox",
+    "100k",
+    "1MB",
+    "1MB2",
+    "1MB3",
+    "250k",
+    "500k",
+    "allmatches",
+    "browserTest",
+    "mbox-browsers",
+    "mbox-dateranges",
+    "mbox-feature-flags",
+    "mbox-geography",
+    "mbox-macros",
+    "mbox-magician",
+    "mbox-params",
+    "mbox-prioritized",
+    "mbox-salutations",
+    "mbox-urlcontains",
+    "perf-mbox",
+    "super-duper",
     "target-global-mbox",
-    "testoffer",
-    "testoffer2",
-    "vanilla-mbox"
+    "testoffer"
   ],
-  "localViews": ["about", "contact"],
+  "localViews": ["contact", "home"],
   "rules": {
     "mboxes": {
       "target-global-mbox": [
         {
-          "ruleKey": "337795",
-          "activityId": 337795,
+          "ruleKey": "125880",
+          "activityId": 125880,
           "meta": {
-            "activity.id": 337795,
-            "activity.name": "global mbox browser html",
+            "activity.id": 125880,
+            "activity.name": "[unit-test] target-global-mbox browsers",
             "activity.type": "landing",
             "experience.id": 0,
             "experience.name": "Experience B",
             "location.name": "target-global-mbox",
             "location.type": "mbox",
             "location.id": 0,
-            "audience.ids": [2170460],
-            "offer.id": 635716,
-            "offer.name": "/global_mbox_browserhtml/experiences/0/pages/0/zones/0/1584640063509",
+            "audience.ids": [1750953],
+            "offer.id": 246868,
+            "offer.name": "/_unit-test_target-global-mboxbrowsers/experiences/0/pages/0/zones/0/1612389131076",
             "option.id": 2,
             "option.name": "Offer2"
           },
@@ -101,7 +75,7 @@
             "options": [
               {
                 "type": "html",
-                "eventToken": "9FNM3ikASssS+sVoFXNulGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "68qcjeWxaSDqrk9hR8MbkWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": "<div>Chrometastic</div>"
               }
             ],
@@ -109,20 +83,20 @@
           }
         },
         {
-          "ruleKey": "337795",
-          "activityId": 337795,
+          "ruleKey": "125880",
+          "activityId": 125880,
           "meta": {
-            "activity.id": 337795,
-            "activity.name": "global mbox browser html",
+            "activity.id": 125880,
+            "activity.name": "[unit-test] target-global-mbox browsers",
             "activity.type": "landing",
             "experience.id": 1,
             "experience.name": "Experience C",
             "location.name": "target-global-mbox",
             "location.type": "mbox",
             "location.id": 0,
-            "audience.ids": [4873452],
-            "offer.id": 635715,
-            "offer.name": "/global_mbox_browserhtml/experiences/1/pages/0/zones/0/1584640063505",
+            "audience.ids": [1750975],
+            "offer.id": 246865,
+            "offer.name": "/_unit-test_target-global-mboxbrowsers/experiences/1/pages/0/zones/0/1612389131033",
             "option.id": 3,
             "option.name": "Offer3"
           },
@@ -132,7 +106,7 @@
             "options": [
               {
                 "type": "html",
-                "eventToken": "9FNM3ikASssS+sVoFXNulJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "68qcjeWxaSDqrk9hR8MbkZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": "<div>Firetime</div>"
               }
             ],
@@ -140,20 +114,20 @@
           }
         },
         {
-          "ruleKey": "337795",
-          "activityId": 337795,
+          "ruleKey": "125880",
+          "activityId": 125880,
           "meta": {
-            "activity.id": 337795,
-            "activity.name": "global mbox browser html",
+            "activity.id": 125880,
+            "activity.name": "[unit-test] target-global-mbox browsers",
             "activity.type": "landing",
             "experience.id": 2,
             "experience.name": "Experience D",
             "location.name": "target-global-mbox",
             "location.type": "mbox",
             "location.id": 0,
-            "audience.ids": [4957566],
-            "offer.id": 635713,
-            "offer.name": "/global_mbox_browserhtml/experiences/2/pages/0/zones/0/1584640063487",
+            "audience.ids": [1750991],
+            "offer.id": 246866,
+            "offer.name": "/_unit-test_target-global-mboxbrowsers/experiences/2/pages/0/zones/0/1612389131037",
             "option.id": 4,
             "option.name": "Offer4"
           },
@@ -163,7 +137,7 @@
             "options": [
               {
                 "type": "html",
-                "eventToken": "9FNM3ikASssS+sVoFXNulAreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "68qcjeWxaSDqrk9hR8MbkQreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": "<div>Safari Run</div>"
               }
             ],
@@ -171,11 +145,11 @@
           }
         },
         {
-          "ruleKey": "337795",
-          "activityId": 337795,
+          "ruleKey": "125880",
+          "activityId": 125880,
           "meta": {
-            "activity.id": 337795,
-            "activity.name": "global mbox browser html",
+            "activity.id": 125880,
+            "activity.name": "[unit-test] target-global-mbox browsers",
             "activity.type": "landing",
             "experience.id": 3,
             "experience.name": "Experience A",
@@ -183,8 +157,8 @@
             "location.type": "mbox",
             "location.id": 0,
             "audience.ids": [],
-            "offer.id": 635714,
-            "offer.name": "/global_mbox_browserhtml/experiences/3/pages/0/zones/0/1584640063501",
+            "offer.id": 246867,
+            "offer.name": "/_unit-test_target-global-mboxbrowsers/experiences/3/pages/0/zones/0/1612389131041",
             "option.id": 5,
             "option.name": "Offer5"
           },
@@ -194,7 +168,7 @@
             "options": [
               {
                 "type": "html",
-                "eventToken": "9FNM3ikASssS+sVoFXNulJZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "68qcjeWxaSDqrk9hR8MbkZZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": "<div>Srsly, who dis?</div>"
               }
             ],
@@ -202,11 +176,11 @@
           }
         },
         {
-          "ruleKey": "350783",
-          "activityId": 350783,
+          "ruleKey": "125888",
+          "activityId": 125888,
           "meta": {
-            "activity.id": 350783,
-            "activity.name": "vegetable ab global-mbox",
+            "activity.id": 125888,
+            "activity.name": "[unit-test] target-global-mbox fruits",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
@@ -214,8 +188,8 @@
             "location.type": "mbox",
             "location.id": 0,
             "audience.ids": [],
-            "offer.id": 652741,
-            "offer.name": "/vegetable_ab_global-mbox/experiences/0/pages/0/zones/0/1591984699476",
+            "offer.id": 246887,
+            "offer.name": "/_unit-test_target-global-mboxfruits/experiences/0/pages/0/zones/0/1612391196949",
             "option.id": 2,
             "option.name": "Offer2"
           },
@@ -230,91 +204,7 @@
             "options": [
               {
                 "type": "json",
-                "eventToken": "FP4I48cIaitld6Qi9EQI5mqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                "content": {
-                  "mbox": "target-global-mbox",
-                  "experience": "A",
-                  "vegetable": "Asparagus",
-                  "property": "property Y"
-                }
-              }
-            ],
-            "metrics": []
-          },
-          "propertyTokens": ["e63fc881-65c7-97b4-a16f-f63ce86c0434"]
-        },
-        {
-          "ruleKey": "350783",
-          "activityId": 350783,
-          "meta": {
-            "activity.id": 350783,
-            "activity.name": "vegetable ab global-mbox",
-            "activity.type": "ab",
-            "experience.id": 1,
-            "experience.name": "Experience B",
-            "location.name": "target-global-mbox",
-            "location.type": "mbox",
-            "location.id": 0,
-            "audience.ids": [],
-            "offer.id": 652740,
-            "offer.name": "/vegetable_ab_global-mbox/experiences/1/pages/0/zones/0/1591984699471",
-            "option.id": 3,
-            "option.name": "Offer3"
-          },
-          "condition": {
-            "and": [
-              { "<": [50, { "var": "allocation" }] },
-              { ">=": [100, { "var": "allocation" }] }
-            ]
-          },
-          "consequence": {
-            "name": "target-global-mbox",
-            "options": [
-              {
-                "type": "json",
-                "eventToken": "FP4I48cIaitld6Qi9EQI5pNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                "content": {
-                  "mbox": "target-global-mbox",
-                  "experience": "B",
-                  "vegetable": "Brussel Sprouts",
-                  "property": "property Y"
-                }
-              }
-            ],
-            "metrics": []
-          },
-          "propertyTokens": ["e63fc881-65c7-97b4-a16f-f63ce86c0434"]
-        },
-        {
-          "ruleKey": "350782",
-          "activityId": 350782,
-          "meta": {
-            "activity.id": 350782,
-            "activity.name": "fruit ab global-mbox",
-            "activity.type": "ab",
-            "experience.id": 0,
-            "experience.name": "Experience A",
-            "location.name": "target-global-mbox",
-            "location.type": "mbox",
-            "location.id": 0,
-            "audience.ids": [],
-            "offer.id": 652738,
-            "offer.name": "/fruit_ab_global-mbox/experiences/0/pages/0/zones/0/1591984571136",
-            "option.id": 2,
-            "option.name": "Offer2"
-          },
-          "condition": {
-            "and": [
-              { "<=": [0, { "var": "allocation" }] },
-              { ">=": [50, { "var": "allocation" }] }
-            ]
-          },
-          "consequence": {
-            "name": "target-global-mbox",
-            "options": [
-              {
-                "type": "json",
-                "eventToken": "0+xiYgJFaaB6s6ZUF9QhIGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "/l5QxTHdZNo1fFcpHy6yC2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": {
                   "mbox": "target-global-mbox",
                   "experience": "A",
@@ -325,14 +215,14 @@
             ],
             "metrics": []
           },
-          "propertyTokens": ["9a327144-63fe-a7fc-5fdb-515e0c0175a8"]
+          "propertyTokens": ["f12c912a-792f-6c01-4977-65d39558c82e"]
         },
         {
-          "ruleKey": "350782",
-          "activityId": 350782,
+          "ruleKey": "125888",
+          "activityId": 125888,
           "meta": {
-            "activity.id": 350782,
-            "activity.name": "fruit ab global-mbox",
+            "activity.id": 125888,
+            "activity.name": "[unit-test] target-global-mbox fruits",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
@@ -340,8 +230,8 @@
             "location.type": "mbox",
             "location.id": 0,
             "audience.ids": [],
-            "offer.id": 652739,
-            "offer.name": "/fruit_ab_global-mbox/experiences/1/pages/0/zones/0/1591984571142",
+            "offer.id": 246886,
+            "offer.name": "/_unit-test_target-global-mboxfruits/experiences/1/pages/0/zones/0/1612391196945",
             "option.id": 3,
             "option.name": "Offer3"
           },
@@ -356,7 +246,7 @@
             "options": [
               {
                 "type": "json",
-                "eventToken": "0+xiYgJFaaB6s6ZUF9QhIJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "/l5QxTHdZNo1fFcpHy6yC5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": {
                   "mbox": "target-global-mbox",
                   "experience": "B",
@@ -367,7 +257,91 @@
             ],
             "metrics": []
           },
-          "propertyTokens": ["9a327144-63fe-a7fc-5fdb-515e0c0175a8"]
+          "propertyTokens": ["f12c912a-792f-6c01-4977-65d39558c82e"]
+        },
+        {
+          "ruleKey": "125887",
+          "activityId": 125887,
+          "meta": {
+            "activity.id": 125887,
+            "activity.name": "[unit-test] target-global-mbox vegetables",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "target-global-mbox",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [],
+            "offer.id": 246885,
+            "offer.name": "/_unit-test_target-global-mboxvegetables/experiences/0/pages/0/zones/0/1612391074382",
+            "option.id": 2,
+            "option.name": "Offer2"
+          },
+          "condition": {
+            "and": [
+              { "<=": [0, { "var": "allocation" }] },
+              { ">=": [50, { "var": "allocation" }] }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "json",
+                "eventToken": "icqJv5xu4JjLPZmDiKmdzGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": {
+                  "mbox": "target-global-mbox",
+                  "experience": "A",
+                  "vegetable": "Asparagus",
+                  "property": "property Y"
+                }
+              }
+            ],
+            "metrics": []
+          },
+          "propertyTokens": ["8ce2d3e9-b299-c0ea-2e0c-2e21255db6bb"]
+        },
+        {
+          "ruleKey": "125887",
+          "activityId": 125887,
+          "meta": {
+            "activity.id": 125887,
+            "activity.name": "[unit-test] target-global-mbox vegetables",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "target-global-mbox",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [],
+            "offer.id": 246884,
+            "offer.name": "/_unit-test_target-global-mboxvegetables/experiences/1/pages/0/zones/0/1612391074374",
+            "option.id": 3,
+            "option.name": "Offer3"
+          },
+          "condition": {
+            "and": [
+              { "<": [50, { "var": "allocation" }] },
+              { ">=": [100, { "var": "allocation" }] }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "json",
+                "eventToken": "icqJv5xu4JjLPZmDiKmdzJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": {
+                  "mbox": "target-global-mbox",
+                  "experience": "B",
+                  "vegetable": "Brussel Sprouts",
+                  "property": "property Y"
+                }
+              }
+            ],
+            "metrics": []
+          },
+          "propertyTokens": ["8ce2d3e9-b299-c0ea-2e0c-2e21255db6bb"]
         }
       ]
     },

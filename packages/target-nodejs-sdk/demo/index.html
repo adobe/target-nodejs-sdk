@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Test</title>
-    <link rel="stylesheet" type="text/css" href="assets/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/style.css" />
     <!--  <script src="assets/VisitorAPI.js"></script>-->
     <!--  <script src="assets/AppMeasurement.js"></script>-->
     <script type="text/javascript" src="assets/script.js"></script>
-    <script type="text/javascript" src="assets/targetclient.browser.js"></script>
+    <script
+      type="text/javascript"
+      src="assets/targetclient.browser.js"
+    ></script>
   </head>
   <body>
     <div id="result"></div>
     <script type="text/javascript">
-      const clientId = "adobesummit2018";
-      const organizationId = "65453EA95A70434F0A495D34@AdobeOrg";
-      const trackingServer = "adobesummit2018int.sc.omtrdc.net";
+      const clientId = "targettesting";
+      const organizationId = "74F652E95F1B16FE0A495C92@AdobeOrg";
+      const trackingServer = "targettestingint.sc.omtrdc.net";
 
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
@@ -32,9 +35,9 @@
         context: {
           userAgent: navigator.userAgent,
           channel: "web",
-          browser: {host: window.location.host},
-          address: {url: window.location.href}
-        },
+          browser: { host: window.location.host },
+          address: { url: window.location.href }
+        }
         // trace: {
         //   authorizationToken: "79856ebe-7a17-422f-904d-8e51a3cb33e0"
         // }
@@ -55,16 +58,19 @@
                 pageLoad: {}
               },
               prefetch: {
-                  mboxes: mboxNames.map((mboxName, idx) => ({
-                    name: mboxName,
-                    index: idx,
-                  })),
-                  views: [{}]
-                },
+                mboxes: mboxNames.map((mboxName, idx) => ({
+                  name: mboxName,
+                  index: idx
+                })),
+                views: [{}]
+              }
             }
           })
           .then(function (targetResponse) {
-            showResult("Result: Success", JSON.stringify(targetResponse.response, null, 4));
+            showResult(
+              "Result: Success",
+              JSON.stringify(targetResponse.response, null, 4)
+            );
 
             // client.getAttributes(["demo-engineering-flags"], Object.assign({}, deliveryRequest, {
             //   request: targetRequest,
@@ -81,16 +87,16 @@
         client: clientId,
         organizationId,
         targetLocationHint: "28",
-        events: {clientReady: getOffers}
+        events: { clientReady: getOffers }
       };
 
       client = window.TargetClient.create(
         doLocalDecisioning
           ? {
-            ...targetClientOptions,
-            decisioningMethod: "on-device",
-          }
-          : {...targetClientOptions}
+              ...targetClientOptions,
+              decisioningMethod: "on-device"
+            }
+          : { ...targetClientOptions }
       );
     </script>
   </body>
