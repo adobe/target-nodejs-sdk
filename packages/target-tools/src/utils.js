@@ -255,3 +255,17 @@ export function whenReady(
     timer = setInterval(() => wait(), 0);
   });
 }
+
+export function memoize(func, keyResolverFunc = arr => arr[0]) {
+  const memoizedValues = {};
+
+  return function memoized(...funcArgs) {
+    const key = keyResolverFunc.call(this, funcArgs);
+
+    if (!isDefined(memoizedValues[key])) {
+      memoizedValues[key] = func.call(null, ...funcArgs);
+    }
+
+    return memoizedValues[key];
+  };
+}

@@ -45,7 +45,7 @@ CDN_BASE[ENVIRONMENT_DEV] = CDN_BASE_DEV;
 
 export { CDN_BASE };
 
-export const CAMPAIGN_BUCKET_SALT = "campaign";
+export const CAMPAIGN_BUCKET_SALT = "0";
 
 // Response token keys
 export const AUDIENCE_IDS = "audience.ids";

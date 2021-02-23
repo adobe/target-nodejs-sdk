@@ -203,13 +203,13 @@ describe("target on-device decisioning", () => {
         mboxes: [
           {
             index: 2,
-            name: "superfluous-mbox",
+            name: "mbox-magician",
             options: [
               {
                 content: { doMagic: false, importantValue: 75 },
                 type: "json",
                 eventToken:
-                  "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "eHKYleVZBTi/nM3Fv/fx1ZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 responseTokens: expect.any(Object)
               }
             ]
@@ -240,7 +240,7 @@ describe("target on-device decisioning", () => {
         prefetch: {
           mboxes: [
             {
-              name: "superfluous-mbox",
+              name: "mbox-magician",
               index: 2
             }
           ]
@@ -255,7 +255,7 @@ describe("target on-device decisioning", () => {
         execute: {
           mboxes: [
             {
-              name: "superfluous-mbox",
+              name: "mbox-magician",
               index: 2
             }
           ]
@@ -310,7 +310,7 @@ describe("target on-device decisioning", () => {
           mboxes: [
             {
               index: 2,
-              name: "superfluous-mbox"
+              name: "mbox-magician"
             }
           ]
         }
@@ -332,7 +332,7 @@ describe("target on-device decisioning", () => {
           mboxes: [
             {
               index: 2,
-              name: "superfluous-mbox",
+              name: "mbox-magician",
               options: [
                 {
                   content: {
@@ -340,7 +340,7 @@ describe("target on-device decisioning", () => {
                     importantValue: 75
                   },
                   eventToken:
-                    "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                    "eHKYleVZBTi/nM3Fv/fx1ZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                   type: "json",
                   responseTokens: expect.any(Object)
                 }
@@ -489,30 +489,34 @@ describe("target on-device decisioning", () => {
             await expect(
               client.getOffers(executeRequestOptions)
             ).resolves.toBeDefined();
-            expect(fetch.mock.calls.length).toEqual(2);
 
-            expect(notificationRequest).not.toBeUndefined();
-            expect(notificationRequest.method).toEqual("POST");
+            // timeout to waith for notifications to finish
+            setTimeout(() => {
+              expect(fetch.mock.calls.length).toEqual(2);
 
-            expect(notificationPayload).toMatchObject({
-              ...targetRequest,
-              notifications: [
-                {
-                  id: expect.any(String),
-                  impressionId: expect.any(String),
-                  timestamp: now.getTime(),
-                  type: "display",
-                  mbox: {
-                    name: "superfluous-mbox"
-                  },
-                  tokens: [
-                    "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-                  ]
-                }
-              ]
-            });
+              expect(notificationRequest).not.toBeUndefined();
+              expect(notificationRequest.method).toEqual("POST");
 
-            done();
+              expect(notificationPayload).toMatchObject({
+                ...targetRequest,
+                notifications: [
+                  {
+                    id: expect.any(String),
+                    impressionId: expect.any(String),
+                    timestamp: now.getTime(),
+                    type: "display",
+                    mbox: {
+                      name: "mbox-magician"
+                    },
+                    tokens: [
+                      "eHKYleVZBTi/nM3Fv/fx1ZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                    ]
+                  }
+                ]
+              });
+
+              done();
+            }, 0);
           }
 
           client = TargetClient.create({

@@ -22,7 +22,7 @@ const DELIVERY_RESPONSE = {
     mboxes: [
       {
         index: 1,
-        name: "jason-flags",
+        name: "mbox-feature-flags",
         options: [
           {
             content: {
@@ -120,7 +120,7 @@ describe("execution mode", () => {
               prefetch: {
                 mboxes: [
                   {
-                    name: "jason-flags",
+                    name: "mbox-feature-flags",
                     index: 1
                   },
                   {
@@ -167,7 +167,7 @@ describe("execution mode", () => {
               prefetch: {
                 mboxes: [
                   {
-                    name: "jason-flags",
+                    name: "mbox-feature-flags",
                     index: 1
                   }
                 ]
@@ -210,7 +210,7 @@ describe("execution mode", () => {
               prefetch: {
                 mboxes: [
                   {
-                    name: "jason-flags",
+                    name: "mbox-feature-flags",
                     index: 1
                   },
                   {
@@ -257,7 +257,7 @@ describe("execution mode", () => {
               prefetch: {
                 mboxes: [
                   {
-                    name: "jason-flags",
+                    name: "mbox-feature-flags",
                     index: 1
                   }
                 ]
@@ -301,7 +301,7 @@ describe("execution mode", () => {
                     prefetch: {
                       mboxes: [
                         {
-                          name: "jason-flags",
+                          name: "mbox-feature-flags",
                           index: 1
                         }
                       ]
@@ -336,7 +336,7 @@ describe("execution mode", () => {
                     prefetch: {
                       mboxes: [
                         {
-                          name: "jason-flags",
+                          name: "mbox-feature-flags",
                           index: 1
                         }
                       ]

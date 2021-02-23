@@ -48,6 +48,7 @@ export {
   isUndefined,
   isDefined,
   isPojo,
+  memoize,
   noop,
   noopPromise,
   objectWithoutUndefinedValues,
@@ -94,6 +95,8 @@ export {
   DECISIONING_ENGINE_NOT_READY,
   PROPERTY_TOKEN_MISMATCH
 } from "./messages";
+
+export { hashString, hashUnencodedChars } from "./hashing";
 
 export { perfTool, createPerfToolInstance } from "./perftool";
 
