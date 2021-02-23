@@ -1,0 +1,810 @@
+{
+  "description": "decisioning outcomes - views",
+  "artifact": "TEST_ARTIFACT_VIEWS",
+  "conf": {
+    "client": "someClientId",
+    "organizationId": "someOrgId",
+    "pollingInterval": 0
+  },
+  "test": {
+    "ab_without_audiences": {
+      "description": "ab - no audiences - shows all outcomes for the chosen experience",
+      "input": {
+        "request": {
+          "id": {
+            "thirdPartyId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0"
+          },
+          "context": {
+            "channel": "web",
+            "browser": {
+              "host": "local-target-test"
+            },
+            "address": {
+              "url": "http://local-target-test/"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
+          },
+          "prefetch": {
+            "views": [{}]
+          }
+        }
+      },
+      "output": {
+        "prefetch": {
+          "views": [
+            {
+              "name": "contact",
+              "options": [
+                {
+                  "type": "actions",
+                  "eventToken": "6yas2PmxhgYAdYY0WK7oGwreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "insertAfter",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": "<span id=\"action_insert_16123960266706314\">Please do not contact us.</span>"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "6yas2PmxhgYAdYY0WK7oGwreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "setStyle",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": {
+                        "background-color": "rgba(127,0,0,1)",
+                        "priority": "important"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "metrics": []
+            },
+            {
+              "name": "home",
+              "options": [
+                {
+                  "type": "actions",
+                  "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "insertAfter",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": "<p id=\"action_insert_15889689998702412\">experience A</p>"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "setHtml",
+                      "selector": "#spa-content > H3:nth-of-type(1)",
+                      "cssSelector": "#spa-content > H3:nth-of-type(1)",
+                      "content": "nobody home - exp A"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "trE0BYJDkaVAM46CBN3B72qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "setHtml",
+                      "selector": "#spa-content > H3:nth-of-type(1)",
+                      "cssSelector": "#spa-content > H3:nth-of-type(1)",
+                      "content": "Home - Experience A"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "trE0BYJDkaVAM46CBN3B72qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "setHtml",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": "experience A! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus, magna et dignissim ullamcorper, magna ipsum pharetra velit, vel egestas magna leo interdum urna. Etiam purus massa, accumsan in elit sit amet, posuere maximus augue. Donec non velit sit amet ipsum feugiat aliquet id in metus. Integer a auctor nisl. Donec ac lacinia eros. Proin nisl magna, bibendum ut tellus vitae, mattis laoreet lacus. Pellentesque mauris lorem, scelerisque quis nisi ac, vulputate tincidunt est. Maecenas ex justo, ultrices non neque sed, fermentum maximus diam. Vestibulum at facilisis magna. Ut eu tristique lectus. Proin gravida leo eu fermentum ullamcorper. Suspendisse gravida nibh vitae ultricies ultricies. Donec fermentum, metus id tincidunt dapibus, tellus lacus tristique felis, non posuere nibh ligula sed est."
+                    }
+                  ]
+                }
+              ],
+              "metrics": [
+                {
+                  "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
+                  "selector": "#spa-content > P:nth-of-type(1)",
+                  "type": "click"
+                },
+                {
+                  "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
+                  "selector": "#spa-content > P:nth-of-type(1)",
+                  "type": "click"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "ab_with_audiences": {
+      "description": "ab - with audiences - shows all outcomes for the chosen experience and matching audiences",
+      "input": {
+        "request": {
+          "id": {
+            "thirdPartyId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0"
+          },
+          "context": {
+            "channel": "web",
+            "browser": {
+              "host": "local-target-test"
+            },
+            "address": {
+              "url": "http://local-target-test/"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
+          },
+          "prefetch": {
+            "views": [
+              {
+                "parameters": {
+                  "jason": "correct"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "output": {
+        "prefetch": {
+          "views": [
+            {
+              "name": "contact",
+              "options": [
+                {
+                  "type": "actions",
+                  "eventToken": "6yas2PmxhgYAdYY0WK7oG2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "insertBefore",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": "<span id=\"action_insert_16123959178816145\">Please call Jason immediately</span>"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "6yas2PmxhgYAdYY0WK7oG2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "setStyle",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": {
+                        "background-color": "rgba(255,255,170,1)",
+                        "priority": "important"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "metrics": []
+            },
+            {
+              "name": "home",
+              "options": [
+                {
+                  "type": "actions",
+                  "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "insertAfter",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": "<p id=\"action_insert_15889690271122446\">jason = correct</p>"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "setHtml",
+                      "selector": "#spa-content > H3:nth-of-type(1)",
+                      "cssSelector": "#spa-content > H3:nth-of-type(1)",
+                      "content": "jason home - exp A"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "insertAfter",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": "<p id=\"action_insert_15889689998702412\">experience A</p>"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "setHtml",
+                      "selector": "#spa-content > H3:nth-of-type(1)",
+                      "cssSelector": "#spa-content > H3:nth-of-type(1)",
+                      "content": "nobody home - exp A"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "trE0BYJDkaVAM46CBN3B72qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "setHtml",
+                      "selector": "#spa-content > H3:nth-of-type(1)",
+                      "cssSelector": "#spa-content > H3:nth-of-type(1)",
+                      "content": "Home - Experience A"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "trE0BYJDkaVAM46CBN3B72qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "setHtml",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": "experience A! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus, magna et dignissim ullamcorper, magna ipsum pharetra velit, vel egestas magna leo interdum urna. Etiam purus massa, accumsan in elit sit amet, posuere maximus augue. Donec non velit sit amet ipsum feugiat aliquet id in metus. Integer a auctor nisl. Donec ac lacinia eros. Proin nisl magna, bibendum ut tellus vitae, mattis laoreet lacus. Pellentesque mauris lorem, scelerisque quis nisi ac, vulputate tincidunt est. Maecenas ex justo, ultrices non neque sed, fermentum maximus diam. Vestibulum at facilisis magna. Ut eu tristique lectus. Proin gravida leo eu fermentum ullamcorper. Suspendisse gravida nibh vitae ultricies ultricies. Donec fermentum, metus id tincidunt dapibus, tellus lacus tristique felis, non posuere nibh ligula sed est."
+                    }
+                  ]
+                }
+              ],
+              "metrics": [
+                {
+                  "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
+                  "selector": "#spa-content > P:nth-of-type(1)",
+                  "type": "click"
+                },
+                {
+                  "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
+                  "selector": "#spa-content > P:nth-of-type(1)",
+                  "type": "click"
+                },
+                {
+                  "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
+                  "selector": "#spa-content > P:nth-of-type(1)",
+                  "type": "click"
+                },
+                {
+                  "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
+                  "selector": "#spa-content > P:nth-of-type(1)",
+                  "type": "click"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "xt_muli_param": {
+      "description": "xt - multiple matching params, returns experiences for just one experience",
+      "input": {
+        "request": {
+          "id": {
+            "thirdPartyId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0"
+          },
+          "context": {
+            "channel": "web",
+            "browser": {
+              "host": "local-target-test"
+            },
+            "address": {
+              "url": "http://local-target-test/"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
+          },
+          "prefetch": {
+            "views": [
+              {
+                "parameters": {
+                  "jason": "correct",
+                  "greg": "correct"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "output": {
+        "prefetch": {
+          "views": [
+            {
+              "name": "contact",
+              "options": [
+                {
+                  "type": "actions",
+                  "eventToken": "6yas2PmxhgYAdYY0WK7oG2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "insertBefore",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": "<span id=\"action_insert_16123959178816145\">Please call Jason immediately</span>"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "6yas2PmxhgYAdYY0WK7oG2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "setStyle",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": {
+                        "background-color": "rgba(255,255,170,1)",
+                        "priority": "important"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "metrics": []
+            },
+            {
+              "name": "home",
+              "options": [
+                {
+                  "type": "actions",
+                  "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "insertAfter",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": "<p id=\"action_insert_15889690271122446\">jason = correct</p>"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "setHtml",
+                      "selector": "#spa-content > H3:nth-of-type(1)",
+                      "cssSelector": "#spa-content > H3:nth-of-type(1)",
+                      "content": "jason home - exp A"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "insertAfter",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": "<p id=\"action_insert_15889690455422475\">greg = correct</p>"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "setHtml",
+                      "selector": "#spa-content > H3:nth-of-type(1)",
+                      "cssSelector": "#spa-content > H3:nth-of-type(1)",
+                      "content": "greg home - exp A"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "insertAfter",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": "<p id=\"action_insert_15889689998702412\">experience A</p>"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "setHtml",
+                      "selector": "#spa-content > H3:nth-of-type(1)",
+                      "cssSelector": "#spa-content > H3:nth-of-type(1)",
+                      "content": "nobody home - exp A"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "trE0BYJDkaVAM46CBN3B72qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "setHtml",
+                      "selector": "#spa-content > H3:nth-of-type(1)",
+                      "cssSelector": "#spa-content > H3:nth-of-type(1)",
+                      "content": "Home - Experience A"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "trE0BYJDkaVAM46CBN3B72qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "setHtml",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": "experience A! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus, magna et dignissim ullamcorper, magna ipsum pharetra velit, vel egestas magna leo interdum urna. Etiam purus massa, accumsan in elit sit amet, posuere maximus augue. Donec non velit sit amet ipsum feugiat aliquet id in metus. Integer a auctor nisl. Donec ac lacinia eros. Proin nisl magna, bibendum ut tellus vitae, mattis laoreet lacus. Pellentesque mauris lorem, scelerisque quis nisi ac, vulputate tincidunt est. Maecenas ex justo, ultrices non neque sed, fermentum maximus diam. Vestibulum at facilisis magna. Ut eu tristique lectus. Proin gravida leo eu fermentum ullamcorper. Suspendisse gravida nibh vitae ultricies ultricies. Donec fermentum, metus id tincidunt dapibus, tellus lacus tristique felis, non posuere nibh ligula sed est."
+                    }
+                  ]
+                }
+              ],
+              "metrics": [
+                {
+                  "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
+                  "selector": "#spa-content > P:nth-of-type(1)",
+                  "type": "click"
+                },
+                {
+                  "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
+                  "selector": "#spa-content > P:nth-of-type(1)",
+                  "type": "click"
+                },
+                {
+                  "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
+                  "selector": "#spa-content > P:nth-of-type(1)",
+                  "type": "click"
+                },
+                {
+                  "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
+                  "selector": "#spa-content > P:nth-of-type(1)",
+                  "type": "click"
+                },
+                {
+                  "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
+                  "selector": "#spa-content > P:nth-of-type(1)",
+                  "type": "click"
+                },
+                {
+                  "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
+                  "selector": "#spa-content > P:nth-of-type(1)",
+                  "type": "click"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "xt_single_param": {
+      "description": "xt - single matching param, returns experiences for just one experience",
+      "input": {
+        "request": {
+          "id": {
+            "thirdPartyId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0"
+          },
+          "context": {
+            "channel": "web",
+            "browser": {
+              "host": "local-target-test"
+            },
+            "address": {
+              "url": "http://local-target-test/"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
+          },
+          "prefetch": {
+            "views": [
+              {
+                "parameters": {
+                  "greg": "correct"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "output": {
+        "prefetch": {
+          "views": [
+            {
+              "name": "contact",
+              "options": [
+                {
+                  "type": "actions",
+                  "eventToken": "6yas2PmxhgYAdYY0WK7oG5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "insertBefore",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": "<span id=\"action_insert_16123959719336188\">Please email Greg immediately</span>"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "6yas2PmxhgYAdYY0WK7oG5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "setStyle",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": {
+                        "background-color": "rgba(170,255,255,1)",
+                        "priority": "important"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "metrics": []
+            },
+            {
+              "name": "home",
+              "options": [
+                {
+                  "type": "actions",
+                  "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "insertAfter",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": "<p id=\"action_insert_15889690455422475\">greg = correct</p>"
+                    }
+                  ],
+                  "responseTokens": {
+                    "activity.id": 125900,
+                    "activity.name": "[unit-test] VEC SPA Home AB Targeting",
+                    "experience.id": 0,
+                    "experience.name": "Experience A",
+                    "option.id": 4,
+                    "option.name": "Offer4",
+                    "activity.decisioningMethod": "on-device"
+                  }
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "setHtml",
+                      "selector": "#spa-content > H3:nth-of-type(1)",
+                      "cssSelector": "#spa-content > H3:nth-of-type(1)",
+                      "content": "greg home - exp A"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "insertAfter",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": "<p id=\"action_insert_15889689998702412\">experience A</p>"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "setHtml",
+                      "selector": "#spa-content > H3:nth-of-type(1)",
+                      "cssSelector": "#spa-content > H3:nth-of-type(1)",
+                      "content": "nobody home - exp A"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "trE0BYJDkaVAM46CBN3B72qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "setHtml",
+                      "selector": "#spa-content > H3:nth-of-type(1)",
+                      "cssSelector": "#spa-content > H3:nth-of-type(1)",
+                      "content": "Home - Experience A"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "trE0BYJDkaVAM46CBN3B72qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "setHtml",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": "experience A! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus, magna et dignissim ullamcorper, magna ipsum pharetra velit, vel egestas magna leo interdum urna. Etiam purus massa, accumsan in elit sit amet, posuere maximus augue. Donec non velit sit amet ipsum feugiat aliquet id in metus. Integer a auctor nisl. Donec ac lacinia eros. Proin nisl magna, bibendum ut tellus vitae, mattis laoreet lacus. Pellentesque mauris lorem, scelerisque quis nisi ac, vulputate tincidunt est. Maecenas ex justo, ultrices non neque sed, fermentum maximus diam. Vestibulum at facilisis magna. Ut eu tristique lectus. Proin gravida leo eu fermentum ullamcorper. Suspendisse gravida nibh vitae ultricies ultricies. Donec fermentum, metus id tincidunt dapibus, tellus lacus tristique felis, non posuere nibh ligula sed est."
+                    }
+                  ]
+                }
+              ],
+              "metrics": [
+                {
+                  "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
+                  "selector": "#spa-content > P:nth-of-type(1)",
+                  "type": "click"
+                },
+                {
+                  "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
+                  "selector": "#spa-content > P:nth-of-type(1)",
+                  "type": "click"
+                },
+                {
+                  "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
+                  "selector": "#spa-content > P:nth-of-type(1)",
+                  "type": "click"
+                },
+                {
+                  "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
+                  "selector": "#spa-content > P:nth-of-type(1)",
+                  "type": "click"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "xt_no_params": {
+      "description": "xt - no params, returns experiences for just one experience",
+      "input": {
+        "request": {
+          "id": {
+            "thirdPartyId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0"
+          },
+          "context": {
+            "channel": "web",
+            "browser": {
+              "host": "local-target-test"
+            },
+            "address": {
+              "url": "http://local-target-test/"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
+          },
+          "prefetch": {
+            "views": [{}]
+          }
+        }
+      },
+      "output": {
+        "prefetch": {
+          "views": [
+            {
+              "name": "contact",
+              "options": [
+                {
+                  "type": "actions",
+                  "eventToken": "6yas2PmxhgYAdYY0WK7oGwreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "insertAfter",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": "<span id=\"action_insert_16123960266706314\">Please do not contact us.</span>"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "6yas2PmxhgYAdYY0WK7oGwreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "setStyle",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": {
+                        "background-color": "rgba(127,0,0,1)",
+                        "priority": "important"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "metrics": []
+            },
+            {
+              "name": "home",
+              "options": [
+                {
+                  "type": "actions",
+                  "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "insertAfter",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": "<p id=\"action_insert_15889689998702412\">experience A</p>"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "setHtml",
+                      "selector": "#spa-content > H3:nth-of-type(1)",
+                      "cssSelector": "#spa-content > H3:nth-of-type(1)",
+                      "content": "nobody home - exp A"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "trE0BYJDkaVAM46CBN3B72qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "setHtml",
+                      "selector": "#spa-content > H3:nth-of-type(1)",
+                      "cssSelector": "#spa-content > H3:nth-of-type(1)",
+                      "content": "Home - Experience A"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "eventToken": "trE0BYJDkaVAM46CBN3B72qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": [
+                    {
+                      "type": "setHtml",
+                      "selector": "#spa-content > P:nth-of-type(1)",
+                      "cssSelector": "#spa-content > P:nth-of-type(1)",
+                      "content": "experience A! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus, magna et dignissim ullamcorper, magna ipsum pharetra velit, vel egestas magna leo interdum urna. Etiam purus massa, accumsan in elit sit amet, posuere maximus augue. Donec non velit sit amet ipsum feugiat aliquet id in metus. Integer a auctor nisl. Donec ac lacinia eros. Proin nisl magna, bibendum ut tellus vitae, mattis laoreet lacus. Pellentesque mauris lorem, scelerisque quis nisi ac, vulputate tincidunt est. Maecenas ex justo, ultrices non neque sed, fermentum maximus diam. Vestibulum at facilisis magna. Ut eu tristique lectus. Proin gravida leo eu fermentum ullamcorper. Suspendisse gravida nibh vitae ultricies ultricies. Donec fermentum, metus id tincidunt dapibus, tellus lacus tristique felis, non posuere nibh ligula sed est."
+                    }
+                  ]
+                }
+              ],
+              "metrics": [
+                {
+                  "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
+                  "selector": "#spa-content > P:nth-of-type(1)",
+                  "type": "click"
+                },
+                {
+                  "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
+                  "selector": "#spa-content > P:nth-of-type(1)",
+                  "type": "click"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}
