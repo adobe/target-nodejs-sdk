@@ -1,0 +1,655 @@
+{
+  "targetAdminActivityUrls": [
+    "https://experience.adobe.com/#/@targettesting/target/activities/activitydetails/A-B/_unit-test_mbox-macros",
+    "https://experience.adobe.com/#/@targettesting/target/activities/activitydetails/A-B/_unit-test_vec_pageloadmacros",
+    "https://experience.adobe.com/#/@targettesting/target/activities/activitydetails/A-B/_unit-test_vec_viewmacros"
+  ],
+  "version": "1.0.0",
+  "meta": { "clientCode": "targettesting", "environment": "production" },
+  "globalMbox": "target-global-mbox",
+  "geoTargetingEnabled": true,
+  "responseTokens": [
+    "activity.id",
+    "activity.name",
+    "experience.id",
+    "experience.name",
+    "geo.city",
+    "geo.country",
+    "geo.state",
+    "offer.id",
+    "offer.name",
+    "option.id",
+    "option.name"
+  ],
+  "remoteMboxes": [],
+  "remoteViews": [],
+  "localMboxes": [
+    "100k",
+    "1MB",
+    "1MB2",
+    "1MB3",
+    "250k",
+    "500k",
+    "allmatches",
+    "browserTest",
+    "mbox-browsers",
+    "mbox-dateranges",
+    "mbox-feature-flags",
+    "mbox-geography",
+    "mbox-macros",
+    "mbox-magician",
+    "mbox-params",
+    "mbox-prioritized",
+    "mbox-salutations",
+    "mbox-urlcontains",
+    "perf-mbox",
+    "super-duper",
+    "target-global-mbox",
+    "testoffer"
+  ],
+  "localViews": ["contact", "home"],
+  "rules": {
+    "mboxes": {
+      "mbox-macros": [
+        {
+          "ruleKey": "125891",
+          "activityId": 125891,
+          "meta": {
+            "activity.id": 125891,
+            "activity.name": "[unit-test] mbox-macros",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "mbox-macros",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [],
+            "offer.id": 246892,
+            "offer.name": "/_unit-test_mbox-macros/experiences/0/pages/0/zones/0/1612393051539",
+            "option.id": 2,
+            "option.name": "Offer2"
+          },
+          "condition": {
+            "and": [
+              { "<=": [0, { "var": "allocation" }] },
+              { ">=": [50, { "var": "allocation" }] }
+            ]
+          },
+          "consequence": {
+            "name": "mbox-macros",
+            "options": [
+              {
+                "type": "html",
+                "eventToken": "DpFV0O7sTrjpJSbqoBduF2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<ul>\n  <li>${offer.id}</li>\n  <li>${offer.name}</li>\n  <li>${campaign.id}</li>\n  <li>${campaign.name}</li>\n  <li>${campaign.recipe.id}</li>\n  <li>${campaign.recipe.name}</li>\n  <li>${activity.id}</li>\n  <li>${activity.name}</li>\n  <li>${activity.experience.id}</li>\n  <li>${activity.experience.name}</li>\n  <li>${mbox.name}</li>\n  <li>${mbox.user}</li>\n  <li>${mbox.pgname}</li>\n  <li>${mbox.browserWidth}</li>\n</ul>"
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "125891",
+          "activityId": 125891,
+          "meta": {
+            "activity.id": 125891,
+            "activity.name": "[unit-test] mbox-macros",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "mbox-macros",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [],
+            "offer.id": 246893,
+            "offer.name": "/_unit-test_mbox-macros/experiences/1/pages/0/zones/0/1612393051556",
+            "option.id": 3,
+            "option.name": "Offer3"
+          },
+          "condition": {
+            "and": [
+              { "<": [50, { "var": "allocation" }] },
+              { ">=": [100, { "var": "allocation" }] }
+            ]
+          },
+          "consequence": {
+            "name": "mbox-macros",
+            "options": [
+              {
+                "type": "html",
+                "eventToken": "DpFV0O7sTrjpJSbqoBduF5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<ol>\n  <li>${offer.id}</li>\n  <li>${offer.name}</li>\n  <li>${campaign.id}</li>\n  <li>${campaign.name}</li>\n  <li>${campaign.recipe.id}</li>\n  <li>${campaign.recipe.name}</li>\n  <li>${activity.id}</li>\n  <li>${activity.name}</li>\n  <li>${activity.experience.id}</li>\n  <li>${activity.experience.name}</li>\n  <li>${mbox.name}</li>\n  <li>${mbox.user}</li>\n  <li>${mbox.pgname}</li>\n  <li>${mbox.browserWidth}</li>\n</ol>"
+              }
+            ],
+            "metrics": []
+          }
+        }
+      ],
+      "target-global-mbox": [
+        {
+          "ruleKey": "125894-0",
+          "activityId": 125894,
+          "meta": {
+            "activity.id": 125894,
+            "activity.name": "[unit-test] VEC pageload macros",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [1821897],
+            "option.id": 2,
+            "option.name": "Offer2"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<=": [0, { "var": "allocation" }] },
+                  { ">=": [50, { "var": "allocation" }] }
+                ]
+              },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "eOMiQuOAEPomdmQZ1nOQ2GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    "content": "Hello ${mbox.user}"
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "125894-1",
+          "activityId": 125894,
+          "meta": {
+            "activity.id": 125894,
+            "activity.name": "[unit-test] VEC pageload macros",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 1,
+            "audience.ids": [1821897],
+            "option.id": 3,
+            "option.name": "Offer3"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<=": [0, { "var": "allocation" }] },
+                  { ">=": [50, { "var": "allocation" }] }
+                ]
+              },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "eOMiQuOAEPomdmQZ1nOQ2GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
+                    "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
+                    "content": "${activity.id}"
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "125894-2",
+          "activityId": 125894,
+          "meta": {
+            "activity.id": 125894,
+            "activity.name": "[unit-test] VEC pageload macros",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 2,
+            "audience.ids": [1821897],
+            "option.id": 4,
+            "option.name": "Offer4"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<=": [0, { "var": "allocation" }] },
+                  { ">=": [50, { "var": "allocation" }] }
+                ]
+              },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "eOMiQuOAEPomdmQZ1nOQ2GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
+                    "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
+                    "content": "${activity.name}"
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "125894-3",
+          "activityId": 125894,
+          "meta": {
+            "activity.id": 125894,
+            "activity.name": "[unit-test] VEC pageload macros",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 3,
+            "audience.ids": [1821897],
+            "option.id": 5,
+            "option.name": "Offer5"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<=": [0, { "var": "allocation" }] },
+                  { ">=": [50, { "var": "allocation" }] }
+                ]
+              },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "eOMiQuOAEPomdmQZ1nOQ2GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
+                    "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
+                    "content": "${mbox.name}"
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "125894-0",
+          "activityId": 125894,
+          "meta": {
+            "activity.id": 125894,
+            "activity.name": "[unit-test] VEC pageload macros",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [1821897],
+            "option.id": 6,
+            "option.name": "Offer6"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<": [50, { "var": "allocation" }] },
+                  { ">=": [100, { "var": "allocation" }] }
+                ]
+              },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "eOMiQuOAEPomdmQZ1nOQ2JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    "content": "What Up ${mbox.user}"
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "125894-1",
+          "activityId": 125894,
+          "meta": {
+            "activity.id": 125894,
+            "activity.name": "[unit-test] VEC pageload macros",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 1,
+            "audience.ids": [1821897],
+            "option.id": 3,
+            "option.name": "Offer3"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<": [50, { "var": "allocation" }] },
+                  { ">=": [100, { "var": "allocation" }] }
+                ]
+              },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "eOMiQuOAEPomdmQZ1nOQ2JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
+                    "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
+                    "content": "${activity.id}"
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "125894-2",
+          "activityId": 125894,
+          "meta": {
+            "activity.id": 125894,
+            "activity.name": "[unit-test] VEC pageload macros",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 2,
+            "audience.ids": [1821897],
+            "option.id": 4,
+            "option.name": "Offer4"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<": [50, { "var": "allocation" }] },
+                  { ">=": [100, { "var": "allocation" }] }
+                ]
+              },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "eOMiQuOAEPomdmQZ1nOQ2JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
+                    "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
+                    "content": "${activity.name}"
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "125894-3",
+          "activityId": 125894,
+          "meta": {
+            "activity.id": 125894,
+            "activity.name": "[unit-test] VEC pageload macros",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "target-global-mbox",
+            "location.type": "view",
+            "location.id": 3,
+            "audience.ids": [1821897],
+            "option.id": 5,
+            "option.name": "Offer5"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<": [50, { "var": "allocation" }] },
+                  { ">=": [100, { "var": "allocation" }] }
+                ]
+              },
+              {
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "eOMiQuOAEPomdmQZ1nOQ2JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
+                    "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
+                    "content": "${mbox.name}"
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          }
+        }
+      ]
+    },
+    "views": {
+      "contact": [
+        {
+          "ruleKey": "125895-0",
+          "activityId": 125895,
+          "meta": {
+            "activity.id": 125895,
+            "activity.name": "[unit-test] VEC SPA macros",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "contact",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [1821900],
+            "option.id": 2,
+            "option.name": "Offer2"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<=": [0, { "var": "allocation" }] },
+                  { ">=": [50, { "var": "allocation" }] }
+                ]
+              },
+              {
+                "or": [
+                  {
+                    "and": [
+                      { "==": ["local-target-test", { "var": "page.domain" }] },
+                      { "==": ["/", { "var": "page.path" }] }
+                    ]
+                  },
+                  { "in": ["local-target-test", { "var": "page.url_lc" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "contact",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "mYbARnPw5kkMhv2n6DHnImqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "insertBefore",
+                    "selector": "#spa-content > P:nth-of-type(1)",
+                    "cssSelector": "#spa-content > P:nth-of-type(1)",
+                    "content": "<span id=\"action_insert_16123953755954870\">${campaign.name}</span>"
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "125895-0",
+          "activityId": 125895,
+          "meta": {
+            "activity.id": 125895,
+            "activity.name": "[unit-test] VEC SPA macros",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "contact",
+            "location.type": "view",
+            "location.id": 0,
+            "audience.ids": [1821900],
+            "option.id": 3,
+            "option.name": "Offer3"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<": [50, { "var": "allocation" }] },
+                  { ">=": [100, { "var": "allocation" }] }
+                ]
+              },
+              {
+                "or": [
+                  {
+                    "and": [
+                      { "==": ["local-target-test", { "var": "page.domain" }] },
+                      { "==": ["/", { "var": "page.path" }] }
+                    ]
+                  },
+                  { "in": ["local-target-test", { "var": "page.url_lc" }] }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "contact",
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "mYbARnPw5kkMhv2n6DHnIpNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "insertBefore",
+                    "selector": "#spa-content > P:nth-of-type(1)",
+                    "cssSelector": "#spa-content > P:nth-of-type(1)",
+                    "content": "<span id=\"action_insert_16123954385824899\">${activity.name}</span>"
+                  }
+                ]
+              }
+            ],
+            "metrics": []
+          }
+        }
+      ]
+    }
+  }
+}
