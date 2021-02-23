@@ -2,8 +2,8 @@
   "description": "campaign macros",
   "artifact": "TEST_ARTIFACT_CAMPAIGN_MACROS",
   "conf": {
-    "client": "adobesummit2018",
-    "organizationId": "65453EA95A70434F0A495D34@AdobeOrg",
+    "client": "targettesting",
+    "organizationId": "74F652E95F1B16FE0A495C92@AdobeOrg",
     "pollingInterval": 0
   },
   "test": {
@@ -27,7 +27,7 @@
           "prefetch": {
             "mboxes": [
               {
-                "name": "macros",
+                "name": "mbox-macros",
                 "index": 0,
                 "parameters": {
                   "user": "Mickey Mouse",
@@ -43,12 +43,12 @@
         "prefetch": {
           "mboxes": [
             {
-              "name": "macros",
+              "name": "mbox-macros",
               "options": [
                 {
                   "type": "html",
-                  "eventToken": "efH5bqgzESJWpSYmTxCCCGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                  "content": "<ul>\n  <li>667871</li>\n  <li>/campaign_macros/experiences/0/pages/0/zones/0/1599065324791</li>\n  <li>362147</li>\n  <li>campaign macros</li>\n  <li>0</li>\n  <li>Experience A</li>\n  <li>362147</li>\n  <li>campaign macros</li>\n  <li>0</li>\n  <li>Experience A</li>\n  <li>macros</li>\n  <li>Mickey Mouse</li>\n  <li>blippi</li>\n  <li>1024</li>\n</ul>"
+                  "eventToken": "expect.any(String)",
+                  "content": "<ul>\n  <li>246892</li>\n  <li>/_unit-test_mbox-macros/experiences/0/pages/0/zones/0/1612393051539</li>\n  <li>125891</li>\n  <li>[unit-test] mbox-macros</li>\n  <li>0</li>\n  <li>Experience A</li>\n  <li>125891</li>\n  <li>[unit-test] mbox-macros</li>\n  <li>0</li>\n  <li>Experience A</li>\n  <li>mbox-macros</li>\n  <li>Mickey Mouse</li>\n  <li>blippi</li>\n  <li>1024</li>\n</ul>"
                 }
               ],
               "index": 0
@@ -77,7 +77,7 @@
           "prefetch": {
             "mboxes": [
               {
-                "name": "macros",
+                "name": "mbox-macros",
                 "index": 0,
                 "parameters": {
                   "user": "Donald"
@@ -91,12 +91,12 @@
         "prefetch": {
           "mboxes": [
             {
-              "name": "macros",
+              "name": "mbox-macros",
               "options": [
                 {
                   "type": "html",
-                  "eventToken": "efH5bqgzESJWpSYmTxCCCGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                  "content": "<ul>\n  <li>667871</li>\n  <li>/campaign_macros/experiences/0/pages/0/zones/0/1599065324791</li>\n  <li>362147</li>\n  <li>campaign macros</li>\n  <li>0</li>\n  <li>Experience A</li>\n  <li>362147</li>\n  <li>campaign macros</li>\n  <li>0</li>\n  <li>Experience A</li>\n  <li>macros</li>\n  <li>Donald</li>\n  <li>${mbox.pgname}</li>\n  <li>${mbox.browserWidth}</li>\n</ul>"
+                  "eventToken": "expect.any(String)",
+                  "content": "<ul>\n  <li>246892</li>\n  <li>/_unit-test_mbox-macros/experiences/0/pages/0/zones/0/1612393051539</li>\n  <li>125891</li>\n  <li>[unit-test] mbox-macros</li>\n  <li>0</li>\n  <li>Experience A</li>\n  <li>125891</li>\n  <li>[unit-test] mbox-macros</li>\n  <li>0</li>\n  <li>Experience A</li>\n  <li>mbox-macros</li>\n  <li>Donald</li>\n  <li>${mbox.pgname}</li>\n  <li>${mbox.browserWidth}</li>\n</ul>"
                 }
               ],
               "index": 0
@@ -142,11 +142,40 @@
                 "content": [
                   {
                     "type": "setHtml",
+                    "selector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    "content": "What Up Mickey Mouse"
+                  }
+                ],
+                "responseTokens": {
+                  "activity.id": 125894,
+                  "activity.name": "[unit-test] VEC pageload macros",
+                  "experience.id": 1,
+                  "experience.name": "Experience B",
+                  "option.id": 6,
+                  "option.name": "Offer6",
+                  "activity.decisioningMethod": "on-device"
+                }
+              },
+              {
+                "type": "actions",
+                "content": [
+                  {
+                    "type": "setHtml",
                     "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
                     "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
-                    "content": "362225"
+                    "content": "125894"
                   }
-                ]
+                ],
+                "responseTokens": {
+                  "activity.id": 125894,
+                  "activity.name": "[unit-test] VEC pageload macros",
+                  "experience.id": 1,
+                  "experience.name": "Experience B",
+                  "option.id": 3,
+                  "option.name": "Offer3",
+                  "activity.decisioningMethod": "on-device"
+                }
               },
               {
                 "type": "actions",
@@ -155,9 +184,18 @@
                     "type": "setHtml",
                     "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
                     "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
-                    "content": "macros pageLoad"
+                    "content": "[unit-test] VEC pageload macros"
                   }
-                ]
+                ],
+                "responseTokens": {
+                  "activity.id": 125894,
+                  "activity.name": "[unit-test] VEC pageload macros",
+                  "experience.id": 1,
+                  "experience.name": "Experience B",
+                  "option.id": 4,
+                  "option.name": "Offer4",
+                  "activity.decisioningMethod": "on-device"
+                }
               },
               {
                 "type": "actions",
@@ -168,18 +206,16 @@
                     "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
                     "content": "target-global-mbox"
                   }
-                ]
-              },
-              {
-                "type": "actions",
-                "content": [
-                  {
-                    "type": "setHtml",
-                    "selector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
-                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
-                    "content": "Hello Mickey Mouse"
-                  }
-                ]
+                ],
+                "responseTokens": {
+                  "activity.id": 125894,
+                  "activity.name": "[unit-test] VEC pageload macros",
+                  "experience.id": 1,
+                  "experience.name": "Experience B",
+                  "option.id": 5,
+                  "option.name": "Offer5",
+                  "activity.decisioningMethod": "on-device"
+                }
               }
             ]
           }
@@ -216,13 +252,13 @@
               "options": [
                 {
                   "type": "actions",
-                  "eventToken": "tQFHWnWUwSTiTftbAGXrA2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "eventToken": "expect.any(String)",
                   "content": [
                     {
                       "type": "insertBefore",
                       "selector": "#spa-content > P:nth-of-type(1)",
                       "cssSelector": "#spa-content > P:nth-of-type(1)",
-                      "content": "<div id=\"action_insert_1599086396006761\">campaign macros view</div>"
+                      "content": "<span id=\"action_insert_16123953755954870\">[unit-test] VEC SPA macros</span>"
                     }
                   ]
                 }

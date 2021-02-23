@@ -27,7 +27,7 @@
           "prefetch": {
             "mboxes": [
               {
-                "name": "superfluous-mbox",
+                "name": "mbox-magician",
                 "index": 1
               }
             ]
@@ -38,14 +38,14 @@
         "prefetch": {
           "mboxes": [
             {
-              "name": "superfluous-mbox",
+              "name": "mbox-magician",
               "options": [
                 {
                   "type": "json",
-                  "eventToken": "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "eventToken": "eHKYleVZBTi/nM3Fv/fx1WqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                   "content": {
-                    "doMagic": false,
-                    "importantValue": 75
+                    "doMagic": true,
+                    "importantValue": 150
                   },
                   "responseTokens": "expect.any(Object)"
                 }
@@ -78,7 +78,7 @@
           "prefetch": {
             "mboxes": [
               {
-                "name": "superfluous-mbox",
+                "name": "mbox-magician",
                 "index": 1,
                 "parameters": {
                   "foo": "bar"
@@ -107,7 +107,7 @@
                   "pageURL": "http://local-target-test/",
                   "host": "local-target-test",
                   "mbox": {
-                    "name": "superfluous-mbox",
+                    "name": "mbox-magician",
                     "index": 1,
                     "parameters": {
                       "foo": "bar"
@@ -117,10 +117,12 @@
                 },
                 "campaigns": [
                   {
-                    "id": 334411,
+                    "id": 125873,
                     "campaignType": "ab",
-                    "branchId": 1,
-                    "offers": [631991],
+                    "branchId": 0,
+                    "offers": [
+                      246850
+                    ],
                     "environment": "production"
                   }
                 ],
@@ -173,35 +175,13 @@
                         "foo": "bar",
                         "foo_lc": "bar"
                       },
-                      "allocation": 69.09
+                      "allocation": 35.42
                     },
-                    "campaignId": 334411,
+                    "campaignId": 125873,
                     "campaignType": "ab",
                     "matchedSegmentIds": [],
                     "unmatchedSegmentIds": [],
                     "matchedRuleConditions": [
-                      {
-                        "and": [
-                          {
-                            "<": [
-                              50,
-                              {
-                                "var": "allocation"
-                              }
-                            ]
-                          },
-                          {
-                            ">=": [
-                              100,
-                              {
-                                "var": "allocation"
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ],
-                    "unmatchedRuleConditions": [
                       {
                         "and": [
                           {
@@ -222,7 +202,8 @@
                           }
                         ]
                       }
-                    ]
+                    ],
+                    "unmatchedRuleConditions": []
                   }
                 ]
               }
@@ -253,7 +234,7 @@
           "prefetch": {
             "mboxes": [
               {
-                "name": "browser-mbox",
+                "name": "mbox-browsers",
                 "index": 1
               }
             ]
@@ -279,17 +260,19 @@
                   "pageURL": "http://local-target-test/",
                   "host": "local-target-test",
                   "mbox": {
-                    "name": "browser-mbox",
+                    "name": "mbox-browsers",
                     "index": 1,
                     "type": "prefetch"
                   }
                 },
                 "campaigns": [
                   {
-                    "id": 334845,
+                    "id": 125871,
                     "campaignType": "landing",
-                    "branchId": 3,
-                    "offers": [632438],
+                    "branchId": 2,
+                    "offers": [
+                      246841
+                    ],
                     "environment": "production"
                   }
                 ],
@@ -339,12 +322,17 @@
                       },
                       "geo": {},
                       "mbox": {},
-                      "allocation": 83.81
+                      "allocation": 3.26
                     },
-                    "campaignId": 334845,
+                    "campaignId": 125871,
                     "campaignType": "landing",
-                    "matchedSegmentIds": [2170460],
-                    "unmatchedSegmentIds": [4873452, 4957566],
+                    "matchedSegmentIds": [
+                      1750953
+                    ],
+                    "unmatchedSegmentIds": [
+                      1750975,
+                      1750991
+                    ],
                     "matchedRuleConditions": [
                       {
                         "==": [
@@ -403,7 +391,7 @@
           "execute": {
             "mboxes": [
               {
-                "name": "browser-mbox",
+                "name": "mbox-browsers",
                 "index": 1
               }
             ]
@@ -429,17 +417,19 @@
                   "pageURL": "http://local-target-test/",
                   "host": "local-target-test",
                   "mbox": {
-                    "name": "browser-mbox",
+                    "name": "mbox-browsers",
                     "index": 1,
                     "type": "execute"
                   }
                 },
                 "campaigns": [
                   {
-                    "id": 334845,
+                    "id": 125871,
                     "campaignType": "landing",
-                    "branchId": 3,
-                    "offers": [632438],
+                    "branchId": 2,
+                    "offers": [
+                      246841
+                    ],
                     "environment": "production",
                     "notifications": [
                       {
@@ -448,10 +438,10 @@
                         "timestamp": "expect.any(Number)",
                         "type": "display",
                         "mbox": {
-                          "name": "browser-mbox"
+                          "name": "mbox-browsers"
                         },
                         "tokens": [
-                          "B8C2FP2IuBgmeJcDfXHjGpZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                          "hnriCPC1+WKdphJNCmqRWwreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
                         ]
                       }
                     ]
@@ -503,12 +493,17 @@
                       },
                       "geo": {},
                       "mbox": {},
-                      "allocation": 83.81
+                      "allocation": 3.26
                     },
-                    "campaignId": 334845,
+                    "campaignId": 125871,
                     "campaignType": "landing",
-                    "matchedSegmentIds": [2170460],
-                    "unmatchedSegmentIds": [4873452, 4957566],
+                    "matchedSegmentIds": [
+                      1750953
+                    ],
+                    "unmatchedSegmentIds": [
+                      1750975,
+                      1750991
+                    ],
                     "matchedRuleConditions": [
                       {
                         "==": [
@@ -600,10 +595,12 @@
               },
               "campaigns": [
                 {
-                  "id": 337795,
+                  "id": 125880,
                   "campaignType": "landing",
                   "branchId": 0,
-                  "offers": [635716],
+                  "offers": [
+                    246868
+                  ],
                   "environment": "production",
                   "notifications": [
                     {
@@ -615,16 +612,41 @@
                         "name": "target-global-mbox"
                       },
                       "tokens": [
-                        "9FNM3ikASssS+sVoFXNulGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                        "68qcjeWxaSDqrk9hR8MbkWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
                       ]
                     }
                   ]
                 },
                 {
-                  "id": 337797,
+                  "id": 125883,
+                  "campaignType": "ab",
+                  "branchId": 2,
+                  "offers": [
+                    246871
+                  ],
+                  "environment": "production",
+                  "notifications": [
+                    {
+                      "id": "expect.any(String)",
+                      "impressionId": "expect.any(String)",
+                      "timestamp": "expect.any(Number)",
+                      "type": "display",
+                      "mbox": {
+                        "name": "target-global-mbox"
+                      },
+                      "tokens": [
+                        "Tz3EMdhHqbBXFVY9RXDVlgreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": 125884,
                   "campaignType": "ab",
                   "branchId": 0,
-                  "offers": [635719],
+                  "offers": [
+                    246875
+                  ],
                   "environment": "production",
                   "notifications": [
                     {
@@ -636,28 +658,7 @@
                         "name": "target-global-mbox"
                       },
                       "tokens": [
-                        "0L1rCkDps3F+UEAm1B9A4GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "id": 337888,
-                  "campaignType": "ab",
-                  "branchId": 3,
-                  "offers": [635777],
-                  "environment": "production",
-                  "notifications": [
-                    {
-                      "id": "expect.any(String)",
-                      "impressionId": "expect.any(String)",
-                      "timestamp": "expect.any(Number)",
-                      "type": "display",
-                      "mbox": {
-                        "name": "target-global-mbox"
-                      },
-                      "tokens": [
-                        "5C2cbrGD+bQ5qOATNGy1AZZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                        "/gWsPJB1mxSam/2zbEL4vmqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
                       ]
                     }
                   ]
@@ -712,11 +713,13 @@
                       "foo": "bar",
                       "foo_lc": "bar"
                     },
-                    "allocation": 96.13
+                    "allocation": 1.53
                   },
-                  "campaignId": 337795,
+                  "campaignId": 125880,
                   "campaignType": "landing",
-                  "matchedSegmentIds": [2170460],
+                  "matchedSegmentIds": [
+                    1750953
+                  ],
                   "unmatchedSegmentIds": [],
                   "matchedRuleConditions": [
                     {
@@ -778,13 +781,51 @@
                       "foo": "bar",
                       "foo_lc": "bar"
                     },
-                    "allocation": 17.44
+                    "allocation": 97.66
                   },
-                  "campaignId": 337797,
+                  "campaignId": 125883,
                   "campaignType": "ab",
-                  "matchedSegmentIds": [5272024],
-                  "unmatchedSegmentIds": [],
+                  "matchedSegmentIds": [
+                    1821840
+                  ],
+                  "unmatchedSegmentIds": [
+                    1821840
+                  ],
                   "matchedRuleConditions": [
+                    {
+                      "and": [
+                        {
+                          "and": [
+                            {
+                              "<": [
+                                67,
+                                {
+                                  "var": "allocation"
+                                }
+                              ]
+                            },
+                            {
+                              ">=": [
+                                100,
+                                {
+                                  "var": "allocation"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "==": [
+                            "bar",
+                            {
+                              "var": "mbox.foo"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "unmatchedRuleConditions": [
                     {
                       "and": [
                         {
@@ -816,9 +857,40 @@
                           ]
                         }
                       ]
+                    },
+                    {
+                      "and": [
+                        {
+                          "and": [
+                            {
+                              "<": [
+                                34,
+                                {
+                                  "var": "allocation"
+                                }
+                              ]
+                            },
+                            {
+                              ">=": [
+                                67,
+                                {
+                                  "var": "allocation"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "==": [
+                            "bar",
+                            {
+                              "var": "mbox.foo"
+                            }
+                          ]
+                        }
+                      ]
                     }
-                  ],
-                  "unmatchedRuleConditions": []
+                  ]
                 },
                 {
                   "context": {
@@ -868,35 +940,13 @@
                       "foo": "bar",
                       "foo_lc": "bar"
                     },
-                    "allocation": 90.69
+                    "allocation": 2.06
                   },
-                  "campaignId": 337888,
+                  "campaignId": 125884,
                   "campaignType": "ab",
                   "matchedSegmentIds": [],
                   "unmatchedSegmentIds": [],
                   "matchedRuleConditions": [
-                    {
-                      "and": [
-                        {
-                          "<": [
-                            75,
-                            {
-                              "var": "allocation"
-                            }
-                          ]
-                        },
-                        {
-                          ">=": [
-                            100,
-                            {
-                              "var": "allocation"
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ],
-                  "unmatchedRuleConditions": [
                     {
                       "and": [
                         {
@@ -916,48 +966,9 @@
                           ]
                         }
                       ]
-                    },
-                    {
-                      "and": [
-                        {
-                          "<": [
-                            25,
-                            {
-                              "var": "allocation"
-                            }
-                          ]
-                        },
-                        {
-                          ">=": [
-                            50,
-                            {
-                              "var": "allocation"
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "and": [
-                        {
-                          "<": [
-                            50,
-                            {
-                              "var": "allocation"
-                            }
-                          ]
-                        },
-                        {
-                          ">=": [
-                            75,
-                            {
-                              "var": "allocation"
-                            }
-                          ]
-                        }
-                      ]
                     }
-                  ]
+                  ],
+                  "unmatchedRuleConditions": []
                 }
               ]
             }
@@ -997,7 +1008,10 @@
           "views": [
             {
               "name": "contact",
-              "options": ["expect.any(Object)", "expect.any(Object)"],
+              "options": [
+                "expect.any(Object)",
+                "expect.any(Object)"
+              ],
               "metrics": []
             }
           ]
@@ -1060,7 +1074,7 @@
                 },
                 "campaigns": [
                   {
-                    "id": 345798,
+                    "id": 125897,
                     "campaignType": "landing",
                     "branchId": 0,
                     "offers": [],
@@ -1116,11 +1130,14 @@
                         "jason": "correct",
                         "jason_lc": "correct"
                       },
-                      "allocation": 71.87
+                      "allocation": 17.97
                     },
-                    "campaignId": 345798,
+                    "campaignId": 125897,
                     "campaignType": "landing",
-                    "matchedSegmentIds": [5634562, 5653736],
+                    "matchedSegmentIds": [
+                      1821909,
+                      1821913
+                    ],
                     "unmatchedSegmentIds": [],
                     "matchedRuleConditions": [
                       {

@@ -25,7 +25,7 @@
           "execute": {
             "mboxes": [
               {
-                "name": "superfluous-mbox",
+                "name": "mbox-magician",
                 "index": 2
               }
             ]
@@ -38,7 +38,7 @@
           "mboxes": [
             {
               "index": 2,
-              "name": "superfluous-mbox",
+              "name": "mbox-magician",
               "options": [
                 {
                   "type": "json",
@@ -72,11 +72,11 @@
           "execute": {
             "mboxes": [
               {
-                "name": "superfluous-mbox",
+                "name": "mbox-magician",
                 "index": 1
               },
               {
-                "name": "expendable-mbox",
+                "name": "mbox-salutations",
                 "index": 2
               }
             ]
@@ -89,7 +89,7 @@
           "mboxes": [
             {
               "index": 1,
-              "name": "superfluous-mbox",
+              "name": "mbox-magician",
               "options": [
                 {
                   "type": "json",
@@ -102,11 +102,11 @@
             },
             {
               "index": 2,
-              "name": "expendable-mbox",
+              "name": "mbox-salutations",
               "options": [
                 {
                   "type": "html",
-                  "content": "<div>goodbye</div>"
+                  "content": "<div>hello</div>"
                 }
               ]
             }
@@ -133,7 +133,7 @@
           "prefetch": {
             "mboxes": [
               {
-                "name": "superfluous-mbox",
+                "name": "mbox-magician",
                 "index": 2
               }
             ]
@@ -146,7 +146,7 @@
           "mboxes": [
             {
               "index": 2,
-              "name": "superfluous-mbox",
+              "name": "mbox-magician",
               "options": [
                 {
                   "type": "json",
@@ -154,7 +154,7 @@
                     "doMagic": false,
                     "importantValue": 75
                   },
-                  "eventToken": "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "eventToken": "eHKYleVZBTi/nM3Fv/fx1ZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
                 }
               ]
             }
@@ -181,11 +181,11 @@
           "prefetch": {
             "mboxes": [
               {
-                "name": "superfluous-mbox",
+                "name": "mbox-magician",
                 "index": 1
               },
               {
-                "name": "expendable-mbox",
+                "name": "mbox-salutations",
                 "index": 2
               }
             ]
@@ -198,7 +198,7 @@
           "mboxes": [
             {
               "index": 1,
-              "name": "superfluous-mbox",
+              "name": "mbox-magician",
               "options": [
                 {
                   "type": "json",
@@ -206,18 +206,18 @@
                     "doMagic": false,
                     "importantValue": 75
                   },
-                  "eventToken": "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "eventToken": "eHKYleVZBTi/nM3Fv/fx1ZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
                 }
               ]
             },
             {
               "index": 2,
-              "name": "expendable-mbox",
+              "name": "mbox-salutations",
               "options": [
                 {
                   "type": "html",
-                  "content": "<div>goodbye</div>",
-                  "eventToken": "YPoPRnGmGGit+QxnpxYFjZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "content": "<div>hello</div>",
+                  "eventToken": "expect.any(String)"
                 }
               ]
             }

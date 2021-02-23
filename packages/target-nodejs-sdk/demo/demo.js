@@ -60,8 +60,8 @@ function getOffers() {
 }
 
 client = TargetClient.create({
-  client: "adobesummit2018",
-  organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
+  client: "targettesting",
+  organizationId: "74F652E95F1B16FE0A495C92@AdobeOrg",
   fetchApi: fetch, //getFetchWithProxy(),
   decisioningMethod: "on-device",
   // environment: "staging",

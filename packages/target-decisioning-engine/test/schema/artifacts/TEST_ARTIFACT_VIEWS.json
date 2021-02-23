@@ -1,11 +1,11 @@
 {
   "targetAdminActivityUrls": [
-    "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/Experience-Targeting/xt_spa_add_text_tocontactpage",
-    "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/ab_spa_view_changemultipletextnoaudiences",
-    "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/ab_spa_view_changeaddtextwithaudiences"
+    "https://experience.adobe.com/#/@targettesting/target/activities/activitydetails/Experience-Targeting/_unit-test_vec_spacontactcorrect",
+    "https://experience.adobe.com/#/@targettesting/target/activities/activitydetails/A-B/_unit-test_vec_spahomeab",
+    "https://experience.adobe.com/#/@targettesting/target/activities/activitydetails/A-B/_unit-test_vec_spahomeabtargeting"
   ],
   "version": "1.0.0",
-  "meta": { "clientCode": "adobesummit2018", "environment": "production" },
+  "meta": { "clientCode": "targettesting", "environment": "production" },
   "globalMbox": "target-global-mbox",
   "geoTargetingEnabled": true,
   "responseTokens": [
@@ -13,8 +13,6 @@
     "activity.name",
     "experience.id",
     "experience.name",
-    "experience.trafficAllocationId",
-    "experience.trafficAllocationType",
     "geo.city",
     "geo.country",
     "geo.state",
@@ -23,74 +21,50 @@
     "option.id",
     "option.name"
   ],
-  "remoteMboxes": ["target-global-mbox"],
-  "remoteViews": ["home"],
+  "remoteMboxes": [],
+  "remoteViews": [],
   "localMboxes": [
-    "alloy-test-scope-1",
-    "bannedtest",
-    "blippi",
-    "boogie",
-    "browser-mbox",
-    "composite2",
-    "crazy2",
-    "daterange-mbox",
-    "dell-countdown-mbox",
-    "dell-greeting-mbox",
-    "demo-engineering-flags",
-    "demo-geo-offer1",
-    "demo-marketing-flags",
-    "demo-marketing-offer1",
-    "demo-marketing-offer2",
-    "disney",
-    "dwalling-myFlags",
-    "expendable-mbox",
-    "foo",
-    "geo",
-    "gregtest42",
-    "gw-amp-email",
-    "gw-amp-email-thumbnail",
-    "jason-flags",
-    "kitty",
-    "local123456",
-    "location",
-    "macros",
-    "multinot",
-    "offer1",
-    "offer2",
-    "offer3",
-    "onboarding-mbox-1",
-    "perf1",
-    "product",
-    "redundant-mbox",
-    "sam-mbox",
-    "sam-mbox-2",
-    "something",
-    "specialk",
-    "splendid-mbox",
-    "superfluous-mbox",
+    "100k",
+    "1MB",
+    "1MB2",
+    "1MB3",
+    "250k",
+    "500k",
+    "allmatches",
+    "browserTest",
+    "mbox-browsers",
+    "mbox-dateranges",
+    "mbox-feature-flags",
+    "mbox-geography",
+    "mbox-macros",
+    "mbox-magician",
+    "mbox-params",
+    "mbox-prioritized",
+    "mbox-salutations",
+    "mbox-urlcontains",
+    "perf-mbox",
+    "super-duper",
     "target-global-mbox",
-    "testoffer",
-    "testoffer2",
-    "vanilla-mbox"
+    "testoffer"
   ],
-  "localViews": ["about", "contact"],
+  "localViews": ["contact", "home"],
   "rules": {
     "mboxes": {},
     "views": {
       "contact": [
         {
-          "ruleKey": "345798-0",
-          "activityId": 345798,
+          "ruleKey": "125897-0",
+          "activityId": 125897,
           "meta": {
-            "activity.id": 345798,
-            "activity.name": "xt spa add text to contact page",
+            "activity.id": 125897,
+            "activity.name": "[unit-test] VEC SPA Contact correct",
             "activity.type": "landing",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "contact",
             "location.type": "view",
             "location.id": 0,
-            "audience.ids": [5634562, 5653736],
+            "audience.ids": [1821909, 1821913],
             "option.id": 2,
             "option.name": "Offer2"
           },
@@ -110,13 +84,13 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "DKyEy8B6J+arIj6GhXNW/GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "6yas2PmxhgYAdYY0WK7oG2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "insertBefore",
                     "selector": "#spa-content > P:nth-of-type(1)",
                     "cssSelector": "#spa-content > P:nth-of-type(1)",
-                    "content": "<div id=\"action_insert_15889714592501888\">Please call Jason immediately</div>"
+                    "content": "<span id=\"action_insert_16123959178816145\">Please call Jason immediately</span>"
                   }
                 ]
               }
@@ -125,18 +99,18 @@
           }
         },
         {
-          "ruleKey": "345798-1",
-          "activityId": 345798,
+          "ruleKey": "125897-1",
+          "activityId": 125897,
           "meta": {
-            "activity.id": 345798,
-            "activity.name": "xt spa add text to contact page",
+            "activity.id": 125897,
+            "activity.name": "[unit-test] VEC SPA Contact correct",
             "activity.type": "landing",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "contact",
             "location.type": "view",
             "location.id": 1,
-            "audience.ids": [5634562, 5653736],
+            "audience.ids": [1821909, 1821913],
             "option.id": 3,
             "option.name": "Offer3"
           },
@@ -156,7 +130,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "DKyEy8B6J+arIj6GhXNW/GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "6yas2PmxhgYAdYY0WK7oG2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "setStyle",
@@ -174,18 +148,18 @@
           }
         },
         {
-          "ruleKey": "345798-0",
-          "activityId": 345798,
+          "ruleKey": "125897-0",
+          "activityId": 125897,
           "meta": {
-            "activity.id": 345798,
-            "activity.name": "xt spa add text to contact page",
+            "activity.id": 125897,
+            "activity.name": "[unit-test] VEC SPA Contact correct",
             "activity.type": "landing",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "contact",
             "location.type": "view",
             "location.id": 0,
-            "audience.ids": [5634157, 5653736],
+            "audience.ids": [1821910, 1821913],
             "option.id": 4,
             "option.name": "Offer4"
           },
@@ -205,13 +179,13 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "DKyEy8B6J+arIj6GhXNW/JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "6yas2PmxhgYAdYY0WK7oG5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "insertBefore",
                     "selector": "#spa-content > P:nth-of-type(1)",
                     "cssSelector": "#spa-content > P:nth-of-type(1)",
-                    "content": "<span id=\"action_insert_15889714897491922\">Please email Greg immediately</span>"
+                    "content": "<span id=\"action_insert_16123959719336188\">Please email Greg immediately</span>"
                   }
                 ]
               }
@@ -220,18 +194,18 @@
           }
         },
         {
-          "ruleKey": "345798-1",
-          "activityId": 345798,
+          "ruleKey": "125897-1",
+          "activityId": 125897,
           "meta": {
-            "activity.id": 345798,
-            "activity.name": "xt spa add text to contact page",
+            "activity.id": 125897,
+            "activity.name": "[unit-test] VEC SPA Contact correct",
             "activity.type": "landing",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "contact",
             "location.type": "view",
             "location.id": 1,
-            "audience.ids": [5634157, 5653736],
+            "audience.ids": [1821910, 1821913],
             "option.id": 5,
             "option.name": "Offer5"
           },
@@ -251,7 +225,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "DKyEy8B6J+arIj6GhXNW/JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "6yas2PmxhgYAdYY0WK7oG5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "setStyle",
@@ -269,18 +243,18 @@
           }
         },
         {
-          "ruleKey": "345798-0",
-          "activityId": 345798,
+          "ruleKey": "125897-0",
+          "activityId": 125897,
           "meta": {
-            "activity.id": 345798,
-            "activity.name": "xt spa add text to contact page",
+            "activity.id": 125897,
+            "activity.name": "[unit-test] VEC SPA Contact correct",
             "activity.type": "landing",
             "experience.id": 2,
             "experience.name": "Experience C",
             "location.name": "contact",
             "location.type": "view",
             "location.id": 0,
-            "audience.ids": [5653736],
+            "audience.ids": [1821913],
             "option.id": 6,
             "option.name": "Offer6"
           },
@@ -295,13 +269,13 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "DKyEy8B6J+arIj6GhXNW/AreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "6yas2PmxhgYAdYY0WK7oGwreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "insertAfter",
                     "selector": "#spa-content > P:nth-of-type(1)",
                     "cssSelector": "#spa-content > P:nth-of-type(1)",
-                    "content": "<span id=\"action_insert_15889715194712006\">Please do not contact us.</span>"
+                    "content": "<span id=\"action_insert_16123960266706314\">Please do not contact us.</span>"
                   }
                 ]
               }
@@ -310,18 +284,18 @@
           }
         },
         {
-          "ruleKey": "345798-1",
-          "activityId": 345798,
+          "ruleKey": "125897-1",
+          "activityId": 125897,
           "meta": {
-            "activity.id": 345798,
-            "activity.name": "xt spa add text to contact page",
+            "activity.id": 125897,
+            "activity.name": "[unit-test] VEC SPA Contact correct",
             "activity.type": "landing",
             "experience.id": 2,
             "experience.name": "Experience C",
             "location.name": "contact",
             "location.type": "view",
             "location.id": 1,
-            "audience.ids": [5653736],
+            "audience.ids": [1821913],
             "option.id": 7,
             "option.name": "Offer7"
           },
@@ -336,7 +310,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "DKyEy8B6J+arIj6GhXNW/AreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "6yas2PmxhgYAdYY0WK7oGwreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "setStyle",
@@ -356,18 +330,18 @@
       ],
       "home": [
         {
-          "ruleKey": "345782-0",
-          "activityId": 345782,
+          "ruleKey": "125900-0",
+          "activityId": 125900,
           "meta": {
-            "activity.id": 345782,
-            "activity.name": "ab spa view change add text with audiences",
+            "activity.id": 125900,
+            "activity.name": "[unit-test] VEC SPA Home AB Targeting",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "home",
             "location.type": "view",
             "location.id": 0,
-            "audience.ids": [5653493, 5634562],
+            "audience.ids": [1821921, 1821909],
             "option.id": 2,
             "option.name": "Offer2"
           },
@@ -393,7 +367,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "ob3/yMzSVllQx2v2P7122GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "insertAfter",
@@ -406,7 +380,7 @@
             ],
             "metrics": [
               {
-                "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
                 "selector": "#spa-content > P:nth-of-type(1)",
                 "type": "click"
               }
@@ -414,18 +388,18 @@
           }
         },
         {
-          "ruleKey": "345782-1",
-          "activityId": 345782,
+          "ruleKey": "125900-1",
+          "activityId": 125900,
           "meta": {
-            "activity.id": 345782,
-            "activity.name": "ab spa view change add text with audiences",
+            "activity.id": 125900,
+            "activity.name": "[unit-test] VEC SPA Home AB Targeting",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "home",
             "location.type": "view",
             "location.id": 1,
-            "audience.ids": [5653493, 5634562],
+            "audience.ids": [1821921, 1821909],
             "option.id": 3,
             "option.name": "Offer3"
           },
@@ -451,7 +425,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "ob3/yMzSVllQx2v2P7122GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "setHtml",
@@ -464,7 +438,7 @@
             ],
             "metrics": [
               {
-                "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
                 "selector": "#spa-content > P:nth-of-type(1)",
                 "type": "click"
               }
@@ -472,18 +446,18 @@
           }
         },
         {
-          "ruleKey": "345782-2",
-          "activityId": 345782,
+          "ruleKey": "125900-2",
+          "activityId": 125900,
           "meta": {
-            "activity.id": 345782,
-            "activity.name": "ab spa view change add text with audiences",
+            "activity.id": 125900,
+            "activity.name": "[unit-test] VEC SPA Home AB Targeting",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "home",
             "location.type": "view",
             "location.id": 2,
-            "audience.ids": [5653493, 5634157],
+            "audience.ids": [1821921, 1821910],
             "option.id": 4,
             "option.name": "Offer4"
           },
@@ -509,7 +483,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "ob3/yMzSVllQx2v2P7122GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "insertAfter",
@@ -522,7 +496,7 @@
             ],
             "metrics": [
               {
-                "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
                 "selector": "#spa-content > P:nth-of-type(1)",
                 "type": "click"
               }
@@ -530,18 +504,18 @@
           }
         },
         {
-          "ruleKey": "345782-3",
-          "activityId": 345782,
+          "ruleKey": "125900-3",
+          "activityId": 125900,
           "meta": {
-            "activity.id": 345782,
-            "activity.name": "ab spa view change add text with audiences",
+            "activity.id": 125900,
+            "activity.name": "[unit-test] VEC SPA Home AB Targeting",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "home",
             "location.type": "view",
             "location.id": 3,
-            "audience.ids": [5653493, 5634157],
+            "audience.ids": [1821921, 1821910],
             "option.id": 5,
             "option.name": "Offer5"
           },
@@ -567,7 +541,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "ob3/yMzSVllQx2v2P7122GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "setHtml",
@@ -580,7 +554,7 @@
             ],
             "metrics": [
               {
-                "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
                 "selector": "#spa-content > P:nth-of-type(1)",
                 "type": "click"
               }
@@ -588,18 +562,18 @@
           }
         },
         {
-          "ruleKey": "345782-4",
-          "activityId": 345782,
+          "ruleKey": "125900-4",
+          "activityId": 125900,
           "meta": {
-            "activity.id": 345782,
-            "activity.name": "ab spa view change add text with audiences",
+            "activity.id": 125900,
+            "activity.name": "[unit-test] VEC SPA Home AB Targeting",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "home",
             "location.type": "view",
             "location.id": 4,
-            "audience.ids": [5653493],
+            "audience.ids": [1821921],
             "option.id": 6,
             "option.name": "Offer6"
           },
@@ -624,7 +598,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "ob3/yMzSVllQx2v2P7122GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "insertAfter",
@@ -637,7 +611,7 @@
             ],
             "metrics": [
               {
-                "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
                 "selector": "#spa-content > P:nth-of-type(1)",
                 "type": "click"
               }
@@ -645,18 +619,18 @@
           }
         },
         {
-          "ruleKey": "345782-5",
-          "activityId": 345782,
+          "ruleKey": "125900-5",
+          "activityId": 125900,
           "meta": {
-            "activity.id": 345782,
-            "activity.name": "ab spa view change add text with audiences",
+            "activity.id": 125900,
+            "activity.name": "[unit-test] VEC SPA Home AB Targeting",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "home",
             "location.type": "view",
             "location.id": 5,
-            "audience.ids": [5653493],
+            "audience.ids": [1821921],
             "option.id": 7,
             "option.name": "Offer7"
           },
@@ -681,7 +655,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "ob3/yMzSVllQx2v2P7122GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "setHtml",
@@ -694,7 +668,7 @@
             ],
             "metrics": [
               {
-                "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
                 "selector": "#spa-content > P:nth-of-type(1)",
                 "type": "click"
               }
@@ -702,18 +676,18 @@
           }
         },
         {
-          "ruleKey": "345782-0",
-          "activityId": 345782,
+          "ruleKey": "125900-0",
+          "activityId": 125900,
           "meta": {
-            "activity.id": 345782,
-            "activity.name": "ab spa view change add text with audiences",
+            "activity.id": 125900,
+            "activity.name": "[unit-test] VEC SPA Home AB Targeting",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "home",
             "location.type": "view",
             "location.id": 0,
-            "audience.ids": [5653493, 5634562],
+            "audience.ids": [1821921, 1821909],
             "option.id": 8,
             "option.name": "Offer8"
           },
@@ -739,7 +713,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "8six9QjS6OroVLZeNlozQ5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "insertBefore",
@@ -752,7 +726,7 @@
             ],
             "metrics": [
               {
-                "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
                 "selector": "#spa-content > P:nth-of-type(1)",
                 "type": "click"
               }
@@ -760,18 +734,18 @@
           }
         },
         {
-          "ruleKey": "345782-1",
-          "activityId": 345782,
+          "ruleKey": "125900-1",
+          "activityId": 125900,
           "meta": {
-            "activity.id": 345782,
-            "activity.name": "ab spa view change add text with audiences",
+            "activity.id": 125900,
+            "activity.name": "[unit-test] VEC SPA Home AB Targeting",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "home",
             "location.type": "view",
             "location.id": 1,
-            "audience.ids": [5653493, 5634562],
+            "audience.ids": [1821921, 1821909],
             "option.id": 9,
             "option.name": "Offer9"
           },
@@ -797,7 +771,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "8six9QjS6OroVLZeNlozQ5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "setHtml",
@@ -810,7 +784,7 @@
             ],
             "metrics": [
               {
-                "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
                 "selector": "#spa-content > P:nth-of-type(1)",
                 "type": "click"
               }
@@ -818,18 +792,18 @@
           }
         },
         {
-          "ruleKey": "345782-2",
-          "activityId": 345782,
+          "ruleKey": "125900-2",
+          "activityId": 125900,
           "meta": {
-            "activity.id": 345782,
-            "activity.name": "ab spa view change add text with audiences",
+            "activity.id": 125900,
+            "activity.name": "[unit-test] VEC SPA Home AB Targeting",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "home",
             "location.type": "view",
             "location.id": 2,
-            "audience.ids": [5653493, 5634157],
+            "audience.ids": [1821921, 1821910],
             "option.id": 10,
             "option.name": "Offer10"
           },
@@ -855,7 +829,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "8six9QjS6OroVLZeNlozQ5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "insertBefore",
@@ -868,7 +842,7 @@
             ],
             "metrics": [
               {
-                "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
                 "selector": "#spa-content > P:nth-of-type(1)",
                 "type": "click"
               }
@@ -876,18 +850,18 @@
           }
         },
         {
-          "ruleKey": "345782-3",
-          "activityId": 345782,
+          "ruleKey": "125900-3",
+          "activityId": 125900,
           "meta": {
-            "activity.id": 345782,
-            "activity.name": "ab spa view change add text with audiences",
+            "activity.id": 125900,
+            "activity.name": "[unit-test] VEC SPA Home AB Targeting",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "home",
             "location.type": "view",
             "location.id": 3,
-            "audience.ids": [5653493, 5634157],
+            "audience.ids": [1821921, 1821910],
             "option.id": 11,
             "option.name": "Offer11"
           },
@@ -913,7 +887,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "8six9QjS6OroVLZeNlozQ5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "setHtml",
@@ -926,7 +900,7 @@
             ],
             "metrics": [
               {
-                "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
                 "selector": "#spa-content > P:nth-of-type(1)",
                 "type": "click"
               }
@@ -934,18 +908,18 @@
           }
         },
         {
-          "ruleKey": "345782-4",
-          "activityId": 345782,
+          "ruleKey": "125900-4",
+          "activityId": 125900,
           "meta": {
-            "activity.id": 345782,
-            "activity.name": "ab spa view change add text with audiences",
+            "activity.id": 125900,
+            "activity.name": "[unit-test] VEC SPA Home AB Targeting",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "home",
             "location.type": "view",
             "location.id": 4,
-            "audience.ids": [5653493],
+            "audience.ids": [1821921],
             "option.id": 12,
             "option.name": "Offer12"
           },
@@ -970,7 +944,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "8six9QjS6OroVLZeNlozQ5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "insertBefore",
@@ -983,7 +957,7 @@
             ],
             "metrics": [
               {
-                "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
                 "selector": "#spa-content > P:nth-of-type(1)",
                 "type": "click"
               }
@@ -991,18 +965,18 @@
           }
         },
         {
-          "ruleKey": "345782-5",
-          "activityId": 345782,
+          "ruleKey": "125900-5",
+          "activityId": 125900,
           "meta": {
-            "activity.id": 345782,
-            "activity.name": "ab spa view change add text with audiences",
+            "activity.id": 125900,
+            "activity.name": "[unit-test] VEC SPA Home AB Targeting",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "home",
             "location.type": "view",
             "location.id": 5,
-            "audience.ids": [5653493],
+            "audience.ids": [1821921],
             "option.id": 13,
             "option.name": "Offer13"
           },
@@ -1027,7 +1001,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "8six9QjS6OroVLZeNlozQ5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "setHtml",
@@ -1040,7 +1014,7 @@
             ],
             "metrics": [
               {
-                "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
                 "selector": "#spa-content > P:nth-of-type(1)",
                 "type": "click"
               }
@@ -1048,18 +1022,18 @@
           }
         },
         {
-          "ruleKey": "345779-0",
-          "activityId": 345779,
+          "ruleKey": "125898-0",
+          "activityId": 125898,
           "meta": {
-            "activity.id": 345779,
-            "activity.name": "ab spa view change multiple text no audiences",
+            "activity.id": 125898,
+            "activity.name": "[unit-test] VEC SPA Home AB",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "home",
             "location.type": "view",
             "location.id": 0,
-            "audience.ids": [5653426],
+            "audience.ids": [1821916],
             "option.id": 2,
             "option.name": "Offer2"
           },
@@ -1084,7 +1058,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "XQ6HqnRfrxl3ausAjtQJj2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "trE0BYJDkaVAM46CBN3B72qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "setHtml",
@@ -1099,18 +1073,18 @@
           }
         },
         {
-          "ruleKey": "345779-1",
-          "activityId": 345779,
+          "ruleKey": "125898-1",
+          "activityId": 125898,
           "meta": {
-            "activity.id": 345779,
-            "activity.name": "ab spa view change multiple text no audiences",
+            "activity.id": 125898,
+            "activity.name": "[unit-test] VEC SPA Home AB",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "home",
             "location.type": "view",
             "location.id": 1,
-            "audience.ids": [5653426],
+            "audience.ids": [1821916],
             "option.id": 3,
             "option.name": "Offer3"
           },
@@ -1135,7 +1109,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "XQ6HqnRfrxl3ausAjtQJj2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "trE0BYJDkaVAM46CBN3B72qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "setHtml",
@@ -1150,18 +1124,18 @@
           }
         },
         {
-          "ruleKey": "345779-0",
-          "activityId": 345779,
+          "ruleKey": "125898-0",
+          "activityId": 125898,
           "meta": {
-            "activity.id": 345779,
-            "activity.name": "ab spa view change multiple text no audiences",
+            "activity.id": 125898,
+            "activity.name": "[unit-test] VEC SPA Home AB",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "home",
             "location.type": "view",
             "location.id": 0,
-            "audience.ids": [5653426],
+            "audience.ids": [1821916],
             "option.id": 4,
             "option.name": "Offer4"
           },
@@ -1186,7 +1160,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "XQ6HqnRfrxl3ausAjtQJj5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "trE0BYJDkaVAM46CBN3B75NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "setHtml",
@@ -1201,18 +1175,18 @@
           }
         },
         {
-          "ruleKey": "345779-1",
-          "activityId": 345779,
+          "ruleKey": "125898-1",
+          "activityId": 125898,
           "meta": {
-            "activity.id": 345779,
-            "activity.name": "ab spa view change multiple text no audiences",
+            "activity.id": 125898,
+            "activity.name": "[unit-test] VEC SPA Home AB",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "home",
             "location.type": "view",
             "location.id": 1,
-            "audience.ids": [5653426],
+            "audience.ids": [1821916],
             "option.id": 5,
             "option.name": "Offer5"
           },
@@ -1237,7 +1211,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "XQ6HqnRfrxl3ausAjtQJj5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "trE0BYJDkaVAM46CBN3B75NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "setHtml",

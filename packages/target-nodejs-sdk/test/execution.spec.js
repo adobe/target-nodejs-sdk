@@ -12,7 +12,7 @@ const TargetClient = require("../src/index.server").default;
 const DELIVERY_RESPONSE = {
   status: 200,
   requestId: "7a568cbfe3f44f0b99d1092c246660c3",
-  client: "adobesummit2018",
+  client: "targettesting",
   id: {
     tntId: "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
     marketingCloudVisitorId: "07327024324407615852294135870030620007"

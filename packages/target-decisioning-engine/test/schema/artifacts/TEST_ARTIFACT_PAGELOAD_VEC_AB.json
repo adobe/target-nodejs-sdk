@@ -1,10 +1,10 @@
 {
   "targetAdminActivityUrls": [
-    "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/ab_add_text_local-target-test",
-    "https://experience.adobe.com/#/@adobesummit2018/target/activities/activitydetails/A-B/ab_non-spa_local-target-test"
+    "https://experience.adobe.com/#/@targettesting/target/activities/activitydetails/A-B/_unit-test_vec_pageloadabquote",
+    "https://experience.adobe.com/#/@targettesting/target/activities/activitydetails/A-B/_unit-test_vec_pageloadabtargeting"
   ],
   "version": "1.0.0",
-  "meta": { "clientCode": "adobesummit2018", "environment": "production" },
+  "meta": { "clientCode": "targettesting", "environment": "production" },
   "globalMbox": "target-global-mbox",
   "geoTargetingEnabled": true,
   "responseTokens": [
@@ -12,8 +12,6 @@
     "activity.name",
     "experience.id",
     "experience.name",
-    "experience.trafficAllocationId",
-    "experience.trafficAllocationType",
     "geo.city",
     "geo.country",
     "geo.state",
@@ -22,73 +20,49 @@
     "option.id",
     "option.name"
   ],
-  "remoteMboxes": ["target-global-mbox"],
-  "remoteViews": ["home"],
+  "remoteMboxes": [],
+  "remoteViews": [],
   "localMboxes": [
-    "alloy-test-scope-1",
-    "bannedtest",
-    "blippi",
-    "boogie",
-    "browser-mbox",
-    "composite2",
-    "crazy2",
-    "daterange-mbox",
-    "dell-countdown-mbox",
-    "dell-greeting-mbox",
-    "demo-engineering-flags",
-    "demo-geo-offer1",
-    "demo-marketing-flags",
-    "demo-marketing-offer1",
-    "demo-marketing-offer2",
-    "disney",
-    "dwalling-myFlags",
-    "expendable-mbox",
-    "foo",
-    "geo",
-    "gregtest42",
-    "gw-amp-email",
-    "gw-amp-email-thumbnail",
-    "jason-flags",
-    "kitty",
-    "local123456",
-    "location",
-    "macros",
-    "multinot",
-    "offer1",
-    "offer2",
-    "offer3",
-    "onboarding-mbox-1",
-    "perf1",
-    "product",
-    "redundant-mbox",
-    "sam-mbox",
-    "sam-mbox-2",
-    "something",
-    "specialk",
-    "splendid-mbox",
-    "superfluous-mbox",
+    "100k",
+    "1MB",
+    "1MB2",
+    "1MB3",
+    "250k",
+    "500k",
+    "allmatches",
+    "browserTest",
+    "mbox-browsers",
+    "mbox-dateranges",
+    "mbox-feature-flags",
+    "mbox-geography",
+    "mbox-macros",
+    "mbox-magician",
+    "mbox-params",
+    "mbox-prioritized",
+    "mbox-salutations",
+    "mbox-urlcontains",
+    "perf-mbox",
+    "super-duper",
     "target-global-mbox",
-    "testoffer",
-    "testoffer2",
-    "vanilla-mbox"
+    "testoffer"
   ],
-  "localViews": ["about", "contact"],
+  "localViews": ["contact", "home"],
   "rules": {
     "mboxes": {
       "target-global-mbox": [
         {
-          "ruleKey": "345139-0",
-          "activityId": 345139,
+          "ruleKey": "125903-0",
+          "activityId": 125903,
           "meta": {
-            "activity.id": 345139,
-            "activity.name": "ab non-spa local-target-test",
+            "activity.id": 125903,
+            "activity.name": "[unit-test] VEC pageload AB Targeting",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "target-global-mbox",
             "location.type": "view",
             "location.id": 0,
-            "audience.ids": [5639015, 5634157],
+            "audience.ids": [1821932, 1821910],
             "option.id": 2,
             "option.name": "Offer2"
           },
@@ -114,7 +88,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "/SXLXTYTqMY5xlnwaQZrEWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "LMySqrtravkupqnau/HAw2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "setHtml",
@@ -127,7 +101,7 @@
             ],
             "metrics": [
               {
-                "eventToken": "Q9GlxKlDqT/fvIjxW5jUrg==",
+                "eventToken": "mA0vg/B/tr+Xc8w5W5hKZg==",
                 "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
@@ -135,18 +109,18 @@
           }
         },
         {
-          "ruleKey": "345139-1",
-          "activityId": 345139,
+          "ruleKey": "125903-1",
+          "activityId": 125903,
           "meta": {
-            "activity.id": 345139,
-            "activity.name": "ab non-spa local-target-test",
+            "activity.id": 125903,
+            "activity.name": "[unit-test] VEC pageload AB Targeting",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "target-global-mbox",
             "location.type": "view",
             "location.id": 1,
-            "audience.ids": [5639015, 5634157],
+            "audience.ids": [1821932, 1821910],
             "option.id": 3,
             "option.name": "Offer3"
           },
@@ -172,7 +146,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "/SXLXTYTqMY5xlnwaQZrEWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "LMySqrtravkupqnau/HAw2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "setStyle",
@@ -188,7 +162,7 @@
             ],
             "metrics": [
               {
-                "eventToken": "Q9GlxKlDqT/fvIjxW5jUrg==",
+                "eventToken": "mA0vg/B/tr+Xc8w5W5hKZg==",
                 "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
@@ -196,18 +170,18 @@
           }
         },
         {
-          "ruleKey": "345139-2",
-          "activityId": 345139,
+          "ruleKey": "125903-2",
+          "activityId": 125903,
           "meta": {
-            "activity.id": 345139,
-            "activity.name": "ab non-spa local-target-test",
+            "activity.id": 125903,
+            "activity.name": "[unit-test] VEC pageload AB Targeting",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "target-global-mbox",
             "location.type": "view",
             "location.id": 2,
-            "audience.ids": [5639015, 5634562],
+            "audience.ids": [1821932, 1821909],
             "option.id": 4,
             "option.name": "Offer4"
           },
@@ -233,7 +207,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "/SXLXTYTqMY5xlnwaQZrEWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "LMySqrtravkupqnau/HAw2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "setHtml",
@@ -246,7 +220,7 @@
             ],
             "metrics": [
               {
-                "eventToken": "Q9GlxKlDqT/fvIjxW5jUrg==",
+                "eventToken": "mA0vg/B/tr+Xc8w5W5hKZg==",
                 "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
@@ -254,18 +228,18 @@
           }
         },
         {
-          "ruleKey": "345139-3",
-          "activityId": 345139,
+          "ruleKey": "125903-3",
+          "activityId": 125903,
           "meta": {
-            "activity.id": 345139,
-            "activity.name": "ab non-spa local-target-test",
+            "activity.id": 125903,
+            "activity.name": "[unit-test] VEC pageload AB Targeting",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "target-global-mbox",
             "location.type": "view",
             "location.id": 3,
-            "audience.ids": [5639015, 5634562],
+            "audience.ids": [1821932, 1821909],
             "option.id": 5,
             "option.name": "Offer5"
           },
@@ -291,7 +265,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "/SXLXTYTqMY5xlnwaQZrEWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "LMySqrtravkupqnau/HAw2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "setStyle",
@@ -307,7 +281,7 @@
             ],
             "metrics": [
               {
-                "eventToken": "Q9GlxKlDqT/fvIjxW5jUrg==",
+                "eventToken": "mA0vg/B/tr+Xc8w5W5hKZg==",
                 "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
@@ -315,18 +289,18 @@
           }
         },
         {
-          "ruleKey": "345139-4",
-          "activityId": 345139,
+          "ruleKey": "125903-4",
+          "activityId": 125903,
           "meta": {
-            "activity.id": 345139,
-            "activity.name": "ab non-spa local-target-test",
+            "activity.id": 125903,
+            "activity.name": "[unit-test] VEC pageload AB Targeting",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "target-global-mbox",
             "location.type": "view",
             "location.id": 4,
-            "audience.ids": [5639015],
+            "audience.ids": [1821932],
             "option.id": 6,
             "option.name": "Offer6"
           },
@@ -351,7 +325,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "/SXLXTYTqMY5xlnwaQZrEWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "LMySqrtravkupqnau/HAw2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "insertBefore",
@@ -364,7 +338,7 @@
             ],
             "metrics": [
               {
-                "eventToken": "Q9GlxKlDqT/fvIjxW5jUrg==",
+                "eventToken": "mA0vg/B/tr+Xc8w5W5hKZg==",
                 "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
@@ -372,18 +346,18 @@
           }
         },
         {
-          "ruleKey": "345139-5",
-          "activityId": 345139,
+          "ruleKey": "125903-5",
+          "activityId": 125903,
           "meta": {
-            "activity.id": 345139,
-            "activity.name": "ab non-spa local-target-test",
+            "activity.id": 125903,
+            "activity.name": "[unit-test] VEC pageload AB Targeting",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "target-global-mbox",
             "location.type": "view",
             "location.id": 5,
-            "audience.ids": [5639015, 5634157],
+            "audience.ids": [1821932, 1821910],
             "option.id": 0
           },
           "condition": {
@@ -407,12 +381,12 @@
             "name": "target-global-mbox",
             "options": [
               {
-                "eventToken": "/SXLXTYTqMY5xlnwaQZrEWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                "eventToken": "LMySqrtravkupqnau/HAw2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             "metrics": [
               {
-                "eventToken": "Q9GlxKlDqT/fvIjxW5jUrg==",
+                "eventToken": "mA0vg/B/tr+Xc8w5W5hKZg==",
                 "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
@@ -420,18 +394,18 @@
           }
         },
         {
-          "ruleKey": "345139-6",
-          "activityId": 345139,
+          "ruleKey": "125903-6",
+          "activityId": 125903,
           "meta": {
-            "activity.id": 345139,
-            "activity.name": "ab non-spa local-target-test",
+            "activity.id": 125903,
+            "activity.name": "[unit-test] VEC pageload AB Targeting",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "target-global-mbox",
             "location.type": "view",
             "location.id": 6,
-            "audience.ids": [5639015, 5634157],
+            "audience.ids": [1821932, 1821910],
             "option.id": 0
           },
           "condition": {
@@ -455,12 +429,12 @@
             "name": "target-global-mbox",
             "options": [
               {
-                "eventToken": "/SXLXTYTqMY5xlnwaQZrEWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                "eventToken": "LMySqrtravkupqnau/HAw2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             "metrics": [
               {
-                "eventToken": "Q9GlxKlDqT/fvIjxW5jUrg==",
+                "eventToken": "mA0vg/B/tr+Xc8w5W5hKZg==",
                 "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
@@ -468,18 +442,18 @@
           }
         },
         {
-          "ruleKey": "345139-7",
-          "activityId": 345139,
+          "ruleKey": "125903-7",
+          "activityId": 125903,
           "meta": {
-            "activity.id": 345139,
-            "activity.name": "ab non-spa local-target-test",
+            "activity.id": 125903,
+            "activity.name": "[unit-test] VEC pageload AB Targeting",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "target-global-mbox",
             "location.type": "view",
             "location.id": 7,
-            "audience.ids": [5639015, 5634562],
+            "audience.ids": [1821932, 1821909],
             "option.id": 0
           },
           "condition": {
@@ -503,12 +477,12 @@
             "name": "target-global-mbox",
             "options": [
               {
-                "eventToken": "/SXLXTYTqMY5xlnwaQZrEWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                "eventToken": "LMySqrtravkupqnau/HAw2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             "metrics": [
               {
-                "eventToken": "Q9GlxKlDqT/fvIjxW5jUrg==",
+                "eventToken": "mA0vg/B/tr+Xc8w5W5hKZg==",
                 "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
@@ -516,18 +490,18 @@
           }
         },
         {
-          "ruleKey": "345139-8",
-          "activityId": 345139,
+          "ruleKey": "125903-8",
+          "activityId": 125903,
           "meta": {
-            "activity.id": 345139,
-            "activity.name": "ab non-spa local-target-test",
+            "activity.id": 125903,
+            "activity.name": "[unit-test] VEC pageload AB Targeting",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "target-global-mbox",
             "location.type": "view",
             "location.id": 8,
-            "audience.ids": [5639015, 5634562],
+            "audience.ids": [1821932, 1821909],
             "option.id": 0
           },
           "condition": {
@@ -551,12 +525,12 @@
             "name": "target-global-mbox",
             "options": [
               {
-                "eventToken": "/SXLXTYTqMY5xlnwaQZrEWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                "eventToken": "LMySqrtravkupqnau/HAw2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             "metrics": [
               {
-                "eventToken": "Q9GlxKlDqT/fvIjxW5jUrg==",
+                "eventToken": "mA0vg/B/tr+Xc8w5W5hKZg==",
                 "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
@@ -564,18 +538,18 @@
           }
         },
         {
-          "ruleKey": "345139-0",
-          "activityId": 345139,
+          "ruleKey": "125903-0",
+          "activityId": 125903,
           "meta": {
-            "activity.id": 345139,
-            "activity.name": "ab non-spa local-target-test",
+            "activity.id": 125903,
+            "activity.name": "[unit-test] VEC pageload AB Targeting",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "target-global-mbox",
             "location.type": "view",
             "location.id": 0,
-            "audience.ids": [5639015, 5634157],
+            "audience.ids": [1821932, 1821910],
             "option.id": 0
           },
           "condition": {
@@ -599,12 +573,12 @@
             "name": "target-global-mbox",
             "options": [
               {
-                "eventToken": "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                "eventToken": "LMySqrtravkupqnau/HAw5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             "metrics": [
               {
-                "eventToken": "Q9GlxKlDqT/fvIjxW5jUrg==",
+                "eventToken": "mA0vg/B/tr+Xc8w5W5hKZg==",
                 "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
@@ -612,18 +586,18 @@
           }
         },
         {
-          "ruleKey": "345139-1",
-          "activityId": 345139,
+          "ruleKey": "125903-1",
+          "activityId": 125903,
           "meta": {
-            "activity.id": 345139,
-            "activity.name": "ab non-spa local-target-test",
+            "activity.id": 125903,
+            "activity.name": "[unit-test] VEC pageload AB Targeting",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "target-global-mbox",
             "location.type": "view",
             "location.id": 1,
-            "audience.ids": [5639015, 5634157],
+            "audience.ids": [1821932, 1821910],
             "option.id": 0
           },
           "condition": {
@@ -647,12 +621,12 @@
             "name": "target-global-mbox",
             "options": [
               {
-                "eventToken": "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                "eventToken": "LMySqrtravkupqnau/HAw5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             "metrics": [
               {
-                "eventToken": "Q9GlxKlDqT/fvIjxW5jUrg==",
+                "eventToken": "mA0vg/B/tr+Xc8w5W5hKZg==",
                 "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
@@ -660,18 +634,18 @@
           }
         },
         {
-          "ruleKey": "345139-2",
-          "activityId": 345139,
+          "ruleKey": "125903-2",
+          "activityId": 125903,
           "meta": {
-            "activity.id": 345139,
-            "activity.name": "ab non-spa local-target-test",
+            "activity.id": 125903,
+            "activity.name": "[unit-test] VEC pageload AB Targeting",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "target-global-mbox",
             "location.type": "view",
             "location.id": 2,
-            "audience.ids": [5639015, 5634562],
+            "audience.ids": [1821932, 1821909],
             "option.id": 0
           },
           "condition": {
@@ -695,12 +669,12 @@
             "name": "target-global-mbox",
             "options": [
               {
-                "eventToken": "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                "eventToken": "LMySqrtravkupqnau/HAw5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             "metrics": [
               {
-                "eventToken": "Q9GlxKlDqT/fvIjxW5jUrg==",
+                "eventToken": "mA0vg/B/tr+Xc8w5W5hKZg==",
                 "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
@@ -708,18 +682,18 @@
           }
         },
         {
-          "ruleKey": "345139-3",
-          "activityId": 345139,
+          "ruleKey": "125903-3",
+          "activityId": 125903,
           "meta": {
-            "activity.id": 345139,
-            "activity.name": "ab non-spa local-target-test",
+            "activity.id": 125903,
+            "activity.name": "[unit-test] VEC pageload AB Targeting",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "target-global-mbox",
             "location.type": "view",
             "location.id": 3,
-            "audience.ids": [5639015, 5634562],
+            "audience.ids": [1821932, 1821909],
             "option.id": 0
           },
           "condition": {
@@ -743,12 +717,12 @@
             "name": "target-global-mbox",
             "options": [
               {
-                "eventToken": "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                "eventToken": "LMySqrtravkupqnau/HAw5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             "metrics": [
               {
-                "eventToken": "Q9GlxKlDqT/fvIjxW5jUrg==",
+                "eventToken": "mA0vg/B/tr+Xc8w5W5hKZg==",
                 "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
@@ -756,18 +730,18 @@
           }
         },
         {
-          "ruleKey": "345139-4",
-          "activityId": 345139,
+          "ruleKey": "125903-4",
+          "activityId": 125903,
           "meta": {
-            "activity.id": 345139,
-            "activity.name": "ab non-spa local-target-test",
+            "activity.id": 125903,
+            "activity.name": "[unit-test] VEC pageload AB Targeting",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "target-global-mbox",
             "location.type": "view",
             "location.id": 4,
-            "audience.ids": [5639015],
+            "audience.ids": [1821932],
             "option.id": 11,
             "option.name": "Offer11"
           },
@@ -792,7 +766,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "LMySqrtravkupqnau/HAw5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "insertBefore",
@@ -805,7 +779,7 @@
             ],
             "metrics": [
               {
-                "eventToken": "Q9GlxKlDqT/fvIjxW5jUrg==",
+                "eventToken": "mA0vg/B/tr+Xc8w5W5hKZg==",
                 "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
@@ -813,18 +787,18 @@
           }
         },
         {
-          "ruleKey": "345139-5",
-          "activityId": 345139,
+          "ruleKey": "125903-5",
+          "activityId": 125903,
           "meta": {
-            "activity.id": 345139,
-            "activity.name": "ab non-spa local-target-test",
+            "activity.id": 125903,
+            "activity.name": "[unit-test] VEC pageload AB Targeting",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "target-global-mbox",
             "location.type": "view",
             "location.id": 5,
-            "audience.ids": [5639015, 5634157],
+            "audience.ids": [1821932, 1821910],
             "option.id": 7,
             "option.name": "Offer7"
           },
@@ -850,7 +824,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "LMySqrtravkupqnau/HAw5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "setHtml",
@@ -863,7 +837,7 @@
             ],
             "metrics": [
               {
-                "eventToken": "Q9GlxKlDqT/fvIjxW5jUrg==",
+                "eventToken": "mA0vg/B/tr+Xc8w5W5hKZg==",
                 "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
@@ -871,18 +845,18 @@
           }
         },
         {
-          "ruleKey": "345139-6",
-          "activityId": 345139,
+          "ruleKey": "125903-6",
+          "activityId": 125903,
           "meta": {
-            "activity.id": 345139,
-            "activity.name": "ab non-spa local-target-test",
+            "activity.id": 125903,
+            "activity.name": "[unit-test] VEC pageload AB Targeting",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "target-global-mbox",
             "location.type": "view",
             "location.id": 6,
-            "audience.ids": [5639015, 5634157],
+            "audience.ids": [1821932, 1821910],
             "option.id": 8,
             "option.name": "Offer8"
           },
@@ -908,7 +882,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "LMySqrtravkupqnau/HAw5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "insertBefore",
@@ -921,7 +895,7 @@
             ],
             "metrics": [
               {
-                "eventToken": "Q9GlxKlDqT/fvIjxW5jUrg==",
+                "eventToken": "mA0vg/B/tr+Xc8w5W5hKZg==",
                 "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
@@ -929,18 +903,18 @@
           }
         },
         {
-          "ruleKey": "345139-7",
-          "activityId": 345139,
+          "ruleKey": "125903-7",
+          "activityId": 125903,
           "meta": {
-            "activity.id": 345139,
-            "activity.name": "ab non-spa local-target-test",
+            "activity.id": 125903,
+            "activity.name": "[unit-test] VEC pageload AB Targeting",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "target-global-mbox",
             "location.type": "view",
             "location.id": 7,
-            "audience.ids": [5639015, 5634562],
+            "audience.ids": [1821932, 1821909],
             "option.id": 9,
             "option.name": "Offer9"
           },
@@ -966,7 +940,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "LMySqrtravkupqnau/HAw5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "setHtml",
@@ -979,7 +953,7 @@
             ],
             "metrics": [
               {
-                "eventToken": "Q9GlxKlDqT/fvIjxW5jUrg==",
+                "eventToken": "mA0vg/B/tr+Xc8w5W5hKZg==",
                 "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
@@ -987,18 +961,18 @@
           }
         },
         {
-          "ruleKey": "345139-8",
-          "activityId": 345139,
+          "ruleKey": "125903-8",
+          "activityId": 125903,
           "meta": {
-            "activity.id": 345139,
-            "activity.name": "ab non-spa local-target-test",
+            "activity.id": 125903,
+            "activity.name": "[unit-test] VEC pageload AB Targeting",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "target-global-mbox",
             "location.type": "view",
             "location.id": 8,
-            "audience.ids": [5639015, 5634562],
+            "audience.ids": [1821932, 1821909],
             "option.id": 10,
             "option.name": "Offer10"
           },
@@ -1024,7 +998,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "/SXLXTYTqMY5xlnwaQZrEZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "LMySqrtravkupqnau/HAw5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "insertBefore",
@@ -1037,7 +1011,7 @@
             ],
             "metrics": [
               {
-                "eventToken": "Q9GlxKlDqT/fvIjxW5jUrg==",
+                "eventToken": "mA0vg/B/tr+Xc8w5W5hKZg==",
                 "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
@@ -1045,18 +1019,18 @@
           }
         },
         {
-          "ruleKey": "344512-0",
-          "activityId": 344512,
+          "ruleKey": "125902-0",
+          "activityId": 125902,
           "meta": {
-            "activity.id": 344512,
-            "activity.name": "ab add text local-target-test 344512",
+            "activity.id": 125902,
+            "activity.name": "[unit-test] VEC pageload AB quote",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "target-global-mbox",
             "location.type": "view",
             "location.id": 0,
-            "audience.ids": [5614593],
+            "audience.ids": [1821927],
             "option.id": 2,
             "option.name": "Offer2"
           },
@@ -1069,14 +1043,9 @@
                 ]
               },
               {
-                "or": [
-                  {
-                    "and": [
-                      { "==": ["local-target-test", { "var": "page.domain" }] },
-                      { "==": ["/", { "var": "page.path" }] }
-                    ]
-                  },
-                  { "in": ["adbeld.surge.sh", { "var": "page.url_lc" }] }
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
                 ]
               }
             ]
@@ -1086,7 +1055,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "6Na6eWan1u0HrN32JDT54GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "xd43pwufeHNfJ8TYGqptsWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "insertAfter",
@@ -1099,26 +1068,26 @@
             ],
             "metrics": [
               {
-                "eventToken": "/GMYvcjhUsR6WVqQElppUw==",
-                "selector": "#action_insert_15882853393943012",
+                "eventToken": "sut3ennRTzxjSDUsIWzO4Q==",
+                "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
             ]
           }
         },
         {
-          "ruleKey": "344512-1",
-          "activityId": 344512,
+          "ruleKey": "125902-1",
+          "activityId": 125902,
           "meta": {
-            "activity.id": 344512,
-            "activity.name": "ab add text local-target-test 344512",
+            "activity.id": 125902,
+            "activity.name": "[unit-test] VEC pageload AB quote",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "target-global-mbox",
             "location.type": "view",
             "location.id": 1,
-            "audience.ids": [5614593],
+            "audience.ids": [1821927],
             "option.id": 3,
             "option.name": "Offer3"
           },
@@ -1131,14 +1100,9 @@
                 ]
               },
               {
-                "or": [
-                  {
-                    "and": [
-                      { "==": ["local-target-test", { "var": "page.domain" }] },
-                      { "==": ["/", { "var": "page.path" }] }
-                    ]
-                  },
-                  { "in": ["adbeld.surge.sh", { "var": "page.url_lc" }] }
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
                 ]
               }
             ]
@@ -1148,7 +1112,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "6Na6eWan1u0HrN32JDT54GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "xd43pwufeHNfJ8TYGqptsWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "setStyle",
@@ -1164,26 +1128,26 @@
             ],
             "metrics": [
               {
-                "eventToken": "/GMYvcjhUsR6WVqQElppUw==",
-                "selector": "#action_insert_15882853393943012",
+                "eventToken": "sut3ennRTzxjSDUsIWzO4Q==",
+                "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
             ]
           }
         },
         {
-          "ruleKey": "344512-2",
-          "activityId": 344512,
+          "ruleKey": "125902-2",
+          "activityId": 125902,
           "meta": {
-            "activity.id": 344512,
-            "activity.name": "ab add text local-target-test 344512",
+            "activity.id": 125902,
+            "activity.name": "[unit-test] VEC pageload AB quote",
             "activity.type": "ab",
             "experience.id": 0,
             "experience.name": "Experience A",
             "location.name": "target-global-mbox",
             "location.type": "view",
             "location.id": 2,
-            "audience.ids": [5614593],
+            "audience.ids": [1821927],
             "option.id": 0
           },
           "condition": {
@@ -1195,14 +1159,9 @@
                 ]
               },
               {
-                "or": [
-                  {
-                    "and": [
-                      { "==": ["local-target-test", { "var": "page.domain" }] },
-                      { "==": ["/", { "var": "page.path" }] }
-                    ]
-                  },
-                  { "in": ["adbeld.surge.sh", { "var": "page.url_lc" }] }
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
                 ]
               }
             ]
@@ -1211,31 +1170,31 @@
             "name": "target-global-mbox",
             "options": [
               {
-                "eventToken": "6Na6eWan1u0HrN32JDT54GqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                "eventToken": "xd43pwufeHNfJ8TYGqptsWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             "metrics": [
               {
-                "eventToken": "/GMYvcjhUsR6WVqQElppUw==",
-                "selector": "#action_insert_15882853393943012",
+                "eventToken": "sut3ennRTzxjSDUsIWzO4Q==",
+                "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
             ]
           }
         },
         {
-          "ruleKey": "344512-0",
-          "activityId": 344512,
+          "ruleKey": "125902-0",
+          "activityId": 125902,
           "meta": {
-            "activity.id": 344512,
-            "activity.name": "ab add text local-target-test 344512",
+            "activity.id": 125902,
+            "activity.name": "[unit-test] VEC pageload AB quote",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "target-global-mbox",
             "location.type": "view",
             "location.id": 0,
-            "audience.ids": [5614593],
+            "audience.ids": [1821927],
             "option.id": 4,
             "option.name": "Offer4"
           },
@@ -1248,14 +1207,9 @@
                 ]
               },
               {
-                "or": [
-                  {
-                    "and": [
-                      { "==": ["local-target-test", { "var": "page.domain" }] },
-                      { "==": ["/", { "var": "page.path" }] }
-                    ]
-                  },
-                  { "in": ["adbeld.surge.sh", { "var": "page.url_lc" }] }
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
                 ]
               }
             ]
@@ -1265,7 +1219,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "6Na6eWan1u0HrN32JDT54JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "xd43pwufeHNfJ8TYGqptsZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "insertAfter",
@@ -1278,26 +1232,26 @@
             ],
             "metrics": [
               {
-                "eventToken": "/GMYvcjhUsR6WVqQElppUw==",
-                "selector": "#action_insert_15882853393943012",
+                "eventToken": "sut3ennRTzxjSDUsIWzO4Q==",
+                "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
             ]
           }
         },
         {
-          "ruleKey": "344512-1",
-          "activityId": 344512,
+          "ruleKey": "125902-1",
+          "activityId": 125902,
           "meta": {
-            "activity.id": 344512,
-            "activity.name": "ab add text local-target-test 344512",
+            "activity.id": 125902,
+            "activity.name": "[unit-test] VEC pageload AB quote",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "target-global-mbox",
             "location.type": "view",
             "location.id": 1,
-            "audience.ids": [5614593],
+            "audience.ids": [1821927],
             "option.id": 0
           },
           "condition": {
@@ -1309,14 +1263,9 @@
                 ]
               },
               {
-                "or": [
-                  {
-                    "and": [
-                      { "==": ["local-target-test", { "var": "page.domain" }] },
-                      { "==": ["/", { "var": "page.path" }] }
-                    ]
-                  },
-                  { "in": ["adbeld.surge.sh", { "var": "page.url_lc" }] }
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
                 ]
               }
             ]
@@ -1325,31 +1274,31 @@
             "name": "target-global-mbox",
             "options": [
               {
-                "eventToken": "6Na6eWan1u0HrN32JDT54JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                "eventToken": "xd43pwufeHNfJ8TYGqptsZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
               }
             ],
             "metrics": [
               {
-                "eventToken": "/GMYvcjhUsR6WVqQElppUw==",
-                "selector": "#action_insert_15882853393943012",
+                "eventToken": "sut3ennRTzxjSDUsIWzO4Q==",
+                "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
             ]
           }
         },
         {
-          "ruleKey": "344512-2",
-          "activityId": 344512,
+          "ruleKey": "125902-2",
+          "activityId": 125902,
           "meta": {
-            "activity.id": 344512,
-            "activity.name": "ab add text local-target-test 344512",
+            "activity.id": 125902,
+            "activity.name": "[unit-test] VEC pageload AB quote",
             "activity.type": "ab",
             "experience.id": 1,
             "experience.name": "Experience B",
             "location.name": "target-global-mbox",
             "location.type": "view",
             "location.id": 2,
-            "audience.ids": [5614593],
+            "audience.ids": [1821927],
             "option.id": 5,
             "option.name": "Offer5"
           },
@@ -1362,14 +1311,9 @@
                 ]
               },
               {
-                "or": [
-                  {
-                    "and": [
-                      { "==": ["local-target-test", { "var": "page.domain" }] },
-                      { "==": ["/", { "var": "page.path" }] }
-                    ]
-                  },
-                  { "in": ["adbeld.surge.sh", { "var": "page.url_lc" }] }
+                "and": [
+                  { "==": ["local-target-test", { "var": "page.domain" }] },
+                  { "==": ["/", { "var": "page.path" }] }
                 ]
               }
             ]
@@ -1379,7 +1323,7 @@
             "options": [
               {
                 "type": "actions",
-                "eventToken": "6Na6eWan1u0HrN32JDT54JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "xd43pwufeHNfJ8TYGqptsZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": [
                   {
                     "type": "setStyle",
@@ -1395,8 +1339,8 @@
             ],
             "metrics": [
               {
-                "eventToken": "/GMYvcjhUsR6WVqQElppUw==",
-                "selector": "#action_insert_15882853393943012",
+                "eventToken": "sut3ennRTzxjSDUsIWzO4Q==",
+                "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
             ]

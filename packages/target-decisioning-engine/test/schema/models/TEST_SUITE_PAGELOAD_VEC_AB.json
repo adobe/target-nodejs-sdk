@@ -40,7 +40,7 @@
                     "type": "insertBefore",
                     "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                     "cssSelector": "HTML > BODY > DIV:nth-of-type(2) > IMG:nth-of-type(1)",
-                    "content": "<p id=\"action_insert_15887183664846489\">experience B</p>"
+                    "content": "<p id=\"action_insert_15887183492726231\">experience A</p>"
                   }
                 ]
               },
@@ -72,13 +72,13 @@
             ],
             "metrics": [
               {
-                "eventToken": "Q9GlxKlDqT/fvIjxW5jUrg==",
+                "eventToken": "mA0vg/B/tr+Xc8w5W5hKZg==",
                 "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               },
               {
-                "eventToken": "/GMYvcjhUsR6WVqQElppUw==",
-                "selector": "#action_insert_15882853393943012",
+                "eventToken": "sut3ennRTzxjSDUsIWzO4Q==",
+                "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
             ]
@@ -120,20 +120,9 @@
                 "type": "actions",
                 "content": [
                   {
-                    "type": "insertBefore",
-                    "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
-                    "cssSelector": "HTML > BODY > DIV:nth-of-type(2) > IMG:nth-of-type(1)",
-                    "content": "<p id=\"action_insert_15887183664846489\">experience B</p>"
-                  }
-                ]
-              },
-              {
-                "type": "actions",
-                "content": [
-                  {
                     "type": "setHtml",
-                    "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
-                    "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
+                    "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
+                    "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
                     "content": "jason is correct"
                   }
                 ]
@@ -142,10 +131,24 @@
                 "type": "actions",
                 "content": [
                   {
+                    "type": "setStyle",
+                    "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
+                    "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
+                    "content": {
+                      "background-color": "rgba(170,255,255,1)",
+                      "priority": "important"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "actions",
+                "content": [
+                  {
                     "type": "insertBefore",
-                    "selector": "HTML > BODY > UL:nth-of-type(1)",
-                    "cssSelector": "HTML > BODY > UL:nth-of-type(1)",
-                    "content": "<p id=\"action_insert_15887181773115309\"> jasonnnnnnnn</p>"
+                    "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(2) > IMG:nth-of-type(1)",
+                    "content": "<p id=\"action_insert_15887183492726231\">experience A</p>"
                   }
                 ]
               },
@@ -177,13 +180,13 @@
             ],
             "metrics": [
               {
-                "eventToken": "Q9GlxKlDqT/fvIjxW5jUrg==",
+                "eventToken": "mA0vg/B/tr+Xc8w5W5hKZg==",
                 "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               },
               {
-                "eventToken": "/GMYvcjhUsR6WVqQElppUw==",
-                "selector": "#action_insert_15882853393943012",
+                "eventToken": "sut3ennRTzxjSDUsIWzO4Q==",
+                "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
             ]
@@ -226,20 +229,9 @@
                 "type": "actions",
                 "content": [
                   {
-                    "type": "insertBefore",
-                    "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
-                    "cssSelector": "HTML > BODY > DIV:nth-of-type(2) > IMG:nth-of-type(1)",
-                    "content": "<p id=\"action_insert_15887183664846489\">experience B</p>"
-                  }
-                ]
-              },
-              {
-                "type": "actions",
-                "content": [
-                  {
                     "type": "setHtml",
-                    "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
-                    "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
+                    "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
+                    "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
                     "content": "greg is correct"
                   }
                 ]
@@ -248,30 +240,22 @@
                 "type": "actions",
                 "content": [
                   {
-                    "type": "insertBefore",
-                    "selector": "HTML > BODY > UL:nth-of-type(1)",
-                    "cssSelector": "HTML > BODY > UL:nth-of-type(1)",
-                    "content": "<p id=\"action_insert_15887181614905265\"> gregggggg</p>"
-                  }
-                ]
-              },
-              {
-                "type": "actions",
-                "content": [
-                  {
-                    "type": "setHtml",
-                    "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
-                    "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
-                    "content": "jason is correct"
+                    "type": "setStyle",
+                    "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
+                    "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
+                    "content": {
+                      "background-color": "rgba(127,255,0,1)",
+                      "priority": "important"
+                    }
                   }
                 ],
                 "responseTokens": {
-                  "activity.id": 345139,
-                  "activity.name": "ab non-spa local-target-test",
-                  "experience.id": 1,
-                  "experience.name": "Experience B",
-                  "option.id": 9,
-                  "option.name": "Offer9",
+                  "activity.id": 125903,
+                  "activity.name": "[unit-test] VEC pageload AB Targeting",
+                  "experience.id": 0,
+                  "experience.name": "Experience A",
+                  "option.id": 3,
+                  "option.name": "Offer3",
                   "activity.decisioningMethod": "on-device"
                 }
               },
@@ -279,10 +263,35 @@
                 "type": "actions",
                 "content": [
                   {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
+                    "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
+                    "content": "jason is correct"
+                  }
+                ]
+              },
+              {
+                "type": "actions",
+                "content": [
+                  {
+                    "type": "setStyle",
+                    "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
+                    "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
+                    "content": {
+                      "background-color": "rgba(170,255,255,1)",
+                      "priority": "important"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "actions",
+                "content": [
+                  {
                     "type": "insertBefore",
-                    "selector": "HTML > BODY > UL:nth-of-type(1)",
-                    "cssSelector": "HTML > BODY > UL:nth-of-type(1)",
-                    "content": "<p id=\"action_insert_15887181773115309\"> jasonnnnnnnn</p>"
+                    "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(2) > IMG:nth-of-type(1)",
+                    "content": "<p id=\"action_insert_15887183492726231\">experience A</p>"
                   }
                 ]
               },
@@ -314,13 +323,13 @@
             ],
             "metrics": [
               {
-                "eventToken": "Q9GlxKlDqT/fvIjxW5jUrg==",
+                "eventToken": "mA0vg/B/tr+Xc8w5W5hKZg==",
                 "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               },
               {
-                "eventToken": "/GMYvcjhUsR6WVqQElppUw==",
-                "selector": "#action_insert_15882853393943012",
+                "eventToken": "sut3ennRTzxjSDUsIWzO4Q==",
+                "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
                 "type": "click"
               }
             ]

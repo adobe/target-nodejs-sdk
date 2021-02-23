@@ -13,7 +13,7 @@ describe("SDK.getAttributes()", () => {
   const DELIVERY_API_RESPONSE = {
     status: 200,
     requestId: "0c22fb957e8b4297b29ab3932bb179c3",
-    client: "adobesummit2018",
+    client: "targettesting",
     id: {
       tntId: "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
       marketingCloudVisitorId: "07327024324407615852294135870030620007"

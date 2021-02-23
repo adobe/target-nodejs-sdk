@@ -26,7 +26,7 @@
           "execute": {
             "mboxes": [
               {
-                "name": "offer2",
+                "name": "mbox-urlcontains",
                 "index": 1
               }
             ]
@@ -39,12 +39,12 @@
           "mboxes": [
             {
               "index": 1,
-              "name": "offer2",
+              "name": "mbox-urlcontains",
               "options": [
                 {
                   "type": "json",
                   "content": {
-                    "baz": 2
+                    "baz": 1
                   }
                 }
               ]
@@ -72,7 +72,7 @@
           "execute": {
             "mboxes": [
               {
-                "name": "offer2",
+                "name": "mbox-urlcontains",
                 "address": {
                   "url": "http://local-target-test:8080/home?bar=true#hello"
                 },
@@ -88,12 +88,12 @@
           "mboxes": [
             {
               "index": 1,
-              "name": "offer2",
+              "name": "mbox-urlcontains",
               "options": [
                 {
                   "type": "json",
                   "content": {
-                    "baz": 2
+                    "baz": 1
                   }
                 }
               ]
@@ -121,7 +121,7 @@
           "execute": {
             "mboxes": [
               {
-                "name": "offer2",
+                "name": "mbox-urlcontains",
                 "address": {
                   "url": "http://local-target-test"
                 },
@@ -137,7 +137,7 @@
           "mboxes": [
             {
               "index": 1,
-              "name": "offer2"
+              "name": "mbox-urlcontains"
             }
           ]
         }

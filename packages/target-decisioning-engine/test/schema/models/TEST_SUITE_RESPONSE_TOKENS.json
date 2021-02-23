@@ -34,7 +34,7 @@
           "execute": {
             "mboxes": [
               {
-                "name": "geo",
+                "name": "mbox-geography",
                 "index": 1
               }
             ]
@@ -46,23 +46,23 @@
         "execute": {
           "mboxes": [
             {
-              "name": "geo",
+              "name": "mbox-geography",
               "options": [
                 {
                   "type": "json",
                   "content": {
                     "geo": true,
-                    "exp": "geo.b"
+                    "exp": "geo.a"
                   },
                   "responseTokens": {
-                    "activity.id": 349133,
-                    "activity.name": "Greg Geo Test A/B Jun 02 2020, 14:34",
-                    "experience.id": 1,
-                    "experience.name": "Experience B",
-                    "offer.id": 650379,
-                    "offer.name": "/greg_geo_test_a_bjun0220201434/experiences/1/pages/0/zones/0/1591133667939",
-                    "option.id": 3,
-                    "option.name": "Offer3",
+                    "activity.id": 125889,
+                    "activity.name": "[unit-test] mbox-geography",
+                    "experience.id": 0,
+                    "experience.name": "Experience A",
+                    "offer.id": 246889,
+                    "offer.name": "/_unit-test_mbox-geography/experiences/0/pages/0/zones/0/1612391678374",
+                    "option.id": 2,
+                    "option.name": "Offer2",
                     "activity.decisioningMethod": "on-device",
                     "geo.city": "SAN FRANCISCO",
                     "geo.country": "UNITED STATES",
@@ -104,7 +104,7 @@
           "prefetch": {
             "mboxes": [
               {
-                "name": "geo",
+                "name": "mbox-geography",
                 "index": 1
               }
             ]
@@ -116,24 +116,24 @@
         "prefetch": {
           "mboxes": [
             {
-              "name": "geo",
+              "name": "mbox-geography",
               "options": [
                 {
                   "type": "json",
-                  "eventToken": "LYJSFrgKxsp5ZlEO5o4jpJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "eventToken": "coIgApD3Y5vSUJeOkfTmHWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                   "content": {
                     "geo": true,
-                    "exp": "geo.b"
+                    "exp": "geo.a"
                   },
                   "responseTokens": {
-                    "activity.id": 349133,
-                    "activity.name": "Greg Geo Test A/B Jun 02 2020, 14:34",
-                    "experience.id": 1,
-                    "experience.name": "Experience B",
-                    "offer.id": 650379,
-                    "offer.name": "/greg_geo_test_a_bjun0220201434/experiences/1/pages/0/zones/0/1591133667939",
-                    "option.id": 3,
-                    "option.name": "Offer3",
+                    "activity.id": 125889,
+                    "activity.name": "[unit-test] mbox-geography",
+                    "experience.id": 0,
+                    "experience.name": "Experience A",
+                    "offer.id": 246889,
+                    "offer.name": "/_unit-test_mbox-geography/experiences/0/pages/0/zones/0/1612391678374",
+                    "option.id": 2,
+                    "option.name": "Offer2",
                     "activity.decisioningMethod": "on-device",
                     "geo.city": "SAN FRANCISCO",
                     "geo.country": "UNITED STATES",
@@ -178,18 +178,18 @@
               "options": [
                 {
                   "type": "actions",
-                  "eventToken": "DKyEy8B6J+arIj6GhXNW/AreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "eventToken": "6yas2PmxhgYAdYY0WK7oGwreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                   "content": [
                     {
                       "type": "insertAfter",
                       "selector": "#spa-content > P:nth-of-type(1)",
                       "cssSelector": "#spa-content > P:nth-of-type(1)",
-                      "content": "<span id=\"action_insert_15889715194712006\">Please do not contact us.</span>"
+                      "content": "<span id=\"action_insert_16123960266706314\">Please do not contact us.</span>"
                     }
                   ],
                   "responseTokens": {
-                    "activity.id": 345798,
-                    "activity.name": "xt spa add text to contact page",
+                    "activity.id": 125897,
+                    "activity.name": "[unit-test] VEC SPA Contact correct",
                     "experience.id": 2,
                     "experience.name": "Experience C",
                     "option.id": 6,
@@ -199,7 +199,7 @@
                 },
                 {
                   "type": "actions",
-                  "eventToken": "DKyEy8B6J+arIj6GhXNW/AreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "eventToken": "6yas2PmxhgYAdYY0WK7oGwreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                   "content": [
                     {
                       "type": "setStyle",
@@ -212,8 +212,8 @@
                     }
                   ],
                   "responseTokens": {
-                    "activity.id": 345798,
-                    "activity.name": "xt spa add text to contact page",
+                    "activity.id": 125897,
+                    "activity.name": "[unit-test] VEC SPA Contact correct",
                     "experience.id": 2,
                     "experience.name": "Experience C",
                     "option.id": 7,
@@ -229,97 +229,97 @@
               "options": [
                 {
                   "type": "actions",
-                  "eventToken": "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                   "content": [
                     {
-                      "type": "insertBefore",
+                      "type": "insertAfter",
                       "selector": "#spa-content > P:nth-of-type(1)",
                       "cssSelector": "#spa-content > P:nth-of-type(1)",
-                      "content": "<p id=\"action_insert_15889690584632570\">Experience B</p>"
+                      "content": "<p id=\"action_insert_15889689998702412\">experience A</p>"
                     }
                   ],
                   "responseTokens": {
-                    "activity.id": 345782,
-                    "activity.name": "ab spa view change add text with audiences",
-                    "experience.id": 1,
-                    "experience.name": "Experience B",
-                    "option.id": 12,
-                    "option.name": "Offer12",
+                    "activity.id": 125900,
+                    "activity.name": "[unit-test] VEC SPA Home AB Targeting",
+                    "experience.id": 0,
+                    "experience.name": "Experience A",
+                    "option.id": 6,
+                    "option.name": "Offer6",
                     "activity.decisioningMethod": "on-device"
                   }
                 },
                 {
                   "type": "actions",
-                  "eventToken": "ob3/yMzSVllQx2v2P7122JNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "eventToken": "8six9QjS6OroVLZeNlozQ2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                   "content": [
                     {
                       "type": "setHtml",
                       "selector": "#spa-content > H3:nth-of-type(1)",
                       "cssSelector": "#spa-content > H3:nth-of-type(1)",
-                      "content": "NOBODY HOME - exp B"
+                      "content": "nobody home - exp A"
                     }
                   ],
                   "responseTokens": {
-                    "activity.id": 345782,
-                    "activity.name": "ab spa view change add text with audiences",
-                    "experience.id": 1,
-                    "experience.name": "Experience B",
-                    "option.id": 13,
-                    "option.name": "Offer13",
+                    "activity.id": 125900,
+                    "activity.name": "[unit-test] VEC SPA Home AB Targeting",
+                    "experience.id": 0,
+                    "experience.name": "Experience A",
+                    "option.id": 7,
+                    "option.name": "Offer7",
                     "activity.decisioningMethod": "on-device"
                   }
                 },
                 {
                   "type": "actions",
-                  "eventToken": "XQ6HqnRfrxl3ausAjtQJj2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "eventToken": "trE0BYJDkaVAM46CBN3B75NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                   "content": [
                     {
                       "type": "setHtml",
                       "selector": "#spa-content > H3:nth-of-type(1)",
                       "cssSelector": "#spa-content > H3:nth-of-type(1)",
-                      "content": "Home - Experience A"
+                      "content": "Home - Experience B"
                     }
                   ],
                   "responseTokens": {
-                    "activity.id": 345779,
-                    "activity.name": "ab spa view change multiple text no audiences",
-                    "experience.id": 0,
-                    "experience.name": "Experience A",
-                    "option.id": 2,
-                    "option.name": "Offer2",
+                    "activity.id": 125898,
+                    "activity.name": "[unit-test] VEC SPA Home AB",
+                    "experience.id": 1,
+                    "experience.name": "Experience B",
+                    "option.id": 4,
+                    "option.name": "Offer4",
                     "activity.decisioningMethod": "on-device"
                   }
                 },
                 {
                   "type": "actions",
-                  "eventToken": "XQ6HqnRfrxl3ausAjtQJj2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "eventToken": "trE0BYJDkaVAM46CBN3B75NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                   "content": [
                     {
                       "type": "setHtml",
                       "selector": "#spa-content > P:nth-of-type(1)",
                       "cssSelector": "#spa-content > P:nth-of-type(1)",
-                      "content": "experience A! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus, magna et dignissim ullamcorper, magna ipsum pharetra velit, vel egestas magna leo interdum urna. Etiam purus massa, accumsan in elit sit amet, posuere maximus augue. Donec non velit sit amet ipsum feugiat aliquet id in metus. Integer a auctor nisl. Donec ac lacinia eros. Proin nisl magna, bibendum ut tellus vitae, mattis laoreet lacus. Pellentesque mauris lorem, scelerisque quis nisi ac, vulputate tincidunt est. Maecenas ex justo, ultrices non neque sed, fermentum maximus diam. Vestibulum at facilisis magna. Ut eu tristique lectus. Proin gravida leo eu fermentum ullamcorper. Suspendisse gravida nibh vitae ultricies ultricies. Donec fermentum, metus id tincidunt dapibus, tellus lacus tristique felis, non posuere nibh ligula sed est."
+                      "content": "experience B! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus, magna et dignissim ullamcorper, magna ipsum pharetra velit, vel egestas magna leo interdum urna. Etiam purus massa, accumsan in elit sit amet, posuere maximus augue. Donec non velit sit amet ipsum feugiat aliquet id in metus. Integer a auctor nisl. Donec ac lacinia eros. Proin nisl magna, bibendum ut tellus vitae, mattis laoreet lacus. Pellentesque mauris lorem, scelerisque quis nisi ac, vulputate tincidunt est. Maecenas ex justo, ultrices non neque sed, fermentum maximus diam. Vestibulum at facilisis magna. Ut eu tristique lectus. Proin gravida leo eu fermentum ullamcorper. Suspendisse gravida nibh vitae ultricies ultricies. Donec fermentum, metus id tincidunt dapibus, tellus lacus tristique felis, non posuere nibh ligula sed est."
                     }
                   ],
                   "responseTokens": {
-                    "activity.id": 345779,
-                    "activity.name": "ab spa view change multiple text no audiences",
-                    "experience.id": 0,
-                    "experience.name": "Experience A",
-                    "option.id": 3,
-                    "option.name": "Offer3",
+                    "activity.id": 125898,
+                    "activity.name": "[unit-test] VEC SPA Home AB",
+                    "experience.id": 1,
+                    "experience.name": "Experience B",
+                    "option.id": 5,
+                    "option.name": "Offer5",
                     "activity.decisioningMethod": "on-device"
                   }
                 }
               ],
               "metrics": [
                 {
-                  "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                  "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
                   "selector": "#spa-content > P:nth-of-type(1)",
                   "type": "click"
                 },
                 {
-                  "eventToken": "it3yBx7+8oZoV0RPEfPNgQ==",
+                  "eventToken": "x0ltdElF/V7FU72UKn8wYg==",
                   "selector": "#spa-content > P:nth-of-type(1)",
                   "type": "click"
                 }

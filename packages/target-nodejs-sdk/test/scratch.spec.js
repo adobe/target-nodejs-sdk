@@ -30,8 +30,8 @@ describe.skip("target-nodejs-sdk scratch", () => {
       const propertyToken = "9a327144-63fe-a7fc-5fdb-515e0c0175a8";
 
       const client = TargetClient.create({
-        client: "adobesummit2018",
-        organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
+        client: "targettesting",
+        organizationId: "74F652E95F1B16FE0A495C92@AdobeOrg",
         propertyToken,
         decisioningMethod: "server-side",
         pollingInterval: 0,
