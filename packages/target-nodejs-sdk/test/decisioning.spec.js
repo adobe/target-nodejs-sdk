@@ -206,7 +206,7 @@ describe("target on-device decisioning", () => {
             name: "mbox-magician",
             options: [
               {
-                content: { doMagic: false, importantValue: 75 },
+                content: { doMagic: true, importantValue: 150 },
                 type: "json",
                 eventToken:
                   "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
@@ -336,8 +336,8 @@ describe("target on-device decisioning", () => {
               options: [
                 {
                   content: {
-                    doMagic: false,
-                    importantValue: 75
+                    doMagic: true,
+                    importantValue: 150
                   },
                   eventToken: expect.any(String),
                   type: "json",
