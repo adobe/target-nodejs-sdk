@@ -513,7 +513,7 @@ describe("target on-device decisioning", () => {
               });
 
               done();
-            }, 0);
+            }, 100);
           }
 
           client = TargetClient.create({
