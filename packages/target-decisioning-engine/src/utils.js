@@ -222,7 +222,9 @@ export function determineArtifactLocation(
   config,
   addPropertyToken = isBrowser()
 ) {
-  const { client, propertyToken, artifactFormat } = config;
+  const { client, propertyToken, artifactFormat, artifactLocation } = config;
+  if (typeof artifactLocation === "string") return artifactLocation;
+
   const targetEnvironment = getTargetEnvironment(config);
 
   return [

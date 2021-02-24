@@ -5,46 +5,36 @@ const TargetClient = require("../src/index.server").default;
  * This can be useful for testing/troubleshooting the SDK
  */
 describe.skip("target-nodejs-sdk scratch", () => {
-  const context = {
-    channel: "web",
-    address: {
-      url: "http://local-target-test"
-    },
-    userAgent:
-      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0"
-  };
-
-  const visitorId = {
-    tntId: "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
-    marketingCloudVisitorId: "07327024324407615852294135870030620007"
-  };
-
-  const targetRequest = {
-    id: visitorId,
-    context
-  };
-
   it("test", () => {
     expect.assertions(1);
     return new Promise(done => {
-      const propertyToken = "9a327144-63fe-a7fc-5fdb-515e0c0175a8";
-
       const client = TargetClient.create({
-        client: "targettesting",
-        organizationId: "74F652E95F1B16FE0A495C92@AdobeOrg",
-        propertyToken,
+        client: "adobesummit2018",
+        organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
         decisioningMethod: "server-side",
         pollingInterval: 0,
         events: {
           clientReady: async () => {
             const result = await client.getOffers({
               request: {
-                ...targetRequest,
-                execute: {
-                  pageLoad: {}
+                id: {
+                  tntId: "338e3c1e51f7416a8e1ccba4f81acea0.28_0"
                 },
-                property: {
-                  token: propertyToken
+                context: {
+                  channel: "web"
+                },
+                prefetch: {
+                  mboxes: [{ index: 0, name: "demo-marketing-offer1" }]
+                },
+                qaMode: {
+                  token: "QCfbJvlzWVIdSjvDOUtz+J7srqQZYj1dadvKwaf8yb8=",
+                  listedActivitiesOnly: true,
+                  previewIndexes: [
+                    {
+                      activityIndex: 1,
+                      experienceIndex: 2
+                    }
+                  ]
                 }
               }
             });

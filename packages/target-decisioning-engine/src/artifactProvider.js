@@ -79,10 +79,7 @@ function ArtifactProvider(config) {
   let lastResponseEtag;
   let lastResponseData;
 
-  const artifactLocation =
-    typeof config.artifactLocation === "string"
-      ? config.artifactLocation
-      : determineArtifactLocation(config);
+  const artifactLocation = determineArtifactLocation(config);
 
   const artifactFormat =
     typeof config.artifactFormat === "string"
