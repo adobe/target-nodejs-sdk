@@ -27,7 +27,6 @@
   },
   "dependencies": {
     "@adobe/target-tools": "^1.4.0",
-    "imurmurhash": "^0.1.4",
     "json-logic-js": "^2.0.0"
   },
   "devDependencies": {
