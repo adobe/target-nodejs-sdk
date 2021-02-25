@@ -2,7 +2,7 @@
 import jsonLogic from "json-logic-js";
 import { isDefined } from "@adobe/target-tools";
 import { createMboxContext, createPageContext } from "./contextProvider";
-import { computeAllocation } from "./allocationProvider";
+import { computeAllocation, getOrCreateVisitorId } from "./allocationProvider";
 import { cloneDeep } from "./utils";
 import { ACTIVITY_ID } from "./constants";
 
@@ -13,6 +13,8 @@ import { ACTIVITY_ID } from "./constants";
  * @return { Function }
  */
 export function ruleEvaluator(clientId, visitorId) {
+  const visitorIdString = getOrCreateVisitorId(visitorId);
+
   /**
    * @param {import("../types/DecisioningArtifact").Rule} rule
    * @param { import("../types/DecisioningContext").DecisioningContext } context
@@ -42,7 +44,11 @@ export function ruleEvaluator(clientId, visitorId) {
       page,
       referring,
       mbox: createMboxContext(requestDetail),
-      allocation: computeAllocation(clientId, rule.meta[ACTIVITY_ID], visitorId)
+      allocation: computeAllocation(
+        clientId,
+        rule.meta[ACTIVITY_ID],
+        visitorIdString
+      )
     };
 
     const ruleSatisfied = jsonLogic.apply(rule.condition, ruleContext);

@@ -114,7 +114,7 @@ function NotificationProvider(
         };
       }
 
-      sendNotificationFunc(notification);
+      setTimeout(() => sendNotificationFunc.call(null, notification), 0);
       notifications = [];
       telemetryEntries = [];
     }

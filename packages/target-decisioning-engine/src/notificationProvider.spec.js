@@ -25,6 +25,10 @@ describe("notificationProvider", () => {
     }
   };
 
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
   it("adds display notifications", () => {
     const mockNotify = jest.fn();
 
@@ -49,6 +53,7 @@ describe("notificationProvider", () => {
     });
 
     provider.sendNotifications();
+    jest.runAllTimers();
     expect(mockNotify.mock.calls.length).toBe(1);
     expect(mockNotify.mock.calls[0][0].request.notifications.length).toEqual(1);
     expect(mockNotify.mock.calls[0][0].request.notifications[0]).toEqual(
@@ -133,6 +138,7 @@ describe("notificationProvider", () => {
     });
 
     provider.sendNotifications();
+    jest.runAllTimers();
     expect(mockNotify.mock.calls.length).toBe(1);
 
     expect(mockNotify.mock.calls[0][0].request.notifications.length).toEqual(1);
@@ -218,6 +224,7 @@ describe("notificationProvider", () => {
     });
 
     provider.sendNotifications();
+    jest.runAllTimers();
     expect(mockNotify.mock.calls.length).toBe(1);
 
     expect(mockNotify.mock.calls[0][0].request.notifications.length).toEqual(2);

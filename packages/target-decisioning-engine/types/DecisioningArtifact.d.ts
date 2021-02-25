@@ -4,6 +4,7 @@ export interface Consequence extends MboxResponse {}
 
 export interface Rule {
   ruleKey: String;
+  activityId: number;
   propertyTokens: String[];
   seed: String;
   condition: Object;
@@ -22,12 +23,6 @@ export interface Rule {
     "offer.name": string;
     "option.id": number;
     "option.name": string;
-    "activityId": number;
-    "experienceId": number;
-    "activityType": string;
-    "locationName": string;
-    "locationType": string;
-    "displayResponseType": string;
   };
 }
 

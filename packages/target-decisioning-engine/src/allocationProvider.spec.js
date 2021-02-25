@@ -14,7 +14,7 @@ describe("allocationProvider", () => {
           { marketingCloudVisitorId: "ecid123" },
           "salty"
         )
-      ).toEqual(52.28);
+      ).toEqual(29.06);
     });
 
     it("computes allocation for tntId", () => {
@@ -25,7 +25,7 @@ describe("allocationProvider", () => {
           { tntId: "tntId123" },
           "salty"
         )
-      ).toEqual(8.48);
+      ).toEqual(21.94);
     });
 
     it("computed allocation for tntId does not include location hint", () => {
@@ -36,7 +36,7 @@ describe("allocationProvider", () => {
           { tntId: "tntId123.28_0" },
           "salty"
         )
-      ).toEqual(8.48);
+      ).toEqual(21.94);
     });
 
     it("computes allocation for thirdPartyId", () => {
@@ -47,7 +47,7 @@ describe("allocationProvider", () => {
           { thirdPartyId: "thirtPartyId123" },
           "salty"
         )
-      ).toEqual(95.79);
+      ).toEqual(73.15);
     });
 
     it("computes allocation with generated uuid", () => {

@@ -57,9 +57,9 @@
                   "content": {
                     "foo": "bar",
                     "isFooBar": true,
-                    "experience": "B"
+                    "experience": "A"
                   },
-                  "eventToken": "gsDuhGuCbuMhKLusIlPUI5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "eventToken": "gsDuhGuCbuMhKLusIlPUI2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
                 }
               ]
             }

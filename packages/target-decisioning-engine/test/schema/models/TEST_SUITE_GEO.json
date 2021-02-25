@@ -52,7 +52,7 @@
                   "type": "json",
                   "content": {
                     "geo": true,
-                    "exp": "geo.a"
+                    "exp": "geo.b"
                   }
                 }
               ],
@@ -103,7 +103,7 @@
                   "type": "json",
                   "content": {
                     "geo": true,
-                    "exp": "geo.a"
+                    "exp": "geo.b"
                   }
                 }
               ],

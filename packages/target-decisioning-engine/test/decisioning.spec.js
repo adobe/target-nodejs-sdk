@@ -24,6 +24,10 @@ const TEST_SUITES = getTestSuites(
 );
 
 describe("decisioning engine", () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
   it("has tests", () => {
     expect(TEST_SUITES.length).toBeGreaterThanOrEqual(1);
   });
@@ -97,6 +101,8 @@ describe("decisioning engine", () => {
       expectToMatchObject(result, output);
 
       if (isDefined(notificationOutput)) {
+        jest.runAllTimers();
+
         if (notificationOutput === null) {
           expect(sendNotificationFunc.mock.calls.length).toEqual(0);
         } else {

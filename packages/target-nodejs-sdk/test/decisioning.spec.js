@@ -206,7 +206,7 @@ describe("target on-device decisioning", () => {
             name: "mbox-magician",
             options: [
               {
-                content: { doMagic: false, importantValue: 75 },
+                content: { doMagic: true, importantValue: 150 },
                 type: "json",
                 eventToken:
                   "abzfLHwlBDBNtz9ALey2fJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
@@ -336,8 +336,8 @@ describe("target on-device decisioning", () => {
               options: [
                 {
                   content: {
-                    doMagic: false,
-                    importantValue: 75
+                    doMagic: true,
+                    importantValue: 150
                   },
                   eventToken: expect.any(String),
                   type: "json",
@@ -488,28 +488,32 @@ describe("target on-device decisioning", () => {
             await expect(
               client.getOffers(executeRequestOptions)
             ).resolves.toBeDefined();
-            expect(fetch.mock.calls.length).toEqual(2);
 
-            expect(notificationRequest).not.toBeUndefined();
-            expect(notificationRequest.method).toEqual("POST");
+            // timeout to waith for notifications to finish
+            setTimeout(() => {
+              expect(fetch.mock.calls.length).toEqual(2);
 
-            expect(notificationPayload).toMatchObject({
-              ...targetRequest,
-              notifications: [
-                {
-                  id: expect.any(String),
-                  impressionId: expect.any(String),
-                  timestamp: now.getTime(),
-                  type: "display",
-                  mbox: {
-                    name: "mbox-magician"
-                  },
-                  tokens: [expect.any(String)]
-                }
-              ]
-            });
+              expect(notificationRequest).not.toBeUndefined();
+              expect(notificationRequest.method).toEqual("POST");
 
-            done();
+              expect(notificationPayload).toMatchObject({
+                ...targetRequest,
+                notifications: [
+                  {
+                    id: expect.any(String),
+                    impressionId: expect.any(String),
+                    timestamp: now.getTime(),
+                    type: "display",
+                    mbox: {
+                      name: "mbox-magician"
+                    },
+                    tokens: [expect.any(String)]
+                  }
+                ]
+              });
+
+              done();
+            }, 100);
           }
 
           client = TargetClient.create({

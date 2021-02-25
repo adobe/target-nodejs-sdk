@@ -86,8 +86,8 @@
               "options": [
                 {
                   "type": "html",
-                  "content": "<div>prioritized high A</div>",
-                  "eventToken": "K48CgydFcAttgrFpQ6oMaGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "content": "<div>prioritized high B</div>",
+                  "eventToken": "K48CgydFcAttgrFpQ6oMaJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                   "responseTokens": "expect.any(Object)"
                 }
               ]

@@ -1,6 +1,8 @@
-import MurmurHash3 from "imurmurhash";
-import { createUUID } from "@adobe/target-tools";
+import { createUUID, hashUnencodedChars, memoize } from "@adobe/target-tools";
 import { CAMPAIGN_BUCKET_SALT } from "./constants";
+
+const TOTAL_BUCKETS = 10000;
+const MAX_PERCENTAGE = 100;
 
 export function validTntId(tntId = "") {
   if (typeof tntId === "string" && tntId.length > 0) {
@@ -29,11 +31,25 @@ export function getOrCreateVisitorId(visitorId) {
 }
 
 /**
+ * @param deviceId
+ * @returns {number}
+ */
+function calculateAllocation(deviceId) {
+  const signedNumericHashValue = hashUnencodedChars(deviceId);
+
+  const hashFixedBucket = Math.abs(signedNumericHashValue) % TOTAL_BUCKETS;
+  const allocationValue = (hashFixedBucket / TOTAL_BUCKETS) * MAX_PERCENTAGE;
+
+  return Math.round(allocationValue * 100) / 100; // two decimal places
+}
+
+const calculateAllocationMemoized = memoize(calculateAllocation);
+
+/**
  *
- * The TargetDecisioningEngine initialize method
  * @param {String} clientId Target Client Id, required
  * @param {number} activityId Target Activity Id, required
- * @param { import("@adobe/target-tools/delivery-api-client/models/VisitorId").VisitorId } visitorId
+ * @param { import("@adobe/target-tools/delivery-api-client/models/VisitorId").VisitorId|String } visitorId
  * @param {String} salt salt value, optional
  */
 export function computeAllocation(
@@ -42,21 +58,15 @@ export function computeAllocation(
   visitorId,
   salt = CAMPAIGN_BUCKET_SALT
 ) {
-  // TODO: may want to memoize this
-
-  // Generate a unique visitor ID and persist it.
-  const vid = getOrCreateVisitorId(visitorId); // first non-blank marketingCloudVisitorId, tntId, thirdPartyId
-
   // Generate a device id based on visitorId, clientCode, campaignId and a salt value
-  const deviceId = `${clientId}.${activityId}.${vid}.${salt}`;
+  const deviceId = [
+    clientId,
+    activityId,
+    typeof visitorId === "string" && visitorId.length > 0
+      ? visitorId
+      : getOrCreateVisitorId(visitorId),
+    salt
+  ].join(".");
 
-  // Use the MurmurHash3 (32-bit) hashing algorithm to generate a numeric 10-digit hash based on the device id.
-  const output = MurmurHash3(deviceId).result();
-
-  // Mod the murmurhash value by 10,000 to get the remainder value
-  // Divide the remainder value by 10,000 to get the bucket value (a float between 0 and 1)
-  // Multiply the bucket value by the total number of branches and return the rounded value.
-  const value = ((Math.abs(output) % 10000) / 10000) * 100;
-
-  return Math.round(value * 100) / 100; // two decimal places
+  return calculateAllocationMemoized(deviceId);
 }

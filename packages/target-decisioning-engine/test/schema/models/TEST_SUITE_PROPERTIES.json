@@ -92,11 +92,11 @@
               },
               {
                 "type": "json",
-                "eventToken": "icqJv5xu4JjLPZmDiKmdzJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "eventToken": "icqJv5xu4JjLPZmDiKmdzGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 "content": {
                   "mbox": "target-global-mbox",
-                  "experience": "B",
-                  "vegetable": "Brussel Sprouts",
+                  "experience": "A",
+                  "vegetable": "Asparagus",
                   "property": "property Y"
                 }
               }

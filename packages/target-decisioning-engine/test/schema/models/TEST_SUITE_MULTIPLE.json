@@ -43,8 +43,8 @@
                 {
                   "type": "json",
                   "content": {
-                    "doMagic": false,
-                    "importantValue": 75
+                    "doMagic": true,
+                    "importantValue": 150
                   }
                 }
               ]
@@ -94,8 +94,8 @@
                 {
                   "type": "json",
                   "content": {
-                    "doMagic": false,
-                    "importantValue": 75
+                    "doMagic": true,
+                    "importantValue": 150
                   }
                 }
               ]
@@ -106,7 +106,7 @@
               "options": [
                 {
                   "type": "html",
-                  "content": "<div>hello</div>"
+                  "content": "<div>goodbye</div>"
                 }
               ]
             }
@@ -151,10 +151,10 @@
                 {
                   "type": "json",
                   "content": {
-                    "doMagic": false,
-                    "importantValue": 75
+                    "doMagic": true,
+                    "importantValue": 150
                   },
-                  "eventToken": "eHKYleVZBTi/nM3Fv/fx1ZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "eventToken": "eHKYleVZBTi/nM3Fv/fx1WqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
                 }
               ]
             }
@@ -203,10 +203,10 @@
                 {
                   "type": "json",
                   "content": {
-                    "doMagic": false,
-                    "importantValue": 75
+                    "doMagic": true,
+                    "importantValue": 150
                   },
-                  "eventToken": "eHKYleVZBTi/nM3Fv/fx1ZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                  "eventToken": "eHKYleVZBTi/nM3Fv/fx1WqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
                 }
               ]
             },
@@ -216,7 +216,7 @@
               "options": [
                 {
                   "type": "html",
-                  "content": "<div>hello</div>",
+                  "content": "<div>goodbye</div>",
                   "eventToken": "expect.any(String)"
                 }
               ]
