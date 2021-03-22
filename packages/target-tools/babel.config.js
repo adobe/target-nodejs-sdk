@@ -36,7 +36,7 @@ module.exports = {
           }
         ]
       ],
-      plugins: []
+      plugins: ["@babel/plugin-proposal-object-rest-spread"]
     }
   }
 };

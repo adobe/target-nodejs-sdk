@@ -2,6 +2,7 @@
 import {
   includes,
   isDefined,
+  isString,
   isUndefined,
   MetricType,
   objectWithoutUndefinedValues
@@ -286,8 +287,9 @@ export function replaceCampaignMacros(
   tracer
 ) {
   function addCampainMacroValues(htmlContent) {
-    if (!isDefined(htmlContent) || typeof htmlContent !== "string")
+    if (isUndefined(htmlContent) || !isString(htmlContent)) {
       return htmlContent;
+    }
 
     return htmlContent.replace(
       MACRO_PATTERN_REGEX,

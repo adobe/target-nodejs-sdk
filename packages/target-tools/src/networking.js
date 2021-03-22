@@ -1,10 +1,13 @@
 import { DEFAULT_NUM_FETCH_RETRIES } from "./constants";
 import { isBrowser, isNodeJS, noop } from "./utils";
+import { isFunction } from "./lodash";
 
 const NOT_MODIFIED = 304;
 
 export function getFetchApi(fetchApi) {
-  if (typeof fetchApi === "function") return fetchApi;
+  if (isFunction(fetchApi)) {
+    return fetchApi;
+  }
 
   let api;
 
@@ -37,7 +40,7 @@ export function getFetchWithRetry(
         return res;
       })
       .catch(err => {
-        if (typeof incidentalFailureCallback === "function") {
+        if (isFunction(incidentalFailureCallback)) {
           incidentalFailureCallback.call(undefined, err);
         }
 

@@ -9,6 +9,8 @@ import {
   includes,
   isBrowser,
   isDefined,
+  isObject,
+  isString,
   isUndefined,
   parseURI,
   POSSIBLE_ENVIRONMENTS
@@ -36,7 +38,7 @@ export function getRuleKey(rule) {
 }
 
 export function parseURL(url) {
-  if (typeof url !== "string") {
+  if (!isString(url)) {
     // eslint-disable-next-line no-param-reassign
     url = "";
   }
@@ -223,7 +225,9 @@ export function determineArtifactLocation(
   addPropertyToken = isBrowser()
 ) {
   const { client, propertyToken, artifactFormat, artifactLocation } = config;
-  if (typeof artifactLocation === "string") return artifactLocation;
+  if (isString(artifactLocation)) {
+    return artifactLocation;
+  }
 
   const targetEnvironment = getTargetEnvironment(config);
 
@@ -258,11 +262,7 @@ export function determineArtifactFormat(artifactLocation) {
 export function firstMatch(key, searchObjects = [], defaultValue = undefined) {
   for (let i = 0; i < searchObjects.length; i += 1) {
     const haystack = searchObjects[i];
-    if (
-      typeof haystack === "object" &&
-      haystack !== null &&
-      isDefined(haystack[key])
-    ) {
+    if (isObject(haystack) && isDefined(haystack[key])) {
       return haystack[key];
     }
   }

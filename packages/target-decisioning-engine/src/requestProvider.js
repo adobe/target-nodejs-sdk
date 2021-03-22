@@ -1,4 +1,5 @@
-import { createUUID, AuthenticatedState } from "@adobe/target-tools";
+import { AuthenticatedState, createUUID } from "@adobe/target-tools";
+import { isNonEmptyString } from "../../target-nodejs-sdk/src/utils";
 
 /**
  *
@@ -39,10 +40,9 @@ export function validVisitorId(visitorId, targetLocationHint) {
     !getCustomerId(result) &&
     !result.thirdPartyId
   ) {
-    const locationHint =
-      typeof targetLocationHint === "string" && targetLocationHint.length > 0
-        ? `.${targetLocationHint}_0`
-        : "";
+    const locationHint = isNonEmptyString(targetLocationHint)
+      ? `.${targetLocationHint}_0`
+      : "";
     result.tntId = `${createUUID()}${locationHint}`;
   }
   return result;

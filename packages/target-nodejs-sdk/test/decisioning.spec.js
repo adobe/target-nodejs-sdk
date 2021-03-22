@@ -119,7 +119,9 @@ describe("target on-device decisioning", () => {
           })
         ).rejects.toEqual(new Error(DECISIONING_ENGINE_NOT_READY));
 
-        if (timer) clearTimeout(timer);
+        if (timer) {
+          clearTimeout(timer);
+        }
         done();
       });
     });

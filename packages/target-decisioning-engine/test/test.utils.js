@@ -49,13 +49,14 @@ function hydrateArtifacts(testObj = {}, artifactFolder, artifactList) {
   return traverseObject(testObj, {}, (key, value) => {
     if (key === "artifact") {
       const artifactFilename = `${value}.json`;
-      if (artifactList.indexOf(artifactFilename) === -1) return value;
+      if (artifactList.indexOf(artifactFilename) === -1) {
+        return value;
+      }
 
       const fileContents = fs.readFileSync(
         path.resolve(artifactFolder, artifactFilename)
       );
-      const artifact = JSON.parse(fileContents.toString("utf-8"));
-      return artifact;
+      return JSON.parse(fileContents.toString("utf-8"));
     }
     return value;
   });
@@ -70,7 +71,9 @@ export function expectToMatchObject(received, expected) {
 }
 
 export function setMockDate(mockDate) {
-  if (isUndefined(mockDate)) return undefined;
+  if (isUndefined(mockDate)) {
+    return undefined;
+  }
 
   const mock = {
     hours: 0,

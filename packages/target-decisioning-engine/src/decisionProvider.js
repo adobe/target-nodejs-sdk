@@ -77,7 +77,9 @@ function DecisionProvider(
    * @param { Function[] } postProcessors Used to process an mbox if needed, optional
    */
   function getDecisions(mode, postProcessors) {
-    if (isUndefined(request[mode])) return undefined;
+    if (isUndefined(request[mode])) {
+      return undefined;
+    }
 
     const requestTracer = RequestTracer(traceProvider, artifact);
 
@@ -189,7 +191,9 @@ function DecisionProvider(
         if (consequence) {
           consequences.push(consequence);
           matchedRuleKeys.add(ruleKey);
-          if (!isGlobalMbox) break;
+          if (!isGlobalMbox) {
+            break;
+          }
         }
       }
 

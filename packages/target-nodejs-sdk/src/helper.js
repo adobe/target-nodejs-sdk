@@ -18,7 +18,8 @@ import {
   DECISIONING_METHOD,
   isDefined,
   isUndefined,
-  requiresDecisioningEngine
+  requiresDecisioningEngine,
+  isNumber
 } from "@adobe/target-tools";
 
 import {
@@ -66,7 +67,6 @@ import {
   isNonEmptyArray,
   isNonEmptyObject,
   isNonEmptyString,
-  isNumber,
   isObject,
   removeEmptyKeys
 } from "./utils";

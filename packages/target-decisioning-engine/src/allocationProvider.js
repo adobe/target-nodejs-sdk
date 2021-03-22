@@ -1,11 +1,17 @@
-import { createUUID, hashUnencodedChars, memoize } from "@adobe/target-tools";
+import {
+  createUUID,
+  hashUnencodedChars,
+  isEmpty,
+  isString,
+  memoize
+} from "@adobe/target-tools";
 import { CAMPAIGN_BUCKET_SALT } from "./constants";
 
 const TOTAL_BUCKETS = 10000;
 const MAX_PERCENTAGE = 100;
 
 export function validTntId(tntId = "") {
-  if (typeof tntId === "string" && tntId.length > 0) {
+  if (isString(tntId) && !isEmpty(tntId)) {
     // eslint-disable-next-line no-unused-vars
     const [id, locationHint] = tntId.split(".");
     return id;
@@ -62,7 +68,7 @@ export function computeAllocation(
   const deviceId = [
     clientId,
     activityId,
-    typeof visitorId === "string" && visitorId.length > 0
+    isString(visitorId) && !isEmpty(visitorId)
       ? visitorId
       : getOrCreateVisitorId(visitorId),
     salt

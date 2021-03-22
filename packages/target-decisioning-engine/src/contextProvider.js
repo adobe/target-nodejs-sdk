@@ -1,6 +1,7 @@
 import {
   browserFromUserAgent,
   ChannelType,
+  isString,
   operatingSystemFromUserAgent
 } from "@adobe/target-tools";
 import { parseURL } from "./utils";
@@ -16,8 +17,9 @@ function getLowerCaseAttributes(obj) {
   const result = {};
 
   Object.keys(obj).forEach(key => {
-    result[`${key}_lc`] =
-      typeof obj[key] === "string" ? obj[key].toLowerCase() : obj[key];
+    result[`${key}_lc`] = isString(obj[key])
+      ? obj[key].toLowerCase()
+      : obj[key];
   });
 
   return result;
@@ -46,7 +48,7 @@ function createBrowserContext(context) {
  * @return { import("../types/DecisioningContext").PageContext }
  */
 function createUrlContext(url) {
-  if (!url || typeof url !== "string") {
+  if (!url || !isString(url)) {
     // eslint-disable-next-line no-param-reassign
     url = "";
   }
@@ -80,7 +82,9 @@ export function createReferringContext(address) {
  * @return { import("../types/DecisioningContext").MboxContext }
  */
 export function createMboxContext(mboxRequest) {
-  if (!mboxRequest) return {};
+  if (!mboxRequest) {
+    return {};
+  }
 
   const parameters = mboxRequest.parameters || {};
 

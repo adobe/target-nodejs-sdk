@@ -9,7 +9,9 @@ module.exports = {
   rules: {
     "prettier/prettier": "error",
     "prefer-object-spread": "off",
+    "prefer-spread": "off",
     "no-underscore-dangle": "off",
+    "curly": ["error", "all"],
     "import/no-extraneous-dependencies": [
       "error",
       {
