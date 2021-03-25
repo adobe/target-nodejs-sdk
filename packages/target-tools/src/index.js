@@ -38,7 +38,6 @@ export {
 
 export {
   addMboxesToRequest,
-  createUUID,
   decisioningEngineReady,
   getMboxNames,
   getViewNames,

@@ -1,5 +1,5 @@
 import {
-  createUUID,
+  uuid,
   isDefined,
   noop,
   now,
@@ -55,8 +55,8 @@ function NotificationProvider(
     }
 
     const notification = {
-      id: createUUID(),
-      impressionId: createUUID(),
+      id: uuid(),
+      impressionId: uuid(),
       timestamp,
       type: MetricType.Display,
       mbox: {

@@ -11,7 +11,7 @@ governing permissions and limitations under the License.
 */
 
 import {
-  createUUID,
+  uuid,
   DECISIONING_ENGINE_NOT_READY,
   DEFAULT_GLOBAL_MBOX,
   EMPTY_REQUEST,
@@ -123,7 +123,7 @@ export function getDeviceId(cookies) {
   return value;
 }
 
-export function getSessionId(cookies, userSessionId, uuidMethod = createUUID) {
+export function getSessionId(cookies, userSessionId, uuidMethod = uuid) {
   const cookie = cookies[SESSION_ID_COOKIE] || {};
   const { value } = cookie;
 
@@ -152,7 +152,7 @@ export function getTargetHost(serverDomain, cluster, client, secure) {
   return `${schemePrefix}${client}.${HOST}`;
 }
 
-export function createHeaders(uuidMethod = createUUID) {
+export function createHeaders(uuidMethod = uuid) {
   return {
     "Content-Type": "application/json",
     "X-EXC-SDK": "AdobeTargetNode",
@@ -483,7 +483,7 @@ function createProperty(property = {}) {
  * @return { import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest }
  */
 export function createDeliveryRequest(requestParam, options) {
-  const { logger, uuidMethod = createUUID } = options;
+  const { logger, uuidMethod = uuid } = options;
 
   const result = DeliveryRequestFromJSON({
     requestId: uuidMethod(),

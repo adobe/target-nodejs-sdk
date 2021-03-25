@@ -1,4 +1,4 @@
-import { includes, isNumber, isObject, isString, now, uuid } from "./lodash";
+import { includes, isNumber, isObject, isString, now } from "./lodash";
 import { DECISIONING_METHOD } from "./enums";
 import { getLogger } from "./logging";
 import { PROPERTY_TOKEN_MISMATCH } from "./messages";
@@ -157,7 +157,6 @@ export function isNodeJS() {
   return typeof global !== "undefined";
 }
 
-export const createUUID = () => uuid();
 export const noop = () => undefined;
 export const noopPromise = value => Promise.resolve(value);
 

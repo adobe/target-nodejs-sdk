@@ -1,4 +1,4 @@
-import { AuthenticatedState, createUUID } from "@adobe/target-tools";
+import { AuthenticatedState, uuid } from "@adobe/target-tools";
 import { isNonEmptyString } from "../../target-nodejs-sdk/src/utils";
 
 /**
@@ -43,7 +43,7 @@ export function validVisitorId(visitorId, targetLocationHint) {
     const locationHint = isNonEmptyString(targetLocationHint)
       ? `.${targetLocationHint}_0`
       : "";
-    result.tntId = `${createUUID()}${locationHint}`;
+    result.tntId = `${uuid()}${locationHint}`;
   }
   return result;
 }
@@ -70,7 +70,7 @@ export function validDeliveryRequest(
         geo
       },
       id: validVisitorId(request.id, targetLocationHint),
-      requestId: request.requestId || createUUID()
+      requestId: request.requestId || uuid()
     };
   });
 }

@@ -1,5 +1,5 @@
 import {
-  createUUID,
+  uuid,
   hashUnencodedChars,
   isEmpty,
   isString,
@@ -30,10 +30,10 @@ export function getOrCreateVisitorId(visitorId) {
       visitorId.marketingCloudVisitorId ||
       validTntId(visitorId.tntId) ||
       visitorId.thirdPartyId ||
-      createUUID() // create a tntId
+      uuid() // create a tntId
     );
   }
-  return createUUID();
+  return uuid();
 }
 
 /**
