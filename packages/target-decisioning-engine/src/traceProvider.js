@@ -1,4 +1,10 @@
-import { isDefined, isUndefined, values } from "@adobe/target-tools";
+import {
+  isDefined,
+  isObject,
+  isString,
+  isUndefined,
+  values
+} from "@adobe/target-tools";
 import Messages from "./messages";
 import {
   ACTIVITY_ID,
@@ -21,7 +27,7 @@ export function TraceProvider(config, targetOptions, artifactTrace) {
   const showTraces = isDefined(request.trace);
 
   const [tntId, profileLocation] =
-    isDefined(request.id) && typeof request.id.tntId === "string"
+    isDefined(request.id) && isString(request.id.tntId)
       ? request.id.tntId.split(".")
       : [undefined, undefined];
 
@@ -34,7 +40,9 @@ export function TraceProvider(config, targetOptions, artifactTrace) {
   };
 
   function wrap(traceResult) {
-    if (!showTraces) return undefined;
+    if (!showTraces) {
+      return undefined;
+    }
 
     return {
       clientCode,
@@ -252,10 +260,9 @@ export function ArtifactTracer(
 
   function toJSON() {
     return {
-      artifactLocation:
-        typeof artifactPayload === "object"
-          ? Messages.NOT_APPLICABLE
-          : artifactLocation,
+      artifactLocation: isObject(artifactPayload)
+        ? Messages.NOT_APPLICABLE
+        : artifactLocation,
       pollingInterval,
       pollingHalted,
       artifactVersion: isDefined(artifact)

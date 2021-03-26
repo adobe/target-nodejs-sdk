@@ -5,6 +5,9 @@ import {
   isBrowser,
   isDefined,
   isNodeJS,
+  isNumber,
+  isObject,
+  isString,
   noop,
   perfTool,
   values
@@ -50,7 +53,7 @@ function ArtifactProvider(config) {
   function getPollingInterval() {
     if (
       // allow polling to be set to 0
-      typeof config.pollingInterval === "number" &&
+      isNumber(config.pollingInterval) &&
       config.pollingInterval === 0
     ) {
       return 0;
@@ -58,7 +61,7 @@ function ArtifactProvider(config) {
 
     return Math.max(
       MINIMUM_POLLING_INTERVAL,
-      typeof config.pollingInterval === "number"
+      isNumber(config.pollingInterval)
         ? config.pollingInterval
         : DEFAULT_POLLING_INTERVAL
     );
@@ -81,10 +84,9 @@ function ArtifactProvider(config) {
 
   const artifactLocation = determineArtifactLocation(config);
 
-  const artifactFormat =
-    typeof config.artifactFormat === "string"
-      ? config.artifactFormat
-      : determineArtifactFormat(artifactLocation);
+  const artifactFormat = isString(config.artifactFormat)
+    ? config.artifactFormat
+    : determineArtifactFormat(artifactLocation);
 
   const fetchWithRetry = getFetchWithRetry(
     fetchApi,
@@ -224,7 +226,7 @@ function ArtifactProvider(config) {
   function getInitialArtifact() {
     perfTool.timeStart(TIMING_ARTIFACT_GET_INITIAL);
 
-    return typeof config.artifactPayload === "object"
+    return isObject(config.artifactPayload)
       ? Promise.resolve(config.artifactPayload)
       : fetchArtifact(artifactLocation);
   }

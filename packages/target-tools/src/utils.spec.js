@@ -1,6 +1,5 @@
 import {
   addMboxesToRequest,
-  createUUID,
   decisioningEngineReady,
   getMboxNames,
   getProperty,
@@ -20,14 +19,6 @@ import { ChannelType } from "../delivery-api-client";
 import { DECISIONING_METHOD } from "./enums";
 
 describe("utils", () => {
-  it("has createUUID", () => {
-    expect(createUUID).toBeDefined();
-    expect(typeof createUUID).toEqual("function");
-    const uuid = createUUID();
-    expect(uuid).toEqual(expect.any(String));
-    expect(uuid.length).toEqual(32);
-  });
-
   it("has noop", () => {
     expect(noop).toBeDefined();
     expect(typeof noop).toEqual("function");

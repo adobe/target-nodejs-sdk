@@ -1,10 +1,11 @@
 import {
-  createUUID,
+  uuid,
   isDefined,
   noop,
   now,
   MetricType,
-  DECISIONING_METHOD
+  DECISIONING_METHOD,
+  isFunction
 } from "@adobe/target-tools";
 import { LOG_PREFIX } from "./constants";
 
@@ -49,11 +50,13 @@ function NotificationProvider(
       }
     });
 
-    if (displayTokens.length === 0) return;
+    if (displayTokens.length === 0) {
+      return;
+    }
 
     const notification = {
-      id: createUUID(),
-      impressionId: createUUID(),
+      id: uuid(),
+      impressionId: uuid(),
       timestamp,
       type: MetricType.Display,
       mbox: {
@@ -62,7 +65,7 @@ function NotificationProvider(
       tokens: displayTokens
     };
 
-    if (typeof traceFn === "function") {
+    if (isFunction(traceFn)) {
       traceFn(notification);
     }
 
@@ -73,7 +76,9 @@ function NotificationProvider(
    * @param {import("@adobe/target-tools/delivery-api-client/models/TelemetryEntry").TelemetryEntry} entry
    */
   function addTelemetryEntry(entry) {
-    if (!telemetryEnabled) return;
+    if (!telemetryEnabled) {
+      return;
+    }
 
     telemetryEntries.push({
       requestId,

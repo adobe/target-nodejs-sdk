@@ -1,4 +1,5 @@
-import { createUUID, AuthenticatedState } from "@adobe/target-tools";
+import { AuthenticatedState, uuid } from "@adobe/target-tools";
+import { isNonEmptyString } from "../../target-nodejs-sdk/src/utils";
 
 /**
  *
@@ -39,11 +40,10 @@ export function validVisitorId(visitorId, targetLocationHint) {
     !getCustomerId(result) &&
     !result.thirdPartyId
   ) {
-    const locationHint =
-      typeof targetLocationHint === "string" && targetLocationHint.length > 0
-        ? `.${targetLocationHint}_0`
-        : "";
-    result.tntId = `${createUUID()}${locationHint}`;
+    const locationHint = isNonEmptyString(targetLocationHint)
+      ? `.${targetLocationHint}_0`
+      : "";
+    result.tntId = `${uuid()}${locationHint}`;
   }
   return result;
 }
@@ -70,7 +70,7 @@ export function validDeliveryRequest(
         geo
       },
       id: validVisitorId(request.id, targetLocationHint),
-      requestId: request.requestId || createUUID()
+      requestId: request.requestId || uuid()
     };
   });
 }

@@ -40,7 +40,9 @@ export function createPerfToolInstance() {
    * @return {number}
    */
   function timeEnd(id, offset = 0) {
-    if (isUndefined(startTimes[id])) return -1;
+    if (isUndefined(startTimes[id])) {
+      return -1;
+    }
 
     const timing = now() - startTimes[id] - offset;
     timings[id] = timing;

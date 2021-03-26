@@ -1,4 +1,4 @@
-import { includes, now, uuid } from "./lodash";
+import { includes, isNumber, isObject, isString, now } from "./lodash";
 import { DECISIONING_METHOD } from "./enums";
 import { getLogger } from "./logging";
 import { PROPERTY_TOKEN_MISMATCH } from "./messages";
@@ -16,7 +16,9 @@ export function isDefined(value) {
 }
 
 export function isPojo(obj) {
-  if (isUndefined(obj) || obj === null || typeof obj !== "object") return false;
+  if (isUndefined(obj) || obj === null || !isObject(obj)) {
+    return false;
+  }
 
   return Object.getPrototypeOf(obj) === Object.prototype;
 }
@@ -120,7 +122,7 @@ export function addMboxesToRequest(
   }
 
   const highestUserSpecifiedIndex = mboxes.reduce((highest, mbox) => {
-    return Math.max(highest, typeof mbox.index === "number" ? mbox.index : 0);
+    return Math.max(highest, isNumber(mbox.index) ? mbox.index : 0);
   }, 0);
 
   let nextIndex = highestUserSpecifiedIndex + 1;
@@ -155,7 +157,6 @@ export function isNodeJS() {
   return typeof global !== "undefined";
 }
 
-export const createUUID = () => uuid();
 export const noop = () => undefined;
 export const noopPromise = value => Promise.resolve(value);
 
@@ -215,14 +216,16 @@ export function getProperty(config = {}, request = {}, logger) {
 }
 
 export function timeLimitExceeded(startTimeMillis, limit = -1) {
-  if (limit === -1) return false;
+  if (limit === -1) {
+    return false;
+  }
 
   return now() - startTimeMillis > limit;
 }
 
 export function isValidIpAddress(ipAddress) {
   const IP_ADDRESS = /((^\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\s*$)|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$))/g;
-  return typeof ipAddress === "string" && IP_ADDRESS.test(ipAddress);
+  return isString(ipAddress) && IP_ADDRESS.test(ipAddress);
 }
 
 /**
