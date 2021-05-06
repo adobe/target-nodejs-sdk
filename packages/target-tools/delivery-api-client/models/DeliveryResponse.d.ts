@@ -1,4 +1,4 @@
-import { ExecuteResponse, PrefetchResponse, VisitorId } from './';
+import { ExecuteResponse, NotificationResponse, PrefetchResponse, VisitorId } from './';
 export interface DeliveryResponse {
     status?: number;
     requestId?: string;
@@ -7,6 +7,7 @@ export interface DeliveryResponse {
     edgeHost?: string;
     execute?: ExecuteResponse;
     prefetch?: PrefetchResponse;
+    notifications?: NotificationResponse;
 }
 export declare function DeliveryResponseFromJSON(json: any): DeliveryResponse;
 export declare function DeliveryResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): DeliveryResponse;

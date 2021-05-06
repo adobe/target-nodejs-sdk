@@ -1,18 +1,14 @@
-import { Address, MetricType, NotificationMbox, NotificationPageLoad, NotificationView, Order, Product } from './';
+import { Address, MetricType, NotificationMbox, NotificationPageLoad, NotificationView, Order, Parameters, Product } from './';
 export interface Notification {
     address?: Address;
-    parameters?: {
-        [key: string]: string;
-    };
-    profileParameters?: {
-        [key: string]: string;
-    };
+    parameters?: Parameters;
+    profileParameters?: Parameters;
     order?: Order;
     product?: Product;
-    id?: string;
+    id: string;
     impressionId?: string;
-    type?: MetricType;
-    timestamp?: number;
+    type: MetricType;
+    timestamp: number;
     tokens?: Array<string>;
     mbox?: NotificationMbox;
     view?: NotificationView;

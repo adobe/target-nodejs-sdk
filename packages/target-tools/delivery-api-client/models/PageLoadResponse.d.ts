@@ -1,12 +1,10 @@
-import { AnalyticsResponse, Metric, Option } from './';
+import { AnalyticsResponse, Metric, Option, TraceResponse } from './';
 export interface PageLoadResponse {
     options?: Array<Option>;
     metrics?: Array<Metric>;
     analytics?: AnalyticsResponse;
     state?: string;
-    trace?: {
-        [key: string]: object;
-    };
+    trace?: TraceResponse;
 }
 export declare function PageLoadResponseFromJSON(json: any): PageLoadResponse;
 export declare function PageLoadResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): PageLoadResponse;

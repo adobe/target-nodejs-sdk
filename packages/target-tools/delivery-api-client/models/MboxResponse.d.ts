@@ -1,13 +1,11 @@
-import { AnalyticsResponse, Metric, Option } from './';
+import { AnalyticsResponse, Metric, Option, TraceResponse } from './';
 export interface MboxResponse {
     index?: number;
     name?: string;
     options?: Array<Option>;
     metrics?: Array<Metric>;
     analytics?: AnalyticsResponse;
-    trace?: {
-        [key: string]: object;
-    };
+    trace?: TraceResponse;
 }
 export declare function MboxResponseFromJSON(json: any): MboxResponse;
 export declare function MboxResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): MboxResponse;
