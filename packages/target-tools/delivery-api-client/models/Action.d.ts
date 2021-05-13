@@ -1,9 +1,8 @@
-import { OneOfstringobject } from './';
 export interface Action {
     type?: string;
     selector?: string;
     cssSelector?: string;
-    content?: OneOfstringobject;
+    content?: string | object;
 }
 export declare function ActionFromJSON(json: any): Action;
 export declare function ActionFromJSONTyped(json: any, ignoreDiscriminator: boolean): Action;

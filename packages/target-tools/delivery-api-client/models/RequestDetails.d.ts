@@ -1,12 +1,8 @@
-import { Address, Order, Product } from './';
+import { Address, Order, Parameters, Product } from './';
 export interface RequestDetails {
     address?: Address;
-    parameters?: {
-        [key: string]: string;
-    };
-    profileParameters?: {
-        [key: string]: string;
-    };
+    parameters?: Parameters;
+    profileParameters?: Parameters;
     order?: Order;
     product?: Product;
 }

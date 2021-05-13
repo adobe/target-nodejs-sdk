@@ -1,4 +1,4 @@
-import { Context, ExecuteRequest, ExperienceCloud, Notification, PrefetchRequest, Property, QAMode, Telemetry, Trace, VisitorId } from './';
+import { Context, ExecuteRequest, ExperienceCloud, Notification, PrefetchRequest, Preview, Property, QAMode, Telemetry, Trace, VisitorId } from './';
 export interface DeliveryRequest {
     requestId?: string;
     impressionId?: string;
@@ -13,6 +13,7 @@ export interface DeliveryRequest {
     telemetry?: Telemetry;
     notifications?: Array<Notification>;
     qaMode?: QAMode;
+    preview?: Preview;
 }
 export declare function DeliveryRequestFromJSON(json: any): DeliveryRequest;
 export declare function DeliveryRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): DeliveryRequest;

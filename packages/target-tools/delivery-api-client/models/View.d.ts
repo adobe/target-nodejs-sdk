@@ -1,4 +1,4 @@
-import { AnalyticsResponse, Metric, Option } from './';
+import { AnalyticsResponse, Metric, Option, TraceResponse } from './';
 export interface View {
     name?: string;
     key?: string;
@@ -6,9 +6,7 @@ export interface View {
     metrics?: Array<Metric>;
     analytics?: AnalyticsResponse;
     state?: string;
-    trace?: {
-        [key: string]: object;
-    };
+    trace?: TraceResponse;
 }
 export declare function ViewFromJSON(json: any): View;
 export declare function ViewFromJSONTyped(json: any, ignoreDiscriminator: boolean): View;
