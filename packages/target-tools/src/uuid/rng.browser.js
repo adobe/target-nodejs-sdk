@@ -1,9 +1,6 @@
 import isNil from "../lodash/internal/isNil";
 import isFunction from "../lodash/internal/isFunction";
 
-const BUFFER = new Uint8Array(256);
-const GET_RANDOM_VALUES = getRandomValues() || getFallbackRandomValues();
-
 /* eslint-disable no-undef */
 function getRandomValues() {
   const crypto = window.crypto || window.msCrypto;
@@ -28,6 +25,9 @@ function getFallbackRandomValues() {
   };
   /* eslint-enable no-param-reassign */
 }
+
+const BUFFER = new Uint8Array(256);
+const GET_RANDOM_VALUES = getRandomValues() || getFallbackRandomValues();
 
 export default function rng() {
   return GET_RANDOM_VALUES(BUFFER);

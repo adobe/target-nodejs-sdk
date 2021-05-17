@@ -22,6 +22,7 @@
     "clean": "rimraf dist",
     "prebuild": "npm run clean && npm run lint",
     "build": "NODE_ENV=production rollup -c",
+    "pretest": "npm run format && npm run lint",
     "test": "NODE_ENV=development jest",
     "prepublishOnly": "echo //${NPM_REGISTRY}/:_authToken=${NPM_AUTH_TOKEN} > .npmrc",
     "prepare": "rollup --config"
