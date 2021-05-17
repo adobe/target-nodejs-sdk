@@ -20,12 +20,12 @@ import babel from "rollup-plugin-babel";
 import visualizer from "rollup-plugin-visualizer";
 import pkg from "./package.json";
 
-export default [
-  {
-    input: "src/index.js",
+const createConfig = (input, file) => {
+  return {
+    input,
     output: {
       name: "TargetTools",
-      file: pkg.main,
+      file,
       format: "cjs"
     },
     plugins: [
@@ -45,5 +45,10 @@ export default [
         filename: "bundlesize-stats.html"
       })
     ]
-  }
+  };
+};
+
+export default [
+  createConfig("src/index.js", pkg.main),
+  createConfig("src/index.browser.js", pkg.browser)
 ];

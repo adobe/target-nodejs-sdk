@@ -1,8 +1,9 @@
 {
   "name": "@adobe/target-tools",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "description": "",
   "main": "dist/index.js",
+  "browser": "dist/index.browser.js",
   "module": "src/index.js",
   "files": [
     ".eslintrc.js",
@@ -21,7 +22,6 @@
     "clean": "rimraf dist",
     "prebuild": "npm run clean && npm run lint",
     "build": "NODE_ENV=production rollup -c",
-    "pretest": "npm run format && npm run lint",
     "test": "NODE_ENV=development jest",
     "prepublishOnly": "echo //${NPM_REGISTRY}/:_authToken=${NPM_AUTH_TOKEN} > .npmrc",
     "prepare": "rollup --config"
