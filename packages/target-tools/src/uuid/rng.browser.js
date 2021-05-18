@@ -14,20 +14,8 @@ function getRandomValues() {
 }
 /* eslint-enable no-undef */
 
-function getFallbackRandomValues() {
-  /* eslint-disable no-param-reassign */
-  return arr => {
-    for (let i = 0; i < arr.length; i += 1) {
-      arr[i] = Math.floor(256 * Math.random());
-    }
-
-    return arr;
-  };
-  /* eslint-enable no-param-reassign */
-}
-
 const BUFFER = new Uint8Array(256);
-const GET_RANDOM_VALUES = getRandomValues() || getFallbackRandomValues();
+const GET_RANDOM_VALUES = getRandomValues();
 
 export default function rng() {
   return GET_RANDOM_VALUES(BUFFER);
