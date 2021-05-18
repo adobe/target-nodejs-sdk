@@ -1,29 +1,23 @@
-const byteToHex = [];
+import { join } from "../lodash";
 
-for (let i = 0; i < 256; i += 1) {
-  byteToHex.push((i + 0x100).toString(16).substr(1));
+function createByteToHex() {
+  const result = [];
+
+  for (let i = 0; i < 256; i += 1) {
+    result.push((i + 0x100).toString(16).substr(1));
+  }
+
+  return result;
 }
 
-export default function stringify(arr) {
-  const offset = 0;
-  const uuid = (
-    byteToHex[arr[offset + 0]] +
-    byteToHex[arr[offset + 1]] +
-    byteToHex[arr[offset + 2]] +
-    byteToHex[arr[offset + 3]] +
-    byteToHex[arr[offset + 4]] +
-    byteToHex[arr[offset + 5]] +
-    byteToHex[arr[offset + 6]] +
-    byteToHex[arr[offset + 7]] +
-    byteToHex[arr[offset + 8]] +
-    byteToHex[arr[offset + 9]] +
-    byteToHex[arr[offset + 10]] +
-    byteToHex[arr[offset + 11]] +
-    byteToHex[arr[offset + 12]] +
-    byteToHex[arr[offset + 13]] +
-    byteToHex[arr[offset + 14]] +
-    byteToHex[arr[offset + 15]]
-  ).toLowerCase();
+const BYTE_TO_HEX = createByteToHex();
 
-  return uuid;
+export default function stringify(arr) {
+  const result = [];
+
+  for (let i = 0; i < 16; i += 1) {
+    result.push(BYTE_TO_HEX[arr[i]]);
+  }
+
+  return join("", result).toLowerCase();
 }
