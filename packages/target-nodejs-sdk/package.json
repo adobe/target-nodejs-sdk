@@ -52,7 +52,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@adobe/target-decisioning-engine": "^1.6.3",
-    "@adobe/target-tools": "^1.5.0",
+    "@adobe/target-tools": "^1.4.2",
     "@babel/plugin-transform-regenerator": "^7.8.3",
     "@babel/preset-env": "^7.9.5",
     "@lwc/eslint-plugin-lwc": "^0.10.0",
