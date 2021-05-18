@@ -29,6 +29,5 @@ export { default as reverse } from "./internal/reverse";
 export { default as split } from "./internal/split";
 export { default as toArray } from "./internal/toArray";
 export { default as trim } from "./internal/trim";
-export { default as uuid } from "./internal/uuid";
 export { default as values } from "./internal/values";
 export { delay, cancelDelay } from "./internal/delay";
