@@ -15,40 +15,72 @@ import resolve from "@rollup/plugin-node-resolve";
 import json from "@rollup/plugin-json";
 import license from "rollup-plugin-license";
 import commonjs from "@rollup/plugin-commonjs";
-import { terser } from "rollup-plugin-terser";
 import babel from "rollup-plugin-babel";
 import visualizer from "rollup-plugin-visualizer";
 import pkg from "./package.json";
 
-const createConfig = (input, file) => {
+const browserBabelConfig = {
+  presets: [
+    [
+      "@babel/preset-env",
+      {
+        modules: false,
+        targets: {
+          browsers: [
+            "last 2 Chrome versions",
+            "last 2 Firefox versions",
+            "last 2 Safari versions"
+          ]
+        }
+      }
+    ]
+  ],
+  plugins: [
+    [
+      "@babel/plugin-transform-template-literals",
+      {
+        loose: true
+      }
+    ],
+    "@babel/plugin-proposal-object-rest-spread"
+  ]
+};
+
+const createConfig = (input, file, format, browser) => {
+  const plugins = [
+    json(),
+    resolve(),
+    commonjs(),
+    license({
+      banner: {
+        content: {
+          file: path.join(__dirname, "LICENSE_BANNER.txt")
+        }
+      }
+    }),
+    visualizer({
+      filename: "bundlesize-stats.html"
+    })
+  ];
+
+  if (browser) {
+    plugins.push(babel(browserBabelConfig));
+  } else {
+    plugins.push(babel());
+  }
+
   return {
     input,
     output: {
       name: "TargetTools",
       file,
-      format: "cjs"
+      format
     },
-    plugins: [
-      json(),
-      resolve(),
-      commonjs(),
-      babel(),
-      terser(),
-      license({
-        banner: {
-          content: {
-            file: path.join(__dirname, "LICENSE_BANNER.txt")
-          }
-        }
-      }),
-      visualizer({
-        filename: "bundlesize-stats.html"
-      })
-    ]
+    plugins
   };
 };
 
 export default [
-  createConfig("src/index.js", pkg.main),
-  createConfig("src/index.browser.js", pkg.browser)
+  createConfig("src/index.js", pkg.main, "cjs"),
+  createConfig("src/index.browser.js", pkg.browser, "es")
 ];
