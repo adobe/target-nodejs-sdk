@@ -1,6 +1,6 @@
 {
   "name": "@adobe/target-decisioning-engine",
-  "version": "1.6.5",
+  "version": "1.6.6",
   "description": "Adobe Target JavaScript decisioning engine",
   "main": "dist/index.js",
   "module": "src/index.js",
@@ -26,7 +26,7 @@
     "prepare": "rollup --config"
   },
   "dependencies": {
-    "@adobe/target-tools": "^1.4.4",
+    "@adobe/target-tools": "^1.4.5",
     "json-logic-js": "^2.0.0"
   },
   "devDependencies": {
