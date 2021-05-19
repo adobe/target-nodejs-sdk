@@ -7,7 +7,7 @@ export interface DeliveryResponse {
     edgeHost?: string;
     execute?: ExecuteResponse;
     prefetch?: PrefetchResponse;
-    notifications?: NotificationResponse;
+    notifications?: Array<NotificationResponse>;
 }
 export declare function DeliveryResponseFromJSON(json: any): DeliveryResponse;
 export declare function DeliveryResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): DeliveryResponse;
