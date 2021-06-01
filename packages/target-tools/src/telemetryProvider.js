@@ -1,6 +1,5 @@
 import { now } from "./lodash";
 import { DECISIONING_METHOD } from "./enums";
-import { noop } from "./utils";
 
 /**
  * The get TelemetryProvider initialization method
@@ -8,7 +7,6 @@ import { noop } from "./utils";
  */
 function TelemetryProvider(
   request,
-  sendTelemetriesFunc = noop,
   decisioningMethod = DECISIONING_METHOD.ON_DEVICE,
   telemetryEnabled = true
 ) {
@@ -34,18 +32,29 @@ function TelemetryProvider(
     });
   }
 
-  function sendTelemetries() {
+  function sendTelemetries(deliveryRequest) {
     if (telemetryEntries.length > 0) {
-      setTimeout(() => {
-        sendTelemetriesFunc.call(null, telemetryEntries);
-        telemetryEntries = [];
-      }, 0);
+      const deliveryRequestWithTelemetry = {
+        ...deliveryRequest,
+        telemetry: {
+          entries: telemetryEntries
+        }
+      };
+      telemetryEntries = [];
+
+      return deliveryRequestWithTelemetry;
     }
+    return deliveryRequest;
+  }
+
+  function getEntries() {
+    return telemetryEntries;
   }
 
   return {
     addEntry,
-    sendTelemetries
+    sendTelemetries,
+    getEntries
   };
 }
 

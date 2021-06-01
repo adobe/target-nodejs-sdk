@@ -5,29 +5,24 @@ describe("TelemetryProvider", () => {
     requestId: "123456"
   };
 
-  const TARGET_TELEMETRY_ENTRY = {};
+  const TARGET_TELEMETRY_ENTRY = {
+    execution: 1
+  };
 
   beforeAll(() => {
     jest.useFakeTimers();
   });
 
   it("adds an entry", () => {
-    const mockSend = jest.fn();
-
-    const provider = TelemetryProvider(
-      TARGET_REQUEST,
-      mockSend,
-      undefined,
-      true
-    );
+    const provider = TelemetryProvider(TARGET_REQUEST, undefined, true);
 
     provider.addEntry(TARGET_TELEMETRY_ENTRY);
+    const request = provider.sendTelemetries(TARGET_REQUEST);
 
-    provider.sendTelemetries();
-    jest.runAllTimers();
-    expect(mockSend.mock.calls.length).toBe(1);
-    expect(mockSend.mock.calls[0].length).toEqual(1);
-    expect(mockSend.mock.calls[0][0][0]).toEqual(
+    expect(request).toHaveProperty("telemetry");
+    expect(request.telemetry).toHaveProperty("entries");
+    expect(request.telemetry.entries.length).toEqual(1);
+    expect(request.telemetry.entries[0]).toEqual(
       expect.objectContaining({
         requestId: expect.any(String),
         timestamp: expect.any(Number),
@@ -39,19 +34,11 @@ describe("TelemetryProvider", () => {
   });
 
   it("disables telemetries", () => {
-    const mockSend = jest.fn();
-
-    const provider = TelemetryProvider(
-      TARGET_REQUEST,
-      mockSend,
-      undefined,
-      false
-    );
+    const provider = TelemetryProvider(TARGET_REQUEST, undefined, false);
 
     provider.addEntry(TARGET_TELEMETRY_ENTRY);
-    provider.sendTelemetries();
-    jest.runAllTimers();
+    const request = provider.sendTelemetries(TARGET_REQUEST);
 
-    expect(mockSend.mock.calls.length).toBe(0);
+    expect(request).not.toHaveProperty("telemetry");
   });
 });

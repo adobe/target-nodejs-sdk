@@ -4,9 +4,9 @@ import {
   noop,
   now,
   MetricType,
-  DECISIONING_METHOD,
   isFunction
 } from "@adobe/target-tools";
+import { TelemetryProvider } from "../../target-tools/src";
 import { LOG_PREFIX } from "./constants";
 
 const LOG_TAG = `${LOG_PREFIX}.NotificationProvider`;
@@ -26,11 +26,14 @@ function NotificationProvider(
   sendNotificationFunc = noop,
   telemetryEnabled = true
 ) {
-  const { requestId } = request;
   const timestamp = now();
   const prevEventKeys = new Set();
   let notifications = [];
-  let telemetryEntries = [];
+  const telemetryProvider = TelemetryProvider(
+    request,
+    undefined,
+    telemetryEnabled
+  );
 
   /**
    * The get NotificationProvider initialize method
@@ -76,28 +79,17 @@ function NotificationProvider(
    * @param {import("@adobe/target-tools/delivery-api-client/models/TelemetryEntry").TelemetryEntry} entry
    */
   function addTelemetryEntry(entry) {
-    if (!telemetryEnabled) {
-      return;
-    }
-
-    telemetryEntries.push({
-      requestId,
-      timestamp,
-      features: {
-        decisioningMethod: DECISIONING_METHOD.ON_DEVICE
-      },
-      ...entry
-    });
+    telemetryProvider.addEntry(entry);
   }
 
   function sendNotifications() {
     logger.debug(
       `${LOG_TAG}.sendNotifications`,
       notifications,
-      telemetryEntries
+      telemetryProvider.getEntries()
     );
 
-    if (notifications.length > 0 || telemetryEntries.length > 0) {
+    if (notifications.length > 0 || telemetryProvider.getEntries().length > 0) {
       const { id, context, experienceCloud } = request;
 
       const notification = {
@@ -113,15 +105,12 @@ function NotificationProvider(
         notification.request.notifications = notifications;
       }
 
-      if (telemetryEntries.length > 0) {
-        notification.request.telemetry = {
-          entries: telemetryEntries
-        };
-      }
+      notification.request = telemetryProvider.sendTelemetries(
+        notification.request
+      );
 
       setTimeout(() => sendNotificationFunc.call(null, notification), 0);
       notifications = [];
-      telemetryEntries = [];
     }
   }
 
