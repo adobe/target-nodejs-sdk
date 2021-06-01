@@ -25,7 +25,6 @@ describe("TelemetryProvider", () => {
 
     provider.sendTelemetries();
     jest.runAllTimers();
-    console.log(mockSend.mock.calls);
     expect(mockSend.mock.calls.length).toBe(1);
     expect(mockSend.mock.calls[0].length).toEqual(1);
     expect(mockSend.mock.calls[0][0][0]).toEqual(

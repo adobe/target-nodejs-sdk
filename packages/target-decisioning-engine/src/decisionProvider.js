@@ -6,6 +6,8 @@ import {
   isUndefined,
   objectWithoutUndefinedValues,
   createPerfToolInstance,
+  TelemetryProvider,
+  DECISIONING_METHOD,
   values
 } from "@adobe/target-tools";
 import { getRuleKey, hasRemoteDependency } from "./utils";
@@ -68,6 +70,13 @@ function DecisionProvider(
     visitor,
     logger,
     sendNotificationFunc,
+    telemetryEnabled
+  );
+
+  const telemetryProvider = TelemetryProvider(
+    request,
+    sendNotificationFunc,
+    DECISIONING_METHOD.ON_DEVICE,
     telemetryEnabled
   );
 
@@ -333,11 +342,12 @@ function DecisionProvider(
     prefetch: getPrefetchDecisions(commonPostProcessor)
   });
 
-  notificationProvider.addTelemetryEntry({
+  telemetryProvider.addEntry({
     execution: timingTool.timeEnd(TIMING_GET_OFFER)
   });
 
   notificationProvider.sendNotifications();
+  telemetryProvider.sendTelemetries();
 
   logger.debug(`${LOG_TAG}`, request, response);
 
