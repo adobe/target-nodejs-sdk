@@ -4,9 +4,9 @@ import {
   noop,
   now,
   MetricType,
+  TelemetryProvider,
   isFunction
 } from "@adobe/target-tools";
-import { TelemetryProvider } from "../../target-tools/src";
 import { LOG_PREFIX } from "./constants";
 
 const LOG_TAG = `${LOG_PREFIX}.NotificationProvider`;
