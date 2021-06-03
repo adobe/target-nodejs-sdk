@@ -29,6 +29,16 @@ function NotificationProvider(
   const timestamp = now();
   const prevEventKeys = new Set();
   let notifications = [];
+
+  function executeTelemetries(deliveryRequest, telemetryEntries) {
+    return {
+      telemetry: {
+        entries: telemetryEntries
+      },
+      ...deliveryRequest
+    };
+  }
+
   const telemetryProvider = TelemetryProvider(
     request,
     executeTelemetries,
@@ -80,15 +90,6 @@ function NotificationProvider(
    */
   function addTelemetryEntry(entry) {
     telemetryProvider.addEntry(entry);
-  }
-
-  function executeTelemetries(deliveryRequest, telemetryEntries) {
-    return {
-      telemetry: {
-        entries: telemetryEntries
-      },
-      ...deliveryRequest
-    };
   }
 
   function sendNotifications() {

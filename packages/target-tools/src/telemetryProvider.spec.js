@@ -1,4 +1,4 @@
-import TelemetryProvider from "./telemetryProvider";
+import { TelemetryProvider } from "./telemetryProvider";
 
 describe("TelemetryProvider", () => {
   const TARGET_REQUEST = {
@@ -19,12 +19,10 @@ describe("TelemetryProvider", () => {
     const provider = TelemetryProvider(TARGET_REQUEST, mockExecute);
 
     provider.addEntry(TARGET_TELEMETRY_ENTRY);
-    const request = provider.executeTelemetries(TARGET_REQUEST);
+    provider.executeTelemetries(TARGET_REQUEST);
 
-    expect(request).toHaveProperty("telemetry");
-    expect(request.telemetry).toHaveProperty("entries");
-    expect(request.telemetry.entries.length).toEqual(1);
-    expect(request.telemetry.entries[0]).toEqual(
+    expect(mockExecute.mock.calls.length).toBe(1);
+    expect(mockExecute.mock.calls[0][1][0]).toEqual(
       expect.objectContaining({
         requestId: expect.any(String),
         timestamp: expect.any(Number),
@@ -39,11 +37,17 @@ describe("TelemetryProvider", () => {
   });
 
   it("disables telemetries", () => {
-    const provider = TelemetryProvider(TARGET_REQUEST, undefined, false);
+    const mockExecute = jest.fn();
+
+    const provider = TelemetryProvider(TARGET_REQUEST, mockExecute, false);
 
     provider.addEntry(TARGET_TELEMETRY_ENTRY);
-    const request = provider.sendTelemetries(TARGET_REQUEST);
 
-    expect(request).not.toHaveProperty("telemetry");
+    const entries = provider.getEntries();
+    expect(entries.length).toEqual(0);
+
+    provider.executeTelemetries(TARGET_REQUEST);
+
+    expect(mockExecute.mock.calls.length).toBe(0);
   });
 });
