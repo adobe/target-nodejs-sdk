@@ -1,14 +1,18 @@
+/* eslint-disable import/prefer-default-export */
+
 import { now } from "./lodash";
+import { noop } from "./utils";
 import { DECISIONING_METHOD } from "./enums";
 
 /**
  * The get TelemetryProvider initialization method
  * @param {function} sendTelemetriesFunc function used to send the telemetries, required
  */
-function TelemetryProvider(
+export function TelemetryProvider(
   request,
-  decisioningMethod = DECISIONING_METHOD.ON_DEVICE,
-  telemetryEnabled = true
+  executeTelemetriesFunc = noop,
+  telemetryEnabled = true,
+  decisioningMethod = DECISIONING_METHOD.ON_DEVICE
 ) {
   const { requestId } = request;
   const timestamp = now();
@@ -32,17 +36,15 @@ function TelemetryProvider(
     });
   }
 
-  function sendTelemetries(deliveryRequest) {
-    if (telemetryEntries.length > 0) {
-      const deliveryRequestWithTelemetry = {
-        ...deliveryRequest,
-        telemetry: {
-          entries: telemetryEntries
-        }
-      };
-      telemetryEntries = [];
+  function clearEntries() {
+    telemetryEntries = [];
+  }
 
-      return deliveryRequestWithTelemetry;
+  function executeTelemetries(deliveryRequest) {
+    if (telemetryEntries.length > 0) {
+      const result = executeTelemetriesFunc(deliveryRequest, telemetryEntries);
+      clearEntries();
+      return result;
     }
     return deliveryRequest;
   }
@@ -53,7 +55,8 @@ function TelemetryProvider(
 
   return {
     addEntry,
-    sendTelemetries,
+    clearEntries,
+    executeTelemetries,
     getEntries
   };
 }

@@ -31,7 +31,7 @@ function NotificationProvider(
   let notifications = [];
   const telemetryProvider = TelemetryProvider(
     request,
-    undefined,
+    executeTelemetries,
     telemetryEnabled
   );
 
@@ -82,6 +82,15 @@ function NotificationProvider(
     telemetryProvider.addEntry(entry);
   }
 
+  function executeTelemetries(deliveryRequest, telemetryEntries) {
+    return {
+      telemetry: {
+        entries: telemetryEntries
+      },
+      ...deliveryRequest
+    };
+  }
+
   function sendNotifications() {
     logger.debug(
       `${LOG_TAG}.sendNotifications`,
@@ -105,7 +114,7 @@ function NotificationProvider(
         notification.request.notifications = notifications;
       }
 
-      notification.request = telemetryProvider.sendTelemetries(
+      notification.request = telemetryProvider.executeTelemetries(
         notification.request
       );
 

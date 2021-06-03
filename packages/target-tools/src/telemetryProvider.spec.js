@@ -14,10 +14,12 @@ describe("TelemetryProvider", () => {
   });
 
   it("adds an entry", () => {
-    const provider = TelemetryProvider(TARGET_REQUEST, undefined, true);
+    const mockExecute = jest.fn();
+
+    const provider = TelemetryProvider(TARGET_REQUEST, mockExecute);
 
     provider.addEntry(TARGET_TELEMETRY_ENTRY);
-    const request = provider.sendTelemetries(TARGET_REQUEST);
+    const request = provider.executeTelemetries(TARGET_REQUEST);
 
     expect(request).toHaveProperty("telemetry");
     expect(request.telemetry).toHaveProperty("entries");
@@ -31,6 +33,9 @@ describe("TelemetryProvider", () => {
         }
       })
     );
+
+    const entries = provider.getEntries();
+    expect(entries.length).toEqual(0);
   });
 
   it("disables telemetries", () => {
