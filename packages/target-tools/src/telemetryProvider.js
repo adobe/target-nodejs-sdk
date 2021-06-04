@@ -1,7 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 
 import { now } from "./lodash";
-import { noop } from "./utils";
 import { DECISIONING_METHOD } from "./enums";
 
 /**
