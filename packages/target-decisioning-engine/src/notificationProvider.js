@@ -4,7 +4,6 @@ import {
   noop,
   now,
   MetricType,
-  TelemetryProvider,
   isFunction
 } from "@adobe/target-tools";
 import { LOG_PREFIX } from "./constants";
@@ -24,26 +23,11 @@ function NotificationProvider(
   visitor,
   logger,
   sendNotificationFunc = noop,
-  telemetryEnabled = true
+  telemetryProvider
 ) {
   const timestamp = now();
   const prevEventKeys = new Set();
   let notifications = [];
-
-  function executeTelemetries(deliveryRequest, telemetryEntries) {
-    return {
-      ...deliveryRequest,
-      telemetry: {
-        entries: telemetryEntries
-      }
-    };
-  }
-
-  const telemetryProvider = TelemetryProvider(
-    request,
-    executeTelemetries,
-    telemetryEnabled
-  );
 
   /**
    * The get NotificationProvider initialize method

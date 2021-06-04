@@ -45,6 +45,7 @@ function DecisionProvider(
   context,
   artifact,
   logger,
+  telemetryProvider,
   traceProvider
 ) {
   const timingTool = createPerfToolInstance();
@@ -68,7 +69,7 @@ function DecisionProvider(
     visitor,
     logger,
     sendNotificationFunc,
-    telemetryEnabled
+    telemetryProvider
   );
 
   /**
@@ -333,7 +334,7 @@ function DecisionProvider(
     prefetch: getPrefetchDecisions(commonPostProcessor)
   });
 
-  notificationProvider.addTelemetryEntry({
+  telemetryProvider.addEntry({
     execution: timingTool.timeEnd(TIMING_GET_OFFER)
   });
 

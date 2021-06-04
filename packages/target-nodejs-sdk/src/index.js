@@ -18,7 +18,8 @@ import {
   DECISIONING_METHOD,
   getFetchApi,
   getLogger,
-  requiresDecisioningEngine
+  requiresDecisioningEngine,
+  TelemetryProvider
 } from "@adobe/target-tools";
 
 import Visitor from "@adobe-mcid/visitor-js-server";
@@ -55,6 +56,11 @@ export default function bootstrap(fetchApi) {
       this.config = options;
       this.config.timeout = options.timeout || DEFAULT_TIMEOUT;
       this.logger = getLogger(options.logger);
+      this.telemetryProvider = TelemetryProvider(
+        this.executeTelemetries,
+        options.telemetryEnabled,
+        options.decisioningMethod
+      );
       const eventEmitter = EventProvider(this.config.events).emit;
 
       if (requiresDecisioningEngine(options.decisioningMethod)) {
@@ -172,9 +178,11 @@ export default function bootstrap(fetchApi) {
         options
       );
 
-      return executeDelivery(targetOptions, this.decisioningEngine).then(
-        preserveLocationHint.bind(this)
-      );
+      return executeDelivery(
+        targetOptions,
+        this.decisioningEngine,
+        this.telemetryProvider
+      ).then(preserveLocationHint.bind(this));
     }
 
     /**
@@ -234,9 +242,19 @@ export default function bootstrap(fetchApi) {
         ...options
       };
 
-      return executeDelivery(targetOptions).then(
-        preserveLocationHint.bind(this)
-      );
+      return executeDelivery(
+        targetOptions,
+        (telemetryProvider = this.telemetryProvider)
+      ).then(preserveLocationHint.bind(this));
+    }
+
+    executeTelemetries(deliveryRequest, telemetryEntries) {
+      return {
+        ...deliveryRequest,
+        telemetry: {
+          entries: telemetryEntries
+        }
+      };
     }
 
     static getVisitorCookieName(orgId) {

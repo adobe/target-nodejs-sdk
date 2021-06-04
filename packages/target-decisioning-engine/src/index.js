@@ -8,6 +8,7 @@ import { SUPPORTED_ARTIFACT_MAJOR_VERSION } from "./constants";
 import { validDeliveryRequest } from "./requestProvider";
 import { TraceProvider } from "./traceProvider";
 import { GeoProvider } from "./geoProvider";
+import TelemetryProvider from "@adobe/target-tools/src/telemetryProvider";
 
 /**
  * The TargetDecisioningEngine initialize method
@@ -66,6 +67,7 @@ export default function TargetDecisioningEngine(config) {
         createDecisioningContext(request),
         artifact,
         logger,
+        config.telemetryProvider,
         traceProvider
       );
     });

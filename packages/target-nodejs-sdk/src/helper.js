@@ -533,7 +533,13 @@ function createLocalDeliveryApi(
 ) {
   return {
     // eslint-disable-next-line no-unused-vars
-    execute: (organizationId, sessionId, deliveryRequest, atjsVersion) => {
+    execute: (
+      organizationId,
+      sessionId,
+      deliveryRequest,
+      atjsVersion,
+      telemetryProvider
+    ) => {
       if (isUndefined(decisioningEngine)) {
         return Promise.reject(new Error(DECISIONING_ENGINE_NOT_READY));
       }
@@ -542,7 +548,8 @@ function createLocalDeliveryApi(
         targetLocationHint,
         request: deliveryRequest,
         sessionId,
-        visitor
+        visitor,
+        telemetryProvider
       });
     },
     decisioningMethod: DECISIONING_METHOD.ON_DEVICE
@@ -551,7 +558,13 @@ function createLocalDeliveryApi(
 
 function createBeaconDeliveryApi(configuration) {
   return {
-    execute: (organizationId, sessionId, deliveryRequest, atjsVersion) => {
+    execute: (
+      organizationId,
+      sessionId,
+      deliveryRequest,
+      atjsVersion,
+      telemetryProvider
+    ) => {
       const query = {
         imsOrgId: organizationId,
         sessionId
