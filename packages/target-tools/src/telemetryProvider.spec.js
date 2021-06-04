@@ -24,7 +24,8 @@ describe("TelemetryProvider", () => {
         timestamp: expect.any(Number),
         features: {
           decisioningMethod: expect.any(String)
-        }
+        },
+        execution: 1
       })
     );
     expect(mockExecute.mock.calls[0][1][0].execution).toBe(1);
