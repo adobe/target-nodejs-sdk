@@ -1,5 +1,4 @@
 import { TelemetryProvider } from "./telemetryProvider";
-import * as utils from "./utils";
 
 describe("TelemetryProvider", () => {
   const TARGET_REQUEST = {
@@ -28,20 +27,10 @@ describe("TelemetryProvider", () => {
         }
       })
     );
+    expect(mockExecute.mock.calls[0][1][0].execution).toBe(1);
 
     const entries = provider.getEntries();
     expect(entries.length).toEqual(0);
-  });
-
-  it("execute function undefined", () => {
-    utils.noop = jest.fn();
-
-    const provider = TelemetryProvider(TARGET_REQUEST);
-
-    provider.addEntry(TARGET_TELEMETRY_ENTRY);
-    provider.executeTelemetries(TARGET_REQUEST);
-
-    expect(utils.noop.mock.calls.length).toBe(1);
   });
 
   it("disables telemetries", () => {

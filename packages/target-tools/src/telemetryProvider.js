@@ -10,7 +10,7 @@ import { DECISIONING_METHOD } from "./enums";
  */
 export function TelemetryProvider(
   request,
-  executeTelemetriesFunc = noop,
+  executeTelemetriesFunc,
   telemetryEnabled = true,
   decisioningMethod = DECISIONING_METHOD.ON_DEVICE
 ) {

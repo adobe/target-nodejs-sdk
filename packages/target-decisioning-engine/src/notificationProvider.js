@@ -32,10 +32,10 @@ function NotificationProvider(
 
   function executeTelemetries(deliveryRequest, telemetryEntries) {
     return {
+      ...deliveryRequest,
       telemetry: {
         entries: telemetryEntries
-      },
-      ...deliveryRequest
+      }
     };
   }
 
