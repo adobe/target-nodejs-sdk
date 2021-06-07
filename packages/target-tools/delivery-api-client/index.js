@@ -584,6 +584,48 @@ function DeliveryRequestToJSON(value) {
     };
 }
 
+function TraceResponseFromJSON(json) {
+    return TraceResponseFromJSONTyped(json);
+}
+
+function TraceResponseFromJSONTyped(json, ignoreDiscriminator) {
+    return json;
+}
+
+function TraceResponseToJSON(value) {
+    return value;
+}
+
+function NotificationResponseFromJSON(json) {
+    return NotificationResponseFromJSONTyped(json);
+}
+
+function NotificationResponseFromJSONTyped(json, ignoreDiscriminator) {
+    if ((json === undefined) || (json === null)) {
+        return json;
+    }
+    return {
+
+        'id': !exists(json, 'id') ? undefined : json['id'],
+        'trace': !exists(json, 'trace') ? undefined : TraceResponseFromJSON(json['trace']),
+    };
+}
+
+function NotificationResponseToJSON(value) {
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
+    }
+    return {
+
+        'id': value.id,
+        'trace': TraceResponseToJSON(value.trace),
+    };
+}
+
+
 function DeliveryResponseFromJSON(json) {
     return DeliveryResponseFromJSONTyped(json);
 }
@@ -599,6 +641,7 @@ function DeliveryResponseFromJSONTyped(json, ignoreDiscriminator) {
         'edgeHost': !exists(json, 'edgeHost') ? undefined : json['edgeHost'],
         'execute': !exists(json, 'execute') ? undefined : ExecuteResponseFromJSON(json['execute']),
         'prefetch': !exists(json, 'prefetch') ? undefined : PrefetchResponseFromJSON(json['prefetch']),
+        'notifications': !exists(json, 'notifications') ? undefined : (json['notifications'].map(NotificationResponseFromJSON)),
     };
 }
 function DeliveryResponseToJSON(value) {
@@ -616,6 +659,7 @@ function DeliveryResponseToJSON(value) {
         'edgeHost': value.edgeHost,
         'execute': ExecuteResponseToJSON(value.execute),
         'prefetch': PrefetchResponseToJSON(value.prefetch),
+        'notifications': value.notifications === undefined ? undefined : (value.notifications.map(NotificationResponseToJSON)),
     };
 }
 
@@ -863,6 +907,7 @@ function MetricFromJSONTyped(json, ignoreDiscriminator) {
         'type': !exists(json, 'type') ? undefined : MetricTypeFromJSON(json['type']),
         'selector': !exists(json, 'selector') ? undefined : json['selector'],
         'eventToken': !exists(json, 'eventToken') ? undefined : json['eventToken'],
+        'analytics': !exists(json, 'analytics') ? undefined : AnalyticsResponseFromJSON(json['analytics']),
     };
 }
 function MetricToJSON(value) {
@@ -876,6 +921,7 @@ function MetricToJSON(value) {
         'type': MetricTypeToJSON(value.type),
         'selector': value.selector,
         'eventToken': value.eventToken,
+        'analytics': AnalyticsResponseToJSON(value.analytics),
     };
 }
 
