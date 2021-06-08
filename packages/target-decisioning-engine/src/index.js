@@ -8,7 +8,6 @@ import { SUPPORTED_ARTIFACT_MAJOR_VERSION } from "./constants";
 import { validDeliveryRequest } from "./requestProvider";
 import { TraceProvider } from "./traceProvider";
 import { GeoProvider } from "./geoProvider";
-import TelemetryProvider from "@adobe/target-tools/src/telemetryProvider";
 
 /**
  * The TargetDecisioningEngine initialize method
@@ -24,7 +23,7 @@ export default function TargetDecisioningEngine(config) {
    * @param {import("../types/TargetDeliveryRequest").TargetDeliveryRequest} targetOptions
    */
   function getOffers(targetOptions) {
-    let { request, telemetryProvider } = targetOptions;
+    let { request } = targetOptions;
 
     if (isUndefined(artifact)) {
       return Promise.reject(new Error(Messages.ARTIFACT_NOT_AVAILABLE));
@@ -67,7 +66,7 @@ export default function TargetDecisioningEngine(config) {
         createDecisioningContext(request),
         artifact,
         logger,
-        telemetryProvider,
+        targetOptions.telemetryProvider,
         traceProvider
       );
     });

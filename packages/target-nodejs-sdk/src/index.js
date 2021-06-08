@@ -239,12 +239,16 @@ export default function bootstrap(fetchApi) {
         },
         logger: this.logger,
         useBeacon: true,
-        ...options
+        ...{
+          ...options,
+          request: this.telemetryProvider.executeTelemetries(options.request)
+        }
       };
 
       return executeDelivery(
         targetOptions,
-        (telemetryProvider = this.telemetryProvider)
+        undefined,
+        this.telemetryProvider
       ).then(preserveLocationHint.bind(this));
     }
 
