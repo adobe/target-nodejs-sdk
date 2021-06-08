@@ -73,7 +73,7 @@ function NotificationProvider(
    * @param {import("@adobe/target-tools/delivery-api-client/models/TelemetryEntry").TelemetryEntry} entry
    */
   function addTelemetryEntry(entry) {
-    telemetryProvider.addEntry(entry);
+    telemetryProvider.addEntry(request, entry);
   }
 
   function sendNotifications() {

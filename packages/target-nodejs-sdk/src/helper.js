@@ -586,6 +586,9 @@ function createBeaconDeliveryApi(configuration) {
           }
         })
       );
+
+      telemetryProvider.addEntry(deliveryRequest, {});
+
       return success ? Promise.resolve() : Promise.reject();
     },
     decisioningMethod: DECISIONING_METHOD.SERVER_SIDE
