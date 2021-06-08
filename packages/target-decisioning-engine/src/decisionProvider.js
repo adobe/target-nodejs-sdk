@@ -334,7 +334,7 @@ function DecisionProvider(
     prefetch: getPrefetchDecisions(commonPostProcessor)
   });
 
-  telemetryProvider.addEntry({
+  notificationProvider.addTelemetryEntry({
     execution: timingTool.timeEnd(TIMING_GET_OFFER)
   });
 

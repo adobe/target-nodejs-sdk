@@ -24,7 +24,7 @@ export default function TargetDecisioningEngine(config) {
    * @param {import("../types/TargetDeliveryRequest").TargetDeliveryRequest} targetOptions
    */
   function getOffers(targetOptions) {
-    let { request } = targetOptions;
+    let { request, telemetryProvider } = targetOptions;
 
     if (isUndefined(artifact)) {
       return Promise.reject(new Error(Messages.ARTIFACT_NOT_AVAILABLE));
@@ -67,7 +67,7 @@ export default function TargetDecisioningEngine(config) {
         createDecisioningContext(request),
         artifact,
         logger,
-        config.telemetryProvider,
+        telemetryProvider,
         traceProvider
       );
     });

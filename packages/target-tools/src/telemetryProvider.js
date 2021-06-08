@@ -10,7 +10,7 @@ import { DECISIONING_METHOD } from "./enums";
 export function TelemetryProvider(
   executeTelemetriesFunc,
   telemetryEnabled = true,
-  decisioningMethod = DECISIONING_METHOD.ON_DEVICE
+  decisioningMethod = DECISIONING_METHOD.SERVER_SIDE
 ) {
   let telemetryEntries = [];
 
@@ -28,6 +28,7 @@ export function TelemetryProvider(
     telemetryEntries.push({
       requestId,
       timestamp,
+      mode: decisioningMethod,
       features: {
         decisioningMethod
       },
