@@ -4,7 +4,7 @@ import {
   noop,
   now,
   MetricType,
-  DECISIONING_METHOD,
+  TelemetryProvider,
   isFunction
 } from "@adobe/target-tools";
 import { LOG_PREFIX } from "./constants";
@@ -26,11 +26,24 @@ function NotificationProvider(
   sendNotificationFunc = noop,
   telemetryEnabled = true
 ) {
-  const { requestId } = request;
   const timestamp = now();
   const prevEventKeys = new Set();
   let notifications = [];
-  let telemetryEntries = [];
+
+  function executeTelemetries(deliveryRequest, telemetryEntries) {
+    return {
+      ...deliveryRequest,
+      telemetry: {
+        entries: telemetryEntries
+      }
+    };
+  }
+
+  const telemetryProvider = TelemetryProvider(
+    request,
+    executeTelemetries,
+    telemetryEnabled
+  );
 
   /**
    * The get NotificationProvider initialize method
@@ -76,28 +89,17 @@ function NotificationProvider(
    * @param {import("@adobe/target-tools/delivery-api-client/models/TelemetryEntry").TelemetryEntry} entry
    */
   function addTelemetryEntry(entry) {
-    if (!telemetryEnabled) {
-      return;
-    }
-
-    telemetryEntries.push({
-      requestId,
-      timestamp,
-      features: {
-        decisioningMethod: DECISIONING_METHOD.ON_DEVICE
-      },
-      ...entry
-    });
+    telemetryProvider.addEntry(entry);
   }
 
   function sendNotifications() {
     logger.debug(
       `${LOG_TAG}.sendNotifications`,
       notifications,
-      telemetryEntries
+      telemetryProvider.getEntries()
     );
 
-    if (notifications.length > 0 || telemetryEntries.length > 0) {
+    if (notifications.length > 0 || telemetryProvider.getEntries().length > 0) {
       const { id, context, experienceCloud } = request;
 
       const notification = {
@@ -113,15 +115,12 @@ function NotificationProvider(
         notification.request.notifications = notifications;
       }
 
-      if (telemetryEntries.length > 0) {
-        notification.request.telemetry = {
-          entries: telemetryEntries
-        };
-      }
+      notification.request = telemetryProvider.executeTelemetries(
+        notification.request
+      );
 
       setTimeout(() => sendNotificationFunc.call(null, notification), 0);
       notifications = [];
-      telemetryEntries = [];
     }
   }
 
