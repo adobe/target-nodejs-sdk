@@ -18,9 +18,11 @@ import {
   getFetchWithRetry,
   getProperty,
   isDefined,
-  requiresDecisioningEngine
+  requiresDecisioningEngine,
+  createPerfToolInstance
 } from "@adobe/target-tools";
 import { Messages } from "./messages";
+import { TIMING_EXECUTE_DELIVERY } from "./timings";
 import {
   createConfiguration,
   createDeliveryApi,
@@ -45,6 +47,8 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
     useBeacon,
     createDeliveryApiMethod = createDeliveryApi
   } = options;
+  const timingTool = createPerfToolInstance();
+  timingTool.timeStart(TIMING_EXECUTE_DELIVERY);
 
   const property = getProperty(config, request, logger);
   if (isDefined(property)) {
@@ -122,20 +126,18 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
   );
 
   return deliveryMethod
-    .execute(
-      organizationId,
-      sessionId,
-      deliveryRequest,
-      config.version,
-      telemetryProvider
-    )
+    .execute(organizationId, sessionId, deliveryRequest, config.version)
     .then((response = {}) => {
       logger.debug(
         Messages.RESPONSE_RECEIVED,
         JSON.stringify(response, null, 2)
       );
 
-      telemetryProvider.addEntry(deliveryRequest);
+      if (deliveryMethod.decisioningMethod === DECISIONING_METHOD.SERVER_SIDE) {
+        telemetryProvider.addEntry(deliveryRequest, {
+          execution: timingTool.timeEnd(TIMING_EXECUTE_DELIVERY)
+        });
+      }
 
       return Object.assign(
         { visitorState: visitor.getState(), request: deliveryRequest },

@@ -533,7 +533,7 @@ function createLocalDeliveryApi(
 ) {
   return {
     // eslint-disable-next-line no-unused-vars
-    execute: (organizationId, sessionId, deliveryRequest) => {
+    execute: (organizationId, sessionId, deliveryRequest, atjsVersion) => {
       if (isUndefined(decisioningEngine)) {
         return Promise.reject(new Error(DECISIONING_ENGINE_NOT_READY));
       }
@@ -551,13 +551,7 @@ function createLocalDeliveryApi(
 
 function createBeaconDeliveryApi(configuration) {
   return {
-    execute: (
-      organizationId,
-      sessionId,
-      deliveryRequest,
-      atjsVersion,
-      telemetryProvider
-    ) => {
+    execute: (organizationId, sessionId, deliveryRequest, atjsVersion) => {
       const query = {
         imsOrgId: organizationId,
         sessionId
@@ -579,8 +573,6 @@ function createBeaconDeliveryApi(configuration) {
           }
         })
       );
-
-      telemetryProvider.addEntry(deliveryRequest);
 
       return success ? Promise.resolve() : Promise.reject();
     },
