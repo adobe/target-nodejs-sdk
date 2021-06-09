@@ -8,26 +8,27 @@ import { DECISIONING_METHOD } from "./enums";
  * @param {function} sendTelemetriesFunc function used to send the telemetries, required
  */
 export function TelemetryProvider(
-  request,
   executeTelemetriesFunc,
   telemetryEnabled = true,
-  decisioningMethod = DECISIONING_METHOD.ON_DEVICE
+  decisioningMethod = DECISIONING_METHOD.SERVER_SIDE
 ) {
-  const { requestId } = request;
-  const timestamp = now();
   let telemetryEntries = [];
 
   /**
    * @param {import("@adobe/target-tools/delivery-api-client/models/TelemetryEntry").TelemetryEntry} entry
    */
-  function addEntry(entry) {
+  function addEntry(request, entry) {
     if (!telemetryEnabled) {
       return;
     }
 
+    const { requestId } = request;
+    const timestamp = now();
+
     telemetryEntries.push({
       requestId,
       timestamp,
+      mode: decisioningMethod,
       features: {
         decisioningMethod
       },

@@ -66,6 +66,7 @@ export default function TargetDecisioningEngine(config) {
         createDecisioningContext(request),
         artifact,
         logger,
+        targetOptions.telemetryProvider,
         traceProvider
       );
     });

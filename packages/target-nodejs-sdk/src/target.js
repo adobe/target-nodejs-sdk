@@ -34,7 +34,7 @@ import {
 } from "./helper";
 import { parseCookies } from "./cookies";
 
-export function executeDelivery(options, decisioningEngine) {
+export function executeDelivery(options, decisioningEngine, telemetryProvider) {
   const {
     visitor,
     config,
@@ -122,7 +122,13 @@ export function executeDelivery(options, decisioningEngine) {
   );
 
   return deliveryMethod
-    .execute(organizationId, sessionId, deliveryRequest, config.version)
+    .execute(
+      organizationId,
+      sessionId,
+      deliveryRequest,
+      config.version,
+      telemetryProvider
+    )
     .then((response = {}) => {
       logger.debug(
         Messages.RESPONSE_RECEIVED,

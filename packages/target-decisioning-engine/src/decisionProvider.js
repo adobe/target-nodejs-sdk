@@ -45,6 +45,7 @@ function DecisionProvider(
   context,
   artifact,
   logger,
+  telemetryProvider,
   traceProvider
 ) {
   const timingTool = createPerfToolInstance();
@@ -57,7 +58,7 @@ function DecisionProvider(
   const { request, visitor } = targetOptions;
   const propertyToken = getPropertyToken(request.property);
 
-  const { sendNotificationFunc, telemetryEnabled = true } = config;
+  const { sendNotificationFunc } = config;
 
   const visitorId = request.id;
   const processRule = ruleEvaluator(clientId, visitorId);
@@ -68,7 +69,7 @@ function DecisionProvider(
     visitor,
     logger,
     sendNotificationFunc,
-    telemetryEnabled
+    telemetryProvider
   );
 
   /**
