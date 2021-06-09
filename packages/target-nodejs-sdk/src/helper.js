@@ -580,7 +580,7 @@ function createBeaconDeliveryApi(configuration) {
         })
       );
 
-      telemetryProvider.addEntry(deliveryRequest, {});
+      telemetryProvider.addEntry(deliveryRequest);
 
       return success ? Promise.resolve() : Promise.reject();
     },
@@ -886,4 +886,13 @@ export function processResponse(
   removeEmptyKeys(result);
 
   return result;
+}
+
+export function executeTelemetries(deliveryRequest, telemetryEntries) {
+  return {
+    ...deliveryRequest,
+    telemetry: {
+      entries: telemetryEntries
+    }
+  };
 }

@@ -127,9 +127,6 @@ describe("decisioning engine", () => {
           expect(sendNotificationFunc.mock.calls.length).toEqual(1);
           const notificationPayload = sendNotificationFunc.mock.calls[0][0];
 
-          if (testDescription === "sends telemetry") {
-            console.log(notificationPayload.request.telemetry.entries);
-          }
           expectToMatchObject(notificationPayload, notificationOutput);
         }
       }

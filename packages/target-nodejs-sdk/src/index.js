@@ -19,7 +19,8 @@ import {
   getFetchApi,
   getLogger,
   requiresDecisioningEngine,
-  TelemetryProvider
+  TelemetryProvider,
+  executeTelemetries
 } from "@adobe/target-tools";
 
 import Visitor from "@adobe-mcid/visitor-js-server";
@@ -57,7 +58,7 @@ export default function bootstrap(fetchApi) {
       this.config.timeout = options.timeout || DEFAULT_TIMEOUT;
       this.logger = getLogger(options.logger);
       this.telemetryProvider = TelemetryProvider(
-        this.executeTelemetries,
+        executeTelemetries,
         options.telemetryEnabled,
         options.decisioningMethod
       );
@@ -250,15 +251,6 @@ export default function bootstrap(fetchApi) {
       return executeDelivery(targetOptions, this.telemetryProvider).then(
         preserveLocationHint.bind(this)
       );
-    }
-
-    static executeTelemetries(deliveryRequest, telemetryEntries) {
-      return {
-        ...deliveryRequest,
-        telemetry: {
-          entries: telemetryEntries
-        }
-      };
     }
 
     static getVisitorCookieName(orgId) {

@@ -134,6 +134,9 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
         Messages.RESPONSE_RECEIVED,
         JSON.stringify(response, null, 2)
       );
+
+      telemetryProvider.addEntry(deliveryRequest);
+
       return Object.assign(
         { visitorState: visitor.getState(), request: deliveryRequest },
         processResponse(
