@@ -10,6 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
+const { noop, TelemetryProvider } = require("@adobe/target-tools");
 const MockDate = require("mockdate");
 const target = require("../src/target");
 
@@ -84,7 +85,12 @@ describe("Target Delivery API client", () => {
       createDeliveryApiMethod: createDeliveryApiSpy
     };
 
-    const serializedResult = await target.executeDelivery(options);
+    const telemetryProvider = TelemetryProvider(noop, false);
+
+    const serializedResult = await target.executeDelivery(
+      options,
+      telemetryProvider
+    );
     expect(serializedResult).toEqual(
       expect.objectContaining({
         visitorState: { "B8A054D958807F770A495DD6@AdobeOrg": {} },
@@ -121,7 +127,7 @@ describe("Target Delivery API client", () => {
     }));
     options.createDeliveryApiMethod = createDeliveryApiSpy;
 
-    const result = await target.executeDelivery(options);
+    const result = await target.executeDelivery(options, telemetryProvider);
     expect(result).toEqual(
       expect.objectContaining({
         visitorState: { "B8A054D958807F770A495DD6@AdobeOrg": {} },

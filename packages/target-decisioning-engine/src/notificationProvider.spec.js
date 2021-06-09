@@ -1,4 +1,10 @@
-import { getLogger, ChannelType, MetricType } from "@adobe/target-tools";
+import {
+  getLogger,
+  ChannelType,
+  MetricType,
+  noop,
+  TelemetryProvider
+} from "@adobe/target-tools";
 import NotificationProvider from "./notificationProvider";
 import { validVisitorId } from "./requestProvider";
 
@@ -32,11 +38,14 @@ describe("notificationProvider", () => {
   it("adds display notifications", () => {
     const mockNotify = jest.fn();
 
+    const telemetryProvider = TelemetryProvider(noop, false);
+
     const provider = NotificationProvider(
       TARGET_REQUEST,
       undefined,
       logger,
-      mockNotify
+      mockNotify,
+      telemetryProvider
     );
 
     provider.addNotification({
@@ -75,11 +84,14 @@ describe("notificationProvider", () => {
   it("does not duplicate notifications", () => {
     const mockNotify = jest.fn();
 
+    const telemetryProvider = TelemetryProvider(noop, false);
+
     const provider = NotificationProvider(
       TARGET_REQUEST,
       undefined,
       logger,
-      mockNotify
+      mockNotify,
+      telemetryProvider
     );
     provider.addNotification({
       name: "target-global-mbox",
@@ -161,11 +173,14 @@ describe("notificationProvider", () => {
   it("has distinct notifications per mbox", () => {
     const mockNotify = jest.fn();
 
+    const telemetryProvider = TelemetryProvider(noop, false);
+
     const provider = NotificationProvider(
       TARGET_REQUEST,
       undefined,
       logger,
-      mockNotify
+      mockNotify,
+      telemetryProvider
     );
     provider.addNotification({
       name: "my-mbox",

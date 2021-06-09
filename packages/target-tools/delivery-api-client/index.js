@@ -1886,8 +1886,8 @@ class DeliveryApi extends BaseAPI {
         });
         return new JSONApiResponse(response, (jsonValue) => DeliveryResponseFromJSON(jsonValue));
     }
-    async execute(imsOrgId, sessionId, deliveryRequest, version, telemetryProvider) {
-        const response = await this.executeRaw({ imsOrgId: imsOrgId, sessionId: sessionId, deliveryRequest: deliveryRequest, version: version, telemetryProvider: telemetryProvider });
+    async execute(imsOrgId, sessionId, deliveryRequest, version) {
+        const response = await this.executeRaw({ imsOrgId: imsOrgId, sessionId: sessionId, deliveryRequest: deliveryRequest, version: version});
         
         return await response.value();
     }

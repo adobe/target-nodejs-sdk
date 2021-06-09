@@ -19,8 +19,7 @@ import {
   getFetchApi,
   getLogger,
   requiresDecisioningEngine,
-  TelemetryProvider,
-  executeTelemetries
+  TelemetryProvider
 } from "@adobe/target-tools";
 
 import Visitor from "@adobe-mcid/visitor-js-server";
@@ -30,7 +29,11 @@ import { Messages } from "./messages";
 import { LOCATION_HINT_COOKIE, TARGET_COOKIE } from "./cookies";
 import { executeDelivery } from "./target";
 
-import { preserveLocationHint, requestLocationHintCookie } from "./helper";
+import {
+  preserveLocationHint,
+  requestLocationHintCookie,
+  executeTelemetries
+} from "./helper";
 
 import {
   validateClientOptions,

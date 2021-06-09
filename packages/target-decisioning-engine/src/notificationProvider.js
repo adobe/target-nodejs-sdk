@@ -74,22 +74,17 @@ function NotificationProvider(
    * @param {import("@adobe/target-tools/delivery-api-client/models/TelemetryEntry").TelemetryEntry} entry
    */
   function addTelemetryEntry(entry) {
-    if (telemetryProvider) {
-      telemetryProvider.addEntry(request, entry, DECISIONING_METHOD.ON_DEVICE);
-    }
+    telemetryProvider.addEntry(request, entry, DECISIONING_METHOD.ON_DEVICE);
   }
 
   function sendNotifications() {
     logger.debug(
       `${LOG_TAG}.sendNotifications`,
       notifications,
-      telemetryProvider ? telemetryProvider.getEntries() : ""
+      telemetryProvider.getEntries()
     );
 
-    if (
-      notifications.length > 0 ||
-      (telemetryProvider && telemetryProvider.getEntries().length > 0)
-    ) {
+    if (notifications.length > 0 || telemetryProvider.getEntries().length > 0) {
       const { id, context, experienceCloud } = request;
 
       const notification = {
@@ -105,11 +100,9 @@ function NotificationProvider(
         notification.request.notifications = notifications;
       }
 
-      if (telemetryProvider) {
-        notification.request = telemetryProvider.executeTelemetries(
-          notification.request
-        );
-      }
+      notification.request = telemetryProvider.executeTelemetries(
+        notification.request
+      );
 
       setTimeout(() => sendNotificationFunc.call(null, notification), 0);
       notifications = [];
