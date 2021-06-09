@@ -6,6 +6,7 @@ describe("notificationProvider", () => {
   const logger = getLogger();
 
   const TARGET_REQUEST = {
+    requestId: "request123456",
     id: validVisitorId(undefined, undefined),
     context: {
       channel: ChannelType.Web,
@@ -36,7 +37,8 @@ describe("notificationProvider", () => {
       TARGET_REQUEST,
       undefined,
       logger,
-      mockNotify
+      mockNotify,
+      false
     );
 
     provider.addNotification({
@@ -72,7 +74,7 @@ describe("notificationProvider", () => {
     );
   });
 
-  it("does not duplicate notifications", () => {
+  it("sends notifications when telemetry enabled", () => {
     const mockNotify = jest.fn();
 
     const provider = NotificationProvider(
@@ -80,6 +82,22 @@ describe("notificationProvider", () => {
       undefined,
       logger,
       mockNotify
+    );
+
+    provider.sendNotifications();
+    jest.runAllTimers();
+    expect(mockNotify.mock.calls.length).toBe(1);
+  });
+
+  it("does not duplicate notifications", () => {
+    const mockNotify = jest.fn();
+
+    const provider = NotificationProvider(
+      TARGET_REQUEST,
+      undefined,
+      logger,
+      mockNotify,
+      false
     );
     provider.addNotification({
       name: "target-global-mbox",
@@ -165,7 +183,8 @@ describe("notificationProvider", () => {
       TARGET_REQUEST,
       undefined,
       logger,
-      mockNotify
+      mockNotify,
+      false
     );
     provider.addNotification({
       name: "my-mbox",

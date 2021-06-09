@@ -4,7 +4,6 @@ import {
   noop,
   now,
   MetricType,
-  TelemetryProvider,
   isFunction
 } from "@adobe/target-tools";
 import { LOG_PREFIX } from "./constants";
@@ -29,21 +28,6 @@ function NotificationProvider(
   const timestamp = now();
   const prevEventKeys = new Set();
   let notifications = [];
-
-  function executeTelemetries(deliveryRequest, telemetryEntries) {
-    return {
-      ...deliveryRequest,
-      telemetry: {
-        entries: telemetryEntries
-      }
-    };
-  }
-
-  const telemetryProvider = TelemetryProvider(
-    request,
-    executeTelemetries,
-    telemetryEnabled
-  );
 
   /**
    * The get NotificationProvider initialize method
@@ -85,21 +69,10 @@ function NotificationProvider(
     notifications.push(notification);
   }
 
-  /**
-   * @param {import("@adobe/target-tools/delivery-api-client/models/TelemetryEntry").TelemetryEntry} entry
-   */
-  function addTelemetryEntry(entry) {
-    telemetryProvider.addEntry(entry);
-  }
-
   function sendNotifications() {
-    logger.debug(
-      `${LOG_TAG}.sendNotifications`,
-      notifications,
-      telemetryProvider.getEntries()
-    );
+    logger.debug(`${LOG_TAG}.sendNotifications`, notifications);
 
-    if (notifications.length > 0 || telemetryProvider.getEntries().length > 0) {
+    if (notifications.length > 0 || telemetryEnabled) {
       const { id, context, experienceCloud } = request;
 
       const notification = {
@@ -115,10 +88,6 @@ function NotificationProvider(
         notification.request.notifications = notifications;
       }
 
-      notification.request = telemetryProvider.executeTelemetries(
-        notification.request
-      );
-
       setTimeout(() => sendNotificationFunc.call(null, notification), 0);
       notifications = [];
     }
@@ -126,7 +95,6 @@ function NotificationProvider(
 
   return {
     addNotification,
-    addTelemetryEntry,
     sendNotifications
   };
 }

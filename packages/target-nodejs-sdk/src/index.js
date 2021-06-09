@@ -18,7 +18,9 @@ import {
   DECISIONING_METHOD,
   getFetchApi,
   getLogger,
-  requiresDecisioningEngine
+  requiresDecisioningEngine,
+  TelemetryProvider,
+  executeTelemetries
 } from "@adobe/target-tools";
 
 import Visitor from "@adobe-mcid/visitor-js-server";
@@ -55,6 +57,11 @@ export default function bootstrap(fetchApi) {
       this.config = options;
       this.config.timeout = options.timeout || DEFAULT_TIMEOUT;
       this.logger = getLogger(options.logger);
+      this.telemetryProvider = TelemetryProvider(
+        executeTelemetries,
+        options.telemetryEnabled,
+        options.decisioningMethod
+      );
       const eventEmitter = EventProvider(this.config.events).emit;
 
       if (requiresDecisioningEngine(options.decisioningMethod)) {
@@ -72,8 +79,8 @@ export default function bootstrap(fetchApi) {
             environment: options.environment,
             cdnEnvironment: options.cdnEnvironment,
             cdnBasePath: options.cdnBasePath,
-            telemetryEnabled: options.telemetryEnabled,
             logger: this.logger,
+            telemetryEnabled: options.telemetryEnabled,
             fetchApi: fetchImpl,
             eventEmitter,
             sendNotificationFunc: notificationOptions =>
@@ -172,9 +179,11 @@ export default function bootstrap(fetchApi) {
         options
       );
 
-      return executeDelivery(targetOptions, this.decisioningEngine).then(
-        preserveLocationHint.bind(this)
-      );
+      return executeDelivery(
+        targetOptions,
+        this.telemetryProvider,
+        this.decisioningEngine
+      ).then(preserveLocationHint.bind(this));
     }
 
     /**
@@ -215,7 +224,10 @@ export default function bootstrap(fetchApi) {
      */
 
     sendNotifications(options) {
-      const error = validateSendNotificationsOptions(options);
+      const error = validateSendNotificationsOptions(
+        options,
+        this.telemetryProvider.hasEntries()
+      );
 
       if (error) {
         return Promise.reject(new Error(error));
@@ -234,7 +246,7 @@ export default function bootstrap(fetchApi) {
         ...options
       };
 
-      return executeDelivery(targetOptions).then(
+      return executeDelivery(targetOptions, this.telemetryProvider).then(
         preserveLocationHint.bind(this)
       );
     }

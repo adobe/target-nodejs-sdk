@@ -5,7 +5,6 @@ import {
   isDefined,
   isUndefined,
   objectWithoutUndefinedValues,
-  createPerfToolInstance,
   values
 } from "@adobe/target-tools";
 import { getRuleKey, hasRemoteDependency } from "./utils";
@@ -24,7 +23,6 @@ import {
 import { ruleEvaluator } from "./ruleEvaluator";
 import { LOG_PREFIX } from "./constants";
 import { byPropertyToken } from "./filters";
-import { TIMING_GET_OFFER } from "./timings";
 
 const LOG_TAG = `${LOG_PREFIX}.DecisionProvider`;
 const PARTIAL_CONTENT = 206;
@@ -47,9 +45,6 @@ function DecisionProvider(
   logger,
   traceProvider
 ) {
-  const timingTool = createPerfToolInstance();
-
-  timingTool.timeStart(TIMING_GET_OFFER);
   const { responseTokens, rules } = artifact;
   const globalMboxName = artifact.globalMbox || DEFAULT_GLOBAL_MBOX;
 
@@ -331,10 +326,6 @@ function DecisionProvider(
     edgeHost: undefined,
     execute: getExecuteDecisions(commonPostProcessor),
     prefetch: getPrefetchDecisions(commonPostProcessor)
-  });
-
-  notificationProvider.addTelemetryEntry({
-    execution: timingTool.timeEnd(TIMING_GET_OFFER)
   });
 
   notificationProvider.sendNotifications();

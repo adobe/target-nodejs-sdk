@@ -18,9 +18,11 @@ import {
   getFetchWithRetry,
   getProperty,
   isDefined,
-  requiresDecisioningEngine
+  requiresDecisioningEngine,
+  createPerfToolInstance
 } from "@adobe/target-tools";
 import { Messages } from "./messages";
+import { TIMING_EXECUTE_DELIVERY } from "./timings";
 import {
   createConfiguration,
   createDeliveryApi,
@@ -34,7 +36,9 @@ import {
 } from "./helper";
 import { parseCookies } from "./cookies";
 
-export function executeDelivery(options, decisioningEngine) {
+const timingTool = createPerfToolInstance();
+
+export function executeDelivery(options, telemetryProvider, decisioningEngine) {
   const {
     visitor,
     config,
@@ -95,7 +99,7 @@ export function executeDelivery(options, decisioningEngine) {
     organizationId
   };
 
-  const deliveryRequest = createDeliveryRequest(request, requestOptions);
+  let deliveryRequest = createDeliveryRequest(request, requestOptions);
 
   const configuration = createConfiguration(
     fetchWithRetry,
@@ -114,20 +118,36 @@ export function executeDelivery(options, decisioningEngine) {
     decisioningEngine
   );
 
+  if (deliveryMethod.decisioningMethod === DECISIONING_METHOD.SERVER_SIDE) {
+    deliveryRequest = telemetryProvider.executeTelemetries(deliveryRequest);
+  }
+
   logger.debug(
     Messages.REQUEST_SENT,
     deliveryMethod.decisioningMethod,
     host,
     JSON.stringify(deliveryRequest, null, 2)
   );
+  timingTool.timeStart(TIMING_EXECUTE_DELIVERY);
 
   return deliveryMethod
     .execute(organizationId, sessionId, deliveryRequest, config.version)
     .then((response = {}) => {
+      const endTime = timingTool.timeEnd(TIMING_EXECUTE_DELIVERY);
+
       logger.debug(
         Messages.RESPONSE_RECEIVED,
         JSON.stringify(response, null, 2)
       );
+
+      telemetryProvider.addEntry(
+        deliveryRequest,
+        {
+          execution: endTime
+        },
+        deliveryMethod.decisioningMethod
+      );
+
       return Object.assign(
         { visitorState: visitor.getState(), request: deliveryRequest },
         processResponse(

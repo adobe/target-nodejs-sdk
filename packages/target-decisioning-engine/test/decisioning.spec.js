@@ -1,5 +1,11 @@
 import * as MockDate from "mockdate";
-import { isDefined, isUndefined } from "@adobe/target-tools";
+import {
+  isDefined,
+  isUndefined,
+  TelemetryProvider,
+  executeTelemetries,
+  DECISIONING_METHOD
+} from "@adobe/target-tools";
 
 import TargetDecisioningEngine from "../src";
 import { ARTIFACT_FORMAT_JSON } from "../src/constants";
@@ -89,6 +95,12 @@ describe("decisioning engine", () => {
 
       fetch.mockResponses(...mockResponses);
 
+      const telemetryProvider = TelemetryProvider(
+        executeTelemetries,
+        conf.telemetryEnabled,
+        DECISIONING_METHOD.ON_DEVICE
+      );
+
       decisioning = await TargetDecisioningEngine({
         ...conf,
         sendNotificationFunc,
@@ -98,6 +110,9 @@ describe("decisioning engine", () => {
       expect(decisioning.getRawArtifact()).toEqual(artifact);
 
       const result = await decisioning.getOffers(input);
+
+      telemetryProvider.addEntry(result, { execution: 1 });
+
       expectToMatchObject(result, output);
 
       if (isDefined(notificationOutput)) {
@@ -108,6 +123,10 @@ describe("decisioning engine", () => {
         } else {
           expect(sendNotificationFunc.mock.calls.length).toEqual(1);
           const notificationPayload = sendNotificationFunc.mock.calls[0][0];
+          notificationPayload.request = telemetryProvider.executeTelemetries(
+            notificationPayload.request
+          );
+
           expectToMatchObject(notificationPayload, notificationOutput);
         }
       }

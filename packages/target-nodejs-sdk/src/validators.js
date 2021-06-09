@@ -82,7 +82,7 @@ export function validateGetOffersOptions(options) {
   return null;
 }
 
-export function validateSendNotificationsOptions(options) {
+export function validateSendNotificationsOptions(options, hasTelemetries) {
   if (isEmptyObject(options)) {
     return Messages.OPTIONS_REQUIRED;
   }
@@ -93,9 +93,9 @@ export function validateSendNotificationsOptions(options) {
     return Messages.REQUEST_REQUIRED;
   }
 
-  const { notifications, telemetry } = request;
+  const { notifications } = request;
 
-  if (isEmptyArray(notifications) && isUndefined(telemetry)) {
+  if (isEmptyArray(notifications) && !hasTelemetries) {
     return Messages.NOTIFICATIONS_REQUIRED;
   }
 

@@ -272,3 +272,12 @@ export function memoize(func, keyResolverFunc = arr => arr[0]) {
     return memoizedValues[key];
   };
 }
+
+export function executeTelemetries(deliveryRequest, telemetryEntries) {
+  return {
+    ...deliveryRequest,
+    telemetry: {
+      entries: telemetryEntries
+    }
+  };
+}

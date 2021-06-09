@@ -55,7 +55,8 @@ export {
   getPropertyToken,
   timeLimitExceeded,
   isValidIpAddress,
-  whenReady
+  whenReady,
+  executeTelemetries
 } from "./utils";
 
 export { getLogger } from "./logging";
