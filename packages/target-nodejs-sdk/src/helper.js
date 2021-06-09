@@ -533,13 +533,7 @@ function createLocalDeliveryApi(
 ) {
   return {
     // eslint-disable-next-line no-unused-vars
-    execute: (
-      organizationId,
-      sessionId,
-      deliveryRequest,
-      atjsVersion,
-      telemetryProvider
-    ) => {
+    execute: (organizationId, sessionId, deliveryRequest) => {
       if (isUndefined(decisioningEngine)) {
         return Promise.reject(new Error(DECISIONING_ENGINE_NOT_READY));
       }
@@ -548,8 +542,7 @@ function createLocalDeliveryApi(
         targetLocationHint,
         request: deliveryRequest,
         sessionId,
-        visitor,
-        telemetryProvider
+        visitor
       });
     },
     decisioningMethod: DECISIONING_METHOD.ON_DEVICE

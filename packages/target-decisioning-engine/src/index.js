@@ -15,6 +15,7 @@ import { GeoProvider } from "./geoProvider";
  */
 export default function TargetDecisioningEngine(config) {
   const logger = getLogger(config.logger);
+  const { telemetryProvider } = config;
   let artifactProvider;
   let artifact;
 
@@ -66,7 +67,7 @@ export default function TargetDecisioningEngine(config) {
         createDecisioningContext(request),
         artifact,
         logger,
-        targetOptions.telemetryProvider,
+        telemetryProvider,
         traceProvider
       );
     });

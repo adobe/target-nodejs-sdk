@@ -1,5 +1,5 @@
 import * as MockDate from "mockdate";
-import { isDefined, isUndefined } from "@adobe/target-tools";
+import { isDefined, isUndefined, TelemetryProvider } from "@adobe/target-tools";
 
 import TargetDecisioningEngine from "../src";
 import { ARTIFACT_FORMAT_JSON } from "../src/constants";
@@ -89,15 +89,33 @@ describe("decisioning engine", () => {
 
       fetch.mockResponses(...mockResponses);
 
+      function executeTelementries(request, entries) {
+        return {
+          ...request,
+          telemetry: {
+            entries
+          }
+        };
+      }
+
+      const telemetryProvider = TelemetryProvider(
+        executeTelementries,
+        conf.telemetryEnabled
+      );
+
       decisioning = await TargetDecisioningEngine({
         ...conf,
         sendNotificationFunc,
-        artifactFormat: ARTIFACT_FORMAT_JSON // setting this tells the artifactProvider deobfuscation is not needed
+        artifactFormat: ARTIFACT_FORMAT_JSON, // setting this tells the artifactProvider deobfuscation is not needed
+        telemetryProvider
       });
 
       expect(decisioning.getRawArtifact()).toEqual(artifact);
 
-      const result = await decisioning.getOffers(input);
+      const result = await decisioning.getOffers({
+        ...input
+      });
+
       expectToMatchObject(result, output);
 
       if (isDefined(notificationOutput)) {
@@ -108,6 +126,10 @@ describe("decisioning engine", () => {
         } else {
           expect(sendNotificationFunc.mock.calls.length).toEqual(1);
           const notificationPayload = sendNotificationFunc.mock.calls[0][0];
+
+          if (testDescription === "sends telemetry") {
+            console.log(notificationPayload.request.telemetry.entries);
+          }
           expectToMatchObject(notificationPayload, notificationOutput);
         }
       }

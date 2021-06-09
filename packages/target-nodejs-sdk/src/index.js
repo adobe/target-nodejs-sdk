@@ -78,8 +78,8 @@ export default function bootstrap(fetchApi) {
             environment: options.environment,
             cdnEnvironment: options.cdnEnvironment,
             cdnBasePath: options.cdnBasePath,
-            telemetryEnabled: options.telemetryEnabled,
             logger: this.logger,
+            telemetryProvider: this.telemetryProvider,
             fetchApi: fetchImpl,
             eventEmitter,
             sendNotificationFunc: notificationOptions =>
@@ -180,8 +180,8 @@ export default function bootstrap(fetchApi) {
 
       return executeDelivery(
         targetOptions,
-        this.decisioningEngine,
-        this.telemetryProvider
+        this.telemetryProvider,
+        this.decisioningEngine
       ).then(preserveLocationHint.bind(this));
     }
 
@@ -231,7 +231,9 @@ export default function bootstrap(fetchApi) {
 
       const visitor = createVisitor(options, this.config);
 
-      const request = this.telemetryProvider.executeTelemetries(options);
+      const request = this.telemetryProvider.executeTelemetries(
+        options.request
+      );
 
       const targetOptions = {
         visitor,
@@ -241,17 +243,16 @@ export default function bootstrap(fetchApi) {
         },
         logger: this.logger,
         useBeacon: true,
-        ...request
+        ...options,
+        request
       };
 
-      return executeDelivery(
-        targetOptions,
-        undefined,
-        this.telemetryProvider
-      ).then(preserveLocationHint.bind(this));
+      return executeDelivery(targetOptions, this.telemetryProvider).then(
+        preserveLocationHint.bind(this)
+      );
     }
 
-    executeTelemetries(deliveryRequest, telemetryEntries) {
+    static executeTelemetries(deliveryRequest, telemetryEntries) {
       return {
         ...deliveryRequest,
         telemetry: {

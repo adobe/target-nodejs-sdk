@@ -10,14 +10,14 @@ import { DECISIONING_METHOD } from "./enums";
 export function TelemetryProvider(
   executeTelemetriesFunc,
   telemetryEnabled = true,
-  decisioningMethod = DECISIONING_METHOD.SERVER_SIDE
+  mode = DECISIONING_METHOD.SERVER_SIDE
 ) {
   let telemetryEntries = [];
 
   /**
    * @param {import("@adobe/target-tools/delivery-api-client/models/TelemetryEntry").TelemetryEntry} entry
    */
-  function addEntry(request, entry) {
+  function addEntry(request, entry, decisioningMethod = mode) {
     if (!telemetryEnabled) {
       return;
     }
@@ -28,7 +28,7 @@ export function TelemetryProvider(
     telemetryEntries.push({
       requestId,
       timestamp,
-      mode: decisioningMethod,
+      mode,
       features: {
         decisioningMethod
       },

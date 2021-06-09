@@ -34,7 +34,7 @@ import {
 } from "./helper";
 import { parseCookies } from "./cookies";
 
-export function executeDelivery(options, decisioningEngine, telemetryProvider) {
+export function executeDelivery(options, telemetryProvider, decisioningEngine) {
   const {
     visitor,
     config,
