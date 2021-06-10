@@ -80,7 +80,7 @@ export default function bootstrap(fetchApi) {
             cdnEnvironment: options.cdnEnvironment,
             cdnBasePath: options.cdnBasePath,
             logger: this.logger,
-            telemetryProvider: this.telemetryProvider,
+            telemetryEnabled: options.telemetryEnabled,
             fetchApi: fetchImpl,
             eventEmitter,
             sendNotificationFunc: notificationOptions =>

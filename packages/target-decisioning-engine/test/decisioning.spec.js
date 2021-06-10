@@ -3,7 +3,8 @@ import {
   isDefined,
   isUndefined,
   TelemetryProvider,
-  executeTelemetries
+  executeTelemetries,
+  DECISIONING_METHOD
 } from "@adobe/target-tools";
 
 import TargetDecisioningEngine from "../src";
@@ -96,14 +97,16 @@ describe("decisioning engine", () => {
 
       const telemetryProvider = TelemetryProvider(
         executeTelemetries,
-        conf.telemetryEnabled
+        conf.telemetryEnabled,
+        DECISIONING_METHOD.ON_DEVICE
       );
+
+      telemetryProvider.addEntry(input.request, { execution: 1 });
 
       decisioning = await TargetDecisioningEngine({
         ...conf,
         sendNotificationFunc,
-        artifactFormat: ARTIFACT_FORMAT_JSON, // setting this tells the artifactProvider deobfuscation is not needed
-        telemetryProvider
+        artifactFormat: ARTIFACT_FORMAT_JSON // setting this tells the artifactProvider deobfuscation is not needed
       });
 
       expect(decisioning.getRawArtifact()).toEqual(artifact);
@@ -120,6 +123,9 @@ describe("decisioning engine", () => {
         } else {
           expect(sendNotificationFunc.mock.calls.length).toEqual(1);
           const notificationPayload = sendNotificationFunc.mock.calls[0][0];
+          notificationPayload.request = telemetryProvider.executeTelemetries(
+            notificationPayload.request
+          );
 
           expectToMatchObject(notificationPayload, notificationOutput);
         }
