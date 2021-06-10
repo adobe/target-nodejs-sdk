@@ -98,7 +98,11 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
     organizationId
   };
 
-  const deliveryRequest = createDeliveryRequest(request, requestOptions);
+  let deliveryRequest = createDeliveryRequest(request, requestOptions);
+
+  if (decisioningMethod === DECISIONING_METHOD.SERVER_SIDE) {
+    deliveryRequest = telemetryProvider.executeTelemetries(deliveryRequest);
+  }
 
   const configuration = createConfiguration(
     fetchWithRetry,
@@ -135,11 +139,9 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
         JSON.stringify(response, null, 2)
       );
 
-      if (deliveryMethod.decisioningMethod === DECISIONING_METHOD.SERVER_SIDE) {
-        telemetryProvider.addEntry(deliveryRequest, {
-          execution: endTime
-        });
-      }
+      telemetryProvider.addEntry(deliveryRequest, {
+        execution: endTime
+      });
 
       return Object.assign(
         { visitorState: visitor.getState(), request: deliveryRequest },

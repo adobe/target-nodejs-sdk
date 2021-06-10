@@ -232,11 +232,6 @@ export default function bootstrap(fetchApi) {
 
       const visitor = createVisitor(options, this.config);
 
-      // eslint-disable-next-line no-param-reassign
-      options.request = this.telemetryProvider.executeTelemetries(
-        options.request
-      );
-
       const targetOptions = {
         visitor,
         config: {
