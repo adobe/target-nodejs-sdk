@@ -14,6 +14,8 @@ const { noop, TelemetryProvider } = require("@adobe/target-tools");
 const MockDate = require("mockdate");
 const target = require("../src/target");
 
+const telemetryProvider = TelemetryProvider(noop, false);
+
 const testLogger = {
   debug: message => message,
   error: message => message
@@ -84,8 +86,6 @@ describe("Target Delivery API client", () => {
       },
       createDeliveryApiMethod: createDeliveryApiSpy
     };
-
-    const telemetryProvider = TelemetryProvider(noop, false);
 
     const serializedResult = await target.executeDelivery(
       options,

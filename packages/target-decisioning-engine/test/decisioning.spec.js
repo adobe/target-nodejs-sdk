@@ -1,5 +1,10 @@
 import * as MockDate from "mockdate";
-import { isDefined, isUndefined, TelemetryProvider } from "@adobe/target-tools";
+import {
+  isDefined,
+  isUndefined,
+  TelemetryProvider,
+  executeTelemetries
+} from "@adobe/target-tools";
 
 import TargetDecisioningEngine from "../src";
 import { ARTIFACT_FORMAT_JSON } from "../src/constants";
@@ -89,17 +94,8 @@ describe("decisioning engine", () => {
 
       fetch.mockResponses(...mockResponses);
 
-      function executeTelementries(request, entries) {
-        return {
-          ...request,
-          telemetry: {
-            entries
-          }
-        };
-      }
-
       const telemetryProvider = TelemetryProvider(
-        executeTelementries,
+        executeTelemetries,
         conf.telemetryEnabled
       );
 
@@ -112,9 +108,7 @@ describe("decisioning engine", () => {
 
       expect(decisioning.getRawArtifact()).toEqual(artifact);
 
-      const result = await decisioning.getOffers({
-        ...input
-      });
+      const result = await decisioning.getOffers(input);
 
       expectToMatchObject(result, output);
 

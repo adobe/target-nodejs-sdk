@@ -879,12 +879,3 @@ export function processResponse(
 
   return result;
 }
-
-export function executeTelemetries(deliveryRequest, telemetryEntries) {
-  return {
-    ...deliveryRequest,
-    telemetry: {
-      entries: telemetryEntries
-    }
-  };
-}

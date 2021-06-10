@@ -36,6 +36,8 @@ import {
 } from "./helper";
 import { parseCookies } from "./cookies";
 
+const timingTool = createPerfToolInstance();
+
 export function executeDelivery(options, telemetryProvider, decisioningEngine) {
   const {
     visitor,
@@ -47,9 +49,6 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
     useBeacon,
     createDeliveryApiMethod = createDeliveryApi
   } = options;
-  const timingTool = createPerfToolInstance();
-  timingTool.timeStart(TIMING_EXECUTE_DELIVERY);
-
   const property = getProperty(config, request, logger);
   if (isDefined(property)) {
     request.property = property;
@@ -124,10 +123,13 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
     host,
     JSON.stringify(deliveryRequest, null, 2)
   );
+  timingTool.timeStart(TIMING_EXECUTE_DELIVERY);
 
   return deliveryMethod
     .execute(organizationId, sessionId, deliveryRequest, config.version)
     .then((response = {}) => {
+      const endTime = timingTool.timeEnd(TIMING_EXECUTE_DELIVERY);
+
       logger.debug(
         Messages.RESPONSE_RECEIVED,
         JSON.stringify(response, null, 2)
@@ -135,7 +137,7 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
 
       if (deliveryMethod.decisioningMethod === DECISIONING_METHOD.SERVER_SIDE) {
         telemetryProvider.addEntry(deliveryRequest, {
-          execution: timingTool.timeEnd(TIMING_EXECUTE_DELIVERY)
+          execution: endTime
         });
       }
 

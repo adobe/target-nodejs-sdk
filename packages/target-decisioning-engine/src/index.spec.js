@@ -16,6 +16,8 @@ const ARTIFACT_UNSUPPORTED_VERSION = require("../test/schema/artifacts/TEST_ARTI
 
 require("jest-fetch-mock").enableMocks();
 
+const telemetryProvider = TelemetryProvider(noop, false);
+
 const TARGET_REQUEST = {
   context: {
     channel: "web",
@@ -65,8 +67,6 @@ describe("TargetDecisioningEngine", () => {
   it("initializes", async () => {
     fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
-    const telemetryProvider = TelemetryProvider(noop, null);
-
     decisioning = await TargetDecisioningEngine({
       ...CONFIG,
       pollingInterval: 0,
@@ -87,8 +87,6 @@ describe("TargetDecisioningEngine", () => {
     }
 
     fetch.mockResponses(...responses);
-
-    const telemetryProvider = TelemetryProvider(noop, null);
 
     decisioning = await TargetDecisioningEngine({
       ...CONFIG,
@@ -134,8 +132,6 @@ describe("TargetDecisioningEngine", () => {
         ["", { status: HttpStatus.INTERNAL_SERVER_ERROR }]
       );
 
-      const telemetryProvider = TelemetryProvider(noop, null);
-
       TargetDecisioningEngine({
         ...CONFIG,
         pollingInterval: 0,
@@ -165,8 +161,6 @@ describe("TargetDecisioningEngine", () => {
 
       fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
-      const telemetryProvider = TelemetryProvider(noop, null);
-
       TargetDecisioningEngine({
         ...CONFIG,
         artifactFormat: ARTIFACT_FORMAT_BINARY,
@@ -189,8 +183,6 @@ describe("TargetDecisioningEngine", () => {
   it("getOffers resolves", async () => {
     fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
-    const telemetryProvider = TelemetryProvider(noop, null);
-
     decisioning = await TargetDecisioningEngine({
       ...CONFIG,
       pollingInterval: 0,
@@ -207,8 +199,6 @@ describe("TargetDecisioningEngine", () => {
 
   it("getOffers gives an error if unsupported artifact version", async () => {
     fetch.mockResponse(JSON.stringify(ARTIFACT_UNSUPPORTED_VERSION));
-
-    const telemetryProvider = TelemetryProvider(noop, null);
 
     decisioning = await TargetDecisioningEngine({
       ...CONFIG,

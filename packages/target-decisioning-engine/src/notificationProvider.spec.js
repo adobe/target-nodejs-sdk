@@ -2,16 +2,19 @@ import {
   getLogger,
   ChannelType,
   MetricType,
-  noop,
-  TelemetryProvider
+  TelemetryProvider,
+  executeTelemetries
 } from "@adobe/target-tools";
 import NotificationProvider from "./notificationProvider";
 import { validVisitorId } from "./requestProvider";
+
+const telemetryProvider = TelemetryProvider(executeTelemetries);
 
 describe("notificationProvider", () => {
   const logger = getLogger();
 
   const TARGET_REQUEST = {
+    requestId: "request123456",
     id: validVisitorId(undefined, undefined),
     context: {
       channel: ChannelType.Web,
@@ -37,8 +40,6 @@ describe("notificationProvider", () => {
 
   it("adds display notifications", () => {
     const mockNotify = jest.fn();
-
-    const telemetryProvider = TelemetryProvider(noop, false);
 
     const provider = NotificationProvider(
       TARGET_REQUEST,
@@ -81,10 +82,56 @@ describe("notificationProvider", () => {
     );
   });
 
-  it("does not duplicate notifications", () => {
+  it("adds telemetry entries", () => {
     const mockNotify = jest.fn();
 
-    const telemetryProvider = TelemetryProvider(noop, false);
+    const provider = NotificationProvider(
+      TARGET_REQUEST,
+      undefined,
+      logger,
+      mockNotify,
+      telemetryProvider
+    );
+
+    const request = {
+      options: [
+        {
+          content: "<h1>it's firefox</h1>",
+          type: "html",
+          eventToken:
+            "B8C2FP2IuBgmeJcDfXHjGpNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+        }
+      ],
+      metrics: [],
+      name: "browser-mbox"
+    };
+
+    provider.addNotification(request);
+    provider.addTelemetryEntry({
+      execution: 1
+    });
+
+    provider.sendNotifications();
+    jest.runAllTimers();
+    expect(mockNotify.mock.calls.length).toBe(1);
+    expect(mockNotify.mock.calls[0][0].request).toHaveProperty("telemetry");
+    expect(
+      mockNotify.mock.calls[0][0].request.telemetry.entries.length
+    ).toEqual(1);
+    expect(mockNotify.mock.calls[0][0].request.telemetry.entries[0]).toEqual(
+      expect.objectContaining({
+        requestId: expect.any(String),
+        timestamp: expect.any(Number),
+        features: {
+          decisioningMethod: expect.any(String)
+        },
+        execution: 1
+      })
+    );
+  });
+
+  it("does not duplicate notifications", () => {
+    const mockNotify = jest.fn();
 
     const provider = NotificationProvider(
       TARGET_REQUEST,
@@ -172,8 +219,6 @@ describe("notificationProvider", () => {
 
   it("has distinct notifications per mbox", () => {
     const mockNotify = jest.fn();
-
-    const telemetryProvider = TelemetryProvider(noop, false);
 
     const provider = NotificationProvider(
       TARGET_REQUEST,

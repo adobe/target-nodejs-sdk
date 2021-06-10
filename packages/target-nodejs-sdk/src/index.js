@@ -19,7 +19,8 @@ import {
   getFetchApi,
   getLogger,
   requiresDecisioningEngine,
-  TelemetryProvider
+  TelemetryProvider,
+  executeTelemetries
 } from "@adobe/target-tools";
 
 import Visitor from "@adobe-mcid/visitor-js-server";
@@ -29,11 +30,7 @@ import { Messages } from "./messages";
 import { LOCATION_HINT_COOKIE, TARGET_COOKIE } from "./cookies";
 import { executeDelivery } from "./target";
 
-import {
-  preserveLocationHint,
-  requestLocationHintCookie,
-  executeTelemetries
-} from "./helper";
+import { preserveLocationHint, requestLocationHintCookie } from "./helper";
 
 import {
   validateClientOptions,
@@ -235,7 +232,8 @@ export default function bootstrap(fetchApi) {
 
       const visitor = createVisitor(options, this.config);
 
-      const request = this.telemetryProvider.executeTelemetries(
+      // eslint-disable-next-line no-param-reassign
+      options.request = this.telemetryProvider.executeTelemetries(
         options.request
       );
 
@@ -247,8 +245,7 @@ export default function bootstrap(fetchApi) {
         },
         logger: this.logger,
         useBeacon: true,
-        ...options,
-        request
+        ...options
       };
 
       return executeDelivery(targetOptions, this.telemetryProvider).then(

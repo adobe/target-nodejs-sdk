@@ -1888,7 +1888,6 @@ class DeliveryApi extends BaseAPI {
     }
     async execute(imsOrgId, sessionId, deliveryRequest, version) {
         const response = await this.executeRaw({ imsOrgId: imsOrgId, sessionId: sessionId, deliveryRequest: deliveryRequest, version: version });
-        
         return await response.value();
     }
 }

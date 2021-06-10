@@ -13,14 +13,20 @@ describe("TelemetryProvider", () => {
     execution: 1
   };
 
-  it("adds an entry", () => {
+  it("adds and executes entries", () => {
     const mockExecute = jest.fn();
 
     const provider = TelemetryProvider(mockExecute);
 
     provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY);
+    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY);
+    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY);
+
+    expect(provider.getEntries().length).toBe(3);
+
     provider.executeTelemetries(TARGET_NOTIFICATION_REQUEST);
 
+    expect(provider.getEntries().length).toBe(0);
     expect(mockExecute.mock.calls.length).toBe(1);
     expect(mockExecute.mock.calls[0][0]).toEqual(
       expect.objectContaining({
