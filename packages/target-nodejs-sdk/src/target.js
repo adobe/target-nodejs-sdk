@@ -100,10 +100,6 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
 
   let deliveryRequest = createDeliveryRequest(request, requestOptions);
 
-  if (decisioningMethod === DECISIONING_METHOD.SERVER_SIDE) {
-    deliveryRequest = telemetryProvider.executeTelemetries(deliveryRequest);
-  }
-
   const configuration = createConfiguration(
     fetchWithRetry,
     host,
@@ -120,6 +116,10 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
     deliveryRequest,
     decisioningEngine
   );
+
+  if (deliveryMethod.decisioningMethod === DECISIONING_METHOD.SERVER_SIDE) {
+    deliveryRequest = telemetryProvider.executeTelemetries(deliveryRequest);
+  }
 
   logger.debug(
     Messages.REQUEST_SENT,
