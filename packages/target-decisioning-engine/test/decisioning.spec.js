@@ -101,8 +101,6 @@ describe("decisioning engine", () => {
         DECISIONING_METHOD.ON_DEVICE
       );
 
-      telemetryProvider.addEntry(input.request, { execution: 1 });
-
       decisioning = await TargetDecisioningEngine({
         ...conf,
         sendNotificationFunc,
@@ -112,6 +110,8 @@ describe("decisioning engine", () => {
       expect(decisioning.getRawArtifact()).toEqual(artifact);
 
       const result = await decisioning.getOffers(input);
+
+      telemetryProvider.addEntry(result, { execution: 1 });
 
       expectToMatchObject(result, output);
 
