@@ -35,8 +35,16 @@ export function TelemetryProvider(
     });
   }
 
+  function getEntries() {
+    return telemetryEntries;
+  }
+
   function clearEntries() {
     telemetryEntries = [];
+  }
+
+  function hasEntries() {
+    return telemetryEntries.length !== 0;
   }
 
   function executeTelemetries(deliveryRequest) {
@@ -48,15 +56,12 @@ export function TelemetryProvider(
     return deliveryRequest;
   }
 
-  function getEntries() {
-    return telemetryEntries;
-  }
-
   return {
     addEntry,
+    getEntries,
     clearEntries,
-    executeTelemetries,
-    getEntries
+    hasEntries,
+    executeTelemetries
   };
 }
 

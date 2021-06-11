@@ -224,7 +224,10 @@ export default function bootstrap(fetchApi) {
      */
 
     sendNotifications(options) {
-      const error = validateSendNotificationsOptions(options);
+      const error = validateSendNotificationsOptions(
+        options,
+        this.telemetryProvider.hasEntries()
+      );
 
       if (error) {
         return Promise.reject(new Error(error));
