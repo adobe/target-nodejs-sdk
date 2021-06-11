@@ -37,7 +37,8 @@ describe("notificationProvider", () => {
       TARGET_REQUEST,
       undefined,
       logger,
-      mockNotify
+      mockNotify,
+      false
     );
 
     provider.addNotification({
@@ -53,7 +54,7 @@ describe("notificationProvider", () => {
       name: "browser-mbox"
     });
 
-    provider.sendNotifications(false);
+    provider.sendNotifications();
     jest.runAllTimers();
     expect(mockNotify.mock.calls.length).toBe(1);
     expect(mockNotify.mock.calls[0][0].request.notifications.length).toEqual(1);
@@ -73,7 +74,7 @@ describe("notificationProvider", () => {
     );
   });
 
-  it("sends notifications when empty for telemetries", () => {
+  it("sends notifications when telemetry enabled", () => {
     const mockNotify = jest.fn();
 
     const provider = NotificationProvider(
@@ -95,7 +96,8 @@ describe("notificationProvider", () => {
       TARGET_REQUEST,
       undefined,
       logger,
-      mockNotify
+      mockNotify,
+      false
     );
     provider.addNotification({
       name: "target-global-mbox",
@@ -153,7 +155,7 @@ describe("notificationProvider", () => {
       ]
     });
 
-    provider.sendNotifications(false);
+    provider.sendNotifications();
     jest.runAllTimers();
     expect(mockNotify.mock.calls.length).toBe(1);
 
@@ -181,7 +183,8 @@ describe("notificationProvider", () => {
       TARGET_REQUEST,
       undefined,
       logger,
-      mockNotify
+      mockNotify,
+      false
     );
     provider.addNotification({
       name: "my-mbox",
@@ -239,7 +242,7 @@ describe("notificationProvider", () => {
       ]
     });
 
-    provider.sendNotifications(false);
+    provider.sendNotifications();
     jest.runAllTimers();
     expect(mockNotify.mock.calls.length).toBe(1);
 

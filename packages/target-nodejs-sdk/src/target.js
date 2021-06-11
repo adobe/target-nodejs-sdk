@@ -49,6 +49,7 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
     useBeacon,
     createDeliveryApiMethod = createDeliveryApi
   } = options;
+
   const property = getProperty(config, request, logger);
   if (isDefined(property)) {
     request.property = property;
@@ -139,9 +140,13 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
         JSON.stringify(response, null, 2)
       );
 
-      telemetryProvider.addEntry(deliveryRequest, {
-        execution: endTime
-      });
+      telemetryProvider.addEntry(
+        deliveryRequest,
+        {
+          execution: endTime
+        },
+        deliveryMethod.decisioningMethod
+      );
 
       return Object.assign(
         { visitorState: visitor.getState(), request: deliveryRequest },

@@ -6,7 +6,6 @@ import {
   MetricType,
   isFunction
 } from "@adobe/target-tools";
-
 import { LOG_PREFIX } from "./constants";
 
 const LOG_TAG = `${LOG_PREFIX}.NotificationProvider`;

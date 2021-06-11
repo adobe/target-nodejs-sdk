@@ -1,5 +1,5 @@
 import * as HttpStatus from "http-status-codes";
-import { isDefined, noop, TelemetryProvider } from "@adobe/target-tools";
+import { isDefined } from "@adobe/target-tools";
 import TargetDecisioningEngine from "./index";
 import * as constants from "./constants";
 import {
@@ -15,8 +15,6 @@ const ARTIFACT_BLANK = require("../test/schema/artifacts/TEST_ARTIFACT_BLANK.jso
 const ARTIFACT_UNSUPPORTED_VERSION = require("../test/schema/artifacts/TEST_ARTIFACT_UNSUPPORTED.json");
 
 require("jest-fetch-mock").enableMocks();
-
-const telemetryProvider = TelemetryProvider(noop, false);
 
 const TARGET_REQUEST = {
   context: {
@@ -69,8 +67,7 @@ describe("TargetDecisioningEngine", () => {
 
     decisioning = await TargetDecisioningEngine({
       ...CONFIG,
-      pollingInterval: 0,
-      telemetryProvider
+      pollingInterval: 0
     });
 
     expect(typeof decisioning.getOffers).toBe("function");
@@ -90,8 +87,7 @@ describe("TargetDecisioningEngine", () => {
 
     decisioning = await TargetDecisioningEngine({
       ...CONFIG,
-      pollingInterval: 5,
-      telemetryProvider
+      pollingInterval: 5
     });
 
     expect(typeof decisioning.getRawArtifact).toEqual("function");
@@ -135,8 +131,7 @@ describe("TargetDecisioningEngine", () => {
       TargetDecisioningEngine({
         ...CONFIG,
         pollingInterval: 0,
-        eventEmitter,
-        telemetryProvider
+        eventEmitter
       })
         .then(instance => {
           decisioning = instance;
@@ -166,8 +161,7 @@ describe("TargetDecisioningEngine", () => {
         artifactFormat: ARTIFACT_FORMAT_BINARY,
         artifactLocation: "rules.bin", // an obfuscated artifact
         pollingInterval: 0,
-        eventEmitter,
-        telemetryProvider
+        eventEmitter
       })
         .then(instance => {
           decisioning = instance;
@@ -185,8 +179,7 @@ describe("TargetDecisioningEngine", () => {
 
     decisioning = await TargetDecisioningEngine({
       ...CONFIG,
-      pollingInterval: 0,
-      telemetryProvider
+      pollingInterval: 0
     });
 
     await expect(
@@ -202,8 +195,7 @@ describe("TargetDecisioningEngine", () => {
 
     decisioning = await TargetDecisioningEngine({
       ...CONFIG,
-      pollingInterval: 0,
-      telemetryProvider
+      pollingInterval: 0
     });
 
     await expect(
