@@ -1,8 +1,8 @@
 import { DECISIONING_METHOD, executeTelemetries } from "@adobe/target-tools";
 
-const DECISIONING_PAYLOAD_FEATURE_FLAG = require("@adobe/target-decisioning-engine/test/schema/artifacts/TEST_ARTIFACT_FEATURE_FLAG.json");
-
 require("jest-fetch-mock").enableMocks();
+
+const DECISIONING_PAYLOAD_FEATURE_FLAG = require("@adobe/target-decisioning-engine/test/schema/artifacts/TEST_ARTIFACT_FEATURE_FLAG.json");
 
 jest.mock("@adobe/target-tools", () => ({
   ...jest.requireActual("@adobe/target-tools"),
@@ -159,7 +159,7 @@ describe("telemetry mode", () => {
   });
 
   describe("hybrid", () => {
-    it("calls sendNotifications when on-device used", () => {
+    it("executes telemetries as part of sendNotifications call when on-device used", () => {
       expect.assertions(2);
 
       return new Promise(done => {
@@ -200,7 +200,7 @@ describe("telemetry mode", () => {
       });
     });
 
-    it("executes telemetries when server-side used", () => {
+    it("executes telemetries on next getOffers call when server-side used", () => {
       expect.assertions(3);
 
       return new Promise(done => {

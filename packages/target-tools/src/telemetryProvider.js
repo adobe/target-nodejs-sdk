@@ -17,8 +17,8 @@ export function TelemetryProvider(
   /**
    * @param {import("@adobe/target-tools/delivery-api-client/models/TelemetryEntry").TelemetryEntry} entry
    */
-  function addEntry(request, entry = {}, decisioningMethod = mode) {
-    if (!telemetryEnabled) {
+  function addEntry(request, entry, decisioningMethod = mode) {
+    if (!telemetryEnabled || !entry) {
       return;
     }
 
