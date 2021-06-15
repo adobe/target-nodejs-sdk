@@ -2,6 +2,13 @@
 
 import { now } from "./lodash";
 import { DECISIONING_METHOD } from "./enums";
+import {
+  isExecutePageLoad,
+  executeMBoxCount,
+  isPrefetchPageLoad,
+  prefetchMBoxCount,
+  prefetchViewCount
+} from "./utils";
 
 /**
  * The get TelemetryProvider initialization method
@@ -29,10 +36,17 @@ export function TelemetryProvider(
       requestId,
       timestamp,
       features: {
-        decisioningMethod
+        decisioningMethod,
+        executePageLoad: isExecutePageLoad(request),
+        executeMboxCount: executeMBoxCount(request),
+        prefetchPageLoad: isPrefetchPageLoad(request),
+        prefetchMboxCount: prefetchMBoxCount(request),
+        prefetchViewCount: prefetchViewCount(request)
       },
       ...entry
     });
+
+    console.log(telemetryEntries[telemetryEntries.length - 1]);
   }
 
   function getEntries() {
