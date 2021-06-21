@@ -38,7 +38,12 @@ describe("TelemetryProvider", () => {
         requestId: expect.any(String),
         timestamp: expect.any(Number),
         features: {
-          decisioningMethod: expect.any(String)
+          decisioningMethod: expect.any(String),
+          executePageLoad: expect.any(Boolean),
+          executeMboxCount: expect.any(Number),
+          prefetchPageLoad: expect.any(Boolean),
+          prefetchMboxCount: expect.any(Number),
+          prefetchViewCount: expect.any(Number)
         },
         execution: 1
       })

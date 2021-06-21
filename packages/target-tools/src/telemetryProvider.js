@@ -45,8 +45,6 @@ export function TelemetryProvider(
       },
       ...entry
     });
-
-    console.log(telemetryEntries[telemetryEntries.length - 1]);
   }
 
   function getEntries() {
