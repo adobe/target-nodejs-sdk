@@ -545,6 +545,9 @@ function createLocalDeliveryApi(
         visitor
       });
     },
+    subscribe: newArtifactCallback => {
+      decisioningEngine.subscribe(newArtifactCallback);
+    },
     decisioningMethod: DECISIONING_METHOD.ON_DEVICE
   };
 }

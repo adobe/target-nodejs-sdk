@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 
 import { now } from "./lodash";
-import { DECISIONING_METHOD } from "./enums";
+import { DECISIONING_METHOD, EXECUTION_MODE } from "./enums";
 import {
   isExecutePageLoad,
   executeMBoxCount,
@@ -17,14 +17,15 @@ import {
 export function TelemetryProvider(
   executeTelemetriesFunc,
   telemetryEnabled = true,
-  mode = DECISIONING_METHOD.SERVER_SIDE
+  method = DECISIONING_METHOD.SERVER_SIDE
 ) {
   let telemetryEntries = [];
+  let mode;
 
   /**
    * @param {import("@adobe/target-tools/delivery-api-client/models/TelemetryEntry").TelemetryEntry} entry
    */
-  function addEntry(request, entry, decisioningMethod = mode) {
+  function addEntry(request, entry, decisioningMethod = method) {
     if (!telemetryEnabled || !entry) {
       return;
     }
@@ -35,6 +36,7 @@ export function TelemetryProvider(
     telemetryEntries.push({
       requestId,
       timestamp,
+      mode,
       features: {
         decisioningMethod,
         executePageLoad: isExecutePageLoad(request),
@@ -45,6 +47,21 @@ export function TelemetryProvider(
       },
       ...entry
     });
+  }
+
+  function setMode(decisioningMethod) {
+    if (decisioningMethod === DECISIONING_METHOD.ON_DEVICE) {
+      console.log("CACHE POSSIBLY USED");
+      mode = EXECUTION_MODE.ON_DEVICE_CACHED;
+    } else if (decisioningMethod === DECISIONING_METHOD.SERVER_SIDE) {
+      console.log("SERVER USED");
+      mode = EXECUTION_MODE.SERVER_SIDE;
+    }
+  }
+
+  function newArtifacts() {
+    console.log("ON DEVICE USED");
+    mode = EXECUTION_MODE.ON_DEVICE;
   }
 
   function getEntries() {
@@ -69,6 +86,8 @@ export function TelemetryProvider(
   }
 
   return {
+    setMode,
+    newArtifacts,
     addEntry,
     getEntries,
     clearEntries,

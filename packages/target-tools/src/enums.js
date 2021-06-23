@@ -5,3 +5,9 @@ export const DECISIONING_METHOD = {
   SERVER_SIDE: "server-side",
   HYBRID: "hybrid"
 };
+
+export const EXECUTION_MODE = {
+  ON_DEVICE: "on-device",
+  ON_DEVICE_CACHED: "on-device-cached",
+  SERVER_SIDE: "server-side"
+};

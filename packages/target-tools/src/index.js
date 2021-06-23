@@ -76,7 +76,7 @@ export {
   AuthenticatedState
 } from "./constants";
 
-export { DECISIONING_METHOD } from "./enums";
+export { DECISIONING_METHOD, EXECUTION_MODE } from "./enums";
 
 export { getFetchWithRetry, getFetchApi } from "./networking";
 

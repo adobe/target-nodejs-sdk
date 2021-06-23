@@ -22,7 +22,6 @@ import {
   createPerfToolInstance
 } from "@adobe/target-tools";
 import { Messages } from "./messages";
-import { TIMING_EXECUTE_DELIVERY } from "./timings";
 import {
   createConfiguration,
   createDeliveryApi,
@@ -118,6 +117,8 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
     decisioningEngine
   );
 
+  telemetryProvider.setMode(deliveryMethod.decisioningMethod);
+
   if (deliveryMethod.decisioningMethod === DECISIONING_METHOD.SERVER_SIDE) {
     deliveryRequest = telemetryProvider.executeTelemetries(deliveryRequest);
   }
@@ -128,12 +129,14 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
     host,
     JSON.stringify(deliveryRequest, null, 2)
   );
-  timingTool.timeStart(TIMING_EXECUTE_DELIVERY);
+  timingTool.timeStart(deliveryRequest.requestId);
+
+  console.log(deliveryRequest);
 
   return deliveryMethod
     .execute(organizationId, sessionId, deliveryRequest, config.version)
     .then((response = {}) => {
-      const endTime = timingTool.timeEnd(TIMING_EXECUTE_DELIVERY);
+      const endTime = timingTool.timeEnd(deliveryRequest.requestId);
 
       logger.debug(
         Messages.RESPONSE_RECEIVED,

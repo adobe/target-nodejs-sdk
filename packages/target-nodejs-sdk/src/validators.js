@@ -95,6 +95,8 @@ export function validateSendNotificationsOptions(options, hasTelemetries) {
 
   const { notifications } = request;
 
+  console.log(isEmptyArray(notifications), !hasTelemetries);
+
   if (isEmptyArray(notifications) && !hasTelemetries) {
     return Messages.NOTIFICATIONS_REQUIRED;
   }
