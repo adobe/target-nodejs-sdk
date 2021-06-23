@@ -227,8 +227,6 @@ export default function bootstrap(fetchApi) {
      */
 
     sendNotifications(options) {
-      console.log("Checking for notifications or telemetries");
-      console.log(this.telemetryProvider.getEntries());
       const error = validateSendNotificationsOptions(
         options,
         this.telemetryProvider.hasEntries()
@@ -237,8 +235,6 @@ export default function bootstrap(fetchApi) {
       if (error) {
         return Promise.reject(new Error(error));
       }
-
-      console.log("Found them");
 
       const visitor = createVisitor(options, this.config);
 

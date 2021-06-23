@@ -51,16 +51,13 @@ export function TelemetryProvider(
 
   function setMode(decisioningMethod) {
     if (decisioningMethod === DECISIONING_METHOD.ON_DEVICE) {
-      console.log("CACHE POSSIBLY USED");
       mode = EXECUTION_MODE.ON_DEVICE_CACHED;
     } else if (decisioningMethod === DECISIONING_METHOD.SERVER_SIDE) {
-      console.log("SERVER USED");
       mode = EXECUTION_MODE.SERVER_SIDE;
     }
   }
 
   function newArtifacts() {
-    console.log("ON DEVICE USED");
     mode = EXECUTION_MODE.ON_DEVICE;
   }
 

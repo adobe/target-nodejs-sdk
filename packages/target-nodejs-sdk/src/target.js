@@ -131,8 +131,6 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
   );
   timingTool.timeStart(deliveryRequest.requestId);
 
-  console.log(deliveryRequest);
-
   return deliveryMethod
     .execute(organizationId, sessionId, deliveryRequest, config.version)
     .then((response = {}) => {
