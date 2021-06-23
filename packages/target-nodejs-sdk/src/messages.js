@@ -24,7 +24,6 @@ export const Messages = {
   EXECUTE_FIELDS_REQUIRED: "Either pageLoad or mboxes is required in execute",
   PREFETCH_FIELDS_REQUIRED:
     "Either views, pageLoad or mboxes is required in prefetch",
-  NOTIFICATIONS_REQUIRED: "Notifications array is required in request",
   MBOX_INVALID: "Mbox validation failed for: ",
   NOTIFICATION_INVALID: "Notification validation failed for: ",
   CLIENT_REQUIRED: "Client is required",

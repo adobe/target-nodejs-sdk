@@ -29,6 +29,7 @@ const testLogger = {
   debug: message => message,
   error: message => message
 };
+const NOTIFCATIONS_REQUIRED = TargetTools.NOTIFICATIONS_REQUIRED;
 
 let TargetClient;
 
@@ -237,7 +238,7 @@ describe("Target Client factory", () => {
 
     await expect(
       client.sendNotifications({ request: { trace: {} } })
-    ).rejects.toEqual(new Error(Messages.NOTIFICATIONS_REQUIRED));
+    ).rejects.toEqual(new Error(NOTIFCATIONS_REQUIRED));
   });
 
   it("should return Promise response on sendNotifications call", async () => {

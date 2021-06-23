@@ -4,7 +4,8 @@ import {
   noop,
   now,
   MetricType,
-  isFunction
+  isFunction,
+  NOTIFICATIONS_REQUIRED
 } from "@adobe/target-tools";
 import { LOG_PREFIX } from "./constants";
 
@@ -88,7 +89,15 @@ function NotificationProvider(
         notification.request.notifications = notifications;
       }
 
-      setTimeout(() => sendNotificationFunc.call(null, notification), 0);
+      setTimeout(() => {
+        try {
+          sendNotificationFunc.call(null, notification);
+        } catch (error) {
+          if (error.message !== NOTIFICATIONS_REQUIRED) {
+            throw error;
+          }
+        }
+      }, 0);
       notifications = [];
     }
   }
