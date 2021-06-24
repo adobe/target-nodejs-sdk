@@ -7,7 +7,6 @@ export const DECISIONING_METHOD = {
 };
 
 export const EXECUTION_MODE = {
-  ON_DEVICE: "on-device",
-  ON_DEVICE_CACHED: "on-device-cached",
-  SERVER_SIDE: "server-side"
+  EDGE: "edge",
+  LOCAL: "local"
 };

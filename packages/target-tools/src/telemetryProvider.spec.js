@@ -1,7 +1,6 @@
 import { TelemetryProvider } from "./telemetryProvider";
 
 describe("TelemetryProvider", () => {
-  const OK = 200;
   const TARGET_REQUEST = {
     requestId: "123456"
   };
@@ -17,9 +16,9 @@ describe("TelemetryProvider", () => {
 
     const provider = TelemetryProvider(mockExecute);
 
-    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY, OK);
-    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY, OK);
-    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY, OK);
+    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY);
+    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY);
+    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY);
 
     expect(provider.getEntries().length).toBe(3);
 
@@ -36,6 +35,7 @@ describe("TelemetryProvider", () => {
       expect.objectContaining({
         requestId: expect.any(String),
         timestamp: expect.any(Number),
+        mode: "edge",
         features: {
           decisioningMethod: expect.any(String),
           executePageLoad: expect.any(Boolean),
