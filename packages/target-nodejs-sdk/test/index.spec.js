@@ -29,7 +29,6 @@ const testLogger = {
   debug: message => message,
   error: message => message
 };
-const NOTIFCATIONS_REQUIRED = TargetTools.NOTIFICATIONS_REQUIRED;
 
 let TargetClient;
 
