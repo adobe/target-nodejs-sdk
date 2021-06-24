@@ -294,7 +294,6 @@ describe("notificationProvider", () => {
     );
 
     mockNotify.mockImplementationOnce(() => {
-      console.log("Throwing an error now");
       throw new Error(NOTIFICATIONS_REQUIRED);
     });
     expect(() => {

@@ -237,7 +237,7 @@ describe("Target Client factory", () => {
 
     await expect(
       client.sendNotifications({ request: { trace: {} } })
-    ).rejects.toEqual(new Error(NOTIFCATIONS_REQUIRED));
+    ).rejects.toEqual(new Error(TargetTools.NOTIFICATIONS_REQUIRED));
   });
 
   it("should return Promise response on sendNotifications call", async () => {
