@@ -95,7 +95,6 @@ export default function TargetDecisioningEngine(config) {
       getRawArtifact: () => artifact,
       stopPolling: () => artifactProvider.stopPolling(),
       getOffers: targetOptions => getOffers(targetOptions),
-      subscribe: callbackFunc => artifactProvider.subscribe(callbackFunc),
       hasRemoteDependency: request => hasRemoteDependency(artifact, request),
       isReady
     };

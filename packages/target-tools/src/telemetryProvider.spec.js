@@ -1,14 +1,13 @@
 import { TelemetryProvider } from "./telemetryProvider";
 
 describe("TelemetryProvider", () => {
+  const OK = 200;
   const TARGET_REQUEST = {
     requestId: "123456"
   };
-
   const TARGET_NOTIFICATION_REQUEST = {
     notifications: []
   };
-
   const TARGET_TELEMETRY_ENTRY = {
     execution: 1
   };
@@ -18,9 +17,9 @@ describe("TelemetryProvider", () => {
 
     const provider = TelemetryProvider(mockExecute);
 
-    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY);
-    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY);
-    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY);
+    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY, OK);
+    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY, OK);
+    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY, OK);
 
     expect(provider.getEntries().length).toBe(3);
 

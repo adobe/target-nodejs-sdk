@@ -16,9 +16,9 @@ import {
   whenReady,
   executeTelemetries,
   isExecutePageLoad,
-  executeMBoxCount,
+  executeMboxCount,
   isPrefetchPageLoad,
-  prefetchMBoxCount,
+  prefetchMboxCount,
   prefetchViewCount
 } from "./utils";
 import { ChannelType } from "../delivery-api-client";
@@ -432,20 +432,20 @@ describe("utils", () => {
     expect(isExecutePageLoad({})).toEqual(false);
   });
 
-  it("executeMBoxCount", () => {
+  it("executeMboxCount", () => {
     expect(
-      executeMBoxCount({
+      executeMboxCount({
         execute: {
           mboxes: [{ name: "one" }, { name: "two" }]
         }
       })
     ).toEqual(2);
     expect(
-      executeMBoxCount({
+      executeMboxCount({
         execute: { mboxes: [] }
       })
     ).toEqual(0);
-    expect(executeMBoxCount({})).toEqual(0);
+    expect(executeMboxCount({})).toEqual(0);
   });
 
   it("isPrefetchPageLoad", () => {
@@ -462,20 +462,20 @@ describe("utils", () => {
     expect(isPrefetchPageLoad({})).toEqual(false);
   });
 
-  it("prefetchMBoxCount", () => {
+  it("prefetchMboxCount", () => {
     expect(
-      prefetchMBoxCount({
+      prefetchMboxCount({
         prefetch: {
           mboxes: [{ name: "one" }, { name: "two" }]
         }
       })
     ).toEqual(2);
     expect(
-      prefetchMBoxCount({
+      prefetchMboxCount({
         prefetch: { mboxes: [] }
       })
     ).toEqual(0);
-    expect(prefetchMBoxCount({})).toEqual(0);
+    expect(prefetchMboxCount({})).toEqual(0);
   });
 
   it("prefetchViewCount", () => {

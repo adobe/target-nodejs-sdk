@@ -90,9 +90,6 @@ export default function bootstrap(fetchApi) {
           // eslint-disable-next-line no-unused-vars
           .then(([locationHintResponse, decisioningEngine]) => {
             this.decisioningEngine = decisioningEngine;
-            this.decisioningEngine.subscribe(
-              this.telemetryProvider.newArtifacts
-            );
             eventEmitter(CLIENT_READY);
           })
           .catch(err => {

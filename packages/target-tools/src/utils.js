@@ -283,10 +283,10 @@ export function executeTelemetries(deliveryRequest, telemetryEntries) {
 }
 
 export function isExecutePageLoad(request) {
-  return (!!request.execute && !!request.execute.pageLoad) || false;
+  return !!request.execute && !!request.execute.pageLoad;
 }
 
-export function executeMBoxCount(request) {
+export function executeMboxCount(request) {
   return (
     (!!request.execute &&
       !!request.execute.mboxes &&
@@ -296,10 +296,10 @@ export function executeMBoxCount(request) {
 }
 
 export function isPrefetchPageLoad(request) {
-  return (!!request.prefetch && !!request.prefetch.pageLoad) || false;
+  return !!request.prefetch && !!request.prefetch.pageLoad;
 }
 
-export function prefetchMBoxCount(request) {
+export function prefetchMboxCount(request) {
   return (
     (!!request.prefetch &&
       !!request.prefetch.mboxes &&

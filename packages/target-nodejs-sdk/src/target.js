@@ -117,8 +117,6 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
     decisioningEngine
   );
 
-  telemetryProvider.setMode(deliveryMethod.decisioningMethod);
-
   if (deliveryMethod.decisioningMethod === DECISIONING_METHOD.SERVER_SIDE) {
     deliveryRequest = telemetryProvider.executeTelemetries(deliveryRequest);
   }
@@ -143,9 +141,8 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
 
       telemetryProvider.addEntry(
         deliveryRequest,
-        {
-          execution: endTime
-        },
+        { execution: endTime },
+        response.status,
         deliveryMethod.decisioningMethod
       );
 

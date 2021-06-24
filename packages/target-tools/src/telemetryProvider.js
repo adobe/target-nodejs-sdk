@@ -4,11 +4,14 @@ import { now } from "./lodash";
 import { DECISIONING_METHOD, EXECUTION_MODE } from "./enums";
 import {
   isExecutePageLoad,
-  executeMBoxCount,
+  executeMboxCount,
   isPrefetchPageLoad,
-  prefetchMBoxCount,
+  prefetchMboxCount,
   prefetchViewCount
 } from "./utils";
+
+const OK = 200;
+const PARTIAL_CONTENT = 206;
 
 /**
  * The get TelemetryProvider initialization method
@@ -20,12 +23,21 @@ export function TelemetryProvider(
   method = DECISIONING_METHOD.SERVER_SIDE
 ) {
   let telemetryEntries = [];
-  let mode;
+
+  function getMode(status) {
+    if (method === DECISIONING_METHOD.HYBRID && status === PARTIAL_CONTENT) {
+      return EXECUTION_MODE.ON_DEVICE;
+    }
+    if (method === DECISIONING_METHOD.HYBRID && status === OK) {
+      return EXECUTION_MODE.ON_DEVICE_CACHED;
+    }
+    return EXECUTION_MODE.SERVER_SIDE;
+  }
 
   /**
    * @param {import("@adobe/target-tools/delivery-api-client/models/TelemetryEntry").TelemetryEntry} entry
    */
-  function addEntry(request, entry, decisioningMethod = method) {
+  function addEntry(request, entry, status, decisioningMethod = method) {
     if (!telemetryEnabled || !entry) {
       return;
     }
@@ -36,29 +48,17 @@ export function TelemetryProvider(
     telemetryEntries.push({
       requestId,
       timestamp,
-      mode,
+      mode: getMode(status),
       features: {
         decisioningMethod,
         executePageLoad: isExecutePageLoad(request),
-        executeMboxCount: executeMBoxCount(request),
+        executeMboxCount: executeMboxCount(request),
         prefetchPageLoad: isPrefetchPageLoad(request),
-        prefetchMboxCount: prefetchMBoxCount(request),
+        prefetchMboxCount: prefetchMboxCount(request),
         prefetchViewCount: prefetchViewCount(request)
       },
       ...entry
     });
-  }
-
-  function setMode(decisioningMethod) {
-    if (decisioningMethod === DECISIONING_METHOD.ON_DEVICE) {
-      mode = EXECUTION_MODE.ON_DEVICE_CACHED;
-    } else if (decisioningMethod === DECISIONING_METHOD.SERVER_SIDE) {
-      mode = EXECUTION_MODE.SERVER_SIDE;
-    }
-  }
-
-  function newArtifacts() {
-    mode = EXECUTION_MODE.ON_DEVICE;
   }
 
   function getEntries() {
@@ -83,13 +83,12 @@ export function TelemetryProvider(
   }
 
   return {
-    setMode,
-    newArtifacts,
     addEntry,
     getEntries,
     clearEntries,
     hasEntries,
-    executeTelemetries
+    executeTelemetries,
+    getMode
   };
 }
 
