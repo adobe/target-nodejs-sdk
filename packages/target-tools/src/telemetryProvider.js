@@ -10,6 +10,8 @@ import {
   prefetchViewCount
 } from "./utils";
 
+const OK = 200;
+
 /**
  * The get TelemetryProvider initialization method
  * @param {function} sendTelemetriesFunc function used to send the telemetries, required
@@ -21,10 +23,21 @@ export function TelemetryProvider(
 ) {
   let telemetryEntries = [];
 
+  function getMode(status, decisioningMethod) {
+    if (
+      status === OK &&
+      (decisioningMethod === DECISIONING_METHOD.ON_DEVICE ||
+        decisioningMethod === DECISIONING_METHOD.HYBRID)
+    ) {
+      return EXECUTION_MODE.LOCAL;
+    }
+    return EXECUTION_MODE.EDGE;
+  }
+
   /**
    * @param {import("@adobe/target-tools/delivery-api-client/models/TelemetryEntry").TelemetryEntry} entry
    */
-  function addEntry(request, entry, decisioningMethod = method) {
+  function addEntry(request, entry, status, decisioningMethod = method) {
     if (!telemetryEnabled || !entry) {
       return;
     }
@@ -32,15 +45,10 @@ export function TelemetryProvider(
     const { requestId } = request;
     const timestamp = now();
 
-    let mode = EXECUTION_MODE.EDGE;
-    if (decisioningMethod === DECISIONING_METHOD.ON_DEVICE) {
-      mode = EXECUTION_MODE.LOCAL;
-    }
-
     telemetryEntries.push({
       requestId,
       timestamp,
-      mode,
+      mode: getMode(status, decisioningMethod),
       features: {
         decisioningMethod,
         executePageLoad: isExecutePageLoad(request),
@@ -79,7 +87,8 @@ export function TelemetryProvider(
     getEntries,
     clearEntries,
     hasEntries,
-    executeTelemetries
+    executeTelemetries,
+    getMode
   };
 }
 

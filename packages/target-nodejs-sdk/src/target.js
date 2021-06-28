@@ -142,6 +142,7 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
       telemetryProvider.addEntry(
         deliveryRequest,
         { execution: endTime },
+        response.status,
         deliveryMethod.decisioningMethod
       );
 

@@ -1,4 +1,6 @@
 import { TelemetryProvider } from "./telemetryProvider";
+import { DECISIONING_METHOD, EXECUTION_MODE } from "./enums";
+import { noop } from "./utils";
 
 describe("TelemetryProvider", () => {
   const TARGET_REQUEST = {
@@ -10,15 +12,17 @@ describe("TelemetryProvider", () => {
   const TARGET_TELEMETRY_ENTRY = {
     execution: 1
   };
+  const OK = 200;
+  const PARTIAL_CONTENT = 206;
 
   it("adds and executes entries", () => {
     const mockExecute = jest.fn();
 
     const provider = TelemetryProvider(mockExecute);
 
-    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY);
-    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY);
-    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY);
+    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY, OK);
+    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY, OK);
+    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY, OK);
 
     expect(provider.getEntries().length).toBe(3);
 
@@ -50,6 +54,57 @@ describe("TelemetryProvider", () => {
 
     const entries = provider.getEntries();
     expect(entries.length).toEqual(0);
+  });
+
+  it("assigns local execution mode", () => {
+    const provider = TelemetryProvider(noop);
+
+    provider.addEntry(
+      TARGET_REQUEST,
+      TARGET_TELEMETRY_ENTRY,
+      OK,
+      DECISIONING_METHOD.ON_DEVICE
+    );
+    provider.addEntry(
+      TARGET_REQUEST,
+      TARGET_TELEMETRY_ENTRY,
+      OK,
+      DECISIONING_METHOD.HYBRID
+    );
+
+    const entries = provider.getEntries();
+
+    expect(entries[0].mode).toEqual(EXECUTION_MODE.LOCAL);
+    expect(entries[1].mode).toEqual(EXECUTION_MODE.LOCAL);
+  });
+
+  it("assigns edge execution mode", () => {
+    const provider = TelemetryProvider(noop);
+
+    provider.addEntry(
+      TARGET_REQUEST,
+      TARGET_TELEMETRY_ENTRY,
+      OK,
+      DECISIONING_METHOD.SERVER_SIDE
+    );
+    provider.addEntry(
+      TARGET_REQUEST,
+      TARGET_TELEMETRY_ENTRY,
+      PARTIAL_CONTENT,
+      DECISIONING_METHOD.ON_DEVICE
+    );
+    provider.addEntry(
+      TARGET_REQUEST,
+      TARGET_TELEMETRY_ENTRY,
+      PARTIAL_CONTENT,
+      DECISIONING_METHOD.HYBRID
+    );
+
+    const entries = provider.getEntries();
+
+    expect(entries[0].mode).toEqual(EXECUTION_MODE.EDGE);
+    expect(entries[1].mode).toEqual(EXECUTION_MODE.EDGE);
+    expect(entries[2].mode).toEqual(EXECUTION_MODE.EDGE);
   });
 
   it("disables telemetries", () => {

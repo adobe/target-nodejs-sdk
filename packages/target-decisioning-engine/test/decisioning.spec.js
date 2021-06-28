@@ -114,6 +114,7 @@ describe("decisioning engine", () => {
       telemetryProvider.addEntry(
         result,
         { execution: 1 },
+        result.status,
         DECISIONING_METHOD.ON_DEVICE
       );
 
