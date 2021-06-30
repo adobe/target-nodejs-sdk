@@ -87,8 +87,7 @@ export function TelemetryProvider(
     getEntries,
     clearEntries,
     hasEntries,
-    executeTelemetries,
-    getMode
+    executeTelemetries
   };
 }
 
