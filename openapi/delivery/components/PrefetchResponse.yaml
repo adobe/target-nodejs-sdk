@@ -1,0 +1,32 @@
+openapi: "3.0.0"
+PrefetchResponse:
+  type: object
+  description: |
+    The object that will return the prefetched content based on the request, active activites etc
+  properties:
+    views:
+      type: array
+      description: |
+        Contains all the views matching the request.
+      items:
+        $ref: "./View.yaml#/View"
+    pageLoad:
+      $ref: "./PageLoadResponse.yaml#/PageLoadResponse"
+    mboxes:
+      type: array
+      description: |
+        Prefetched mboxes, including content and notification tokens to be sent back when the mboxes are displayed.
+      items:
+        $ref: "./PrefetchMboxResponse.yaml#/PrefetchMboxResponse"
+    metrics:
+      type: array
+      description: |
+        The click track metrics that are not assigned to a view but are present in activites that have views, except
+        in case the same activity is serving content for selectors both assinged to a view and selectors without any
+        views, and having click track metrics that are not assotiated with any view within the activity, then:
+          * in case of a prefetch only request, these metrics (tokens) will be set in the prefetch response's metrics.
+          * in case of an execute only request, the metrics will be set in the page load response's metrics.
+          * in case of a request, with both, execute and prefetch, metrics will be set in the page load response's
+            metrics only.
+      items:
+        $ref: "./Metric.yaml#/Metric"

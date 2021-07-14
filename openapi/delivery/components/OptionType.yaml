@@ -1,0 +1,4 @@
+openapi: "3.0.0"
+OptionType:
+  type: string
+  enum: ["html", "json", "redirect", "dynamic", "actions"]    

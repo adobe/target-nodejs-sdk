@@ -1,0 +1,23 @@
+openapi: "3.0.0"
+MobilePlatform:
+  type: object
+  required:
+    - deviceType
+    - platformType
+  description: Mobile Platform should be specified when the channel is Mobile
+  properties:
+    deviceName:
+      description: |
+        Optional field, added to help with device detection using device atlas.
+        This is equivalent of a.DeviceName field passed in from Mobile SDK
+      type: string
+    deviceType:
+      $ref: "./DeviceType.yaml#/DeviceType"
+    platformType:
+      $ref: "./MobilePlatformType.yaml#/MobilePlatformType"
+    version:
+      type: string
+      maxLength: 128
+      description: |
+        If not specified - all activities with any platformVersion will be evaluated.
+        If specified - only activities with the same platformVersion will be evaluated.

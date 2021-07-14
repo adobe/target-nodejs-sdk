@@ -1,0 +1,8 @@
+openapi: "3.0.0"
+TelemetryFeatures:
+  type: object
+  description: Telemetry Features
+  properties:
+    decisioningMethod:
+      $ref: "./DecisioningMethod.yaml#/DecisioningMethod"
+      description: Decisioning Method

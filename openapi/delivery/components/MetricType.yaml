@@ -1,0 +1,6 @@
+openapi: "3.0.0"
+MetricType:
+  type: string
+  description: Notification type. Currently only click and display are supported.
+  enum: ["click", "display"]
+

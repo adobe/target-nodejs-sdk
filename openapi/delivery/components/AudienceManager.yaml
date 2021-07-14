@@ -1,0 +1,19 @@
+openapi: "3.0.0"
+AudienceManager:
+  type: object
+  description: Audience Manager Integration (AAM).
+  properties:
+    locationHint:
+      type: integer
+      minimum: 1
+      description: |
+        DCS location hint.
+        Used to determine which AAM DCS Endpoint to hit in order to retrieve the profile.
+    blob:
+      type: string
+      minLength: 1
+      maxLength: 1024
+      description: |
+        AAM Blob. Used to send additional data to AAM.
+        Validation
+          * Cannot be blank.
