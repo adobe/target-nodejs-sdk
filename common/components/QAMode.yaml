@@ -1,0 +1,43 @@
+openapi: "3.0.0"
+QAMode:
+  type: object
+  description: |
+    Use this object to enable the QA mode in the request.
+    Use the QA mode to test the look and feel of your site or application for various activities in isolation or together,
+    with the possibilty to match or not match specified audiences, select a specific experience, count the
+    impressions/visits for the reporting or not.
+
+  properties:
+    token:
+      type: string
+      description: |
+        The encrypted token for the QA mode. It contains the list of the activity ids that are allowed to
+        be executed in QA mode.
+        Validation
+          * After decryption, the client code from the token should match the one from the request.
+          * After decryption, activities with the ids specified in the token should belong to the client.
+    listedActivitiesOnly:
+      type: boolean
+      description: |
+        Specifies whether qa_mode campaigns should be executed in isolation or if they should be evaluated along other
+        active campaigns for current environment.
+    evaluateAsTrueAudienceIds:
+      type: array
+      description: |
+        List of audience ids that should be always evaluated as TRUE in the scope of the delivery request
+      items:
+        type: integer
+        format: int64
+    evaluateAsFalseAudienceIds:
+      type: array
+      description: |
+        List of audience ids that should be always evaluated as FALSE in the scope of the delivery request
+      items:
+        type: integer
+        format: int64
+    previewIndexes:
+      type: array
+      description: |
+        List of preview indexes. If present, the list cannot be empty.
+      items:
+        $ref: "./QAModePreviewIndex.yaml#/QAModePreviewIndex"

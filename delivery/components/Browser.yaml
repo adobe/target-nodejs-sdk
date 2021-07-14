@@ -1,0 +1,15 @@
+openapi: "3.0.0"
+Browser:
+  type: object
+  description: Browser object may be specified only when the Channel is Web.
+  properties:
+    host:
+      type: string
+      description: Current web page host
+    language:
+      type: string
+      description: Language in Accept-Language header format, see RFC 7231 sec. 5.3.5
+    webGLRenderer:
+      type: string
+      description: |
+        This is an optional field, added to help with device detection using device atlas

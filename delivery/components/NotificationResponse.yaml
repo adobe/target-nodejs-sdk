@@ -1,0 +1,12 @@
+openapi: "3.0.0"
+NotificationResponse:
+  type: object
+  description: |
+    Notification response. Contains the result of a processed notification.
+  properties:
+    id:
+      type: string
+      description: |
+        Notification id which indicates that the notification was processed successfully.
+    trace:
+      $ref: "./TraceResponse.yaml#/TraceResponse"

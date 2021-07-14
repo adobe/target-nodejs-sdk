@@ -1,0 +1,12 @@
+openapi: "3.0.0"
+TraceResponse:
+  type: object
+  description: |
+    The object containing all trace data for the request, only present if the trace token was provided in the request.
+  additionalProperties:
+    type: object
+    properties:
+      traceKey:
+        type: string
+      traceValue:
+        type: object
