@@ -56,6 +56,23 @@ describe("TelemetryProvider", () => {
     expect(entries.length).toEqual(0);
   });
 
+  it("adds render entries", () => {
+    const provider = TelemetryProvider(noop);
+
+    provider.addRenderEntry(TARGET_TELEMETRY_ENTRY.execution);
+
+    const entries = provider.getEntries();
+
+    expect(entries.length).toBe(1);
+    expect(entries[0]).toEqual(
+      expect.objectContaining({
+        requestId: null,
+        timestamp: expect.any(Number),
+        execution: 1
+      })
+    );
+  });
+
   it("assigns local execution mode", () => {
     const provider = TelemetryProvider(noop);
 
