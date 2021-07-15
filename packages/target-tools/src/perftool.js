@@ -49,6 +49,12 @@ export function createPerfToolInstance() {
     return timing;
   }
 
+  function clearTiming(id) {
+    delete timingIds[id];
+    delete startTimes[id];
+    delete timings[id];
+  }
+
   function reset() {
     timingIds = {};
     startTimes = {};
@@ -60,6 +66,7 @@ export function createPerfToolInstance() {
     timeEnd,
     getTimings: () => timings,
     getTiming: key => timings[key],
+    clearTiming,
     reset
   };
 }

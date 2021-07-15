@@ -34,6 +34,20 @@ export function TelemetryProvider(
     return EXECUTION_MODE.EDGE;
   }
 
+  function addRenderEntry(execution) {
+    if (!telemetryEnabled) {
+      return;
+    }
+
+    const timestamp = now();
+
+    telemetryEntries.push({
+      requestId: null,
+      timestamp,
+      execution,
+    });
+  }
+
   /**
    * @param {import("@adobe/target-tools/delivery-api-client/models/TelemetryEntry").TelemetryEntry} entry
    */
@@ -84,6 +98,7 @@ export function TelemetryProvider(
 
   return {
     addEntry,
+    addRenderEntry,
     getEntries,
     clearEntries,
     hasEntries,
