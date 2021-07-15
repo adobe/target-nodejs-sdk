@@ -558,6 +558,7 @@ function DeliveryRequestFromJSONTyped(json, ignoreDiscriminator) {
         'telemetry': !exists(json, 'telemetry') ? undefined : TelemetryFromJSON(json['telemetry']),
         'notifications': !exists(json, 'notifications') ? undefined : (json['notifications'].map(NotificationFromJSON)),
         'qaMode': !exists(json, 'qaMode') ? undefined : QAModeFromJSON(json['qaMode']),
+        'preview': !exists(json, 'preview') ? undefined : PreviewFromJSON(json['preview']),
     };
 }
 function DeliveryRequestToJSON(value) {
@@ -581,50 +582,9 @@ function DeliveryRequestToJSON(value) {
         'telemetry': TelemetryToJSON(value.telemetry),
         'notifications': value.notifications === undefined ? undefined : (value.notifications.map(NotificationToJSON)),
         'qaMode': QAModeToJSON(value.qaMode),
+        'preview': PreviewToJSON(value.preview),
     };
 }
-
-function TraceResponseFromJSON(json) {
-    return TraceResponseFromJSONTyped(json);
-}
-
-function TraceResponseFromJSONTyped(json, ignoreDiscriminator) {
-    return json;
-}
-
-function TraceResponseToJSON(value) {
-    return value;
-}
-
-function NotificationResponseFromJSON(json) {
-    return NotificationResponseFromJSONTyped(json);
-}
-
-function NotificationResponseFromJSONTyped(json, ignoreDiscriminator) {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
-
-        'id': !exists(json, 'id') ? undefined : json['id'],
-        'trace': !exists(json, 'trace') ? undefined : TraceResponseFromJSON(json['trace']),
-    };
-}
-
-function NotificationResponseToJSON(value) {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
-
-        'id': value.id,
-        'trace': TraceResponseToJSON(value.trace),
-    };
-}
-
 
 function DeliveryResponseFromJSON(json) {
     return DeliveryResponseFromJSONTyped(json);
@@ -1116,6 +1076,31 @@ function NotificationPageLoadToJSON(value) {
     };
 }
 
+function NotificationResponseFromJSON(json) {
+    return NotificationResponseFromJSONTyped(json);
+}
+function NotificationResponseFromJSONTyped(json, ignoreDiscriminator) {
+    if ((json === undefined) || (json === null)) {
+        return json;
+    }
+    return {
+        'id': !exists(json, 'id') ? undefined : json['id'],
+        'trace': !exists(json, 'trace') ? undefined : json['trace'],
+    };
+}
+function NotificationResponseToJSON(value) {
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
+    }
+    return {
+        'id': value.id,
+        'trace': value.trace,
+    };
+}
+
 function NotificationViewFromJSON(json) {
     return NotificationViewFromJSONTyped(json);
 }
@@ -1367,6 +1352,29 @@ function PrefetchResponseToJSON(value) {
         'pageLoad': PageLoadResponseToJSON(value.pageLoad),
         'mboxes': value.mboxes === undefined ? undefined : (value.mboxes.map(PrefetchMboxResponseToJSON)),
         'metrics': value.metrics === undefined ? undefined : (value.metrics.map(MetricToJSON)),
+    };
+}
+
+function PreviewFromJSON(json) {
+    return PreviewFromJSONTyped(json);
+}
+function PreviewFromJSONTyped(json, ignoreDiscriminator) {
+    if ((json === undefined) || (json === null)) {
+        return json;
+    }
+    return {
+        'token': !exists(json, 'token') ? undefined : json['token'],
+    };
+}
+function PreviewToJSON(value) {
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
+    }
+    return {
+        'token': value.token,
     };
 }
 
@@ -1892,5 +1900,5 @@ class DeliveryApi extends BaseAPI {
     }
 }
 
-export { ActionFromJSON, ActionFromJSONTyped, ActionToJSON, AddressFromJSON, AddressFromJSONTyped, AddressToJSON, AnalyticsPayloadFromJSON, AnalyticsPayloadFromJSONTyped, AnalyticsPayloadToJSON, AnalyticsRequestFromJSON, AnalyticsRequestFromJSONTyped, AnalyticsRequestToJSON, AnalyticsResponseFromJSON, AnalyticsResponseFromJSONTyped, AnalyticsResponseToJSON, ApplicationFromJSON, ApplicationFromJSONTyped, ApplicationToJSON, AudienceManagerFromJSON, AudienceManagerFromJSONTyped, AudienceManagerToJSON, AuthenticatedState, AuthenticatedStateFromJSON, AuthenticatedStateFromJSONTyped, AuthenticatedStateToJSON, BASE_PATH, BaseAPI, BlobApiResponse, BrowserFromJSON, BrowserFromJSONTyped, BrowserToJSON, COLLECTION_FORMATS, ChannelType, ChannelTypeFromJSON, ChannelTypeFromJSONTyped, ChannelTypeToJSON, Configuration, ContextFromJSON, ContextFromJSONTyped, ContextToJSON, CustomerIdFromJSON, CustomerIdFromJSONTyped, CustomerIdToJSON, DateTimeFromJSON, DateTimeFromJSONTyped, DateTimeToJSON, DecisioningMethod, DecisioningMethodFromJSON, DecisioningMethodFromJSONTyped, DecisioningMethodToJSON, DeliveryApi, DeliveryRequestFromJSON, DeliveryRequestFromJSONTyped, DeliveryRequestToJSON, DeliveryResponseFromJSON, DeliveryResponseFromJSONTyped, DeliveryResponseToJSON, DeviceType, DeviceTypeFromJSON, DeviceTypeFromJSONTyped, DeviceTypeToJSON, ExecuteRequestFromJSON, ExecuteRequestFromJSONTyped, ExecuteRequestToJSON, ExecuteResponseFromJSON, ExecuteResponseFromJSONTyped, ExecuteResponseToJSON, ExperienceCloudFromJSON, ExperienceCloudFromJSONTyped, ExperienceCloudToJSON, GeoFromJSON, GeoFromJSONTyped, GeoToJSON, JSONApiResponse, LoggingType, LoggingTypeFromJSON, LoggingTypeFromJSONTyped, LoggingTypeToJSON, MboxRequestAllOfFromJSON, MboxRequestAllOfFromJSONTyped, MboxRequestAllOfToJSON, MboxRequestFromJSON, MboxRequestFromJSONTyped, MboxRequestToJSON, MboxResponseFromJSON, MboxResponseFromJSONTyped, MboxResponseToJSON, MetricFromJSON, MetricFromJSONTyped, MetricToJSON, MetricType, MetricTypeFromJSON, MetricTypeFromJSONTyped, MetricTypeToJSON, MobilePlatformFromJSON, MobilePlatformFromJSONTyped, MobilePlatformToJSON, MobilePlatformType, MobilePlatformTypeFromJSON, MobilePlatformTypeFromJSONTyped, MobilePlatformTypeToJSON, NotificationAllOfFromJSON, NotificationAllOfFromJSONTyped, NotificationAllOfToJSON, NotificationFromJSON, NotificationFromJSONTyped, NotificationMboxFromJSON, NotificationMboxFromJSONTyped, NotificationMboxToJSON, NotificationPageLoadFromJSON, NotificationPageLoadFromJSONTyped, NotificationPageLoadToJSON, NotificationToJSON, NotificationViewFromJSON, NotificationViewFromJSONTyped, NotificationViewToJSON, OneOfstringobjectFromJSON, OneOfstringobjectFromJSONTyped, OneOfstringobjectToJSON, OneOfstringobjectarrayFromJSON, OneOfstringobjectarrayFromJSONTyped, OneOfstringobjectarrayToJSON, OptionFromJSON, OptionFromJSONTyped, OptionToJSON, OptionType, OptionTypeFromJSON, OptionTypeFromJSONTyped, OptionTypeToJSON, OrderFromJSON, OrderFromJSONTyped, OrderToJSON, PageLoadResponseFromJSON, PageLoadResponseFromJSONTyped, PageLoadResponseToJSON, PrefetchMboxResponseAllOfFromJSON, PrefetchMboxResponseAllOfFromJSONTyped, PrefetchMboxResponseAllOfToJSON, PrefetchMboxResponseFromJSON, PrefetchMboxResponseFromJSONTyped, PrefetchMboxResponseToJSON, PrefetchRequestFromJSON, PrefetchRequestFromJSONTyped, PrefetchRequestToJSON, PrefetchResponseFromJSON, PrefetchResponseFromJSONTyped, PrefetchResponseToJSON, ProductFromJSON, ProductFromJSONTyped, ProductToJSON, PropertyFromJSON, PropertyFromJSONTyped, PropertyToJSON, QAModeFromJSON, QAModeFromJSONTyped, QAModePreviewIndexFromJSON, QAModePreviewIndexFromJSONTyped, QAModePreviewIndexToJSON, QAModeToJSON, RequestDetailsFromJSON, RequestDetailsFromJSONTyped, RequestDetailsToJSON, RequiredError, ScreenFromJSON, ScreenFromJSONTyped, ScreenOrientationType, ScreenOrientationTypeFromJSON, ScreenOrientationTypeFromJSONTyped, ScreenOrientationTypeToJSON, ScreenToJSON, TelemetryEntryFromJSON, TelemetryEntryFromJSONTyped, TelemetryEntryToJSON, TelemetryFeaturesFromJSON, TelemetryFeaturesFromJSONTyped, TelemetryFeaturesToJSON, TelemetryFromJSON, TelemetryFromJSONTyped, TelemetryToJSON, TextApiResponse, TraceFromJSON, TraceFromJSONTyped, TraceToJSON, UnexpectedErrorFromJSON, UnexpectedErrorFromJSONTyped, UnexpectedErrorToJSON, ViewFromJSON, ViewFromJSONTyped, ViewRequestAllOfFromJSON, ViewRequestAllOfFromJSONTyped, ViewRequestAllOfToJSON, ViewRequestFromJSON, ViewRequestFromJSONTyped, ViewRequestToJSON, ViewToJSON, VisitorIdFromJSON, VisitorIdFromJSONTyped, VisitorIdToJSON, VoidApiResponse, WindowFromJSON, WindowFromJSONTyped, WindowToJSON, canConsumeForm, exists, mapValues, querystring };
+export { ActionFromJSON, ActionFromJSONTyped, ActionToJSON, AddressFromJSON, AddressFromJSONTyped, AddressToJSON, AnalyticsPayloadFromJSON, AnalyticsPayloadFromJSONTyped, AnalyticsPayloadToJSON, AnalyticsRequestFromJSON, AnalyticsRequestFromJSONTyped, AnalyticsRequestToJSON, AnalyticsResponseFromJSON, AnalyticsResponseFromJSONTyped, AnalyticsResponseToJSON, ApplicationFromJSON, ApplicationFromJSONTyped, ApplicationToJSON, AudienceManagerFromJSON, AudienceManagerFromJSONTyped, AudienceManagerToJSON, AuthenticatedState, AuthenticatedStateFromJSON, AuthenticatedStateFromJSONTyped, AuthenticatedStateToJSON, BASE_PATH, BaseAPI, BlobApiResponse, BrowserFromJSON, BrowserFromJSONTyped, BrowserToJSON, COLLECTION_FORMATS, ChannelType, ChannelTypeFromJSON, ChannelTypeFromJSONTyped, ChannelTypeToJSON, Configuration, ContextFromJSON, ContextFromJSONTyped, ContextToJSON, CustomerIdFromJSON, CustomerIdFromJSONTyped, CustomerIdToJSON, DateTimeFromJSON, DateTimeFromJSONTyped, DateTimeToJSON, DecisioningMethod, DecisioningMethodFromJSON, DecisioningMethodFromJSONTyped, DecisioningMethodToJSON, DeliveryApi, DeliveryRequestFromJSON, DeliveryRequestFromJSONTyped, DeliveryRequestToJSON, DeliveryResponseFromJSON, DeliveryResponseFromJSONTyped, DeliveryResponseToJSON, DeviceType, DeviceTypeFromJSON, DeviceTypeFromJSONTyped, DeviceTypeToJSON, ExecuteRequestFromJSON, ExecuteRequestFromJSONTyped, ExecuteRequestToJSON, ExecuteResponseFromJSON, ExecuteResponseFromJSONTyped, ExecuteResponseToJSON, ExperienceCloudFromJSON, ExperienceCloudFromJSONTyped, ExperienceCloudToJSON, GeoFromJSON, GeoFromJSONTyped, GeoToJSON, JSONApiResponse, LoggingType, LoggingTypeFromJSON, LoggingTypeFromJSONTyped, LoggingTypeToJSON, MboxRequestAllOfFromJSON, MboxRequestAllOfFromJSONTyped, MboxRequestAllOfToJSON, MboxRequestFromJSON, MboxRequestFromJSONTyped, MboxRequestToJSON, MboxResponseFromJSON, MboxResponseFromJSONTyped, MboxResponseToJSON, MetricFromJSON, MetricFromJSONTyped, MetricToJSON, MetricType, MetricTypeFromJSON, MetricTypeFromJSONTyped, MetricTypeToJSON, MobilePlatformFromJSON, MobilePlatformFromJSONTyped, MobilePlatformToJSON, MobilePlatformType, MobilePlatformTypeFromJSON, MobilePlatformTypeFromJSONTyped, MobilePlatformTypeToJSON, NotificationAllOfFromJSON, NotificationAllOfFromJSONTyped, NotificationAllOfToJSON, NotificationFromJSON, NotificationFromJSONTyped, NotificationMboxFromJSON, NotificationMboxFromJSONTyped, NotificationMboxToJSON, NotificationPageLoadFromJSON, NotificationPageLoadFromJSONTyped, NotificationPageLoadToJSON, NotificationResponseFromJSON, NotificationResponseFromJSONTyped, NotificationResponseToJSON, NotificationToJSON, NotificationViewFromJSON, NotificationViewFromJSONTyped, NotificationViewToJSON, OneOfstringobjectFromJSON, OneOfstringobjectFromJSONTyped, OneOfstringobjectToJSON, OneOfstringobjectarrayFromJSON, OneOfstringobjectarrayFromJSONTyped, OneOfstringobjectarrayToJSON, OptionFromJSON, OptionFromJSONTyped, OptionToJSON, OptionType, OptionTypeFromJSON, OptionTypeFromJSONTyped, OptionTypeToJSON, OrderFromJSON, OrderFromJSONTyped, OrderToJSON, PageLoadResponseFromJSON, PageLoadResponseFromJSONTyped, PageLoadResponseToJSON, PrefetchMboxResponseAllOfFromJSON, PrefetchMboxResponseAllOfFromJSONTyped, PrefetchMboxResponseAllOfToJSON, PrefetchMboxResponseFromJSON, PrefetchMboxResponseFromJSONTyped, PrefetchMboxResponseToJSON, PrefetchRequestFromJSON, PrefetchRequestFromJSONTyped, PrefetchRequestToJSON, PrefetchResponseFromJSON, PrefetchResponseFromJSONTyped, PrefetchResponseToJSON, PreviewFromJSON, PreviewFromJSONTyped, PreviewToJSON, ProductFromJSON, ProductFromJSONTyped, ProductToJSON, PropertyFromJSON, PropertyFromJSONTyped, PropertyToJSON, QAModeFromJSON, QAModeFromJSONTyped, QAModePreviewIndexFromJSON, QAModePreviewIndexFromJSONTyped, QAModePreviewIndexToJSON, QAModeToJSON, RequestDetailsFromJSON, RequestDetailsFromJSONTyped, RequestDetailsToJSON, RequiredError, ScreenFromJSON, ScreenFromJSONTyped, ScreenOrientationType, ScreenOrientationTypeFromJSON, ScreenOrientationTypeFromJSONTyped, ScreenOrientationTypeToJSON, ScreenToJSON, TelemetryEntryFromJSON, TelemetryEntryFromJSONTyped, TelemetryEntryToJSON, TelemetryFeaturesFromJSON, TelemetryFeaturesFromJSONTyped, TelemetryFeaturesToJSON, TelemetryFromJSON, TelemetryFromJSONTyped, TelemetryToJSON, TextApiResponse, TraceFromJSON, TraceFromJSONTyped, TraceToJSON, UnexpectedErrorFromJSON, UnexpectedErrorFromJSONTyped, UnexpectedErrorToJSON, ViewFromJSON, ViewFromJSONTyped, ViewRequestAllOfFromJSON, ViewRequestAllOfFromJSONTyped, ViewRequestAllOfToJSON, ViewRequestFromJSON, ViewRequestFromJSONTyped, ViewRequestToJSON, ViewToJSON, VisitorIdFromJSON, VisitorIdFromJSONTyped, VisitorIdToJSON, VoidApiResponse, WindowFromJSON, WindowFromJSONTyped, WindowToJSON, canConsumeForm, exists, mapValues, querystring };
 //# sourceMappingURL=index.js.map

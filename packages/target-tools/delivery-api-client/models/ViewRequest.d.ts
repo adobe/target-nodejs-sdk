@@ -1,8 +1,12 @@
-import { Address, Order, Parameters, Product } from './';
+import { Address, Order, Product } from './';
 export interface ViewRequest {
     address?: Address;
-    parameters?: Parameters;
-    profileParameters?: Parameters;
+    parameters?: {
+        [key: string]: string;
+    };
+    profileParameters?: {
+        [key: string]: string;
+    };
     order?: Order;
     product?: Product;
     name?: string;
