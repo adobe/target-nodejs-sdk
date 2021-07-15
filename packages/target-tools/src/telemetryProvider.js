@@ -44,7 +44,7 @@ export function TelemetryProvider(
     telemetryEntries.push({
       requestId: null,
       timestamp,
-      execution,
+      execution
     });
   }
 
