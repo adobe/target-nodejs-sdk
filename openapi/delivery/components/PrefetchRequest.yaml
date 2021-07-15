@@ -1,0 +1,22 @@
+openapi: "3.0.0"
+PrefetchRequest:
+  type: object
+  description: |
+    Use this object to prefetch the content for `views` and/or `pageLoad` and/or `mboxes`.
+      * `views` - the request to prefetch selectors grouped per view.
+      * `pageLoad` - the request to prefetch selectors not assigned to any view.
+      * `mboxes` - the request to prefetch mbox content.
+  properties:
+    views:
+      type: array
+      description: |
+        An array of views
+      items:
+        $ref: "./ViewRequest.yaml#/ViewRequest"
+    pageLoad:
+      $ref: "./RequestDetails.yaml#/RequestDetails"
+    mboxes:
+      type: array
+      description: Prefetch the content for the regional mbox.
+      items:
+        $ref: "./MboxRequest.yaml#/MboxRequest"

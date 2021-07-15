@@ -1,9 +1,11 @@
-import { Action, OptionType, ResponseTokens } from './';
+import { OneOfstringobjectarray, OptionType } from './';
 export interface Option {
     type?: OptionType;
-    content?: string | object | Array<Action>;
+    content?: OneOfstringobjectarray;
     eventToken?: string;
-    responseTokens?: ResponseTokens;
+    responseTokens?: {
+        [key: string]: object;
+    };
 }
 export declare function OptionFromJSON(json: any): Option;
 export declare function OptionFromJSONTyped(json: any, ignoreDiscriminator: boolean): Option;

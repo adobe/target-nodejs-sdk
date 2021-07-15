@@ -1,0 +1,18 @@
+openapi: "3.0.0"
+UnexpectedError:
+  type: object
+  required:
+    - status
+    - message
+  properties:
+    status:
+      type: integer
+      format: int32
+      description: |
+        HTTP response codes:
+        * `400` - Validation error (ex. invalid token)
+        * `500` - An internal server error during processing
+    message:
+      type: string
+      description: error message
+      

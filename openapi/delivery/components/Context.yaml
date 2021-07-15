@@ -1,0 +1,35 @@
+openapi: "3.0.0"
+Context:
+  type: object
+  required:
+    - channel
+  description: Specifies the context for the request, IE if it a web request then is should include user agent etc.
+  properties:
+    channel:
+      $ref: "./ChannelType.yaml#/ChannelType"
+    mobilePlatform:
+      $ref: "./MobilePlatform.yaml#/MobilePlatform"
+    application:
+      $ref: "./Application.yaml#/Application"
+    screen:
+      $ref: "./Screen.yaml#/Screen"
+    window:
+      $ref: "./Window.yaml#/Window"
+    browser:
+      $ref: "./Browser.yaml#/Browser"
+    address:
+      $ref: "./Address.yaml#/Address"
+    geo:
+      $ref: "./Geo.yaml#/Geo"
+    timeOffsetInMinutes:
+      type: number
+      description: Specifies minutes from UTC for specific client
+      format: double
+    userAgent:
+      description: User-Agent should be sent only via this property. HTTP header User-Agent is ignored.
+      type: string
+    beacon:
+      type: boolean
+      default: false
+      description: |
+        In case beacon = true is provided in the request, the server will return a 204 No Content response with no response body.

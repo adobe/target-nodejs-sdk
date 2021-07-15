@@ -1,0 +1,20 @@
+openapi: "3.0.0"
+AnalyticsRequest:
+  type: object
+  description: Integration with Adobe Analytics (A4T)
+  properties:
+    supplementalDataId:
+      type: string
+      description: |
+        Supplemental data id, used for **server side** integrations.
+        Format <16 hexadecimal digits>-<16 hexadecimal digits>
+      maxLength: 33
+      minLength: 33
+    logging:
+      $ref: "./LoggingType.yaml#/LoggingType"
+    trackingServer:
+      type: string
+      description: tracking server
+    trackingServerSecure:
+      type: string
+      description: secure tracking server

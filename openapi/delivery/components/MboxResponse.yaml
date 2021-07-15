@@ -1,0 +1,31 @@
+openapi: "3.0.0"
+MboxResponse:
+  type: object
+  description: |
+    Mbox response object.
+  properties:
+    index:
+      type: integer
+      format: int32
+      description: |
+        Indicates that the response is for mbox with the same index, as was specified in the prefetch or execute request.
+    name:
+      type: string
+      description: |
+        The name of the mbox. Since the same mbox name can be specified multiple times in the request it
+        should be used in conjunction with the index.
+    options:
+      type: array
+      description: |
+        The option that was matched for the current mbox. Cannot be an offer with templates or a visual offer.
+      items:
+        $ref: "./Option.yaml#/Option"
+    metrics:
+      type: array
+      description: Click metrics.
+      items:
+        $ref: "./Metric.yaml#/Metric"
+    analytics:
+      $ref: "./AnalyticsResponse.yaml#/AnalyticsResponse"
+    trace:
+      $ref: "./TraceResponse.yaml#/TraceResponse"

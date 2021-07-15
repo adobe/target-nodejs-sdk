@@ -15,3 +15,5 @@ npm-debug.log
 *.tgz
 bundlesize-stats*.html
 .npmrc
+codegeneration/node_modules
+codegeneration/build

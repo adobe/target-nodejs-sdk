@@ -1,0 +1,13 @@
+openapi: "3.0.0"
+Address:
+  type: object
+  description: The address object. It indicates the current URL and the referring URL.
+  properties:
+    url:
+      type: string
+      maxLength: 4096
+      description: URL
+    referringUrl:
+      type: string
+      maxLength: 4096
+      description: referral URL

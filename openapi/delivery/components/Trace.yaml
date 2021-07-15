@@ -1,0 +1,17 @@
+openapi: "3.0.0"
+Trace:
+  type: object
+  required:
+    - authorizationToken
+  description: |
+    Enables the trace for delivery API.
+    At present it is not be possible to set the metrics and packages for the trace.
+  properties:
+    authorizationToken:
+      type: string
+    usage:
+      type: object
+      additionalProperties:
+        type: string
+      description: |
+        A String dictionary of client SDK usage tracking and internal diagnostics metadata.

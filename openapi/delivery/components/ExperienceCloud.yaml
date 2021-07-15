@@ -1,0 +1,10 @@
+openapi: "3.0.0"
+ExperienceCloud:
+  type: object
+  description: Integrations with Audience Manager and Analytics
+  properties:
+    audienceManager:
+      $ref: "./AudienceManager.yaml#/AudienceManager" 
+    analytics:
+      $ref: "./AnalyticsRequest.yaml#/AnalyticsRequest"
+    

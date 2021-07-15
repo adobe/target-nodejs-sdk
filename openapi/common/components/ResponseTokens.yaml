@@ -1,0 +1,17 @@
+openapi: "3.0.0"
+ResponseTokens:
+  type: object
+  description: |
+    List of the response tokens and their values for the given option.
+    Response tokens can be defined via the /v1/responsetokens API.
+    The values for the tokens are computed for every option returned by a activity and represented as a dictionary:
+      * Key - the response token name.
+      * Value - the response token value. The value is usually a string, but it can be a list of string in case of
+      'category affinity' response token.
+  additionalProperties:
+    type: object
+    properties:
+      responseTokenName:
+        type: string
+      responseTokenValue:
+        type: object

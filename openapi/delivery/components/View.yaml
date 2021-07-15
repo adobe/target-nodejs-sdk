@@ -1,0 +1,38 @@
+openapi: "3.0.0"
+View:
+  type: object
+  description: |
+    This object will contain all the options for the selectors set for the current view, from the active activities,
+    in case the context and targeting conditions from the request have been matched.
+  properties:
+    name:
+      type: string
+      maxLength: 128
+      description: |
+        View Name - Unique view name. If the activity has a metric with a view with this name it will be matched,
+        providing the Key matches as well or is null and view and metric targeting is matched.
+    key:
+      type: string
+      maxLength: 512
+      description: |
+        View Key - An optional encoded String identifier used in advanced scenarios, such as View fingerprinting.
+        Same matching conditions as for View Name.
+    options:
+      type: array
+      description: |
+        The prefetched content (options) to be displayed for the current view.
+      items:
+        $ref: "./Option.yaml#/Option"
+    metrics:
+      type: array
+      description: |
+        Click track metrics for the current view.
+      items:
+        $ref: "./Metric.yaml#/Metric"
+    analytics:
+      $ref: "./AnalyticsResponse.yaml#/AnalyticsResponse"
+    state:
+      type: string
+      description: View state token that must be sent back with display notification for the view.
+    trace:
+      $ref: "./TraceResponse.yaml#/TraceResponse"

@@ -1,0 +1,13 @@
+openapi: "3.0.0"
+Product:
+  type: object
+  description: The properties of the products
+  properties:
+    id:
+      type: string
+      maxLength: 128
+      description: Product id. Should not be blank.
+    categoryId:
+      type: string
+      maxLength: 128
+      description: Category id. Should not be blank.

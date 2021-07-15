@@ -1,0 +1,35 @@
+openapi: "3.0.0"
+PageLoadResponse:
+  type: object
+  description: |
+    Page load response. Contains the result of prefetching or executing a request that will retrieve content for
+    all selectors not associated with a particular view.
+  properties:
+    options:
+      type: array
+      description: |
+        List of options that should be applied.
+        Note: options that have been set on selectors assigned to views will not be included here.
+      items:
+        $ref: "./Option.yaml#/Option"
+    metrics:
+      type: array
+      description: |
+        Click track metrics. Note that click metrics for selectors set with views will not be included here.
+        In case the same activity is serving content for selectors both assinged to a view and selectors without any
+        views, and having click track metrics that are not assotiated with any view within the activity, then:
+          * in case of a prefetch only request, these metrics (tokens) will be set in the Prefetch response's metrics.
+          * in case of an execute only request, the metrics will be set in the page load response's metrics.
+          * in case of a request, with both, execute and prefetch, metrics will be set in the page load response's
+            metrics only.
+      items:
+        $ref: "./Metric.yaml#/Metric"
+    analytics:
+      $ref: "./AnalyticsResponse.yaml#/AnalyticsResponse"
+    state:
+      type: string
+      description: |
+        View state token that must be sent back with display notification for the view.
+        May only be present for prefetch requests.
+    trace:
+      $ref: "./TraceResponse.yaml#/TraceResponse"

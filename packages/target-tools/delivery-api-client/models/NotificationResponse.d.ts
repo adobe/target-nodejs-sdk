@@ -1,7 +1,8 @@
-import { TraceResponse } from './';
 export interface NotificationResponse {
     id?: string;
-    trace?: TraceResponse;
+    trace?: {
+        [key: string]: object;
+    };
 }
 export declare function NotificationResponseFromJSON(json: any): NotificationResponse;
 export declare function NotificationResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): NotificationResponse;

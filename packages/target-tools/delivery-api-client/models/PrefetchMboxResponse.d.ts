@@ -1,11 +1,13 @@
-import { AnalyticsResponse, Metric, Option, TraceResponse } from './';
+import { AnalyticsResponse, Metric, Option } from './';
 export interface PrefetchMboxResponse {
     index?: number;
     name?: string;
     options?: Array<Option>;
     metrics?: Array<Metric>;
     analytics?: AnalyticsResponse;
-    trace?: TraceResponse;
+    trace?: {
+        [key: string]: object;
+    };
     state?: string;
 }
 export declare function PrefetchMboxResponseFromJSON(json: any): PrefetchMboxResponse;

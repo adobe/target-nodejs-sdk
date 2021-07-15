@@ -1,0 +1,8 @@
+openapi: "3.0.0"
+NotificationPageLoad:
+  type: object
+  description: Include this object to send display notifications for the prefetch page load contnet.
+  properties:
+    state:
+      type: string
+      description: Page Load state token

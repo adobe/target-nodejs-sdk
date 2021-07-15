@@ -1,0 +1,103 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Adobe Target Delivery API
+  termsOfService: "https://www.adobe.com/legal/terms.html"
+  x-logo:
+    url: "http://developers.adobetarget.com/api/recommendations/adobe_target-logo.png"
+    altText: "Adobe Target Delivery API"
+  description:
+    $ref: "./markdown/api-description.md"
+
+servers:
+  - url: https://{clientCode}.tt.omtrdc.net/
+paths:
+  /rest/v1/delivery:
+    post:
+      summary: Retrieve Target offers
+      operationId: execute
+      tags:
+        - Delivery
+      parameters:
+        - name: imsOrgId
+          in: query
+          required: true
+          description: The IMS organization ID
+          schema:
+            type: string
+        - name: sessionId
+          in: query
+          required: true
+          description: This is the `sessionId` that should be generated and maintained by the API user for the current session the user is a part of. The `sessionId` can be any printable string except a space, ?, or /. It should be between 1 and 128 characters in length. <br><br> For a particular session, its value must stay the same across multiple requests for the same user since routing to a particular node in the edge cluster, which contains the user profile, is done using the `sessionId`. The session is active for 30 minutes on the server side. Therefore, you shouldn’t use a different `sessionId` for a particular `tntId` or `thirdPartyId` within 30 minutes of the last request made with the same `tntId` or `thirdPartyId`. Otherwise, changes to the profile could be inconsistent and unpredictable. <br><br>Furthermore, using the same `sessionId` with different `tntId` or `thirdPartyId` may cause unpredictable changes to the profiles.
+          schema:
+            type: string
+        - name: version
+          in: query
+          required: false
+          description: This is the `version` of at.js.
+          schema:
+            type: string
+      requestBody:
+        description: Delivery Request
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "./components/DeliveryRequest.yaml#/DeliveryRequest"
+            examples:
+              1_1_PrefetchViewsForWebChannel:
+                summary: |
+                  Prefetch Mboxes for SPA and Web Applications
+                value:
+                  id:
+                    tntId: abcdefghijkl00023.1_1
+                  context:
+                    channel: web
+                    address:
+                      url: http://demo.dev.tt-demo.com/demo/store/index.html
+                    screen:
+                      width: 1200
+                      height: 1400
+                  prefetch:
+                    mboxes:
+                      name: SummerOffer
+                      index: 1
+
+
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "./components/DeliveryResponse.yaml#/DeliveryResponse"
+              examples:
+                1_1_ResponseForPrefetchViewsForWebChannel:
+                  summary: |
+                    Prefetch Views for SPA and Web Applications
+                  value:
+                    status: 200
+                    requestId: 5efee0d8-3779-4b12-a74e-e04848faf191
+                    client: demo
+                    id:
+                      tntId: abcdefghijkl00023.1_1
+                    edgeHost: mboxedge28.tt.omtrdc.net
+                    prefetch:
+                      mboxes:
+                        - index: 1
+                          name: SummerOffer
+                          options:
+                            content: <p><b>Enjoy this 15% discount on your next purchase</b></p>
+                            type: html
+                            eventToken: GcvBXDhdJFNR9E9r1tgjfmqipf
+        204:
+          description: Success with no respose body
+
+
+
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "../common/components/UnexpectedError.yaml#/UnexpectedError"

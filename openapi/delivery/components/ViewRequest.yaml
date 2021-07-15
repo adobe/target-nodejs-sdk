@@ -1,0 +1,19 @@
+openapi: "3.0.0"
+ViewRequest:
+  description: View request
+  allOf:
+    - $ref: "./RequestDetails.yaml#/RequestDetails"
+    - type: object
+      properties:
+        name:
+          type: string
+          maxLength: 128
+          description: |
+            View Name - Unique view name. If the activity has a metric with a view with this name it will be matched,
+            providing the Key matches as well or is null and view and metric targeting is matched.
+        key:
+          type: string
+          maxLength: 512
+          description: |
+            View Key - An optional encoded String identifier used in advanced scenarios, such as View fingerprinting.
+            Same matching conditions as for View Name.

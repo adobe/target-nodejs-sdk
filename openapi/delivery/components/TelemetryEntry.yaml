@@ -1,0 +1,18 @@
+openapi: "3.0.0"
+TelemetryEntry:
+  type: object
+  description: Telemetry Entry.
+  properties:
+    requestId:
+      type: string
+      description: Request Id
+    timestamp:
+      type: integer
+      format: int64
+      description: Timestamp of the entry, in milliseconds elapsed since UNIX epoch.
+    execution:
+      type: integer
+      format: double
+      description: Execution time in milliseconds.
+    features:
+      $ref: "./TelemetryFeatures.yaml#/TelemetryFeatures"

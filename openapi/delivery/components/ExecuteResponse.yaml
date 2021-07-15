@@ -1,0 +1,12 @@
+openapi: "3.0.0"
+ExecuteResponse:
+  type: object
+  description: The object that contains responses from execute `pageLoad` and/or execute regional `mboxes` request.
+  properties:
+    pageLoad:
+      $ref: "./PageLoadResponse.yaml#/PageLoadResponse"
+    mboxes:
+      type: array
+      description: The list of responses for requested regional mboxes.
+      items:
+        $ref: "./MboxResponse.yaml#/MboxResponse"

@@ -1,0 +1,10 @@
+openapi: "3.0.0"
+Telemetry:
+  type: object
+  description: Telemetry
+  properties:
+    entries:
+      type: array
+      description: An array of Telemetry Entries.
+      items:
+        $ref: "./TelemetryEntry.yaml#/TelemetryEntry"

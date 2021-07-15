@@ -1,0 +1,16 @@
+openapi: "3.0.0"
+NotificationMbox:
+  type: object
+  properties:
+    name:
+      type: string
+      maxLength: 250
+      description: |
+        Mbox name.
+        Validation
+          * No blank values allowed.
+          * A '-clicked' suffix or the following names are not allowed for mbox names: ** display mboxes **, ** any mbox **, ** click from display mbox **
+          * Allowed chars: - '-, ./=`:;&!@#$%^&*()+|?~[]{}'
+    state:
+      type: string
+      description: Mbox state token

@@ -1,0 +1,26 @@
+openapi: "3.0.2"
+ABTOrder:
+  type: object
+  description: Object that describes the order details for ABT activities.
+  properties:
+    id:
+      type: string
+      maxLength: 250
+      description: Order id.
+    decisionStackId:
+      type: integer
+      description: The decision stack id
+    total:
+      type: number
+      minimum: 0
+      description: |
+        Order Total. The amount of money in the current order.
+    time: 
+      type: date-time
+      description: |
+        Time in the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) format
+    productIds:
+      type: array
+      description: A list of product ids
+      items:
+        type: integer

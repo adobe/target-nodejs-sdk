@@ -1,0 +1,15 @@
+openapi: "3.0.0"
+RequestDetails:
+  type: object
+  description: Object common for prefetch, execute and notifications in order to specify the request details.
+  properties:
+    address:
+      $ref: "./Address.yaml#/Address"
+    parameters:
+      $ref: "../../common/components/Parameters.yaml#/Parameters"
+    profileParameters:
+      $ref: "../../common/components/Parameters.yaml#/Parameters"  
+    order:
+      $ref: "../../common/components/Order.yaml#/Order"
+    product:
+      $ref: "../../common/components/Product.yaml#/Product"

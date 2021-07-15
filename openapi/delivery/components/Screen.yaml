@@ -1,0 +1,23 @@
+openapi: "3.0.0"
+Screen:
+  type: object
+  description: The properties that dictate a screen
+  properties:
+    width:
+      type: number
+      format: double
+      description: width
+    height:
+      type: number
+      format: double
+      description: height  
+    colorDepth:
+      type: number
+      format: double
+      description: color depth
+    pixelRatio:
+      type: number
+      format: double
+      description: Optional, Used for device detection using the device atlas
+    orientation:
+      $ref: "./ScreenOrientationType.yaml#/ScreenOrientationType"
