@@ -25,7 +25,7 @@ export function TelemetryProvider(
 
   function getMode(status, decisioningMethod) {
     if (
-      status === OK &&
+      status === STATUS_OK &&
       (decisioningMethod === DECISIONING_METHOD.ON_DEVICE ||
         decisioningMethod === DECISIONING_METHOD.HYBRID)
     ) {

@@ -12,7 +12,7 @@ describe("TelemetryProvider", () => {
   const TARGET_TELEMETRY_ENTRY = {
     execution: 1
   };
-  const OK = 200;
+  const STATUS_OK = 200;
   const PARTIAL_CONTENT = 206;
 
   it("adds and executes entries", () => {
@@ -20,9 +20,9 @@ describe("TelemetryProvider", () => {
 
     const provider = TelemetryProvider(mockExecute);
 
-    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY, OK);
-    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY, OK);
-    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY, OK);
+    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY, STATUS_OK);
+    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY, STATUS_OK);
+    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY, STATUS_OK);
 
     expect(provider.getEntries().length).toBe(3);
 
@@ -62,13 +62,13 @@ describe("TelemetryProvider", () => {
     provider.addEntry(
       TARGET_REQUEST,
       TARGET_TELEMETRY_ENTRY,
-      OK,
+      STATUS_OK,
       DECISIONING_METHOD.ON_DEVICE
     );
     provider.addEntry(
       TARGET_REQUEST,
       TARGET_TELEMETRY_ENTRY,
-      OK,
+      STATUS_OK,
       DECISIONING_METHOD.HYBRID
     );
 
@@ -84,7 +84,7 @@ describe("TelemetryProvider", () => {
     provider.addEntry(
       TARGET_REQUEST,
       TARGET_TELEMETRY_ENTRY,
-      OK,
+      STATUS_OK,
       DECISIONING_METHOD.SERVER_SIDE
     );
     provider.addEntry(
