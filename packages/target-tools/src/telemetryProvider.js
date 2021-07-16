@@ -10,7 +10,7 @@ import {
   prefetchViewCount
 } from "./utils";
 
-const OK = 200;
+const STATUS_OK = 200;
 
 /**
  * The get TelemetryProvider initialization method
