@@ -34,7 +34,7 @@ export function TelemetryProvider(
     return EXECUTION_MODE.EDGE;
   }
 
-  function addRenderEntry(execution) {
+  function addRenderEntry(renderId, execution) {
     if (!telemetryEnabled) {
       return;
     }
@@ -42,7 +42,7 @@ export function TelemetryProvider(
     const timestamp = now();
 
     telemetryEntries.push({
-      requestId: null,
+      requestId: renderId,
       timestamp,
       execution
     });
