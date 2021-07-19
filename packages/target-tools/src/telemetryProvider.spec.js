@@ -59,14 +59,17 @@ describe("TelemetryProvider", () => {
   it("adds render entries", () => {
     const provider = TelemetryProvider(noop);
 
-    provider.addRenderEntry(TARGET_TELEMETRY_ENTRY.execution);
+    provider.addRenderEntry(
+      TARGET_REQUEST.requestId,
+      TARGET_TELEMETRY_ENTRY.execution
+    );
 
     const entries = provider.getEntries();
 
     expect(entries.length).toBe(1);
     expect(entries[0]).toEqual(
       expect.objectContaining({
-        requestId: null,
+        requestId: TARGET_REQUEST.requestId,
         timestamp: expect.any(Number),
         execution: 1
       })
