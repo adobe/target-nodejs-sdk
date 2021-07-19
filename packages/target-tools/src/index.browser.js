@@ -81,6 +81,7 @@ export { getFetchWithRetry, getFetchApi } from "./networking";
 
 export { AttributesProvider } from "./attributesProvider";
 export { EventProvider } from "./eventProvider";
+export { TelemetryProvider } from "./telemetryProvider";
 
 export {
   browserFromUserAgent,

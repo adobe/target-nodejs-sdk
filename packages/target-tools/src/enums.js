@@ -5,3 +5,8 @@ export const DECISIONING_METHOD = {
   SERVER_SIDE: "server-side",
   HYBRID: "hybrid"
 };
+
+export const EXECUTION_MODE = {
+  EDGE: "edge",
+  LOCAL: "local"
+};

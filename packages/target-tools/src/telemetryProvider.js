@@ -1,7 +1,16 @@
 /* eslint-disable import/prefer-default-export */
 
 import { now } from "./lodash";
-import { DECISIONING_METHOD } from "./enums";
+import { DECISIONING_METHOD, EXECUTION_MODE } from "./enums";
+import {
+  isExecutePageLoad,
+  executeMboxCount,
+  isPrefetchPageLoad,
+  prefetchMboxCount,
+  prefetchViewCount
+} from "./utils";
+
+const STATUS_OK = 200;
 
 /**
  * The get TelemetryProvider initialization method
@@ -10,14 +19,39 @@ import { DECISIONING_METHOD } from "./enums";
 export function TelemetryProvider(
   executeTelemetriesFunc,
   telemetryEnabled = true,
-  mode = DECISIONING_METHOD.SERVER_SIDE
+  method = DECISIONING_METHOD.SERVER_SIDE
 ) {
   let telemetryEntries = [];
+
+  function getMode(status, decisioningMethod) {
+    if (
+      status === STATUS_OK &&
+      (decisioningMethod === DECISIONING_METHOD.ON_DEVICE ||
+        decisioningMethod === DECISIONING_METHOD.HYBRID)
+    ) {
+      return EXECUTION_MODE.LOCAL;
+    }
+    return EXECUTION_MODE.EDGE;
+  }
+
+  function addRenderEntry(renderId, execution) {
+    if (!telemetryEnabled) {
+      return;
+    }
+
+    const timestamp = now();
+
+    telemetryEntries.push({
+      requestId: renderId,
+      timestamp,
+      execution
+    });
+  }
 
   /**
    * @param {import("@adobe/target-tools/delivery-api-client/models/TelemetryEntry").TelemetryEntry} entry
    */
-  function addEntry(request, entry, decisioningMethod = mode) {
+  function addEntry(request, entry, status, decisioningMethod = method) {
     if (!telemetryEnabled || !entry) {
       return;
     }
@@ -28,8 +62,14 @@ export function TelemetryProvider(
     telemetryEntries.push({
       requestId,
       timestamp,
+      mode: getMode(status, decisioningMethod),
       features: {
-        decisioningMethod
+        decisioningMethod,
+        executePageLoad: isExecutePageLoad(request),
+        executeMboxCount: executeMboxCount(request),
+        prefetchPageLoad: isPrefetchPageLoad(request),
+        prefetchMboxCount: prefetchMboxCount(request),
+        prefetchViewCount: prefetchViewCount(request)
       },
       ...entry
     });
@@ -58,6 +98,7 @@ export function TelemetryProvider(
 
   return {
     addEntry,
+    addRenderEntry,
     getEntries,
     clearEntries,
     hasEntries,

@@ -13,7 +13,8 @@ governing permissions and limitations under the License.
 import {
   DECISIONING_METHOD,
   isDefined,
-  isUndefined
+  isUndefined,
+  NOTIFICATIONS_REQUIRED
 } from "@adobe/target-tools";
 import { Messages } from "./messages";
 
@@ -96,7 +97,7 @@ export function validateSendNotificationsOptions(options, hasTelemetries) {
   const { notifications } = request;
 
   if (isEmptyArray(notifications) && !hasTelemetries) {
-    return Messages.NOTIFICATIONS_REQUIRED;
+    return NOTIFICATIONS_REQUIRED;
   }
 
   return null;
