@@ -72,13 +72,7 @@ The SDK depends on [Target Open API](https://github.com/adobe/target-openapi). I
 
 To be able to use `Target Open API` for code generation, we are leveraging Git subtree.
 
-To import `Target Open API` as `openapi` folder please use commands:
-
-```bash
-$ git subtree add --prefix openapi git@github.com:adobe/target-openapi.git main --squash
-```
-
-To refresh the imported subtree use this command:
+To refresh the local `target-openapi` subtree, use the command:
 
 ```bash
 $ git subtree pull --prefix openapi git@github.com:adobe/target-openapi.git main --squash

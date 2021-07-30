@@ -12,7 +12,7 @@
     "publish": "node tools/npm-publish.js",
     "test": "lerna run test --stream && npm run coverage",
     "updateTestArtifacts": "bash tools/updateTestSchema.sh",
-    "codegen": "cd codegeneration && npm install && npm run precodegen && npm run codegen"
+    "codegen": "cd codegeneration && npm install && npm run codegen"
   },
   "husky": {
     "hooks": {
