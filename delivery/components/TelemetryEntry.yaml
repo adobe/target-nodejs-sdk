@@ -10,9 +10,20 @@ TelemetryEntry:
       type: integer
       format: int64
       description: Timestamp of the entry, in milliseconds elapsed since UNIX epoch.
+    mode:
+      $ref: "./ExecutionMode.yaml#/ExecutionMode"
+      description: Execution Mode for request
     execution:
       type: integer
       format: double
       description: Execution time in milliseconds.
+    parsing:
+      type: integer
+      format: double
+      description: Response parsing time, in milliseconds elapsed since UNIX epoch.
     features:
       $ref: "./TelemetryFeatures.yaml#/TelemetryFeatures"
+      description: Features used by the SDK
+    request:
+      $ref: "./TelemetryRequest.yaml#/TelemetryRequest"
+      description: Details of the request either to Target or CDN
