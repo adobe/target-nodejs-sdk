@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "target": "{{#supportsES6}}ESNext{{/supportsES6}}{{^supportsES6}}es5{{/supportsES6}}",
+    "module": "ESNext",
+    "noImplicitAny": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "removeComments": true,
+    "sourceMap": true,
+    "noLib": false,
+    "strict": true,
+    "outDir": "dist",
+    {{^supportsES6}}
+    "lib": [
+      "ESNext",
+      "dom"
+    ],
+    {{/supportsES6}}
+    "typeRoots": [
+      "node_modules/@types"
+    ]
+  },
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
+}

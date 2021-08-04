@@ -1,0 +1,23 @@
+openapi: "3.0.0"
+TelemetryFeatures:
+  type: object
+  description: Telemetry Features
+  properties:
+    decisioningMethod:
+      $ref: "./DecisioningMethod.yaml#/DecisioningMethod"
+      description: Decisioning Method used
+    executeMboxCount:
+      type: integer
+      description: Number of mboxes in execute request
+    executePageLoad:
+      type: boolean
+      description: Indicates if execute pageLoad was used
+    prefetchMboxCount:
+      type: integer
+      description: Number of prefetched mboxes
+    prefetchPageLoad:
+      type: boolean
+      description: Indicates if prefetch pageLoad was used
+    prefetchViewCount:
+      type: integer
+      description: Number of prefetched views

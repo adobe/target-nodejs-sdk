@@ -42,10 +42,10 @@ Please take a look at [our documentation](https://adobetarget-sdks.gitbook.io/do
 ## Development
 
 Check out our [Contribution guidelines](./.github/CONTRIBUTING.md) as well as [Code of Conduct](CODE_OF_CONDUCT.md) prior
-to contributing to Target Node.js SDK development.  
+to contributing to Target Node.js SDK development.
 
-- To build the project: `npm run build`  
-- To run the unit tests: `npm test`  
+- To build the project: `npm run build`
+- To run the unit tests: `npm test`
 - To generate code coverage after running the tests: `npm run coverage`
 
 ## Additional code
@@ -64,6 +64,24 @@ Production dependencies include:
     "repository": "https://github.com/node-fetch/node-fetch"
   }
 }
+```
+
+## Delivery API Client generation
+
+The SDK depends on [Target Open API](https://github.com/adobe/target-openapi). It uses Open API and the `Open API generator` to generate the low level HTTP client.
+
+To be able to use `Target Open API` for code generation, we are leveraging Git subtree.
+
+To refresh the local `target-openapi` subtree, use the command:
+
+```bash
+$ git subtree pull --prefix openapi git@github.com:adobe/target-openapi.git main --squash
+```
+
+The openapi-generator tool is located in the `codegeneration` directory, but there is no need to invoke it directly. Everything is wrapped in an `npm` command (execute from project root):
+
+```bash
+npm run codegen
 ```
 
 ---

@@ -1,0 +1,15 @@
+openapi: "3.0.0"
+Window:
+  type: object
+  description: The dimensions that dictate a window
+  properties:
+    width:
+      type: number
+      format: double
+      description: width
+    height:
+      type: number
+      format: double
+      description: height
+
+      

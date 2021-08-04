@@ -1,0 +1,7 @@
+openapi: "3.0.0"
+LoggingType:
+  type: string
+  description: |
+    Indicates whether integraion will be done via client side (from the client) or server side (edge servers)
+  enum: ["server_side", "client_side"]
+

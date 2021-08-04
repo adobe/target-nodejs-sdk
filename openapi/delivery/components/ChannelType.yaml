@@ -1,0 +1,7 @@
+openapi: "3.0.0"
+ChannelType:
+  type: string
+  description: |
+    Specifies the channel for the request. Only activities with the matching channel will be evaluated.
+  enum: ["mobile", "web"]
+

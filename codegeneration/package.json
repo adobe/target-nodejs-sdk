@@ -1,0 +1,21 @@
+{
+  "name": "Node.js sdk codegenerator",
+  "version": "1.0.0",
+  "description": "Open API code generation helper",
+  "scripts": {
+    "precodegen": "shx rm -rf ./build ../packages/target-tools/delivery-api-client && shx mkdir ../packages/target-tools/delivery-api-client && openapi-generator-cli version-manager set 4.0.1",
+    "generate": "openapi-generator-cli generate --skip-validate-spec -g typescript-fetch -c ./config.json -i ../openapi/delivery/api.yaml -o ./build -t ./template && node ./postgen",
+    "copy-generated": "shx cp -r ./build/dist/* ../packages/target-tools/delivery-api-client",
+    "codegen": "npm run generate && npm run copy-generated",
+    "codegenhelp": "openapi-generator-cli config-help -g typescript-fetch"
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.3.9",
+    "redoc-cli": "^0.12.2",
+    "replace-in-file": "^6.2.0",
+    "semver": "^7.3.5",
+    "shelljs": "^0.8.4",
+    "shx": "^0.3.3",
+    "speccy": "^0.11.0"
+  }
+}

@@ -1,0 +1,45 @@
+openapi: "3.0.0"
+Option:
+  type: object
+  description: The content from the activitiesc is returned via the option objects.
+  properties:
+    type:
+      $ref: "./OptionType.yaml#/OptionType"
+    content:
+      description: |
+        Content that should be applied/displayed/replaced etc, based on the option type. Content can be one of:
+          * html
+          * redirect link
+          * link for a dynamic offer
+          * raw json
+          * one or more actions (json - from offers with templates and visual offers)
+        Actions format is specific for delivery API.
+      oneOf:
+        - type: string
+        - type: object
+        - type: array
+          items:
+            $ref: "#/components/schemas/Action"
+    eventToken:
+      description: |
+        Will be present only in response of a prefetch request. After the content is displayed the event token should be
+        sent via notifications to the edge server so that visit/visitor/impression events could be logged.
+      type: string
+    responseTokens:
+      $ref: "../../common/components/ResponseTokens.yaml#/ResponseTokens"
+
+components:
+  schemas:
+    Action:
+      type: object
+      properties:
+        type:
+          type: string
+        selector:
+          type: string
+        cssSelector:
+          type: string  
+        content:
+          oneOf:
+            - type: string
+            - type: object

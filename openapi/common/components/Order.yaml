@@ -1,0 +1,39 @@
+openapi: "3.0.2"
+Order:
+  type: object
+  description: Object that describes the order details.
+  properties:
+    id:
+      type: string
+      maxLength: 250
+      description: Order Id.
+    total:
+      type: number
+      minimum: 0
+      description: |
+        Order Total. The amount of money in the current order.
+    purchasedProductIds:
+      type: array
+      description: |
+        Order's product ids.
+        Validation
+          * No blank values allowed.
+          * Each product Id max length 50.
+          * Product ids, separated by commas and concatenated, total length should not exceed 250.
+      items:
+        type: string
+    time: 
+      type: date-time
+      description: |
+        Time in the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) format
+    experienceLocalId:
+      type: integer
+      minimum: 0
+      maximum: 2147483647
+      description: Id used to track the experience across POST/PUT requests
+    duplicate:
+      type: boolean
+      description: Whether or not the order is a duplicate
+    outlier:
+      type: boolean
+      description: Whether or not the order is abnormally different from the rest in volume 

@@ -1,11 +1,15 @@
-import { Address, Order, Parameters, Product } from './';
+import { Address, Order, Product } from './';
 export interface MboxRequest {
     address?: Address;
-    parameters?: Parameters;
-    profileParameters?: Parameters;
+    parameters?: {
+        [key: string]: string;
+    };
+    profileParameters?: {
+        [key: string]: string;
+    };
     order?: Order;
     product?: Product;
-    index: number;
+    index?: number;
     name?: string;
 }
 export declare function MboxRequestFromJSON(json: any): MboxRequest;

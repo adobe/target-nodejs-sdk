@@ -1,0 +1,5 @@
+openapi: "3.0.0"
+MobilePlatformType:
+  type: string
+  description: Only activities with the specified mobile platform type will be evaluated.
+  enum: ["android", "ios"]
