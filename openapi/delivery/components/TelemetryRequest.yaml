@@ -1,0 +1,25 @@
+openapi: "3.0.0"
+TelemetryRequest:
+  type: object
+  description: Telemetry Request
+  properties:
+    dns:
+      type: integer
+      format: int64
+      description: DNS resolution time, in milliseconds elapsed since UNIX epoch.
+    tls:
+      type: integer
+      format: int64
+      description: TLS handshake time, in milliseconds elapsed since UNIX epoch.
+    timeToFirstByte:
+      type: integer
+      format: int64
+      description: Time to first byte, in milliseconds elapsed since UNIX epoch.
+    download:
+      type: integer
+      format: int64
+      description: Download time, in milliseconds elapsed since UNIX epoch.
+    responseSize:
+      type: integer
+      format: int64
+      description: Response size

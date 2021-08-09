@@ -1,0 +1,12 @@
+{
+  "npmName": "@adobe/target-delivery-api-client",
+  "npmVersion": "2.1.8",
+  "sortParamsByRequiredFlag": true,
+  "ensureUniqueParams": true,
+  "allowUnicodeIdentifiers": false,
+  "prependFormOrBodyParameters": false,
+  "modelPropertyNaming": "camelCase",
+  "supportsES6": true,
+  "typescriptThreePlus": true,
+  "snapshot": false
+}

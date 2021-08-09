@@ -1,0 +1,9 @@
+openapi: "3.0.0"
+PrefetchMboxResponse:
+  allOf:
+  - $ref: "./MboxResponse.yaml#/MboxResponse"
+  - type: object
+    properties:
+      state:
+        type: string
+        description: Mbox state token that must be sent back with display notification for the mbox.

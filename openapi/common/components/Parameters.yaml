@@ -1,0 +1,17 @@
+openapi: "3.0.0"
+Parameters:
+  type: object
+  maxProperties: 50
+  description: |
+    Parameters map.
+    Same object is reused for mbox or profile parameters with slight validation differences.
+    Following names are not allowed for mbox parameters: 'orderId', 'orderTotal', productPurchasedIds'
+    Validation (for both mbox and profile parameters):
+      * Max 50 parameters limit.
+      * Parameter name should not be blank.
+      * Parameter name max length 128.
+      * Parameter name should not start with 'profile.'
+      * Parameter value length max 5000.
+  additionalProperties:
+    type: string
+    description: Name of the property

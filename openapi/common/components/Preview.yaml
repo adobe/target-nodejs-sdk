@@ -1,0 +1,14 @@
+openapi: "3.0.0"
+Preview:
+  type: object
+  description: |
+    Use this object to enable the Preview mode in the request.
+    Use the Preview mode to test the look and feel of your site for various location and offer combinations.
+
+  properties:
+    token:
+      type: string
+      description: |
+        The token for the Preview mode.
+        Validation
+          * Verify that the token belongs to the client provided in request.

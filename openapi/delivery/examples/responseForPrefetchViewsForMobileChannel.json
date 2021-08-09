@@ -1,0 +1,61 @@
+{
+  "status": 200,
+  "requestId": "620db62f-fe6c-4d7e-a31f-93dd36da8117",
+  "client": "demo",
+  "id": {
+    "tntId": "abcdefghijkl00014.1_1"
+  },
+  "edgeHost": "mboxedge1.dev.tt.omtrdc.net",
+  "prefetch": {
+    "views": [
+      {
+        "id": 1,
+        "name": "webView1",
+        "key": "32423dfs3452sdr25r",
+        "options": [
+          {
+            "content": [
+              {
+                "type": "setHtml",
+                "selector": "#top-menu",
+                "content": "AAA"
+              }
+            ],
+            "type": "actions",
+            "eventToken": "1zIHw4w+hPht4NV5MyssK4usK1YQ35VnRXpXdevZO4L+y1IPq9i2NpPJJ/bX9FNd"
+          },
+          {
+            "content": [
+              {
+                "type": "setHtml",
+                "selector": "#sidebar",
+                "content": "BBB"
+              }
+            ],
+            "type": "actions",
+            "eventToken": "1zIHw4w+hPht4NV5MyssK4usK1YQ35VnRXpXdevZO4L+y1IPq9i2NpPJJ/bX9FNd"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "webView2",
+        "key": "11423dfs3452sdr233",
+        "metrics": [
+          {
+            "type": "click",
+            "selector": "#campaignWithViewsViewIdInSelector",
+            "eventToken": "cugVCufT8raDG+O9QFSX3w=="
+          }
+        ]
+      }
+    ],
+    "metrics": [
+      {
+        "type": "click",
+        "selector": "#campaignWithViewsNoViewIdInSelector",
+        "eventToken": "cugVCufT8raDG+O9QFSX3w=="
+      }
+    ]
+  }
+}
