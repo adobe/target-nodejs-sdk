@@ -1,4 +1,9 @@
-import { getLogger, ChannelType, MetricType } from "@adobe/target-tools";
+import {
+  getLogger,
+  ChannelType,
+  MetricType,
+  NOTIFICATIONS_REQUIRED
+} from "@adobe/target-tools";
 import NotificationProvider from "./notificationProvider";
 import { validVisitorId } from "./requestProvider";
 
@@ -275,5 +280,39 @@ describe("notificationProvider", () => {
         }
       ])
     );
+  });
+
+  it("disregards notifications missing error", () => {
+    const mockNotify = jest.fn();
+
+    const provider = NotificationProvider(
+      TARGET_REQUEST,
+      undefined,
+      logger,
+      mockNotify,
+      true
+    );
+
+    mockNotify.mockImplementationOnce(() => {
+      throw new Error(NOTIFICATIONS_REQUIRED);
+    });
+    expect(() => {
+      provider.notifications = [];
+      provider.sendNotifications();
+      jest.runAllTimers();
+    }).not.toThrowError(NOTIFICATIONS_REQUIRED);
+
+    const errorMessage = "Any other error";
+
+    mockNotify.mockImplementationOnce(() => {
+      throw new Error(errorMessage);
+    });
+    expect(() => {
+      provider.notifications = [];
+      provider.sendNotifications();
+      jest.runAllTimers();
+    }).toThrowError(errorMessage);
+
+    expect(mockNotify.mock.calls.length).toBe(2);
   });
 });

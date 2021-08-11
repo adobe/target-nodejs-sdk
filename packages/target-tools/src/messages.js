@@ -8,3 +8,6 @@ export const DECISIONING_ENGINE_NOT_READY =
 
 export const PROPERTY_TOKEN_MISMATCH = (requestProperty, configProperty) =>
   `The property token specified in the request "${requestProperty}" does not match the one specified in the config "${configProperty}".`;
+
+export const NOTIFICATIONS_REQUIRED =
+  "Notifications array is required in request";

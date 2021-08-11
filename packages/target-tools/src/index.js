@@ -76,7 +76,7 @@ export {
   AuthenticatedState
 } from "./constants";
 
-export { DECISIONING_METHOD } from "./enums";
+export { DECISIONING_METHOD, EXECUTION_MODE } from "./enums";
 
 export { getFetchWithRetry, getFetchApi } from "./networking";
 
@@ -93,7 +93,8 @@ export {
 export {
   ATTRIBUTE_NOT_EXIST,
   DECISIONING_ENGINE_NOT_READY,
-  PROPERTY_TOKEN_MISMATCH
+  PROPERTY_TOKEN_MISMATCH,
+  NOTIFICATIONS_REQUIRED
 } from "./messages";
 
 export { hashString, hashUnencodedChars } from "./hashing";

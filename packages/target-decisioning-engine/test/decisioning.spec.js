@@ -111,7 +111,12 @@ describe("decisioning engine", () => {
 
       const result = await decisioning.getOffers(input);
 
-      telemetryProvider.addEntry(result, { execution: 1 });
+      telemetryProvider.addEntry(
+        result,
+        { execution: 1 },
+        result.status,
+        DECISIONING_METHOD.ON_DEVICE
+      );
 
       expectToMatchObject(result, output);
 

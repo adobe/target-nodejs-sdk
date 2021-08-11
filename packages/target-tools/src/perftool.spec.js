@@ -62,6 +62,13 @@ describe("perfTool", () => {
     expect(perfTool.timeEnd("bleh")).toEqual(-1);
   });
 
+  it("can remove by id", () => {
+    const id = "moo";
+    perfTool.timeStart(id);
+    perfTool.clearTiming(id);
+    expect(perfTool.timeEnd(id)).toEqual(-1);
+  });
+
   it("can time repeats", () => {
     return new Promise(done => {
       const firstTime = perfTool.timeStart("moo", true);

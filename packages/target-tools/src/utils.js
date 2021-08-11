@@ -281,3 +281,38 @@ export function executeTelemetries(deliveryRequest, telemetryEntries) {
     }
   };
 }
+
+export function isExecutePageLoad(request) {
+  return !!request.execute && !!request.execute.pageLoad;
+}
+
+export function executeMboxCount(request) {
+  return (
+    (!!request.execute &&
+      !!request.execute.mboxes &&
+      request.execute.mboxes.length) ||
+    0
+  );
+}
+
+export function isPrefetchPageLoad(request) {
+  return !!request.prefetch && !!request.prefetch.pageLoad;
+}
+
+export function prefetchMboxCount(request) {
+  return (
+    (!!request.prefetch &&
+      !!request.prefetch.mboxes &&
+      request.prefetch.mboxes.length) ||
+    0
+  );
+}
+
+export function prefetchViewCount(request) {
+  return (
+    (!!request.prefetch &&
+      !!request.prefetch.views &&
+      request.prefetch.views.length) ||
+    0
+  );
+}

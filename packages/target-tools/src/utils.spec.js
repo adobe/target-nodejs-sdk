@@ -13,7 +13,13 @@ import {
   objectWithoutUndefinedValues,
   requiresDecisioningEngine,
   timeLimitExceeded,
-  whenReady
+  whenReady,
+  executeTelemetries,
+  isExecutePageLoad,
+  executeMboxCount,
+  isPrefetchPageLoad,
+  prefetchMboxCount,
+  prefetchViewCount
 } from "./utils";
 import { ChannelType } from "../delivery-api-client";
 import { DECISIONING_METHOD } from "./enums";
@@ -383,5 +389,108 @@ describe("utils", () => {
         whenReady(isReady, 100, "not ready in time")
       ).rejects.toEqual(new Error("not ready in time"));
     });
+  });
+
+  it("executeTelemetries", () => {
+    const result = executeTelemetries(
+      {
+        context: { channel: "web" }
+      },
+      [
+        {
+          requestId: "123"
+        }
+      ]
+    );
+
+    expect(result).toEqual(
+      expect.objectContaining({
+        context: {
+          channel: "web"
+        },
+        telemetry: {
+          entries: expect.any(Array)
+        }
+      })
+    );
+    expect(result.telemetry.entries[0]).toMatchObject({
+      requestId: "123"
+    });
+  });
+
+  it("isExecutePageLoad", () => {
+    expect(
+      isExecutePageLoad({
+        execute: { pageLoad: {} }
+      })
+    ).toEqual(true);
+    expect(
+      isExecutePageLoad({
+        execute: {}
+      })
+    ).toEqual(false);
+    expect(isExecutePageLoad({})).toEqual(false);
+  });
+
+  it("executeMboxCount", () => {
+    expect(
+      executeMboxCount({
+        execute: {
+          mboxes: [{ name: "one" }, { name: "two" }]
+        }
+      })
+    ).toEqual(2);
+    expect(
+      executeMboxCount({
+        execute: { mboxes: [] }
+      })
+    ).toEqual(0);
+    expect(executeMboxCount({})).toEqual(0);
+  });
+
+  it("isPrefetchPageLoad", () => {
+    expect(
+      isPrefetchPageLoad({
+        prefetch: { pageLoad: {} }
+      })
+    ).toEqual(true);
+    expect(
+      isPrefetchPageLoad({
+        prefetch: {}
+      })
+    ).toEqual(false);
+    expect(isPrefetchPageLoad({})).toEqual(false);
+  });
+
+  it("prefetchMboxCount", () => {
+    expect(
+      prefetchMboxCount({
+        prefetch: {
+          mboxes: [{ name: "one" }, { name: "two" }]
+        }
+      })
+    ).toEqual(2);
+    expect(
+      prefetchMboxCount({
+        prefetch: { mboxes: [] }
+      })
+    ).toEqual(0);
+    expect(prefetchMboxCount({})).toEqual(0);
+  });
+
+  it("prefetchViewCount", () => {
+    expect(
+      prefetchViewCount({
+        prefetch: {
+          views: [{ name: "one" }, { name: "two" }]
+        }
+      })
+    ).toEqual(2);
+    expect(
+      prefetchViewCount({
+        prefetch: { views: [] }
+      })
+    ).toEqual(0);
+    expect(prefetchViewCount({})).toEqual(0);
   });
 });
