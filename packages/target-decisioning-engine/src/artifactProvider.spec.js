@@ -414,26 +414,12 @@ describe("determineArtifactLocation", () => {
     );
   });
 
-  it("does not add property token by default", () => {
+  it("adds property token if provided", () => {
     expect(
       determineArtifactLocation({
         client: "someClientId",
         propertyToken: "xyz-123-abc"
       })
-    ).toEqual(
-      `https://${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.json`
-    );
-  });
-
-  it("can be forced to add property token", () => {
-    expect(
-      determineArtifactLocation(
-        {
-          client: "someClientId",
-          propertyToken: "xyz-123-abc"
-        },
-        true
-      )
     ).toEqual(
       `https://${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/xyz-123-abc/rules.json`
     );

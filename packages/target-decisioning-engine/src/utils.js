@@ -7,7 +7,6 @@ import {
   getViewNames,
   hasRequestedViews,
   includes,
-  isBrowser,
   isDefined,
   isObject,
   isString,
@@ -18,14 +17,14 @@ import {
 
 import Messages from "./messages";
 import {
-  ARTIFACT_FORMAT_BINARY,
   ARTIFACT_FILENAME,
+  ARTIFACT_FORMAT_BINARY,
+  ARTIFACT_FORMAT_DEFAULT,
   ARTIFACT_FORMAT_JSON,
+  ARTIFACT_FORMATS,
   CDN_BASE,
   REGEX_ARTIFACT_FILENAME_BINARY,
-  SUPPORTED_ARTIFACT_MAJOR_VERSION,
-  ARTIFACT_FORMAT_DEFAULT,
-  ARTIFACT_FORMATS
+  SUPPORTED_ARTIFACT_MAJOR_VERSION
 } from "./constants";
 
 /**
@@ -220,10 +219,7 @@ export function getGeoLookupPath(config) {
  * @param {import("../types/DecisioningConfig").DecisioningConfig} config Options map, required
  * @param {Boolean} addPropertyToken
  */
-export function determineArtifactLocation(
-  config,
-  addPropertyToken = isBrowser()
-) {
+export function determineArtifactLocation(config) {
   const { client, propertyToken, artifactFormat, artifactLocation } = config;
   if (isString(artifactLocation)) {
     return artifactLocation;
@@ -236,7 +232,7 @@ export function determineArtifactLocation(
     client,
     targetEnvironment,
     `v${SUPPORTED_ARTIFACT_MAJOR_VERSION}`,
-    addPropertyToken ? propertyToken : undefined,
+    isDefined(propertyToken) ? propertyToken : undefined,
     getArtifactFileName(artifactFormat)
   ]
     .filter(value => isDefined(value))
