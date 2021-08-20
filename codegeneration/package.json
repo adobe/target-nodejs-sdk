@@ -11,11 +11,8 @@
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.3.9",
-    "redoc-cli": "^0.12.2",
-    "replace-in-file": "^6.2.0",
-    "semver": "^7.3.5",
+    "redoc-cli": "^0.12.3",
     "shelljs": "^0.8.4",
-    "shx": "^0.3.3",
-    "speccy": "^0.11.0"
+    "shx": "^0.3.3"
   }
 }
