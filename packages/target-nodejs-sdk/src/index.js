@@ -25,10 +25,11 @@ import {
 
 import Visitor from "@adobe-mcid/visitor-js-server";
 import TargetDecisioningEngine from "@adobe/target-decisioning-engine";
-import { createVisitor } from "./utils";
+import { createVisitor, isNonEmptyString } from "./utils";
 import { Messages } from "./messages";
 import { LOCATION_HINT_COOKIE, TARGET_COOKIE } from "./cookies";
 import { executeDelivery } from "./target";
+import { executeAepDelivery } from "./aepEdge";
 
 import { preserveLocationHint, requestLocationHintCookie } from "./helper";
 
@@ -55,6 +56,9 @@ export default function bootstrap(fetchApi) {
         throw new Error(Messages.PRIVATE_CONSTRUCTOR);
       }
       this.config = options;
+      this.executeDelivery = isNonEmptyString(options.edgeConfigId)
+        ? executeAepDelivery
+        : executeDelivery;
       this.config.timeout = options.timeout || DEFAULT_TIMEOUT;
       this.logger = getLogger(options.logger);
       this.telemetryProvider = TelemetryProvider(
@@ -106,6 +110,7 @@ export default function bootstrap(fetchApi) {
      * @param {Function }options.fetchApi Fetch Implementation, optional
      * @param {String} options.client Target Client Id, required
      * @param {String} options.organizationId Target Organization Id, required
+     * @param {String} options.edgeConfigId AEP Edge Datastream Configuration Id, optional. When set, SDK requests will be served by AEP Edge.
      * @param {Number} options.timeout Target request timeout in ms, default: 3000
      * @param {String} options.serverDomain Server domain, optional
      * @param {String} options.targetLocationHint Target Location Hint, optional
@@ -179,7 +184,7 @@ export default function bootstrap(fetchApi) {
         options
       );
 
-      return executeDelivery(
+      return this.executeDelivery(
         targetOptions,
         this.telemetryProvider,
         this.decisioningEngine
@@ -246,7 +251,7 @@ export default function bootstrap(fetchApi) {
         ...options
       };
 
-      return executeDelivery(targetOptions, this.telemetryProvider).then(
+      return this.executeDelivery(targetOptions, this.telemetryProvider).then(
         preserveLocationHint.bind(this)
       );
     }
