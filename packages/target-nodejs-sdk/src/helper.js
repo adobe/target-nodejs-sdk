@@ -11,15 +11,16 @@ governing permissions and limitations under the License.
 */
 
 import {
-  uuid,
   DECISIONING_ENGINE_NOT_READY,
+  DECISIONING_METHOD,
   DEFAULT_GLOBAL_MBOX,
   EMPTY_REQUEST,
-  DECISIONING_METHOD,
   isDefined,
+  isNumber,
+  isObject,
   isUndefined,
   requiresDecisioningEngine,
-  isNumber
+  uuid
 } from "@adobe/target-tools";
 
 import {
@@ -67,7 +68,6 @@ import {
   isNonEmptyArray,
   isNonEmptyObject,
   isNonEmptyString,
-  isObject,
   removeEmptyKeys
 } from "./utils";
 
