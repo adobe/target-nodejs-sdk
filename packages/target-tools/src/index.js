@@ -46,6 +46,8 @@ export {
   isUndefined,
   isDefined,
   isPojo,
+  isPrimitiveObject,
+  isPrimitiveDataType,
   memoize,
   noop,
   noopPromise,

@@ -10,19 +10,18 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import { isBrowser, isDefined, isString } from "@adobe/target-tools";
+import {
+  isBrowser,
+  isDefined,
+  isObject,
+  isPrimitiveObject,
+  isString
+} from "@adobe/target-tools";
 
 import Visitor from "@adobe-mcid/visitor-js-server";
 
 const NAVIGATOR = "navigator";
 const SEND_BEACON = "sendBeacon";
-
-export const isObject = value => value instanceof Object;
-export const isPrimitiveObject = value =>
-  value instanceof String ||
-  value instanceof Number ||
-  value instanceof Boolean ||
-  value instanceof Symbol;
 
 export const noUndefinedValues = value =>
   !!Object.values(value).filter(obj => isDefined(obj)).length;

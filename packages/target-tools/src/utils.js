@@ -1,4 +1,4 @@
-import { includes, isNumber, isObject, isString, now } from "./lodash";
+import { includes, isArray, isNumber, isObject, isString, now } from "./lodash";
 import { DECISIONING_METHOD } from "./enums";
 import { getLogger } from "./logging";
 import { PROPERTY_TOKEN_MISMATCH } from "./messages";
@@ -21,6 +21,23 @@ export function isPojo(obj) {
   }
 
   return Object.getPrototypeOf(obj) === Object.prototype;
+}
+
+export function isPrimitiveDataType(value) {
+  return (
+    typeof value === "boolean" ||
+    typeof value === "number" ||
+    typeof value === "string"
+  );
+}
+
+export function isPrimitiveObject(value) {
+  return (
+    value instanceof String ||
+    value instanceof Number ||
+    value instanceof Boolean ||
+    value instanceof Symbol
+  );
 }
 
 /**
@@ -171,18 +188,36 @@ export function decisioningEngineReady(decisioningEngine) {
   return isDefined(decisioningEngine) && decisioningEngine.isReady();
 }
 
-export function objectWithoutUndefinedValues(obj) {
-  const result = {
-    ...obj
-  };
+export function objectWithoutUndefinedValues(obj, removeEmptyObjects = false) {
+  if (isArray(obj)) {
+    return obj
+      .filter(item => isDefined(item))
+      .map(item => objectWithoutUndefinedValues(item, removeEmptyObjects));
+  }
 
-  Object.keys(result).forEach(key => {
-    if (isUndefined(result[key])) {
+  if (isPrimitiveDataType(obj) || isPrimitiveObject(obj) || !isPojo(obj)) {
+    return obj;
+  }
+
+  return Object.keys(obj).reduce((result, key) => {
+    if (isUndefined(obj[key])) {
+      return result;
+    }
+
+    // eslint-disable-next-line no-param-reassign
+    result[key] = objectWithoutUndefinedValues(obj[key], removeEmptyObjects);
+
+    if (
+      removeEmptyObjects &&
+      isPojo(result[key]) &&
+      Object.keys(result[key]).length === 0
+    ) {
+      // eslint-disable-next-line no-param-reassign
       delete result[key];
     }
-  });
 
-  return result;
+    return result;
+  }, {});
 }
 
 /**
