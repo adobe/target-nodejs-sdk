@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.1] - 2021-08-30
+
+### Changed
+
+- Download the property-specfic On-device decisioning artifact if a token is specified
+
 ## [2.2.0] - 2021-08-11
 
 ### Changed
@@ -133,7 +139,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [getOffer() API method](https://www.npmjs.com/package/@adobe/target-node-client#targetnodeclientgetoffer) has been removed,
   use [getOffers() API method](README.md#targetclientgetoffers) instead
 
-[unreleased]: https://github.com/adobe/target-nodejs-sdk/compare/v2.1.1...HEAD
+[unreleased]: https://github.com/adobe/target-nodejs-sdk/compare/v2.2.1...HEAD
+[2.2.1]: https://github.com/adobe/target-nodejs-sdk/compare/v2.1.0...v2.2.1
 [2.1.1]: https://github.com/adobe/target-nodejs-sdk/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/adobe/target-nodejs-sdk/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/adobe/target-nodejs-sdk/compare/v1.1.0...v2.0.0
