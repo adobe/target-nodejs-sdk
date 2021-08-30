@@ -2,7 +2,7 @@ import { includes, isArray, isNumber, isObject, isString, now } from "./lodash";
 import { DECISIONING_METHOD } from "./enums";
 import { getLogger } from "./logging";
 import { PROPERTY_TOKEN_MISMATCH } from "./messages";
-import { DEFAULT_MAXIMUM_WAIT_READY } from "./constants";
+import { DEFAULT_GLOBAL_MBOX, DEFAULT_MAXIMUM_WAIT_READY } from "./constants";
 
 const VIEWS = "views";
 const MBOXES = "mboxes";

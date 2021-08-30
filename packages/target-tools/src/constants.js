@@ -13,14 +13,6 @@ export const ChannelType = {
   Web: "web"
 };
 
-export const ChannelTypeAEP = {
-  Browser: "browser",
-  Application: "application",
-  InternetOfThings: "iot",
-  ExternalSystem: "external",
-  ApplicationExtension: "widget"
-};
-
 /**
  *
  * @type {{Click: string, Display: string}}
@@ -43,29 +35,6 @@ export const AuthenticatedState = {
 export const DeviceType = {
   Phone: "phone",
   Tablet: "tablet"
-};
-
-export const DeviceTypeAEP = {
-  Mobile: "mobile",
-  Tablet: "tablet",
-  Desktop: "desktop",
-  Ereader: "ereader",
-  GamingConsole: "gaming",
-  Television: "television",
-  SetTopBox: "settop",
-  MediaPlayer: "mediaplayer",
-  Computers: "computers",
-  TVScreens: "tv screens"
-};
-
-/**
- *
- * @type {{Ambiguous: string, Authenticated: string, LoggedOut: string}}
- */
-export const AuthenticatedStateAEP = {
-  Ambiguous: "ambiguous",
-  Authenticated: "authenticated",
-  LoggedOut: "loggedOut"
 };
 
 export const EMPTY_REQUEST = { context: { channel: ChannelType.Web } };
