@@ -1,18 +1,23 @@
 /* eslint-disable import/prefer-default-export,no-unused-vars */
 
-import { createPipeline } from "./pipeline";
-import { isDefined, objectWithoutUndefinedValues } from "./utils";
-import { isArray } from "./lodash";
 import {
   createIdentityItem,
+  isGlobalMbox,
   targetChannelToXdm,
   targetDeviceTypeToXdm,
+  targetOrderToAEP,
+  targetProductToAEP,
   targetToAepAuthenticatedState,
   toHours
 } from "./transformUtils";
-import { AuthenticatedStateAEP } from "./constants";
+import { isDefined, objectWithoutUndefinedValues } from "../utils";
+import { isArray } from "../lodash";
+import { createPipeline } from "../pipeline";
+import { AuthenticatedStateAEP, PAGE_WIDE_SCOPE } from "@adobe/aep-edge-tools";
 
-// const ECID = "ECID";
+function sanitize(request) {
+  return objectWithoutUndefinedValues(request, true);
+}
 
 function addConfigId(interactRequest, { deliveryRequest, edgeConfigId }) {
   return {
@@ -23,10 +28,19 @@ function addConfigId(interactRequest, { deliveryRequest, edgeConfigId }) {
   };
 }
 
+function addTrace(interactRequest, { deliveryRequest }) {
+  const { trace = {} } = deliveryRequest;
+  const { authorizationToken } = trace;
+  return {
+    ...interactRequest,
+    xAdobeTargetTraceToken: authorizationToken
+  };
+}
+
 /**
  *
  * @param { import("@adobe/aep-edge-tools/aep-edge-api-client/models/EdgeRequest").EdgeRequest } edgeRequest
- * @param { import("../delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
+ * @param { import("../../delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
  * @returns { import("@adobe/aep-edge-tools/aep-edge-api-client/models/EdgeRequest").EdgeRequest }
  */
 function translateIdentities(edgeRequest, { id = {} }) {
@@ -88,7 +102,7 @@ function translateIdentities(edgeRequest, { id = {} }) {
 /**
  *
  * @param { import("@adobe/aep-edge-tools/aep-edge-api-client/models/EdgeRequest").EdgeRequest } edgeRequest
- * @param { import("../delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
+ * @param { import("../../delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
  * @returns { import("@adobe/aep-edge-tools/aep-edge-api-client/models/EdgeRequest").EdgeRequest }
  */
 function translateTargetContext(edgeRequest, { context = {} }) {
@@ -186,14 +200,96 @@ function translateTargetContext(edgeRequest, { context = {} }) {
 
 /**
  *
+ * @param { import("@adobe/aep-edge-tools/aep-edge-api-client/models/EdgeRequest").EdgeRequest } edgeRequest
+ * @param { import("../../delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
+ * @returns { import("@adobe/aep-edge-tools/aep-edge-api-client/models/EdgeRequest").EdgeRequest }
+ */
+function translateExecuteRequest(edgeRequest, { execute = {} }) {
+  const events = [...(edgeRequest.events || [])];
+
+  const { pageLoad, mboxes = [] } = execute;
+
+  [
+    isDefined(pageLoad)
+      ? {
+          name: "target-global-mbox",
+          ...pageLoad
+        }
+      : undefined,
+    ...mboxes
+  ]
+    .filter(mbox => isDefined(mbox))
+    .forEach(mbox => {
+      const { name, product, order } = mbox;
+
+      const decisionScopes = [];
+      let targetParams = {};
+      let targetProfileParams = {};
+
+      decisionScopes.push(isGlobalMbox(name) ? PAGE_WIDE_SCOPE : name);
+
+      const { parameters = {}, profileParameters = {} } = mbox;
+      targetParams = { ...parameters };
+      targetProfileParams = { ...profileParameters };
+
+      const xdm = {
+        timestamp: new Date(),
+        implementationDetails: {
+          name: "https://ns.adobe.com/experience/aep-edge-nodejs-sdk",
+          version: "1.0.0",
+          environment: "server"
+        }
+      };
+
+      xdm.productListItems = isDefined(product)
+        ? [targetProductToAEP(product)]
+        : undefined;
+
+      xdm.commerce = targetOrderToAEP(order);
+
+      events.push({
+        query: {
+          personalization: {
+            schemas: [
+              "https://ns.adobe.com/personalization/html-content-item",
+              "https://ns.adobe.com/personalization/json-content-item",
+              "https://ns.adobe.com/personalization/redirect-item",
+              "https://ns.adobe.com/personalization/dom-action"
+            ],
+            decisionScopes: [...decisionScopes]
+          }
+        },
+        xdm,
+        data: {
+          __adobe: {
+            target: {
+              ...targetParams,
+              profile: {
+                ...targetProfileParams
+              }
+            }
+          }
+        }
+      });
+    });
+
+  return {
+    ...edgeRequest,
+    events
+  };
+}
+
+/**
+ *
  * @param { import("@adobe/aep-edge-tools/aep-edge-api-client/apis/InteractApi").InteractPostRequest } interactRequest
- * @param { import("../delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
+ * @param { import("../../delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
  * @returns { import("@adobe/aep-edge-tools/aep-edge-api-client/apis/InteractApi").InteractPostRequest }
  */
 function createEdgeRequest(interactRequest, { deliveryRequest }) {
   const edgeRequestPipeline = createPipeline([
     translateIdentities,
-    translateTargetContext
+    translateTargetContext,
+    translateExecuteRequest
   ]);
 
   return {
@@ -207,14 +303,10 @@ function createEdgeRequest(interactRequest, { deliveryRequest }) {
   };
 }
 
-function sanitize(request) {
-  return objectWithoutUndefinedValues(request, true);
-}
-
 /**
  * @param { String } imsOrgId
  * @param { String } sessionId
- * @param { import("../delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
+ * @param { import("../../delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
  * @param { String } version
  * @param { String } edgeConfigId
  * @returns { import("@adobe/aep-edge-tools/aep-edge-api-client/apis/InteractApi").InteractPostRequest }
@@ -228,6 +320,7 @@ export function targetDeliveryToAepEdgeRequest(
 ) {
   const targetDeliveryToAepEdgeRequestPipeline = createPipeline([
     addConfigId,
+    addTrace,
     createEdgeRequest,
     sanitize
   ]);

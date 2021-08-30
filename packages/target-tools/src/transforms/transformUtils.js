@@ -1,12 +1,16 @@
 import {
-  AuthenticatedState,
   AuthenticatedStateAEP,
-  ChannelType,
   ChannelTypeAEP,
-  DeviceType,
   DeviceTypeAEP
-} from "./constants";
-import { isNumber } from "./lodash";
+} from "@adobe/aep-edge-tools";
+import {
+  AuthenticatedState,
+  ChannelType,
+  DEFAULT_GLOBAL_MBOX,
+  DeviceType
+} from "../constants";
+import { isArray, isNumber } from "../lodash";
+import { isUndefined } from "../utils";
 
 const MINUTES_PER_HOUR = 60;
 
@@ -64,4 +68,42 @@ export function toHours(minutesValue) {
   }
 
   return minutesValue / MINUTES_PER_HOUR;
+}
+
+export function targetProductToAEP(product) {
+  if (isUndefined(product)) {
+    return undefined;
+  }
+
+  const { id, categoryId } = product;
+
+  return {
+    SKU: id,
+    category: categoryId
+  };
+}
+
+export function targetOrderToAEP(order) {
+  if (isUndefined(order)) {
+    return undefined;
+  }
+
+  const { id, total, purchasedProductIds } = order;
+
+  return {
+    order: {
+      purchaseId: id,
+      priceTotal: total
+    },
+    purchases: {
+      id:
+        isArray(purchasedProductIds) && purchasedProductIds.length > 0
+          ? purchasedProductIds[0]
+          : undefined
+    }
+  };
+}
+
+export function isGlobalMbox(mboxName) {
+  return mboxName === DEFAULT_GLOBAL_MBOX;
 }
