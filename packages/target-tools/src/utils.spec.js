@@ -19,7 +19,8 @@ import {
   executeMboxCount,
   isPrefetchPageLoad,
   prefetchMboxCount,
-  prefetchViewCount
+  prefetchViewCount,
+  isRoughlyTheSameObject
 } from "./utils";
 import { ChannelType } from "../delivery-api-client";
 import { DECISIONING_METHOD } from "./enums";
@@ -617,5 +618,50 @@ describe("utils", () => {
       })
     ).toEqual(0);
     expect(prefetchViewCount({})).toEqual(0);
+  });
+
+  it("isRoughlyTheSameObject", () => {
+    // expect(isSame({}, {})).toEqual(true);
+    expect(
+      isRoughlyTheSameObject(
+        {
+          a: "a",
+          b: "b"
+        },
+        {
+          a: "a",
+          b: "b"
+        }
+      )
+    ).toEqual(true);
+
+    expect(
+      isRoughlyTheSameObject(
+        {
+          a: "a",
+          b: "b",
+          c: {
+            d: {
+              e: "elephant",
+              f: true
+            },
+            g: [],
+            h: { i: { j: new Date() } }
+          }
+        },
+        {
+          a: "a",
+          b: "b",
+          c: {
+            d: {
+              e: "elephant",
+              f: true
+            },
+            g: [],
+            h: { i: { j: new Date() } }
+          }
+        }
+      )
+    ).toEqual(true);
   });
 });

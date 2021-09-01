@@ -1,8 +1,12 @@
 /* eslint-disable import/prefer-default-export,no-unused-vars */
 
+import { AuthenticatedStateAEP, PAGE_WIDE_SCOPE } from "@adobe/aep-edge-tools";
 import {
+  byIndex,
   createIdentityItem,
   isGlobalMbox,
+  konductorCookieNameIdentity,
+  konductorCookieNameSessionId,
   targetChannelToXdm,
   targetDeviceTypeToXdm,
   targetOrderToAEP,
@@ -10,10 +14,15 @@ import {
   targetToAepAuthenticatedState,
   toHours
 } from "./transformUtils";
-import { isDefined, objectWithoutUndefinedValues } from "../utils";
+import {
+  isDefined,
+  isRoughlyTheSameObject,
+  objectWithoutUndefinedValues
+} from "../utils";
 import { isArray } from "../lodash";
 import { createPipeline } from "../pipeline";
-import { AuthenticatedStateAEP, PAGE_WIDE_SCOPE } from "@adobe/aep-edge-tools";
+import { parseURI } from "../index";
+import isNotBlank from "../lodash/internal/isNotBlank";
 
 function sanitize(request) {
   return objectWithoutUndefinedValues(request, true);
@@ -216,7 +225,7 @@ function translateExecuteRequest(edgeRequest, { execute = {} }) {
           ...pageLoad
         }
       : undefined,
-    ...mboxes
+    ...mboxes.sort(byIndex)
   ]
     .filter(mbox => isDefined(mbox))
     .forEach(mbox => {
@@ -247,7 +256,7 @@ function translateExecuteRequest(edgeRequest, { execute = {} }) {
 
       xdm.commerce = targetOrderToAEP(order);
 
-      events.push({
+      const event = {
         query: {
           personalization: {
             schemas: [
@@ -270,7 +279,20 @@ function translateExecuteRequest(edgeRequest, { execute = {} }) {
             }
           }
         }
-      });
+      };
+
+      const lastEvent = events[events.length - 1];
+
+      if (
+        events.length > 0 &&
+        isRoughlyTheSameObject(lastEvent.data, event.data)
+      ) {
+        lastEvent.query.personalization.decisionScopes.push(
+          ...event.query.personalization.decisionScopes
+        );
+      } else {
+        events.push(event);
+      }
     });
 
   return {
@@ -304,24 +326,87 @@ function createEdgeRequest(interactRequest, { deliveryRequest }) {
 }
 
 /**
+ *
+ * @param { import("@adobe/aep-edge-tools/aep-edge-api-client/apis/InteractApi").InteractPostRequest } interactRequest
+ * @param { String } imsOrgId
+ * @param { String } sessionId
+ * @param { import("../../delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
+ * @returns { import("@adobe/aep-edge-tools/aep-edge-api-client/apis/InteractApi").InteractPostRequest }
+ */
+function addMetaEntries(
+  interactRequest,
+  { imsOrgId, sessionId, deliveryRequest, konductorIdentity }
+) {
+  const { context = {} } = deliveryRequest;
+  const { browser = {}, address = {} } = context;
+
+  const { host } = browser;
+  const { url } = address;
+
+  const { edgeRequest } = interactRequest;
+  const { meta = {} } = edgeRequest;
+  const { state = {} } = meta;
+  const { entries = [] } = state;
+
+  const { host: domain = "" } = parseURI(host || url || "") || {};
+
+  const additionalState = {
+    domain,
+    cookiesEnabled: true,
+    entries: [...entries]
+  };
+
+  if (isNotBlank(imsOrgId) && isNotBlank(sessionId)) {
+    additionalState.entries.push({
+      key: konductorCookieNameSessionId(imsOrgId),
+      value: sessionId
+    });
+  }
+
+  if (isNotBlank(konductorIdentity)) {
+    additionalState.entries.push({
+      key: konductorCookieNameIdentity(imsOrgId),
+      value: konductorIdentity
+    });
+  }
+
+  return {
+    ...interactRequest,
+    edgeRequest: {
+      ...edgeRequest,
+      meta: {
+        ...meta,
+        state: {
+          ...state,
+          ...additionalState
+        }
+      }
+    }
+  };
+}
+
+/**
  * @param { String } imsOrgId
  * @param { String } sessionId
  * @param { import("../../delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
  * @param { String } version
  * @param { String } edgeConfigId
+ * @param { String } konductorIdentity
  * @returns { import("@adobe/aep-edge-tools/aep-edge-api-client/apis/InteractApi").InteractPostRequest }
  */
-export function targetDeliveryToAepEdgeRequest(
+export function targetDeliveryToAepEdgeRequest({
   imsOrgId,
   sessionId,
   deliveryRequest,
   version,
-  edgeConfigId
-) {
+  edgeConfigId,
+  konductorIdentity
+}) {
   const targetDeliveryToAepEdgeRequestPipeline = createPipeline([
     addConfigId,
     addTrace,
     createEdgeRequest,
+    addMetaEntries,
     sanitize
   ]);
 
@@ -332,7 +417,8 @@ export function targetDeliveryToAepEdgeRequest(
       sessionId,
       deliveryRequest,
       version,
-      edgeConfigId
+      edgeConfigId,
+      konductorIdentity
     }
   );
 }
