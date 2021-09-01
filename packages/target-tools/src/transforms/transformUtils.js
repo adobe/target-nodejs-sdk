@@ -3,16 +3,22 @@ import {
   ChannelTypeAEP,
   DeviceTypeAEP
 } from "@adobe/aep-edge-tools";
+import { load } from "protobufjs";
 import {
   AuthenticatedState,
   ChannelType,
   DEFAULT_GLOBAL_MBOX,
   DeviceType
 } from "../constants";
-import { isArray, isNumber } from "../lodash";
-import { isUndefined } from "../utils";
+import { isArray, isEmpty, isNumber, isString } from "../lodash";
+import { isDefined, isUndefined } from "../utils";
 
 const MINUTES_PER_HOUR = 60;
+const ORG_ID_DELIMITER = "@";
+const KONDUCTOR_PROTO_FILE = "src/transforms/konductor.proto";
+const KONDUCTOR_IDENTITY = "konductor.Identity";
+
+let _konductorIdentity;
 
 export function targetToAepAuthenticatedState(targetAuthenticatedState) {
   if (targetAuthenticatedState === AuthenticatedState.Unknown) {
@@ -106,4 +112,52 @@ export function targetOrderToAEP(order) {
 
 export function isGlobalMbox(mboxName) {
   return mboxName === DEFAULT_GLOBAL_MBOX;
+}
+
+export const byIndex = (itemA, itemB) =>
+  (itemA.index || 0) - (itemB.index || 0);
+
+export function konductorCookieNameSessionId(imsOrgId) {
+  if (!isString(imsOrgId) || isEmpty(imsOrgId)) {
+    return undefined;
+  }
+
+  return `kndctr_${imsOrgId.replace(
+    ORG_ID_DELIMITER,
+    "_"
+  )}_personalization_sessionId`;
+}
+
+export function konductorCookieNameIdentity(imsOrgId) {
+  if (!isString(imsOrgId) || isEmpty(imsOrgId)) {
+    return undefined;
+  }
+
+  return `kndctr_${imsOrgId.replace(ORG_ID_DELIMITER, "_")}_identity`;
+}
+
+function loadKonductorIdentityProtoBuf() {
+  return new Promise((resolve, reject) => {
+    if (isDefined(_konductorIdentity)) {
+      resolve(_konductorIdentity);
+      return;
+    }
+
+    load(KONDUCTOR_PROTO_FILE, function (err, root) {
+      if (err) {
+        reject(err);
+      }
+
+      _konductorIdentity = root.lookupType(KONDUCTOR_IDENTITY);
+
+      resolve(_konductorIdentity);
+    });
+  });
+}
+
+export function decodeKonductorIdentity(konductorIdentity) {
+  const buffer = Buffer.from(konductorIdentity, "base64");
+  return loadKonductorIdentityProtoBuf().then(KonductorIdentity =>
+    KonductorIdentity.decode(buffer)
+  );
 }

@@ -2,7 +2,7 @@ import { includes, isArray, isNumber, isObject, isString, now } from "./lodash";
 import { DECISIONING_METHOD } from "./enums";
 import { getLogger } from "./logging";
 import { PROPERTY_TOKEN_MISMATCH } from "./messages";
-import { DEFAULT_GLOBAL_MBOX, DEFAULT_MAXIMUM_WAIT_READY } from "./constants";
+import { DEFAULT_MAXIMUM_WAIT_READY } from "./constants";
 
 const VIEWS = "views";
 const MBOXES = "mboxes";
@@ -218,6 +218,30 @@ export function objectWithoutUndefinedValues(obj, removeEmptyObjects = false) {
 
     return result;
   }, {});
+}
+
+export function isRoughlyTheSameObject(objA, objB) {
+  if (isPrimitiveDataType(objA) && isPrimitiveDataType(objB)) {
+    return objA === objB;
+  }
+
+  if (!isPojo(objA) || !isPojo(objB)) {
+    return typeof objA === typeof objB;
+  }
+
+  const keysA = Object.keys(objA);
+  const keysB = Object.keys(objB);
+  if (keysA.length !== keysB.length) {
+    return false;
+  }
+
+  for (let i = 0; i < keysA.length; i += 1) {
+    const key = keysA[i];
+    if (!isRoughlyTheSameObject(objA[key], objB[key])) {
+      return false;
+    }
+  }
+  return true;
 }
 
 /**
