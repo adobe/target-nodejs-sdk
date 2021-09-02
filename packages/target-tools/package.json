@@ -28,7 +28,7 @@
     "prepare": "rollup --config"
   },
   "dependencies": {
-    "@adobe/aep-edge-tools": "^1.0.0",
+    "@adobe/aep-edge-tools": "file:~/Development/aep-edge-nodejs-sdk/packages/aep-edge-tools",
     "@adobe/reactor-object-assign": "^1.0.0",
     "parse-uri": "^1.0.0",
     "performance-now": "^2.1.0"
