@@ -672,7 +672,7 @@ describe("targetDeliveryToAepEdgeRequest", () => {
       })
     ).toMatchObject({
       edgeRequest: {
-        events: [{}]
+        events: []
       }
     });
   });

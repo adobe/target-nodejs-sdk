@@ -1,12 +1,16 @@
 /* eslint-disable import/prefer-default-export,no-unused-vars */
 
-import { AuthenticatedStateAEP, PAGE_WIDE_SCOPE } from "@adobe/aep-edge-tools";
+import {
+  AuthenticatedStateAEP,
+  konductorCookieNameIdentity,
+  konductorCookieNameSessionId,
+  PAGE_WIDE_SCOPE,
+  PERSONALIZATION_SCHEMA_ALL
+} from "@adobe/aep-edge-tools";
 import {
   byIndex,
   createIdentityItem,
   isGlobalMbox,
-  konductorCookieNameIdentity,
-  konductorCookieNameSessionId,
   targetChannelToXdm,
   targetDeviceTypeToXdm,
   targetOrderToAEP,
@@ -32,7 +36,6 @@ function addConfigId(interactRequest, { deliveryRequest, edgeConfigId }) {
   return {
     ...interactRequest,
     requestId: deliveryRequest.requestId,
-    // xRequestID?
     configId: edgeConfigId
   };
 }
@@ -259,12 +262,7 @@ function translateExecuteRequest(edgeRequest, { execute = {} }) {
       const event = {
         query: {
           personalization: {
-            schemas: [
-              "https://ns.adobe.com/personalization/html-content-item",
-              "https://ns.adobe.com/personalization/json-content-item",
-              "https://ns.adobe.com/personalization/redirect-item",
-              "https://ns.adobe.com/personalization/dom-action"
-            ],
+            schemas: PERSONALIZATION_SCHEMA_ALL,
             decisionScopes: [...decisionScopes]
           }
         },
