@@ -11,15 +11,12 @@ governing permissions and limitations under the License.
 */
 
 import {
-  DECISIONING_ENGINE_NOT_READY,
   DECISIONING_METHOD,
   DEFAULT_GLOBAL_MBOX,
   EMPTY_REQUEST,
   isDefined,
   isNumber,
   isObject,
-  isUndefined,
-  requiresDecisioningEngine,
   uuid
 } from "@adobe/target-tools";
 
@@ -28,10 +25,8 @@ import {
   AudienceManagerFromJSON,
   AuthenticatedState,
   ChannelType,
-  Configuration,
   ContextFromJSON,
   CustomerIdFromJSON,
-  DeliveryApi,
   DeliveryRequestFromJSON,
   ExecuteRequestFromJSON,
   ExperienceCloudFromJSON,
@@ -46,7 +41,6 @@ import {
   ViewRequestFromJSON,
   VisitorIdFromJSON
 } from "@adobe/target-tools/delivery-api-client";
-
 import { Messages } from "./messages";
 import {
   createTargetCookie,
@@ -58,10 +52,8 @@ import {
 import { version } from "../package.json";
 
 import {
-  executeSendBeacon,
   flatten,
   getTimezoneOffset,
-  isBeaconSupported,
   isEmptyArray,
   isEmptyObject,
   isEmptyString,
@@ -85,8 +77,6 @@ const HOST = "tt.omtrdc.net";
 const SESSION_ID_MAX_AGE = 1860;
 const DEVICE_ID_MAX_AGE = 63244800;
 const LOCATION_HINT_MAX_AGE = 1860;
-
-DeliveryApi.prototype.decisioningMethod = DECISIONING_METHOD.SERVER_SIDE;
 
 export function extractClusterFromDeviceId(id) {
   if (isEmptyString(id)) {
@@ -500,121 +490,6 @@ export function createDeliveryRequest(requestParam, options) {
   removeEmptyKeys(result);
 
   return result;
-}
-
-/**
- *
- * @param fetchApi
- * @param host
- * @param headers
- * @param timeout
- * @return { import("@adobe/target-tools/delivery-api-client/runtime").Configuration }
- */
-export function createConfiguration(fetchApi, host, headers, timeout) {
-  return new Configuration({
-    basePath: host,
-    fetchApi,
-    headers,
-    timeout
-  });
-}
-
-function createLocalDeliveryApi(
-  decisioningEngine,
-  visitor,
-  targetLocationHint
-) {
-  return {
-    // eslint-disable-next-line no-unused-vars
-    execute: (organizationId, sessionId, deliveryRequest, atjsVersion) => {
-      if (isUndefined(decisioningEngine)) {
-        return Promise.reject(new Error(DECISIONING_ENGINE_NOT_READY));
-      }
-
-      return decisioningEngine.getOffers({
-        targetLocationHint,
-        request: deliveryRequest,
-        sessionId,
-        visitor
-      });
-    },
-    decisioningMethod: DECISIONING_METHOD.ON_DEVICE
-  };
-}
-
-function createBeaconDeliveryApi(configuration) {
-  return {
-    execute: (organizationId, sessionId, deliveryRequest, atjsVersion) => {
-      const query = {
-        imsOrgId: organizationId,
-        sessionId
-      };
-
-      if (isDefined(configuration.version)) {
-        query.version = atjsVersion;
-      }
-
-      const queryString = configuration.queryParamsStringify(query);
-
-      const success = executeSendBeacon(
-        `${configuration.basePath}/rest/v1/delivery?${queryString}`,
-        JSON.stringify({
-          ...deliveryRequest,
-          context: {
-            ...deliveryRequest.context,
-            beacon: true
-          }
-        })
-      );
-      return success ? Promise.resolve() : Promise.reject();
-    },
-    decisioningMethod: DECISIONING_METHOD.SERVER_SIDE
-  };
-}
-
-function createRemoteDeliveryApi(configuration, useBeacon) {
-  return useBeacon && isBeaconSupported()
-    ? createBeaconDeliveryApi(configuration)
-    : new DeliveryApi(configuration);
-}
-
-/**
- * @param {import("@adobe/target-tools/delivery-api-client/runtime").Configuration} configuration
- * @param visitor VisitorId instance
- * @param { Boolean } useBeacon
- * @param decisioningMethod
- * @param { String } targetLocationHint
- * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} deliveryRequest
- * @param decisioningEngine
- * */
-export function createDeliveryApi(
-  configuration,
-  visitor,
-  useBeacon = false,
-  decisioningMethod = DECISIONING_METHOD.SERVER_SIDE,
-  targetLocationHint = undefined,
-  deliveryRequest = undefined,
-  decisioningEngine = undefined
-) {
-  if (requiresDecisioningEngine(decisioningMethod)) {
-    const decisioningDependency =
-      decisioningEngine.hasRemoteDependency(deliveryRequest);
-
-    if (
-      decisioningMethod === DECISIONING_METHOD.HYBRID &&
-      decisioningDependency.remoteNeeded
-    ) {
-      return createRemoteDeliveryApi(configuration, useBeacon);
-    }
-
-    return createLocalDeliveryApi(
-      decisioningEngine,
-      visitor,
-      targetLocationHint
-    );
-  }
-
-  return createRemoteDeliveryApi(configuration, useBeacon);
 }
 
 function getTargetCookie(sessionId, id) {

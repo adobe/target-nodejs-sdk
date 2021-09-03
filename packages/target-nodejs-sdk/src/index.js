@@ -13,23 +13,22 @@ governing permissions and limitations under the License.
 import {
   addMboxesToRequest,
   AttributesProvider,
+  DECISIONING_METHOD,
   EMPTY_REQUEST,
   EventProvider,
-  DECISIONING_METHOD,
+  executeTelemetries,
   getFetchApi,
   getLogger,
   requiresDecisioningEngine,
-  TelemetryProvider,
-  executeTelemetries
+  TelemetryProvider
 } from "@adobe/target-tools";
 
 import Visitor from "@adobe-mcid/visitor-js-server";
 import TargetDecisioningEngine from "@adobe/target-decisioning-engine";
-import { createVisitor, isNonEmptyString } from "./utils";
+import { createVisitor } from "./utils";
 import { Messages } from "./messages";
 import { LOCATION_HINT_COOKIE, TARGET_COOKIE } from "./cookies";
 import { executeDelivery } from "./target";
-import { executeAepDelivery } from "./aepEdge";
 
 import { preserveLocationHint, requestLocationHintCookie } from "./helper";
 
@@ -56,9 +55,6 @@ export default function bootstrap(fetchApi) {
         throw new Error(Messages.PRIVATE_CONSTRUCTOR);
       }
       this.config = options;
-      this.executeDelivery = isNonEmptyString(options.edgeConfigId)
-        ? executeAepDelivery
-        : executeDelivery;
       this.config.timeout = options.timeout || DEFAULT_TIMEOUT;
       this.logger = getLogger(options.logger);
       this.telemetryProvider = TelemetryProvider(
@@ -184,7 +180,7 @@ export default function bootstrap(fetchApi) {
         options
       );
 
-      return this.executeDelivery(
+      return executeDelivery(
         targetOptions,
         this.telemetryProvider,
         this.decisioningEngine
@@ -251,7 +247,7 @@ export default function bootstrap(fetchApi) {
         ...options
       };
 
-      return this.executeDelivery(targetOptions, this.telemetryProvider).then(
+      return executeDelivery(targetOptions, this.telemetryProvider).then(
         preserveLocationHint.bind(this)
       );
     }

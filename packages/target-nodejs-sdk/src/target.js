@@ -12,19 +12,17 @@ governing permissions and limitations under the License.
 */
 
 import {
+  createPerfToolInstance,
   DECISIONING_ENGINE_NOT_READY,
-  decisioningEngineReady,
   DECISIONING_METHOD,
+  decisioningEngineReady,
   getFetchWithRetry,
   getProperty,
   isDefined,
-  requiresDecisioningEngine,
-  createPerfToolInstance
+  requiresDecisioningEngine
 } from "@adobe/target-tools";
 import { Messages } from "./messages";
 import {
-  createConfiguration,
-  createDeliveryApi,
   createDeliveryRequest,
   createHeaders,
   getCluster,
@@ -34,6 +32,7 @@ import {
   processResponse
 } from "./helper";
 import { parseCookies } from "./cookies";
+import { createApi, createConfiguration } from "./api";
 
 const timingTool = createPerfToolInstance();
 
@@ -46,7 +45,7 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
     consumerId,
     request,
     useBeacon,
-    createDeliveryApiMethod = createDeliveryApi
+    createApiMethod = createApi
   } = options;
 
   const property = getProperty(config, request, logger);
@@ -60,7 +59,8 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
     organizationId,
     timeout,
     secure,
-    environmentId
+    environmentId,
+    edgeConfigId
   } = config;
 
   let { decisioningMethod } = config;
@@ -101,13 +101,14 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
   let deliveryRequest = createDeliveryRequest(request, requestOptions);
 
   const configuration = createConfiguration(
+    edgeConfigId,
     fetchWithRetry,
     host,
     headers,
     timeout
   );
 
-  const deliveryMethod = createDeliveryApiMethod(
+  const deliveryMethod = createApiMethod(
     configuration,
     visitor,
     useBeacon,
@@ -130,7 +131,13 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
   timingTool.timeStart(deliveryRequest.requestId);
 
   return deliveryMethod
-    .execute(organizationId, sessionId, deliveryRequest, config.version)
+    .execute(
+      organizationId,
+      sessionId,
+      deliveryRequest,
+      config.version,
+      edgeConfigId
+    )
     .then((response = {}) => {
       const endTime = timingTool.timeEnd(deliveryRequest.requestId);
 
