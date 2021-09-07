@@ -109,6 +109,7 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
   );
 
   const deliveryMethod = createApiMethod(
+    config,
     configuration,
     visitor,
     useBeacon,

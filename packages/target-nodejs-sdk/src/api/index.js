@@ -12,9 +12,9 @@ import {
 } from "./delivery";
 import { createAepApi, createAepEdgeConfiguration } from "./aep";
 
-function createRemoteApi(configuration, useBeacon) {
+function createRemoteApi(sdkConfig, configuration, useBeacon) {
   if (configuration instanceof AepEdgeConfiguration) {
-    return createAepApi(configuration);
+    return createAepApi(sdkConfig, configuration);
   }
 
   return useBeacon && isBeaconSupported()
@@ -51,6 +51,7 @@ export function createConfiguration(
 }
 
 /**
+ * @param sdkConfig
  * @param {import("@adobe/target-tools/delivery-api-client/runtime").Configuration|import("@adobe/aep-edge-tools/aep-edge-api-client/runtime").Configuration} configuration
  * @param visitor VisitorId instance
  * @param { Boolean } useBeacon
@@ -60,6 +61,7 @@ export function createConfiguration(
  * @param decisioningEngine
  * */
 export function createApi(
+  sdkConfig,
   configuration,
   visitor,
   useBeacon = false,
@@ -76,11 +78,11 @@ export function createApi(
       decisioningMethod === DECISIONING_METHOD.HYBRID &&
       decisioningDependency.remoteNeeded
     ) {
-      return createRemoteApi(configuration, useBeacon);
+      return createRemoteApi(sdkConfig, configuration, useBeacon);
     }
 
     return createOnDeviceApi(decisioningEngine, visitor, targetLocationHint);
   }
 
-  return createRemoteApi(configuration, useBeacon);
+  return createRemoteApi(sdkConfig, configuration, useBeacon);
 }

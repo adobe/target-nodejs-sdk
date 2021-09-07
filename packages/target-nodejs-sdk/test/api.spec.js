@@ -4,9 +4,10 @@ const TargetClient = require("../src/index.server").default;
 describe("apis", () => {
   const TARGET_RESPONSE_PAYLOAD = {
     status: 200,
-    requestId: "5cb761bcf38f46c2a85de373c944032a",
+    requestId: "some-request-id",
     id: {
-      tntId: "ccbf86a7c6bd4cacbe09fa7fc4d06685.35_0"
+      tntId: "ccbf86a7c6bd4cacbe09fa7fc4d06685.35_0",
+      marketingCloudVisitorId: "52777108510978688250501620102073477990"
     },
     client: "targetdataplatform",
     edgeHost: "mboxedge35.tt.omtrdc.net",
@@ -48,7 +49,7 @@ describe("apis", () => {
   };
 
   const AEP_RESPONSE_PAYLOAD = {
-    requestId: "dac9bad6-a038-42c4-b0b0-0e6a9152a501",
+    requestId: "some-request-id",
     handle: [
       {
         eventIndex: 0,
@@ -102,7 +103,7 @@ describe("apis", () => {
                   id: "753664",
                   format: "application/json",
                   content: {
-                    hotel: "Wynn"
+                    hotel: "Circus Circus"
                   }
                 }
               }
@@ -126,7 +127,7 @@ describe("apis", () => {
           {
             key: "kndctr_6FC947105BB267B70A495EE9_AdobeOrg_identity",
             value:
-              "CiY2Nzk4Nzk5NTA1NzM4NzQzMTI3MzE3NjUwNDkzNzY5NTIyNzY1OFIQCNSgoeW6LxABGAEqA09SMvAB1KCh5bov",
+              "CiY1Mjc3NzEwODUxMDk3ODY4ODI1MDUwMTYyMDEwMjA3MzQ3Nzk5MFIQCOfst5i6LxABGAEqA09SMvAB5-y3mLov",
             maxAge: 34128000
           },
           {
@@ -162,6 +163,70 @@ describe("apis", () => {
           index: 0
         }
       ]
+    }
+  };
+
+  const expectedResponse = {
+    visitorState: {
+      "6FC947105BB267B70A495EE9@AdobeOrg": expect.any(Object)
+    },
+    request: {
+      requestId: "244f07a4895a47ef94a003bfb578d773",
+      context: {
+        channel: "web",
+        timeOffsetInMinutes: -360
+      },
+      experienceCloud: {
+        analytics: {
+          supplementalDataId: expect.any(String),
+          logging: "server_side"
+        }
+      },
+      execute: {
+        mboxes: [
+          {
+            index: 0,
+            name: "vegas"
+          }
+        ]
+      }
+    },
+    targetCookie: {
+      name: "mbox",
+      value: expect.any(String),
+      maxAge: expect.any(Number)
+    },
+    responseTokens: expect.any(Array),
+    meta: {
+      decisioningMethod: "server-side",
+      remoteMboxes: [],
+      remoteViews: []
+    },
+    response: {
+      status: 200,
+      requestId: "some-request-id",
+      id: {
+        marketingCloudVisitorId: "52777108510978688250501620102073477990"
+      },
+      client: "targetdataplatform",
+      // edgeHost: "mboxedge35.tt.omtrdc.net",
+      execute: {
+        mboxes: [
+          {
+            index: 0,
+            name: "vegas",
+            options: [
+              {
+                type: "json",
+                content: {
+                  hotel: "Circus Circus"
+                },
+                responseTokens: expect.any(Object)
+              }
+            ]
+          }
+        ]
+      }
     }
   };
 
@@ -204,7 +269,7 @@ describe("apis", () => {
       ],
       meta: expect.any(Object)
     });
-    expect(result).toBeDefined();
+    expect(result).toMatchObject(expectedResponse);
   });
 
   it("should make a call to Delivery edge", async () => {
@@ -233,6 +298,6 @@ describe("apis", () => {
       experienceCloud: expect.any(Object),
       execute: { mboxes: [{ index: 0, name: "vegas" }] }
     });
-    expect(result).toBeDefined();
+    expect(result).toMatchObject(expectedResponse);
   });
 });

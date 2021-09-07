@@ -23,7 +23,8 @@ export function createAepEdgeConfiguration({ fetchApi }) {
  * @param { import("@adobe/aep-edge-tools/aep-edge-api-client/runtime").Configuration } configuration
  * @returns { GenericApi }
  */
-export function createAepApi(configuration) {
+export function createAepApi(sdkConfig, configuration) {
+  const { client } = sdkConfig;
   const aepEdgeApi = new InteractApi(configuration);
 
   return {
@@ -34,7 +35,7 @@ export function createAepApi(configuration) {
      * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} deliveryRequest
      * @param atjsVersion
      * @param edgeConfigId
-     * @returns {Promise<import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest>}
+     * @returns {Promise<import("@adobe/target-tools/delivery-api-client/models/DeliveryResponse").DeliveryResponse>}
      */
     execute: (
       imsOrgId,
@@ -52,9 +53,20 @@ export function createAepApi(configuration) {
         konductorIdentity: undefined
       });
 
-      return aepEdgeApi
-        .interactPost(interactPostRequest)
-        .then(aepEdgeToTargetDeliveryResponse);
+      return aepEdgeApi.interactPostRaw(interactPostRequest).then(response => {
+        const { raw } = response;
+        const { status } = raw;
+
+        return response.value().then(interactResponse =>
+          aepEdgeToTargetDeliveryResponse({
+            client,
+            imsOrgId,
+            status,
+            interactResponse,
+            deliveryRequest
+          })
+        );
+      });
     }
   };
 }

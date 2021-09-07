@@ -1,16 +1,18 @@
 import {
   AuthenticatedStateAEP,
   ChannelTypeAEP,
+  ContentTypeAEP,
   DeviceTypeAEP
 } from "@adobe/aep-edge-tools";
 import {
   AuthenticatedState,
   ChannelType,
   DEFAULT_GLOBAL_MBOX,
-  DeviceType
+  DeviceType,
+  OptionType
 } from "../constants";
 import { isArray, isNumber } from "../lodash";
-import { isUndefined } from "../utils";
+import { isUndefined, objectWithoutUndefinedValues } from "../utils";
 
 const MINUTES_PER_HOUR = 60;
 
@@ -104,9 +106,52 @@ export function targetOrderToAEP(order) {
   };
 }
 
+export function aepFormatToTargetOptionType(format) {
+  if (format === ContentTypeAEP.HTML) {
+    return OptionType.Html;
+  }
+
+  if (format === ContentTypeAEP.DOM_ACTION) {
+    return OptionType.Actions;
+  }
+
+  if (format === ContentTypeAEP.JSON) {
+    return OptionType.Json;
+  }
+
+  if (format === ContentTypeAEP.METRIC_ACTION) {
+    return OptionType.Dynamic;
+  }
+
+  if (format === ContentTypeAEP.URI_LIST) {
+    return OptionType.Redirect;
+  }
+
+  return undefined;
+}
+
 export function isGlobalMbox(mboxName) {
   return mboxName === DEFAULT_GLOBAL_MBOX;
 }
 
 export const byIndex = (itemA, itemB) =>
   (itemA.index || 0) - (itemB.index || 0);
+
+export function sanitize(object) {
+  return objectWithoutUndefinedValues(object, true);
+}
+
+export /**
+ *
+ * @param {string} key
+ * @param {array} list
+ * @returns {object}
+ */
+function indexBy(key, list) {
+  return list.reduce((indexed, item) => {
+    const keyValue = item[key];
+    // eslint-disable-next-line no-param-reassign
+    indexed[keyValue] = item;
+    return indexed;
+  }, {});
+}

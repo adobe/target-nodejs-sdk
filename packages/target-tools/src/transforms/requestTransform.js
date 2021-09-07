@@ -11,6 +11,7 @@ import {
   byIndex,
   createIdentityItem,
   isGlobalMbox,
+  sanitize,
   targetChannelToXdm,
   targetDeviceTypeToXdm,
   targetOrderToAEP,
@@ -18,19 +19,11 @@ import {
   targetToAepAuthenticatedState,
   toHours
 } from "./transformUtils";
-import {
-  isDefined,
-  isRoughlyTheSameObject,
-  objectWithoutUndefinedValues
-} from "../utils";
+import { isDefined, isRoughlyTheSameObject } from "../utils";
 import { isArray } from "../lodash";
 import { createPipeline } from "../pipeline";
 import { parseURI } from "../index";
 import isNotBlank from "../lodash/internal/isNotBlank";
-
-function sanitize(request) {
-  return objectWithoutUndefinedValues(request, true);
-}
 
 function addConfigId(interactRequest, { deliveryRequest, edgeConfigId }) {
   return {
