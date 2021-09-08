@@ -6,12 +6,14 @@ import {
 } from "@adobe/aep-edge-tools";
 import { createPipeline } from "../pipeline";
 import {
-  aepFormatToTargetOptionType,
+  aepItemToTargetOption,
   indexBy,
+  isMetricOptionType,
   sanitize
 } from "./transformUtils";
-import { isDefined } from "../utils";
+import { isDefined, isUndefined } from "../utils";
 import { isNonEmptyArray } from "../../../target-nodejs-sdk/src/utils";
+import { values } from "../lodash";
 
 const TARGET = "TGT";
 const HANDLE_STATE = "state:store";
@@ -64,46 +66,74 @@ function addIdentities(
 function translateExecuteResponse(deliveryResponse, { handlesById }) {
   const personalizations = handlesById[HANDLE_PERSONALIZATION].payload;
 
-  const pageLoad = [];
-  const mboxes = [];
+  const pageLoad = {
+    options: [],
+    metrics: []
+  };
+  const mboxes = {};
+
+  let mboxIndex = 0;
 
   personalizations
+    .reverse() // TODO: remove this once sorting is correct on konductor
     .filter(
       personalization =>
         personalization.scopeDetails.decisionProvider === TARGET
     )
-    .forEach((personalization, index) => {
-      const { scope } = personalization;
+    .forEach(personalization => {
+      const { scope, scopeDetails = {}, items = [] } = personalization;
+      const { activity = {} } = scopeDetails;
+      const { id: activityId } = activity;
 
       if (PAGE_WIDE_SCOPE === scope) {
-        // target-global-mbox (pageLoad)
+        pageLoad.options.push(
+          ...items
+            .filter(item => !isMetricOptionType(item.data.type))
+            .map(aepItemToTargetOption)
+        );
+
+        pageLoad.metrics.push(
+          ...items
+            .filter(item => isMetricOptionType(item.data.type))
+            .map(aepItemToTargetOption)
+        );
         return;
       }
 
-      const { items = [] } = personalization;
+      const mboxKey = `${scope}_${activityId}`;
 
-      mboxes.push({
-        index,
-        name: scope,
-        options: items.map(item => {
-          const { data = {}, meta = {} } = item;
-          const { format, content } = data;
-          return {
-            type: aepFormatToTargetOptionType(format),
-            content,
-            responseTokens: {
-              ...meta
-            }
-          };
-        })
-      });
+      if (isUndefined(mboxes[mboxKey])) {
+        mboxes[mboxKey] = {
+          index: mboxIndex,
+          name: scope,
+          options: [],
+          metrics: []
+        };
+        mboxIndex += 1;
+      }
+
+      mboxes[mboxKey].options.push(
+        ...items
+          .filter(item => !isMetricOptionType(item.data.type))
+          .map(aepItemToTargetOption)
+      );
+
+      mboxes[mboxKey].metrics.push(
+        ...items
+          .filter(item => isMetricOptionType(item.data.type))
+          .map(aepItemToTargetOption)
+      );
     });
 
   return {
     ...deliveryResponse,
     execute: {
       ...deliveryResponse.execute,
-      mboxes
+      pageLoad:
+        isNonEmptyArray(pageLoad.options) || isNonEmptyArray(pageLoad.metrics)
+          ? pageLoad
+          : undefined,
+      mboxes: isNonEmptyArray(Object.keys(mboxes)) ? values(mboxes) : undefined
     }
   };
 }

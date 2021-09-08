@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { AuthenticatedStateAEP } from "@adobe/aep-edge-tools";
 import { aepEdgeToTargetDeliveryResponse } from "./responseTransform";
+import { AuthenticatedState } from "../constants";
 
 const clientCode = "targetdataplatform";
 const organizationId = "6FC947105BB267B70A495EE9@AdobeOrg";
@@ -8,8 +8,20 @@ const edgeConfigId = "34610d20-3c46-4636-b22f-eb87110dfb25:dev";
 const visitorCookie =
   "1585540135%7CMCMID%7C52777108510978688250501620102073477990%7CMCIDTS%7C18874%7CMCAAMLH-1631311239%7C9%7CMCAAMB-1631311239%7Cj8Odv6LonN4r3an7LhD3WZrU1bUpAkFkkiY1ncBR96t2PTI%7CMCOPTOUT-1630713639s%7CNONE%7CvVersion%7C4.4.0";
 
+const deliveryRequest = {
+  id: {
+    customerIds: [
+      {
+        id: "blah",
+        integrationCode: "LAW",
+        authenticatedState: AuthenticatedState.Unknown
+      }
+    ]
+  }
+};
+
 describe("aepEdgeToTargetDeliveryResponse", () => {
-  it("does", () => {
+  it("execute mbox", () => {
     const deliveryResponse = aepEdgeToTargetDeliveryResponse({
       status: 200,
       client: clientCode,
@@ -111,17 +123,7 @@ describe("aepEdgeToTargetDeliveryResponse", () => {
           }
         ]
       },
-      deliveryRequest: {
-        id: {
-          customerIds: [
-            {
-              id: "blah",
-              integrationCode: "LAW",
-              authenticatedState: AuthenticatedStateAEP.Ambiguous
-            }
-          ]
-        }
-      }
+      deliveryRequest
     });
     expect(deliveryResponse).toMatchObject({
       status: 200,
@@ -133,7 +135,7 @@ describe("aepEdgeToTargetDeliveryResponse", () => {
           {
             id: "blah",
             integrationCode: "LAW",
-            authenticatedState: AuthenticatedStateAEP.Ambiguous
+            authenticatedState: AuthenticatedState.Unknown
           }
         ]
       },
@@ -175,6 +177,182 @@ describe("aepEdgeToTargetDeliveryResponse", () => {
             ]
           }
         ]
+      }
+    });
+  });
+
+  it("execute pageLoad", () => {
+    const deliveryResponse = aepEdgeToTargetDeliveryResponse({
+      status: 200,
+      client: clientCode,
+      imsOrgId: organizationId,
+      interactResponse: {
+        requestId: "bb803672-396a-41d6-8502-ea83503f508e",
+        handle: [
+          {
+            eventIndex: 0,
+            type: "personalization:decisions",
+            payload: [
+              {
+                id:
+                  "AT:eyJhY3Rpdml0eUlkIjoiNTQzNTQ5IiwiZXhwZXJpZW5jZUlkIjoiMCJ9",
+                scope: "__view__",
+                scopeDetails: {
+                  decisionProvider: "TGT",
+                  activity: {
+                    id: "543549"
+                  },
+                  experience: {
+                    id: "0"
+                  },
+                  strategies: [
+                    {
+                      algorithmID: "0",
+                      trafficType: "0"
+                    }
+                  ]
+                },
+                items: [
+                  {
+                    id: "0",
+                    schema: "https://ns.adobe.com/personalization/dom-action",
+                    meta: {
+                      "experience.id": "0",
+                      "geo.connectionSpeed": "broadband",
+                      "activity.name": "local-target-test (image swap)",
+                      "activity.id": "543549",
+                      "experience.name": "Experience A",
+                      "option.name": "Offer2",
+                      "geo.domainName": "veracitynetworks.com",
+                      "option.id": "2",
+                      "profile.current_property": "no_property",
+                      "profile.isFirstSession": "false",
+                      "geo.country": "united states",
+                      "offer.name": "Default Content",
+                      "profile.marketingCloudVisitorId":
+                        "52777108510978688250501620102073477990",
+                      "profile.activeActivities": "543549,551631,543937",
+                      "activity.decisioningMethod": "server-side",
+                      "offer.id": "0"
+                    },
+                    data: {
+                      type: "setImageSource",
+                      format: "application/vnd.adobe.target.dom-action",
+                      content: "img/demo-marketing-offer1-exp-A.png",
+                      selector:
+                        "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
+                      prehidingSelector:
+                        "HTML > BODY > DIV:nth-of-type(2) > IMG:nth-of-type(1)"
+                    }
+                  }
+                ]
+              },
+              {
+                id:
+                  "AT:eyJhY3Rpdml0eUlkIjoiNTQzNTQ5IiwiZXhwZXJpZW5jZUlkIjoiMCJ9",
+                scope: "__view__",
+                scopeDetails: {
+                  decisionProvider: "TGT",
+                  activity: {
+                    id: "543549"
+                  }
+                },
+                items: [
+                  {
+                    id: "543549",
+                    schema: "https://ns.adobe.com/personalization/dom-action",
+                    data: {
+                      type: "click",
+                      format: "application/vnd.adobe.target.dom-action",
+                      selector:
+                        "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            type: "consent:preferences",
+            payload: [
+              {
+                collect: {
+                  val: "y"
+                }
+              }
+            ]
+          },
+          {
+            type: "state:store",
+            payload: [
+              {
+                key: "kndctr_6FC947105BB267B70A495EE9_AdobeOrg_identity",
+                value:
+                  "CiY1Mjc3NzEwODUxMDk3ODY4ODI1MDUwMTYyMDEwMjA3MzQ3Nzk5MFIOCP3L1LK8LxgBKgNPUjLwAf3L1LK8Lw==",
+                maxAge: 34128000
+              },
+              {
+                key: "kndctr_6FC947105BB267B70A495EE9_AdobeOrg_consent",
+                value: "general=in",
+                maxAge: 15552000
+              },
+              {
+                key: "kndctr_6FC947105BB267B70A495EE9_AdobeOrg_consent_check",
+                value: "1",
+                maxAge: 7200
+              }
+            ]
+          }
+        ]
+      },
+      deliveryRequest
+    });
+
+    expect(deliveryResponse).toMatchObject({
+      execute: {
+        pageLoad: {
+          options: [
+            {
+              type: "actions",
+              content: [
+                {
+                  type: "setImageSource",
+                  selector:
+                    "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
+                  cssSelector:
+                    "HTML > BODY > DIV:nth-of-type(2) > IMG:nth-of-type(1)",
+                  content: "img/demo-marketing-offer1-exp-A.png"
+                }
+              ],
+              responseTokens: {
+                "experience.id": "0",
+                "geo.connectionSpeed": "broadband",
+                "activity.name": "local-target-test (image swap)",
+                "activity.id": "543549",
+                "experience.name": "Experience A",
+                "option.name": "Offer2",
+                "geo.domainName": "veracitynetworks.com",
+                "option.id": "2",
+                "profile.current_property": "no_property",
+                "profile.isFirstSession": "false",
+                "geo.country": "united states",
+                "offer.name": "Default Content",
+                "profile.marketingCloudVisitorId":
+                  "52777108510978688250501620102073477990",
+                "profile.activeActivities": "543549,551631,543937",
+                "activity.decisioningMethod": "server-side",
+                "offer.id": "0"
+              }
+            }
+          ],
+          metrics: [
+            {
+              type: "click",
+              selector: "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)"
+              // TODO: implement --> eventToken: "cfU4L0xsni7AOf3AYyLHLg=="
+            }
+          ]
+        }
       }
     });
   });

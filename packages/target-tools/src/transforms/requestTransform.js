@@ -186,10 +186,10 @@ function translateTargetContext(edgeRequest, { context = {} }) {
         ...web,
         webPageDetails: {
           ...web.webPageDetails,
-          url: url || host
+          URL: url || host
         },
         webReferrer: {
-          url: referringUrl
+          URL: referringUrl
         }
       },
       placeContext: {

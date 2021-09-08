@@ -138,7 +138,7 @@ describe("targetDeliveryToAepEdgeRequest", () => {
               host: "https://apple.com"
             },
             address: {
-              url: "https://apple.com",
+              URL: "https://apple.com",
               referringUrl: "https://microsoft.com"
             },
             geo: {
@@ -184,10 +184,10 @@ describe("targetDeliveryToAepEdgeRequest", () => {
           },
           web: {
             webPageDetails: {
-              url: "https://apple.com"
+              URL: "https://apple.com"
             },
             webReferrer: {
-              url: "https://microsoft.com"
+              URL: "https://microsoft.com"
             }
           },
           placeContext: {
