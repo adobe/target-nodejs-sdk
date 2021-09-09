@@ -44,17 +44,17 @@ describe.skip("target-nodejs-sdk scratch", () => {
             }
           ]
         },
-        // prefetch: {
-        //   views: [{}]
-        // },
+        prefetch: {
+          views: [{}]
+        },
         execute: {
-          // pageLoad: {},
-          mboxes: [
-            { name: "coin", index: 0 },
-            { name: "currency", index: 1 },
-            { name: "vegas", index: 2 },
-            { name: "rainbow", index: 3 }
-          ]
+          pageLoad: {}
+          // mboxes: [
+          //   { name: "coin", index: 0 },
+          //   { name: "currency", index: 1 },
+          //   { name: "vegas", index: 2 },
+          //   { name: "rainbow", index: 3 }
+          // ]
         }
       }
     };

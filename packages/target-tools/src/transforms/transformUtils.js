@@ -2,7 +2,10 @@ import {
   AuthenticatedStateAEP,
   ChannelTypeAEP,
   ContentTypeAEP,
-  DeviceTypeAEP
+  DeviceTypeAEP,
+  PERSONALIZATION_SCHEMA_DOM_ACTION,
+  PERSONALIZATION_SCHEMA_HTML_CONTENT_ITEM,
+  PERSONALIZATION_SCHEMA_JSON_CONTENT_ITEM
 } from "@adobe/aep-edge-tools";
 import {
   AuthenticatedState,
@@ -253,3 +256,12 @@ export function aepItemToTargetOption(item) {
     responseTokens: { ...meta }
   };
 }
+
+export const isMboxSchema = item =>
+  includes(item.schema, [
+    PERSONALIZATION_SCHEMA_HTML_CONTENT_ITEM,
+    PERSONALIZATION_SCHEMA_JSON_CONTENT_ITEM
+  ]);
+
+export const isViewSchema = item =>
+  item.schema === PERSONALIZATION_SCHEMA_DOM_ACTION;

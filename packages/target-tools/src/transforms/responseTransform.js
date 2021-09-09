@@ -8,7 +8,9 @@ import { createPipeline } from "../pipeline";
 import {
   aepItemToTargetOption,
   indexBy,
+  isMboxSchema,
   isMetricOptionType,
+  isViewSchema,
   sanitize
 } from "./transformUtils";
 import { isDefined, isUndefined } from "../utils";
@@ -98,11 +100,12 @@ function translateExecuteResponse(deliveryResponse, { handlesById }) {
     metrics: []
   };
   const mboxes = {};
+  const views = {};
 
   let mboxIndex = 0;
 
   personalizations
-    .reverse() // TODO: remove this once sorting is correct on konductor
+    .reverse() // TODO: remove this once sorting is correct on konductor ( TNT-42253 )
     .filter(
       personalization =>
         personalization.scopeDetails.decisionProvider === TARGET
@@ -127,29 +130,57 @@ function translateExecuteResponse(deliveryResponse, { handlesById }) {
         return;
       }
 
-      const mboxKey = `${scope}_${activityId}`;
+      const itemKey = `${scope}_${activityId}`;
 
-      if (isUndefined(mboxes[mboxKey])) {
-        mboxes[mboxKey] = {
-          index: mboxIndex,
-          name: scope,
-          options: [],
-          metrics: []
-        };
-        mboxIndex += 1;
+      const mboxItems = items.filter(isMboxSchema);
+      const viewItems = items.filter(isViewSchema);
+
+      if (isNonEmptyArray(mboxItems)) {
+        if (isUndefined(mboxes[itemKey])) {
+          mboxes[itemKey] = {
+            index: mboxIndex,
+            name: scope,
+            options: [],
+            metrics: []
+          };
+          mboxIndex += 1;
+        }
+
+        mboxes[itemKey].options.push(
+          ...mboxItems
+            .filter(item => !isMetricOptionType(item.data.type))
+            .map(aepItemToTargetOption)
+        );
+
+        mboxes[itemKey].metrics.push(
+          ...mboxItems
+            .filter(item => isMetricOptionType(item.data.type))
+            .map(aepItemToTargetOption)
+        );
       }
 
-      mboxes[mboxKey].options.push(
-        ...items
-          .filter(item => !isMetricOptionType(item.data.type))
-          .map(aepItemToTargetOption)
-      );
+      if (isNonEmptyArray(viewItems)) {
+        if (isUndefined(views[itemKey])) {
+          views[itemKey] = {
+            key: scope,
+            name: scope,
+            options: [],
+            metrics: []
+          };
+        }
 
-      mboxes[mboxKey].metrics.push(
-        ...items
-          .filter(item => isMetricOptionType(item.data.type))
-          .map(aepItemToTargetOption)
-      );
+        views[itemKey].options.push(
+          ...viewItems
+            .filter(item => !isMetricOptionType(item.data.type))
+            .map(aepItemToTargetOption)
+        );
+
+        views[itemKey].metrics.push(
+          ...viewItems
+            .filter(item => isMetricOptionType(item.data.type))
+            .map(aepItemToTargetOption)
+        );
+      }
     });
 
   return {
@@ -161,6 +192,10 @@ function translateExecuteResponse(deliveryResponse, { handlesById }) {
           ? pageLoad
           : undefined,
       mboxes: isNonEmptyArray(Object.keys(mboxes)) ? values(mboxes) : undefined
+    },
+    prefetch: {
+      ...deliveryResponse.prefetch,
+      views: isNonEmptyArray(Object.keys(views)) ? values(views) : undefined
     }
   };
 }
