@@ -294,6 +294,28 @@ function translateExecuteRequest(edgeRequest, { execute = {} }) {
 
 /**
  *
+ * @param { import("@adobe/aep-edge-tools/aep-edge-api-client/models/EdgeRequest").EdgeRequest } edgeRequest
+ * @returns { import("@adobe/aep-edge-tools/aep-edge-api-client/models/EdgeRequest").EdgeRequest }
+ */
+function addIdentityQuery(edgeRequest) {
+  const { query = {} } = edgeRequest;
+  const { identity = {} } = query;
+  const { fetch = [] } = identity;
+
+  return {
+    ...edgeRequest,
+    query: {
+      ...query,
+      identity: {
+        ...identity,
+        fetch: Array.from(new Set([...fetch, "ECID", "TNTID"]))
+      }
+    }
+  };
+}
+
+/**
+ *
  * @param { import("@adobe/aep-edge-tools/aep-edge-api-client/apis/InteractApi").InteractPostRequest } interactRequest
  * @param { import("../../delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
  * @returns { import("@adobe/aep-edge-tools/aep-edge-api-client/apis/InteractApi").InteractPostRequest }
@@ -302,7 +324,8 @@ function createEdgeRequest(interactRequest, { deliveryRequest }) {
   const edgeRequestPipeline = createPipeline([
     translateIdentities,
     translateTargetContext,
-    translateExecuteRequest
+    translateExecuteRequest,
+    addIdentityQuery
   ]);
 
   return {

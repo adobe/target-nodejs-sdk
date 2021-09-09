@@ -36,6 +36,25 @@ describe("targetDeliveryToAepEdgeRequest", () => {
     });
   });
 
+  it("has identity query", () => {
+    expect(
+      targetDeliveryToAepEdgeRequest({
+        ...basicRequest,
+        deliveryRequest: {
+          requestId: "requestId123"
+        }
+      })
+    ).toMatchObject({
+      edgeRequest: {
+        query: {
+          identity: {
+            fetch: ["ECID", "TNTID"]
+          }
+        }
+      }
+    });
+  });
+
   it("has trace", () => {
     expect(
       targetDeliveryToAepEdgeRequest({

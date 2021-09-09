@@ -17,6 +17,7 @@ import { values } from "../lodash";
 
 const TARGET = "TGT";
 const HANDLE_STATE = "state:store";
+const HANDLE_IDENTITY = "identity:result";
 const HANDLE_PERSONALIZATION = "personalization:decisions";
 
 function addRequestDetails(
@@ -32,24 +33,50 @@ function addRequestDetails(
     client
   };
 }
+
+function getIdentityIdFromQuery(namespace, handle = {}) {
+  const { payload: identityList } = handle;
+
+  if (isUndefined(identityList)) {
+    return undefined;
+  }
+
+  const foundIdentity =
+    identityList.find(identity => identity.namespace.code === namespace) || {};
+
+  const { id } = foundIdentity;
+
+  return id;
+}
+
+function getEcidFromKonductorCookie(imsOrgId, handle = {}) {
+  const { payload: statePayload } = handle;
+
+  if (isUndefined(statePayload)) {
+    return undefined;
+  }
+
+  const identityCookieName = konductorCookieNameIdentity(imsOrgId);
+
+  const konductorIdentityCookie = statePayload.find(
+    obj => obj.key === identityCookieName
+  );
+
+  if (isDefined(konductorIdentityCookie)) {
+    const identity = decodeKonductorIdentity(konductorIdentityCookie.value);
+    return identity.ecid;
+  }
+
+  return undefined;
+}
+
 function addIdentities(
   deliveryResponse,
   { deliveryRequest = {}, imsOrgId, handlesById }
 ) {
-  const state = handlesById[HANDLE_STATE].payload;
-
-  const identityCookieName = konductorCookieNameIdentity(imsOrgId);
-
-  const konductorIdentityCookie = state.find(
-    obj => obj.key === identityCookieName
-  );
-
-  let marketingCloudVisitorId;
-
-  if (isDefined(konductorIdentityCookie)) {
-    const identity = decodeKonductorIdentity(konductorIdentityCookie.value);
-    marketingCloudVisitorId = identity.ecid;
-  }
+  const marketingCloudVisitorId =
+    getIdentityIdFromQuery("ECID", handlesById[HANDLE_IDENTITY]) ||
+    getEcidFromKonductorCookie(imsOrgId, handlesById[HANDLE_STATE]);
 
   const { id = {} } = deliveryRequest;
   const { customerIds = [] } = id;
