@@ -762,11 +762,15 @@ describe("Target Helper", () => {
   });
 
   it("createDeliveryApi should create DeliveryApi", () => {
-    const result = createApi(
-      new Configuration({
-        basePath: "http://target.host.com"
-      })
-    );
-    expect(result instanceof DeliveryApi).toBe(true);
+    expect(
+      createApi(
+        new Configuration({
+          basePath: "http://target.host.com"
+        })
+      )
+    ).toMatchObject({
+      execute: expect.any(Function),
+      decisioningMethod: "server-side"
+    });
   });
 });

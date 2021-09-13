@@ -37,6 +37,11 @@ const METRIC_ACTION_PROPERTY_MAP = [
 const METRIC_OPTION_TYPES = values(MetricType);
 export const isMetricOptionType = value => includes(value, METRIC_OPTION_TYPES);
 
+// eslint-disable-next-line no-unused-vars
+export function createEventToken(scopeDetails) {
+  return "__coming_soon__";
+}
+
 export function targetToAepAuthenticatedState(targetAuthenticatedState) {
   if (targetAuthenticatedState === AuthenticatedState.Unknown) {
     return AuthenticatedStateAEP.Ambiguous;
@@ -235,7 +240,8 @@ export function createMetricAction(data) {
   return createActionWithPropertyReplacements(METRIC_ACTION_PROPERTY_MAP, data);
 }
 
-export function aepItemToTargetOption(item) {
+export function aepItemToTargetOption(item, personalization) {
+  const { scopeDetails } = personalization;
   const { data = {}, meta = {} } = item;
   let { content } = data;
   const { type: actionType } = data;
@@ -253,6 +259,7 @@ export function aepItemToTargetOption(item) {
   return {
     type: optionType,
     content,
+    eventToken: createEventToken(scopeDetails),
     responseTokens: { ...meta }
   };
 }

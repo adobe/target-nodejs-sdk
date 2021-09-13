@@ -67,6 +67,7 @@ export function createAepApi(sdkConfig, configuration) {
           })
         );
       });
-    }
+    },
+    decisioningMethod: DECISIONING_METHOD.SERVER_SIDE
   };
 }

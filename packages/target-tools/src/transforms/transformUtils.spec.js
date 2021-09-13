@@ -5,6 +5,7 @@ import {
 } from "@adobe/aep-edge-tools";
 import {
   byIndex,
+  createEventToken,
   createIdentityItem,
   isGlobalMbox,
   targetChannelToXdm,
@@ -127,5 +128,29 @@ describe("transformUtils", () => {
       { index: 5 },
       { index: 100 }
     ]);
+  });
+
+  it("createEventToken", () => {
+    expect(
+      createEventToken({
+        decisionProvider: "TGT",
+        activity: {
+          id: "551672"
+        },
+        experience: {
+          id: "1"
+        },
+        strategies: [
+          {
+            algorithmID: "0",
+            trafficType: "0"
+          },
+          {
+            algorithmID: "2",
+            trafficType: "0"
+          }
+        ]
+      })
+    ).toEqual("__coming_soon__");
   });
 });

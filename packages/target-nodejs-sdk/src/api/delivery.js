@@ -31,7 +31,12 @@ export function createDeliveryConfiguration({
  * @returns { import("@adobe/target-tools/delivery-api-client").DeliveryApi }
  */
 export function createDeliveryApi(configuration) {
-  return new DeliveryApi(configuration);
+  const deliveryApi = new DeliveryApi(configuration);
+  return {
+    execute: (imsOrgId, sessionId, deliveryRequest, atjsVersion) =>
+      deliveryApi.execute(imsOrgId, sessionId, deliveryRequest, atjsVersion),
+    decisioningMethod: DECISIONING_METHOD.SERVER_SIDE
+  };
 }
 
 /**

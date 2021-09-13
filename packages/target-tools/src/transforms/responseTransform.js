@@ -93,7 +93,8 @@ function addIdentities(
 }
 
 function translateExecuteResponse(deliveryResponse, { handlesById }) {
-  const personalizations = handlesById[HANDLE_PERSONALIZATION].payload;
+  const handle = handlesById[HANDLE_PERSONALIZATION] || {};
+  const { payload: personalizations = [] } = handle;
 
   const pageLoad = {
     options: [],
@@ -119,13 +120,13 @@ function translateExecuteResponse(deliveryResponse, { handlesById }) {
         pageLoad.options.push(
           ...items
             .filter(item => !isMetricOptionType(item.data.type))
-            .map(aepItemToTargetOption)
+            .map(item => aepItemToTargetOption(item, personalization))
         );
 
         pageLoad.metrics.push(
           ...items
             .filter(item => isMetricOptionType(item.data.type))
-            .map(aepItemToTargetOption)
+            .map(item => aepItemToTargetOption(item, personalization))
         );
         return;
       }
@@ -149,13 +150,13 @@ function translateExecuteResponse(deliveryResponse, { handlesById }) {
         mboxes[itemKey].options.push(
           ...mboxItems
             .filter(item => !isMetricOptionType(item.data.type))
-            .map(aepItemToTargetOption)
+            .map(item => aepItemToTargetOption(item, personalization))
         );
 
         mboxes[itemKey].metrics.push(
           ...mboxItems
             .filter(item => isMetricOptionType(item.data.type))
-            .map(aepItemToTargetOption)
+            .map(item => aepItemToTargetOption(item, personalization))
         );
       }
 
@@ -172,13 +173,13 @@ function translateExecuteResponse(deliveryResponse, { handlesById }) {
         views[itemKey].options.push(
           ...viewItems
             .filter(item => !isMetricOptionType(item.data.type))
-            .map(aepItemToTargetOption)
+            .map(item => aepItemToTargetOption(item, personalization))
         );
 
         views[itemKey].metrics.push(
           ...viewItems
             .filter(item => isMetricOptionType(item.data.type))
-            .map(aepItemToTargetOption)
+            .map(item => aepItemToTargetOption(item, personalization))
         );
       }
     });

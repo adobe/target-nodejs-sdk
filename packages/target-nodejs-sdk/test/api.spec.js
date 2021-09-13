@@ -174,7 +174,7 @@ describe("apis", () => {
       requestId: "244f07a4895a47ef94a003bfb578d773",
       context: {
         channel: "web",
-        timeOffsetInMinutes: -360
+        timeOffsetInMinutes: expect.any(Number)
       },
       experienceCloud: {
         analytics: {
