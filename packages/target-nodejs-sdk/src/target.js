@@ -126,7 +126,7 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
   logger.debug(
     Messages.REQUEST_SENT,
     deliveryMethod.decisioningMethod,
-    host,
+    configuration.basePath,
     JSON.stringify(deliveryRequest, null, 2)
   );
   timingTool.timeStart(deliveryRequest.requestId);
