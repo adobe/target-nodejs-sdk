@@ -14,7 +14,6 @@ require("jest-fetch-mock").enableMocks();
 const TargetTools = require("@adobe/target-tools");
 const Visitor = require("@adobe-mcid/visitor-js-server");
 const target = require("../src/target");
-const aepEdge = require("../src/aepEdge");
 const utils = require("../src/utils");
 const { Messages } = require("../src/messages");
 
@@ -37,10 +36,6 @@ describe("Target Client factory", () => {
   beforeAll(() => {
     jest
       .spyOn(target, "executeDelivery")
-      .mockImplementation(() => Promise.resolve({ response: "response" }));
-
-    jest
-      .spyOn(aepEdge, "executeAepDelivery")
       .mockImplementation(() => Promise.resolve({ response: "response" }));
 
     jest.spyOn(utils, "createVisitor");
@@ -209,39 +204,6 @@ describe("Target Client factory", () => {
     );
   });
 
-  it("should return Promise response on getOffers AEP Edge call", async () => {
-    const client = TargetClient.create({
-      client: "client",
-      organizationId: "orgId",
-      edgeConfigId: "edgeConfigId",
-      fetchApi: fetch
-    });
-    const request = {
-      execute: {
-        mboxes: [{ name: "testmbox" }]
-      }
-    };
-
-    await expect(
-      client.getOffers({ request, customerIds: VISITOR_CUSTOMER_IDS })
-    ).resolves.toEqual({
-      response: "response"
-    });
-    expect(target.executeDelivery.mock.calls.length).toBe(0);
-    expect(aepEdge.executeAepDelivery.mock.calls.length).toBe(1);
-    expect(utils.createVisitor.mock.calls.length).toBe(1);
-    const visitor =
-      utils.createVisitor.mock.results[
-        utils.createVisitor.mock.calls.length - 1
-      ].value;
-
-    expect(visitor).toEqual(expect.any(Visitor));
-    const visitorState = JSON.stringify(visitor.getState());
-    expect(visitorState).toEqual(
-      '{"orgId@AdobeOrg":{"customerIDs":{"userid":{"id":"67312378756723456","authState":1},"puuid":"550e8400-e29b-41d4-a716-446655440000"}}}'
-    );
-  });
-
   it("sendNotifications should throw when options are missing", async () => {
     const client = TargetClient.create({
       client: "client",
@@ -297,39 +259,6 @@ describe("Target Client factory", () => {
       response: "response"
     });
     expect(target.executeDelivery.mock.calls.length).toBe(1);
-    expect(utils.createVisitor.mock.calls.length).toBe(1);
-    const visitor =
-      utils.createVisitor.mock.results[
-        utils.createVisitor.mock.calls.length - 1
-      ].value;
-
-    expect(visitor).toEqual(expect.any(Visitor));
-    expect(visitor.getState()).toEqual(
-      expect.objectContaining({ "orgId@AdobeOrg": {} })
-    );
-  });
-
-  it("should return Promise response on sendNotifications AEP Edge call", async () => {
-    const client = TargetClient.create({
-      client: "client",
-      organizationId: "orgId",
-      edgeConfigId: "edgeConfigId",
-      fetchApi: fetch
-    });
-    const request = {
-      notifications: [
-        {
-          id: "1234",
-          type: "display"
-        }
-      ]
-    };
-
-    await expect(client.sendNotifications({ request })).resolves.toEqual({
-      response: "response"
-    });
-    expect(target.executeDelivery.mock.calls.length).toBe(0);
-    expect(aepEdge.executeAepDelivery.mock.calls.length).toBe(1);
     expect(utils.createVisitor.mock.calls.length).toBe(1);
     const visitor =
       utils.createVisitor.mock.results[

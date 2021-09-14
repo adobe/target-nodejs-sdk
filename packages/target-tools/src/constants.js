@@ -32,6 +32,19 @@ export const AuthenticatedState = {
   LoggedOut: "logged_out"
 };
 
+export const DeviceType = {
+  Phone: "phone",
+  Tablet: "tablet"
+};
+
+export const OptionType = {
+  Html: "html",
+  Json: "json",
+  Redirect: "redirect",
+  Dynamic: "dynamic",
+  Actions: "actions"
+};
+
 export const EMPTY_REQUEST = { context: { channel: ChannelType.Web } };
 
 export const ENVIRONMENT_PROD = "production";

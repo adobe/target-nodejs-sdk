@@ -19,7 +19,8 @@ import {
   executeMboxCount,
   isPrefetchPageLoad,
   prefetchMboxCount,
-  prefetchViewCount
+  prefetchViewCount,
+  isRoughlyTheSameObject
 } from "./utils";
 import { ChannelType } from "../delivery-api-client";
 import { DECISIONING_METHOD } from "./enums";
@@ -253,15 +254,140 @@ describe("utils", () => {
         d: {},
         e: new Set(),
         f: [],
-        g: undefined
+        g: undefined,
+        h: "hello"
       })
     ).toEqual({
       a: true,
       b: false,
       d: {},
       e: new Set(),
+      f: [],
+      h: "hello"
+    });
+  });
+
+  it("objectWithoutUndefinedValues - nested", () => {
+    expect(
+      objectWithoutUndefinedValues({
+        a: true,
+        b: false,
+        c: undefined,
+        d: {
+          one: true,
+          two: {},
+          three: false,
+          four: undefined,
+          five: [
+            {
+              x: true,
+              y: undefined,
+              z: [
+                1,
+                4,
+                56,
+                {
+                  burrito: true,
+                  surprise: undefined,
+                  elephant: "gray",
+                  list: [
+                    "a",
+                    "b",
+                    undefined,
+                    {
+                      house: "yellow",
+                      jail: undefined,
+                      career: "high"
+                    }
+                  ]
+                },
+                10
+              ]
+            },
+            {
+              moo: undefined,
+              cat: "meow",
+              waffle: new Set()
+            }
+          ]
+        },
+        e: new Set(),
+        f: [],
+        g: undefined
+      })
+    ).toEqual({
+      a: true,
+      b: false,
+      d: {
+        one: true,
+        two: {},
+        three: false,
+        five: [
+          {
+            x: true,
+            z: [
+              1,
+              4,
+              56,
+              {
+                burrito: true,
+                elephant: "gray",
+                list: [
+                  "a",
+                  "b",
+                  {
+                    house: "yellow",
+                    career: "high"
+                  }
+                ]
+              },
+              10
+            ]
+          },
+          {
+            cat: "meow",
+            waffle: new Set()
+          }
+        ]
+      },
+      e: new Set(),
       f: []
     });
+  });
+
+  it("objectWithoutUndefinedValues can remove empty objects too", () => {
+    const result = objectWithoutUndefinedValues(
+      {
+        one: true,
+        j: undefined,
+        two: {
+          r: undefined,
+          three: {
+            x: undefined,
+            four: {
+              five: {
+                something: undefined,
+                six: {
+                  moo: undefined,
+                  seven: {
+                    value: undefined
+                  }
+                }
+              },
+              aaa: undefined
+            }
+          }
+        },
+        ppi: undefined
+      },
+      true
+    );
+
+    expect(result).toMatchObject({
+      one: true
+    });
+
+    expect(result.two).toBeUndefined();
   });
 
   it("getProperty", () => {
@@ -492,5 +618,50 @@ describe("utils", () => {
       })
     ).toEqual(0);
     expect(prefetchViewCount({})).toEqual(0);
+  });
+
+  it("isRoughlyTheSameObject", () => {
+    // expect(isSame({}, {})).toEqual(true);
+    expect(
+      isRoughlyTheSameObject(
+        {
+          a: "a",
+          b: "b"
+        },
+        {
+          a: "a",
+          b: "b"
+        }
+      )
+    ).toEqual(true);
+
+    expect(
+      isRoughlyTheSameObject(
+        {
+          a: "a",
+          b: "b",
+          c: {
+            d: {
+              e: "elephant",
+              f: true
+            },
+            g: [],
+            h: { i: { j: new Date() } }
+          }
+        },
+        {
+          a: "a",
+          b: "b",
+          c: {
+            d: {
+              e: "elephant",
+              f: true
+            },
+            g: [],
+            h: { i: { j: new Date() } }
+          }
+        }
+      )
+    ).toEqual(true);
   });
 });
