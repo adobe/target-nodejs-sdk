@@ -13,14 +13,14 @@ governing permissions and limitations under the License.
 import {
   addMboxesToRequest,
   AttributesProvider,
+  DECISIONING_METHOD,
   EMPTY_REQUEST,
   EventProvider,
-  DECISIONING_METHOD,
+  executeTelemetries,
   getFetchApi,
   getLogger,
   requiresDecisioningEngine,
-  TelemetryProvider,
-  executeTelemetries
+  TelemetryProvider
 } from "@adobe/target-tools";
 
 import Visitor from "@adobe-mcid/visitor-js-server";
@@ -106,6 +106,7 @@ export default function bootstrap(fetchApi) {
      * @param {Function }options.fetchApi Fetch Implementation, optional
      * @param {String} options.client Target Client Id, required
      * @param {String} options.organizationId Target Organization Id, required
+     * @param {String} options.edgeConfigId AEP Edge Datastream Configuration Id, optional. When set, SDK requests will be served by AEP Edge.
      * @param {Number} options.timeout Target request timeout in ms, default: 3000
      * @param {String} options.serverDomain Server domain, optional
      * @param {String} options.targetLocationHint Target Location Hint, optional

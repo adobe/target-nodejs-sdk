@@ -30,10 +30,10 @@ const {
   createHeaders,
   getSessionId,
   getTargetHost,
-  createDeliveryApi,
   createDeliveryRequest,
   processResponse
 } = require("../src/helper");
+const { createApi } = require("../src/api");
 
 const uuidMock = () => {
   return "12345678-abcd-1234-efgh-000000000000";
@@ -762,11 +762,15 @@ describe("Target Helper", () => {
   });
 
   it("createDeliveryApi should create DeliveryApi", () => {
-    const result = createDeliveryApi(
-      new Configuration({
-        basePath: "http://target.host.com"
-      })
-    );
-    expect(result instanceof DeliveryApi).toBe(true);
+    expect(
+      createApi(
+        new Configuration({
+          basePath: "http://target.host.com"
+        })
+      )
+    ).toMatchObject({
+      execute: expect.any(Function),
+      decisioningMethod: "server-side"
+    });
   });
 });

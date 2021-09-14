@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- When a `propertyToken` value is specified in the config options, the property-specfic On-device decisioning artifact is downloaded.
+- When a `propertyToken` value is specified in the config options, the property-specific On-device decisioning artifact is downloaded.
 
 ## [2.2.0] - 2021-08-11
 

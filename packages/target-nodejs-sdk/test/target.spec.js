@@ -29,7 +29,7 @@ const EMPTY_VISITOR = {
 };
 const targetCookie =
   "session#a0bb222be4154f3f97e20dfa1c1d1750#9596233214|PC#08210e2d751a44779b8313e2d2692b96.21_27#9596233214";
-let createDeliveryApiSpy;
+let createApiSpy;
 
 function spyOnAllFunctions(obj) {
   Object.keys(obj).forEach(prop => {
@@ -48,7 +48,7 @@ function spyOnAllFunctions(obj) {
 describe("Target Delivery API client", () => {
   beforeAll(() => {
     MockDate.set("2019-10-06");
-    createDeliveryApiSpy = jest.fn(() => ({
+    createApiSpy = jest.fn(() => ({
       execute: () =>
         Promise.resolve({
           status: 200,
@@ -64,7 +64,7 @@ describe("Target Delivery API client", () => {
   });
 
   afterEach(() => {
-    createDeliveryApiSpy.mockClear();
+    createApiSpy.mockClear();
   });
 
   it("executeDelivery should execute Delivery API call", async () => {
@@ -84,7 +84,7 @@ describe("Target Delivery API client", () => {
           pageLoad: {}
         }
       },
-      createDeliveryApiMethod: createDeliveryApiSpy
+      createApiMethod: createApiSpy
     };
 
     const serializedResult = await target.executeDelivery(
@@ -122,10 +122,10 @@ describe("Target Delivery API client", () => {
     expect(EMPTY_VISITOR.getState.mock.calls.length).toBe(3);
     expect(testLogger.debug.mock.calls.length).toBe(2);
 
-    createDeliveryApiSpy = jest.fn(() => ({
+    createApiSpy = jest.fn(() => ({
       execute: () => Promise.resolve(undefined)
     }));
-    options.createDeliveryApiMethod = createDeliveryApiSpy;
+    options.createApiMethod = createApiSpy;
 
     const result = await target.executeDelivery(options, telemetryProvider);
     expect(result).toEqual(

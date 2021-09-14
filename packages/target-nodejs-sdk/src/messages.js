@@ -32,5 +32,6 @@ export const Messages = {
   RESPONSE_RECEIVED: "Response received",
   FETCH_UNDEFINED: "Fetch is not defined!",
   DECISIONING_ENGINE_UNDEFINED: "Decisioning Engine is undefined",
-  LOCATION_HINT_REQUEST_FAILED: "Unable to retrieve location hint cookie."
+  LOCATION_HINT_REQUEST_FAILED: "Unable to retrieve location hint cookie.",
+  NOT_IMPLEMENTED: "Not implemented!"
 };

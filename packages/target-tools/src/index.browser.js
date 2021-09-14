@@ -46,6 +46,8 @@ export {
   isUndefined,
   isDefined,
   isPojo,
+  isPrimitiveObject,
+  isPrimitiveDataType,
   memoize,
   noop,
   noopPromise,
@@ -62,18 +64,19 @@ export {
 export { getLogger } from "./logging";
 
 export {
+  AuthenticatedState,
+  ChannelType,
   DEFAULT_GLOBAL_MBOX,
-  DEFAULT_NUM_FETCH_RETRIES,
   DEFAULT_MAXIMUM_WAIT_READY,
+  DEFAULT_NUM_FETCH_RETRIES,
   EMPTY_REQUEST,
+  ENVIRONMENT_DEV,
   ENVIRONMENT_PROD,
   ENVIRONMENT_STAGE,
-  ENVIRONMENT_DEV,
-  POSSIBLE_ENVIRONMENTS,
-  UNKNOWN_IP_ADDRESS,
-  ChannelType,
   MetricType,
-  AuthenticatedState
+  OptionType,
+  POSSIBLE_ENVIRONMENTS,
+  UNKNOWN_IP_ADDRESS
 } from "./constants";
 
 export { DECISIONING_METHOD } from "./enums";
