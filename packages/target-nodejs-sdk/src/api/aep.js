@@ -5,6 +5,7 @@ import {
 import { targetDeliveryToAepEdgeRequest } from "@adobe/target-tools/src/transforms/requestTransform";
 import { aepEdgeToTargetDeliveryResponse } from "@adobe/target-tools/src/transforms/responseTransform";
 import { DECISIONING_METHOD } from "@adobe/target-tools";
+import { logApiRequest, logApiResponse } from "./utils";
 
 InteractApi.prototype.decisioningMethod = DECISIONING_METHOD.SERVER_SIDE;
 
@@ -24,8 +25,9 @@ export function createAepEdgeConfiguration({ fetchApi }) {
  * @returns { GenericApi }
  */
 export function createAepApi(sdkConfig, configuration) {
-  const { client } = sdkConfig;
+  const { client, logger } = sdkConfig;
   const aepEdgeApi = new InteractApi(configuration);
+  const decisioningMethod = DECISIONING_METHOD.SERVER_SIDE;
 
   return {
     /**
@@ -53,21 +55,35 @@ export function createAepApi(sdkConfig, configuration) {
         konductorIdentity: undefined
       });
 
+      logApiRequest(
+        logger,
+        interactPostRequest,
+        decisioningMethod,
+        configuration.basePath
+      );
+
       return aepEdgeApi.interactPostRaw(interactPostRequest).then(response => {
         const { raw } = response;
         const { status } = raw;
 
-        return response.value().then(interactResponse =>
-          aepEdgeToTargetDeliveryResponse({
+        return response.value().then(interactResponse => {
+          logApiResponse(
+            logger,
+            interactResponse,
+            decisioningMethod,
+            configuration.basePath
+          );
+
+          return aepEdgeToTargetDeliveryResponse({
             client,
             imsOrgId,
             status,
             interactResponse,
             deliveryRequest
-          })
-        );
+          });
+        });
       });
     },
-    decisioningMethod: DECISIONING_METHOD.SERVER_SIDE
+    decisioningMethod
   };
 }

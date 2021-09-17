@@ -4,12 +4,17 @@ import {
   DECISIONING_METHOD,
   isUndefined
 } from "@adobe/target-tools";
+import { logApiRequest, logApiResponse } from "./utils";
 
 export function createOnDeviceApi(
+  sdkConfig,
   decisioningEngine,
   visitor,
   targetLocationHint
 ) {
+  const decisioningMethod = DECISIONING_METHOD.ON_DEVICE;
+  const { logger } = sdkConfig;
+
   return {
     // eslint-disable-next-line no-unused-vars
     execute: (organizationId, sessionId, deliveryRequest, atjsVersion) => {
@@ -17,13 +22,17 @@ export function createOnDeviceApi(
         return Promise.reject(new Error(DECISIONING_ENGINE_NOT_READY));
       }
 
-      return decisioningEngine.getOffers({
-        targetLocationHint,
-        request: deliveryRequest,
-        sessionId,
-        visitor
-      });
+      logApiRequest(logger, deliveryRequest, decisioningMethod);
+
+      return decisioningEngine
+        .getOffers({
+          targetLocationHint,
+          request: deliveryRequest,
+          sessionId,
+          visitor
+        })
+        .then(response => logApiResponse(logger, response, decisioningMethod));
     },
-    decisioningMethod: DECISIONING_METHOD.ON_DEVICE
+    decisioningMethod
   };
 }

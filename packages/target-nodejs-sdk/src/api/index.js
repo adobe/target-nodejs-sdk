@@ -1,5 +1,6 @@
 import {
   DECISIONING_METHOD,
+  isDefined,
   requiresDecisioningEngine
 } from "@adobe/target-tools";
 import { createOnDeviceApi } from "./ondevice";
@@ -11,6 +12,7 @@ import {
   createDeliveryConfiguration
 } from "./delivery";
 import { createAepApi, createAepEdgeConfiguration } from "./aep";
+import { Messages } from "../messages";
 
 function createRemoteApi(sdkConfig, configuration, useBeacon) {
   if (configuration instanceof AepEdgeConfiguration) {
@@ -18,8 +20,8 @@ function createRemoteApi(sdkConfig, configuration, useBeacon) {
   }
 
   return useBeacon && isBeaconSupported()
-    ? createBeaconDeliveryApi(configuration)
-    : createDeliveryApi(configuration);
+    ? createBeaconDeliveryApi(sdkConfig, configuration)
+    : createDeliveryApi(sdkConfig, configuration);
 }
 
 /**
@@ -71,8 +73,9 @@ export function createApi(
   decisioningEngine = undefined
 ) {
   if (requiresDecisioningEngine(decisioningMethod)) {
-    const decisioningDependency =
-      decisioningEngine.hasRemoteDependency(deliveryRequest);
+    const decisioningDependency = decisioningEngine.hasRemoteDependency(
+      deliveryRequest
+    );
 
     if (
       decisioningMethod === DECISIONING_METHOD.HYBRID &&
@@ -81,7 +84,12 @@ export function createApi(
       return createRemoteApi(sdkConfig, configuration, useBeacon);
     }
 
-    return createOnDeviceApi(decisioningEngine, visitor, targetLocationHint);
+    return createOnDeviceApi(
+      sdkConfig,
+      decisioningEngine,
+      visitor,
+      targetLocationHint
+    );
   }
 
   return createRemoteApi(sdkConfig, configuration, useBeacon);

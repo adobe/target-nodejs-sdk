@@ -4,6 +4,7 @@ import {
   DeliveryApi
 } from "@adobe/target-tools/delivery-api-client";
 import { executeSendBeacon } from "../utils";
+import { logApiRequest, logApiResponse } from "./utils";
 
 DeliveryApi.prototype.decisioningMethod = DECISIONING_METHOD.SERVER_SIDE;
 
@@ -27,24 +28,49 @@ export function createDeliveryConfiguration({
 
 /**
  *
+ * @param sdkConfig
  * @param { import("@adobe/target-tools/delivery-api-client/runtime").Configuration } configuration
  * @returns { import("@adobe/target-tools/delivery-api-client").DeliveryApi }
  */
-export function createDeliveryApi(configuration) {
+export function createDeliveryApi(sdkConfig, configuration) {
+  const decisioningMethod = DECISIONING_METHOD.SERVER_SIDE;
+  const { logger } = sdkConfig;
   const deliveryApi = new DeliveryApi(configuration);
+
   return {
-    execute: (imsOrgId, sessionId, deliveryRequest, atjsVersion) =>
-      deliveryApi.execute(imsOrgId, sessionId, deliveryRequest, atjsVersion),
-    decisioningMethod: DECISIONING_METHOD.SERVER_SIDE
+    execute: (imsOrgId, sessionId, deliveryRequest, atjsVersion) => {
+      logApiRequest(
+        logger,
+        deliveryRequest,
+        decisioningMethod,
+        configuration.basePath
+      );
+
+      return deliveryApi
+        .execute(imsOrgId, sessionId, deliveryRequest, atjsVersion)
+        .then(response =>
+          logApiResponse(
+            logger,
+            response,
+            decisioningMethod,
+            configuration.basePath
+          )
+        );
+    },
+    decisioningMethod
   };
 }
 
 /**
  *
+ * @param sdkConfig
  * @param { import("@adobe/target-tools/delivery-api-client/runtime").Configuration } configuration
  * @returns {GenericApi}
  */
-export function createBeaconDeliveryApi(configuration) {
+export function createBeaconDeliveryApi(sdkConfig, configuration) {
+  const decisioningMethod = DECISIONING_METHOD.SERVER_SIDE;
+  const { logger } = sdkConfig;
+
   return {
     execute: (organizationId, sessionId, deliveryRequest, atjsVersion) => {
       const query = {
@@ -58,6 +84,13 @@ export function createBeaconDeliveryApi(configuration) {
 
       const queryString = configuration.queryParamsStringify(query);
 
+      logApiRequest(
+        logger,
+        deliveryRequest,
+        decisioningMethod,
+        configuration.basePath
+      );
+
       const success = executeSendBeacon(
         `${configuration.basePath}/rest/v1/delivery?${queryString}`,
         JSON.stringify({
@@ -70,6 +103,6 @@ export function createBeaconDeliveryApi(configuration) {
       );
       return success ? Promise.resolve() : Promise.reject();
     },
-    decisioningMethod: DECISIONING_METHOD.SERVER_SIDE
+    decisioningMethod
   };
 }
