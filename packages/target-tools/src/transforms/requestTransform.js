@@ -9,6 +9,7 @@ import {
 } from "@adobe/aep-edge-tools";
 import {
   byIndex,
+  createExperienceCloudMeta,
   createIdentityItem,
   isGlobalMbox,
   sanitize,
@@ -20,10 +21,9 @@ import {
   toHours
 } from "./transformUtils";
 import { isDefined, isRoughlyTheSameObject } from "../utils";
-import { isArray, isNotBlank, isBlank } from "../lodash";
+import { isArray, isNotBlank } from "../lodash";
 import { createPipeline } from "../pipeline";
 import { parseURI } from "../index";
-import { LoggingType } from "../../delivery-api-client";
 
 function addConfigId(interactRequest, { deliveryRequest, edgeConfigId }) {
   return {
@@ -336,34 +336,6 @@ function createEdgeRequest(interactRequest, { deliveryRequest }) {
       },
       deliveryRequest
     )
-  };
-}
-
-/**
- *
- * @param { import("../../delivery-api-client/models/ExperienceCloud").ExperienceCloud } experienceCloud
- * @returns { import("@adobe/aep-edge-tools/aep-edge-api-client/models/PersonalizationMetadata").PersonalizationMetadata }
- */
-function createExperienceCloudMeta(experienceCloud = {}) {
-  const { analytics = {}, audienceManager = {} } = experienceCloud;
-  const {
-    logging,
-    supplementalDataId,
-    trackingServer,
-    trackingServerSecure
-  } = analytics;
-  const { locationHint, blob } = audienceManager;
-
-  if (logging !== LoggingType.ServerSide || isBlank(supplementalDataId)) {
-    return {};
-  }
-
-  return {
-    analyticsSupplementalDataId: supplementalDataId,
-    analyticsTrackingServer: trackingServer,
-    analyticsTrackingServerSecure: trackingServerSecure,
-    aamLocationHint: locationHint,
-    aamBlob: blob
   };
 }
 

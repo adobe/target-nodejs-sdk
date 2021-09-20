@@ -17,9 +17,10 @@ import {
   OptionType,
   Step
 } from "../constants";
-import { includes, isArray, isNumber, values } from "../lodash";
+import { includes, isArray, isBlank, isNumber, values } from "../lodash";
 import { isUndefined, objectWithoutUndefinedValues } from "../utils";
 import { encrypt } from "../encryption";
+import { LoggingType } from "../../delivery-api-client";
 
 const MINUTES_PER_HOUR = 60;
 const HEAD = "head";
@@ -308,3 +309,31 @@ export const isMboxSchema = item =>
 
 export const isViewSchema = item =>
   item.schema === PERSONALIZATION_SCHEMA_DOM_ACTION;
+
+/**
+ *
+ * @param { import("../../delivery-api-client/models/ExperienceCloud").ExperienceCloud } experienceCloud
+ * @returns { import("@adobe/aep-edge-tools/aep-edge-api-client/models/PersonalizationMetadata").PersonalizationMetadata }
+ */
+export function createExperienceCloudMeta(experienceCloud = {}) {
+  const { analytics = {}, audienceManager = {} } = experienceCloud;
+  const {
+    logging,
+    supplementalDataId,
+    trackingServer,
+    trackingServerSecure
+  } = analytics;
+  const { locationHint, blob } = audienceManager;
+
+  if (logging !== LoggingType.ServerSide || isBlank(supplementalDataId)) {
+    return {};
+  }
+
+  return {
+    analyticsSupplementalDataId: supplementalDataId,
+    analyticsTrackingServer: trackingServer,
+    analyticsTrackingServerSecure: trackingServerSecure,
+    aamLocationHint: locationHint,
+    aamBlob: blob
+  };
+}
