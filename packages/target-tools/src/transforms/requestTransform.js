@@ -20,10 +20,10 @@ import {
   toHours
 } from "./transformUtils";
 import { isDefined, isRoughlyTheSameObject } from "../utils";
-import { isArray } from "../lodash";
+import { isArray, isNotBlank, isBlank } from "../lodash";
 import { createPipeline } from "../pipeline";
 import { parseURI } from "../index";
-import isNotBlank from "../lodash/internal/isNotBlank";
+import { LoggingType } from "../../delivery-api-client";
 
 function addConfigId(interactRequest, { deliveryRequest, edgeConfigId }) {
   return {
@@ -341,13 +341,41 @@ function createEdgeRequest(interactRequest, { deliveryRequest }) {
 
 /**
  *
+ * @param { import("../../delivery-api-client/models/ExperienceCloud").ExperienceCloud } experienceCloud
+ * @returns { import("@adobe/aep-edge-tools/aep-edge-api-client/models/PersonalizationMetadata").PersonalizationMetadata }
+ */
+function createExperienceCloudMeta(experienceCloud = {}) {
+  const { analytics = {}, audienceManager = {} } = experienceCloud;
+  const {
+    logging,
+    supplementalDataId,
+    trackingServer,
+    trackingServerSecure
+  } = analytics;
+  const { locationHint, blob } = audienceManager;
+
+  if (logging !== LoggingType.ServerSide || isBlank(supplementalDataId)) {
+    return {};
+  }
+
+  return {
+    analyticsSupplementalDataId: supplementalDataId,
+    analyticsTrackingServer: trackingServer,
+    analyticsTrackingServerSecure: trackingServerSecure,
+    aamLocationHint: locationHint,
+    aamBlob: blob
+  };
+}
+
+/**
+ *
  * @param { import("@adobe/aep-edge-tools/aep-edge-api-client/apis/InteractApi").InteractPostRequest } interactRequest
  * @param { String } imsOrgId
  * @param { String } sessionId
  * @param { import("../../delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
  * @returns { import("@adobe/aep-edge-tools/aep-edge-api-client/apis/InteractApi").InteractPostRequest }
  */
-function addMetaEntries(
+function addRequestMetaEntries(
   interactRequest,
   { imsOrgId, sessionId, deliveryRequest, konductorIdentity }
 ) {
@@ -400,6 +428,59 @@ function addMetaEntries(
 }
 
 /**
+ * Adds Personalization Meta to an event
+ *
+ * @param { import("@adobe/aep-edge-tools/aep-edge-api-client/models/Event").Event } event
+ * @param { import("@adobe/aep-edge-tools/aep-edge-api-client/models/PersonalizationMetadata").PersonalizationMetadata } personalizationMeta
+ * @returns { import("@adobe/aep-edge-tools/aep-edge-api-client/models/Event").Event }
+ */
+function addEventPersonalizationMeta(event, personalizationMeta) {
+  const { meta = {} } = event;
+  const { personalization = {} } = meta;
+
+  return {
+    ...event,
+    meta: {
+      ...meta,
+      personalization: {
+        ...personalization,
+        ...personalizationMeta
+      }
+    }
+  };
+}
+
+/**
+ * Adds Personalization Meta to all events
+ *
+ * @param { import("@adobe/aep-edge-tools/aep-edge-api-client/apis/InteractApi").InteractPostRequest } interactRequest
+ * @param { import("../../delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
+ * @returns { import("@adobe/aep-edge-tools/aep-edge-api-client/apis/InteractApi").InteractPostRequest }
+ */
+function addEventsPersonalizationMeta(interactRequest, { deliveryRequest }) {
+  const { experienceCloud = {} } = deliveryRequest;
+  const { edgeRequest } = interactRequest;
+  const { events = [] } = edgeRequest;
+
+  const experienceCloudMeta = createExperienceCloudMeta(experienceCloud);
+  if (experienceCloudMeta === {}) {
+    return interactRequest;
+  }
+
+  const eventsWithMeta = events.map(event =>
+    addEventPersonalizationMeta(event, experienceCloudMeta)
+  );
+
+  return {
+    ...interactRequest,
+    edgeRequest: {
+      ...edgeRequest,
+      events: [...eventsWithMeta]
+    }
+  };
+}
+
+/**
  * @param { String } imsOrgId
  * @param { String } sessionId
  * @param { import("../../delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
@@ -420,7 +501,8 @@ export function targetDeliveryToAepEdgeRequest({
     addConfigId,
     addTrace,
     createEdgeRequest,
-    addMetaEntries,
+    addRequestMetaEntries,
+    addEventsPersonalizationMeta,
     sanitize
   ]);
 

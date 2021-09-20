@@ -750,6 +750,68 @@ describe("targetDeliveryToAepEdgeRequest", () => {
     });
   });
 
+  it("server-side A4T", () => {
+    expect(
+      targetDeliveryToAepEdgeRequest({
+        ...basicRequest,
+        deliveryRequest: {
+          experienceCloud: {
+            analytics: {
+              logging: "server_side",
+              supplementalDataId: "sdid12345",
+              trackingServer: "trk.test.com",
+              trackingServerSecure: "secure.trk.test.com"
+            },
+            audienceManager: {
+              locationHint: 8,
+              blob: "aamblob1234567"
+            }
+          },
+          execute: {
+            pageLoad: {
+              address: "https://adobe.com"
+            }
+          }
+        }
+      })
+    ).toMatchObject({
+      edgeRequest: {
+        events: [
+          {
+            query: {
+              personalization: {
+                schemas: [
+                  "https://ns.adobe.com/personalization/html-content-item",
+                  "https://ns.adobe.com/personalization/json-content-item",
+                  "https://ns.adobe.com/personalization/redirect-item",
+                  "https://ns.adobe.com/personalization/dom-action"
+                ],
+                decisionScopes: ["__view__"]
+              }
+            },
+            xdm: {
+              timestamp: expect.any(Date),
+              implementationDetails: {
+                name: "https://ns.adobe.com/experience/aep-edge-nodejs-sdk",
+                version: expect.any(String),
+                environment: expect.any(String)
+              }
+            },
+            meta: {
+              personalization: {
+                analyticsSupplementalDataId: "sdid12345",
+                analyticsTrackingServer: "trk.test.com",
+                analyticsTrackingServerSecure: "secure.trk.test.com",
+                aamLocationHint: 8,
+                aamBlob: "aamblob1234567"
+              }
+            }
+          }
+        ]
+      }
+    });
+  });
+
   it("requests", async () => {
     expect.assertions(4);
     const configuration = new Configuration({
