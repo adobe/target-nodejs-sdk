@@ -21,11 +21,14 @@ export function createAepEdgeConfiguration({ fetchApi }) {
 
 /**
  *
+ * @param sdkConfig
+ * @param logger
  * @param { import("@adobe/aep-edge-tools/aep-edge-api-client/runtime").Configuration } configuration
  * @returns { GenericApi }
  */
-export function createAepApi(sdkConfig, configuration) {
-  const { client, logger } = sdkConfig;
+export function createAepApi(sdkConfig, logger, configuration) {
+  const { client } = sdkConfig;
+
   const aepEdgeApi = new InteractApi(configuration);
   const decisioningMethod = DECISIONING_METHOD.SERVER_SIDE;
 

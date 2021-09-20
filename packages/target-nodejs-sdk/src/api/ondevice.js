@@ -7,13 +7,12 @@ import {
 import { logApiRequest, logApiResponse } from "./utils";
 
 export function createOnDeviceApi(
-  sdkConfig,
+  logger,
   decisioningEngine,
   visitor,
   targetLocationHint
 ) {
   const decisioningMethod = DECISIONING_METHOD.ON_DEVICE;
-  const { logger } = sdkConfig;
 
   return {
     // eslint-disable-next-line no-unused-vars

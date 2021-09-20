@@ -28,13 +28,12 @@ export function createDeliveryConfiguration({
 
 /**
  *
- * @param sdkConfig
+ * @param logger
  * @param { import("@adobe/target-tools/delivery-api-client/runtime").Configuration } configuration
  * @returns { import("@adobe/target-tools/delivery-api-client").DeliveryApi }
  */
-export function createDeliveryApi(sdkConfig, configuration) {
+export function createDeliveryApi(logger, configuration) {
   const decisioningMethod = DECISIONING_METHOD.SERVER_SIDE;
-  const { logger } = sdkConfig;
   const deliveryApi = new DeliveryApi(configuration);
 
   return {
@@ -63,13 +62,12 @@ export function createDeliveryApi(sdkConfig, configuration) {
 
 /**
  *
- * @param sdkConfig
+ * @param logger
  * @param { import("@adobe/target-tools/delivery-api-client/runtime").Configuration } configuration
  * @returns {GenericApi}
  */
-export function createBeaconDeliveryApi(sdkConfig, configuration) {
+export function createBeaconDeliveryApi(logger, configuration) {
   const decisioningMethod = DECISIONING_METHOD.SERVER_SIDE;
-  const { logger } = sdkConfig;
 
   return {
     execute: (organizationId, sessionId, deliveryRequest, atjsVersion) => {

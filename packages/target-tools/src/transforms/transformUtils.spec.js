@@ -135,22 +135,26 @@ describe("transformUtils", () => {
       createEventToken({
         decisionProvider: "TGT",
         activity: {
-          id: "551672"
+          id: "551871"
         },
         experience: {
-          id: "1"
+          id: "0"
         },
         strategies: [
           {
+            step: "entry",
             algorithmID: "0",
             trafficType: "0"
           },
           {
-            algorithmID: "2",
+            step: "display",
+            algorithmID: "0",
             trafficType: "0"
           }
         ]
       })
-    ).toEqual("__coming_soon__");
+    ).toEqual(
+      "sZrQSIZcDt6I0r6Crfq0V2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+    );
   });
 });

@@ -21,7 +21,6 @@ import {
   isDefined,
   requiresDecisioningEngine
 } from "@adobe/target-tools";
-import { Messages } from "./messages";
 import {
   createDeliveryRequest,
   createHeaders,
@@ -110,6 +109,7 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
 
   const deliveryMethod = createApiMethod(
     config,
+    logger,
     configuration,
     visitor,
     useBeacon,
