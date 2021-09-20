@@ -84,12 +84,14 @@ export function createBeaconDeliveryApi(logger, configuration) {
 
       const queryString = configuration.queryParamsStringify(query);
 
-      logApiRequest(
-        logger,
-        deliveryRequest,
+      logApiRequest(logger, {
+        request: deliveryRequest,
         decisioningMethod,
-        configuration.basePath
-      );
+        uri: configuration.basePath,
+        imsOrgId: organizationId,
+        sessionId,
+        version: atjsVersion
+      });
 
       const success = executeSendBeacon(
         `${configuration.basePath}/rest/v1/delivery?${queryString}`,

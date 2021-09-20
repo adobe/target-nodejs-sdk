@@ -51,7 +51,12 @@ describe("Target Delivery API client", () => {
     MockDate.set("2019-10-06");
     createApiSpy = jest.fn(() => ({
       execute: (imsOrgId, sessionId, deliveryRequest) => {
-        logApiRequest(testLogger, deliveryRequest, "server-side");
+        logApiRequest(testLogger, {
+          request: deliveryRequest,
+          decisioningMethod: "server-side",
+          imsOrgId,
+          sessionId
+        });
 
         const response = {
           status: 200,
