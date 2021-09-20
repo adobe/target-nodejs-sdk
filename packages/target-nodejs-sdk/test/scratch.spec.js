@@ -5,7 +5,7 @@ const TargetClient = require("../src/index.server").default;
 /**
  * This can be useful for testing/troubleshooting the SDK
  */
-describe("target-nodejs-sdk scratch", () => {
+describe.skip("target-nodejs-sdk scratch", () => {
   it("test", async () => {
     const clientCode = "targetdataplatform";
     const organizationId = "6FC947105BB267B70A495EE9@AdobeOrg";
@@ -80,22 +80,6 @@ describe("target-nodejs-sdk scratch", () => {
       const { response } = result;
       responses.push(objectWithoutUndefinedValues(response));
     }
-    console.log("hi");
-    // const result_target = await client_target.getOffers(request);
-    // const result_aep = await client_aep.getOffers(request);
-
-    // const targetResponse = objectWithoutUndefinedValues(result_target.response);
-    // const { response: aepResponse } = result_aep;
-
-    // console.log("===== TARGET =====");
-    // console.log(JSON.stringify(targetResponse, null, 4));
-    // console.log("===== END TARGET =====\n\n");
-    //
-    // console.log("===== AEP =====");
-    // console.log(JSON.stringify(aepResponse, null, 4));
-    // console.log("===== END AEP =====\n\n");
-
-    // expect(aepResponse).toEqual(targetResponse);
 
     for (let i = 1; i < responses.length; i++) {
       expect(responses[i]).toEqual(responses[0]);
