@@ -1,5 +1,12 @@
-import { isDefined, isFunction } from "@adobe/target-tools";
+import { isDefined, isFunction, isUndefined } from "@adobe/target-tools";
 import { Messages } from "../messages";
+
+function withLabel(label, value) {
+  if (isUndefined(value)) {
+    return undefined;
+  }
+  return `\n${label}: ${value}`;
+}
 
 export function logApiResponse(
   logger,
@@ -13,7 +20,7 @@ export function logApiResponse(
         Messages.RESPONSE_RECEIVED,
         decisioningMethod,
         requestURL,
-        JSON.stringify(response, null, 2)
+        withLabel("payload", JSON.stringify(response, null, 2))
       ].filter(isDefined)
     );
   }
@@ -22,17 +29,18 @@ export function logApiResponse(
 
 export function logApiRequest(
   logger,
-  request,
-  decisioningMethod,
-  requestURL = undefined
+  { request, decisioningMethod, uri, imsOrgId, sessionId, version }
 ) {
   if (isDefined(logger) && isFunction(logger.debug)) {
     logger.debug(
       ...[
         Messages.REQUEST_SENT,
         decisioningMethod,
-        requestURL,
-        JSON.stringify(request, null, 2)
+        uri,
+        withLabel("ims org id", imsOrgId),
+        withLabel("session id", sessionId),
+        withLabel("version", version),
+        withLabel("payload", JSON.stringify(request, null, 2))
       ].filter(isDefined)
     );
   }

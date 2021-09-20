@@ -38,12 +38,14 @@ export function createDeliveryApi(logger, configuration) {
 
   return {
     execute: (imsOrgId, sessionId, deliveryRequest, atjsVersion) => {
-      logApiRequest(
-        logger,
-        deliveryRequest,
+      logApiRequest(logger, {
+        request: deliveryRequest,
         decisioningMethod,
-        configuration.basePath
-      );
+        uri: configuration.basePath,
+        imsOrgId,
+        sessionId,
+        version: atjsVersion
+      });
 
       return deliveryApi
         .execute(imsOrgId, sessionId, deliveryRequest, atjsVersion)

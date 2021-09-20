@@ -58,12 +58,14 @@ export function createAepApi(sdkConfig, logger, configuration) {
         konductorIdentity: undefined
       });
 
-      logApiRequest(
-        logger,
-        interactPostRequest,
+      logApiRequest(logger, {
+        request: interactPostRequest,
         decisioningMethod,
-        configuration.basePath
-      );
+        uri: configuration.basePath,
+        imsOrgId,
+        sessionId,
+        version: atjsVersion
+      });
 
       return aepEdgeApi.interactPostRaw(interactPostRequest).then(response => {
         const { raw } = response;

@@ -21,7 +21,13 @@ export function createOnDeviceApi(
         return Promise.reject(new Error(DECISIONING_ENGINE_NOT_READY));
       }
 
-      logApiRequest(logger, deliveryRequest, decisioningMethod);
+      logApiRequest(logger, {
+        request: deliveryRequest,
+        decisioningMethod,
+        imsOrgId: organizationId,
+        sessionId,
+        version: atjsVersion
+      });
 
       return decisioningEngine
         .getOffers({
