@@ -778,25 +778,6 @@ describe("targetDeliveryToAepEdgeRequest", () => {
       edgeRequest: {
         events: [
           {
-            query: {
-              personalization: {
-                schemas: [
-                  "https://ns.adobe.com/personalization/html-content-item",
-                  "https://ns.adobe.com/personalization/json-content-item",
-                  "https://ns.adobe.com/personalization/redirect-item",
-                  "https://ns.adobe.com/personalization/dom-action"
-                ],
-                decisionScopes: ["__view__"]
-              }
-            },
-            xdm: {
-              timestamp: expect.any(Date),
-              implementationDetails: {
-                name: "https://ns.adobe.com/experience/aep-edge-nodejs-sdk",
-                version: expect.any(String),
-                environment: expect.any(String)
-              }
-            },
             meta: {
               personalization: {
                 analyticsSupplementalDataId: "sdid12345",

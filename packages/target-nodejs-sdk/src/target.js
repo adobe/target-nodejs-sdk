@@ -21,7 +21,6 @@ import {
   isDefined,
   requiresDecisioningEngine
 } from "@adobe/target-tools";
-import { Messages } from "./messages";
 import {
   createDeliveryRequest,
   createHeaders,
@@ -110,6 +109,7 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
 
   const deliveryMethod = createApiMethod(
     config,
+    logger,
     configuration,
     visitor,
     useBeacon,
@@ -123,12 +123,6 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
     deliveryRequest = telemetryProvider.executeTelemetries(deliveryRequest);
   }
 
-  logger.debug(
-    Messages.REQUEST_SENT,
-    deliveryMethod.decisioningMethod,
-    configuration.basePath,
-    JSON.stringify(deliveryRequest, null, 2)
-  );
   timingTool.timeStart(deliveryRequest.requestId);
 
   return deliveryMethod
@@ -141,11 +135,6 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
     )
     .then((response = {}) => {
       const endTime = timingTool.timeEnd(deliveryRequest.requestId);
-
-      logger.debug(
-        Messages.RESPONSE_RECEIVED,
-        JSON.stringify(response, null, 2)
-      );
 
       telemetryProvider.addEntry(
         deliveryRequest,

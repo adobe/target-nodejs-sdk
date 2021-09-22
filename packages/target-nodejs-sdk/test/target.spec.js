@@ -13,6 +13,7 @@ governing permissions and limitations under the License.
 const { noop, TelemetryProvider } = require("@adobe/target-tools");
 const MockDate = require("mockdate");
 const target = require("../src/target");
+const { logApiRequest, logApiResponse } = require("../src/api/utils");
 
 const telemetryProvider = TelemetryProvider(noop, false);
 
@@ -49,11 +50,21 @@ describe("Target Delivery API client", () => {
   beforeAll(() => {
     MockDate.set("2019-10-06");
     createApiSpy = jest.fn(() => ({
-      execute: () =>
-        Promise.resolve({
+      execute: (imsOrgId, sessionId, deliveryRequest) => {
+        logApiRequest(testLogger, {
+          request: deliveryRequest,
+          decisioningMethod: "server-side",
+          imsOrgId,
+          sessionId
+        });
+
+        const response = {
           status: 200,
           body: "responseBody"
-        })
+        };
+        logApiResponse(testLogger, response, "server-side");
+        return Promise.resolve(response);
+      }
     }));
     spyOnAllFunctions(EMPTY_VISITOR);
     spyOnAllFunctions(testLogger);

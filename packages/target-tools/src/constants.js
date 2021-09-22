@@ -22,6 +22,12 @@ export const MetricType = {
   Display: "display"
 };
 
+export const Step = {
+  ENTRY_STEP: "entry",
+  DISPLAY_STEP: "display",
+  CONVERSION_STEP: "conversion"
+};
+
 /**
  *
  * @type {{Authenticated: string, Unknown: string, LoggedOut: string}}

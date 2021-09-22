@@ -762,8 +762,8 @@ describe("aepEdgeToTargetDeliveryResponse", () => {
                     type: "setHtml"
                   }
                 ],
-                // TODO: eventToken:
-                //   "bTi5IHPB8f/uzjgsMKmn65NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                eventToken:
+                  "bTi5IHPB8f/uzjgsMKmn62qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
                 type: "actions"
               }
             ]

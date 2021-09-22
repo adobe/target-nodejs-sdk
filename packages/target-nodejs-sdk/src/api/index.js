@@ -12,14 +12,14 @@ import {
 } from "./delivery";
 import { createAepApi, createAepEdgeConfiguration } from "./aep";
 
-function createRemoteApi(sdkConfig, configuration, useBeacon) {
+function createRemoteApi(sdkConfig, logger, configuration, useBeacon) {
   if (configuration instanceof AepEdgeConfiguration) {
-    return createAepApi(sdkConfig, configuration);
+    return createAepApi(sdkConfig, logger, configuration);
   }
 
   return useBeacon && isBeaconSupported()
-    ? createBeaconDeliveryApi(configuration)
-    : createDeliveryApi(configuration);
+    ? createBeaconDeliveryApi(logger, configuration)
+    : createDeliveryApi(logger, configuration);
 }
 
 /**
@@ -62,6 +62,7 @@ export function createConfiguration(
  * */
 export function createApi(
   sdkConfig,
+  logger,
   configuration,
   visitor,
   useBeacon = false,
@@ -71,18 +72,24 @@ export function createApi(
   decisioningEngine = undefined
 ) {
   if (requiresDecisioningEngine(decisioningMethod)) {
-    const decisioningDependency =
-      decisioningEngine.hasRemoteDependency(deliveryRequest);
+    const decisioningDependency = decisioningEngine.hasRemoteDependency(
+      deliveryRequest
+    );
 
     if (
       decisioningMethod === DECISIONING_METHOD.HYBRID &&
       decisioningDependency.remoteNeeded
     ) {
-      return createRemoteApi(sdkConfig, configuration, useBeacon);
+      return createRemoteApi(sdkConfig, logger, configuration, useBeacon);
     }
 
-    return createOnDeviceApi(decisioningEngine, visitor, targetLocationHint);
+    return createOnDeviceApi(
+      logger,
+      decisioningEngine,
+      visitor,
+      targetLocationHint
+    );
   }
 
-  return createRemoteApi(sdkConfig, configuration, useBeacon);
+  return createRemoteApi(sdkConfig, logger, configuration, useBeacon);
 }

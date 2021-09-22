@@ -2,7 +2,8 @@
 import {
   decodeKonductorIdentity,
   konductorCookieNameIdentity,
-  PAGE_WIDE_SCOPE
+  PAGE_WIDE_SCOPE,
+  TARGET_DECISION_PROVIDER
 } from "@adobe/aep-edge-tools";
 import { createPipeline } from "../pipeline";
 import {
@@ -17,7 +18,6 @@ import { isDefined, isUndefined } from "../utils";
 import { isNonEmptyArray } from "../../../target-nodejs-sdk/src/utils";
 import { values } from "../lodash";
 
-const TARGET = "TGT";
 const HANDLE_STATE = "state:store";
 const HANDLE_IDENTITY = "identity:result";
 const HANDLE_PERSONALIZATION = "personalization:decisions";
@@ -109,7 +109,8 @@ function translateExecuteResponse(deliveryResponse, { handlesById }) {
     .reverse() // TODO: remove this once sorting is correct on konductor ( TNT-42253 )
     .filter(
       personalization =>
-        personalization.scopeDetails.decisionProvider === TARGET
+        personalization.scopeDetails.decisionProvider ===
+        TARGET_DECISION_PROVIDER
     )
     .forEach(personalization => {
       const { scope, scopeDetails = {}, items = [] } = personalization;
@@ -173,13 +174,13 @@ function translateExecuteResponse(deliveryResponse, { handlesById }) {
         views[itemKey].options.push(
           ...viewItems
             .filter(item => !isMetricOptionType(item.data.type))
-            .map(item => aepItemToTargetOption(item, personalization))
+            .map(item => aepItemToTargetOption(item, personalization, true))
         );
 
         views[itemKey].metrics.push(
           ...viewItems
             .filter(item => isMetricOptionType(item.data.type))
-            .map(item => aepItemToTargetOption(item, personalization))
+            .map(item => aepItemToTargetOption(item, personalization, true))
         );
       }
     });

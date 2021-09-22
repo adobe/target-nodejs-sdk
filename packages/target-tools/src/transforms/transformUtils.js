@@ -3,6 +3,7 @@ import {
   ChannelTypeAEP,
   ContentTypeAEP,
   DeviceTypeAEP,
+  PERSONALIZATION_MEASUREMENT_SCHEMA,
   PERSONALIZATION_SCHEMA_DOM_ACTION,
   PERSONALIZATION_SCHEMA_HTML_CONTENT_ITEM,
   PERSONALIZATION_SCHEMA_JSON_CONTENT_ITEM
@@ -13,10 +14,13 @@ import {
   DEFAULT_GLOBAL_MBOX,
   DeviceType,
   MetricType,
-  OptionType
+  OptionType,
+  Step
 } from "../constants";
-import { includes, isArray, isNumber, values } from "../lodash";
+import { includes, isArray, isBlank, isNumber, values } from "../lodash";
 import { isUndefined, objectWithoutUndefinedValues } from "../utils";
+import { encrypt } from "../encryption";
+import { LoggingType } from "../../delivery-api-client";
 
 const MINUTES_PER_HOUR = 60;
 const HEAD = "head";
@@ -37,9 +41,37 @@ const METRIC_ACTION_PROPERTY_MAP = [
 const METRIC_OPTION_TYPES = values(MetricType);
 export const isMetricOptionType = value => includes(value, METRIC_OPTION_TYPES);
 
-// eslint-disable-next-line no-unused-vars
+function getStepId(stepName) {
+  if (stepName === Step.ENTRY_STEP) {
+    return 0;
+  }
+
+  if (stepName === Step.CONVERSION_STEP) {
+    return 32767;
+  }
+
+  if (stepName === Step.DISPLAY_STEP) {
+    return 2;
+  }
+
+  // campaign step id?
+  return 1;
+}
+
 export function createEventToken(scopeDetails) {
-  return "__coming_soon__";
+  const { activity, experience, strategies = [] } = scopeDetails;
+
+  const { algorithmID, trafficType } = strategies[0];
+
+  const eventTokenRaw = {
+    cId: parseInt(activity.id, 10), // campaign id
+    bId: parseInt(experience.id, 10), // branch id
+    aId: parseInt(algorithmID, 10), // algorithm id
+    tId: parseInt(trafficType, 10), // traffic type id
+    sIds: strategies.map(strategy => getStepId(strategy.step)) // step ids
+  };
+
+  return encrypt(JSON.stringify(eventTokenRaw));
 }
 
 export function targetToAepAuthenticatedState(targetAuthenticatedState) {
@@ -240,7 +272,11 @@ export function createMetricAction(data) {
   return createActionWithPropertyReplacements(METRIC_ACTION_PROPERTY_MAP, data);
 }
 
-export function aepItemToTargetOption(item, personalization) {
+export function aepItemToTargetOption(
+  item,
+  personalization,
+  withEventToken = false
+) {
   const { scopeDetails } = personalization;
   const { data = {}, meta = {} } = item;
   let { content } = data;
@@ -259,7 +295,7 @@ export function aepItemToTargetOption(item, personalization) {
   return {
     type: optionType,
     content,
-    eventToken: createEventToken(scopeDetails),
+    eventToken: withEventToken ? createEventToken(scopeDetails) : undefined,
     responseTokens: { ...meta }
   };
 }
@@ -267,8 +303,37 @@ export function aepItemToTargetOption(item, personalization) {
 export const isMboxSchema = item =>
   includes(item.schema, [
     PERSONALIZATION_SCHEMA_HTML_CONTENT_ITEM,
-    PERSONALIZATION_SCHEMA_JSON_CONTENT_ITEM
+    PERSONALIZATION_SCHEMA_JSON_CONTENT_ITEM,
+    PERSONALIZATION_MEASUREMENT_SCHEMA // TODO: remove this once TNT-42365 is done
   ]);
 
 export const isViewSchema = item =>
   item.schema === PERSONALIZATION_SCHEMA_DOM_ACTION;
+
+/**
+ *
+ * @param { import("../../delivery-api-client/models/ExperienceCloud").ExperienceCloud } experienceCloud
+ * @returns { import("@adobe/aep-edge-tools/aep-edge-api-client/models/PersonalizationMetadata").PersonalizationMetadata }
+ */
+export function createExperienceCloudMeta(experienceCloud = {}) {
+  const { analytics = {}, audienceManager = {} } = experienceCloud;
+  const {
+    logging,
+    supplementalDataId,
+    trackingServer,
+    trackingServerSecure
+  } = analytics;
+  const { locationHint, blob } = audienceManager;
+
+  if (logging !== LoggingType.ServerSide || isBlank(supplementalDataId)) {
+    return {};
+  }
+
+  return {
+    analyticsSupplementalDataId: supplementalDataId,
+    analyticsTrackingServer: trackingServer,
+    analyticsTrackingServerSecure: trackingServerSecure,
+    aamLocationHint: locationHint,
+    aamBlob: blob
+  };
+}

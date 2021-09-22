@@ -13,16 +13,22 @@ describe.skip("target-nodejs-sdk scratch", () => {
     const visitorCookie =
       "1585540135%7CMCMID%7C52777108510978688250501620102073477990%7CMCIDTS%7C18874%7CMCAAMLH-1631311239%7C9%7CMCAAMB-1631311239%7Cj8Odv6LonN4r3an7LhD3WZrU1bUpAkFkkiY1ncBR96t2PTI%7CMCOPTOUT-1630713639s%7CNONE%7CvVersion%7C4.4.0";
 
-    const client_target = TargetClient.create({
+    const baseConfig = {
       client: clientCode,
-      organizationId
-    });
-
-    const client_aep = TargetClient.create({
-      client: clientCode,
+      logger: console,
       organizationId,
-      edgeConfigId
-    });
+      pollingInterval: 0
+    };
+
+    const configs = [
+      {
+        ...baseConfig
+      },
+      {
+        ...baseConfig,
+        edgeConfigId
+      }
+    ];
 
     const request = {
       // visitorCookie,
@@ -35,22 +41,15 @@ describe.skip("target-nodejs-sdk scratch", () => {
           channel: "web"
         },
         id: {
-          marketingCloudVisitorId: "52777108510978688250501620102073477990",
-          customerIds: [
-            {
-              id: "custId123",
-              authenticatedState: "authenticated",
-              integrationCode: "LAW"
-            }
-          ]
+          marketingCloudVisitorId: "52777108510978688250501620102073477990"
         },
-        prefetch: {
-          views: [{}]
-        },
+        // prefetch: {
+        //   views: [{}]
+        // },
         execute: {
           pageLoad: {}
           // mboxes: [
-          //   { name: "coin", index: 0 },
+          // { name: "coin", index: 0 }
           //   { name: "currency", index: 1 },
           //   { name: "vegas", index: 2 },
           //   { name: "rainbow", index: 3 }
@@ -59,20 +58,31 @@ describe.skip("target-nodejs-sdk scratch", () => {
       }
     };
 
-    const result_target = await client_target.getOffers(request);
-    const result_aep = await client_aep.getOffers(request);
+    const clients = await Promise.all(
+      configs.map(config => {
+        return new Promise((resolve, reject) => {
+          const client = TargetClient.create({
+            ...config,
+            events: {
+              clientReady: () => {
+                resolve(client);
+              }
+            }
+          });
+        });
+      })
+    );
 
-    const targetResponse = objectWithoutUndefinedValues(result_target.response);
-    const { response: aepResponse } = result_aep;
+    const responses = [];
 
-    console.log("===== TARGET =====");
-    console.log(JSON.stringify(targetResponse, null, 4));
-    console.log("===== END TARGET =====\n\n");
+    for (const client of clients) {
+      const result = await client.getOffers(request);
+      const { response } = result;
+      responses.push(objectWithoutUndefinedValues(response));
+    }
 
-    console.log("===== AEP =====");
-    console.log(JSON.stringify(aepResponse, null, 4));
-    console.log("===== END AEP =====\n\n");
-
-    expect(aepResponse).toEqual(targetResponse);
+    for (let i = 1; i < responses.length; i++) {
+      expect(responses[i]).toEqual(responses[0]);
+    }
   });
 });
