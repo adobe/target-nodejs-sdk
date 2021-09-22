@@ -8,13 +8,17 @@ function withLabel(label, value) {
   return `\n${label}: ${value}`;
 }
 
+function isValidLogger(logger) {
+  return isDefined(logger) && isFunction(logger.debug);
+}
+
 export function logApiResponse(
   logger,
   response,
   decisioningMethod,
   requestURL = undefined
 ) {
-  if (isDefined(logger) && isFunction(logger.debug)) {
+  if (isValidLogger(logger)) {
     logger.debug(
       ...[
         Messages.RESPONSE_RECEIVED,
@@ -31,7 +35,7 @@ export function logApiRequest(
   logger,
   { request, decisioningMethod, uri, imsOrgId, sessionId, version }
 ) {
-  if (isDefined(logger) && isFunction(logger.debug)) {
+  if (isValidLogger(logger)) {
     logger.debug(
       ...[
         Messages.REQUEST_SENT,
