@@ -85,7 +85,6 @@
     "fast-text-encoding": "^1.0.3",
     "form-data": "^3.0.0",
     "http-status-codes": "^1.4.0",
-    "node-fetch": "^2.6.1",
     "whatwg-fetch": "^3.0.0"
   }
 }

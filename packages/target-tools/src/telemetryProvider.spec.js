@@ -10,7 +10,14 @@ describe("TelemetryProvider", () => {
     notifications: []
   };
   const TARGET_TELEMETRY_ENTRY = {
-    execution: 1
+    execution: 1,
+    request: {
+      dns: 13.205916000000002,
+      tls: 66.416338,
+      timeToFirstByte: 37.84904800000004,
+      download: 0.7802439999999251,
+      responseSize: 241
+    }
   };
   const STATUS_OK = 200;
   const PARTIAL_CONTENT = 206;
@@ -48,7 +55,14 @@ describe("TelemetryProvider", () => {
           prefetchMboxCount: expect.any(Number),
           prefetchViewCount: expect.any(Number)
         },
-        execution: 1
+        execution: 1,
+        request: {
+          dns: expect.any(Number),
+          tls: expect.any(Number),
+          timeToFirstByte: expect.any(Number),
+          download: expect.any(Number),
+          responseSize: expect.any(Number)
+        }
       })
     );
 

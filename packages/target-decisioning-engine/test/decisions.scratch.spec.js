@@ -1,6 +1,6 @@
 /* eslint-disable jest/no-disabled-tests */
-import * as nodeFetch from "node-fetch";
 import * as HttpsProxyAgent from "https-proxy-agent";
+import { defaultFetch } from "@adobe/target-tools";
 
 import TargetDecisioningEngine from "../src";
 
@@ -11,11 +11,10 @@ import TargetDecisioningEngine from "../src";
 function getFetchWithProxy() {
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 
-  const fetch = nodeFetch.default;
   const ProxyAgent = HttpsProxyAgent.default;
 
   return (url, options) => {
-    return fetch(url, {
+    return defaultFetch(url, {
       ...options,
       agent: new ProxyAgent("http://127.0.0.1:9090")
     });
@@ -25,7 +24,7 @@ function getFetchWithProxy() {
 const TEST_CONF = {
   client: "targettesting",
   organizationId: "74F652E95F1B16FE0A495C92@AdobeOrg",
-  fetchApi: nodeFetch.default, // getFetchWithProxy(),
+  fetchApi: defaultFetch, // getFetchWithProxy(),
   pollingInterval: 0,
   logger: {
     // eslint-disable-next-line no-console

@@ -48,13 +48,15 @@ function spyOnAllFunctions(obj) {
 describe("Target Delivery API client", () => {
   beforeAll(() => {
     MockDate.set("2019-10-06");
-    createDeliveryApiSpy = jest.fn(() => ({
+    const mockDeliveryApi = {
       execute: () =>
         Promise.resolve({
           status: 200,
           body: "responseBody"
         })
-    }));
+    };
+    mockDeliveryApi.withPostMiddleware = () => mockDeliveryApi;
+    createDeliveryApiSpy = jest.fn(() => mockDeliveryApi);
     spyOnAllFunctions(EMPTY_VISITOR);
     spyOnAllFunctions(testLogger);
   });
@@ -122,9 +124,11 @@ describe("Target Delivery API client", () => {
     expect(EMPTY_VISITOR.getState.mock.calls.length).toBe(3);
     expect(testLogger.debug.mock.calls.length).toBe(2);
 
-    createDeliveryApiSpy = jest.fn(() => ({
+    const mockDeliveryApi = {
       execute: () => Promise.resolve(undefined)
-    }));
+    };
+    mockDeliveryApi.withPostMiddleware = () => mockDeliveryApi;
+    createDeliveryApiSpy = jest.fn(() => mockDeliveryApi);
     options.createDeliveryApiMethod = createDeliveryApiSpy;
 
     const result = await target.executeDelivery(options, telemetryProvider);

@@ -531,7 +531,7 @@ function createLocalDeliveryApi(
   visitor,
   targetLocationHint
 ) {
-  return {
+  const localDeliveryApi = {
     // eslint-disable-next-line no-unused-vars
     execute: (organizationId, sessionId, deliveryRequest, atjsVersion) => {
       if (isUndefined(decisioningEngine)) {
@@ -547,6 +547,8 @@ function createLocalDeliveryApi(
     },
     decisioningMethod: DECISIONING_METHOD.ON_DEVICE
   };
+  localDeliveryApi.withPostMiddleware = () => localDeliveryApi;
+  return localDeliveryApi;
 }
 
 function createBeaconDeliveryApi(configuration) {
