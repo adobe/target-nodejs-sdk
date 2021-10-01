@@ -1,8 +1,9 @@
 /* eslint-disable jest/no-disabled-tests */
 import * as HttpsProxyAgent from "https-proxy-agent";
-import { defaultFetch } from "@adobe/target-tools";
-
+import { getFetchWithTelemetry } from "@adobe/target-tools";
 import TargetDecisioningEngine from "../src";
+
+const fetchWithTelemetry = getFetchWithTelemetry();
 
 /**
  * Use this method to proxy requests to Proxyman or Charles Proxy
@@ -14,7 +15,7 @@ function getFetchWithProxy() {
   const ProxyAgent = HttpsProxyAgent.default;
 
   return (url, options) => {
-    return defaultFetch(url, {
+    return fetchWithTelemetry(url, {
       ...options,
       agent: new ProxyAgent("http://127.0.0.1:9090")
     });
@@ -24,7 +25,7 @@ function getFetchWithProxy() {
 const TEST_CONF = {
   client: "targettesting",
   organizationId: "74F652E95F1B16FE0A495C92@AdobeOrg",
-  fetchApi: defaultFetch, // getFetchWithProxy(),
+  fetchApi: fetchWithTelemetry, // getFetchWithProxy(),
   pollingInterval: 0,
   logger: {
     // eslint-disable-next-line no-console

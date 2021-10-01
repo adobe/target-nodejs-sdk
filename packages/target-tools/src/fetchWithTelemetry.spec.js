@@ -1,4 +1,6 @@
-import fetchImpl from "./fetchWithTelemetry";
+import getFetchWithTelemetry from "./fetchWithTelemetry";
+
+const realFetchImpl = getFetchWithTelemetry();
 
 describe("fetchWithTelemetry", () => {
   const URL = "https://api.github.com/organizations?per_page=1";
@@ -10,8 +12,20 @@ describe("fetchWithTelemetry", () => {
     }
   };
 
+  let mockRequestImpl;
+  const getMockFetchImpl = (writeFn = jest.fn()) => {
+    mockRequestImpl = jest.fn().mockReturnValue({
+      socket: jest.fn(),
+      once: jest.fn(),
+      setTimeout: jest.fn(),
+      write: writeFn,
+      end: jest.fn()
+    });
+    return getFetchWithTelemetry(mockRequestImpl);
+  };
+
   it("returns request timings on response", async () => {
-    const response = await fetchImpl(URL, REQUEST_OPTS);
+    const response = await realFetchImpl(URL, REQUEST_OPTS);
 
     expect(Object.keys(response.timings).length).toBe(5);
     expect(response.timings).toEqual(
@@ -26,7 +40,7 @@ describe("fetchWithTelemetry", () => {
   });
 
   it("formats response to match fetch response to maintain cross-compatibility", async () => {
-    const response = await fetchImpl(URL, REQUEST_OPTS);
+    const response = await realFetchImpl(URL, REQUEST_OPTS);
 
     expect(response.data).toEqual(JSON.parse(response.response));
     expect(response.status).toEqual(200);
@@ -45,20 +59,122 @@ describe("fetchWithTelemetry", () => {
       message: expect.stringContaining("Request forbidden")
     };
 
-    await expect(fetchImpl(URL, {})).rejects.toEqual(
+    await expect(realFetchImpl(URL, {})).rejects.toEqual(
       expect.objectContaining(expectedErr)
     );
   });
 
-  it("handles socket-level error properly", async () => {
+  it("does not throw 'Protocol http: not supported' error", async () => {
     const expectedErr = {
       status: "error",
       message: expect.stringContaining("ENOTFOUND"),
       statusCode: undefined
     };
 
-    await expect(fetchImpl("http://sx125vz.com/")).rejects.toEqual(
+    await expect(realFetchImpl("http://sx125vz.com/")).rejects.toEqual(
       expect.objectContaining(expectedErr)
     );
+  });
+
+  it("handles socket-level error properly for https", async () => {
+    const expectedErr = {
+      status: "error",
+      message: expect.stringContaining("ENOTFOUND"),
+      statusCode: undefined
+    };
+
+    await expect(realFetchImpl("https://sx125vz.com/")).rejects.toEqual(
+      expect.objectContaining(expectedErr)
+    );
+  });
+
+  it("fails to send a request using an invalid protocol", async () => {
+    const url = "wss://myspace.com/friends/top8";
+    const expectedErr = {
+      message:
+        "Request URL is invalid.  Must use either http or https protocol."
+    };
+
+    await expect(realFetchImpl(url)).rejects.toEqual(
+      expect.objectContaining(expectedErr)
+    );
+  });
+
+  it("sends a valid GET request using http", async () => {
+    const writeFn = jest.fn();
+    const mockFetchImpl = getMockFetchImpl(writeFn);
+    const url = "http://myspace.com/friends/top8";
+
+    mockFetchImpl(url);
+
+    expect(mockRequestImpl).toBeCalledWith(
+      expect.objectContaining({
+        method: "GET",
+        protocol: "http:",
+        host: "myspace.com",
+        path: "/friends/top8",
+        headers: undefined,
+        agent: expect.any(Object)
+      }),
+      expect.any(Function)
+    );
+
+    expect(writeFn).not.toHaveBeenCalled();
+  });
+
+  it("sends a valid GET request using https", async () => {
+    const writeFn = jest.fn();
+    const mockFetchImpl = getMockFetchImpl(writeFn);
+    const url = "https://myspace.com/friends/top8?sort=name&limit=4";
+    const customHeaders = {
+      "Content-Type": "application/json"
+    };
+    const requestOpts = {
+      headers: customHeaders
+    };
+
+    mockFetchImpl(url, requestOpts);
+
+    expect(mockRequestImpl).toBeCalledWith(
+      expect.objectContaining({
+        method: "GET",
+        protocol: "https:",
+        host: "myspace.com",
+        path: "/friends/top8?sort=name&limit=4",
+        headers: customHeaders,
+        agent: expect.any(Object)
+      }),
+      expect.any(Function)
+    );
+
+    expect(writeFn).not.toHaveBeenCalled();
+  });
+
+  it("sends a valid POST request using https", async () => {
+    const writeFn = jest.fn();
+    const mockFetchImpl = getMockFetchImpl(writeFn);
+    const url = "https://myspace.com/friends/top8";
+    const body = {
+      name: "myfriend"
+    };
+    const requestOpts = {
+      body
+    };
+
+    mockFetchImpl(url, requestOpts);
+
+    expect(mockRequestImpl).toBeCalledWith(
+      expect.objectContaining({
+        method: "POST",
+        protocol: "https:",
+        host: "myspace.com",
+        path: "/friends/top8",
+        headers: undefined,
+        agent: expect.any(Object)
+      }),
+      expect.any(Function)
+    );
+
+    expect(writeFn).toBeCalledWith(body);
   });
 });

@@ -11,10 +11,24 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 import https from "https";
+import http from "http";
 
-const DEFAULT_AGENT = new https.Agent({
+const PROTOCOL_MAP = {
+  "http:": http.request,
+  "https:": https.request
+};
+
+const HTTPS_AGENT = new https.Agent({
   keepAlive: true
 });
+const HTTP_AGENT = new http.Agent({
+  keepAlive: true
+});
+const AGENT_MAP = {
+  "http:": HTTP_AGENT,
+  "https:": HTTPS_AGENT
+};
+
 const GET = "GET";
 const POST = "POST";
 const SECURE_PROTOCOL = "https:";
@@ -42,6 +56,9 @@ const MS_PER_NS = 1e6;
 
 const OK = 200;
 const NOT_MODIFIED = 304;
+
+const INVALID_URL =
+  "Request URL is invalid.  Must use either http or https protocol.";
 
 function getNanoSeconds() {
   const hr = process.hrtime();
@@ -134,22 +151,22 @@ function getTimings(timings, responseContent) {
 }
 
 function createRequestOptions(host, path, queryParams, requestOpts) {
-  const { body, headers, agent } = requestOpts;
+  const { body, headers, agent, protocol = SECURE_PROTOCOL } = requestOpts;
   return {
     method: body ? POST : GET,
-    protocol: SECURE_PROTOCOL,
+    protocol,
     host,
     path: queryParams ? `${path}${queryParams}` : path,
     headers,
-    agent: agent || DEFAULT_AGENT
+    agent: agent || AGENT_MAP[protocol]
   };
 }
 
-function executeRequest(options, body, timeout, callback) {
+function executeRequest(options, body, timeout, callback, requestImpl) {
   const timings = {};
   const chunks = [];
   const startTimeNow = now();
-  const request = https.request(options, res => {
+  const request = requestImpl(options, res => {
     res.setEncoding(UTF8_ENCODING);
   });
   const onLookup = () => {
@@ -240,6 +257,18 @@ function executeRequest(options, body, timeout, callback) {
   request.end();
 }
 
+function determineRequestImpl(protocol, requestImpl) {
+  if (requestImpl) {
+    return requestImpl;
+  }
+
+  const reqImpl = PROTOCOL_MAP[protocol];
+  if (!reqImpl) {
+    throw new Error(INVALID_URL);
+  }
+  return reqImpl;
+}
+
 /**
  * Invokes the REST service using the supplied settings and parameters.
  * @param {String} host The server host.
@@ -248,18 +277,25 @@ function executeRequest(options, body, timeout, callback) {
  * @param {Object} requestOpts Various request options:  body, headers, timeout, agent
  * @returns {Promise} A {@link https://www.promisejs.org/|Promise} object.
  */
-function handleRequest(host, path, queryParams, requestOpts) {
-  const { body, timeout = 10000 } = requestOpts;
+function handleRequest(host, path, queryParams, requestOpts, requestImpl) {
+  const { body, protocol, timeout = 10000 } = requestOpts;
   const options = createRequestOptions(host, path, queryParams, requestOpts);
   return new Promise((resolve, reject) => {
-    executeRequest(options, body, timeout, (err, response) => {
+    const callback = (err, response) => {
       if (err) {
         reject(err);
         return;
       }
 
       resolve(response);
-    });
+    };
+    executeRequest(
+      options,
+      body,
+      timeout,
+      callback,
+      determineRequestImpl(protocol, requestImpl)
+    );
   });
 }
 
@@ -268,14 +304,22 @@ function handleRequest(host, path, queryParams, requestOpts) {
  * The request/response interface align with the browser fetch implementation to preserve cross-compatibility.
  * @param {String} url The request url
  * @param {Object} requestOpts Options that can be used to configure the request (optional)
+ * @param {Function} requestImpl Low-level request function that can be used to override the default http/s module (optional)
  * @return {Promise<import("../types/FetchResponse").FetchResponse>}
  */
-function fetch(url, requestOpts = {}) {
+function fetchWithTelemetry(url, requestOpts, requestImpl) {
   const urlObject = new URL(url);
   const host = urlObject.hostname;
   const path = urlObject.pathname;
   const queryParams = urlObject.search;
-  return handleRequest(host, path, queryParams, requestOpts);
+  requestOpts.protocol = urlObject.protocol;
+  return handleRequest(host, path, queryParams, requestOpts, requestImpl);
 }
 
-export default fetch;
+function getFetchWithTelemetry(requestImpl) {
+  return function fetch(url, options = {}) {
+    return fetchWithTelemetry(url, options, requestImpl);
+  };
+}
+
+export default getFetchWithTelemetry;

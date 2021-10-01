@@ -105,4 +105,4 @@ export { default as parseURI } from "parse-uri";
 
 export { default as uuid } from "./uuid";
 
-export { default as defaultFetch } from "./fetchWithTelemetry";
+export { default as getFetchWithTelemetry } from "./fetchWithTelemetry";
