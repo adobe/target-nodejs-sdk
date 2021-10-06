@@ -1,4 +1,4 @@
-import { TelemetryProvider } from "./telemetryProvider";
+import TelemetryProvider from "./telemetryProvider";
 import { DECISIONING_METHOD, EXECUTION_MODE } from "./enums";
 import { noop } from "./utils";
 
@@ -27,16 +27,17 @@ describe("TelemetryProvider", () => {
 
     const provider = TelemetryProvider(mockExecute);
 
-    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY, STATUS_OK);
-    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY, STATUS_OK);
-    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY, STATUS_OK);
+    provider.addRequestEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY, STATUS_OK);
+    provider.addRequestEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY, STATUS_OK);
+    provider.addRequestEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY, STATUS_OK);
 
-    expect(provider.getEntries().length).toBe(3);
+    expect(provider.hasEntries()).toBe(true);
 
     provider.executeTelemetries(TARGET_NOTIFICATION_REQUEST);
 
-    expect(provider.getEntries().length).toBe(0);
+    expect(provider.getAndClearEntries().length).toBe(0);
     expect(mockExecute.mock.calls.length).toBe(1);
+    expect(mockExecute.mock.calls[0][1].length).toBe(3);
     expect(mockExecute.mock.calls[0][0]).toEqual(
       expect.objectContaining({
         notifications: expect.any(Array)
@@ -65,9 +66,6 @@ describe("TelemetryProvider", () => {
         }
       })
     );
-
-    const entries = provider.getEntries();
-    expect(entries.length).toEqual(0);
   });
 
   it("adds render entries", () => {
@@ -78,7 +76,7 @@ describe("TelemetryProvider", () => {
       TARGET_TELEMETRY_ENTRY.execution
     );
 
-    const entries = provider.getEntries();
+    const entries = provider.getAndClearEntries();
 
     expect(entries.length).toBe(1);
     expect(entries[0]).toEqual(
@@ -93,20 +91,20 @@ describe("TelemetryProvider", () => {
   it("assigns local execution mode", () => {
     const provider = TelemetryProvider(noop);
 
-    provider.addEntry(
+    provider.addRequestEntry(
       TARGET_REQUEST,
       TARGET_TELEMETRY_ENTRY,
       STATUS_OK,
       DECISIONING_METHOD.ON_DEVICE
     );
-    provider.addEntry(
+    provider.addRequestEntry(
       TARGET_REQUEST,
       TARGET_TELEMETRY_ENTRY,
       STATUS_OK,
       DECISIONING_METHOD.HYBRID
     );
 
-    const entries = provider.getEntries();
+    const entries = provider.getAndClearEntries();
 
     expect(entries[0].mode).toEqual(EXECUTION_MODE.LOCAL);
     expect(entries[1].mode).toEqual(EXECUTION_MODE.LOCAL);
@@ -115,26 +113,26 @@ describe("TelemetryProvider", () => {
   it("assigns edge execution mode", () => {
     const provider = TelemetryProvider(noop);
 
-    provider.addEntry(
+    provider.addRequestEntry(
       TARGET_REQUEST,
       TARGET_TELEMETRY_ENTRY,
       STATUS_OK,
       DECISIONING_METHOD.SERVER_SIDE
     );
-    provider.addEntry(
+    provider.addRequestEntry(
       TARGET_REQUEST,
       TARGET_TELEMETRY_ENTRY,
       PARTIAL_CONTENT,
       DECISIONING_METHOD.ON_DEVICE
     );
-    provider.addEntry(
+    provider.addRequestEntry(
       TARGET_REQUEST,
       TARGET_TELEMETRY_ENTRY,
       PARTIAL_CONTENT,
       DECISIONING_METHOD.HYBRID
     );
 
-    const entries = provider.getEntries();
+    const entries = provider.getAndClearEntries();
 
     expect(entries[0].mode).toEqual(EXECUTION_MODE.EDGE);
     expect(entries[1].mode).toEqual(EXECUTION_MODE.EDGE);
@@ -146,9 +144,9 @@ describe("TelemetryProvider", () => {
 
     const provider = TelemetryProvider(mockExecute, false);
 
-    provider.addEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY);
+    provider.addRequestEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY);
 
-    const entries = provider.getEntries();
+    const entries = provider.getAndClearEntries();
     expect(entries.length).toEqual(0);
 
     provider.executeTelemetries(TARGET_NOTIFICATION_REQUEST);

@@ -1,6 +1,23 @@
 /* eslint-disable import/prefer-default-export */
-import now from "performance-now";
 import { isDefined, isUndefined } from "./utils";
+
+const NS_PER_SEC = 1e9;
+const MS_PER_NS = 1e6;
+
+function getNanoSeconds() {
+  const hr = process.hrtime();
+
+  return hr[0] * NS_PER_SEC + hr[1];
+}
+
+const UP_TIME = process.uptime() * NS_PER_SEC;
+const MODULE_LOAD_TIME = getNanoSeconds();
+const NODE_LOAD_TIME = MODULE_LOAD_TIME - UP_TIME;
+
+// Same nano-precision implementation as performance-now lib
+export function now() {
+  return (getNanoSeconds() - NODE_LOAD_TIME) / MS_PER_NS;
+}
 
 export function createPerfToolInstance() {
   let timingIds = {};

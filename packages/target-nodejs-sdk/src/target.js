@@ -19,7 +19,7 @@ import {
   getProperty,
   isDefined,
   requiresDecisioningEngine,
-  createPerfToolInstance
+  perfTool
 } from "@adobe/target-tools";
 import { Messages } from "./messages";
 import {
@@ -34,8 +34,6 @@ import {
   processResponse
 } from "./helper";
 import { parseCookies } from "./cookies";
-
-const timingTool = createPerfToolInstance();
 
 export function executeDelivery(options, telemetryProvider, decisioningEngine) {
   const {
@@ -127,7 +125,7 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
     host,
     JSON.stringify(deliveryRequest, null, 2)
   );
-  timingTool.timeStart(deliveryRequest.requestId);
+  perfTool.timeStart(deliveryRequest.requestId);
 
   let timings;
   function collectRequestTimings(httpResponse) {
@@ -139,7 +137,7 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
     .withPostMiddleware(collectRequestTimings)
     .execute(organizationId, sessionId, deliveryRequest, config.version)
     .then((response = {}) => {
-      const endTime = timingTool.timeEnd(deliveryRequest.requestId);
+      const executionTime = perfTool.timeEnd(deliveryRequest.requestId);
 
       logger.debug(
         Messages.RESPONSE_RECEIVED,
@@ -147,14 +145,16 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
       );
 
       const entry = {
-        execution: endTime
+        execution: executionTime
       };
 
       if (timings) {
+        entry.parsing = timings.parsingTime;
+        delete timings.parsingTime;
         entry.request = timings;
       }
 
-      telemetryProvider.addEntry(
+      telemetryProvider.addRequestEntry(
         deliveryRequest,
         entry,
         response.status,

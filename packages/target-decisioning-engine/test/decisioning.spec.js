@@ -111,7 +111,7 @@ describe("decisioning engine", () => {
 
       const result = await decisioning.getOffers(input);
 
-      telemetryProvider.addEntry(
+      telemetryProvider.addRequestEntry(
         result,
         { execution: 1 },
         result.status,
