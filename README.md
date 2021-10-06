@@ -57,11 +57,6 @@ Production dependencies include:
   "@adobe-mcid/visitor-js-server": {
     "version": "2.0.0",
     "license": "Adobe Proprietary license"
-  },
-  "node-fetch": {
-    "version": "2.6.1",
-    "license": "MIT",
-    "repository": "https://github.com/node-fetch/node-fetch"
   }
 }
 ```
