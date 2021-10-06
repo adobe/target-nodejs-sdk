@@ -100,6 +100,28 @@ describe("fetchWithTelemetry", () => {
     );
   });
 
+  it("sends a valid GET request for .json file", async () => {
+    const writeFn = jest.fn();
+    const mockFetchImpl = getMockFetchImpl(writeFn);
+    const url = "http://myspace.com/friends/export.json";
+
+    mockFetchImpl(url);
+
+    expect(mockRequestImpl).toBeCalledWith(
+      expect.objectContaining({
+        method: "GET",
+        protocol: "http:",
+        host: "myspace.com",
+        path: "/friends/export.json",
+        headers: undefined,
+        agent: expect.any(Object)
+      }),
+      expect.any(Function)
+    );
+
+    expect(writeFn).not.toHaveBeenCalled();
+  });
+
   it("sends a valid GET request using http", async () => {
     const writeFn = jest.fn();
     const mockFetchImpl = getMockFetchImpl(writeFn);
