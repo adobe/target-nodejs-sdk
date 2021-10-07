@@ -19,7 +19,7 @@ if (isNodeJS()) {
   const nodeLoadTime = moduleLoadTime - upTime;
 
   // Same nano-precision implementation as performance-now lib
-  nodeJsNow = function () {
+  nodeJsNow = function nanoPrecisionNow() {
     return (getNanoSeconds() - nodeLoadTime) / MS_PER_NS;
   };
 }
