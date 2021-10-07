@@ -12,7 +12,7 @@ governing permissions and limitations under the License.
 */
 import https from "https";
 import http from "http";
-import { now } from "./perftool";
+import now from "./now";
 
 const PROTOCOL_MAP = {
   "http:": http.request,
