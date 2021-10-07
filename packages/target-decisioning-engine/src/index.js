@@ -13,7 +13,7 @@ import { GeoProvider } from "./geoProvider";
  * The TargetDecisioningEngine initialize method
  * @param {import("../types/DecisioningConfig").DecisioningConfig} config Options map, required
  */
-export default function TargetDecisioningEngine(config) {
+export default function TargetDecisioningEngine(config, telemetryProvider) {
   const logger = getLogger(config.logger);
   let artifactProvider;
   let artifact;
@@ -75,10 +75,13 @@ export default function TargetDecisioningEngine(config) {
     return isDefined(artifact);
   }
 
-  return ArtifactProvider({
-    ...config,
-    logger
-  }).then(providerInstance => {
+  return ArtifactProvider(
+    {
+      ...config,
+      logger
+    },
+    telemetryProvider
+  ).then(providerInstance => {
     artifactProvider = providerInstance;
     artifact = artifactProvider.getArtifact();
 

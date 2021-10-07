@@ -67,25 +67,28 @@ export default function bootstrap(fetchApi) {
       if (requiresDecisioningEngine(options.decisioningMethod)) {
         Promise.all([
           requestLocationHintCookie(this, this.config.targetLocationHint),
-          TargetDecisioningEngine({
-            client: options.client,
-            organizationId: options.organizationId,
-            pollingInterval: options.pollingInterval,
-            maximumWaitReady: options.maximumWaitReady,
-            artifactFormat: options.artifactFormat,
-            artifactLocation: options.artifactLocation,
-            artifactPayload: options.artifactPayload,
-            propertyToken: options.propertyToken,
-            environment: options.environment,
-            cdnEnvironment: options.cdnEnvironment,
-            cdnBasePath: options.cdnBasePath,
-            logger: this.logger,
-            telemetryEnabled: options.telemetryEnabled,
-            fetchApi: fetchImpl,
-            eventEmitter,
-            sendNotificationFunc: notificationOptions =>
-              this.sendNotifications(notificationOptions)
-          })
+          TargetDecisioningEngine(
+            {
+              client: options.client,
+              organizationId: options.organizationId,
+              pollingInterval: options.pollingInterval,
+              maximumWaitReady: options.maximumWaitReady,
+              artifactFormat: options.artifactFormat,
+              artifactLocation: options.artifactLocation,
+              artifactPayload: options.artifactPayload,
+              propertyToken: options.propertyToken,
+              environment: options.environment,
+              cdnEnvironment: options.cdnEnvironment,
+              cdnBasePath: options.cdnBasePath,
+              logger: this.logger,
+              telemetryEnabled: options.telemetryEnabled,
+              fetchApi: fetchImpl,
+              eventEmitter,
+              sendNotificationFunc: notificationOptions =>
+                this.sendNotifications(notificationOptions)
+            },
+            this.telemetryProvider
+          )
         ])
           // eslint-disable-next-line no-unused-vars
           .then(([locationHintResponse, decisioningEngine]) => {

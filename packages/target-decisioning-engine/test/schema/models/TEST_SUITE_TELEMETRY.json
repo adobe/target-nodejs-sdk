@@ -40,11 +40,23 @@
           "telemetry": {
             "entries": [
               {
+                  "requestId": "expect.any(String)",
+                  "timestamp": "expect.any(Number)",
+                  "execution": "expect.any(Number)"
+              },
+              {
                 "requestId": "expect.any(String)",
                 "timestamp": "expect.any(Number)",
                 "execution": "expect.any(Number)",
+                "parsing": "expect.any(Number)",
+                "mode": "local",
                 "features": {
-                  "decisioningMethod": "on-device"
+                  "decisioningMethod": "on-device",
+                  "executeMboxCount": 0,
+                  "executePageLoad": false,
+                  "prefetchMboxCount": 1,
+                  "prefetchPageLoad": false,
+                  "prefetchViewCount": 0
                 }
               }
             ]

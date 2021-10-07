@@ -1,4 +1,5 @@
 /* eslint-disable import/prefer-default-export */
+/* eslint no-param-reassign: ['error', { 'props': false }] */
 /*
 Copyright 2021 Adobe. All rights reserved.
 This file is licensed to you under the Apache License, Version 2.0 (the "License");
@@ -50,40 +51,57 @@ export default function TelemetryProvider(
       return;
     }
 
-    const timestamp = now();
-
     telemetryDao.addEntry({
       requestId: renderId,
-      timestamp,
+      timestamp: now(),
       execution
+    });
+  }
+
+  function addRequestEntry(requestId, entry) {
+    telemetryDao.addEntry({
+      requestId,
+      timestamp: now(),
+      ...entry
     });
   }
 
   /**
    * @param {import("@adobe/target-tools/delivery-api-client/models/TelemetryEntry").TelemetryEntry} entry
    */
-  function addRequestEntry(request, entry, status, decisioningMethod = method) {
+  function addArtifactRequestEntry(requestId, entry) {
+    if (!telemetryEnabled || !entry) {
+      return;
+    }
+    addRequestEntry(requestId, entry);
+  }
+
+  /**
+   * @param {import("@adobe/target-tools/delivery-api-client/models/TelemetryEntry").TelemetryEntry} entry
+   */
+  function addDeliveryRequestEntry(
+    request,
+    entry,
+    status,
+    decisioningMethod = method
+  ) {
     if (!telemetryEnabled || !entry) {
       return;
     }
 
-    const { requestId } = request;
-    const timestamp = now();
+    entry.mode = getMode(status, decisioningMethod);
+    entry.features = {
+      decisioningMethod,
+      executePageLoad: isExecutePageLoad(request),
+      executeMboxCount: executeMboxCount(request),
+      prefetchPageLoad: isPrefetchPageLoad(request),
+      prefetchMboxCount: prefetchMboxCount(request),
+      prefetchViewCount: prefetchViewCount(request)
+    };
 
-    telemetryDao.addEntry({
-      requestId,
-      timestamp,
-      mode: getMode(status, decisioningMethod),
-      features: {
-        decisioningMethod,
-        executePageLoad: isExecutePageLoad(request),
-        executeMboxCount: executeMboxCount(request),
-        prefetchPageLoad: isPrefetchPageLoad(request),
-        prefetchMboxCount: prefetchMboxCount(request),
-        prefetchViewCount: prefetchViewCount(request)
-      },
-      ...entry
-    });
+    const { requestId } = request;
+
+    addRequestEntry(requestId, entry);
   }
 
   function getAndClearEntries() {
@@ -104,7 +122,8 @@ export default function TelemetryProvider(
   }
 
   return {
-    addRequestEntry,
+    addDeliveryRequestEntry,
+    addArtifactRequestEntry,
     addRenderEntry,
     getAndClearEntries,
     hasEntries,

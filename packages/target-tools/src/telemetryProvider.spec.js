@@ -11,6 +11,7 @@ describe("TelemetryProvider", () => {
   };
   const TARGET_TELEMETRY_ENTRY = {
     execution: 1,
+    parsing: 2,
     request: {
       dns: 13.205916000000002,
       tls: 66.416338,
@@ -22,14 +23,18 @@ describe("TelemetryProvider", () => {
   const STATUS_OK = 200;
   const PARTIAL_CONTENT = 206;
 
-  it("adds and executes entries", () => {
+  it("adds and executes Delivery request entries", () => {
     const mockExecute = jest.fn();
 
     const provider = TelemetryProvider(mockExecute);
 
-    provider.addRequestEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY, STATUS_OK);
-    provider.addRequestEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY, STATUS_OK);
-    provider.addRequestEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY, STATUS_OK);
+    for (let i = 0; i < 3; i += 1) {
+      provider.addDeliveryRequestEntry(
+        TARGET_REQUEST,
+        TARGET_TELEMETRY_ENTRY,
+        STATUS_OK
+      );
+    }
 
     expect(provider.hasEntries()).toBe(true);
 
@@ -57,6 +62,7 @@ describe("TelemetryProvider", () => {
           prefetchViewCount: expect.any(Number)
         },
         execution: 1,
+        parsing: 2,
         request: {
           dns: expect.any(Number),
           tls: expect.any(Number),
@@ -91,13 +97,13 @@ describe("TelemetryProvider", () => {
   it("assigns local execution mode", () => {
     const provider = TelemetryProvider(noop);
 
-    provider.addRequestEntry(
+    provider.addDeliveryRequestEntry(
       TARGET_REQUEST,
       TARGET_TELEMETRY_ENTRY,
       STATUS_OK,
       DECISIONING_METHOD.ON_DEVICE
     );
-    provider.addRequestEntry(
+    provider.addDeliveryRequestEntry(
       TARGET_REQUEST,
       TARGET_TELEMETRY_ENTRY,
       STATUS_OK,
@@ -113,19 +119,19 @@ describe("TelemetryProvider", () => {
   it("assigns edge execution mode", () => {
     const provider = TelemetryProvider(noop);
 
-    provider.addRequestEntry(
+    provider.addDeliveryRequestEntry(
       TARGET_REQUEST,
       TARGET_TELEMETRY_ENTRY,
       STATUS_OK,
       DECISIONING_METHOD.SERVER_SIDE
     );
-    provider.addRequestEntry(
+    provider.addDeliveryRequestEntry(
       TARGET_REQUEST,
       TARGET_TELEMETRY_ENTRY,
       PARTIAL_CONTENT,
       DECISIONING_METHOD.ON_DEVICE
     );
-    provider.addRequestEntry(
+    provider.addDeliveryRequestEntry(
       TARGET_REQUEST,
       TARGET_TELEMETRY_ENTRY,
       PARTIAL_CONTENT,
@@ -144,7 +150,7 @@ describe("TelemetryProvider", () => {
 
     const provider = TelemetryProvider(mockExecute, false);
 
-    provider.addRequestEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY);
+    provider.addDeliveryRequestEntry(TARGET_REQUEST, TARGET_TELEMETRY_ENTRY);
 
     const entries = provider.getAndClearEntries();
     expect(entries.length).toEqual(0);
@@ -152,5 +158,44 @@ describe("TelemetryProvider", () => {
     provider.executeTelemetries(TARGET_NOTIFICATION_REQUEST);
 
     expect(mockExecute.mock.calls.length).toBe(0);
+  });
+
+  it("adds and executes artifact request entries", () => {
+    const mockExecute = jest.fn();
+    const requestId = "ArtifactRequest";
+
+    const provider = TelemetryProvider(mockExecute);
+
+    for (let i = 0; i < 3; i += 1) {
+      provider.addArtifactRequestEntry(requestId, TARGET_TELEMETRY_ENTRY);
+    }
+
+    expect(provider.hasEntries()).toBe(true);
+
+    provider.executeTelemetries(TARGET_NOTIFICATION_REQUEST);
+
+    expect(provider.getAndClearEntries().length).toBe(0);
+    expect(mockExecute.mock.calls.length).toBe(1);
+    expect(mockExecute.mock.calls[0][1].length).toBe(3);
+    expect(mockExecute.mock.calls[0][0]).toEqual(
+      expect.objectContaining({
+        notifications: expect.any(Array)
+      })
+    );
+    expect(mockExecute.mock.calls[0][1][0]).toEqual(
+      expect.objectContaining({
+        requestId,
+        timestamp: expect.any(Number),
+        execution: 1,
+        parsing: 2,
+        request: {
+          dns: expect.any(Number),
+          tls: expect.any(Number),
+          timeToFirstByte: expect.any(Number),
+          download: expect.any(Number),
+          responseSize: expect.any(Number)
+        }
+      })
+    );
   });
 });

@@ -138,6 +138,7 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
     .execute(organizationId, sessionId, deliveryRequest, config.version)
     .then((response = {}) => {
       const executionTime = perfTool.timeEnd(deliveryRequest.requestId);
+      perfTool.clearTiming(deliveryRequest.requestId);
 
       logger.debug(
         Messages.RESPONSE_RECEIVED,
@@ -154,7 +155,7 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
         entry.request = timings;
       }
 
-      telemetryProvider.addRequestEntry(
+      telemetryProvider.addDeliveryRequestEntry(
         deliveryRequest,
         entry,
         response.status,

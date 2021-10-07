@@ -101,19 +101,22 @@ describe("decisioning engine", () => {
         DECISIONING_METHOD.ON_DEVICE
       );
 
-      decisioning = await TargetDecisioningEngine({
-        ...conf,
-        sendNotificationFunc,
-        artifactFormat: ARTIFACT_FORMAT_JSON // setting this tells the artifactProvider deobfuscation is not needed
-      });
+      decisioning = await TargetDecisioningEngine(
+        {
+          ...conf,
+          sendNotificationFunc,
+          artifactFormat: ARTIFACT_FORMAT_JSON // setting this tells the artifactProvider deobfuscation is not needed
+        },
+        telemetryProvider
+      );
 
       expect(decisioning.getRawArtifact()).toEqual(artifact);
 
       const result = await decisioning.getOffers(input);
 
-      telemetryProvider.addRequestEntry(
+      telemetryProvider.addDeliveryRequestEntry(
         result,
-        { execution: 1 },
+        { execution: 1, parsing: 2 },
         result.status,
         DECISIONING_METHOD.ON_DEVICE
       );

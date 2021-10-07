@@ -264,7 +264,7 @@ describe("telemetry mode", () => {
             DECISIONING_METHOD.SERVER_SIDE
           );
           setTimeout(() => {
-            expect(executeTelemetries.mock.calls.length).toBe(1);
+            expect(executeTelemetries.mock.calls.length).toBe(2);
             done();
           }, 500);
         }
