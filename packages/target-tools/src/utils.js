@@ -273,15 +273,6 @@ export function memoize(func, keyResolverFunc = arr => arr[0]) {
   };
 }
 
-export function executeTelemetries(deliveryRequest, telemetryEntries) {
-  return {
-    ...deliveryRequest,
-    telemetry: {
-      entries: telemetryEntries
-    }
-  };
-}
-
 export function isExecutePageLoad(request) {
   return !!request.execute && !!request.execute.pageLoad;
 }

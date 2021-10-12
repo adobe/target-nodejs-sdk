@@ -1,5 +1,4 @@
 /* eslint-disable import/prefer-default-export */
-/* eslint no-param-reassign: ['error', { 'props': false }] */
 /*
 Copyright 2021 Adobe. All rights reserved.
 This file is licensed to you under the Apache License, Version 2.0 (the "License");
@@ -21,19 +20,20 @@ import {
   prefetchMboxCount,
   prefetchViewCount
 } from "./utils";
-import InMemoryTelemetryDao from "./inMemoryTelemetryDao";
+import InMemoryTelemetryStore from "./InMemoryTelemetryStore";
 
 const STATUS_OK = 200;
 
 /**
  * The get TelemetryProvider initialization method
- * @param {function} sendTelemetriesFunc function used to send the telemetries, required
+ * @param {Boolean} telemetryEnabled whether or not the SDK will collect telemetry data - default: true, optional
+ * @param {String} method offer decisioning method that was configured during TargetClient.create() - default: server-side, optional
+ * @param {Function} telemetryStore data store for collected telemetry - default: InMemoryTelemetryStore, optional
  */
 export default function TelemetryProvider(
-  addTelemetryToDeliveryRequest,
   telemetryEnabled = true,
   method = DECISIONING_METHOD.SERVER_SIDE,
-  telemetryDao = InMemoryTelemetryDao()
+  telemetryStore = InMemoryTelemetryStore()
 ) {
   function getMode(status, decisioningMethod) {
     if (
@@ -46,12 +46,43 @@ export default function TelemetryProvider(
     return EXECUTION_MODE.EDGE;
   }
 
+  function getFeatures(request) {
+    const features = {};
+    const executePageLoad = isExecutePageLoad(request);
+    const executeMbox = executeMboxCount(request);
+    const prefetchPageLoad = isPrefetchPageLoad(request);
+    const prefetchMbox = prefetchMboxCount(request);
+    const prefetchView = prefetchViewCount(request);
+
+    if (executePageLoad) {
+      features.executePageLoad = executePageLoad;
+    }
+
+    if (executeMbox) {
+      features.executeMboxCount = executeMbox;
+    }
+
+    if (prefetchPageLoad) {
+      features.prefetchPageLoad = prefetchPageLoad;
+    }
+
+    if (prefetchMbox) {
+      features.prefetchMboxCount = prefetchMbox;
+    }
+
+    if (prefetchView) {
+      features.prefetchViewCount = prefetchView;
+    }
+
+    return features;
+  }
+
   function addRenderEntry(renderId, execution) {
     if (!telemetryEnabled) {
       return;
     }
 
-    telemetryDao.addEntry({
+    telemetryStore.addEntry({
       requestId: renderId,
       timestamp: now(),
       execution
@@ -59,7 +90,7 @@ export default function TelemetryProvider(
   }
 
   function addRequestEntry(requestId, entry) {
-    telemetryDao.addEntry({
+    telemetryStore.addEntry({
       requestId,
       timestamp: now(),
       ...entry
@@ -89,34 +120,35 @@ export default function TelemetryProvider(
       return;
     }
 
-    entry.mode = getMode(status, decisioningMethod);
-    entry.features = {
-      decisioningMethod,
-      executePageLoad: isExecutePageLoad(request),
-      executeMboxCount: executeMboxCount(request),
-      prefetchPageLoad: isPrefetchPageLoad(request),
-      prefetchMboxCount: prefetchMboxCount(request),
-      prefetchViewCount: prefetchViewCount(request)
+    const { requestId } = request;
+    const deliveryRequestEntry = {
+      ...entry,
+      mode: getMode(status, decisioningMethod),
+      features: {
+        ...getFeatures(request),
+        decisioningMethod
+      }
     };
 
-    const { requestId } = request;
-
-    addRequestEntry(requestId, entry);
+    addRequestEntry(requestId, deliveryRequestEntry);
   }
 
   function getAndClearEntries() {
-    return telemetryDao.getAndClearEntries();
+    return telemetryStore.getAndClearEntries();
   }
 
   function hasEntries() {
-    return telemetryDao.hasEntries();
+    return telemetryStore.hasEntries();
   }
 
-  function executeTelemetries(deliveryRequest) {
+  function addTelemetryToDeliveryRequest(deliveryRequest) {
     if (hasEntries()) {
-      const entries = getAndClearEntries();
-      const result = addTelemetryToDeliveryRequest(deliveryRequest, entries);
-      return result;
+      return {
+        ...deliveryRequest,
+        telemetry: {
+          entries: getAndClearEntries()
+        }
+      };
     }
     return deliveryRequest;
   }
@@ -127,6 +159,6 @@ export default function TelemetryProvider(
     addRenderEntry,
     getAndClearEntries,
     hasEntries,
-    executeTelemetries
+    addTelemetryToDeliveryRequest
   };
 }

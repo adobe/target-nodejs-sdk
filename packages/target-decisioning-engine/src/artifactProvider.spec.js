@@ -31,7 +31,7 @@ require("jest-fetch-mock").enableMocks();
 
 describe("artifactProvider", () => {
   let provider;
-  const telemetryProvider = TelemetryProvider(jest.fn());
+  const telemetryProvider = TelemetryProvider();
   telemetryProvider.addArtifactRequestEntry = jest.fn();
 
   const TEST_CONF = {

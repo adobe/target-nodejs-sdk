@@ -14,7 +14,6 @@ import {
   requiresDecisioningEngine,
   timeLimitExceeded,
   whenReady,
-  executeTelemetries,
   isExecutePageLoad,
   executeMboxCount,
   isPrefetchPageLoad,
@@ -388,33 +387,6 @@ describe("utils", () => {
       return expect(
         whenReady(isReady, 100, "not ready in time")
       ).rejects.toEqual(new Error("not ready in time"));
-    });
-  });
-
-  it("executeTelemetries", () => {
-    const result = executeTelemetries(
-      {
-        context: { channel: "web" }
-      },
-      [
-        {
-          requestId: "123"
-        }
-      ]
-    );
-
-    expect(result).toEqual(
-      expect.objectContaining({
-        context: {
-          channel: "web"
-        },
-        telemetry: {
-          entries: expect.any(Array)
-        }
-      })
-    );
-    expect(result.telemetry.entries[0]).toMatchObject({
-      requestId: "123"
     });
   });
 

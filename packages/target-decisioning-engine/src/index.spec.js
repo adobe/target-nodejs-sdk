@@ -48,7 +48,7 @@ const CONFIG = {
 };
 
 describe("TargetDecisioningEngine", () => {
-  const telemetryProvider = TelemetryProvider(jest.fn());
+  const telemetryProvider = TelemetryProvider();
   let decisioning;
 
   beforeEach(async () => {

@@ -10,11 +10,11 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { noop, TelemetryProvider } = require("@adobe/target-tools");
+const { TelemetryProvider } = require("@adobe/target-tools");
 const MockDate = require("mockdate");
 const target = require("../src/target");
 
-const telemetryProvider = TelemetryProvider(noop, false);
+const telemetryProvider = TelemetryProvider(false);
 
 const testLogger = {
   debug: message => message,

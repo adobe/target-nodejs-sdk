@@ -19,8 +19,7 @@ import {
   getFetchApi,
   getLogger,
   requiresDecisioningEngine,
-  TelemetryProvider,
-  executeTelemetries
+  TelemetryProvider
 } from "@adobe/target-tools";
 
 import Visitor from "@adobe-mcid/visitor-js-server";
@@ -58,7 +57,6 @@ export default function bootstrap(fetchApi) {
       this.config.timeout = options.timeout || DEFAULT_TIMEOUT;
       this.logger = getLogger(options.logger);
       this.telemetryProvider = TelemetryProvider(
-        executeTelemetries,
         options.telemetryEnabled,
         options.decisioningMethod
       );

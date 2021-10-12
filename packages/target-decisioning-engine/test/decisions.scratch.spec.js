@@ -2,7 +2,6 @@
 import * as HttpsProxyAgent from "https-proxy-agent";
 import {
   DECISIONING_METHOD,
-  executeTelemetries,
   getFetchWithTelemetry,
   TelemetryProvider
 } from "@adobe/target-tools";
@@ -12,7 +11,6 @@ const fetchWithTelemetry = getFetchWithTelemetry();
 
 const TELEMETRY_ENABLED = false;
 const telemetryProvider = TelemetryProvider(
-  executeTelemetries,
   TELEMETRY_ENABLED,
   DECISIONING_METHOD.ON_DEVICE
 );

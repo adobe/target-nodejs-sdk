@@ -1,15 +1,14 @@
-import { DECISIONING_METHOD, executeTelemetries } from "@adobe/target-tools";
+import { DECISIONING_METHOD } from "@adobe/target-tools";
+import mockTelemetryProvider from "./mockTelemetryProvider";
+
+jest.mock("@adobe/target-tools", () => ({
+  ...jest.requireActual("@adobe/target-tools"),
+  TelemetryProvider: () => mockTelemetryProvider
+}));
 
 require("jest-fetch-mock").enableMocks();
 
 const DECISIONING_PAYLOAD_FEATURE_FLAG = require("@adobe/target-decisioning-engine/test/schema/artifacts/TEST_ARTIFACT_FEATURE_FLAG.json");
-
-jest.mock("@adobe/target-tools", () => ({
-  ...jest.requireActual("@adobe/target-tools"),
-  executeTelemetries: jest.fn(
-    jest.requireActual("@adobe/target-tools").executeTelemetries
-  )
-}));
 
 const TargetClient = require("../src/index.server").default;
 
@@ -102,17 +101,53 @@ const targetClientOptions = {
 
 describe("telemetry mode", () => {
   let client;
+  let addTelemetryToDeliveryRequestSpy;
+  let addArtifactRequestEntrySpy;
+  let addDeliveryRequestEntrySpy;
 
   beforeEach(() => {
     fetch.resetMocks();
+    jest.clearAllMocks();
+
+    mockTelemetryProvider.getAndClearEntries();
+
+    addTelemetryToDeliveryRequestSpy = jest.spyOn(
+      mockTelemetryProvider,
+      "addTelemetryToDeliveryRequest"
+    );
+
+    addArtifactRequestEntrySpy = jest.spyOn(
+      mockTelemetryProvider,
+      "addArtifactRequestEntry"
+    );
+
+    addDeliveryRequestEntrySpy = jest.spyOn(
+      mockTelemetryProvider,
+      "addDeliveryRequestEntry"
+    );
+
     if (client) {
       client = undefined;
     }
   });
 
+  function verifyTelemetryEntries(expectedCount, callNumber = 0) {
+    if (expectedCount === 0) {
+      expect(
+        addTelemetryToDeliveryRequestSpy.mock.results[callNumber].value
+          .telemetry
+      ).toBeUndefined();
+      return;
+    }
+    expect(
+      addTelemetryToDeliveryRequestSpy.mock.results[callNumber].value.telemetry
+        .entries.length
+    ).toBe(expectedCount);
+  }
+
   describe("on-device", () => {
     it("immediately executes telemetries", () => {
-      expect.assertions(1);
+      expect.assertions(4);
 
       return new Promise(done => {
         fetch
@@ -144,9 +179,13 @@ describe("telemetry mode", () => {
           });
 
           setTimeout(() => {
-            expect(executeTelemetries.mock.calls.length).toBe(1);
+            expect(addArtifactRequestEntrySpy).toHaveBeenCalledTimes(1);
+            // Called once via getOffers and subsequently for the notifications call
+            expect(addDeliveryRequestEntrySpy).toHaveBeenCalledTimes(2);
+            expect(addTelemetryToDeliveryRequestSpy).toHaveBeenCalledTimes(1);
+            verifyTelemetryEntries(2);
             done();
-          }, 500);
+          }, 100);
         }
 
         client = TargetClient.create({
@@ -160,7 +199,7 @@ describe("telemetry mode", () => {
 
   describe("hybrid", () => {
     it("executes telemetries as part of sendNotifications call when on-device used", () => {
-      expect.assertions(2);
+      expect.assertions(5);
 
       return new Promise(done => {
         fetch
@@ -187,9 +226,14 @@ describe("telemetry mode", () => {
             DECISIONING_METHOD.ON_DEVICE
           );
           setTimeout(() => {
-            expect(executeTelemetries.mock.calls.length).toBe(1);
+            expect(addArtifactRequestEntrySpy).toHaveBeenCalledTimes(1);
+            expect(addDeliveryRequestEntrySpy).toHaveBeenCalledTimes(2);
+            expect(
+              mockTelemetryProvider.addTelemetryToDeliveryRequest
+            ).toHaveBeenCalledTimes(1);
+            verifyTelemetryEntries(2);
             done();
-          }, 500);
+          }, 300);
         }
 
         client = TargetClient.create({
@@ -201,7 +245,7 @@ describe("telemetry mode", () => {
     });
 
     it("executes telemetries on next getOffers call when server-side used", () => {
-      expect.assertions(3);
+      expect.assertions(7);
 
       return new Promise(done => {
         fetch
@@ -264,9 +308,15 @@ describe("telemetry mode", () => {
             DECISIONING_METHOD.SERVER_SIDE
           );
           setTimeout(() => {
-            expect(executeTelemetries.mock.calls.length).toBe(2);
+            expect(addArtifactRequestEntrySpy).toHaveBeenCalledTimes(1);
+            expect(addDeliveryRequestEntrySpy).toHaveBeenCalledTimes(2);
+            expect(
+              mockTelemetryProvider.addTelemetryToDeliveryRequest
+            ).toHaveBeenCalledTimes(2);
+            verifyTelemetryEntries(1, 0);
+            verifyTelemetryEntries(1, 1);
             done();
-          }, 500);
+          }, 300);
         }
 
         client = TargetClient.create({
@@ -280,7 +330,7 @@ describe("telemetry mode", () => {
 
   describe("server side", () => {
     it("executes telemetries with next getOffer", () => {
-      expect.assertions(3);
+      expect.assertions(7);
 
       return new Promise(done => {
         fetch
@@ -342,9 +392,15 @@ describe("telemetry mode", () => {
             DECISIONING_METHOD.SERVER_SIDE
           );
           setTimeout(() => {
-            expect(executeTelemetries.mock.calls.length).toBe(1);
+            expect(addArtifactRequestEntrySpy).not.toHaveBeenCalled();
+            expect(addDeliveryRequestEntrySpy).toHaveBeenCalledTimes(2);
+            expect(
+              mockTelemetryProvider.addTelemetryToDeliveryRequest
+            ).toHaveBeenCalledTimes(2);
+            verifyTelemetryEntries(0, 0);
+            verifyTelemetryEntries(1, 1);
             done();
-          }, 500);
+          }, 100);
         }
 
         client = TargetClient.create({
@@ -356,7 +412,7 @@ describe("telemetry mode", () => {
     });
 
     it("executes telemetries with next sendNotifications", () => {
-      expect.assertions(3);
+      expect.assertions(7);
 
       return new Promise(done => {
         fetch
@@ -406,9 +462,15 @@ describe("telemetry mode", () => {
             DECISIONING_METHOD.SERVER_SIDE
           );
           setTimeout(() => {
-            expect(executeTelemetries.mock.calls.length).toBe(1);
+            expect(addArtifactRequestEntrySpy).not.toHaveBeenCalled();
+            expect(addDeliveryRequestEntrySpy).toHaveBeenCalledTimes(2);
+            expect(
+              mockTelemetryProvider.addTelemetryToDeliveryRequest
+            ).toHaveBeenCalledTimes(2);
+            verifyTelemetryEntries(0, 0);
+            verifyTelemetryEntries(1, 1);
             done();
-          }, 500);
+          }, 100);
         }
 
         client = TargetClient.create({

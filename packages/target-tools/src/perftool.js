@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
+import now from "performance-now";
 import { isDefined, isUndefined } from "./utils";
-import now from "./now";
 
 export function createPerfToolInstance() {
   let timingIds = {};

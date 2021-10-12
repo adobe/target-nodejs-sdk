@@ -12,6 +12,7 @@ import { GeoProvider } from "./geoProvider";
 /**
  * The TargetDecisioningEngine initialize method
  * @param {import("../types/DecisioningConfig").DecisioningConfig} config Options map, required
+ * @param {import("@adobe/target-tools/src/telemetryProvider")} telemetryProvider TelemetryProvider function, required
  */
 export default function TargetDecisioningEngine(config, telemetryProvider) {
   const logger = getLogger(config.logger);

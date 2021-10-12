@@ -29,7 +29,8 @@
   },
   "dependencies": {
     "@adobe/reactor-object-assign": "^1.0.0",
-    "parse-uri": "^1.0.0"
+    "parse-uri": "^1.0.0",
+    "performance-now": "^2.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

@@ -3,7 +3,6 @@ import {
   isDefined,
   isUndefined,
   TelemetryProvider,
-  executeTelemetries,
   DECISIONING_METHOD
 } from "@adobe/target-tools";
 
@@ -96,7 +95,6 @@ describe("decisioning engine", () => {
       fetch.mockResponses(...mockResponses);
 
       const telemetryProvider = TelemetryProvider(
-        executeTelemetries,
         conf.telemetryEnabled,
         DECISIONING_METHOD.ON_DEVICE
       );
@@ -131,7 +129,7 @@ describe("decisioning engine", () => {
         } else {
           expect(sendNotificationFunc.mock.calls.length).toEqual(1);
           const notificationPayload = sendNotificationFunc.mock.calls[0][0];
-          notificationPayload.request = telemetryProvider.executeTelemetries(
+          notificationPayload.request = telemetryProvider.addTelemetryToDeliveryRequest(
             notificationPayload.request
           );
 
