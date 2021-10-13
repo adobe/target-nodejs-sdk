@@ -1,5 +1,5 @@
 import * as HttpStatus from "http-status-codes";
-import { isDefined } from "@adobe/target-tools";
+import { isDefined, TelemetryProvider } from "@adobe/target-tools";
 import TargetDecisioningEngine from "./index";
 import * as constants from "./constants";
 import {
@@ -48,6 +48,7 @@ const CONFIG = {
 };
 
 describe("TargetDecisioningEngine", () => {
+  const telemetryProvider = TelemetryProvider();
   let decisioning;
 
   beforeEach(async () => {
@@ -65,10 +66,13 @@ describe("TargetDecisioningEngine", () => {
   it("initializes", async () => {
     fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
-    decisioning = await TargetDecisioningEngine({
-      ...CONFIG,
-      pollingInterval: 0
-    });
+    decisioning = await TargetDecisioningEngine(
+      {
+        ...CONFIG,
+        pollingInterval: 0
+      },
+      telemetryProvider
+    );
 
     expect(typeof decisioning.getOffers).toBe("function");
   });
@@ -85,10 +89,13 @@ describe("TargetDecisioningEngine", () => {
 
     fetch.mockResponses(...responses);
 
-    decisioning = await TargetDecisioningEngine({
-      ...CONFIG,
-      pollingInterval: 5
-    });
+    decisioning = await TargetDecisioningEngine(
+      {
+        ...CONFIG,
+        pollingInterval: 5
+      },
+      telemetryProvider
+    );
 
     expect(typeof decisioning.getRawArtifact).toEqual("function");
     let timer;
@@ -128,11 +135,14 @@ describe("TargetDecisioningEngine", () => {
         ["", { status: HttpStatus.INTERNAL_SERVER_ERROR }]
       );
 
-      TargetDecisioningEngine({
-        ...CONFIG,
-        pollingInterval: 0,
-        eventEmitter
-      })
+      TargetDecisioningEngine(
+        {
+          ...CONFIG,
+          pollingInterval: 0,
+          eventEmitter
+        },
+        telemetryProvider
+      )
         .then(instance => {
           decisioning = instance;
         })
@@ -156,13 +166,16 @@ describe("TargetDecisioningEngine", () => {
 
       fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
-      TargetDecisioningEngine({
-        ...CONFIG,
-        artifactFormat: ARTIFACT_FORMAT_BINARY,
-        artifactLocation: "rules.bin", // an obfuscated artifact
-        pollingInterval: 0,
-        eventEmitter
-      })
+      TargetDecisioningEngine(
+        {
+          ...CONFIG,
+          artifactFormat: ARTIFACT_FORMAT_BINARY,
+          artifactLocation: "rules.bin", // an obfuscated artifact
+          pollingInterval: 0,
+          eventEmitter
+        },
+        telemetryProvider
+      )
         .then(instance => {
           decisioning = instance;
         })
@@ -177,10 +190,13 @@ describe("TargetDecisioningEngine", () => {
   it("getOffers resolves", async () => {
     fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
-    decisioning = await TargetDecisioningEngine({
-      ...CONFIG,
-      pollingInterval: 0
-    });
+    decisioning = await TargetDecisioningEngine(
+      {
+        ...CONFIG,
+        pollingInterval: 0
+      },
+      telemetryProvider
+    );
 
     await expect(
       decisioning.getOffers({
@@ -193,10 +209,13 @@ describe("TargetDecisioningEngine", () => {
   it("getOffers gives an error if unsupported artifact version", async () => {
     fetch.mockResponse(JSON.stringify(ARTIFACT_UNSUPPORTED_VERSION));
 
-    decisioning = await TargetDecisioningEngine({
-      ...CONFIG,
-      pollingInterval: 0
-    });
+    decisioning = await TargetDecisioningEngine(
+      {
+        ...CONFIG,
+        pollingInterval: 0
+      },
+      telemetryProvider
+    );
 
     await expect(
       decisioning.getOffers({

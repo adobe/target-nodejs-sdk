@@ -1,9 +1,19 @@
 /* eslint-disable jest/no-disabled-tests */
 import * as HttpsProxyAgent from "https-proxy-agent";
-import { getFetchWithTelemetry } from "@adobe/target-tools";
+import {
+  DECISIONING_METHOD,
+  getFetchWithTelemetry,
+  TelemetryProvider
+} from "@adobe/target-tools";
 import TargetDecisioningEngine from "../src";
 
 const fetchWithTelemetry = getFetchWithTelemetry();
+
+const TELEMETRY_ENABLED = false;
+const telemetryProvider = TelemetryProvider(
+  TELEMETRY_ENABLED,
+  DECISIONING_METHOD.ON_DEVICE
+);
 
 /**
  * Use this method to proxy requests to Proxyman or Charles Proxy
@@ -59,9 +69,12 @@ describe.skip("target-decisioning-engine scratch", () => {
   let decisioning;
 
   beforeEach(async () => {
-    decisioning = await TargetDecisioningEngine({
-      ...TEST_CONF
-    });
+    decisioning = await TargetDecisioningEngine(
+      {
+        ...TEST_CONF
+      },
+      telemetryProvider
+    );
   });
 
   afterEach(() => {

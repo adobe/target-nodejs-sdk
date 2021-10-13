@@ -19,8 +19,7 @@ import {
   getFetchApi,
   getLogger,
   requiresDecisioningEngine,
-  TelemetryProvider,
-  executeTelemetries
+  TelemetryProvider
 } from "@adobe/target-tools";
 
 import Visitor from "@adobe-mcid/visitor-js-server";
@@ -58,7 +57,6 @@ export default function bootstrap(fetchApi) {
       this.config.timeout = options.timeout || DEFAULT_TIMEOUT;
       this.logger = getLogger(options.logger);
       this.telemetryProvider = TelemetryProvider(
-        executeTelemetries,
         options.telemetryEnabled,
         options.decisioningMethod
       );
@@ -67,25 +65,28 @@ export default function bootstrap(fetchApi) {
       if (requiresDecisioningEngine(options.decisioningMethod)) {
         Promise.all([
           requestLocationHintCookie(this, this.config.targetLocationHint),
-          TargetDecisioningEngine({
-            client: options.client,
-            organizationId: options.organizationId,
-            pollingInterval: options.pollingInterval,
-            maximumWaitReady: options.maximumWaitReady,
-            artifactFormat: options.artifactFormat,
-            artifactLocation: options.artifactLocation,
-            artifactPayload: options.artifactPayload,
-            propertyToken: options.propertyToken,
-            environment: options.environment,
-            cdnEnvironment: options.cdnEnvironment,
-            cdnBasePath: options.cdnBasePath,
-            logger: this.logger,
-            telemetryEnabled: options.telemetryEnabled,
-            fetchApi: fetchImpl,
-            eventEmitter,
-            sendNotificationFunc: notificationOptions =>
-              this.sendNotifications(notificationOptions)
-          })
+          TargetDecisioningEngine(
+            {
+              client: options.client,
+              organizationId: options.organizationId,
+              pollingInterval: options.pollingInterval,
+              maximumWaitReady: options.maximumWaitReady,
+              artifactFormat: options.artifactFormat,
+              artifactLocation: options.artifactLocation,
+              artifactPayload: options.artifactPayload,
+              propertyToken: options.propertyToken,
+              environment: options.environment,
+              cdnEnvironment: options.cdnEnvironment,
+              cdnBasePath: options.cdnBasePath,
+              logger: this.logger,
+              telemetryEnabled: options.telemetryEnabled,
+              fetchApi: fetchImpl,
+              eventEmitter,
+              sendNotificationFunc: notificationOptions =>
+                this.sendNotifications(notificationOptions)
+            },
+            this.telemetryProvider
+          )
         ])
           // eslint-disable-next-line no-unused-vars
           .then(([locationHintResponse, decisioningEngine]) => {

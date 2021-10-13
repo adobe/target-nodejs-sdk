@@ -3,7 +3,8 @@ import * as HttpStatus from "http-status-codes";
 import {
   ENVIRONMENT_PROD,
   ENVIRONMENT_STAGE,
-  isDefined
+  isDefined,
+  TelemetryProvider
 } from "@adobe/target-tools";
 import ArtifactProvider from "./artifactProvider";
 import * as constants from "./constants";
@@ -24,10 +25,14 @@ import {
 
 const ARTIFACT_BLANK = require("../test/schema/artifacts/TEST_ARTIFACT_BLANK.json");
 
+const ARTIFACT_DOWNLOAD = "ArtifactDownload";
+
 require("jest-fetch-mock").enableMocks();
 
 describe("artifactProvider", () => {
   let provider;
+  const telemetryProvider = TelemetryProvider();
+  telemetryProvider.addArtifactRequestEntry = jest.fn();
 
   const TEST_CONF = {
     client: "clientId",
@@ -51,11 +56,14 @@ describe("artifactProvider", () => {
   it("initializes", async () => {
     fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
-    provider = await ArtifactProvider({
-      ...TEST_CONF,
-      artifactPayload: ARTIFACT_BLANK,
-      maximumWaitReady: 500
-    });
+    provider = await ArtifactProvider(
+      {
+        ...TEST_CONF,
+        artifactPayload: ARTIFACT_BLANK,
+        maximumWaitReady: 500
+      },
+      telemetryProvider
+    );
     expect(provider).not.toBeUndefined();
     expect(provider.getArtifact()).toEqual(ARTIFACT_BLANK);
   });
@@ -63,10 +71,13 @@ describe("artifactProvider", () => {
   it("subscribes", async done => {
     fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
-    provider = await ArtifactProvider({
-      ...TEST_CONF,
-      pollingInterval: 10
-    });
+    provider = await ArtifactProvider(
+      {
+        ...TEST_CONF,
+        pollingInterval: 10
+      },
+      telemetryProvider
+    );
 
     const subscriptionId = provider.subscribe(data => {
       expect(data).toEqual(ARTIFACT_BLANK);
@@ -81,10 +92,13 @@ describe("artifactProvider", () => {
   it("polls", async done => {
     fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
-    provider = await ArtifactProvider({
-      ...TEST_CONF,
-      pollingInterval: 10
-    });
+    provider = await ArtifactProvider(
+      {
+        ...TEST_CONF,
+        pollingInterval: 10
+      },
+      telemetryProvider
+    );
 
     const mockListener = jest.fn();
 
@@ -92,19 +106,28 @@ describe("artifactProvider", () => {
 
     setTimeout(() => {
       expect(mockListener.mock.calls.length).toBeGreaterThanOrEqual(4);
+      expect(telemetryProvider.addArtifactRequestEntry).toHaveBeenCalledWith(
+        ARTIFACT_DOWNLOAD,
+        expect.objectContaining({
+          execution: expect.any(Number)
+        })
+      );
       done();
     }, 100);
   });
 
   it("polls even if artifactPayload is provided", async done => {
     fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
-    expect.assertions(1);
+    expect.assertions(2);
 
-    provider = await ArtifactProvider({
-      ...TEST_CONF,
-      artifactPayload: ARTIFACT_BLANK,
-      pollingInterval: 10
-    });
+    provider = await ArtifactProvider(
+      {
+        ...TEST_CONF,
+        artifactPayload: ARTIFACT_BLANK,
+        pollingInterval: 10
+      },
+      telemetryProvider
+    );
 
     const mockListener = jest.fn();
 
@@ -112,6 +135,12 @@ describe("artifactProvider", () => {
 
     setTimeout(() => {
       expect(mockListener.mock.calls.length).toBeGreaterThanOrEqual(8);
+      expect(telemetryProvider.addArtifactRequestEntry).toHaveBeenCalledWith(
+        ARTIFACT_DOWNLOAD,
+        expect.objectContaining({
+          execution: expect.any(Number)
+        })
+      );
       done();
     }, 100);
   });
@@ -131,10 +160,13 @@ describe("artifactProvider", () => {
       [JSON.stringify(ARTIFACT_BLANK), { status: HttpStatus.OK }]
     );
 
-    provider = await ArtifactProvider({
-      ...TEST_CONF,
-      pollingInterval: 0
-    });
+    provider = await ArtifactProvider(
+      {
+        ...TEST_CONF,
+        pollingInterval: 0
+      },
+      telemetryProvider
+    );
 
     expect(provider.getArtifact()).toEqual(ARTIFACT_BLANK);
     expect(fetch.mock.calls.length).toEqual(11);
@@ -168,11 +200,14 @@ describe("artifactProvider", () => {
       }
     };
 
-    provider = await ArtifactProvider({
-      ...TEST_CONF,
-      pollingInterval: 0,
-      logger
-    });
+    provider = await ArtifactProvider(
+      {
+        ...TEST_CONF,
+        pollingInterval: 0,
+        logger
+      },
+      telemetryProvider
+    );
 
     expect(provider.getArtifact()).toBeUndefined();
     expect(fetch.mock.calls.length).toEqual(11);
@@ -183,18 +218,21 @@ describe("artifactProvider", () => {
 
     fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK)).doMockIf(artifactURL);
 
-    provider = await ArtifactProvider({
-      ...TEST_CONF,
-      pollingInterval: 0,
-      artifactLocation: artifactURL
-    });
+    provider = await ArtifactProvider(
+      {
+        ...TEST_CONF,
+        pollingInterval: 0,
+        artifactLocation: artifactURL
+      },
+      telemetryProvider
+    );
 
     expect(provider.getArtifact()).toEqual(ARTIFACT_BLANK);
     expect(fetch.mock.calls[0][0]).toEqual(artifactURL);
   });
 
   it("gets a cached version based on ETag", async done => {
-    expect.assertions(6);
+    expect.assertions(7);
 
     const eTagIdentifier = "the_original_eTag";
     const eTagIdentifierNew = "the_new_eTag";
@@ -270,12 +308,15 @@ describe("artifactProvider", () => {
 
     const artifactUpdated = jest.fn();
 
-    provider = await ArtifactProvider({
-      client: "clientId",
-      organizationId: "orgId",
-      pollingInterval: 100,
-      artifactFormat: ARTIFACT_FORMAT_JSON
-    });
+    provider = await ArtifactProvider(
+      {
+        client: "clientId",
+        organizationId: "orgId",
+        pollingInterval: 100,
+        artifactFormat: ARTIFACT_FORMAT_JSON
+      },
+      telemetryProvider
+    );
 
     provider.subscribe(artifactUpdated);
 
@@ -284,6 +325,12 @@ describe("artifactProvider", () => {
     setTimeout(() => {
       expect(artifactUpdated).toHaveBeenCalledTimes(1); // only one update to the artifact after the initial
       expect(artifactUpdated.mock.calls[0][0]).toEqual(NEW_VERSION_PAYLOAD);
+      expect(telemetryProvider.addArtifactRequestEntry).toHaveBeenCalledWith(
+        ARTIFACT_DOWNLOAD,
+        expect.objectContaining({
+          execution: expect.any(Number)
+        })
+      );
       done();
     }, 350);
   });
@@ -302,14 +349,17 @@ describe("artifactProvider", () => {
       done();
     }
 
-    provider = await ArtifactProvider({
-      ...TEST_CONF,
-      pollingInterval: 0,
-      eventEmitter: (eventName, payload) =>
-        eventName === ARTIFACT_DOWNLOAD_SUCCEEDED
-          ? eventEmitter(eventName, payload)
-          : undefined
-    });
+    provider = await ArtifactProvider(
+      {
+        ...TEST_CONF,
+        pollingInterval: 0,
+        eventEmitter: (eventName, payload) =>
+          eventName === ARTIFACT_DOWNLOAD_SUCCEEDED
+            ? eventEmitter(eventName, payload)
+            : undefined
+      },
+      telemetryProvider
+    );
   });
 
   it("emits artifactDownloadFailed event", async done => {
@@ -332,11 +382,14 @@ describe("artifactProvider", () => {
       setTimeout(() => done(), 100);
     }
 
-    provider = await ArtifactProvider({
-      ...TEST_CONF,
-      pollingInterval: 0,
-      eventEmitter
-    });
+    provider = await ArtifactProvider(
+      {
+        ...TEST_CONF,
+        pollingInterval: 0,
+        eventEmitter
+      },
+      telemetryProvider
+    );
   });
 });
 

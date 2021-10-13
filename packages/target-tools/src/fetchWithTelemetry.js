@@ -12,6 +12,7 @@ governing permissions and limitations under the License.
 */
 import https from "https";
 import http from "http";
+import now from "performance-now";
 
 const PROTOCOL_MAP = {
   "http:": http.request,
@@ -51,31 +52,20 @@ const LOOKUP_EVENT = "lookup";
 const CONNECT_EVENT = "connect";
 const SECURE_CONNECT_EVENT = "secureConnect";
 
-const NS_PER_SEC = 1e9;
-const MS_PER_NS = 1e6;
-
 const OK = 200;
 const NOT_MODIFIED = 304;
 
 const INVALID_URL =
   "Request URL is invalid.  Must use either http or https protocol.";
 
-function getNanoSeconds() {
-  const hr = process.hrtime();
-
-  return hr[0] * NS_PER_SEC + hr[1];
-}
-
-const UP_TIME = process.uptime() * NS_PER_SEC;
-const MODULE_LOAD_TIME = getNanoSeconds();
-const NODE_LOAD_TIME = MODULE_LOAD_TIME - UP_TIME;
-
-function now() {
-  return (getNanoSeconds() - NODE_LOAD_TIME) / MS_PER_NS;
-}
-
 function creatError(status, err, timings, statusCode) {
-  const message = typeof err === "object" ? JSON.stringify(err) : err;
+  let message;
+  try {
+    message = typeof err === "object" ? JSON.stringify(err) : err;
+  } catch (stringifyErr) {
+    // Catches error converting circular structure to json
+    message = err.message;
+  }
   return { status, message, timings, statusCode };
 }
 
@@ -140,7 +130,8 @@ function getTimings(timings, responseContent) {
     dns: timings.lookup - timings.socket,
     tls: timings.secureConnect - timings.connect,
     timeToFirstByte: timings.response - timings.secureConnect,
-    download: timings.end - timings.response
+    download: timings.end - timings.response,
+    parsingTime: timings.parsingTime
   };
 
   if (responseContent) {
@@ -166,6 +157,7 @@ function executeRequest(options, body, timeout, callback, requestImpl) {
   const timings = {};
   const chunks = [];
   const startTimeNow = now();
+
   const request = requestImpl(options, res => {
     res.setEncoding(UTF8_ENCODING);
   });
@@ -216,7 +208,9 @@ function executeRequest(options, body, timeout, callback, requestImpl) {
       }
 
       try {
+        const parsingStartTime = now();
         const data = JSON.parse(content);
+        timings.parsingTime = now() - parsingStartTime;
         callback(
           null,
           createSuccess(

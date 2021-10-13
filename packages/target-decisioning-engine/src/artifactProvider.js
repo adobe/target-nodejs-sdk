@@ -40,12 +40,13 @@ import {
 const LOG_TAG = `${LOG_PREFIX}.ArtifactProvider`;
 const NOT_MODIFIED = 304;
 const OK = 200;
+const ARTIFACT_DOWNLOAD = "ArtifactDownload";
 
 /**
  * The ArtifactProvider initialize method
  * @param {import("../types/DecisioningConfig").DecisioningConfig} config Options map, required
  */
-function ArtifactProvider(config) {
+function ArtifactProvider(config, telemetryProvider) {
   const logger = getLogger(config.logger);
   const { eventEmitter = noop } = config;
   const obfuscationProvider = ObfuscationProvider(config);
@@ -147,8 +148,23 @@ function ArtifactProvider(config) {
       cache: "default"
     })
       .then(res => {
-        perfTool.timeEnd(TIMING_ARTIFACT_DOWNLOADED_FETCH);
+        const executionTime = perfTool.timeEnd(
+          TIMING_ARTIFACT_DOWNLOADED_FETCH
+        );
+        perfTool.clearTiming(TIMING_ARTIFACT_DOWNLOADED_FETCH);
         logger.debug(`${LOG_TAG} artifact received - status=${res.status}`);
+
+        const entry = {
+          execution: executionTime
+        };
+
+        if (res.timings) {
+          entry.parsing = res.timings.parsingTime;
+          delete res.timings.parsingTime;
+          entry.request = res.timings;
+        }
+
+        telemetryProvider.addArtifactRequestEntry(ARTIFACT_DOWNLOAD, entry);
 
         if (res.status === NOT_MODIFIED && lastResponseData) {
           return lastResponseData;

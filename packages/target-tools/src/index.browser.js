@@ -55,8 +55,7 @@ export {
   getPropertyToken,
   timeLimitExceeded,
   isValidIpAddress,
-  whenReady,
-  executeTelemetries
+  whenReady
 } from "./utils";
 
 export { getLogger } from "./logging";
@@ -82,7 +81,7 @@ export { getFetchWithRetry, getFetchApi } from "./networking";
 
 export { AttributesProvider } from "./attributesProvider";
 export { EventProvider } from "./eventProvider";
-export { TelemetryProvider } from "./telemetryProvider";
+export { default as TelemetryProvider } from "./telemetryProvider";
 
 export {
   browserFromUserAgent,
@@ -93,7 +92,8 @@ export {
 export {
   ATTRIBUTE_NOT_EXIST,
   DECISIONING_ENGINE_NOT_READY,
-  PROPERTY_TOKEN_MISMATCH
+  PROPERTY_TOKEN_MISMATCH,
+  NOTIFICATIONS_REQUIRED
 } from "./messages";
 
 export { hashString, hashUnencodedChars } from "./hashing";

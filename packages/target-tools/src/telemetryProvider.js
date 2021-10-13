@@ -1,4 +1,15 @@
 /* eslint-disable import/prefer-default-export */
+/*
+Copyright 2021 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
 
 import { now } from "./lodash";
 import { DECISIONING_METHOD, EXECUTION_MODE } from "./enums";
@@ -9,20 +20,21 @@ import {
   prefetchMboxCount,
   prefetchViewCount
 } from "./utils";
+import InMemoryTelemetryStore from "./InMemoryTelemetryStore";
 
 const STATUS_OK = 200;
 
 /**
  * The get TelemetryProvider initialization method
- * @param {function} sendTelemetriesFunc function used to send the telemetries, required
+ * @param {Boolean} telemetryEnabled whether or not the SDK will collect telemetry data - default: true, optional
+ * @param {String} method offer decisioning method that was configured during TargetClient.create() - default: server-side, optional
+ * @param {Function} telemetryStore data store for collected telemetry - default: InMemoryTelemetryStore, optional
  */
-export function TelemetryProvider(
-  executeTelemetriesFunc,
+export default function TelemetryProvider(
   telemetryEnabled = true,
-  method = DECISIONING_METHOD.SERVER_SIDE
+  method = DECISIONING_METHOD.SERVER_SIDE,
+  telemetryStore = InMemoryTelemetryStore()
 ) {
-  let telemetryEntries = [];
-
   function getMode(status, decisioningMethod) {
     if (
       status === STATUS_OK &&
@@ -34,76 +46,119 @@ export function TelemetryProvider(
     return EXECUTION_MODE.EDGE;
   }
 
+  function getFeatures(request) {
+    const features = {};
+    const executePageLoad = isExecutePageLoad(request);
+    const executeMbox = executeMboxCount(request);
+    const prefetchPageLoad = isPrefetchPageLoad(request);
+    const prefetchMbox = prefetchMboxCount(request);
+    const prefetchView = prefetchViewCount(request);
+
+    if (executePageLoad) {
+      features.executePageLoad = executePageLoad;
+    }
+
+    if (executeMbox) {
+      features.executeMboxCount = executeMbox;
+    }
+
+    if (prefetchPageLoad) {
+      features.prefetchPageLoad = prefetchPageLoad;
+    }
+
+    if (prefetchMbox) {
+      features.prefetchMboxCount = prefetchMbox;
+    }
+
+    if (prefetchView) {
+      features.prefetchViewCount = prefetchView;
+    }
+
+    return features;
+  }
+
   function addRenderEntry(renderId, execution) {
     if (!telemetryEnabled) {
       return;
     }
 
-    const timestamp = now();
-
-    telemetryEntries.push({
+    telemetryStore.addEntry({
       requestId: renderId,
-      timestamp,
+      timestamp: now(),
       execution
+    });
+  }
+
+  function addRequestEntry(requestId, entry) {
+    telemetryStore.addEntry({
+      requestId,
+      timestamp: now(),
+      ...entry
     });
   }
 
   /**
    * @param {import("@adobe/target-tools/delivery-api-client/models/TelemetryEntry").TelemetryEntry} entry
    */
-  function addEntry(request, entry, status, decisioningMethod = method) {
+  function addArtifactRequestEntry(requestId, entry) {
+    if (!telemetryEnabled || !entry) {
+      return;
+    }
+    addRequestEntry(requestId, entry);
+  }
+
+  /**
+   * @param {import("@adobe/target-tools/delivery-api-client/models/TelemetryEntry").TelemetryEntry} entry
+   */
+  function addDeliveryRequestEntry(
+    request,
+    entry,
+    status,
+    decisioningMethod = method
+  ) {
     if (!telemetryEnabled || !entry) {
       return;
     }
 
     const { requestId } = request;
-    const timestamp = now();
-
-    telemetryEntries.push({
-      requestId,
-      timestamp,
+    const deliveryRequestEntry = {
+      ...entry,
       mode: getMode(status, decisioningMethod),
       features: {
-        decisioningMethod,
-        executePageLoad: isExecutePageLoad(request),
-        executeMboxCount: executeMboxCount(request),
-        prefetchPageLoad: isPrefetchPageLoad(request),
-        prefetchMboxCount: prefetchMboxCount(request),
-        prefetchViewCount: prefetchViewCount(request)
-      },
-      ...entry
-    });
+        ...getFeatures(request),
+        decisioningMethod
+      }
+    };
+
+    addRequestEntry(requestId, deliveryRequestEntry);
   }
 
-  function getEntries() {
-    return telemetryEntries;
-  }
-
-  function clearEntries() {
-    telemetryEntries = [];
+  function getAndClearEntries() {
+    return telemetryStore.getAndClearEntries();
   }
 
   function hasEntries() {
-    return telemetryEntries.length !== 0;
+    return telemetryStore.hasEntries();
   }
 
-  function executeTelemetries(deliveryRequest) {
-    if (telemetryEntries.length > 0) {
-      const result = executeTelemetriesFunc(deliveryRequest, telemetryEntries);
-      clearEntries();
-      return result;
+  function addTelemetryToDeliveryRequest(deliveryRequest) {
+    if (hasEntries()) {
+      return {
+        ...deliveryRequest,
+        telemetry: {
+          entries: getAndClearEntries()
+        }
+      };
     }
     return deliveryRequest;
   }
 
   return {
-    addEntry,
+    addDeliveryRequestEntry,
+    addArtifactRequestEntry,
     addRenderEntry,
-    getEntries,
-    clearEntries,
+    getAndClearEntries,
     hasEntries,
-    executeTelemetries
+    addTelemetryToDeliveryRequest
   };
 }
-
-export default TelemetryProvider;

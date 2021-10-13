@@ -27,7 +27,7 @@ describe("fetchWithTelemetry", () => {
   it("returns request timings on response", async () => {
     const response = await realFetchImpl(URL, REQUEST_OPTS);
 
-    expect(Object.keys(response.timings).length).toBe(5);
+    expect(Object.keys(response.timings).length).toBe(6);
     expect(response.timings).toEqual(
       expect.objectContaining({
         dns: expect.any(Number),
