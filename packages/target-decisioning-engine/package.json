@@ -26,6 +26,11 @@
     "prepublishOnly": "echo //${NPM_REGISTRY}/:_authToken=${NPM_AUTH_TOKEN} > .npmrc",
     "prepare": "rollup --config"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adobe/target-nodejs-sdk.git",
+    "directory": "packages/target-decisioning-engine"
+  },
   "dependencies": {
     "@adobe/target-tools": "^1.6.1",
     "json-logic-js": "^2.0.0"
