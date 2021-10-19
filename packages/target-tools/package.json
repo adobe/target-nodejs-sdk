@@ -27,6 +27,11 @@
     "prepublishOnly": "echo //${NPM_REGISTRY}/:_authToken=${NPM_AUTH_TOKEN} > .npmrc",
     "prepare": "rollup --config"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adobe/target-nodejs-sdk.git",
+    "directory": "packages/target-tools"
+  },
   "dependencies": {
     "@adobe/reactor-object-assign": "^1.0.0",
     "parse-uri": "^1.0.0",
