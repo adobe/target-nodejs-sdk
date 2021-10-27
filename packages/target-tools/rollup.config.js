@@ -46,7 +46,7 @@ const browserBabelConfig = {
   ]
 };
 
-const createConfig = (input, file, format, browser) => {
+const createConfig = (input, file, format, browser, external = []) => {
   const plugins = [
     json(),
     resolve(),
@@ -71,6 +71,7 @@ const createConfig = (input, file, format, browser) => {
 
   return {
     input,
+    external,
     output: {
       name: "TargetTools",
       file,
@@ -82,5 +83,11 @@ const createConfig = (input, file, format, browser) => {
 
 export default [
   createConfig("src/index.js", pkg.main, "cjs"),
-  createConfig("src/index.browser.js", pkg.browser, "es")
+  createConfig("src/index.browser.js", pkg.browser, "es", [
+    "@adobe/reactor-object-assign",
+    "@adobe/reactor-cookie",
+    "@adobe/reactor-promise",
+    "@adobe/reactor-query-string",
+    "@adobe/reactor-load-script"
+  ])
 ];
