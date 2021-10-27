@@ -11,7 +11,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import { now } from "./lodash";
+import { assign, now } from "./lodash";
 import { DECISIONING_METHOD, EXECUTION_MODE } from "./enums";
 import {
   isExecutePageLoad,
@@ -90,11 +90,14 @@ export default function TelemetryProvider(
   }
 
   function addRequestEntry(requestId, entry) {
-    telemetryStore.addEntry({
-      requestId,
-      timestamp: now(),
-      ...entry
-    });
+    const requestEntry = assign(
+      {
+        requestId,
+        timestamp: now()
+      },
+      entry
+    );
+    telemetryStore.addEntry(requestEntry);
   }
 
   /**
@@ -121,15 +124,13 @@ export default function TelemetryProvider(
     }
 
     const { requestId } = request;
-    const deliveryRequestEntry = {
-      ...entry,
-      mode: getMode(status, decisioningMethod),
-      features: {
-        ...getFeatures(request),
-        decisioningMethod
-      }
-    };
 
+    const features = assign(getFeatures(request), { decisioningMethod });
+    const baseEntry = {
+      mode: getMode(status, decisioningMethod),
+      features
+    };
+    const deliveryRequestEntry = assign(entry, baseEntry);
     addRequestEntry(requestId, deliveryRequestEntry);
   }
 
@@ -143,12 +144,11 @@ export default function TelemetryProvider(
 
   function addTelemetryToDeliveryRequest(deliveryRequest) {
     if (hasEntries()) {
-      return {
-        ...deliveryRequest,
+      return assign(deliveryRequest, {
         telemetry: {
           entries: getAndClearEntries()
         }
-      };
+      });
     }
     return deliveryRequest;
   }
