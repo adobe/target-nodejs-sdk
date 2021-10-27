@@ -103,3 +103,5 @@ export { perfTool, createPerfToolInstance } from "./perftool";
 export { default as parseURI } from "parse-uri";
 
 export { default as uuid } from "./uuid/index.browser";
+
+export { default as performanceNow } from "performance-now";
