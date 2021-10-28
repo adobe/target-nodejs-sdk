@@ -46,7 +46,7 @@ const browserBabelConfig = {
   ]
 };
 
-const createConfig = (input, file, format, browser, external = []) => {
+const createConfig = (input, file, format, browser = false) => {
   const plugins = [
     json(),
     resolve(),
@@ -59,7 +59,9 @@ const createConfig = (input, file, format, browser, external = []) => {
       }
     }),
     visualizer({
-      filename: "bundlesize-stats.html"
+      filename: browser
+        ? "bundlesize-stats.browser.html"
+        : "bundlesize-stats.html"
     })
   ];
 
@@ -71,7 +73,15 @@ const createConfig = (input, file, format, browser, external = []) => {
 
   return {
     input,
-    external,
+    external: browser
+      ? [
+          "@adobe/reactor-object-assign",
+          "@adobe/reactor-cookie",
+          "@adobe/reactor-promise",
+          "@adobe/reactor-query-string",
+          "@adobe/reactor-load-script"
+        ]
+      : [],
     output: {
       name: "TargetTools",
       file,
@@ -82,12 +92,6 @@ const createConfig = (input, file, format, browser, external = []) => {
 };
 
 export default [
-  createConfig("src/index.js", pkg.main, "cjs"),
-  createConfig("src/index.browser.js", pkg.browser, "es", [
-    "@adobe/reactor-object-assign",
-    "@adobe/reactor-cookie",
-    "@adobe/reactor-promise",
-    "@adobe/reactor-query-string",
-    "@adobe/reactor-load-script"
-  ])
+  createConfig("src/index.js", pkg.main, "cjs", false),
+  createConfig("src/index.browser.js", pkg.browser, "es", true)
 ];
