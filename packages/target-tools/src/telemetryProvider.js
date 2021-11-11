@@ -18,7 +18,8 @@ import {
   executeMboxCount,
   isPrefetchPageLoad,
   prefetchMboxCount,
-  prefetchViewCount
+  prefetchViewCount,
+  formatDecimal
 } from "./utils";
 import InMemoryTelemetryStore from "./InMemoryTelemetryStore";
 
@@ -77,12 +78,41 @@ export default function TelemetryProvider(
     return features;
   }
 
+  function normalizeEntry(entry) {
+    const normalized = {};
+
+    if (entry.execution) {
+      normalized.execution = formatDecimal(entry.execution);
+    }
+
+    if (entry.parsing) {
+      normalized.parsing = formatDecimal(entry.parsing);
+    }
+
+    return assign(entry, normalized);
+  }
+
+  function normalizeAndAddEntry(entry) {
+    telemetryStore.addEntry(normalizeEntry(entry));
+  }
+
+  function addServerStateEntry(request) {
+    if (!telemetryEnabled) {
+      return;
+    }
+
+    normalizeAndAddEntry({
+      requestId: request.requestId,
+      timestamp: now()
+    });
+  }
+
   function addRenderEntry(renderId, execution) {
     if (!telemetryEnabled) {
       return;
     }
 
-    telemetryStore.addEntry({
+    normalizeAndAddEntry({
       requestId: renderId,
       timestamp: now(),
       execution
@@ -90,14 +120,11 @@ export default function TelemetryProvider(
   }
 
   function addRequestEntry(requestId, entry) {
-    const requestEntry = assign(
-      {
-        requestId,
-        timestamp: now()
-      },
-      entry
-    );
-    telemetryStore.addEntry(requestEntry);
+    const requestEntry = assign(entry, {
+      requestId,
+      timestamp: now()
+    });
+    normalizeAndAddEntry(requestEntry);
   }
 
   /**
@@ -157,6 +184,7 @@ export default function TelemetryProvider(
     addDeliveryRequestEntry,
     addArtifactRequestEntry,
     addRenderEntry,
+    addServerStateEntry,
     getAndClearEntries,
     hasEntries,
     addTelemetryToDeliveryRequest

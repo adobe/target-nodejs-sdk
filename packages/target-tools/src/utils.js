@@ -307,3 +307,10 @@ export function prefetchViewCount(request) {
     0
   );
 }
+
+export function formatDecimal(value, digits = 2) {
+  if (!value || !isNumber(value)) {
+    return undefined;
+  }
+  return +value.toFixed(digits);
+}

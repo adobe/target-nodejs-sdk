@@ -2,6 +2,7 @@ import TelemetryProvider from "./telemetryProvider";
 import { DECISIONING_METHOD, EXECUTION_MODE } from "./enums";
 
 describe("TelemetryProvider", () => {
+  const EDGE_TELEMETRY_BLOB = "dsbnoew05vnlsd";
   const TARGET_REQUEST = {
     requestId: "123456",
     execute: {
@@ -18,8 +19,8 @@ describe("TelemetryProvider", () => {
     notifications: []
   };
   const TARGET_TELEMETRY_ENTRY = {
-    execution: 1,
-    parsing: 2,
+    execution: 1.111111,
+    parsing: 2.2222222,
     request: {
       dns: 13.205916000000002,
       tls: 66.416338,
@@ -27,6 +28,10 @@ describe("TelemetryProvider", () => {
       download: 0.7802439999999251,
       responseSize: 241
     }
+  };
+  const EDGE_TELEMETRY_ENTRY = {
+    ...TARGET_TELEMETRY_ENTRY,
+    blob: EDGE_TELEMETRY_BLOB
   };
   const STATUS_OK = 200;
   const PARTIAL_CONTENT = 206;
@@ -37,7 +42,7 @@ describe("TelemetryProvider", () => {
     for (let i = 0; i < 3; i += 1) {
       provider.addDeliveryRequestEntry(
         TARGET_REQUEST,
-        TARGET_TELEMETRY_ENTRY,
+        EDGE_TELEMETRY_ENTRY,
         STATUS_OK
       );
     }
@@ -72,15 +77,16 @@ describe("TelemetryProvider", () => {
             prefetchMboxCount: expect.any(Number),
             prefetchViewCount: expect.any(Number)
           },
-          execution: 1,
-          parsing: 2,
+          execution: 1.11,
+          parsing: 2.22,
           request: {
             dns: expect.any(Number),
             tls: expect.any(Number),
             timeToFirstByte: expect.any(Number),
             download: expect.any(Number),
             responseSize: expect.any(Number)
-          }
+          },
+          blob: EDGE_TELEMETRY_BLOB
         })
       );
     });
@@ -101,7 +107,7 @@ describe("TelemetryProvider", () => {
       expect.objectContaining({
         requestId: TARGET_REQUEST.requestId,
         timestamp: expect.any(Number),
-        execution: 1
+        execution: 1.11
       })
     );
   });
@@ -201,8 +207,8 @@ describe("TelemetryProvider", () => {
         expect.objectContaining({
           requestId,
           timestamp: expect.any(Number),
-          execution: 1,
-          parsing: 2,
+          execution: 1.11,
+          parsing: 2.22,
           request: {
             dns: expect.any(Number),
             tls: expect.any(Number),
