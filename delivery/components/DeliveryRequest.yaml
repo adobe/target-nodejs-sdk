@@ -1,0 +1,47 @@
+openapi: "3.0.0"
+DeliveryRequest:
+  type: object
+  required:
+    - context
+  properties:
+    requestId:
+      type: string
+      maxLength: 128
+      description: |
+        The request ID that will be returned in the response. In case it is not provided, an UUID is generated and
+        returned automatically.
+    impressionId:
+      description: |
+        If not present it will be automatically generated (UUID). If present,  second and subsequent requests with the
+        same id will not increment impressions to activities/metrics. Similar to page id.
+      type: string
+      maxLength: 128
+    id:
+      $ref: "../../common/components/VisitorId.yaml#/VisitorId"
+    environmentId:
+      description: Valid client environment id. If not specified host will be determined base on the provided host.
+      type: integer
+      format: int64
+    property:
+      $ref: "./Property.yaml#/Property"
+    trace:
+      $ref: "./Trace.yaml#/Trace"
+    context:
+      $ref: "./Context.yaml#/Context"
+    experienceCloud:
+      $ref: "./ExperienceCloud.yaml#/ExperienceCloud"
+    execute:
+      $ref: "./ExecuteRequest.yaml#/ExecuteRequest"
+    prefetch:
+      $ref: "./PrefetchRequest.yaml#/PrefetchRequest"
+    telemetry:
+      $ref: "./Telemetry.yaml#/Telemetry"
+    notifications:
+      type: array
+      description: Notifications for the displayed content, clicked selectors, and/or visited views or mboxes.
+      items:
+        $ref: "./Notification.yaml#/Notification"
+    qaMode:
+      $ref: "../../common/components/QAMode.yaml#/QAMode"
+    preview:
+      $ref: "../../common/components/Preview.yaml#/Preview"
