@@ -1,5 +1,6 @@
 import { Address, Order, Product } from './';
 export interface RequestDetails {
+    $type?: string;
     address?: Address;
     parameters?: {
         [key: string]: string;

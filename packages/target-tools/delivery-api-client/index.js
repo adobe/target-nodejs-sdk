@@ -602,6 +602,7 @@ function DeliveryResponseFromJSONTyped(json, ignoreDiscriminator) {
         'execute': !exists(json, 'execute') ? undefined : ExecuteResponseFromJSON(json['execute']),
         'prefetch': !exists(json, 'prefetch') ? undefined : PrefetchResponseFromJSON(json['prefetch']),
         'notifications': !exists(json, 'notifications') ? undefined : (json['notifications'].map(NotificationResponseFromJSON)),
+        'telemetry': !exists(json, 'telemetry') ? undefined : json['telemetry'],
     };
 }
 function DeliveryResponseToJSON(value) {
@@ -620,6 +621,7 @@ function DeliveryResponseToJSON(value) {
         'execute': ExecuteResponseToJSON(value.execute),
         'prefetch': PrefetchResponseToJSON(value.prefetch),
         'notifications': value.notifications === undefined ? undefined : (value.notifications.map(NotificationResponseToJSON)),
+        'telemetry': value.telemetry,
     };
 }
 
@@ -779,18 +781,14 @@ function LoggingTypeToJSON(value) {
 }
 
 function MboxRequestFromJSON(json) {
-    return MboxRequestFromJSONTyped(json);
+    return MboxRequestFromJSONTyped(json, false);
 }
 function MboxRequestFromJSONTyped(json, ignoreDiscriminator) {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
-        'address': !exists(json, 'address') ? undefined : AddressFromJSON(json['address']),
-        'parameters': !exists(json, 'parameters') ? undefined : json['parameters'],
-        'profileParameters': !exists(json, 'profileParameters') ? undefined : json['profileParameters'],
-        'order': !exists(json, 'order') ? undefined : OrderFromJSON(json['order']),
-        'product': !exists(json, 'product') ? undefined : ProductFromJSON(json['product']),
+        ...RequestDetailsFromJSONTyped(json, ignoreDiscriminator),
         'index': !exists(json, 'index') ? undefined : json['index'],
         'name': !exists(json, 'name') ? undefined : json['name'],
     };
@@ -803,11 +801,7 @@ function MboxRequestToJSON(value) {
         return null;
     }
     return {
-        'address': AddressToJSON(value.address),
-        'parameters': value.parameters,
-        'profileParameters': value.profileParameters,
-        'order': OrderToJSON(value.order),
-        'product': ProductToJSON(value.product),
+        ...RequestDetailsToJSON(value),
         'index': value.index,
         'name': value.name,
     };
@@ -839,13 +833,19 @@ function MboxRequestAllOfToJSON(value) {
 }
 
 function MboxResponseFromJSON(json) {
-    return MboxResponseFromJSONTyped(json);
+    return MboxResponseFromJSONTyped(json, false);
 }
 function MboxResponseFromJSONTyped(json, ignoreDiscriminator) {
     if ((json === undefined) || (json === null)) {
         return json;
     }
+    if (!ignoreDiscriminator) {
+        if (json['$type'] === 'PrefetchMboxResponse') {
+            return PrefetchMboxResponseFromJSONTyped(json, true);
+        }
+    }
     return {
+        '$type': !exists(json, '$_type') ? undefined : json['$_type'],
         'index': !exists(json, 'index') ? undefined : json['index'],
         'name': !exists(json, 'name') ? undefined : json['name'],
         'options': !exists(json, 'options') ? undefined : (json['options'].map(OptionFromJSON)),
@@ -862,6 +862,7 @@ function MboxResponseToJSON(value) {
         return null;
     }
     return {
+        '$_type': value.$type,
         'index': value.index,
         'name': value.name,
         'options': value.options === undefined ? undefined : (value.options.map(OptionToJSON)),
@@ -960,18 +961,14 @@ function MobilePlatformTypeToJSON(value) {
 }
 
 function NotificationFromJSON(json) {
-    return NotificationFromJSONTyped(json);
+    return NotificationFromJSONTyped(json, false);
 }
 function NotificationFromJSONTyped(json, ignoreDiscriminator) {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
-        'address': !exists(json, 'address') ? undefined : AddressFromJSON(json['address']),
-        'parameters': !exists(json, 'parameters') ? undefined : json['parameters'],
-        'profileParameters': !exists(json, 'profileParameters') ? undefined : json['profileParameters'],
-        'order': !exists(json, 'order') ? undefined : OrderFromJSON(json['order']),
-        'product': !exists(json, 'product') ? undefined : ProductFromJSON(json['product']),
+        ...RequestDetailsFromJSONTyped(json, ignoreDiscriminator),
         'id': !exists(json, 'id') ? undefined : json['id'],
         'impressionId': !exists(json, 'impressionId') ? undefined : json['impressionId'],
         'type': !exists(json, 'type') ? undefined : MetricTypeFromJSON(json['type']),
@@ -990,11 +987,7 @@ function NotificationToJSON(value) {
         return null;
     }
     return {
-        'address': AddressToJSON(value.address),
-        'parameters': value.parameters,
-        'profileParameters': value.profileParameters,
-        'order': OrderToJSON(value.order),
-        'product': ProductToJSON(value.product),
+        ...RequestDetailsToJSON(value),
         'id': value.id,
         'impressionId': value.impressionId,
         'type': MetricTypeToJSON(value.type),
@@ -1201,7 +1194,7 @@ function OrderFromJSONTyped(json, ignoreDiscriminator) {
         'id': !exists(json, 'id') ? undefined : json['id'],
         'total': !exists(json, 'total') ? undefined : json['total'],
         'purchasedProductIds': !exists(json, 'purchasedProductIds') ? undefined : json['purchasedProductIds'],
-        'time': !exists(json, 'time') ? undefined : DateTimeFromJSON(json['time']),
+        'time': !exists(json, 'time') ? undefined : (new Date(json['time'])),
         'experienceLocalId': !exists(json, 'experienceLocalId') ? undefined : json['experienceLocalId'],
         'duplicate': !exists(json, 'duplicate') ? undefined : json['duplicate'],
         'outlier': !exists(json, 'outlier') ? undefined : json['outlier'],
@@ -1218,7 +1211,7 @@ function OrderToJSON(value) {
         'id': value.id,
         'total': value.total,
         'purchasedProductIds': value.purchasedProductIds,
-        'time': DateTimeToJSON(value.time),
+        'time': value.time === undefined ? undefined : (value.time.toISOString()),
         'experienceLocalId': value.experienceLocalId,
         'duplicate': value.duplicate,
         'outlier': value.outlier,
@@ -1257,19 +1250,14 @@ function PageLoadResponseToJSON(value) {
 }
 
 function PrefetchMboxResponseFromJSON(json) {
-    return PrefetchMboxResponseFromJSONTyped(json);
+    return PrefetchMboxResponseFromJSONTyped(json, false);
 }
 function PrefetchMboxResponseFromJSONTyped(json, ignoreDiscriminator) {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
-        'index': !exists(json, 'index') ? undefined : json['index'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'options': !exists(json, 'options') ? undefined : (json['options'].map(OptionFromJSON)),
-        'metrics': !exists(json, 'metrics') ? undefined : (json['metrics'].map(MetricFromJSON)),
-        'analytics': !exists(json, 'analytics') ? undefined : AnalyticsResponseFromJSON(json['analytics']),
-        'trace': !exists(json, 'trace') ? undefined : json['trace'],
+        ...MboxResponseFromJSONTyped(json, ignoreDiscriminator),
         'state': !exists(json, 'state') ? undefined : json['state'],
     };
 }
@@ -1281,12 +1269,7 @@ function PrefetchMboxResponseToJSON(value) {
         return null;
     }
     return {
-        'index': value.index,
-        'name': value.name,
-        'options': value.options === undefined ? undefined : (value.options.map(OptionToJSON)),
-        'metrics': value.metrics === undefined ? undefined : (value.metrics.map(MetricToJSON)),
-        'analytics': AnalyticsResponseToJSON(value.analytics),
-        'trace': value.trace,
+        ...MboxResponseToJSON(value),
         'state': value.state,
     };
 }
@@ -1498,13 +1481,25 @@ function QAModePreviewIndexToJSON(value) {
 }
 
 function RequestDetailsFromJSON(json) {
-    return RequestDetailsFromJSONTyped(json);
+    return RequestDetailsFromJSONTyped(json, false);
 }
 function RequestDetailsFromJSONTyped(json, ignoreDiscriminator) {
     if ((json === undefined) || (json === null)) {
         return json;
     }
+    if (!ignoreDiscriminator) {
+        if (json['$type'] === 'Notification') {
+            return NotificationFromJSONTyped(json, true);
+        }
+        if (json['$type'] === 'MboxRequest') {
+            return MboxRequestFromJSONTyped(json, true);
+        }
+        if (json['$type'] === 'ViewRequest') {
+            return ViewRequestFromJSONTyped(json, true);
+        }
+    }
     return {
+        '$type': !exists(json, '$_type') ? undefined : json['$_type'],
         'address': !exists(json, 'address') ? undefined : AddressFromJSON(json['address']),
         'parameters': !exists(json, 'parameters') ? undefined : json['parameters'],
         'profileParameters': !exists(json, 'profileParameters') ? undefined : json['profileParameters'],
@@ -1520,6 +1515,7 @@ function RequestDetailsToJSON(value) {
         return null;
     }
     return {
+        '$_type': value.$type,
         'address': AddressToJSON(value.address),
         'parameters': value.parameters,
         'profileParameters': value.profileParameters,
@@ -1612,6 +1608,7 @@ function TelemetryEntryFromJSONTyped(json, ignoreDiscriminator) {
         'parsing': !exists(json, 'parsing') ? undefined : json['parsing'],
         'features': !exists(json, 'features') ? undefined : TelemetryFeaturesFromJSON(json['features']),
         'request': !exists(json, 'request') ? undefined : TelemetryRequestFromJSON(json['request']),
+        'blob': !exists(json, 'blob') ? undefined : json['blob'],
     };
 }
 function TelemetryEntryToJSON(value) {
@@ -1629,6 +1626,7 @@ function TelemetryEntryToJSON(value) {
         'parsing': value.parsing,
         'features': TelemetryFeaturesToJSON(value.features),
         'request': TelemetryRequestToJSON(value.request),
+        'blob': value.blob,
     };
 }
 
@@ -1782,18 +1780,14 @@ function ViewToJSON(value) {
 }
 
 function ViewRequestFromJSON(json) {
-    return ViewRequestFromJSONTyped(json);
+    return ViewRequestFromJSONTyped(json, false);
 }
 function ViewRequestFromJSONTyped(json, ignoreDiscriminator) {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
-        'address': !exists(json, 'address') ? undefined : AddressFromJSON(json['address']),
-        'parameters': !exists(json, 'parameters') ? undefined : json['parameters'],
-        'profileParameters': !exists(json, 'profileParameters') ? undefined : json['profileParameters'],
-        'order': !exists(json, 'order') ? undefined : OrderFromJSON(json['order']),
-        'product': !exists(json, 'product') ? undefined : ProductFromJSON(json['product']),
+        ...RequestDetailsFromJSONTyped(json, ignoreDiscriminator),
         'name': !exists(json, 'name') ? undefined : json['name'],
         'key': !exists(json, 'key') ? undefined : json['key'],
     };
@@ -1806,11 +1800,7 @@ function ViewRequestToJSON(value) {
         return null;
     }
     return {
-        'address': AddressToJSON(value.address),
-        'parameters': value.parameters,
-        'profileParameters': value.profileParameters,
-        'order': OrderToJSON(value.order),
-        'product': ProductToJSON(value.product),
+        ...RequestDetailsToJSON(value),
         'name': value.name,
         'key': value.key,
     };
