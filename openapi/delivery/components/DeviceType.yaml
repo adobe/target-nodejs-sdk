@@ -1,0 +1,11 @@
+openapi: "3.0.0"
+DeviceType:
+  type: string
+  description: |
+    Field is mandatory when Mobile Platform is specified.
+    Only activities that match the specified deviceType or have the device type set to 'null' will be
+    evaluated. Ex if device type is 'phone' in the delivery request, then only activities that have the device type
+    equal to 'phone' or set to 'null' will be evaluated.
+    An activity with 'null' device type will be evaluated for requests for both, 'phone' and 'tablet'.
+  enum: ["phone", "tablet"]
+

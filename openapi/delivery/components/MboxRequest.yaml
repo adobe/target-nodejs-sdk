@@ -1,0 +1,21 @@
+openapi: "3.0.0"
+MboxRequest:
+  required:
+    - index
+    - mbox
+  description: Regional mbox request.
+  allOf:
+  - $ref: "./RequestDetails.yaml#/RequestDetails"
+  - type: object
+    properties:
+      index:
+        type: integer
+        format: int32
+        description: |
+          An index for the mboxes to be executed or prefetched.
+          Mbox index is used for correlation between the mbox request with the mbox response, for either prefetch or
+          execute responses. Index should be unique in the mbox list.
+      name:
+        type: string
+        description: |
+          The name of the regional mbox to be evaluated.

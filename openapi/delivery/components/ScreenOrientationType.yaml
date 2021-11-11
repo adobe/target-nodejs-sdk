@@ -1,0 +1,7 @@
+openapi: "3.0.0"
+ScreenOrientationType:
+  type: string
+  description: |
+    If not specified, all activities with any screen orientation will be evaluated.
+    If specified, only the activities with the matching screen orientation will evaluated.
+  enum: ["portrait", "landscape"]

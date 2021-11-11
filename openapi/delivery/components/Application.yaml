@@ -1,0 +1,26 @@
+openapi: "3.0.0"
+Application:
+  type: object
+  description: Application identifiers. If specified, should match the with the one from the activity.
+  properties:
+    id:
+      type: string
+      maxLength: 250
+      description: |
+        Application ID.
+        If not specified - all activities with any applicationId will be evaluated.
+        If specified - only activities with the matching applicationId will be evaluated.
+    name:
+      type: string
+      maxLength: 250
+      description: |
+        Application name.
+        If not specified - all activities with any applicationName will be evaluated.
+        If specified - only activities with specified applicationName will be evaluated.
+    version:
+      type: string
+      maxLength: 128
+      description: |
+        Application version
+        If not specified - all activities with any applicationVersion will not be evaluated.
+        If specified - only activities with specific applicationVersion will be evaluated.
