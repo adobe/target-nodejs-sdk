@@ -18,7 +18,8 @@ import {
   executeMboxCount,
   isPrefetchPageLoad,
   prefetchMboxCount,
-  prefetchViewCount
+  prefetchViewCount,
+  formatDecimal
 } from "./utils";
 import { ChannelType } from "../delivery-api-client";
 import { DECISIONING_METHOD } from "./enums";
@@ -464,5 +465,42 @@ describe("utils", () => {
       })
     ).toEqual(0);
     expect(prefetchViewCount({})).toEqual(0);
+  });
+
+  describe("formatDecimal", () => {
+    it("value is undefined", () => {
+      let value;
+      expect(formatDecimal(value)).toBeUndefined();
+    });
+
+    it("value is not a number", () => {
+      const value = "string";
+      expect(formatDecimal(value)).toBeUndefined();
+    });
+
+    it("value is an integer", () => {
+      const value = 10;
+      expect(formatDecimal(value)).toEqual(10);
+    });
+
+    it("value is a double with more than 2 digits", () => {
+      const value = 10.444;
+      expect(formatDecimal(value)).toEqual(10.44);
+    });
+
+    it("value is a double with more than 2 digits - round up", () => {
+      const value = 10.999;
+      expect(formatDecimal(value)).toEqual(11);
+    });
+
+    it("value is a double with less than 2 digits", () => {
+      const value = 10.3;
+      expect(formatDecimal(value)).toEqual(10.3);
+    });
+
+    it("value is a double and formatted with custom number of digits", () => {
+      const value = 10.999;
+      expect(formatDecimal(value, 3)).toEqual(10.999);
+    });
   });
 });
