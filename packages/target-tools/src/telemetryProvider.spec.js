@@ -80,11 +80,11 @@ describe("TelemetryProvider", () => {
           execution: 1.11,
           parsing: 2.22,
           request: {
-            dns: expect.any(Number),
-            tls: expect.any(Number),
-            timeToFirstByte: expect.any(Number),
-            download: expect.any(Number),
-            responseSize: expect.any(Number)
+            dns: 13.21,
+            tls: 66.42,
+            timeToFirstByte: 37.85,
+            download: 0.78,
+            responseSize: 241
           },
           blob: EDGE_TELEMETRY_BLOB
         })
@@ -210,11 +210,11 @@ describe("TelemetryProvider", () => {
           execution: 1.11,
           parsing: 2.22,
           request: {
-            dns: expect.any(Number),
-            tls: expect.any(Number),
-            timeToFirstByte: expect.any(Number),
-            download: expect.any(Number),
-            responseSize: expect.any(Number)
+            dns: 13.21,
+            tls: 66.42,
+            timeToFirstByte: 37.85,
+            download: 0.78,
+            responseSize: 241
           }
         })
       );

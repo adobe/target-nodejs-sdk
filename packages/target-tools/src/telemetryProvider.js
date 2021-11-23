@@ -78,6 +78,32 @@ export default function TelemetryProvider(
     return features;
   }
 
+  function normalizeEntryRequest(entryRequest) {
+    const normalized = {};
+
+    if (entryRequest.dns) {
+      normalized.dns = formatDecimal(entryRequest.dns);
+    }
+
+    if (entryRequest.tls) {
+      normalized.tls = formatDecimal(entryRequest.tls);
+    }
+
+    if (entryRequest.timeToFirstByte) {
+      normalized.timeToFirstByte = formatDecimal(entryRequest.timeToFirstByte);
+    }
+
+    if (entryRequest.download) {
+      normalized.download = formatDecimal(entryRequest.download);
+    }
+
+    if (entryRequest.responseSize) {
+      normalized.responseSize = formatDecimal(entryRequest.responseSize);
+    }
+
+    return normalized;
+  }
+
   function normalizeEntry(entry) {
     const normalized = {};
 
@@ -87,6 +113,10 @@ export default function TelemetryProvider(
 
     if (entry.parsing) {
       normalized.parsing = formatDecimal(entry.parsing);
+    }
+
+    if (entry.request) {
+      normalized.request = normalizeEntryRequest(entry.request);
     }
 
     return assign(entry, normalized);
