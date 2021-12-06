@@ -15,38 +15,43 @@ import resolve from "@rollup/plugin-node-resolve";
 import json from "@rollup/plugin-json";
 import license from "rollup-plugin-license";
 import commonjs from "@rollup/plugin-commonjs";
-import babel from "rollup-plugin-babel";
+import { terser } from "rollup-plugin-terser";
+import typescript from "rollup-plugin-typescript2";
 import visualizer from "rollup-plugin-visualizer";
 import pkg from "./package.json";
 
-const browserBabelConfig = {
-  presets: [
-    [
-      "@babel/preset-env",
-      {
-        modules: false,
-        targets: {
-          browsers: [
-            "last 2 Chrome versions",
-            "last 2 Firefox versions",
-            "last 2 Safari versions"
-          ]
+const createConfig = (input, file, format, browser = false) => {
+  const tsConfig = browser
+    ? {
+        compilerOptions: {
+          lib: ["dom", "dom.iterable", "esnext"],
+          module: "esnext",
+          target: "es5",
+
+          allowJs: true,
+          allowSyntheticDefaultImports: true,
+          esModuleInterop: true,
+          forceConsistentCasingInFileNames: true,
+          isolatedModules: true,
+          jsx: "react-jsx",
+          moduleResolution: "node",
+          noEmit: true,
+          resolveJsonModule: true,
+          skipLibCheck: true
         }
       }
-    ]
-  ],
-  plugins: [
-    [
-      "@babel/plugin-transform-template-literals",
-      {
-        loose: true
-      }
-    ],
-    "@babel/plugin-proposal-object-rest-spread"
-  ]
-};
+    : {
+        compilerOptions: {
+          lib: ["es2019", "es2020.promise", "es2020.bigint", "es2020.string"],
+          module: "esnext",
+          target: "es2019",
 
-const createConfig = (input, file, format, browser = false) => {
+          esModuleInterop: true,
+          skipLibCheck: true,
+          forceConsistentCasingInFileNames: true
+        }
+      };
+
   const plugins = [
     json(),
     resolve(),
@@ -65,11 +70,14 @@ const createConfig = (input, file, format, browser = false) => {
     })
   ];
 
-  if (browser) {
-    plugins.push(babel(browserBabelConfig));
-  } else {
-    plugins.push(babel());
-  }
+  plugins.push(
+    typescript({
+      tsconfigOverride: {
+        ...tsConfig
+      }
+    })
+  );
+  plugins.push(terser());
 
   return {
     input,
@@ -92,6 +100,6 @@ const createConfig = (input, file, format, browser = false) => {
 };
 
 export default [
-  createConfig("src/index.js", pkg.main, "cjs", false),
-  createConfig("src/index.browser.js", pkg.browser, "es", true)
+  createConfig("src/index.browser.ts", pkg.browser, "umd", true),
+  createConfig("src/index.ts", pkg.main, "cjs", false)
 ];

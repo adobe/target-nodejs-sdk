@@ -4,22 +4,22 @@ export interface FetchResponse {
   /**
    * Response content in json format
    */
-  data: Object;
+  data: object;
 
   /**
    * Response content in string format
    */
-  response: String;
+  response: string;
 
   /**
-   * Object containing HTTP request timings for telemetry purposes
+   * object containing HTTP request timings for telemetry purposes
    */
-  timings: Object;
+  timings: object;
 
   /**
    * HTTP status code
    */
-  status: Number;
+  status: number;
 
   /**
    * HTTP response headers
@@ -29,7 +29,7 @@ export interface FetchResponse {
   /**
    * Is the request successful
    */
-  ok: Boolean;
+  ok: boolean;
 
   /**
    * Function that returns the response content in json format

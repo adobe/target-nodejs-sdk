@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "browser": "dist/index.browser.js",
-  "module": "src/index.js",
+  "//module": "src/index.ts",
   "files": [
     ".eslintrc.js",
     "babel.config.js",
@@ -17,8 +17,9 @@
     "access": "public"
   },
   "scripts": {
-    "lint": "./node_modules/.bin/eslint src/**",
-    "format": "prettier '**/*.js' '**/*.json' --write --config '../../.prettierrc.json' --ignore-path '../../.prettierignore'",
+    "//lint": "eslint \"src/**/*.{ts,js}\" --fix",
+    "lint": "",
+    "format": "prettier '**/*.ts' '**/*.js' '**/*.json' --write --config '../../.prettierrc.json' --ignore-path '../../.prettierignore'",
     "clean": "rimraf dist",
     "prebuild": "npm run clean && npm run lint",
     "build": "NODE_ENV=production rollup -c",
@@ -33,31 +34,8 @@
     "performance-now": "^2.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.4",
-    "@babel/plugin-proposal-object-rest-spread": "^7.10.1",
-    "@babel/preset-env": "^7.9.5",
-    "@babel/runtime": "^7.8.4",
-    "@lwc/eslint-plugin-lwc": "^0.10.0",
-    "@rollup/plugin-commonjs": "^11.0.1",
-    "@rollup/plugin-json": "^4.0.1",
-    "@rollup/plugin-multi-entry": "^3.0.0",
-    "@rollup/plugin-node-resolve": "^7.0.0",
     "core-js": "^3.6.5",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-config-prettier": "^6.0.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jest": "^23.6.0",
-    "eslint-plugin-prettier": "^3.1.0",
-    "http-status-codes": "^1.4.0",
-    "jest": "^26.6.3",
-    "jest-fetch-mock": "^3.0.3",
-    "prettier": "^2.1.2",
-    "rimraf": "^3.0.2",
-    "rollup": "^1.17.0",
-    "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-license": "^2.3.0",
-    "rollup-plugin-visualizer": "^3.3.2"
+    "http-status-codes": "^1.4.0"
   },
   "author": "",
   "license": "Apache-2.0"
