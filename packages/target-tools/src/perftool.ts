@@ -14,7 +14,7 @@ export function createPerfToolInstance() {
     return `${id}${count}`;
   }
 
-  function timeStart(id: string, incrementTimer: boolean = false): string {
+  function timeStart(id: string, incrementTimer = false): string {
     const timingId = incrementTimer ? getUniqueTimingId(id) : id;
     if (isUndefined(startTimes[timingId])) {
       startTimes[timingId] = now();
@@ -22,7 +22,7 @@ export function createPerfToolInstance() {
     return timingId;
   }
 
-  function timeEnd(id: string, offset: number = 0): number {
+  function timeEnd(id: string, offset = 0): number {
     if (isUndefined(startTimes[id])) {
       return -1;
     }

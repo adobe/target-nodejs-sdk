@@ -102,9 +102,10 @@ export function addMboxesToRequest(
     Array.prototype.push.apply(mboxes, request[requestType].mboxes);
   }
 
-  const highestUserSpecifiedIndex = mboxes.reduce((highest, mbox) => {
-    return Math.max(highest, isNumber(mbox.index) ? mbox.index : 0);
-  }, 0);
+  const highestUserSpecifiedIndex = mboxes.reduce(
+    (highest, mbox) => Math.max(highest, isNumber(mbox.index) ? mbox.index : 0),
+    0
+  );
 
   let nextIndex = highestUserSpecifiedIndex + 1;
 
@@ -201,7 +202,7 @@ export function getProperty(
 
 export function timeLimitExceeded(
   startTimeMillis: number,
-  limit: number = -1
+  limit = -1
 ): boolean {
   if (limit === -1) {
     return false;
@@ -291,7 +292,7 @@ export function prefetchViewCount(request: DeliveryRequest): number {
   );
 }
 
-export function formatDecimal(value: number, digits: number = 2): number {
+export function formatDecimal(value: number, digits = 2): number {
   if (!value || !isNumber(value)) {
     return undefined;
   }

@@ -17,8 +17,7 @@
     "access": "public"
   },
   "scripts": {
-    "//lint": "eslint \"src/**/*.{ts,js}\" --fix",
-    "lint": "",
+    "lint": "eslint \"src/**/*.{ts,js}\" --fix",
     "format": "prettier '**/*.ts' '**/*.js' '**/*.json' --write --config '../../.prettierrc.json' --ignore-path '../../.prettierignore'",
     "clean": "rimraf dist",
     "prebuild": "npm run clean && npm run lint",

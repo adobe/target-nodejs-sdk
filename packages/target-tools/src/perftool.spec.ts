@@ -5,8 +5,8 @@ describe("perfTool", () => {
     perfTool.reset();
   });
 
-  it("can time", () => {
-    return new Promise<void>(done => {
+  it("can time", () =>
+    new Promise<void>(done => {
       perfTool.timeStart("moo");
       setTimeout(() => {
         const timing = perfTool.timeEnd("moo");
@@ -17,11 +17,10 @@ describe("perfTool", () => {
         expect(timing).toBeGreaterThanOrEqual(90);
         done();
       }, 100);
-    });
-  });
+    }));
 
-  it("can time with offset", () => {
-    return new Promise<void>(done => {
+  it("can time with offset", () =>
+    new Promise<void>(done => {
       perfTool.timeStart("moo");
       setTimeout(() => {
         perfTool.timeEnd("moo", 50);
@@ -31,11 +30,10 @@ describe("perfTool", () => {
         expect(perfTool.getTimings().moo).toBeLessThan(100);
         done();
       }, 100);
-    });
-  });
+    }));
 
-  it("can time many", () => {
-    return new Promise<void>(done => {
+  it("can time many", () =>
+    new Promise<void>(done => {
       perfTool.timeStart("moo");
       perfTool.timeStart("meow");
       perfTool.timeStart("woof");
@@ -55,8 +53,7 @@ describe("perfTool", () => {
         expect(perfTool.getTimings().woof).toBeGreaterThanOrEqual(270);
         done();
       }, 300);
-    });
-  });
+    }));
 
   it("fails gracefully", () => {
     expect(perfTool.timeEnd("bleh")).toEqual(-1);
@@ -69,8 +66,8 @@ describe("perfTool", () => {
     expect(perfTool.timeEnd(id)).toEqual(-1);
   });
 
-  it("can time repeats", () => {
-    return new Promise<void>(done => {
+  it("can time repeats", () =>
+    new Promise<void>(done => {
       const firstTime = perfTool.timeStart("moo", true);
       const secondTime = perfTool.timeStart("moo", true);
       const thirdTime = perfTool.timeStart("moo", true);
@@ -92,8 +89,7 @@ describe("perfTool", () => {
         });
         done();
       }, 100);
-    });
-  });
+    }));
 
   it("has microsecond precision", () => {
     const timingTool = createPerfToolInstance();

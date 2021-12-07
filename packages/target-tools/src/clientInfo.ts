@@ -1,23 +1,23 @@
 interface Matcher {
   name: string;
-  regex: RegExp;
+  regex?: RegExp;
   versionGroupIndex?: number;
   version?: number;
 }
 
+interface ProcessFunc {
+  (matcher: Matcher, matches?: RegExpMatchArray): any;
+}
+
 function matchUserAgent(
   matchersList: Array<Matcher>,
-  processFunc: Function = undefined
+  processFunc: ProcessFunc = matcher => matcher.name
 ) {
-  // eslint-disable-next-line no-param-reassign
-  processFunc =
-    typeof processFunc === "function" ? processFunc : matcher => matcher.name;
-
   return function checkMatches(userAgent) {
     for (let i = 0; i < matchersList.length; i += 1) {
       const matcher = matchersList[i];
 
-      const matches = userAgent.match(matcher.regex);
+      const matches: RegExpMatchArray = userAgent.match(matcher.regex);
 
       if (matches) {
         return processFunc(matcher, matches);
@@ -28,7 +28,7 @@ function matchUserAgent(
 }
 
 export const browserFromUserAgent = (
-  userAgent: string = ""
+  userAgent = ""
 ): { name: string; version: number } =>
   matchUserAgent(
     [

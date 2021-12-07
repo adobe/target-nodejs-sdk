@@ -12,11 +12,10 @@ import {
   TOO_MANY_REQUESTS,
   UNAUTHORIZED
 } from "http-status-codes";
+import fetchMock, { enableFetchMocks } from "jest-fetch-mock";
 import { getFetchApi, getFetchWithRetry } from "./networking";
 import { noop } from "./utils";
 
-import fetchMock from "jest-fetch-mock";
-import { enableFetchMocks } from "jest-fetch-mock";
 enableFetchMocks();
 
 describe("networking", () => {
@@ -108,9 +107,12 @@ describe("networking", () => {
     });
 
     it("errors after 10 retries with custom error", async () => {
-      const fetchWithRetry = getFetchWithRetry(fetchApi, 10, errorMessage => {
-        return `Yo dawg, we tried 10 times but it still failed with this error message: ${errorMessage}`;
-      });
+      const fetchWithRetry = getFetchWithRetry(
+        fetchApi,
+        10,
+        errorMessage =>
+          `Yo dawg, we tried 10 times but it still failed with this error message: ${errorMessage}`
+      );
 
       fetchMock.mockResponses(
         ["", { status: UNAUTHORIZED }],

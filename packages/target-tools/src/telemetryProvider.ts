@@ -35,7 +35,7 @@ const STATUS_OK = 200;
  * @param {Function} telemetryStore data store for collected telemetry - default: InMemoryTelemetryStore, optional
  */
 export default function TelemetryProvider(
-  telemetryEnabled: boolean = true,
+  telemetryEnabled = true,
   method: string = DECISIONING_METHOD.SERVER_SIDE,
   telemetryStore: TelemetryStore = InMemoryTelemetryStore()
 ) {

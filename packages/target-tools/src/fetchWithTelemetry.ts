@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint no-param-reassign: ['error', { 'props': false }] */
 /*
 Copyright 2021 Adobe. All rights reserved.
@@ -13,8 +14,8 @@ governing permissions and limitations under the License.
 import https from "https";
 import http from "http";
 import now from "performance-now";
-import { FetchResponse } from "../types/FetchResponse";
 import { URL } from "url";
+import { FetchResponse } from "../types/FetchResponse";
 
 const PROTOCOL_MAP = {
   "http:": http.request,
