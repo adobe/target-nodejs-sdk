@@ -2,6 +2,7 @@ import {
   uuid,
   isDefined,
   noop,
+  noopSingleArg,
   now,
   MetricType,
   isFunction,
@@ -35,7 +36,7 @@ function NotificationProvider(
    * @param {import("@adobe/target-tools/delivery-api-client/models/MboxResponse").MboxResponse} mbox
    * @param { Function } traceFn
    */
-  function addNotification(mbox, traceFn = noop) {
+  function addNotification(mbox, traceFn = noopSingleArg) {
     const displayTokens = [];
 
     mbox.options.forEach(option => {
@@ -76,7 +77,7 @@ function NotificationProvider(
     if (notifications.length > 0 || telemetryEnabled) {
       const { id, context, experienceCloud } = request;
 
-      const notification = {
+      const notification: any = {
         request: {
           id,
           context,

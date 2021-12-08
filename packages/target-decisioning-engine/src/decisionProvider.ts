@@ -23,6 +23,12 @@ import {
 import { ruleEvaluator } from "./ruleEvaluator";
 import { LOG_PREFIX } from "./constants";
 import { byPropertyToken } from "./filters";
+import {
+  ExecuteResponse,
+  PageLoadResponse,
+  PrefetchResponse,
+  RequestDetails
+} from "@adobe/target-tools/delivery-api-client";
 
 const LOG_TAG = `${LOG_PREFIX}.DecisionProvider`;
 const PARTIAL_CONTENT = 206;
@@ -71,7 +77,11 @@ function DecisionProvider(
    * @param { 'execute'|'prefetch' } mode
    * @param { Function[] } postProcessors Used to process an mbox if needed, optional
    */
-  function getDecisions(mode, postProcessors) {
+  function getDecisions(
+    mode,
+    postProcessors
+  ): ExecuteResponse | PrefetchResponse {
+    // TODO - make return type into a generic that is a union of both types
     if (isUndefined(request[mode])) {
       return undefined;
     }
@@ -207,7 +217,9 @@ function DecisionProvider(
     /**
      * @param {import("@adobe/target-tools/delivery-api-client/models/RequestDetails").RequestDetails} requestDetails
      */
-    function processPageLoadRequest(requestDetails) {
+    function processPageLoadRequest(
+      requestDetails: RequestDetails
+    ): PageLoadResponse {
       let trace;
 
       const consequences = processMboxRequest(
@@ -229,7 +241,7 @@ function DecisionProvider(
         consequences.map(consequence => consequence.options)
       );
 
-      const result = {
+      const result: PageLoadResponse = {
         options,
         trace
       };
@@ -252,7 +264,7 @@ function DecisionProvider(
       return result;
     }
 
-    const response = {};
+    const response: any = {};
 
     if (request[mode].mboxes) {
       response.mboxes = flatten(
@@ -260,6 +272,7 @@ function DecisionProvider(
       );
     }
 
+    // TODO - make a type def for mode and check the type to determine return type
     if (request[mode].views) {
       response.views = flatten(
         request[mode].views.map(requestDetails =>

@@ -48,6 +48,7 @@ export {
   isPojo,
   memoize,
   noop,
+  noopSingleArg,
   noopPromise,
   objectWithoutUndefinedValues,
   requiresDecisioningEngine,

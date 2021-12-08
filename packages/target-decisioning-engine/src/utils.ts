@@ -42,11 +42,12 @@ export function parseURL(url) {
     url = "";
   }
 
-  const parsed = parseURI(url) || {};
+  const opts = {};
+  const parsed: any = parseURI(url, opts) || {};
 
   const { host = "", path = "", query = "", anchor = "" } = parsed;
 
-  const result = {
+  const result: any = {
     url,
     path,
     query,

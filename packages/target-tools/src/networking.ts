@@ -1,5 +1,5 @@
 import { DEFAULT_NUM_FETCH_RETRIES } from "./constants";
-import { isBrowser, isNodeJS, noop } from "./utils";
+import { isBrowser, isNodeJS, noopSingleArg } from "./utils";
 import { isFunction } from "./lodash";
 import { FetchAPI } from "../delivery-api-client";
 
@@ -30,7 +30,7 @@ export function getFetchWithRetry(
   fetchApi: FetchAPI,
   maxRetries = DEFAULT_NUM_FETCH_RETRIES,
   errorFunc = errorMessage => errorMessage,
-  incidentalFailureCallback = noop
+  incidentalFailureCallback = noopSingleArg
 ) {
   return function fetchWithRetry(
     url,

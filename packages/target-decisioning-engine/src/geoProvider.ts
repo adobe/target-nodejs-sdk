@@ -17,6 +17,7 @@ import {
   HTTP_HEADER_GEO_LONGITUDE,
   HTTP_HEADER_GEO_REGION
 } from "./constants";
+import { Geo } from "@adobe/target-tools/delivery-api-client";
 
 const GEO_MAPPINGS = [
   {
@@ -97,8 +98,8 @@ export function GeoProvider(config, artifact) {
    * @param {import("@adobe/target-tools/delivery-api-client/models/Geo").Geo} geoRequestContext
    * @return { Promise<import("@adobe/target-tools/delivery-api-client/models/Geo").Geo> }
    */
-  function validGeoRequestContext(geoRequestContext = {}) {
-    const validatedGeoRequestContext = { ...geoRequestContext };
+  function validGeoRequestContext(geoRequestContext: Geo = {}): Promise<Geo> {
+    const validatedGeoRequestContext: Geo = { ...geoRequestContext };
 
     if (
       geoRequestContext.ipAddress === UNKNOWN_IP_ADDRESS ||

@@ -4,6 +4,8 @@ import {
   isString,
   operatingSystemFromUserAgent
 } from "@adobe/target-tools";
+import { Geo } from "@adobe/target-tools/delivery-api-client/models";
+import { GeoContext } from "../types/DecisioningContext";
 import { parseURL } from "./utils";
 
 /**
@@ -98,7 +100,7 @@ export function createMboxContext(mboxRequest) {
  * @param { import("@adobe/target-tools/delivery-api-client/models/Geo").Geo } geoContext
  * @return { import("../types/DecisioningContext").GeoContext}
  */
-export function createGeoContext(geoContext = {}) {
+export function createGeoContext(geoContext: Geo = {}): GeoContext {
   return {
     country: geoContext.countryCode,
     region: geoContext.stateCode,

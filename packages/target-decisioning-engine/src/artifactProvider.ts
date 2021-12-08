@@ -36,6 +36,7 @@ import {
   TIMING_ARTIFACT_GET_INITIAL,
   TIMING_ARTIFACT_READ_JSON
 } from "./timings";
+import { TelemetryEntry } from "@adobe/target-tools/delivery-api-client";
 
 const LOG_TAG = `${LOG_PREFIX}.ArtifactProvider`;
 const NOT_MODIFIED = 304;
@@ -68,7 +69,7 @@ function ArtifactProvider(config, telemetryProvider) {
     );
   }
 
-  const pollingInterval = getPollingInterval(config);
+  const pollingInterval = getPollingInterval();
 
   const fetchApi = getFetchApi(config.fetchApi);
 
@@ -120,10 +121,9 @@ function ArtifactProvider(config, telemetryProvider) {
     if (artifactFormat === ARTIFACT_FORMAT_BINARY) {
       perfTool.timeStart(TIMING_ARTIFACT_DEOBFUSCATE);
       return res.arrayBuffer().then(buffer => {
-        return obfuscationProvider.deobfuscate(buffer).then(deobfuscated => {
-          perfTool.timeEnd(TIMING_ARTIFACT_DEOBFUSCATE);
-          return deobfuscated;
-        });
+        const deobfuscated = obfuscationProvider.deobfuscate(buffer);
+        perfTool.timeEnd(TIMING_ARTIFACT_DEOBFUSCATE);
+        return deobfuscated;
       });
     }
     perfTool.timeStart(TIMING_ARTIFACT_READ_JSON);
@@ -154,7 +154,7 @@ function ArtifactProvider(config, telemetryProvider) {
         perfTool.clearTiming(TIMING_ARTIFACT_DOWNLOADED_FETCH);
         logger.debug(`${LOG_TAG} artifact received - status=${res.status}`);
 
-        const entry = {
+        const entry: TelemetryEntry = {
           execution: executionTime
         };
 

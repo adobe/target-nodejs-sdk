@@ -141,6 +141,7 @@ export function isNodeJS(): boolean {
 }
 
 export const noop = () => undefined;
+export const noopSingleArg = (arg: any) => undefined;
 export const noopPromise = value => Promise.resolve(value);
 
 export function requiresDecisioningEngine(decisioningMethod: string): boolean {
