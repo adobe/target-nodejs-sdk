@@ -20,9 +20,21 @@ import typescript from "rollup-plugin-typescript2";
 import visualizer from "rollup-plugin-visualizer";
 import pkg from "./package.json";
 
+const tsConfig = {
+  compilerOptions: {
+    lib: ["es2019", "es2020.promise", "es2020.bigint", "es2020.string"],
+    module: "esnext",
+    target: "es2019",
+
+    esModuleInterop: true,
+    skipLibCheck: true,
+    forceConsistentCasingInFileNames: true
+  }
+};
+
 export default [
   {
-    input: "src/index.js",
+    input: "src/index.ts",
     output: {
       name: "TargetDecisioningEngine",
       file: pkg.main,

@@ -1,4 +1,5 @@
 /* eslint-disable no-bitwise */
+const { TextDecoder, TextEncoder } = require("util");
 import { SUPPORTED_ARTIFACT_OBFUSCATION_VERSION } from "./constants";
 import Messages from "./messages";
 
