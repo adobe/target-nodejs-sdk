@@ -4,6 +4,7 @@
   "description": "Adobe Target JavaScript decisioning engine",
   "main": "dist/index.js",
   "module": "src/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist/*",
     "types/*",

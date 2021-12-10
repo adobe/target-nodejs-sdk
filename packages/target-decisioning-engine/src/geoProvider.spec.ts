@@ -1,3 +1,6 @@
+import { enableFetchMocks, MockResponseInit } from "jest-fetch-mock";
+enableFetchMocks();
+import fetchMock from "jest-fetch-mock";
 import { UNKNOWN_IP_ADDRESS } from "@adobe/target-tools";
 import {
   createGeoObjectFromHeaders,
@@ -7,8 +10,6 @@ import {
 import { HTTP_HEADER_FORWARDED_FOR } from "./constants";
 
 const ARTIFACT_BLANK = require("../test/schema/artifacts/TEST_ARTIFACT_BLANK.json");
-
-require("jest-fetch-mock").enableMocks();
 
 describe("geoProvider", () => {
   const headers = {
@@ -44,18 +45,18 @@ describe("geoProvider", () => {
   });
 
   describe("validGeoRequestContext", () => {
-    const geoValues = {
-      "x-geo-longitude": -122.4,
-      "x-geo-latitude": 37.75,
+    const geoValues: HeadersInit = {
+      "x-geo-longitude": "-122.4",
+      "x-geo-latitude": "37.75",
       "x-geo-city": "SAN FRANCISCO",
       "x-geo-region-code": "CA",
       "x-geo-country-code": "US"
     };
 
     beforeEach(() => {
-      fetch.resetMocks();
+      fetchMock.resetMocks();
 
-      fetch.mockResponse(JSON.stringify(geoValues), {
+      fetchMock.mockResponse(JSON.stringify(geoValues), {
         headers: geoValues
       });
     });
@@ -71,7 +72,7 @@ describe("geoProvider", () => {
 
       const geo = await validGeoRequestContext({ ipAddress: "12.21.1.40" });
 
-      expect(fetch.mock.calls.length).toEqual(0);
+      expect(fetchMock.mock.calls.length).toEqual(0);
 
       expect(geo).toEqual({
         ipAddress: "12.21.1.40"
@@ -89,13 +90,13 @@ describe("geoProvider", () => {
 
       const geo = await validGeoRequestContext({ ipAddress: "12.21.1.40" });
 
-      expect(fetch.mock.calls.length).toEqual(1);
-      expect(fetch.mock.calls[0][0]).toEqual(
+      expect(fetchMock.mock.calls.length).toEqual(1);
+      expect(fetchMock.mock.calls[0][0]).toEqual(
         "https://assets.adobetarget.com/v1/geo"
       );
-      expect(fetch.mock.calls[0][1].headers[HTTP_HEADER_FORWARDED_FOR]).toEqual(
-        "12.21.1.40"
-      );
+      expect(
+        fetchMock.mock.calls[0][1].headers[HTTP_HEADER_FORWARDED_FOR]
+      ).toEqual("12.21.1.40");
 
       expect(geo).toEqual({
         city: "SAN FRANCISCO",
@@ -120,12 +121,12 @@ describe("geoProvider", () => {
         ipAddress: UNKNOWN_IP_ADDRESS
       });
 
-      expect(fetch.mock.calls.length).toEqual(1);
-      expect(fetch.mock.calls[0][0]).toEqual(
+      expect(fetchMock.mock.calls.length).toEqual(1);
+      expect(fetchMock.mock.calls[0][0]).toEqual(
         "https://assets.adobetarget.com/v1/geo"
       );
       expect(
-        fetch.mock.calls[0][1].headers[HTTP_HEADER_FORWARDED_FOR]
+        fetchMock.mock.calls[0][1].headers[HTTP_HEADER_FORWARDED_FOR]
       ).toBeUndefined();
 
       expect(geo).toEqual({
@@ -151,7 +152,7 @@ describe("geoProvider", () => {
         city: "Reno"
       });
 
-      expect(fetch.mock.calls.length).toEqual(0);
+      expect(fetchMock.mock.calls.length).toEqual(0);
 
       expect(geo).toEqual({
         city: "Reno"
@@ -159,10 +160,10 @@ describe("geoProvider", () => {
     });
 
     it("gets geo details from payload if necessary (ie11 support)", async () => {
-      fetch.resetMocks();
+      fetchMock.resetMocks();
 
       // response with missing headers to simulate ie11 being unable to read them
-      fetch.mockResponse(JSON.stringify(geoValues), {
+      fetchMock.mockResponse(JSON.stringify(geoValues), {
         headers: {}
       });
 
@@ -176,13 +177,13 @@ describe("geoProvider", () => {
 
       const geo = await validGeoRequestContext({ ipAddress: "12.21.1.40" });
 
-      expect(fetch.mock.calls.length).toEqual(1);
-      expect(fetch.mock.calls[0][0]).toEqual(
+      expect(fetchMock.mock.calls.length).toEqual(1);
+      expect(fetchMock.mock.calls[0][0]).toEqual(
         "https://assets.adobetarget.com/v1/geo"
       );
-      expect(fetch.mock.calls[0][1].headers[HTTP_HEADER_FORWARDED_FOR]).toEqual(
-        "12.21.1.40"
-      );
+      expect(
+        fetchMock.mock.calls[0][1].headers[HTTP_HEADER_FORWARDED_FOR]
+      ).toEqual("12.21.1.40");
 
       expect(geo).toEqual({
         city: "SAN FRANCISCO",

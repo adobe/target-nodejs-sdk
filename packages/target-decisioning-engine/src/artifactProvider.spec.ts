@@ -1,4 +1,7 @@
 /* eslint-disable jest/no-test-callback */
+import { enableFetchMocks, MockResponseInit } from "jest-fetch-mock";
+enableFetchMocks();
+import fetchMock from "jest-fetch-mock";
 import * as HttpStatus from "http-status-codes";
 import {
   ENVIRONMENT_PROD,
@@ -27,8 +30,6 @@ const ARTIFACT_BLANK = require("../test/schema/artifacts/TEST_ARTIFACT_BLANK.jso
 
 const ARTIFACT_DOWNLOAD = "ArtifactDownload";
 
-require("jest-fetch-mock").enableMocks();
-
 describe("artifactProvider", () => {
   let provider;
   const telemetryProvider = TelemetryProvider();
@@ -42,8 +43,8 @@ describe("artifactProvider", () => {
   };
 
   beforeEach(() => {
-    fetch.resetMocks();
-    constants.MINIMUM_POLLING_INTERVAL = 0;
+    fetchMock.resetMocks();
+    (constants.MINIMUM_POLLING_INTERVAL as number) = 0;
   });
 
   afterEach(() => {
@@ -54,7 +55,7 @@ describe("artifactProvider", () => {
   });
 
   it("initializes", async () => {
-    fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
+    fetchMock.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
     provider = await ArtifactProvider(
       {
@@ -69,7 +70,7 @@ describe("artifactProvider", () => {
   });
 
   it("subscribes", async done => {
-    fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
+    fetchMock.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
     provider = await ArtifactProvider(
       {
@@ -90,7 +91,7 @@ describe("artifactProvider", () => {
   });
 
   it("polls", async done => {
-    fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
+    fetchMock.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
     provider = await ArtifactProvider(
       {
@@ -117,7 +118,7 @@ describe("artifactProvider", () => {
   });
 
   it("polls even if artifactPayload is provided", async done => {
-    fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
+    fetchMock.mockResponse(JSON.stringify(ARTIFACT_BLANK));
     expect.assertions(2);
 
     provider = await ArtifactProvider(
@@ -146,7 +147,7 @@ describe("artifactProvider", () => {
   });
 
   it("retries failed artifact request 10 times", async () => {
-    fetch.mockResponses(
+    fetchMock.mockResponses(
       ["", { status: HttpStatus.UNAUTHORIZED }],
       ["", { status: HttpStatus.NOT_FOUND }],
       ["", { status: HttpStatus.NOT_ACCEPTABLE }],
@@ -169,14 +170,14 @@ describe("artifactProvider", () => {
     );
 
     expect(provider.getArtifact()).toEqual(ARTIFACT_BLANK);
-    expect(fetch.mock.calls.length).toEqual(11);
+    expect(fetchMock.mock.calls.length).toEqual(11);
   });
 
   // eslint-disable-next-line jest/no-test-callback
   it("reports an error if it failed to retrieve the artifact after 10 tries", async () => {
     expect.assertions(3);
 
-    fetch.mockResponses(
+    fetchMock.mockResponses(
       ["", { status: HttpStatus.UNAUTHORIZED }],
       ["", { status: HttpStatus.NOT_FOUND }],
       ["", { status: HttpStatus.NOT_ACCEPTABLE }],
@@ -210,13 +211,15 @@ describe("artifactProvider", () => {
     );
 
     expect(provider.getArtifact()).toBeUndefined();
-    expect(fetch.mock.calls.length).toEqual(11);
+    expect(fetchMock.mock.calls.length).toEqual(11);
   });
 
   it("uses the artifactLocation if one is provided", async () => {
     const artifactURL = "https://mywebsite.com/targettesting/rules.json";
 
-    fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK)).doMockIf(artifactURL);
+    fetchMock
+      .mockResponse(JSON.stringify(ARTIFACT_BLANK))
+      .doMockIf(artifactURL);
 
     provider = await ArtifactProvider(
       {
@@ -228,7 +231,7 @@ describe("artifactProvider", () => {
     );
 
     expect(provider.getArtifact()).toEqual(ARTIFACT_BLANK);
-    expect(fetch.mock.calls[0][0]).toEqual(artifactURL);
+    expect(fetchMock.mock.calls[0][0]).toEqual(artifactURL);
   });
 
   it("gets a cached version based on ETag", async done => {
@@ -255,7 +258,7 @@ describe("artifactProvider", () => {
       }
     });
 
-    fetch
+    fetchMock
       .once(JSON.stringify(FIRST_PAYLOAD), {
         status: HttpStatus.OK,
         headers: {
@@ -264,45 +267,54 @@ describe("artifactProvider", () => {
         }
       })
       .once(
-        req => {
+        (req: Request): Promise<MockResponseInit> => {
           expect(req.headers.get("If-None-Match")).toEqual(eTagIdentifier);
 
-          return Promise.resolve(JSON.stringify(IRRELEVANT_PAYLOAD));
-        },
-        {
-          status: HttpStatus.NOT_MODIFIED,
-          headers: {
-            "ETag": eTagIdentifier,
-            "Content-Type": "application/json"
-          }
+          const responseInit: MockResponseInit = {
+            body: JSON.stringify(IRRELEVANT_PAYLOAD),
+            init: {
+              status: HttpStatus.NOT_MODIFIED,
+              headers: {
+                "ETag": eTagIdentifier,
+                "Content-Type": "application/json"
+              }
+            }
+          };
+          return Promise.resolve(responseInit);
         }
       )
       .once(
-        req => {
+        (req: Request): Promise<MockResponseInit> => {
           expect(req.headers.get("If-None-Match")).toEqual(eTagIdentifier);
 
-          return Promise.resolve(JSON.stringify(NEW_VERSION_PAYLOAD));
-        },
-        {
-          status: HttpStatus.OK,
-          headers: {
-            "ETag": eTagIdentifierNew,
-            "Content-Type": "application/json"
-          }
+          const responseInit: MockResponseInit = {
+            body: JSON.stringify(NEW_VERSION_PAYLOAD),
+            init: {
+              status: HttpStatus.OK,
+              headers: {
+                "ETag": eTagIdentifierNew,
+                "Content-Type": "application/json"
+              }
+            }
+          };
+          return Promise.resolve(responseInit);
         }
       )
       .once(
-        req => {
+        (req: Request): Promise<MockResponseInit> => {
           expect(req.headers.get("If-None-Match")).toEqual(eTagIdentifierNew);
 
-          return Promise.resolve(JSON.stringify(IRRELEVANT_PAYLOAD));
-        },
-        {
-          status: HttpStatus.NOT_MODIFIED,
-          headers: {
-            "ETag": eTagIdentifierNew,
-            "Content-Type": "application/json"
-          }
+          const responseInit: MockResponseInit = {
+            body: JSON.stringify(IRRELEVANT_PAYLOAD),
+            init: {
+              status: HttpStatus.NOT_MODIFIED,
+              headers: {
+                "ETag": eTagIdentifierNew,
+                "Content-Type": "application/json"
+              }
+            }
+          };
+          return Promise.resolve(responseInit);
         }
       );
 
@@ -336,7 +348,7 @@ describe("artifactProvider", () => {
   });
 
   it("emits artifactDownloadSucceeded event", async done => {
-    fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
+    fetchMock.mockResponse(JSON.stringify(ARTIFACT_BLANK));
     expect.assertions(2);
 
     function eventEmitter(eventName, payload) {
@@ -363,7 +375,7 @@ describe("artifactProvider", () => {
   });
 
   it("emits artifactDownloadFailed event", async done => {
-    fetch.mockResponse("", { status: HttpStatus.FORBIDDEN });
+    fetchMock.mockResponse("", { status: HttpStatus.FORBIDDEN });
 
     expect.assertions(22); // (1 + 10 retries) * 2 assertions
 

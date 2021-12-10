@@ -1,5 +1,7 @@
 import { validVisitorId } from "./requestProvider";
 
+const DEFAULT_LOCATION_HINT = 0;
+
 describe("validVisitorId", () => {
   it("does not generate tntId if one exists", () => {
     const vid = {
@@ -15,7 +17,7 @@ describe("validVisitorId", () => {
       ]
     };
 
-    expect(validVisitorId(vid)).toEqual(vid);
+    expect(validVisitorId(vid, DEFAULT_LOCATION_HINT)).toEqual(vid);
   });
 
   it("does not generate tnt id if there is another valid option - thirdPartyId", () => {
@@ -23,7 +25,7 @@ describe("validVisitorId", () => {
       thirdPartyId: "thirdParty123"
     };
 
-    expect(validVisitorId(vid)).toEqual(vid);
+    expect(validVisitorId(vid, DEFAULT_LOCATION_HINT)).toEqual(vid);
   });
 
   it("does not generate tnt id if there is another valid option - customerId", () => {
@@ -37,7 +39,7 @@ describe("validVisitorId", () => {
       ]
     };
 
-    expect(validVisitorId(vid)).toEqual(vid);
+    expect(validVisitorId(vid, DEFAULT_LOCATION_HINT)).toEqual(vid);
   });
 
   it("does not generate tnt id if there is another valid option - ecid", () => {
@@ -45,13 +47,13 @@ describe("validVisitorId", () => {
       marketingCloudVisitorId: "mcid123"
     };
 
-    expect(validVisitorId(vid)).toEqual(vid);
+    expect(validVisitorId(vid, DEFAULT_LOCATION_HINT)).toEqual(vid);
   });
 
   it("generates tnt id if there is no other valid option", () => {
     const vid = {};
 
-    expect(validVisitorId(vid)).toEqual({
+    expect(validVisitorId(vid, DEFAULT_LOCATION_HINT)).toEqual({
       tntId: expect.any(String)
     });
   });
@@ -72,7 +74,7 @@ describe("validVisitorId", () => {
       ]
     };
 
-    expect(validVisitorId(vid)).toEqual({
+    expect(validVisitorId(vid, DEFAULT_LOCATION_HINT)).toEqual({
       ...vid,
       tntId: expect.any(String)
     });

@@ -1,4 +1,5 @@
 import { DecisioningArtifact } from "./DecisioningArtifact";
+import { Logger } from "@adobe/target-tools";
 
 export interface DecisioningConfig {
   /**
@@ -14,7 +15,7 @@ export interface DecisioningConfig {
   /**
    * Polling interval in ms, default: 30000
    */
-  pollingInterval?: Number;
+  pollingInterval?: number;
 
   /**
    * The format of the artifact.  (json or bin)
@@ -54,7 +55,7 @@ export interface DecisioningConfig {
   /**
    * Replaces the default noop logger
    */
-  logger?: Object;
+  logger?: Logger;
 
   /**
    * Fetch Implementation
@@ -69,7 +70,7 @@ export interface DecisioningConfig {
   /**
    * If set to false, telemetry data will not be sent to Adobe
    */
-  telemetryEnabled?: Boolean;
+  telemetryEnabled?: boolean;
 
   /**
    * Function used to emit events

@@ -25,6 +25,7 @@ import InMemoryTelemetryStore, {
   TelemetryStore
 } from "./InMemoryTelemetryStore";
 import { DeliveryRequest, TelemetryEntry } from "../delivery-api-client";
+import { TelemetryInstance } from "../types/TelemetryInstance";
 
 const STATUS_OK = 200;
 
@@ -38,7 +39,7 @@ export default function TelemetryProvider(
   telemetryEnabled = true,
   method: string = DECISIONING_METHOD.SERVER_SIDE,
   telemetryStore: TelemetryStore = InMemoryTelemetryStore()
-) {
+): TelemetryInstance {
   function getMode(status, decisioningMethod) {
     if (
       status === STATUS_OK &&

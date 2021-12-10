@@ -108,3 +108,11 @@ export { default as uuid } from "./uuid";
 export { default as getFetchWithTelemetry } from "./fetchWithTelemetry";
 
 export { default as performanceNow } from "performance-now";
+
+export { URI } from "../types/URI";
+
+export { Logger } from "./logging";
+
+export { TelemetryInstance } from "../types/TelemetryInstance";
+
+export { FetchHeaders } from "../types/FetchHeaders";

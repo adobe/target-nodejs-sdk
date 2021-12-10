@@ -17,7 +17,7 @@ describe("obfuscationProvider", () => {
     });
 
     expect.assertions(1);
-    return new Promise(done => {
+    return new Promise((done: Function) => {
       fs.readFile(
         `${testArtifactsDirectory}/rules.bin`,
         null,
@@ -39,7 +39,7 @@ describe("obfuscationProvider", () => {
       organizationId: "74F652E95F1B16FE0A495C92@InvalidOrg"
     });
 
-    return new Promise(done => {
+    return new Promise((done: Function) => {
       fs.readFile(
         `${testArtifactsDirectory}/rules.bin`,
         null,

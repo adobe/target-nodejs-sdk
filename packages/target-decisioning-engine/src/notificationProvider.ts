@@ -4,11 +4,20 @@ import {
   noop,
   noopSingleArg,
   now,
-  MetricType,
   isFunction,
-  NOTIFICATIONS_REQUIRED
+  NOTIFICATIONS_REQUIRED,
+  Logger
 } from "@adobe/target-tools";
+import {
+  DeliveryRequest,
+  MboxResponse,
+  VisitorId,
+  Notification,
+  MetricType
+} from "@adobe/target-tools/delivery-api-client";
+import { TraceNotification } from "../types/Tracer";
 import { LOG_PREFIX } from "./constants";
+import { NotificationInstance } from "../types/NotificationInstance";
 
 const LOG_TAG = `${LOG_PREFIX}.NotificationProvider`;
 
@@ -21,12 +30,12 @@ const LOG_TAG = `${LOG_PREFIX}.NotificationProvider`;
  */
 
 function NotificationProvider(
-  request,
-  visitor,
-  logger,
-  sendNotificationFunc = noop,
-  telemetryEnabled = true
-) {
+  request: DeliveryRequest,
+  visitor: VisitorId,
+  logger: Logger,
+  sendNotificationFunc: Function = noop,
+  telemetryEnabled: boolean = true
+): NotificationInstance {
   const timestamp = now();
   const prevEventKeys = new Set();
   let notifications = [];
@@ -36,7 +45,10 @@ function NotificationProvider(
    * @param {import("@adobe/target-tools/delivery-api-client/models/MboxResponse").MboxResponse} mbox
    * @param { Function } traceFn
    */
-  function addNotification(mbox, traceFn = noopSingleArg) {
+  function addNotification(
+    mbox: MboxResponse,
+    traceFn: TraceNotification = noopSingleArg
+  ): void {
     const displayTokens = [];
 
     mbox.options.forEach(option => {
@@ -53,7 +65,7 @@ function NotificationProvider(
       return;
     }
 
-    const notification = {
+    const notification: Notification = {
       id: uuid(),
       impressionId: uuid(),
       timestamp,
@@ -71,7 +83,7 @@ function NotificationProvider(
     notifications.push(notification);
   }
 
-  function sendNotifications() {
+  function sendNotifications(): void {
     logger.debug(`${LOG_TAG}.sendNotifications`, notifications);
 
     if (notifications.length > 0 || telemetryEnabled) {
@@ -103,9 +115,15 @@ function NotificationProvider(
     }
   }
 
+  // For testing purposes
+  function clearNotifications() {
+    notifications = [];
+  }
+
   return {
     addNotification,
-    sendNotifications
+    sendNotifications,
+    clearNotifications
   };
 }
 

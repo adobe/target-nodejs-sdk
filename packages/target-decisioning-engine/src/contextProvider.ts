@@ -1,21 +1,34 @@
 import {
   browserFromUserAgent,
-  ChannelType,
   isString,
   operatingSystemFromUserAgent
 } from "@adobe/target-tools";
-import { Geo } from "@adobe/target-tools/delivery-api-client/models";
-import { GeoContext } from "../types/DecisioningContext";
+import {
+  Address,
+  Context,
+  DeliveryRequest,
+  MboxRequest,
+  ChannelType,
+  Geo
+} from "@adobe/target-tools/delivery-api-client";
+import {
+  DecisioningContext,
+  GeoContext,
+  MboxContext,
+  PageContext,
+  TimingContext,
+  UserContext
+} from "../types/DecisioningContext";
 import { parseURL } from "./utils";
 
 /**
  * @type { import("@adobe/target-tools/delivery-api-client/models/Context").Context }
  */
-const EMPTY_CONTEXT = {
+const EMPTY_CONTEXT: Context = {
   channel: ChannelType.Web
 };
 
-function getLowerCaseAttributes(obj) {
+function getLowerCaseAttributes(obj: object): object {
   const result = {};
 
   Object.keys(obj).forEach(key => {
@@ -31,7 +44,7 @@ function getLowerCaseAttributes(obj) {
  * @param { import("@adobe/target-tools/delivery-api-client/models/Context").Context } context
  * @return { import("../types/DecisioningContext").UserContext }
  */
-function createBrowserContext(context) {
+function createBrowserContext(context: Context): UserContext {
   const { userAgent = "" } = context;
 
   const browser = browserFromUserAgent(userAgent);
@@ -49,7 +62,7 @@ function createBrowserContext(context) {
  * @param { string } url
  * @return { import("../types/DecisioningContext").PageContext }
  */
-function createUrlContext(url) {
+function createUrlContext(url: string): PageContext {
   if (!url || !isString(url)) {
     // eslint-disable-next-line no-param-reassign
     url = "";
@@ -67,7 +80,7 @@ function createUrlContext(url) {
  * @param { import("@adobe/target-tools/delivery-api-client/models/Address").Address } address
  * @return { import("../types/DecisioningContext").PageContext }
  */
-export function createPageContext(address) {
+export function createPageContext(address: Address): PageContext {
   return createUrlContext(address ? address.url : "");
 }
 
@@ -75,7 +88,7 @@ export function createPageContext(address) {
  * @param { import("@adobe/target-tools/delivery-api-client/models/Address").Address } address
  * @return { import("../types/DecisioningContext").PageContext }
  */
-export function createReferringContext(address) {
+export function createReferringContext(address: Address): PageContext {
   return createUrlContext(address ? address.referringUrl : "");
 }
 
@@ -83,7 +96,7 @@ export function createReferringContext(address) {
  * @param { import("@adobe/target-tools/delivery-api-client/models/MboxRequest").MboxRequest } mboxRequest
  * @return { import("../types/DecisioningContext").MboxContext }
  */
-export function createMboxContext(mboxRequest) {
+export function createMboxContext(mboxRequest: MboxRequest): MboxContext {
   if (!mboxRequest) {
     return {};
   }
@@ -110,7 +123,7 @@ export function createGeoContext(geoContext: Geo = {}): GeoContext {
   };
 }
 
-function createTimingContext() {
+function createTimingContext(): TimingContext {
   const now = new Date();
 
   const twoDigitString = value => (value < 10 ? `0${value}` : String(value));
@@ -134,11 +147,20 @@ function createTimingContext() {
  * @param { import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
  * @return { import("../types/DecisioningContext").DecisioningContext }
  */
-export function createDecisioningContext(deliveryRequest) {
+export function createDecisioningContext(
+  deliveryRequest: DeliveryRequest
+): DecisioningContext {
   const { context = EMPTY_CONTEXT } = deliveryRequest;
+  const {
+    current_timestamp,
+    current_time,
+    current_day
+  } = createTimingContext();
 
   return {
-    ...createTimingContext(),
+    current_timestamp,
+    current_time,
+    current_day,
     user: createBrowserContext(context),
     page: createPageContext(context.address),
     referring: createReferringContext(context.address),

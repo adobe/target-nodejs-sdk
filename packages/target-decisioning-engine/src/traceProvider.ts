@@ -13,6 +13,15 @@ import {
   EXPERIENCE_ID,
   OFFER_ID
 } from "./constants";
+import { DecisioningArtifact, Rule } from "../types/DecisioningArtifact";
+import { TraceInstance } from "../types/TraceInstance";
+import { TraceNotification, Tracer } from "../types/Tracer";
+import { TargetDeliveryRequest } from "../types/TargetDeliveryRequest";
+import { DecisioningConfig } from "../types/DecisioningConfig";
+import { RequestType } from "../types/RequestType";
+import { DecisioningContext } from "../types/DecisioningContext";
+import { AbstractRequest } from "../types/AbstractRequest";
+import { RequestMode } from "../types/RequestMode";
 
 const byOrder = (a, b) => a.order - b.order;
 
@@ -21,7 +30,11 @@ const byOrder = (a, b) => a.order - b.order;
  * @param {import("../types/TargetDeliveryRequest").TargetDeliveryRequest} targetOptions
  * @param { object } artifactTrace
  */
-export function TraceProvider(config, targetOptions, artifactTrace) {
+export function TraceProvider(
+  config: DecisioningConfig,
+  targetOptions: TargetDeliveryRequest,
+  artifactTrace: object
+): TraceInstance {
   const clientCode = config.client;
   const { sessionId, request } = targetOptions;
   const showTraces = isDefined(request.trace);
@@ -66,7 +79,10 @@ export function TraceProvider(config, targetOptions, artifactTrace) {
  * @param traceProvider
  * @param { import("../types/DecisioningArtifact").DecisioningArtifact } artifact
  */
-export function RequestTracer(traceProvider, artifact) {
+export function RequestTracer(
+  traceProvider: TraceInstance,
+  artifact: DecisioningArtifact
+): Tracer {
   let request = {};
 
   // add to as rules are evaluated
@@ -83,7 +99,12 @@ export function RequestTracer(traceProvider, artifact) {
    * @param mboxRequest
    * @param context
    */
-  function traceRequest(mode, requestType, mboxRequest, context) {
+  function traceRequest(
+    mode: RequestMode,
+    requestType: RequestType,
+    mboxRequest: AbstractRequest,
+    context: DecisioningContext
+  ): void {
     request = {
       pageURL: context.page.url,
       host: context.page.domain
@@ -100,7 +121,7 @@ export function RequestTracer(traceProvider, artifact) {
    * @param {import("../types/DecisioningArtifact").Rule} rule
    * @param { Boolean } ruleSatisfied
    */
-  function addCampaign(rule, ruleSatisfied) {
+  function addCampaign(rule: Rule, ruleSatisfied: boolean) {
     const { meta } = rule;
     const activityId = meta[ACTIVITY_ID];
 
@@ -124,7 +145,11 @@ export function RequestTracer(traceProvider, artifact) {
    * @param { import("../types/DecisioningContext").DecisioningContext } ruleContext
    * @param { Boolean } ruleSatisfied
    */
-  function addEvaluatedCampaignTarget(rule, ruleContext, ruleSatisfied) {
+  function addEvaluatedCampaignTarget(
+    rule: Rule,
+    ruleContext: DecisioningContext,
+    ruleSatisfied: boolean
+  ): void {
     const { meta } = rule;
     const audienceIds = meta[AUDIENCE_IDS];
     const activityId = meta[ACTIVITY_ID];
@@ -163,12 +188,12 @@ export function RequestTracer(traceProvider, artifact) {
    * @param { Boolean } ruleSatisfied
    */
   function traceRuleEvaluated(
-    rule,
-    mboxRequest,
-    requestType,
-    ruleContext,
-    ruleSatisfied
-  ) {
+    rule: Rule,
+    mboxRequest: AbstractRequest,
+    requestType: RequestType,
+    ruleContext: DecisioningContext,
+    ruleSatisfied: boolean
+  ): void {
     addCampaign(rule, ruleSatisfied);
     addEvaluatedCampaignTarget(rule, ruleContext, ruleSatisfied);
   }
@@ -177,7 +202,7 @@ export function RequestTracer(traceProvider, artifact) {
    *
    * @param {import("../types/DecisioningArtifact").Rule} rule
    */
-  function traceNotification(rule) {
+  function traceNotification(rule: Rule): TraceNotification {
     const { meta } = rule;
     const activityId = meta[ACTIVITY_ID];
 
@@ -240,17 +265,17 @@ export function RequestTracer(traceProvider, artifact) {
  * @param {import("../types/DecisioningArtifact").DecisioningArtifact} firstArtifact
  */
 export function ArtifactTracer(
-  artifactLocation,
-  artifactPayload,
-  pollingInterval,
-  pollingHalted,
-  firstArtifact
+  artifactLocation: string,
+  artifactPayload: DecisioningArtifact,
+  pollingInterval: number,
+  pollingHalted: boolean,
+  firstArtifact: DecisioningArtifact
 ) {
-  let artifact = firstArtifact;
-  let artifactRetrievalCount = 1;
-  let artifactLastRetrieved = new Date();
+  let artifact: DecisioningArtifact = firstArtifact;
+  let artifactRetrievalCount: number = 1;
+  let artifactLastRetrieved: Date = new Date();
 
-  function provideNewArtifact(value) {
+  function provideNewArtifact(value: DecisioningArtifact): void {
     artifactLastRetrieved = new Date();
     artifactRetrievalCount += 1;
     artifact = value;

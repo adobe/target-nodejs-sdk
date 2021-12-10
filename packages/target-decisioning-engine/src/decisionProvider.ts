@@ -5,12 +5,12 @@ import {
   isDefined,
   isUndefined,
   objectWithoutUndefinedValues,
-  values
+  values,
+  Logger
 } from "@adobe/target-tools";
 import { getRuleKey, hasRemoteDependency } from "./utils";
 import NotificationProvider from "./notificationProvider";
 import { RequestTracer } from "./traceProvider";
-import { RequestType } from "./enums";
 import {
   addTrace,
   cleanUp,
@@ -24,15 +24,30 @@ import { ruleEvaluator } from "./ruleEvaluator";
 import { LOG_PREFIX } from "./constants";
 import { byPropertyToken } from "./filters";
 import {
-  ExecuteResponse,
   PageLoadResponse,
   PrefetchResponse,
-  RequestDetails
+  RequestDetails,
+  MboxRequest,
+  ExecuteResponse,
+  MboxResponse,
+  ViewRequest
 } from "@adobe/target-tools/delivery-api-client";
+import { ExecuteOrPrefetchResponse } from "../types/ExecuteOrPrefetchResponse";
+import { DecisioningConfig } from "../types/DecisioningConfig";
+import { TargetDeliveryRequest } from "../types/TargetDeliveryRequest";
+import { DecisioningArtifact } from "../types/DecisioningArtifact";
+import { DecisioningContext } from "../types/DecisioningContext";
+import { RequestMode } from "../types/RequestMode";
+import { OnDeviceDeliveryResponse } from "../types/OnDeviceDeliveryResponse";
+import { TraceInstance } from "../types/TraceInstance";
+import { RequestType } from "../types/RequestType";
 
 const LOG_TAG = `${LOG_PREFIX}.DecisionProvider`;
 const PARTIAL_CONTENT = 206;
 const OK = 200;
+
+const isViewRequest = (requestDetails: any): requestDetails is ViewRequest =>
+  !!(requestDetails as ViewRequest).name;
 
 /**
  *
@@ -44,13 +59,13 @@ const OK = 200;
  * @param traceProvider
  */
 function DecisionProvider(
-  config,
-  targetOptions,
-  context,
-  artifact,
-  logger,
-  traceProvider
-) {
+  config: DecisioningConfig,
+  targetOptions: TargetDeliveryRequest,
+  context: DecisioningContext,
+  artifact: DecisioningArtifact,
+  logger: Logger,
+  traceProvider: TraceInstance
+): Promise<OnDeviceDeliveryResponse> {
   const { responseTokens, rules } = artifact;
   const globalMboxName = artifact.globalMbox || DEFAULT_GLOBAL_MBOX;
 
@@ -78,10 +93,9 @@ function DecisionProvider(
    * @param { Function[] } postProcessors Used to process an mbox if needed, optional
    */
   function getDecisions(
-    mode,
-    postProcessors
-  ): ExecuteResponse | PrefetchResponse {
-    // TODO - make return type into a generic that is a union of both types
+    mode: RequestMode,
+    postProcessors: Array<Function>
+  ): ExecuteOrPrefetchResponse {
     if (isUndefined(request[mode])) {
       return undefined;
     }
@@ -93,7 +107,10 @@ function DecisionProvider(
      * @param { import("@adobe/target-tools/delivery-api-client/models/RequestDetails").RequestDetails | import("@adobe/target-tools/delivery-api-client/models/MboxRequest").MboxRequest } requestDetails
      * @param {Array<Function>} additionalPostProcessors
      */
-    function processViewRequest(requestDetails, additionalPostProcessors = []) {
+    function processViewRequest(
+      requestDetails: RequestDetails | MboxRequest | ViewRequest,
+      additionalPostProcessors: Array<Function> = []
+    ): Array<PrefetchResponse> {
       requestTracer.traceRequest(
         mode,
         RequestType.VIEW,
@@ -104,10 +121,7 @@ function DecisionProvider(
       const consequences = {};
 
       let viewRules = [];
-      if (
-        Object.prototype.hasOwnProperty.call(requestDetails, "name") &&
-        isDefined(requestDetails.name)
-      ) {
+      if (isViewRequest(requestDetails)) {
         viewRules = rules.views[requestDetails.name] || [];
       } else {
         viewRules = Object.keys(rules.views).reduce(
@@ -164,7 +178,10 @@ function DecisionProvider(
      * @param {import("@adobe/target-tools/delivery-api-client/models/MboxRequest").MboxRequest} mboxRequest
      * @param { Array<Function> } additionalPostProcessors
      */
-    function processMboxRequest(mboxRequest, additionalPostProcessors = []) {
+    function processMboxRequest(
+      mboxRequest: MboxRequest,
+      additionalPostProcessors: Array<Function> = []
+    ): Array<MboxResponse> {
       const isGlobalMbox = mboxRequest.name === globalMboxName;
 
       requestTracer.traceRequest(mode, RequestType.MBOX, mboxRequest, context);
@@ -264,7 +281,7 @@ function DecisionProvider(
       return result;
     }
 
-    const response: any = {};
+    const response: ExecuteOrPrefetchResponse = {};
 
     if (request[mode].mboxes) {
       response.mboxes = flatten(
@@ -272,9 +289,8 @@ function DecisionProvider(
       );
     }
 
-    // TODO - make a type def for mode and check the type to determine return type
-    if (request[mode].views) {
-      response.views = flatten(
+    if (mode === RequestMode.PREFETCH && request[mode].views) {
+      (response as PrefetchResponse).views = flatten(
         request[mode].views.map(requestDetails =>
           processViewRequest(requestDetails)
         )
@@ -287,8 +303,10 @@ function DecisionProvider(
     return response;
   }
 
-  function getExecuteDecisions(postProcessors) {
-    return getDecisions("execute", [
+  function getExecuteDecisions(
+    postProcessors: Array<Function>
+  ): ExecuteResponse {
+    return getDecisions(RequestMode.EXECUTE, [
       function prepareNotification(
         rule,
         mboxResponse,
@@ -308,8 +326,10 @@ function DecisionProvider(
     ]);
   }
 
-  function getPrefetchDecisions(postProcessors) {
-    return getDecisions("prefetch", [
+  function getPrefetchDecisions(
+    postProcessors: Array<Function>
+  ): PrefetchResponse {
+    return getDecisions(RequestMode.PREFETCH, [
       preparePrefetchResponse,
       ...postProcessors
     ]);
@@ -327,7 +347,7 @@ function DecisionProvider(
     cleanUp
   ];
 
-  const response = objectWithoutUndefinedValues({
+  const response: OnDeviceDeliveryResponse = objectWithoutUndefinedValues({
     status: dependency.remoteNeeded ? PARTIAL_CONTENT : OK,
     remoteMboxes: dependency.remoteMboxes,
     remoteViews: dependency.remoteViews,

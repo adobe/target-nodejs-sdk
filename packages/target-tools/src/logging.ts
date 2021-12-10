@@ -3,7 +3,7 @@ import { assign, isFunction } from "./lodash";
 
 const AT_PREFIX = "AT:";
 
-interface Logger {
+export interface Logger {
   debug: Function;
   error: Function;
   built?: boolean;

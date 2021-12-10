@@ -5,12 +5,13 @@ import {
   isString,
   memoize
 } from "@adobe/target-tools";
+import { VisitorId } from "@adobe/target-tools/delivery-api-client";
 import { CAMPAIGN_BUCKET_SALT } from "./constants";
 
 const TOTAL_BUCKETS = 10000;
 const MAX_PERCENTAGE = 100;
 
-export function validTntId(tntId = "") {
+export function validTntId(tntId: string = ""): string {
   if (isString(tntId) && !isEmpty(tntId)) {
     // eslint-disable-next-line no-unused-vars
     const [id, locationHint] = tntId.split(".");
@@ -24,7 +25,7 @@ export function validTntId(tntId = "") {
  * @param { import("@adobe/target-tools/delivery-api-client/models/VisitorId").VisitorId } visitorId
  * @returns {string} first non-blank marketingCloudVisitorId, tntId, thirdPartyId
  */
-export function getOrCreateVisitorId(visitorId) {
+export function getOrCreateVisitorId(visitorId: VisitorId): string {
   if (visitorId) {
     return (
       visitorId.marketingCloudVisitorId ||
@@ -40,7 +41,7 @@ export function getOrCreateVisitorId(visitorId) {
  * @param deviceId
  * @returns {number}
  */
-function calculateAllocation(deviceId) {
+function calculateAllocation(deviceId: string): number {
   const signedNumericHashValue = hashUnencodedChars(deviceId);
 
   const hashFixedBucket = Math.abs(signedNumericHashValue) % TOTAL_BUCKETS;
@@ -59,18 +60,18 @@ const calculateAllocationMemoized = memoize(calculateAllocation);
  * @param {String} salt salt value, optional
  */
 export function computeAllocation(
-  clientId,
-  activityId,
-  visitorId,
-  salt = CAMPAIGN_BUCKET_SALT
-) {
+  clientId: string,
+  activityId: number,
+  visitorId: VisitorId | String,
+  salt: string = CAMPAIGN_BUCKET_SALT
+): number {
   // Generate a device id based on visitorId, clientCode, campaignId and a salt value
   const deviceId = [
     clientId,
     activityId,
     isString(visitorId) && !isEmpty(visitorId)
       ? visitorId
-      : getOrCreateVisitorId(visitorId),
+      : getOrCreateVisitorId(visitorId as VisitorId),
     salt
   ].join(".");
 

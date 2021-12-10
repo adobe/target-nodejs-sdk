@@ -1,9 +1,9 @@
+import { getLogger, NOTIFICATIONS_REQUIRED } from "@adobe/target-tools";
 import {
-  getLogger,
   ChannelType,
-  MetricType,
-  NOTIFICATIONS_REQUIRED
-} from "@adobe/target-tools";
+  OptionType,
+  MetricType
+} from "../../target-tools/delivery-api-client";
 import NotificationProvider from "./notificationProvider";
 import { validVisitorId } from "./requestProvider";
 
@@ -50,7 +50,7 @@ describe("notificationProvider", () => {
       options: [
         {
           content: "<h1>it's firefox</h1>",
-          type: "html",
+          type: OptionType.Html,
           eventToken:
             "B8C2FP2IuBgmeJcDfXHjGpNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
         }
@@ -108,7 +108,7 @@ describe("notificationProvider", () => {
       name: "target-global-mbox",
       options: [
         {
-          type: "actions",
+          type: OptionType.Actions,
           content: [
             {
               type: "insertAfter",
@@ -136,7 +136,7 @@ describe("notificationProvider", () => {
       name: "target-global-mbox",
       options: [
         {
-          type: "actions",
+          type: OptionType.Actions,
           content: [
             {
               type: "insertAfter",
@@ -195,7 +195,7 @@ describe("notificationProvider", () => {
       name: "my-mbox",
       options: [
         {
-          type: "actions",
+          type: OptionType.Actions,
           content: [
             {
               type: "insertAfter",
@@ -223,7 +223,7 @@ describe("notificationProvider", () => {
       name: "another-mbox",
       options: [
         {
-          type: "actions",
+          type: OptionType.Actions,
           content: [
             {
               type: "insertAfter",
@@ -297,7 +297,7 @@ describe("notificationProvider", () => {
       throw new Error(NOTIFICATIONS_REQUIRED);
     });
     expect(() => {
-      provider.notifications = [];
+      provider.clearNotifications();
       provider.sendNotifications();
       jest.runAllTimers();
     }).not.toThrowError(NOTIFICATIONS_REQUIRED);
@@ -308,7 +308,7 @@ describe("notificationProvider", () => {
       throw new Error(errorMessage);
     });
     expect(() => {
-      provider.notifications = [];
+      provider.clearNotifications();
       provider.sendNotifications();
       jest.runAllTimers();
     }).toThrowError(errorMessage);

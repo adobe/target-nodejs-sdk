@@ -1,3 +1,6 @@
+import { enableFetchMocks, MockResponseInit } from "jest-fetch-mock";
+enableFetchMocks();
+import fetchMock from "jest-fetch-mock";
 import * as HttpStatus from "http-status-codes";
 import { isDefined, TelemetryProvider } from "@adobe/target-tools";
 import TargetDecisioningEngine from "./index";
@@ -13,8 +16,6 @@ import { ARTIFACT_DOWNLOAD_FAILED } from "./events";
 
 const ARTIFACT_BLANK = require("../test/schema/artifacts/TEST_ARTIFACT_BLANK.json");
 const ARTIFACT_UNSUPPORTED_VERSION = require("../test/schema/artifacts/TEST_ARTIFACT_UNSUPPORTED.json");
-
-require("jest-fetch-mock").enableMocks();
 
 const TARGET_REQUEST = {
   context: {
@@ -52,8 +53,8 @@ describe("TargetDecisioningEngine", () => {
   let decisioning;
 
   beforeEach(async () => {
-    fetch.resetMocks();
-    constants.MINIMUM_POLLING_INTERVAL = 0;
+    fetchMock.resetMocks();
+    (constants.MINIMUM_POLLING_INTERVAL as number) = 0;
   });
 
   afterEach(() => {
@@ -64,7 +65,7 @@ describe("TargetDecisioningEngine", () => {
   });
 
   it("initializes", async () => {
-    fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
+    fetchMock.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
     decisioning = await TargetDecisioningEngine(
       {
@@ -87,7 +88,7 @@ describe("TargetDecisioningEngine", () => {
       ]);
     }
 
-    fetch.mockResponses(...responses);
+    fetchMock.mockResponses(...responses);
 
     decisioning = await TargetDecisioningEngine(
       {
@@ -101,7 +102,7 @@ describe("TargetDecisioningEngine", () => {
     let timer;
 
     timer = setInterval(() => {
-      const numFetchCalls = fetch.mock.calls.length;
+      const numFetchCalls = fetchMock.mock.calls.length;
       const artifact = decisioning.getRawArtifact();
 
       expect(artifact).not.toBeUndefined();
@@ -117,11 +118,11 @@ describe("TargetDecisioningEngine", () => {
   });
 
   it("provides an error if the artifact is not available", () => {
-    return new Promise(done => {
+    return new Promise((done: Function) => {
       expect.assertions(3);
       const eventEmitter = jest.fn();
 
-      fetch.mockResponses(
+      fetchMock.mockResponses(
         ["", { status: HttpStatus.UNAUTHORIZED }],
         ["", { status: HttpStatus.NOT_FOUND }],
         ["", { status: HttpStatus.NOT_ACCEPTABLE }],
@@ -160,11 +161,11 @@ describe("TargetDecisioningEngine", () => {
   });
 
   it("provides an error if the artifact cannot be deobfuscated", () => {
-    return new Promise(done => {
+    return new Promise((done: Function) => {
       expect.assertions(1);
       const eventEmitter = jest.fn();
 
-      fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
+      fetchMock.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
       TargetDecisioningEngine(
         {
@@ -188,7 +189,7 @@ describe("TargetDecisioningEngine", () => {
   });
 
   it("getOffers resolves", async () => {
-    fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
+    fetchMock.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
     decisioning = await TargetDecisioningEngine(
       {
@@ -207,7 +208,7 @@ describe("TargetDecisioningEngine", () => {
   });
 
   it("getOffers gives an error if unsupported artifact version", async () => {
-    fetch.mockResponse(JSON.stringify(ARTIFACT_UNSUPPORTED_VERSION));
+    fetchMock.mockResponse(JSON.stringify(ARTIFACT_UNSUPPORTED_VERSION));
 
     decisioning = await TargetDecisioningEngine(
       {

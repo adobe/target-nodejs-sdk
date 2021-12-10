@@ -7,7 +7,7 @@ import {
   MetricType,
   objectWithoutUndefinedValues
 } from "@adobe/target-tools";
-import { OptionType, RequestType } from "./enums";
+import { OptionType } from "./enums";
 import {
   ACTIVITY_DECISIONING_METHOD,
   ACTIVITY_ID,
@@ -29,6 +29,11 @@ import {
   OPTION_NAME
 } from "./constants";
 import { firstMatch } from "./utils";
+import {
+  ExecuteResponse,
+  PrefetchResponse
+} from "@adobe/target-tools/delivery-api-client";
+import { RequestType } from "../types/RequestType";
 
 const MACRO_PATTERN_REGEX = /\$\{([a-zA-Z0-9_.]*?)\}/gi;
 
@@ -61,7 +66,7 @@ export function prepareExecuteResponse(
   requestType,
   requestDetail,
   tracer
-) {
+): ExecuteResponse {
   const { metrics = [], options = [] } = mboxResponse;
 
   const result = {
@@ -94,7 +99,7 @@ export function preparePrefetchResponse(
   requestType,
   requestDetail,
   tracer
-) {
+): PrefetchResponse {
   const { options = [] } = mboxResponse;
 
   const result = {

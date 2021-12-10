@@ -12,7 +12,8 @@ import {
   isString,
   isUndefined,
   parseURI,
-  POSSIBLE_ENVIRONMENTS
+  POSSIBLE_ENVIRONMENTS,
+  URI
 } from "@adobe/target-tools";
 
 import Messages from "./messages";
@@ -43,11 +44,11 @@ export function parseURL(url) {
   }
 
   const opts = {};
-  const parsed: any = parseURI(url, opts) || {};
+  const parsed: parseURI.URI = parseURI(url, opts) || {};
 
   const { host = "", path = "", query = "", anchor = "" } = parsed;
 
-  const result: any = {
+  const result: URI = {
     url,
     path,
     query,

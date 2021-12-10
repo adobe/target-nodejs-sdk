@@ -10,7 +10,8 @@ import {
   isString,
   noop,
   perfTool,
-  values
+  values,
+  TelemetryInstance
 } from "@adobe/target-tools";
 import Messages from "./messages";
 import {
@@ -37,6 +38,8 @@ import {
   TIMING_ARTIFACT_READ_JSON
 } from "./timings";
 import { TelemetryEntry } from "@adobe/target-tools/delivery-api-client";
+import { DecisioningConfig } from "../types/DecisioningConfig";
+import { ArtifactInstance } from "../types/ArtifactInstance";
 
 const LOG_TAG = `${LOG_PREFIX}.ArtifactProvider`;
 const NOT_MODIFIED = 304;
@@ -47,7 +50,10 @@ const ARTIFACT_DOWNLOAD = "ArtifactDownload";
  * The ArtifactProvider initialize method
  * @param {import("../types/DecisioningConfig").DecisioningConfig} config Options map, required
  */
-function ArtifactProvider(config, telemetryProvider) {
+function ArtifactProvider(
+  config: DecisioningConfig,
+  telemetryProvider: TelemetryInstance
+): Promise<ArtifactInstance> {
   const logger = getLogger(config.logger);
   const { eventEmitter = noop } = config;
   const obfuscationProvider = ObfuscationProvider(config);

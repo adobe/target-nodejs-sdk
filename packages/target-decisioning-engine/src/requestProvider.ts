@@ -4,13 +4,19 @@ import {
   isString,
   uuid
 } from "@adobe/target-tools";
+import {
+  ChannelType,
+  DeliveryRequest,
+  VisitorId
+} from "@adobe/target-tools/delivery-api-client";
+import { RequestGeo } from "../types/RequestGeo";
 
 /**
  *
  * @param { import("@adobe/target-tools/delivery-api-client/models/VisitorId").VisitorId } visitorId
  * @returns {string} first non-blank marketingCloudVisitorId, tntId, thirdPartyId
  */
-export function getCustomerId(visitorId) {
+export function getCustomerId(visitorId: VisitorId): string {
   if (!visitorId.customerIds || !(visitorId.customerIds instanceof Array)) {
     return undefined;
   }
@@ -33,7 +39,10 @@ export function getCustomerId(visitorId) {
  * @param {String} targetLocationHint
  * @returns {import("@adobe/target-tools/delivery-api-client/models/VisitorId").VisitorId}
  */
-export function validVisitorId(visitorId, targetLocationHint) {
+export function validVisitorId(
+  visitorId: VisitorId,
+  targetLocationHint: string
+): VisitorId {
   const result = {
     ...visitorId
   };
@@ -61,13 +70,13 @@ export function validVisitorId(visitorId, targetLocationHint) {
  * @returns {Promise<import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest>}
  */
 export function validDeliveryRequest(
-  request,
-  targetLocationHint,
-  validGeoRequestContext
-) {
-  const { context = {} } = request;
+  request: DeliveryRequest,
+  targetLocationHint: string,
+  validGeoRequestContext: Function
+): Promise<DeliveryRequest> {
+  const { context = { geo: {} } } = request;
 
-  return validGeoRequestContext(context.geo || {}).then(geo => {
+  return validGeoRequestContext(context.geo).then(geo => {
     return {
       ...request,
       context: {

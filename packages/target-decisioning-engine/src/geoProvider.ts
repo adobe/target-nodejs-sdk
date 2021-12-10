@@ -5,7 +5,8 @@ import {
   isValidIpAddress,
   noop,
   assign,
-  UNKNOWN_IP_ADDRESS
+  UNKNOWN_IP_ADDRESS,
+  FetchHeaders
 } from "@adobe/target-tools";
 import { GEO_LOCATION_UPDATED } from "./events";
 import { getGeoLookupPath } from "./utils";
@@ -18,6 +19,9 @@ import {
   HTTP_HEADER_GEO_REGION
 } from "./constants";
 import { Geo } from "@adobe/target-tools/delivery-api-client";
+import { DecisioningArtifact } from "../types/DecisioningArtifact";
+import { DecisioningConfig } from "../types/DecisioningConfig";
+import { RequestGeo } from "../types/RequestGeo";
 
 const GEO_MAPPINGS = [
   {
@@ -73,7 +77,7 @@ function mapGeoValues(valueFn, initial = {}) {
  * @param { import("node-fetch").Headers  } geoHeaders;
  * @return { import("@adobe/target-tools/delivery-api-client/models/Geo").Geo }
  */
-export function createGeoObjectFromHeaders(geoHeaders) {
+export function createGeoObjectFromHeaders(geoHeaders: FetchHeaders): Geo {
   return mapGeoValues(key => geoHeaders.get(key));
 }
 
@@ -81,7 +85,7 @@ export function createGeoObjectFromHeaders(geoHeaders) {
  * @param {Object.<string, any>} geoPayload
  * @return { import("@adobe/target-tools/delivery-api-client/models/Geo").Geo }
  */
-export function createGeoObjectFromPayload(geoPayload = {}) {
+export function createGeoObjectFromPayload(geoPayload = {}): Geo {
   return mapGeoValues(key => geoPayload[key]);
 }
 
@@ -89,7 +93,10 @@ export function createGeoObjectFromPayload(geoPayload = {}) {
  * @param {import("../types/DecisioningConfig").DecisioningConfig} config
  * @param { import("../types/DecisioningArtifact").DecisioningArtifact } artifact
  */
-export function GeoProvider(config, artifact) {
+export function GeoProvider(
+  config: DecisioningConfig,
+  artifact: DecisioningArtifact
+): RequestGeo {
   const fetchApi = getFetchApi(config.fetchApi);
   const { geoTargetingEnabled = false } = artifact;
   const { eventEmitter = noop } = config;
@@ -98,7 +105,8 @@ export function GeoProvider(config, artifact) {
    * @param {import("@adobe/target-tools/delivery-api-client/models/Geo").Geo} geoRequestContext
    * @return { Promise<import("@adobe/target-tools/delivery-api-client/models/Geo").Geo> }
    */
-  function validGeoRequestContext(geoRequestContext: Geo = {}): Promise<Geo> {
+  function validGeoRequestContext(geoRequestContext: Geo): Promise<Geo> {
+    geoRequestContext = !!geoRequestContext ? geoRequestContext : {};
     const validatedGeoRequestContext: Geo = { ...geoRequestContext };
 
     if (

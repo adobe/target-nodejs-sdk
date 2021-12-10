@@ -8,6 +8,9 @@ import { SUPPORTED_ARTIFACT_MAJOR_VERSION } from "./constants";
 import { validDeliveryRequest } from "./requestProvider";
 import { TraceProvider } from "./traceProvider";
 import { GeoProvider } from "./geoProvider";
+import { ArtifactInstance } from "../types/ArtifactInstance";
+import { DecisioningArtifact } from "../types/DecisioningArtifact";
+import { OnDeviceDeliveryResponse } from "../types/OnDeviceDeliveryResponse";
 
 /**
  * The TargetDecisioningEngine initialize method
@@ -16,14 +19,14 @@ import { GeoProvider } from "./geoProvider";
  */
 export default function TargetDecisioningEngine(config, telemetryProvider) {
   const logger = getLogger(config.logger);
-  let artifactProvider;
-  let artifact;
+  let artifactProvider: ArtifactInstance;
+  let artifact: DecisioningArtifact;
 
   /**
    * The get offers method
    * @param {import("../types/TargetDeliveryRequest").TargetDeliveryRequest} targetOptions
    */
-  function getOffers(targetOptions) {
+  function getOffers(targetOptions): Promise<OnDeviceDeliveryResponse> {
     let { request } = targetOptions;
 
     if (isUndefined(artifact)) {
@@ -82,7 +85,7 @@ export default function TargetDecisioningEngine(config, telemetryProvider) {
       logger
     },
     telemetryProvider
-  ).then(providerInstance => {
+  ).then((providerInstance: ArtifactInstance) => {
     artifactProvider = providerInstance;
     artifact = artifactProvider.getArtifact();
 
