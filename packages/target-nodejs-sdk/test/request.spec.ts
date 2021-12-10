@@ -1,7 +1,8 @@
 import { PROPERTY_TOKEN_MISMATCH } from "@adobe/target-tools";
 
-require("jest-fetch-mock").enableMocks();
-const TargetClient = require("../src/index.server").default;
+import fetchMock, { enableFetchMocks } from "jest-fetch-mock";
+enableFetchMocks();
+const { createTargetClient } = require("../src/index");
 
 const RESPONSE_PAYLOAD = {
   status: 200,
@@ -41,13 +42,13 @@ const TARGET_REQUEST = {
 
 describe("Requests to target delivery API", () => {
   beforeAll(() => {
-    fetch.resetMocks();
+    fetchMock.resetMocks();
 
-    fetch.mockResponse(JSON.stringify(RESPONSE_PAYLOAD));
+    fetchMock.mockResponse(JSON.stringify(RESPONSE_PAYLOAD));
   });
 
   it("Makes a request to the target API", async () => {
-    const client = TargetClient.create({
+    const client = createTargetClient({
       client: "someClientId",
       organizationId: "someOrgId"
     });
@@ -57,7 +58,7 @@ describe("Requests to target delivery API", () => {
       sessionId: "dummy_session"
     });
     expect(result).not.toBeUndefined();
-    expect(fetch.mock.calls.length).toEqual(1);
+    expect(fetchMock.mock.calls.length).toEqual(1);
     expect(result).toMatchObject({
       request: {
         requestId: expect.any(String),
@@ -107,11 +108,11 @@ describe("Requests to target delivery API", () => {
         }
       }
     });
-    expect(fetch.mock.calls.length).toEqual(1);
+    expect(fetchMock.mock.calls.length).toEqual(1);
   });
 
   it("Can make a request with only the organizationId as param to the target API", async () => {
-    const client = TargetClient.create({
+    const client = createTargetClient({
       organizationId: "someOrgId",
       client: "someClientId"
     });
@@ -121,7 +122,7 @@ describe("Requests to target delivery API", () => {
       sessionId: "dummy_session"
     });
     expect(result).not.toBeUndefined();
-    expect(fetch.mock.calls.length).toEqual(1);
+    expect(fetchMock.mock.calls.length).toEqual(1);
     expect(result).toMatchObject({
       request: {
         requestId: expect.any(String),
@@ -171,17 +172,19 @@ describe("Requests to target delivery API", () => {
         }
       }
     });
-    expect(fetch.mock.calls.length).toEqual(1);
-    const fetchRequestBody = JSON.parse(fetch.mock.calls[0][1].body);
+    expect(fetchMock.mock.calls.length).toEqual(1);
+    const fetchRequestBody = JSON.parse(
+      fetchMock.mock.calls[0][1].body as string
+    );
     expect(fetchRequestBody.organizationId).toBeUndefined();
-    expect(fetch.mock.calls[0][0]).toEqual(
+    expect(fetchMock.mock.calls[0][0]).toEqual(
       "https://someClientId.tt.omtrdc.net/rest/v1/delivery?imsOrgId=someOrgId&sessionId=dummy_session"
     );
   });
 
   describe("environment ID", () => {
     it("includes environmentID in request if specified", async () => {
-      const client = TargetClient.create({
+      const client = createTargetClient({
         client: "someClientId",
         organizationId: "someOrgId",
         environmentId: 12345
@@ -193,14 +196,16 @@ describe("Requests to target delivery API", () => {
       });
       expect(result).not.toBeUndefined();
 
-      expect(fetch.mock.calls.length).toEqual(1);
-      const fetchRequestBody = JSON.parse(fetch.mock.calls[0][1].body);
+      expect(fetchMock.mock.calls.length).toEqual(1);
+      const fetchRequestBody = JSON.parse(
+        fetchMock.mock.calls[0][1].body as string
+      );
 
       expect(fetchRequestBody.environmentId).toEqual(12345);
     });
 
     it("does not include environmentID in request if not specified", async () => {
-      const client = TargetClient.create({
+      const client = createTargetClient({
         client: "someClientId",
         organizationId: "someOrgId"
       });
@@ -211,8 +216,10 @@ describe("Requests to target delivery API", () => {
       });
       expect(result).not.toBeUndefined();
 
-      expect(fetch.mock.calls.length).toEqual(1);
-      const fetchRequestBody = JSON.parse(fetch.mock.calls[0][1].body);
+      expect(fetchMock.mock.calls.length).toEqual(1);
+      const fetchRequestBody = JSON.parse(
+        fetchMock.mock.calls[0][1].body as string
+      );
 
       expect(fetchRequestBody.environmentId).toBeUndefined();
     });
@@ -220,7 +227,7 @@ describe("Requests to target delivery API", () => {
 
   describe("property token", () => {
     it("includes propertyToken in request if specified in global config", async () => {
-      const client = TargetClient.create({
+      const client = createTargetClient({
         client: "someClientId",
         organizationId: "someOrgId",
         propertyToken: "token_abc"
@@ -232,8 +239,10 @@ describe("Requests to target delivery API", () => {
       });
       expect(result).not.toBeUndefined();
 
-      expect(fetch.mock.calls.length).toEqual(1);
-      const fetchRequestBody = JSON.parse(fetch.mock.calls[0][1].body);
+      expect(fetchMock.mock.calls.length).toEqual(1);
+      const fetchRequestBody = JSON.parse(
+        fetchMock.mock.calls[0][1].body as string
+      );
 
       expect(fetchRequestBody.property).toEqual({
         token: "token_abc"
@@ -241,7 +250,7 @@ describe("Requests to target delivery API", () => {
     });
 
     it("includes propertyToken in request if specified in request", async () => {
-      const client = TargetClient.create({
+      const client = createTargetClient({
         client: "someClientId",
         organizationId: "someOrgId"
       });
@@ -255,8 +264,10 @@ describe("Requests to target delivery API", () => {
       });
       expect(result).not.toBeUndefined();
 
-      expect(fetch.mock.calls.length).toEqual(1);
-      const fetchRequestBody = JSON.parse(fetch.mock.calls[0][1].body);
+      expect(fetchMock.mock.calls.length).toEqual(1);
+      const fetchRequestBody = JSON.parse(
+        fetchMock.mock.calls[0][1].body as string
+      );
 
       expect(fetchRequestBody.property).toEqual({
         token: "token_xyz"
@@ -266,7 +277,7 @@ describe("Requests to target delivery API", () => {
     it("prefers request property token over config property token", async () => {
       const debugLogMessages = [];
 
-      const client = TargetClient.create({
+      const client = createTargetClient({
         client: "someClientId",
         organizationId: "someOrgId",
         propertyToken: "token_abc",
@@ -286,8 +297,10 @@ describe("Requests to target delivery API", () => {
       });
       expect(result).not.toBeUndefined();
 
-      expect(fetch.mock.calls.length).toEqual(1);
-      const fetchRequestBody = JSON.parse(fetch.mock.calls[0][1].body);
+      expect(fetchMock.mock.calls.length).toEqual(1);
+      const fetchRequestBody = JSON.parse(
+        fetchMock.mock.calls[0][1].body as string
+      );
 
       expect(fetchRequestBody.property).toEqual({
         token: "token_xyz"

@@ -34,8 +34,8 @@
     "performance-now": "^2.1.0"
   },
   "devDependencies": {
-    "core-js": "^3.6.5",
-    "http-status-codes": "^1.4.0"
+    "http-status-codes": "^1.4.0",
+    "tslib": "^2.3.1"
   },
   "author": "",
   "license": "Apache-2.0"

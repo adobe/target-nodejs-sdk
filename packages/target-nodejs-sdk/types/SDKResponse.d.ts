@@ -4,21 +4,21 @@ import {
 } from "@adobe/target-tools/delivery-api-client";
 
 export interface Cookie {
-  name: String;
-  value: String;
-  maxAge: Number;
+  name: string;
+  value: string;
+  maxAge: number;
 }
 
 export interface ResponseMeta {
-  decisioningMethod: String;
-  remoteMboxes: String[];
-  remoteViews: String[];
+  decisioningMethod: string;
+  remoteMboxes: string[];
+  remoteViews: string[];
 }
 
 export interface TargetDeliveryResponse {
   request: DeliveryRequest;
   response: DeliveryResponse;
-  visitorState?: Object;
+  visitorState?: object;
   targetCookie?: Cookie;
   targetLocationHintCookie?: Cookie;
   analyticsDetails?: Array<any>;

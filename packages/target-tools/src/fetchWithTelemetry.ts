@@ -334,7 +334,7 @@ function fetchWithTelemetry(
   return handleRequest(host, path, queryParams, requestOpts, requestImpl);
 }
 
-function getFetchWithTelemetry(requestImpl) {
+function getFetchWithTelemetry(requestImpl = undefined) {
   return function fetch(url, options = {}) {
     return fetchWithTelemetry(url, options, requestImpl);
   };

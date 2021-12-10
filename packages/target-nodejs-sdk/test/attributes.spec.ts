@@ -1,13 +1,18 @@
 import { ATTRIBUTE_NOT_EXIST } from "@adobe/target-tools";
 
-require("jest-fetch-mock").enableMocks();
+import fetchMock, { enableFetchMocks, MockResponseInit } from "jest-fetch-mock";
+import { TargetClient } from "../src/bootstrap";
+import { ChannelType } from "@adobe/target-tools/delivery-api-client";
+
+enableFetchMocks();
+
 const HttpStatus = require("http-status-codes");
 
-const TargetClient = require("../src/index.server").default;
+const { createTargetClient } = require("../src/index");
 
 describe("SDK.getAttributes()", () => {
   beforeEach(() => {
-    fetch.resetMocks();
+    fetchMock.resetMocks();
   });
 
   const DELIVERY_API_RESPONSE = {
@@ -62,7 +67,7 @@ describe("SDK.getAttributes()", () => {
   };
 
   it("gets attributes from API response", async () => {
-    fetch.mockResponse(JSON.stringify(DELIVERY_API_RESPONSE));
+    fetchMock.mockResponse(JSON.stringify(DELIVERY_API_RESPONSE));
 
     const targetRequest = {
       id: {
@@ -104,7 +109,7 @@ describe("SDK.getAttributes()", () => {
       }
     };
 
-    const client = TargetClient.create({
+    const client = createTargetClient({
       client: "someClientId",
       organizationId: " someOrgId"
     });
@@ -155,7 +160,7 @@ describe("SDK.getAttributes()", () => {
   });
 
   it("fails gracefully if an attribute does not exist", async () => {
-    fetch.mockResponse(JSON.stringify(DELIVERY_API_RESPONSE));
+    fetchMock.mockResponse(JSON.stringify(DELIVERY_API_RESPONSE));
 
     const targetRequest = {
       id: {
@@ -197,7 +202,7 @@ describe("SDK.getAttributes()", () => {
       }
     };
 
-    const client = TargetClient.create({
+    const client = createTargetClient({
       client: "someClientId",
       organizationId: " someOrgId"
     });
@@ -215,34 +220,27 @@ describe("SDK.getAttributes()", () => {
   });
 
   it("adds mbox names to the delivery request as needed", async () => {
-    fetch.mockResponse(
-      async req => {
-        const payload = await req.json();
-        expect(payload.execute).toMatchObject({
-          mboxes: [
-            {
-              name: "feature-flag-b"
-            }
-          ]
-        });
-        expect(payload.prefetch).toMatchObject({
-          mboxes: [
-            {
-              name: "feature-flag-a",
-              index: 2
-            }
-          ]
-        });
+    // (request: Request) => Promise<MockResponseInit | string>
+    fetchMock.mockResponse(async (req: Request) => {
+      const payload = await req.json();
+      expect(payload.execute).toMatchObject({
+        mboxes: [
+          {
+            name: "feature-flag-b"
+          }
+        ]
+      });
+      expect(payload.prefetch).toMatchObject({
+        mboxes: [
+          {
+            name: "feature-flag-a",
+            index: 2
+          }
+        ]
+      });
 
-        return Promise.resolve(JSON.stringify(DELIVERY_API_RESPONSE));
-      },
-      {
-        status: HttpStatus.OK,
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }
-    );
+      return Promise.resolve<string>(JSON.stringify(DELIVERY_API_RESPONSE));
+    });
 
     const targetRequest = {
       id: {
@@ -250,7 +248,7 @@ describe("SDK.getAttributes()", () => {
         marketingCloudVisitorId: "07327024324407615852294135870030620007"
       },
       context: {
-        channel: "web",
+        channel: ChannelType.Web,
         mobilePlatform: null,
         application: null,
         screen: null,
@@ -276,7 +274,7 @@ describe("SDK.getAttributes()", () => {
       }
     };
 
-    const client = TargetClient.create({
+    const client: TargetClient = createTargetClient({
       client: "someClientId",
       organizationId: " someOrgId"
     });

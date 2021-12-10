@@ -35,7 +35,11 @@ import {
 } from "./helper";
 import { parseCookies } from "./cookies";
 
-export function executeDelivery(options, telemetryProvider, decisioningEngine) {
+export function executeDelivery(
+  options,
+  telemetryProvider,
+  decisioningEngine = undefined
+) {
   const {
     visitor,
     config,
@@ -116,9 +120,8 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
   );
 
   if (deliveryMethod.decisioningMethod === DECISIONING_METHOD.SERVER_SIDE) {
-    deliveryRequest = telemetryProvider.addTelemetryToDeliveryRequest(
-      deliveryRequest
-    );
+    deliveryRequest =
+      telemetryProvider.addTelemetryToDeliveryRequest(deliveryRequest);
   }
 
   logger.debug(
@@ -138,7 +141,7 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
   return deliveryMethod
     .withPostMiddleware(collectRequestTimings)
     .execute(organizationId, sessionId, deliveryRequest, config.version)
-    .then((response = {}) => {
+    .then((response: any = {}) => {
       const executionTime = perfTool.timeEnd(deliveryRequest.requestId);
       perfTool.clearTiming(deliveryRequest.requestId);
 
@@ -147,7 +150,7 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
         JSON.stringify(response, null, 2)
       );
 
-      const entry = {
+      const entry: any = {
         execution: executionTime
       };
 

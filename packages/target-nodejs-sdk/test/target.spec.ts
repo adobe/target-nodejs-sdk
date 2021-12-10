@@ -48,7 +48,7 @@ function spyOnAllFunctions(obj) {
 describe("Target Delivery API client", () => {
   beforeAll(() => {
     MockDate.set("2019-10-06");
-    const mockDeliveryApi = {
+    const mockDeliveryApi: any = {
       execute: () =>
         Promise.resolve({
           status: 200,
@@ -121,12 +121,15 @@ describe("Target Delivery API client", () => {
         }
       })
     );
+    // @ts-ignore
     expect(EMPTY_VISITOR.getState.mock.calls.length).toBe(3);
+    // @ts-ignore
     expect(testLogger.debug.mock.calls.length).toBe(2);
 
     const mockDeliveryApi = {
       execute: () => Promise.resolve(undefined)
     };
+    // @ts-ignore
     mockDeliveryApi.withPostMiddleware = () => mockDeliveryApi;
     createDeliveryApiSpy = jest.fn(() => mockDeliveryApi);
     options.createDeliveryApiMethod = createDeliveryApiSpy;

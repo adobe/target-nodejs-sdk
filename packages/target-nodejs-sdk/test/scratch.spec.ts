@@ -1,27 +1,31 @@
 /* eslint-disable jest/no-disabled-tests */
-const TargetClient = require("../src/index.server").default;
+import { TargetClient } from "../src/bootstrap";
+import { ChannelType } from "@adobe/target-tools/delivery-api-client";
+import { TargetDeliveryResponse } from "../types/SDKResponse";
+
+const { createTargetClient } = require("../src/index");
 
 /**
  * This can be useful for testing/troubleshooting the SDK
  */
-describe.skip("target-nodejs-sdk scratch", () => {
+describe("target-nodejs-sdk scratch", () => {
   it("test", () => {
     expect.assertions(1);
-    return new Promise(done => {
-      const client = TargetClient.create({
+    return new Promise<void>(done => {
+      const client: TargetClient = createTargetClient({
         client: "adobesummit2018",
         organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
         decisioningMethod: "server-side",
         pollingInterval: 0,
         events: {
           clientReady: async () => {
-            const result = await client.getOffers({
+            const result: TargetDeliveryResponse = await client.getOffers({
               request: {
                 id: {
                   tntId: "338e3c1e51f7416a8e1ccba4f81acea0.28_0"
                 },
                 context: {
-                  channel: "web"
+                  channel: ChannelType.Web
                 },
                 prefetch: {
                   mboxes: [{ index: 0, name: "demo-marketing-offer1" }]

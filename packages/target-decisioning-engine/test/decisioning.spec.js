@@ -129,9 +129,10 @@ describe("decisioning engine", () => {
         } else {
           expect(sendNotificationFunc.mock.calls.length).toEqual(1);
           const notificationPayload = sendNotificationFunc.mock.calls[0][0];
-          notificationPayload.request = telemetryProvider.addTelemetryToDeliveryRequest(
-            notificationPayload.request
-          );
+          notificationPayload.request =
+            telemetryProvider.addTelemetryToDeliveryRequest(
+              notificationPayload.request
+            );
 
           expectToMatchObject(notificationPayload, notificationOutput);
         }

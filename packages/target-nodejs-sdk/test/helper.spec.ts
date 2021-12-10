@@ -11,7 +11,6 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-require("jest-fetch-mock").enableMocks();
 const MockDate = require("mockdate");
 const {
   Configuration,
@@ -172,7 +171,7 @@ describe("Target Helper", () => {
   });
 
   it("getDeviceId should get device Id", () => {
-    let cookies = {
+    let cookies: any = {
       PC: {
         value: "08210e2d751a44779b8313e2d2692b96.21_27"
       }
@@ -194,7 +193,7 @@ describe("Target Helper", () => {
   });
 
   it("getSessionId should get session Id", () => {
-    let cookies = {
+    let cookies: any = {
       session: {
         value: "1111111111111111111111111111"
       }
@@ -246,7 +245,7 @@ describe("Target Helper", () => {
   it("createDeliveryRequest should create Delivery request", () => {
     const context = { channel: "web", timeOffsetInMinutes: 0 };
 
-    let request = {
+    let request: any = {
       context,
       execute: {
         pageLoad: {

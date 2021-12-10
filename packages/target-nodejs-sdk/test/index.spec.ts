@@ -10,7 +10,9 @@ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTA
 OF ANY KIND, either express or implied. See the License for the specific language
 governing permissions and limitations under the License.
 */
-require("jest-fetch-mock").enableMocks();
+import { enableFetchMocks } from "jest-fetch-mock";
+
+enableFetchMocks();
 const TargetTools = require("@adobe/target-tools");
 const Visitor = require("@adobe-mcid/visitor-js-server");
 const target = require("../src/target");
@@ -30,7 +32,14 @@ const testLogger = {
   error: message => message
 };
 
-let TargetClient;
+const {
+  getVisitorCookieName,
+  TargetCookieName,
+  TargetLocationHintCookieName,
+  AuthState
+} = require("../src/index");
+
+let createTargetClient;
 
 describe("Target Client factory", () => {
   beforeAll(() => {
@@ -42,7 +51,7 @@ describe("Target Client factory", () => {
     jest.spyOn(TargetTools, "getLogger");
 
     // eslint-disable-next-line global-require
-    TargetClient = require("../src/index.server").default;
+    createTargetClient = require("../src/index").createTargetClient;
   });
 
   afterEach(() => {
@@ -51,27 +60,21 @@ describe("Target Client factory", () => {
     TargetTools.getLogger.mockClear();
   });
 
-  it("should throw when instantiated via new", () => {
-    expect(() => new TargetClient()).toThrow(
-      new Error(Messages.PRIVATE_CONSTRUCTOR)
-    );
-  });
-
   it("should throw when options are missing", () => {
-    expect(() => TargetClient.create({})).toThrow(
+    expect(() => createTargetClient({})).toThrow(
       new Error(Messages.OPTIONS_REQUIRED)
     );
   });
 
   it("should throw when organization ID is missing", () => {
-    expect(() => TargetClient.create({ client: "client" })).toThrow(
+    expect(() => createTargetClient({ client: "client" })).toThrow(
       new Error(Messages.ORG_ID_REQUIRED)
     );
   });
 
   it("should throw if an invalid evaluation mode is given", () => {
     expect(() =>
-      TargetClient.create({
+      createTargetClient({
         client: "client",
         organizationId: "orgId",
         decisioningMethod: "wicked"
@@ -81,7 +84,7 @@ describe("Target Client factory", () => {
 
   it("should not throw when client, orgId and fetchApi are present", () => {
     expect(() =>
-      TargetClient.create({
+      createTargetClient({
         client: "client",
         organizationId: "orgId",
         fetchApi: fetch
@@ -91,7 +94,7 @@ describe("Target Client factory", () => {
 
   it("should set logger on creation", () => {
     expect(() =>
-      TargetClient.create({
+      createTargetClient({
         client: "client",
         organizationId: "orgId",
         fetchApi: fetch,
@@ -108,25 +111,23 @@ describe("Target Client factory", () => {
   });
 
   it("should return Target cookie name", () => {
-    expect(TargetClient.TargetCookieName).toBe("mbox");
+    expect(TargetCookieName).toBe("mbox");
   });
 
   it("should return Target location hint cookie name", () => {
-    expect(TargetClient.TargetLocationHintCookieName).toBe("mboxEdgeCluster");
+    expect(TargetLocationHintCookieName).toBe("mboxEdgeCluster");
   });
 
   it("should return visitor cookie name", () => {
-    expect(TargetClient.getVisitorCookieName("foo@AdobeOrg")).toBe(
-      "AMCV_foo@AdobeOrg"
-    );
+    expect(getVisitorCookieName("foo@AdobeOrg")).toBe("AMCV_foo@AdobeOrg");
   });
 
   it("should return Visitor Auth State", () => {
-    expect(TargetClient.AuthState).toEqual(AUTH_STATE);
+    expect(AuthState).toEqual(AUTH_STATE);
   });
 
   it("getOffers should throw when options are missing", async () => {
-    const client = TargetClient.create({
+    const client = createTargetClient({
       client: "client",
       organizationId: "orgId",
       fetchApi: fetch
@@ -138,7 +139,7 @@ describe("Target Client factory", () => {
   });
 
   it("getOffers should throw when request is missing", async () => {
-    const client = TargetClient.create({
+    const client = createTargetClient({
       client: "client",
       organizationId: "orgId",
       fetchApi: fetch
@@ -150,7 +151,7 @@ describe("Target Client factory", () => {
   });
 
   it("getOffers should throw when execute fields are missing", async () => {
-    const client = TargetClient.create({
+    const client = createTargetClient({
       client: "client",
       organizationId: "orgId",
       fetchApi: fetch
@@ -162,7 +163,7 @@ describe("Target Client factory", () => {
   });
 
   it("getOffers should throw when prefetch fields are missing", async () => {
-    const client = TargetClient.create({
+    const client = createTargetClient({
       client: "client",
       organizationId: "orgId",
       fetchApi: fetch
@@ -174,7 +175,7 @@ describe("Target Client factory", () => {
   });
 
   it("should return Promise response on getOffers call", async () => {
-    const client = TargetClient.create({
+    const client = createTargetClient({
       client: "client",
       organizationId: "orgId",
       fetchApi: fetch
@@ -205,7 +206,7 @@ describe("Target Client factory", () => {
   });
 
   it("sendNotifications should throw when options are missing", async () => {
-    const client = TargetClient.create({
+    const client = createTargetClient({
       client: "client",
       organizationId: "orgId",
       fetchApi: fetch
@@ -217,7 +218,7 @@ describe("Target Client factory", () => {
   });
 
   it("sendNotifications should throw when request is missing", async () => {
-    const client = TargetClient.create({
+    const client = createTargetClient({
       client: "client",
       organizationId: "orgId",
       fetchApi: fetch
@@ -229,7 +230,7 @@ describe("Target Client factory", () => {
   });
 
   it("sendNotifications should throw when notifications are missing", async () => {
-    const client = TargetClient.create({
+    const client = createTargetClient({
       client: "client",
       organizationId: "orgId",
       fetchApi: fetch
@@ -241,7 +242,7 @@ describe("Target Client factory", () => {
   });
 
   it("should return Promise response on sendNotifications call", async () => {
-    const client = TargetClient.create({
+    const client = createTargetClient({
       client: "client",
       organizationId: "orgId",
       fetchApi: fetch

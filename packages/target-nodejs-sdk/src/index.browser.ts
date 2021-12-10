@@ -1,9 +1,9 @@
 import { fetch as whatwfFetch } from "whatwg-fetch";
 
 import { isDefined } from "@adobe/target-tools";
-import bootstrap from "./index";
+import { bootstrap, TargetClientFactory } from "./bootstrap";
 
-const TargetClient = bootstrap(
+const TargetClientFac: TargetClientFactory = bootstrap(
   // eslint-disable-next-line no-undef
   isDefined(window.fetch)
     ? // eslint-disable-next-line no-undef
@@ -11,4 +11,4 @@ const TargetClient = bootstrap(
     : whatwfFetch
 );
 
-export default TargetClient;
+export default TargetClientFac;

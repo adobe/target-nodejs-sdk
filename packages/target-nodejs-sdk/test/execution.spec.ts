@@ -5,9 +5,10 @@ import {
 
 const DECISIONING_PAYLOAD_FEATURE_FLAG = require("@adobe/target-decisioning-engine/test/schema/artifacts/TEST_ARTIFACT_FEATURE_FLAG.json");
 
-require("jest-fetch-mock").enableMocks();
+import fetchMock, { enableFetchMocks } from "jest-fetch-mock";
+enableFetchMocks();
 
-const TargetClient = require("../src/index.server").default;
+const { createTargetClient } = require("../src/index");
 
 const DELIVERY_RESPONSE = {
   status: 200,
@@ -100,7 +101,7 @@ describe("execution mode", () => {
   let client;
 
   beforeEach(() => {
-    fetch.resetMocks();
+    fetchMock.resetMocks();
     if (client) {
       client = undefined;
     }
@@ -110,8 +111,10 @@ describe("execution mode", () => {
     it("returns a list of mbox names that require remote", () => {
       expect.assertions(1);
 
-      return new Promise(done => {
-        fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG));
+      return new Promise<void>(done => {
+        fetchMock.mockResponse(
+          JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG)
+        );
 
         async function clientReady() {
           const result = await client.getOffers({
@@ -146,7 +149,7 @@ describe("execution mode", () => {
           done();
         }
 
-        client = TargetClient.create({
+        client = createTargetClient({
           decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
           ...targetClientOptions,
           events: { clientReady }
@@ -157,8 +160,10 @@ describe("execution mode", () => {
     it("returns OK if no mbox names require remote", () => {
       expect.assertions(1);
 
-      return new Promise(done => {
-        fetch.mockResponse(JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG));
+      return new Promise<void>(done => {
+        fetchMock.mockResponse(
+          JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG)
+        );
 
         async function clientReady() {
           const result = await client.getOffers({
@@ -186,7 +191,7 @@ describe("execution mode", () => {
           done();
         }
 
-        client = TargetClient.create({
+        client = createTargetClient({
           decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
           ...targetClientOptions,
           events: { clientReady }
@@ -198,8 +203,8 @@ describe("execution mode", () => {
     it("makes a remote request if remote is required", () => {
       expect.assertions(1);
 
-      return new Promise(done => {
-        fetch
+      return new Promise<void>(done => {
+        fetchMock
           .once(JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG))
           .once(JSON.stringify(DELIVERY_RESPONSE));
 
@@ -236,7 +241,7 @@ describe("execution mode", () => {
           done();
         }
 
-        client = TargetClient.create({
+        client = createTargetClient({
           decisioningMethod: DECISIONING_METHOD.HYBRID,
           ...targetClientOptions,
           events: { clientReady }
@@ -247,8 +252,8 @@ describe("execution mode", () => {
     it("does local decisioning if remote is not required", () => {
       expect.assertions(1);
 
-      return new Promise(done => {
-        fetch.once(JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG));
+      return new Promise<void>(done => {
+        fetchMock.once(JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG));
 
         async function clientReady() {
           const result = await client.getOffers({
@@ -275,7 +280,7 @@ describe("execution mode", () => {
           done();
         }
 
-        client = TargetClient.create({
+        client = createTargetClient({
           decisioningMethod: DECISIONING_METHOD.HYBRID,
           ...targetClientOptions,
           events: { clientReady }
@@ -287,8 +292,8 @@ describe("execution mode", () => {
   describe("server side", () => {
     it("throws an error if local decisioningMethod is used in getOffers call but the global decisioningMethod is remote", () => {
       expect.assertions(1);
-      return new Promise(done => {
-        client = TargetClient.create({
+      return new Promise<void>(done => {
+        client = createTargetClient({
           decisioningMethod: DECISIONING_METHOD.SERVER_SIDE,
           ...targetClientOptions,
           events: {
@@ -319,11 +324,11 @@ describe("execution mode", () => {
     });
 
     it("makes a request to delivery API if hybrid decisioningMethod is used in a getOffers call and decisioning engine is not ready", () => {
-      fetch.once(JSON.stringify(DELIVERY_RESPONSE));
+      fetchMock.once(JSON.stringify(DELIVERY_RESPONSE));
 
       expect.assertions(1);
-      return new Promise(done => {
-        client = TargetClient.create({
+      return new Promise<void>(done => {
+        client = createTargetClient({
           decisioningMethod: DECISIONING_METHOD.SERVER_SIDE,
           ...targetClientOptions,
           events: {

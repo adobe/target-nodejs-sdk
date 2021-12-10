@@ -11,8 +11,9 @@ const ARTIFACT_BLANK = require("@adobe/target-decisioning-engine/test/schema/art
 const HttpStatus = require("http-status-codes");
 
 const MockDate = require("mockdate");
-require("jest-fetch-mock").enableMocks();
-const TargetClient = require("../src/index.server").default;
+import fetchMock, { enableFetchMocks } from "jest-fetch-mock";
+enableFetchMocks();
+const { createTargetClient } = require("../src/index");
 
 const TARGET_REQUEST = {
   prefetch: {
@@ -40,7 +41,7 @@ describe("target on-device decisioning", () => {
 
   beforeEach(() => {
     MockDate.reset();
-    fetch.resetMocks();
+    fetchMock.resetMocks();
     if (client) {
       client = undefined;
     }
@@ -48,10 +49,10 @@ describe("target on-device decisioning", () => {
 
   describe("initializes", () => {
     it("creates an instance of target-decisioning-engine if decisioning method is on-device", () => {
-      fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
+      fetchMock.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
-      return new Promise(done => {
-        client = TargetClient.create({
+      return new Promise<void>(done => {
+        client = createTargetClient({
           ...CONFIG,
           decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
           events: {
@@ -69,10 +70,10 @@ describe("target on-device decisioning", () => {
 
     it("does not create an instance of target-decisioning-engine if evaluation mode is remote", () => {
       expect.assertions(2);
-      fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));
+      fetchMock.mockResponse(JSON.stringify(ARTIFACT_BLANK));
 
-      return new Promise(done => {
-        client = TargetClient.create({
+      return new Promise<void>(done => {
+        client = createTargetClient({
           ...CONFIG,
           decisioningMethod: DECISIONING_METHOD.SERVER_SIDE,
           events: {
@@ -97,7 +98,7 @@ describe("target on-device decisioning", () => {
       expect.assertions(1);
       let timer;
 
-      fetch.mockResponse(() => {
+      fetchMock.mockResponse(() => {
         return new Promise(resolve => {
           timer = setTimeout(() => {
             resolve(JSON.stringify(ARTIFACT_BLANK));
@@ -105,8 +106,8 @@ describe("target on-device decisioning", () => {
         });
       });
 
-      return new Promise(async done => {
-        client = TargetClient.create({
+      return new Promise<void>(async done => {
+        client = createTargetClient({
           ...CONFIG,
           decisioningMethod: DECISIONING_METHOD.ON_DEVICE
         });
@@ -127,7 +128,7 @@ describe("target on-device decisioning", () => {
     });
 
     it("if getOffers is called, but the artifact could not be retrieved", () => {
-      fetch.mockResponses(
+      fetchMock.mockResponses(
         ["", { status: HttpStatus.UNAUTHORIZED }],
         ["", { status: HttpStatus.NOT_FOUND }],
         ["", { status: HttpStatus.NOT_ACCEPTABLE }],
@@ -145,8 +146,8 @@ describe("target on-device decisioning", () => {
       const artifactDownloadSucceeded = jest.fn();
       const clientReady = jest.fn();
 
-      return new Promise(async done => {
-        client = TargetClient.create({
+      return new Promise<void>(async done => {
+        client = createTargetClient({
           ...CONFIG,
           decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
           maximumWaitReady: 500,
@@ -353,7 +354,7 @@ describe("target on-device decisioning", () => {
     };
     describe("targetLocationHintCookie", () => {
       it("is makes a preemptive delivery request to get the mboxEdgeCluster on init", () => {
-        fetch
+        fetchMock
           .once(
             JSON.stringify({
               status: 200,
@@ -367,7 +368,7 @@ describe("target on-device decisioning", () => {
           )
           .once(JSON.stringify(ARTIFACT_AB_SIMPLE));
 
-        return new Promise(done => {
+        return new Promise<void>(done => {
           async function clientReady() {
             const result = await client.getOffers(prefetchRequestOptions);
 
@@ -379,7 +380,7 @@ describe("target on-device decisioning", () => {
             done();
           }
 
-          client = TargetClient.create({
+          client = createTargetClient({
             ...targetClientOptions,
             decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
             events: { clientReady }
@@ -388,12 +389,12 @@ describe("target on-device decisioning", () => {
       });
 
       it("it recovers if the delivery request fails", () => {
-        fetch.mockResponses(
+        fetchMock.mockResponses(
           ["", { status: HttpStatus.SERVICE_UNAVAILABLE }],
           [JSON.stringify(ARTIFACT_AB_SIMPLE), { status: HttpStatus.OK }]
         );
 
-        return new Promise(done => {
+        return new Promise<void>(done => {
           async function clientReady() {
             const result = await client.getOffers(prefetchRequestOptions);
 
@@ -401,7 +402,7 @@ describe("target on-device decisioning", () => {
             done();
           }
 
-          client = TargetClient.create({
+          client = createTargetClient({
             ...targetClientOptions,
             decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
             events: { clientReady }
@@ -410,9 +411,9 @@ describe("target on-device decisioning", () => {
       });
 
       it("can be passed in as a config option to be used instead of of a preemptive delivery request", () => {
-        fetch.once(JSON.stringify(ARTIFACT_AB_SIMPLE));
+        fetchMock.once(JSON.stringify(ARTIFACT_AB_SIMPLE));
 
-        return new Promise(done => {
+        return new Promise<void>(done => {
           async function clientReady() {
             const result = await client.getOffers(prefetchRequestOptions);
 
@@ -424,7 +425,7 @@ describe("target on-device decisioning", () => {
             done();
           }
 
-          client = TargetClient.create({
+          client = createTargetClient({
             ...targetClientOptions,
             decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
             pollingInterval: 0,
@@ -437,9 +438,9 @@ describe("target on-device decisioning", () => {
 
     describe("responses", () => {
       it("produces a valid response in on-device decisioning method", () => {
-        fetch.mockResponse(JSON.stringify(ARTIFACT_AB_SIMPLE));
+        fetchMock.mockResponse(JSON.stringify(ARTIFACT_AB_SIMPLE));
 
-        return new Promise(done => {
+        return new Promise<void>(done => {
           async function clientReady() {
             const result = await client.getOffers(prefetchRequestOptions);
 
@@ -457,7 +458,7 @@ describe("target on-device decisioning", () => {
             done();
           }
 
-          client = TargetClient.create({
+          client = createTargetClient({
             ...targetClientOptions,
             decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
             targetLocationHint: "28",
@@ -474,18 +475,19 @@ describe("target on-device decisioning", () => {
         let notificationRequest;
         let notificationPayload;
 
-        fetch.once(JSON.stringify(ARTIFACT_AB_SIMPLE)).once(
-          async req => {
-            notificationRequest = req;
-            notificationPayload = await req.json();
-            return Promise.resolve("");
-          },
-          {
-            status: HttpStatus.NO_CONTENT
-          }
-        );
+        fetchMock.once(JSON.stringify(ARTIFACT_AB_SIMPLE)).once(async req => {
+          notificationRequest = req;
+          notificationPayload = await req.json();
 
-        return new Promise(done => {
+          return Promise.resolve({
+            body: "",
+            init: {
+              status: HttpStatus.NO_CONTENT
+            }
+          });
+        });
+
+        return new Promise<void>(done => {
           async function clientReady() {
             await expect(
               client.getOffers(executeRequestOptions)
@@ -493,7 +495,7 @@ describe("target on-device decisioning", () => {
 
             // timeout to waith for notifications to finish
             setTimeout(() => {
-              expect(fetch.mock.calls.length).toEqual(2);
+              expect(fetchMock.mock.calls.length).toEqual(2);
 
               expect(notificationRequest).not.toBeUndefined();
               expect(notificationRequest.method).toEqual("POST");
@@ -518,7 +520,7 @@ describe("target on-device decisioning", () => {
             }, 100);
           }
 
-          client = TargetClient.create({
+          client = createTargetClient({
             ...targetClientOptions,
             decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
             pollingInterval: 0,
@@ -530,9 +532,9 @@ describe("target on-device decisioning", () => {
       });
 
       it("produces a valid response in remote execution mode", () => {
-        fetch.mockResponse(JSON.stringify(DELIVERY_API_RESPONSE));
+        fetchMock.mockResponse(JSON.stringify(DELIVERY_API_RESPONSE));
 
-        return new Promise(done => {
+        return new Promise<void>(done => {
           async function clientReady() {
             const result = await client.getOffers(prefetchRequestOptions);
 
@@ -551,7 +553,7 @@ describe("target on-device decisioning", () => {
             done();
           }
 
-          client = TargetClient.create({
+          client = createTargetClient({
             ...targetClientOptions,
             decisioningMethod: DECISIONING_METHOD.SERVER_SIDE,
             events: { clientReady }

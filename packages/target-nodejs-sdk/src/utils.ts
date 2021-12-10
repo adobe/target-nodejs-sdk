@@ -63,14 +63,14 @@ export function createVisitor(options, config) {
 export function isBeaconSupported() {
   return (
     isBrowser() &&
-    // eslint-disable-next-line no-undef
+    // @ts-ignore
     NAVIGATOR in window &&
-    // eslint-disable-next-line no-undef
+    // @ts-ignore
     SEND_BEACON in window[NAVIGATOR]
   );
 }
 
 export function executeSendBeacon(url, data) {
-  // eslint-disable-next-line no-undef
+  // @ts-ignore
   return window[NAVIGATOR][SEND_BEACON](url, data);
 }

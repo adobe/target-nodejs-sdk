@@ -1,15 +1,13 @@
 const baseConfig = require("@adobe/target-tools/.eslintrc.js");
 
-const config = {
-  ...baseConfig
+module.exports = {
+  ...baseConfig,
+  root: true,
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    project: "tsconfig.eslint.json",
+    tsconfigRootDir: __dirname,
+    sourceType: "module"
+  },
+  plugins: ["@typescript-eslint"]
 };
-
-config.overrides.push({
-  files: ["*.js"],
-  rules: {
-    "@lwc/lwc/no-async-await": "off",
-    "no-restricted-properties": "off"
-  }
-});
-
-module.exports = config;

@@ -11,38 +11,49 @@ governing permissions and limitations under the License.
 */
 
 import {
-  uuid,
   DECISIONING_ENGINE_NOT_READY,
+  DECISIONING_METHOD,
   DEFAULT_GLOBAL_MBOX,
   EMPTY_REQUEST,
-  DECISIONING_METHOD,
   isDefined,
+  isNumber,
   isUndefined,
   requiresDecisioningEngine,
-  isNumber
+  uuid
 } from "@adobe/target-tools";
 
 import {
+  AnalyticsRequest,
   AnalyticsRequestFromJSON,
+  AudienceManager,
   AudienceManagerFromJSON,
   AuthenticatedState,
   ChannelType,
   Configuration,
+  Context,
   ContextFromJSON,
   CustomerIdFromJSON,
   DeliveryApi,
+  DeliveryRequest,
   DeliveryRequestFromJSON,
+  DeliveryResponse,
   ExecuteRequestFromJSON,
+  ExperienceCloud,
   ExperienceCloudFromJSON,
   LoggingType,
   MboxRequestFromJSON,
+  MboxResponse,
   MetricType,
   NotificationFromJSON,
+  PageLoadResponse,
   PrefetchRequestFromJSON,
+  Property,
   PropertyFromJSON,
   RequestDetailsFromJSON,
   TraceFromJSON,
+  View,
   ViewRequestFromJSON,
+  VisitorId,
   VisitorIdFromJSON
 } from "@adobe/target-tools/delivery-api-client";
 
@@ -86,6 +97,7 @@ const SESSION_ID_MAX_AGE = 1860;
 const DEVICE_ID_MAX_AGE = 63244800;
 const LOCATION_HINT_MAX_AGE = 1860;
 
+// @ts-ignore
 DeliveryApi.prototype.decisioningMethod = DECISIONING_METHOD.SERVER_SIDE;
 
 export function extractClusterFromDeviceId(id) {
@@ -214,7 +226,7 @@ function getCustomerIds(customerIds, visitor) {
   return convertedIds.concat(customerIds || []);
 }
 
-export function createVisitorId(id = {}, options) {
+export function createVisitorId(id: VisitorId = {}, options) {
   const { deviceId, visitor } = options;
   const {
     tntId = deviceId,
@@ -239,7 +251,9 @@ export function createVisitorId(id = {}, options) {
   return isNonEmptyObject(result) ? result : undefined;
 }
 
-function createContext(context = {}) {
+function createContext(
+  context: Context = { channel: ChannelType.Web }
+): Context {
   const result = ContextFromJSON({
     timeOffsetInMinutes: getTimezoneOffset(),
     ...context
@@ -253,7 +267,7 @@ function createContext(context = {}) {
   return result;
 }
 
-function isCurrentSupplementalDataID(supplementalDataId, visitor) {
+function isCurrentSupplementalDataID(supplementalDataId: string, visitor: any) {
   const visitorState = visitor.getState();
   const firstOrganizationState = visitorState[Object.keys(visitorState)[0]];
   return (
@@ -273,7 +287,7 @@ function createSupplementalDataId(analytics, options) {
   return visitor.getSupplementalDataID(consumerId);
 }
 
-function createAnalytics(analytics = {}, options) {
+function createAnalytics(analytics: AnalyticsRequest = {}, options) {
   return AnalyticsRequestFromJSON({
     logging: isNonEmptyString(analytics.logging)
       ? analytics.logging
@@ -293,7 +307,7 @@ function getLocationHint(locationHintString) {
   return !isNaN(hintNumber) ? hintNumber : undefined; // eslint-disable-line no-restricted-globals
 }
 
-function createAudienceManager(audienceManager = {}, options) {
+function createAudienceManager(audienceManager: AudienceManager = {}, options) {
   const { visitor } = options;
   const visitorValues = visitor.getVisitorValues() || {};
   const {
@@ -309,7 +323,7 @@ function createAudienceManager(audienceManager = {}, options) {
   return isNonEmptyObject(result) ? result : undefined;
 }
 
-function createExperienceCloud(experienceCloud = {}, options) {
+function createExperienceCloud(experienceCloud: ExperienceCloud = {}, options) {
   const { analytics, audienceManager } = experienceCloud;
 
   const createdAudienceManager = createAudienceManager(
@@ -385,7 +399,7 @@ function createExecute(execute, logger) {
     return undefined;
   }
 
-  return new ExecuteRequestFromJSON({
+  return ExecuteRequestFromJSON({
     pageLoad: isObject(pageLoad) ? RequestDetailsFromJSON(pageLoad) : undefined,
     mboxes: isNonEmptyArray(mboxes) ? createMboxes(mboxes, logger) : undefined
   });
@@ -429,15 +443,8 @@ function createNotifications(notifications, logger) {
   const resultNotifications = notifications
     .filter(notification => validNotification(notification, logger))
     .map(notification => {
-      const {
-        id,
-        type,
-        timestamp,
-        impressionId,
-        tokens,
-        mbox,
-        view
-      } = notification;
+      const { id, type, timestamp, impressionId, tokens, mbox, view } =
+        notification;
       const result = NotificationFromJSON(notification);
 
       result.id = id;
@@ -466,7 +473,7 @@ function createNotifications(notifications, logger) {
   return isNonEmptyArray(resultNotifications) ? resultNotifications : undefined;
 }
 
-function createProperty(property = {}) {
+function createProperty(property: Property = { token: "" }) {
   const { token } = property;
 
   if (isNonEmptyString(token)) {
@@ -476,16 +483,10 @@ function createProperty(property = {}) {
   return undefined;
 }
 
-/**
- *
- * @param requestParam
- * @param options
- * @return { import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest }
- */
-export function createDeliveryRequest(requestParam, options) {
+export function createDeliveryRequest(requestParam, options): DeliveryRequest {
   const { logger, uuidMethod = uuid } = options;
 
-  const result = DeliveryRequestFromJSON({
+  const result: DeliveryRequest = DeliveryRequestFromJSON({
     requestId: uuidMethod(),
     environmentId: options.environmentId,
     ...requestParam
@@ -509,15 +510,12 @@ export function createDeliveryRequest(requestParam, options) {
   return result;
 }
 
-/**
- *
- * @param fetchApi
- * @param host
- * @param headers
- * @param timeout
- * @return { import("@adobe/target-tools/delivery-api-client/runtime").Configuration }
- */
-export function createConfiguration(fetchApi, host, headers, timeout) {
+export function createConfiguration(
+  fetchApi,
+  host,
+  headers,
+  timeout
+): Configuration {
   return new Configuration({
     basePath: host,
     fetchApi,
@@ -531,7 +529,7 @@ function createLocalDeliveryApi(
   visitor,
   targetLocationHint
 ) {
-  const localDeliveryApi = {
+  const localDeliveryApi: any = {
     // eslint-disable-next-line no-unused-vars
     execute: (organizationId, sessionId, deliveryRequest, atjsVersion) => {
       if (isUndefined(decisioningEngine)) {
@@ -554,7 +552,7 @@ function createLocalDeliveryApi(
 function createBeaconDeliveryApi(configuration) {
   return {
     execute: (organizationId, sessionId, deliveryRequest, atjsVersion) => {
-      const query = {
+      const query: any = {
         imsOrgId: organizationId,
         sessionId
       };
@@ -588,27 +586,26 @@ function createRemoteDeliveryApi(configuration, useBeacon) {
 }
 
 /**
- * @param {import("@adobe/target-tools/delivery-api-client/runtime").Configuration} configuration
+ * @param {Configuration} configuration
  * @param visitor VisitorId instance
  * @param { Boolean } useBeacon
  * @param decisioningMethod
  * @param { String } targetLocationHint
- * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} deliveryRequest
+ * @param {DeliveryRequest} deliveryRequest
  * @param decisioningEngine
  * */
 export function createDeliveryApi(
-  configuration,
+  configuration: Configuration,
   visitor,
   useBeacon = false,
   decisioningMethod = DECISIONING_METHOD.SERVER_SIDE,
   targetLocationHint = undefined,
-  deliveryRequest = undefined,
+  deliveryRequest: DeliveryRequest = undefined,
   decisioningEngine = undefined
 ) {
   if (requiresDecisioningEngine(decisioningMethod)) {
-    const decisioningDependency = decisioningEngine.hasRemoteDependency(
-      deliveryRequest
-    );
+    const decisioningDependency =
+      decisioningEngine.hasRemoteDependency(deliveryRequest);
 
     if (
       decisioningMethod === DECISIONING_METHOD.HYBRID &&
@@ -663,7 +660,10 @@ function extractClusterFromEdgeHost(host) {
   return parts[0].replace(EDGE_CLUSTER_PREFIX, "");
 }
 
-export function getTargetLocationHintCookie(requestCluster, edgeHost) {
+export function getTargetLocationHintCookie(
+  requestCluster: string,
+  edgeHost: string = ""
+) {
   const hostCluster = extractClusterFromEdgeHost(edgeHost);
   const cluster = requestCluster || hostCluster;
 
@@ -681,9 +681,8 @@ export function getTargetLocationHintCookie(requestCluster, edgeHost) {
 export function requestLocationHintCookie(targetClient, targetLocationHint) {
   return isDefined(targetLocationHint)
     ? Promise.resolve({
-        targetLocationHintCookie: getTargetLocationHintCookie(
-          targetLocationHint
-        )
+        targetLocationHintCookie:
+          getTargetLocationHintCookie(targetLocationHint)
       })
     : targetClient
         .getOffers({
@@ -696,12 +695,12 @@ export function requestLocationHintCookie(targetClient, targetLocationHint) {
 
 export function preserveLocationHint(response) {
   if (isDefined(response.targetLocationHintCookie)) {
-    this.config.targetLocationHint = response.targetLocationHintCookie.value;
+    this.targetLocationHint = response.targetLocationHintCookie.value;
   }
   return response;
 }
 
-function getAnalyticsFromObject(object = {}) {
+function getAnalyticsFromObject(object: PageLoadResponse | MboxResponse = {}) {
   const { analytics } = object;
 
   return isNonEmptyObject(analytics) ? [analytics] : undefined;
@@ -737,14 +736,17 @@ function getAnalyticsDetails(response) {
 }
 
 /**
- * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} request Target Delivery API request, required
- * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryResponse").DeliveryResponse} response Target Delivery API response, required
+ * @param {DeliveryRequest} request Target Delivery API request, required
+ * @param {DeliveryResponse} response Target Delivery API response, required
  * @param decisioningMethod
  * @param decisioningEngine
  * */
 function getResponseMeta(
-  request,
-  response,
+  request: DeliveryRequest,
+  response: DeliveryResponse & {
+    remoteMboxes?: String[];
+    remoteViews?: String[];
+  },
   decisioningMethod,
   decisioningEngine
 ) {
@@ -754,9 +756,8 @@ function getResponseMeta(
   delete response.remoteViews;
 
   if (decisioningEngine) {
-    const decisioningDependency = decisioningEngine.hasRemoteDependency(
-      request
-    );
+    const decisioningDependency =
+      decisioningEngine.hasRemoteDependency(request);
     // eslint-disable-next-line prefer-destructuring
     remoteMboxes = decisioningDependency.remoteMboxes;
     // eslint-disable-next-line prefer-destructuring
@@ -770,7 +771,7 @@ function getResponseMeta(
   };
 }
 
-function getTraceFromObject(object = {}) {
+function getTraceFromObject(object: PageLoadResponse | MboxResponse = {}) {
   const { trace } = object;
 
   return isNonEmptyObject(trace) ? [trace] : undefined;
@@ -805,7 +806,9 @@ function getTraceDetails(response) {
   return isNonEmptyArray(result) ? result : undefined;
 }
 
-function getResponseTokensFromObject(object = {}) {
+function getResponseTokensFromObject(
+  object: PageLoadResponse | MboxResponse | View = {}
+) {
   const { options } = object;
 
   if (isEmptyArray(options)) {
@@ -846,16 +849,16 @@ function getResponseTokens(response) {
  * processResponse method
  * @param { string } sessionId
  * @param { string } cluster
- * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest} request Target Delivery API request
- * @param {import("@adobe/target-tools/delivery-api-client/models/DeliveryResponse").DeliveryResponse} response Target Delivery API response
+ * @param {DeliveryRequest} request Target Delivery API request
+ * @param {DeliveryResponse} response Target Delivery API response
  * @param {('on-device'|'server-side'|'hybrid')} decisioningMethod
  * @param { Object } decisioningEngine
  */
 export function processResponse(
   sessionId,
   cluster,
-  request,
-  response,
+  request: DeliveryRequest,
+  response: DeliveryResponse,
   decisioningMethod = DECISIONING_METHOD.SERVER_SIDE,
   decisioningEngine = undefined
 ) {

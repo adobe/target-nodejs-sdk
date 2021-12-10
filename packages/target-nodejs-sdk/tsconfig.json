@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "noFallthroughCasesInSwitch": false
+  },
+  "include": ["./src/**/*.ts", "./src/**/*.js"],
+  "exclude": ["node_modules", "dist", "**/*.spec.ts"]
+}

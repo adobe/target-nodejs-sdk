@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 const fetch = require("node-fetch");
 const HttpsProxyAgent = require("https-proxy-agent");
-const TargetClient = require("../dist/targetclient.server");
+const { TargetClient } = require("../dist/index");
 
 function getFetchWithProxy() {
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;

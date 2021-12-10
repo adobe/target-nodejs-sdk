@@ -15,16 +15,17 @@ import resolve from "@rollup/plugin-node-resolve";
 import json from "@rollup/plugin-json";
 import license from "rollup-plugin-license";
 import commonjs from "@rollup/plugin-commonjs";
-import babel from "rollup-plugin-babel";
+
 import visualizer from "rollup-plugin-visualizer";
 import pkg from "./package.json";
+import { terser } from "rollup-plugin-terser";
+import typescript from "rollup-plugin-typescript2";
 
-function getPlugins(babelConfig, visualizerConfig) {
+function getPlugins(tsConfig, visualizerConfig) {
   return [
     json(),
-    resolve({}),
+    resolve(),
     commonjs(),
-    babel(babelConfig),
     license({
       banner: {
         content: {
@@ -32,51 +33,51 @@ function getPlugins(babelConfig, visualizerConfig) {
         }
       }
     }),
-    visualizer(visualizerConfig)
+    visualizer(visualizerConfig),
+    typescript({
+      tsconfigOverride: {
+        ...tsConfig
+      }
+    }),
+    terser()
   ];
 }
 
 export default [
+  // {
+  //   input: "src/index.browser.ts",
+  //   output: {
+  //     name: "TargetClient",
+  //     file: pkg.browser,
+  //     format: "umd",
+  //     sourcemap: true
+  //   },
+  //   plugins: getPlugins(
+  //     {
+  //       compilerOptions: {
+  //         lib: ["dom", "dom.iterable", "esnext"],
+  //         module: "esnext",
+  //         target: "es5",
+  //
+  //         allowJs: true,
+  //         allowSyntheticDefaultImports: true,
+  //         esModuleInterop: true,
+  //         forceConsistentCasingInFileNames: true,
+  //         isolatedModules: true,
+  //         jsx: "react-jsx",
+  //         moduleResolution: "node",
+  //         noEmit: true,
+  //         resolveJsonModule: true,
+  //         skipLibCheck: true
+  //       }
+  //     },
+  //     {
+  //       filename: "bundlesize-stats.browser.html"
+  //     }
+  //   )
+  // },
   {
-    input: "src/index.browser.js",
-    output: {
-      name: "TargetClient",
-      file: pkg.browser,
-      format: "umd",
-      sourcemap: true
-    },
-    plugins: getPlugins(
-      {
-        inputSourceMap: true,
-        sourceMaps: true,
-        exclude: ["node_modules/**", /\/core-js\//],
-
-        presets: [
-          [
-            "@babel/preset-env",
-            {
-              useBuiltIns: "usage",
-              corejs: 3,
-              modules: false,
-              targets: {
-                browsers: [
-                  "last 2 Chrome versions",
-                  "last 2 Firefox versions",
-                  "last 2 Safari versions"
-                ]
-              }
-            }
-          ]
-        ],
-        plugins: []
-      },
-      {
-        filename: "bundlesize-stats.browser.html"
-      }
-    )
-  },
-  {
-    input: "src/index.server.js",
+    input: "src/index.ts",
     output: {
       name: "TargetClient",
       file: pkg.main,
@@ -85,22 +86,14 @@ export default [
     external: [...Object.keys(pkg.dependencies || {})],
     plugins: getPlugins(
       {
-        exclude: ["node_modules/**", /\/core-js\//],
-
-        presets: [
-          [
-            "@babel/preset-env",
-            {
-              useBuiltIns: "usage",
-              corejs: 3,
-              modules: false,
-              targets: {
-                node: "8"
-              }
-            }
-          ]
-        ],
-        plugins: []
+        compilerOptions: {
+          lib: ["es2019", "es2020.promise", "es2020.bigint", "es2020.string"],
+          module: "esnext",
+          target: "es2019",
+          esModuleInterop: true,
+          skipLibCheck: true,
+          forceConsistentCasingInFileNames: true
+        }
       },
       {
         filename: "bundlesize-stats.server.html"

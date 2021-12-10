@@ -1,16 +1,18 @@
 import { DECISIONING_METHOD } from "@adobe/target-tools";
 import mockTelemetryProvider from "./mockTelemetryProvider";
 
+import fetchMock, { enableFetchMocks } from "jest-fetch-mock";
+enableFetchMocks();
+
 jest.mock("@adobe/target-tools", () => ({
+  // @ts-ignore
   ...jest.requireActual("@adobe/target-tools"),
   TelemetryProvider: () => mockTelemetryProvider
 }));
 
-require("jest-fetch-mock").enableMocks();
-
 const DECISIONING_PAYLOAD_FEATURE_FLAG = require("@adobe/target-decisioning-engine/test/schema/artifacts/TEST_ARTIFACT_FEATURE_FLAG.json");
 
-const TargetClient = require("../src/index.server").default;
+const { createTargetClient } = require("../src/index");
 
 const DELIVERY_RESPONSE = {
   status: 200,
@@ -106,7 +108,7 @@ describe("telemetry mode", () => {
   let addDeliveryRequestEntrySpy;
 
   beforeEach(() => {
-    fetch.resetMocks();
+    fetchMock.resetMocks();
     jest.clearAllMocks();
 
     mockTelemetryProvider.getAndClearEntries();
@@ -149,8 +151,8 @@ describe("telemetry mode", () => {
     it("immediately executes telemetries", () => {
       expect.assertions(4);
 
-      return new Promise(done => {
-        fetch
+      return new Promise<void>(done => {
+        fetchMock
           .once(JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG))
           .once(JSON.stringify(DELIVERY_RESPONSE));
 
@@ -188,7 +190,7 @@ describe("telemetry mode", () => {
           }, 100);
         }
 
-        client = TargetClient.create({
+        client = createTargetClient({
           decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
           ...targetClientOptions,
           events: { clientReady }
@@ -201,8 +203,8 @@ describe("telemetry mode", () => {
     it("executes telemetries as part of sendNotifications call when on-device used", () => {
       expect.assertions(5);
 
-      return new Promise(done => {
-        fetch
+      return new Promise<void>(done => {
+        fetchMock
           .once(JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG))
           .once(JSON.stringify(DELIVERY_RESPONSE));
 
@@ -236,7 +238,7 @@ describe("telemetry mode", () => {
           }, 300);
         }
 
-        client = TargetClient.create({
+        client = createTargetClient({
           decisioningMethod: DECISIONING_METHOD.HYBRID,
           ...targetClientOptions,
           events: { clientReady }
@@ -247,8 +249,8 @@ describe("telemetry mode", () => {
     it("executes telemetries on next getOffers call when server-side used", () => {
       expect.assertions(7);
 
-      return new Promise(done => {
-        fetch
+      return new Promise<void>(done => {
+        fetchMock
           .once(JSON.stringify(DECISIONING_PAYLOAD_FEATURE_FLAG))
           .once(JSON.stringify(DELIVERY_RESPONSE))
           .once(JSON.stringify(DELIVERY_RESPONSE));
@@ -319,7 +321,7 @@ describe("telemetry mode", () => {
           }, 300);
         }
 
-        client = TargetClient.create({
+        client = createTargetClient({
           decisioningMethod: DECISIONING_METHOD.HYBRID,
           ...targetClientOptions,
           events: { clientReady }
@@ -332,8 +334,8 @@ describe("telemetry mode", () => {
     it("executes telemetries with next getOffer", () => {
       expect.assertions(7);
 
-      return new Promise(done => {
-        fetch
+      return new Promise<void>(done => {
+        fetchMock
           .once(JSON.stringify(DELIVERY_RESPONSE))
           .once(JSON.stringify(DELIVERY_RESPONSE));
 
@@ -403,7 +405,7 @@ describe("telemetry mode", () => {
           }, 100);
         }
 
-        client = TargetClient.create({
+        client = createTargetClient({
           decisioningMethod: DECISIONING_METHOD.SERVER_SIDE,
           ...targetClientOptions,
           events: { clientReady }
@@ -414,8 +416,8 @@ describe("telemetry mode", () => {
     it("executes telemetries with next sendNotifications", () => {
       expect.assertions(7);
 
-      return new Promise(done => {
-        fetch
+      return new Promise<void>(done => {
+        fetchMock
           .once(JSON.stringify(DELIVERY_RESPONSE))
           .once(JSON.stringify(DELIVERY_RESPONSE));
 
@@ -473,7 +475,7 @@ describe("telemetry mode", () => {
           }, 100);
         }
 
-        client = TargetClient.create({
+        client = createTargetClient({
           decisioningMethod: DECISIONING_METHOD.SERVER_SIDE,
           ...targetClientOptions,
           events: { clientReady }
