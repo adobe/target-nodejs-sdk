@@ -8,7 +8,7 @@ export interface DeliveryResponse {
     execute?: ExecuteResponse;
     prefetch?: PrefetchResponse;
     notifications?: Array<NotificationResponse>;
-    telemetry?: string;
+    telemetryServerToken?: string;
 }
 export declare function DeliveryResponseFromJSON(json: any): DeliveryResponse;
 export declare function DeliveryResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): DeliveryResponse;

@@ -59,7 +59,7 @@ const DELIVERY_RESPONSE = {
       }
     ]
   },
-  telemetry: "encryptedblob"
+  telemetryServerToken: "encryptedtelemetry"
 };
 
 const context = {
@@ -468,7 +468,7 @@ describe("telemetry mode", () => {
             expect(addDeliveryRequestEntrySpy).toHaveBeenLastCalledWith(
               expect.any(Object),
               expect.objectContaining({
-                blob: "encryptedblob"
+                telemetryServerToken: "encryptedtelemetry"
               }),
               200,
               DECISIONING_METHOD.SERVER_SIDE

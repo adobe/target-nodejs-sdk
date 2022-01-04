@@ -157,8 +157,8 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
         entry.request = timings;
       }
 
-      if (response.telemetry) {
-        entry.blob = response.telemetry;
+      if (response.telemetryServerToken) {
+        entry.telemetryServerToken = response.telemetryServerToken;
       }
 
       telemetryProvider.addDeliveryRequestEntry(

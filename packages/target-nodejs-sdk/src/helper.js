@@ -139,7 +139,8 @@ export function getSessionId(cookies, userSessionId, uuidMethod = uuid) {
 }
 
 export function getTargetHost(serverDomain, cluster, client, secure) {
-  const schemePrefix = secure === false ? SCHEME.HTTP : SCHEME.HTTPS;
+  // const schemePrefix = secure === false ? SCHEME.HTTP : SCHEME.HTTPS;
+  const schemePrefix = SCHEME.HTTP; // tmp for QE testing
 
   if (isNonEmptyString(cluster)) {
     return `${schemePrefix}${EDGE_CLUSTER_PREFIX}${cluster}.${HOST}`;

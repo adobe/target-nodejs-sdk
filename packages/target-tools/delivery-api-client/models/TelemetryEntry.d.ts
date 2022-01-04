@@ -7,7 +7,7 @@ export interface TelemetryEntry {
     parsing?: number;
     features?: TelemetryFeatures;
     request?: TelemetryRequest;
-    blob?: string;
+    telemetryServerToken?: string;
 }
 export declare function TelemetryEntryFromJSON(json: any): TelemetryEntry;
 export declare function TelemetryEntryFromJSONTyped(json: any, ignoreDiscriminator: boolean): TelemetryEntry;

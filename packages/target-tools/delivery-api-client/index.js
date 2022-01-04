@@ -602,7 +602,7 @@ function DeliveryResponseFromJSONTyped(json, ignoreDiscriminator) {
         'execute': !exists(json, 'execute') ? undefined : ExecuteResponseFromJSON(json['execute']),
         'prefetch': !exists(json, 'prefetch') ? undefined : PrefetchResponseFromJSON(json['prefetch']),
         'notifications': !exists(json, 'notifications') ? undefined : (json['notifications'].map(NotificationResponseFromJSON)),
-        'telemetry': !exists(json, 'telemetry') ? undefined : json['telemetry'],
+        'telemetryServerToken': !exists(json, 'telemetryServerToken') ? undefined : json['telemetryServerToken'],
     };
 }
 function DeliveryResponseToJSON(value) {
@@ -621,7 +621,7 @@ function DeliveryResponseToJSON(value) {
         'execute': ExecuteResponseToJSON(value.execute),
         'prefetch': PrefetchResponseToJSON(value.prefetch),
         'notifications': value.notifications === undefined ? undefined : (value.notifications.map(NotificationResponseToJSON)),
-        'telemetry': value.telemetry,
+        'telemetryServerToken': value.telemetryServerToken,
     };
 }
 
@@ -1608,7 +1608,7 @@ function TelemetryEntryFromJSONTyped(json, ignoreDiscriminator) {
         'parsing': !exists(json, 'parsing') ? undefined : json['parsing'],
         'features': !exists(json, 'features') ? undefined : TelemetryFeaturesFromJSON(json['features']),
         'request': !exists(json, 'request') ? undefined : TelemetryRequestFromJSON(json['request']),
-        'blob': !exists(json, 'blob') ? undefined : json['blob'],
+        'telemetryServerToken': !exists(json, 'telemetryServerToken') ? undefined : json['telemetryServerToken'],
     };
 }
 function TelemetryEntryToJSON(value) {
@@ -1626,7 +1626,7 @@ function TelemetryEntryToJSON(value) {
         'parsing': value.parsing,
         'features': TelemetryFeaturesToJSON(value.features),
         'request': TelemetryRequestToJSON(value.request),
-        'blob': value.blob,
+        'telemetryServerToken': value.telemetryServerToken,
     };
 }
 
