@@ -26,7 +26,7 @@ DeliveryResponse:
       type: array
       items:
         $ref: "./NotificationResponse.yaml#/NotificationResponse"
-    telemetry:
+    telemetryServerToken:
       type: string
       description: Encoded data with request telemetry collected from Delivery API
     
