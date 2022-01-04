@@ -27,6 +27,6 @@ TelemetryEntry:
     request:
       $ref: "./TelemetryRequest.yaml#/TelemetryRequest"
       description: Details of the request either to Target or CDN
-    blob:
+    telemetryServerToken:
       type: string
       description: Encoded data with telemetry collected from previous request to Delivery API
