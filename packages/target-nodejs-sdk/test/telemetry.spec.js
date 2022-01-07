@@ -58,7 +58,8 @@ const DELIVERY_RESPONSE = {
         ]
       }
     ]
-  }
+  },
+  telemetryServerToken: "encryptedtelemetry"
 };
 
 const context = {
@@ -412,7 +413,7 @@ describe("telemetry mode", () => {
     });
 
     it("executes telemetries with next sendNotifications", () => {
-      expect.assertions(7);
+      expect.assertions(8);
 
       return new Promise(done => {
         fetch
@@ -464,6 +465,14 @@ describe("telemetry mode", () => {
           setTimeout(() => {
             expect(addArtifactRequestEntrySpy).not.toHaveBeenCalled();
             expect(addDeliveryRequestEntrySpy).toHaveBeenCalledTimes(2);
+            expect(addDeliveryRequestEntrySpy).toHaveBeenLastCalledWith(
+              expect.any(Object),
+              expect.objectContaining({
+                telemetryServerToken: "encryptedtelemetry"
+              }),
+              200,
+              DECISIONING_METHOD.SERVER_SIDE
+            );
             expect(
               mockTelemetryProvider.addTelemetryToDeliveryRequest
             ).toHaveBeenCalledTimes(2);

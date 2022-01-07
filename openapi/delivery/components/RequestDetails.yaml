@@ -2,7 +2,11 @@ openapi: "3.0.0"
 RequestDetails:
   type: object
   description: Object common for prefetch, execute and notifications in order to specify the request details.
+  discriminator:
+    propertyName: $_type
   properties:
+    $_type:
+      type: string
     address:
       $ref: "./Address.yaml#/Address"
     parameters:

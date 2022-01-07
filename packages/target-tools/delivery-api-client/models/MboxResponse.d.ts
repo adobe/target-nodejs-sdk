@@ -1,5 +1,6 @@
 import { AnalyticsResponse, Metric, Option } from './';
 export interface MboxResponse {
+    $type?: string;
     index?: number;
     name?: string;
     options?: Array<Option>;
