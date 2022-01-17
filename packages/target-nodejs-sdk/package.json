@@ -18,6 +18,7 @@
     "access": "public"
   },
   "scripts": {
+    "genPackageLock": "npm i --package-lock-only",
     "clean": "rimraf dist",
     "prebuild": "npm run clean && npm run format && npm run lint",
     "build": "NODE_ENV=production rollup -c rollup.config.js",
