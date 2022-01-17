@@ -1,6 +1,7 @@
 /* eslint-disable prefer-destructuring,import/prefer-default-export */
 
 import {
+  DEFAULT_GLOBAL_MBOX,
   ENVIRONMENT_PROD,
   getLogger,
   getMboxNames,
@@ -9,6 +10,7 @@ import {
   includes,
   isDefined,
   isObject,
+  isPojo,
   isString,
   isUndefined,
   parseURI,
@@ -93,6 +95,14 @@ export function hasRemoteDependency(artifact, request) {
   }
 
   const requestedMboxes = Array.from(getMboxNames(request));
+
+  if (
+    (request.execute && isPojo(request.execute.pageLoad)) ||
+    (request.prefetch && isPojo(request.prefetch.pageLoad))
+  ) {
+    requestedMboxes.push(DEFAULT_GLOBAL_MBOX);
+  }
+
   const requestedViews = Array.from(getViewNames(request));
 
   const {

@@ -35,6 +35,7 @@ describe("utils", () => {
     const result = getMboxNames({
       context: { channel: "web" },
       execute: {
+        pageLoad: {},
         mboxes: [{ name: "one" }, { name: "two" }]
       },
       prefetch: {
@@ -58,6 +59,7 @@ describe("utils", () => {
         views: [{ name: "one" }, { name: "two" }]
       },
       prefetch: {
+        pageLoad: {},
         views: [{ name: "three" }, { name: "four" }]
       }
     });

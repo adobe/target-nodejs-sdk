@@ -33,9 +33,11 @@ function getNamesForRequested(itemsKey, deliveryRequest) {
   const resultSet = new Set();
 
   ["prefetch", "execute"].forEach(type => {
+    if (!deliveryRequest || !deliveryRequest[type]) {
+      return;
+    }
+
     const items =
-      deliveryRequest &&
-      deliveryRequest[type] &&
       deliveryRequest[type][itemsKey] instanceof Array
         ? deliveryRequest[type][itemsKey]
         : [];

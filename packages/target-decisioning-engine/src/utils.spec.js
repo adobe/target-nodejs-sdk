@@ -51,6 +51,35 @@ describe("utils", () => {
       });
     });
 
+    it("is remote if pageLoad and target-global-mbox is in remoteMboxes array", () => {
+      const artifact = {
+        ...ARTIFACT_BLANK,
+        remoteMboxes: ["target-global-mbox"],
+        localMboxes: ["my-local-mbox"]
+      };
+
+      const request = {
+        ...targetRequest,
+        execute: {
+          pageLoad: {}
+        },
+        prefetch: {
+          mboxes: [
+            {
+              name: "my-local-mbox",
+              index: 2
+            }
+          ]
+        }
+      };
+
+      expect(hasRemoteDependency(artifact, request)).toEqual({
+        remoteNeeded: true,
+        remoteMboxes: ["target-global-mbox"],
+        remoteViews: []
+      });
+    });
+
     it("is remote if mbox is NOT in localMboxes array", () => {
       const artifact = {
         ...ARTIFACT_BLANK,
