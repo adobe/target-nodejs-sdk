@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "build": "lerna bootstrap && lerna run build",
+    "postbuild": "lerna run --parallel genPackageLock",
     "clean": "lerna run clean",
     "coverage": "node tools/mapCoverage.js",
     "format": "lerna run format",
