@@ -429,15 +429,8 @@ function createNotifications(notifications, logger) {
   const resultNotifications = notifications
     .filter(notification => validNotification(notification, logger))
     .map(notification => {
-      const {
-        id,
-        type,
-        timestamp,
-        impressionId,
-        tokens,
-        mbox,
-        view
-      } = notification;
+      const { id, type, timestamp, impressionId, tokens, mbox, view } =
+        notification;
       const result = NotificationFromJSON(notification);
 
       result.id = id;
@@ -606,9 +599,8 @@ export function createDeliveryApi(
   decisioningEngine = undefined
 ) {
   if (requiresDecisioningEngine(decisioningMethod)) {
-    const decisioningDependency = decisioningEngine.hasRemoteDependency(
-      deliveryRequest
-    );
+    const decisioningDependency =
+      decisioningEngine.hasRemoteDependency(deliveryRequest);
 
     if (
       decisioningMethod === DECISIONING_METHOD.HYBRID &&
@@ -681,9 +673,8 @@ export function getTargetLocationHintCookie(requestCluster, edgeHost) {
 export function requestLocationHintCookie(targetClient, targetLocationHint) {
   return isDefined(targetLocationHint)
     ? Promise.resolve({
-        targetLocationHintCookie: getTargetLocationHintCookie(
-          targetLocationHint
-        )
+        targetLocationHintCookie:
+          getTargetLocationHintCookie(targetLocationHint)
       })
     : targetClient
         .getOffers({
@@ -754,9 +745,8 @@ function getResponseMeta(
   delete response.remoteViews;
 
   if (decisioningEngine) {
-    const decisioningDependency = decisioningEngine.hasRemoteDependency(
-      request
-    );
+    const decisioningDependency =
+      decisioningEngine.hasRemoteDependency(request);
     // eslint-disable-next-line prefer-destructuring
     remoteMboxes = decisioningDependency.remoteMboxes;
     // eslint-disable-next-line prefer-destructuring

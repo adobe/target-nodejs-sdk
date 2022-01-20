@@ -22,8 +22,9 @@ Order:
           * Product ids, separated by commas and concatenated, total length should not exceed 250.
       items:
         type: string
-    time: 
-      type: date-time
+    time:
+      type: string
+      format: date-time
       description: |
         Time in the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) format
     experienceLocalId:

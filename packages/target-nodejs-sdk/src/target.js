@@ -116,9 +116,8 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
   );
 
   if (deliveryMethod.decisioningMethod === DECISIONING_METHOD.SERVER_SIDE) {
-    deliveryRequest = telemetryProvider.addTelemetryToDeliveryRequest(
-      deliveryRequest
-    );
+    deliveryRequest =
+      telemetryProvider.addTelemetryToDeliveryRequest(deliveryRequest);
   }
 
   logger.debug(
@@ -155,6 +154,10 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
         entry.parsing = timings.parsingTime;
         delete timings.parsingTime;
         entry.request = timings;
+      }
+
+      if (response.telemetryServerToken) {
+        entry.telemetryServerToken = response.telemetryServerToken;
       }
 
       telemetryProvider.addDeliveryRequestEntry(

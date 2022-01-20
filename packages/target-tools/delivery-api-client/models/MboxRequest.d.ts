@@ -1,14 +1,5 @@
-import { Address, Order, Product } from './';
-export interface MboxRequest {
-    address?: Address;
-    parameters?: {
-        [key: string]: string;
-    };
-    profileParameters?: {
-        [key: string]: string;
-    };
-    order?: Order;
-    product?: Product;
+import { RequestDetails } from './';
+export interface MboxRequest extends RequestDetails {
     index?: number;
     name?: string;
 }

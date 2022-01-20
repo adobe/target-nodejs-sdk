@@ -3,7 +3,11 @@ MboxResponse:
   type: object
   description: |
     Mbox response object.
+  discriminator:
+    propertyName: $_type
   properties:
+    $_type:
+      type: string
     index:
       type: integer
       format: int32

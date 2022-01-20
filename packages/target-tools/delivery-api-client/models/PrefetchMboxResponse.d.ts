@@ -1,13 +1,5 @@
-import { AnalyticsResponse, Metric, Option } from './';
-export interface PrefetchMboxResponse {
-    index?: number;
-    name?: string;
-    options?: Array<Option>;
-    metrics?: Array<Metric>;
-    analytics?: AnalyticsResponse;
-    trace?: {
-        [key: string]: object;
-    };
+import { MboxResponse } from './';
+export interface PrefetchMboxResponse extends MboxResponse {
     state?: string;
 }
 export declare function PrefetchMboxResponseFromJSON(json: any): PrefetchMboxResponse;

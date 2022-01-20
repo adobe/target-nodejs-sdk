@@ -11,14 +11,15 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import { now } from "./lodash";
+import { assign, now } from "./lodash";
 import { DECISIONING_METHOD, EXECUTION_MODE } from "./enums";
 import {
   isExecutePageLoad,
   executeMboxCount,
   isPrefetchPageLoad,
   prefetchMboxCount,
-  prefetchViewCount
+  prefetchViewCount,
+  formatDecimal
 } from "./utils";
 import InMemoryTelemetryStore from "./InMemoryTelemetryStore";
 
@@ -77,12 +78,71 @@ export default function TelemetryProvider(
     return features;
   }
 
+  function normalizeEntryRequest(entryRequest) {
+    const normalized = {};
+
+    if (entryRequest.dns) {
+      normalized.dns = formatDecimal(entryRequest.dns);
+    }
+
+    if (entryRequest.tls) {
+      normalized.tls = formatDecimal(entryRequest.tls);
+    }
+
+    if (entryRequest.timeToFirstByte) {
+      normalized.timeToFirstByte = formatDecimal(entryRequest.timeToFirstByte);
+    }
+
+    if (entryRequest.download) {
+      normalized.download = formatDecimal(entryRequest.download);
+    }
+
+    if (entryRequest.responseSize) {
+      normalized.responseSize = formatDecimal(entryRequest.responseSize);
+    }
+
+    return normalized;
+  }
+
+  function normalizeEntry(entry) {
+    const normalized = {};
+
+    if (entry.execution) {
+      normalized.execution = formatDecimal(entry.execution);
+    }
+
+    if (entry.parsing) {
+      normalized.parsing = formatDecimal(entry.parsing);
+    }
+
+    if (entry.request) {
+      normalized.request = normalizeEntryRequest(entry.request);
+    }
+
+    return assign(entry, normalized);
+  }
+
+  function normalizeAndAddEntry(entry) {
+    telemetryStore.addEntry(normalizeEntry(entry));
+  }
+
+  function addServerStateEntry(request) {
+    if (!telemetryEnabled) {
+      return;
+    }
+
+    normalizeAndAddEntry({
+      requestId: request.requestId,
+      timestamp: now()
+    });
+  }
+
   function addRenderEntry(renderId, execution) {
     if (!telemetryEnabled) {
       return;
     }
 
-    telemetryStore.addEntry({
+    normalizeAndAddEntry({
       requestId: renderId,
       timestamp: now(),
       execution
@@ -90,11 +150,11 @@ export default function TelemetryProvider(
   }
 
   function addRequestEntry(requestId, entry) {
-    telemetryStore.addEntry({
+    const requestEntry = assign(entry, {
       requestId,
-      timestamp: now(),
-      ...entry
+      timestamp: now()
     });
+    normalizeAndAddEntry(requestEntry);
   }
 
   /**
@@ -121,15 +181,13 @@ export default function TelemetryProvider(
     }
 
     const { requestId } = request;
-    const deliveryRequestEntry = {
-      ...entry,
-      mode: getMode(status, decisioningMethod),
-      features: {
-        ...getFeatures(request),
-        decisioningMethod
-      }
-    };
 
+    const features = assign(getFeatures(request), { decisioningMethod });
+    const baseEntry = {
+      mode: getMode(status, decisioningMethod),
+      features
+    };
+    const deliveryRequestEntry = assign(entry, baseEntry);
     addRequestEntry(requestId, deliveryRequestEntry);
   }
 
@@ -143,12 +201,11 @@ export default function TelemetryProvider(
 
   function addTelemetryToDeliveryRequest(deliveryRequest) {
     if (hasEntries()) {
-      return {
-        ...deliveryRequest,
+      return assign(deliveryRequest, {
         telemetry: {
           entries: getAndClearEntries()
         }
-      };
+      });
     }
     return deliveryRequest;
   }
@@ -157,6 +214,7 @@ export default function TelemetryProvider(
     addDeliveryRequestEntry,
     addArtifactRequestEntry,
     addRenderEntry,
+    addServerStateEntry,
     getAndClearEntries,
     hasEntries,
     addTelemetryToDeliveryRequest

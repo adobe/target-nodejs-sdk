@@ -33,9 +33,11 @@ function getNamesForRequested(itemsKey, deliveryRequest) {
   const resultSet = new Set();
 
   ["prefetch", "execute"].forEach(type => {
+    if (!deliveryRequest || !deliveryRequest[type]) {
+      return;
+    }
+
     const items =
-      deliveryRequest &&
-      deliveryRequest[type] &&
       deliveryRequest[type][itemsKey] instanceof Array
         ? deliveryRequest[type][itemsKey]
         : [];
@@ -306,4 +308,11 @@ export function prefetchViewCount(request) {
       request.prefetch.views.length) ||
     0
   );
+}
+
+export function formatDecimal(value, digits = 2) {
+  if (!value || !isNumber(value)) {
+    return undefined;
+  }
+  return +value.toFixed(digits);
 }

@@ -105,3 +105,5 @@ export { default as parseURI } from "parse-uri";
 export { default as uuid } from "./uuid";
 
 export { default as getFetchWithTelemetry } from "./fetchWithTelemetry";
+
+export { default as performanceNow } from "performance-now";

@@ -1,6 +1,6 @@
 {
   "name": "@adobe/target-tools",
-  "version": "1.5.1",
+  "version": "1.6.1",
   "description": "",
   "main": "dist/index.js",
   "browser": "dist/index.browser.js",
@@ -17,6 +17,7 @@
     "access": "public"
   },
   "scripts": {
+    "genPackageLock": "npm i --package-lock-only",
     "lint": "./node_modules/.bin/eslint src/**",
     "format": "prettier '**/*.js' '**/*.json' --write --config '../../.prettierrc.json' --ignore-path '../../.prettierignore'",
     "clean": "rimraf dist",
