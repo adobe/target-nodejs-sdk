@@ -119,12 +119,12 @@ function ArtifactProvider(config, telemetryProvider) {
   function deobfuscate(res) {
     if (artifactFormat === ARTIFACT_FORMAT_BINARY) {
       perfTool.timeStart(TIMING_ARTIFACT_DEOBFUSCATE);
-      return res.arrayBuffer().then(buffer => {
-        return obfuscationProvider.deobfuscate(buffer).then(deobfuscated => {
+      return res.arrayBuffer().then(buffer =>
+        obfuscationProvider.deobfuscate(buffer).then(deobfuscated => {
           perfTool.timeEnd(TIMING_ARTIFACT_DEOBFUSCATE);
           return deobfuscated;
-        });
-      });
+        })
+      );
     }
     perfTool.timeStart(TIMING_ARTIFACT_READ_JSON);
     return res.json().then(data => {

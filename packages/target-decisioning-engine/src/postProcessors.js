@@ -255,15 +255,13 @@ export function createResponseTokensPostProcessor(
       return accumulator;
     }, {});
 
-    const options = mboxResponse.options.map(option => {
-      return {
-        ...option,
-        responseTokens: {
-          ...responseTokensFromMeta,
-          ...responseTokens
-        }
-      };
-    });
+    const options = mboxResponse.options.map(option => ({
+      ...option,
+      responseTokens: {
+        ...responseTokensFromMeta,
+        ...responseTokens
+      }
+    }));
 
     return {
       ...mboxResponse,
@@ -337,12 +335,10 @@ export function replaceCampaignMacros(
         if (option.type === OptionType.Actions) {
           return {
             ...option,
-            content: option.content.map(action => {
-              return {
-                ...action,
-                content: addCampainMacroValues(action.content)
-              };
-            })
+            content: option.content.map(action => ({
+              ...action,
+              content: addCampainMacroValues(action.content)
+            }))
           };
         }
 

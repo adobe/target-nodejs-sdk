@@ -309,6 +309,7 @@ describe("execution mode", () => {
                   }
                 })
                 .catch(err => {
+                  // eslint-disable-next-line jest/no-conditional-expect
                   expect(err).toEqual(new Error(DECISIONING_ENGINE_NOT_READY));
                   done();
                 });

@@ -1,8 +1,8 @@
 import { EventProvider } from "./eventProvider";
 
 describe("EventProvider", () => {
-  it("subscribes to an event", () => {
-    return new Promise(done => {
+  it("subscribes to an event", () =>
+    new Promise(done => {
       expect.assertions(1);
 
       function aloha(event) {
@@ -17,11 +17,10 @@ describe("EventProvider", () => {
       });
 
       eventProvider.emit("aloha");
-    });
-  });
+    }));
 
-  it("subscribes to an event with payload", () => {
-    return new Promise(done => {
+  it("subscribes to an event with payload", () =>
+    new Promise(done => {
       expect.assertions(1);
 
       function aloha(event) {
@@ -45,11 +44,10 @@ describe("EventProvider", () => {
         },
         code: 11
       });
-    });
-  });
+    }));
 
-  it("supports ad-hoc subscriptions", () => {
-    return new Promise(done => {
+  it("supports ad-hoc subscriptions", () =>
+    new Promise(done => {
       expect.assertions(1);
 
       function aloha(event) {
@@ -63,8 +61,7 @@ describe("EventProvider", () => {
       eventProvider.subscribe("aloha", aloha);
 
       eventProvider.emit("aloha");
-    });
-  });
+    }));
 
   it("supports ad-hoc unsubscribe", () => {
     const aloha = jest.fn();

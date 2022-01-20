@@ -53,6 +53,7 @@ describe("TargetDecisioningEngine", () => {
 
   beforeEach(async () => {
     fetch.resetMocks();
+    // eslint-disable-next-line no-import-assign
     constants.MINIMUM_POLLING_INTERVAL = 0;
   });
 
@@ -77,7 +78,6 @@ describe("TargetDecisioningEngine", () => {
     expect(typeof decisioning.getOffers).toBe("function");
   });
 
-  // eslint-disable-next-line jest/no-test-callback
   it("updates the artifact on the polling interval", async done => {
     const responses = [];
     for (let i = 1; i < 50; i += 1) {
@@ -116,8 +116,8 @@ describe("TargetDecisioningEngine", () => {
     }, 7);
   });
 
-  it("provides an error if the artifact is not available", () => {
-    return new Promise(done => {
+  it("provides an error if the artifact is not available", () =>
+    new Promise(done => {
       expect.assertions(3);
       const eventEmitter = jest.fn();
 
@@ -147,6 +147,7 @@ describe("TargetDecisioningEngine", () => {
           decisioning = instance;
         })
         .catch(err => {
+          // eslint-disable-next-line jest/no-conditional-expect
           expect(err).toEqual(new Error(Messages.ARTIFACT_NOT_AVAILABLE));
         });
 
@@ -156,11 +157,10 @@ describe("TargetDecisioningEngine", () => {
         expect(eventEmitter.mock.calls[0][0]).toEqual(ARTIFACT_DOWNLOAD_FAILED);
         done();
       }, 1000);
-    });
-  });
+    }));
 
-  it("provides an error if the artifact cannot be deobfuscated", () => {
-    return new Promise(done => {
+  it("provides an error if the artifact cannot be deobfuscated", () =>
+    new Promise(done => {
       expect.assertions(1);
       const eventEmitter = jest.fn();
 
@@ -181,11 +181,11 @@ describe("TargetDecisioningEngine", () => {
         })
         .catch(err => {
           // the decision provider is expecting an obfuscated artifact (rules.bin), but it received a raw artifact (rules.json) and deobfuscation failed
+          // eslint-disable-next-line jest/no-conditional-expect
           expect(err).toEqual(new Error(Messages.ARTIFACT_NOT_AVAILABLE));
           done();
         });
-    });
-  });
+    }));
 
   it("getOffers resolves", async () => {
     fetch.mockResponse(JSON.stringify(ARTIFACT_BLANK));

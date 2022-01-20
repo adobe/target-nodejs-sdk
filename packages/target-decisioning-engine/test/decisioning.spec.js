@@ -1,3 +1,4 @@
+/* eslint-disable jest/no-conditional-expect */
 import * as MockDate from "mockdate";
 import {
   isDefined,
@@ -60,18 +61,16 @@ describe("decisioning engine", () => {
     });
 
     const TESTS = Object.keys(TEST_SUITE.test)
-      .filter(testKey => {
-        return isUndefined(JUST_THIS_TEST) || isUndefined(JUST_THIS_TEST.test)
+      .filter(testKey =>
+        isUndefined(JUST_THIS_TEST) || isUndefined(JUST_THIS_TEST.test)
           ? true
-          : JUST_THIS_TEST.test === testKey;
-      })
-      .map(key => {
-        return [
-          TEST_SUITE.test[key].description,
-          TEST_SUITE,
-          TEST_SUITE.test[key]
-        ];
-      });
+          : JUST_THIS_TEST.test === testKey
+      )
+      .map(key => [
+        TEST_SUITE.test[key].description,
+        TEST_SUITE,
+        TEST_SUITE.test[key]
+      ]);
 
     test.each(TESTS)("%s", async (testDescription, suiteData, testData) => {
       const sendNotificationFunc = jest.fn();
@@ -129,9 +128,10 @@ describe("decisioning engine", () => {
         } else {
           expect(sendNotificationFunc.mock.calls.length).toEqual(1);
           const notificationPayload = sendNotificationFunc.mock.calls[0][0];
-          notificationPayload.request = telemetryProvider.addTelemetryToDeliveryRequest(
-            notificationPayload.request
-          );
+          notificationPayload.request =
+            telemetryProvider.addTelemetryToDeliveryRequest(
+              notificationPayload.request
+            );
 
           expectToMatchObject(notificationPayload, notificationOutput);
         }

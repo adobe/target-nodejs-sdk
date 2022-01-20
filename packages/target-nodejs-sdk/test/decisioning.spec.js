@@ -97,13 +97,14 @@ describe("target on-device decisioning", () => {
       expect.assertions(1);
       let timer;
 
-      fetch.mockResponse(() => {
-        return new Promise(resolve => {
-          timer = setTimeout(() => {
-            resolve(JSON.stringify(ARTIFACT_BLANK));
-          }, 100);
-        });
-      });
+      fetch.mockResponse(
+        () =>
+          new Promise(resolve => {
+            timer = setTimeout(() => {
+              resolve(JSON.stringify(ARTIFACT_BLANK));
+            }, 100);
+          })
+      );
 
       return new Promise(async done => {
         client = TargetClient.create({
@@ -387,7 +388,7 @@ describe("target on-device decisioning", () => {
         });
       });
 
-      it("it recovers if the delivery request fails", () => {
+      it("recovers if the delivery request fails", () => {
         fetch.mockResponses(
           ["", { status: HttpStatus.SERVICE_UNAVAILABLE }],
           [JSON.stringify(ARTIFACT_AB_SIMPLE), { status: HttpStatus.OK }]

@@ -11,6 +11,7 @@ module.exports = {
     "prefer-object-spread": "off",
     "prefer-spread": "off",
     "no-underscore-dangle": "off",
+    "jest/no-done-callback": "off",
     "curly": ["error", "all"],
     "import/no-extraneous-dependencies": [
       "error",

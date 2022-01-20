@@ -1,4 +1,3 @@
-/* eslint-disable jest/no-test-callback */
 import * as HttpStatus from "http-status-codes";
 import {
   ENVIRONMENT_PROD,
@@ -43,6 +42,7 @@ describe("artifactProvider", () => {
 
   beforeEach(() => {
     fetch.resetMocks();
+    // eslint-disable-next-line no-import-assign
     constants.MINIMUM_POLLING_INTERVAL = 0;
   });
 
@@ -172,7 +172,6 @@ describe("artifactProvider", () => {
     expect(fetch.mock.calls.length).toEqual(11);
   });
 
-  // eslint-disable-next-line jest/no-test-callback
   it("reports an error if it failed to retrieve the artifact after 10 tries", async () => {
     expect.assertions(3);
 

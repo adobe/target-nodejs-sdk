@@ -67,15 +67,13 @@ export function validDeliveryRequest(
 ) {
   const { context = {} } = request;
 
-  return validGeoRequestContext(context.geo || {}).then(geo => {
-    return {
-      ...request,
-      context: {
-        ...context,
-        geo
-      },
-      id: validVisitorId(request.id, targetLocationHint),
-      requestId: request.requestId || uuid()
-    };
-  });
+  return validGeoRequestContext(context.geo || {}).then(geo => ({
+    ...request,
+    context: {
+      ...context,
+      geo
+    },
+    id: validVisitorId(request.id, targetLocationHint),
+    requestId: request.requestId || uuid()
+  }));
 }

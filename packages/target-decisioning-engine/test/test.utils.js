@@ -45,6 +45,7 @@ export function prepareTestResponse(response = {}) {
   });
 }
 
+// eslint-disable-next-line default-param-last
 function hydrateArtifacts(testObj = {}, artifactFolder, artifactList) {
   return traverseObject(testObj, {}, (key, value) => {
     if (key === "artifact") {
