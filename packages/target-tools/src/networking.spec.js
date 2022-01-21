@@ -106,9 +106,12 @@ describe("networking", () => {
     });
 
     it("errors after 10 retries with custom error", async () => {
-      const fetchWithRetry = getFetchWithRetry(fetchApi, 10, errorMessage => {
-        return `Yo dawg, we tried 10 times but it still failed with this error message: ${errorMessage}`;
-      });
+      const fetchWithRetry = getFetchWithRetry(
+        fetchApi,
+        10,
+        errorMessage =>
+          `Yo dawg, we tried 10 times but it still failed with this error message: ${errorMessage}`
+      );
 
       fetch.mockResponses(
         ["", { status: UNAUTHORIZED }],

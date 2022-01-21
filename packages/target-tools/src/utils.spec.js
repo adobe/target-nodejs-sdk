@@ -366,9 +366,7 @@ describe("utils", () => {
           itsReady = true;
         }, 200);
 
-        const isReady = () => {
-          return itsReady;
-        };
+        const isReady = () => itsReady;
 
         whenReady(isReady, 500, "not ready, yo").then(value => {
           expect(value).toBeUndefined();
@@ -383,9 +381,7 @@ describe("utils", () => {
         itsReady = true;
       }, 500);
 
-      const isReady = () => {
-        return itsReady;
-      };
+      const isReady = () => itsReady;
 
       return expect(
         whenReady(isReady, 100, "not ready in time")

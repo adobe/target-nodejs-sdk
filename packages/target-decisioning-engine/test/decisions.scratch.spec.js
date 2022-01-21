@@ -24,12 +24,11 @@ function getFetchWithProxy() {
 
   const ProxyAgent = HttpsProxyAgent.default;
 
-  return (url, options) => {
-    return fetchWithTelemetry(url, {
+  return (url, options) =>
+    fetchWithTelemetry(url, {
       ...options,
       agent: new ProxyAgent("http://127.0.0.1:9090")
     });
-  };
 }
 
 const TEST_CONF = {
