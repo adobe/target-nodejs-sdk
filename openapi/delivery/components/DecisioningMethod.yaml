@@ -1,5 +1,0 @@
-openapi: "3.0.0"
-DecisioningMethod:
-  x-enum-as-string: true
-  type: string
-  enum: ["server-side", "on-device", "hybrid"]
