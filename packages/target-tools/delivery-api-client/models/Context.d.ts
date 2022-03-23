@@ -1,4 +1,4 @@
-import { Address, Application, Browser, ChannelType, Geo, MobilePlatform, Screen, Window } from './';
+import { Address, Application, Browser, ChannelType, ClientHints, Geo, MobilePlatform, Screen, Window } from './';
 export interface Context {
     channel: ChannelType;
     mobilePlatform?: MobilePlatform;
@@ -10,6 +10,7 @@ export interface Context {
     geo?: Geo;
     timeOffsetInMinutes?: number;
     userAgent?: string;
+    clientHints?: ClientHints;
     beacon?: boolean;
 }
 export declare function ContextFromJSON(json: any): Context;

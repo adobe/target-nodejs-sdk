@@ -8,6 +8,7 @@ export * from './AudienceManager';
 export * from './AuthenticatedState';
 export * from './Browser';
 export * from './ChannelType';
+export * from './ClientHints';
 export * from './Context';
 export * from './CustomerId';
 export * from './DecisioningMethod';
