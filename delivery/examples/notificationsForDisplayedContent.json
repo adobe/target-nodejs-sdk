@@ -1,0 +1,34 @@
+{
+  "id": {
+    "tntId": "abcdefghijkl00014.1_1"
+  },
+  "context": {
+    "channel" : "web",
+    "browser" : {
+      "host" : "demo"
+    },
+    "address" : {
+      "url" : "http://demo.dev.tt-demo.com/demo/store/index.html?ad=a"
+    },
+    "screen" : {
+      "width" : 1200,
+      "height": 1400
+    }
+  },
+  "experienceCloud": {
+    "audienceManager": {
+    }
+  },
+  "notifications": [{
+    "id" : "notificationId1",
+    "type": "display",
+    "timestamp": 1552561951770,
+    "parameters": {
+      "ad" : "view"
+    },
+    "tokens" : [
+      "1zIHw4w+hPht4NV5MyssK4usK1YQ35VnRXpXdevZO4L+y1IPq9i2NpPJJ/bX9FNd",
+      "1zIHw4w+hPht4NV5MyssK4usK1YQ35VnRXpXdevZO4L+y1IPq9i2NpPJJ/bX9FNd"
+    ]
+  }]
+}

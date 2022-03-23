@@ -1,0 +1,12 @@
+openapi: "3.0.0"
+AnalyticsPayload:
+  type: object
+  description: |
+    Analytics payload for client side integration that should be sent to Analytics after content has been applied.
+  properties:
+    pe:
+      type: string
+      description: Indicates to Adobe Analytics that the payload is an Adobe Target type
+    tnta:
+      type: string
+      description: Contains Target metadata that describes the activity and experience

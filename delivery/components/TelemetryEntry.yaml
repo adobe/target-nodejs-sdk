@@ -1,0 +1,32 @@
+openapi: "3.0.0"
+TelemetryEntry:
+  type: object
+  description: Telemetry Entry.
+  properties:
+    requestId:
+      type: string
+      description: Request Id
+    timestamp:
+      type: integer
+      format: int64
+      description: Timestamp of the entry, in milliseconds elapsed since UNIX epoch.
+    mode:
+      $ref: "./ExecutionMode.yaml#/ExecutionMode"
+      description: Execution Mode for request
+    execution:
+      type: number
+      format: double
+      description: Execution time in milliseconds.
+    parsing:
+      type: number
+      format: double
+      description: Response parsing time, in milliseconds elapsed since UNIX epoch.
+    features:
+      $ref: "./TelemetryFeatures.yaml#/TelemetryFeatures"
+      description: Features used by the SDK
+    request:
+      $ref: "./TelemetryRequest.yaml#/TelemetryRequest"
+      description: Details of the request either to Target or CDN
+    telemetryServerToken:
+      type: string
+      description: Encoded data with telemetry collected from previous request to Delivery API
