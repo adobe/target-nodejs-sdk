@@ -1,0 +1,14 @@
+openapi: "3.0.0"
+ExecuteRequest:
+  type: object
+  description: |
+    The execute part of the request that will be evaluated on the server side immediately.
+    Impressions will be incremented for the matching activities.
+  properties:
+    pageLoad:
+      $ref: "./RequestDetails.yaml#/RequestDetails"
+    mboxes:
+      type: array
+      description: An array of mboxes other than global mbox.
+      items:
+        $ref: "./MboxRequest.yaml#/MboxRequest"  

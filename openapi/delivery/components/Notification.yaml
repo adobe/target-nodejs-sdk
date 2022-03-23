@@ -1,0 +1,50 @@
+openapi: "3.0.0"
+Notification:
+  description: |
+    Notification object is used to sent notificaitons regarding what prefetched content was displayed
+    (for views, pageLoad or regional mboxes), which views, pages and mboxes were visited (triggered),
+    and which elements were clicked.
+    Notification request detail will be validated and in case there are validation errors with any token or timestamp
+    the entire request will be invalidated, so there are no cases of inconsistent data, caused by a partially
+    processed notification.
+    that may happen with a partially processed notification. This is different from the approach in the batch mbox v2 API.
+    Mboxes and views are mutually exclusive.
+  required:
+    - id
+    - type
+    - timestamp
+  allOf:
+  - $ref: "./RequestDetails.yaml#/RequestDetails"
+  - type: object
+    properties:
+      id:
+        type: string
+        maxLength: 200
+        description: |
+          Notification id will be returned in response and will indicate that the notification was processed
+          successfully.
+      impressionId:
+        type: string
+        maxLength: 128
+        description: |
+          Impression id is used to stitch (link) the current notification with a previous notification or
+          execute request. In case they both of them match, the second and other subsequent requests will not generate a
+          new impression to the activity, experience etc.
+      type:
+        $ref: "./MetricType.yaml#/MetricType"
+      timestamp:
+        type: integer
+        format: int64
+        description: Timestamp of the notification, in milliseconds elapsed since UNIX epoch.
+      tokens:
+        type: array
+        description: A list of tokens for displayed content or clicked selectors, based on the type of notification.
+        items:
+          type: string
+      mbox:
+        description: Notification for a regional mbox
+        $ref: "./NotificationMbox.yaml#/NotificationMbox"
+      view:
+        $ref: "./NotificationView.yaml#/NotificationView"
+      pageLoad:
+        $ref: "./NotificationPageLoad.yaml#/NotificationPageLoad"

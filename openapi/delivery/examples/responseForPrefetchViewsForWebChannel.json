@@ -1,0 +1,25 @@
+{
+    "status": 200,
+    "requestId": "5efee0d8-3779-4b12-a74e-e04848faf191",
+    "client": "demo",
+    "id": {
+        "tntId": "abcdefghijkl00023.1_1"
+    },
+    "edgeHost": "mboxedge28.tt.omtrdc.net",
+    "prefetch": {
+        "mboxes": [
+            {
+                "index": 1,
+                "name": "SummerOffer",
+                "options": [
+                    {
+                        "content": "<p><b>Enjoy this 15% discount on your next purchase</b></p>",
+                        "type": "html",
+                        "eventToken": "GcvBXDhdJFNR9E9r1tgjfmqipf",
+                    }
+                ]
+            }
+        ]
+    }
+}
+

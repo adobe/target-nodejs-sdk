@@ -1,0 +1,15 @@
+openapi: "3.0.0"
+Property:
+  type: object
+  required:
+    - token
+  description: |
+    Specifies the at_property via the token field. It can be used to control the scope for the delivery.
+  properties:
+    token:
+      description: |
+        The at_property token
+
+        Validation
+        * Required if the property is specified.
+      type: string
