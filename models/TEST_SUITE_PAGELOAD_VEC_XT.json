@@ -1,0 +1,261 @@
+{
+  "description": "decisioning outcomes - pageLoad options (VEC selectors) - XT",
+  "artifact": "TEST_ARTIFACT_PAGELOAD_VEC_XT",
+  "conf": {
+    "client": "someClientId",
+    "organizationId": "someOrgId",
+    "pollingInterval": 0
+  },
+  "test": {
+    "multi_param": {
+      "description": "multiple matching params, returns experiences for just one experience",
+      "input": {
+        "request": {
+          "id": {
+            "thirdPartyId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0"
+          },
+          "context": {
+            "channel": "web",
+            "browser": {
+              "host": "local-target-test"
+            },
+            "address": {
+              "url": "http://local-target-test/"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
+          },
+          "execute": {
+            "pageLoad": {
+              "parameters": {
+                "jason": "correct",
+                "greg": "correct"
+              }
+            }
+          }
+        }
+      },
+      "output": {
+        "execute": {
+          "pageLoad": {
+            "options": [
+              {
+                "type": "actions",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    "content": "Hello greg"
+                  }
+                ]
+              },
+              {
+                "type": "actions",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
+                    "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(1)",
+                    "content": "greg is correct"
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "eventToken": "oxEgcYf3wVy4XTOQzn3RWA==",
+                "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
+                "type": "click"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "single_param": {
+      "description": "single matching param, returns experiences for just one experience",
+      "input": {
+        "request": {
+          "id": {
+            "thirdPartyId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0"
+          },
+          "context": {
+            "channel": "web",
+            "browser": {
+              "host": "local-target-test"
+            },
+            "address": {
+              "url": "http://local-target-test/"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
+          },
+          "execute": {
+            "pageLoad": {
+              "parameters": {
+                "jason": "correct"
+              }
+            }
+          }
+        }
+      },
+      "output": {
+        "execute": {
+          "pageLoad": {
+            "options": [
+              {
+                "type": "actions",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    "content": "Hello jason"
+                  }
+                ]
+              },
+              {
+                "type": "actions",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
+                    "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(2)",
+                    "content": "jason is correct"
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "eventToken": "oxEgcYf3wVy4XTOQzn3RWA==",
+                "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
+                "type": "click"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "without_params_execute": {
+      "description": "no params, returns experiences for just one experience - execute",
+      "input": {
+        "request": {
+          "id": {
+            "thirdPartyId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0"
+          },
+          "context": {
+            "channel": "web",
+            "browser": {
+              "host": "local-target-test"
+            },
+            "address": {
+              "url": "http://local-target-test/"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
+          },
+          "execute": {
+            "pageLoad": {}
+          }
+        }
+      },
+      "output": {
+        "execute": {
+          "pageLoad": {
+            "options": [
+              {
+                "type": "actions",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    "content": "Hello everyone"
+                  }
+                ]
+              },
+              {
+                "type": "actions",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
+                    "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
+                    "content": "all visitors"
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "eventToken": "oxEgcYf3wVy4XTOQzn3RWA==",
+                "selector": "HTML > BODY > DIV.offer:eq(0) > IMG:nth-of-type(1)",
+                "type": "click"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "without_params_prefetch": {
+      "description": "no params, returns experiences for just one experience - prefetch",
+      "input": {
+        "request": {
+          "id": {
+            "thirdPartyId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0"
+          },
+          "context": {
+            "channel": "web",
+            "browser": {
+              "host": "local-target-test"
+            },
+            "address": {
+              "url": "http://local-target-test/"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
+          },
+          "prefetch": {
+            "pageLoad": {}
+          }
+        }
+      },
+      "output": {
+        "prefetch": {
+          "pageLoad": {
+            "options": [
+              {
+                "type": "actions",
+                "eventToken": "REn9frV6SK6mYNleRYo14greqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    "cssSelector": "HTML > BODY > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+                    "content": "Hello everyone"
+                  }
+                ]
+              },
+              {
+                "eventToken": "REn9frV6SK6mYNleRYo14greqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+              },
+              {
+                "eventToken": "REn9frV6SK6mYNleRYo14greqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+              },
+              {
+                "type": "actions",
+                "eventToken": "REn9frV6SK6mYNleRYo14greqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": [
+                  {
+                    "type": "setHtml",
+                    "selector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
+                    "cssSelector": "HTML > BODY > UL:nth-of-type(1) > LI:nth-of-type(3)",
+                    "content": "all visitors"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

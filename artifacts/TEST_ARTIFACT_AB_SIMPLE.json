@@ -1,0 +1,128 @@
+{
+  "targetAdminActivityUrls": [
+    "https://experience.adobe.com/#/@targettesting/target/activities/activitydetails/A-B/_unit-test_mbox-magician"
+  ],
+  "version": "1.0.0",
+  "meta": { "clientCode": "targettesting", "environment": "production" },
+  "globalMbox": "target-global-mbox",
+  "geoTargetingEnabled": true,
+  "responseTokens": [
+    "activity.id",
+    "activity.name",
+    "experience.id",
+    "experience.name",
+    "geo.city",
+    "geo.country",
+    "geo.state",
+    "offer.id",
+    "offer.name",
+    "option.id",
+    "option.name"
+  ],
+  "remoteMboxes": [],
+  "remoteViews": [],
+  "localMboxes": [
+    "100k",
+    "1MB",
+    "1MB2",
+    "1MB3",
+    "250k",
+    "500k",
+    "allmatches",
+    "browserTest",
+    "mbox-browsers",
+    "mbox-dateranges",
+    "mbox-feature-flags",
+    "mbox-geography",
+    "mbox-macros",
+    "mbox-magician",
+    "mbox-params",
+    "mbox-prioritized",
+    "mbox-salutations",
+    "mbox-urlcontains",
+    "perf-mbox",
+    "super-duper",
+    "target-global-mbox",
+    "testoffer"
+  ],
+  "localViews": ["contact", "home"],
+  "rules": {
+    "mboxes": {
+      "mbox-magician": [
+        {
+          "ruleKey": "125873",
+          "activityId": 125873,
+          "meta": {
+            "activity.id": 125873,
+            "activity.name": "[unit-test] mbox-magician",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "mbox-magician",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [],
+            "offer.id": 246850,
+            "offer.name": "/_unit-test_mbox-magician/experiences/0/pages/0/zones/0/1612386382173",
+            "option.id": 2,
+            "option.name": "Offer2"
+          },
+          "condition": {
+            "and": [
+              { "<=": [0, { "var": "allocation" }] },
+              { ">=": [50, { "var": "allocation" }] }
+            ]
+          },
+          "consequence": {
+            "name": "mbox-magician",
+            "options": [
+              {
+                "type": "json",
+                "eventToken": "eHKYleVZBTi/nM3Fv/fx1WqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": { "doMagic": true, "importantValue": 150 }
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "125873",
+          "activityId": 125873,
+          "meta": {
+            "activity.id": 125873,
+            "activity.name": "[unit-test] mbox-magician",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "mbox-magician",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [],
+            "offer.id": 246849,
+            "offer.name": "/_unit-test_mbox-magician/experiences/1/pages/0/zones/0/1612386382166",
+            "option.id": 3,
+            "option.name": "Offer3"
+          },
+          "condition": {
+            "and": [
+              { "<": [50, { "var": "allocation" }] },
+              { ">=": [100, { "var": "allocation" }] }
+            ]
+          },
+          "consequence": {
+            "name": "mbox-magician",
+            "options": [
+              {
+                "type": "json",
+                "eventToken": "eHKYleVZBTi/nM3Fv/fx1ZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": { "doMagic": false, "importantValue": 75 }
+              }
+            ],
+            "metrics": []
+          }
+        }
+      ]
+    },
+    "views": {}
+  }
+}
