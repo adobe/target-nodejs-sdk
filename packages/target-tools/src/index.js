@@ -85,8 +85,11 @@ export { default as TelemetryProvider } from "./telemetryProvider";
 
 export {
   browserFromUserAgent,
+  browserFromClientHintsUA,
+  browserFromUserAgentOrClientHintUA,
   deviceTypeFromUserAgent,
-  operatingSystemFromUserAgent
+  operatingSystemFromUserAgent,
+  operatingSystemFromUserAgentOrClientHints
 } from "./clientInfo";
 
 export {
