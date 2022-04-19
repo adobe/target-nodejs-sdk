@@ -150,14 +150,10 @@ describe("TelemetryProvider", () => {
   it("assigns edge execution mode for hybrid when execution in not all local", () => {
     const provider = TelemetryProvider();
 
-    const DELIVERY_RESPONSE_HYBRID_1 = Object.assign({}, DELIVERY_RESPONSE, {
-      edgeHost: "mboxedge28.tt.omtrdc.net"
-    });
-
     provider.addDeliveryRequestEntry(
       TARGET_REQUEST,
       TARGET_TELEMETRY_ENTRY,
-      DELIVERY_RESPONSE_HYBRID_1,
+      DELIVERY_RESPONSE,
       DECISIONING_METHOD.HYBRID
     );
     const entries = provider.getAndClearEntries();
