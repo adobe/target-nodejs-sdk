@@ -23,8 +23,6 @@ import {
 } from "./utils";
 import InMemoryTelemetryStore from "./InMemoryTelemetryStore";
 
-const STATUS_OK = 200;
-
 /**
  * The get TelemetryProvider initialization method
  * @param {Boolean} telemetryEnabled whether or not the SDK will collect telemetry data - default: true, optional
@@ -36,15 +34,8 @@ export default function TelemetryProvider(
   method = DECISIONING_METHOD.SERVER_SIDE,
   telemetryStore = InMemoryTelemetryStore()
 ) {
-  function getMode(status, decisioningMethod) {
-    if (
-      status === STATUS_OK &&
-      (decisioningMethod === DECISIONING_METHOD.ON_DEVICE ||
-        decisioningMethod === DECISIONING_METHOD.HYBRID)
-    ) {
-      return EXECUTION_MODE.LOCAL;
-    }
-    return EXECUTION_MODE.EDGE;
+  function getMode(response) {
+    return response.edgeHost ? EXECUTION_MODE.EDGE : EXECUTION_MODE.LOCAL;
   }
 
   function getFeatures(request) {
@@ -158,6 +149,7 @@ export default function TelemetryProvider(
   }
 
   /**
+   * @param requestId
    * @param {import("@adobe/target-tools/delivery-api-client/models/TelemetryEntry").TelemetryEntry} entry
    */
   function addArtifactRequestEntry(requestId, entry) {
@@ -168,12 +160,15 @@ export default function TelemetryProvider(
   }
 
   /**
+   * @param request
    * @param {import("@adobe/target-tools/delivery-api-client/models/TelemetryEntry").TelemetryEntry} entry
+   * @param response
+   * @param decisioningMethod
    */
   function addDeliveryRequestEntry(
     request,
     entry,
-    status,
+    response,
     decisioningMethod = method
   ) {
     if (!telemetryEnabled || !entry) {
@@ -184,7 +179,7 @@ export default function TelemetryProvider(
 
     const features = assign(getFeatures(request), { decisioningMethod });
     const baseEntry = {
-      mode: getMode(status, decisioningMethod),
+      mode: getMode(response),
       features
     };
     const deliveryRequestEntry = assign(entry, baseEntry);

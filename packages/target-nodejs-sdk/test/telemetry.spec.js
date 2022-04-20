@@ -470,7 +470,7 @@ describe("telemetry mode", () => {
               expect.objectContaining({
                 telemetryServerToken: "encryptedtelemetry"
               }),
-              200,
+              DELIVERY_RESPONSE,
               DECISIONING_METHOD.SERVER_SIDE
             );
             expect(

@@ -163,7 +163,7 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
       telemetryProvider.addDeliveryRequestEntry(
         deliveryRequest,
         entry,
-        response.status,
+        response,
         deliveryMethod.decisioningMethod
       );
 
