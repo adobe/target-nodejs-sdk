@@ -5,7 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.3.2] - 2022-01-21
+
+## 2.4.0 - 2022-05-26
+
+### Changed
+
+- Support for [Client Hints](https://developer.mozilla.org/en-US/docs/Web/HTTP/Client_hints)
+
+## 2.3.2 - 2022-01-21
 
 ### Changed
 
@@ -14,14 +21,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dev dependency upgrades to fix security vulnerabilities
 - Add repository info in `package.json`
 
-## [2.3.1] - 2022-01-07
+## 2.3.1 - 2022-01-07
 
 ### Changed
 
 - Updated Delivery API client openapi models
 - Handle `telemetryServerToken` from Delivery API, which includes request-level telemetry collected within the API
 
-## [2.3.0] - 2021-10-26
+## 2.3.0 - 2021-10-26
 
 ### Changed
 
