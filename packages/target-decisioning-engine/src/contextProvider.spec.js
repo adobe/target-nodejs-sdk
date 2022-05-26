@@ -158,7 +158,7 @@ describe("contextProvider", () => {
         clientHints: {
           mobile: false,
           model: "",
-          platform: "mac",
+          platform: "macOS",
           platformVersion: "12.2.1",
           browserUAWithMajorVersion:
             '" Not A;Brand";v="99", "Chromium";v="99", "Google Chrome";v="99"',
