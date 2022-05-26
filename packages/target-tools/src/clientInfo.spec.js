@@ -1,7 +1,10 @@
 import {
+  browserFromClientHintsUA,
   browserFromUserAgent,
+  browserFromUserAgentOrClientHintUA,
   deviceTypeFromUserAgent,
-  operatingSystemFromUserAgent
+  operatingSystemFromUserAgent,
+  operatingSystemFromUserAgentOrClientHints
 } from "./clientInfo";
 
 describe("clientInfo", () => {
@@ -35,15 +38,26 @@ describe("clientInfo", () => {
   const IPAD =
     "Mozilla/5.0 (iPad; U; CPU OS 11_2 like Mac OS X; zh-CN; iPad5,3) AppleWebKit/534.46 (KHTML, like Gecko) UCBrowser/3.0.1.776 U3/ Mobile/10A403 Safari/7543.48.3";
 
+  // These reduced user agent strings were taken from the examples on the chromium documentation about client hints here:
+  // https://www.chromium.org/updates/ua-reduction/#sample-ua-strings-final-reduced-state
+  const REDUCED_DESKTOP_WINDOWS =
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.0.0 Safari/537.36";
+
+  const REDUCED_MOBILE_ANDROID =
+    "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.0.0 Mobile Safari/537.36";
+
+  const REDUCED_TABLET_ANDROID =
+    "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.0.0 Safari/537.36";
+
   describe("browserFromUserAgent", () => {
     it("unknown", () => {
       expect(browserFromUserAgent()).toEqual({
-        name: "Unknown",
+        name: "unknown",
         version: -1
       });
 
       expect(browserFromUserAgent("oh hai")).toEqual({
-        name: "Unknown",
+        name: "unknown",
         version: -1
       });
     });
@@ -93,6 +107,100 @@ describe("clientInfo", () => {
         version: 83
       });
     });
+
+    it("handles reduced user agent strings", () => {
+      expect(browserFromUserAgent(REDUCED_DESKTOP_WINDOWS)).toEqual({
+        name: "Chrome",
+        version: 93
+      });
+      expect(browserFromUserAgent(REDUCED_MOBILE_ANDROID)).toEqual({
+        name: "Chrome",
+        version: 93
+      });
+      expect(browserFromUserAgent(REDUCED_TABLET_ANDROID)).toEqual({
+        name: "Chrome",
+        version: 93
+      });
+    });
+  });
+
+  describe("browserFromClientHintsUA", () => {
+    it("unknown", () => {
+      expect(browserFromClientHintsUA()).toEqual({
+        name: "unknown",
+        version: -1
+      });
+
+      expect(browserFromClientHintsUA("oh hai")).toEqual({
+        name: "unknown",
+        version: -1
+      });
+    });
+
+    it("Chrome major version", () => {
+      expect(
+        browserFromClientHintsUA(
+          '" Not A;Brand";v="99", "Chromium";v="99", "Google Chrome";v="99"'
+        )
+      ).toEqual({
+        name: "Chrome",
+        version: 99
+      });
+    });
+    it("Edge major version", () => {
+      expect(
+        browserFromClientHintsUA(
+          '" Not A;Brand";v="99.0.0.0", "Chromium";v="99.0.1150.46", "Microsoft Edge";v="102.0.1150.46"'
+        )
+      ).toEqual({
+        name: "Edge",
+        version: 102
+      });
+    });
+
+    it("Chrome full version", () => {
+      expect(
+        browserFromClientHintsUA(
+          '" Not A;Brand";v="99.0.0.0", "Chromium";v="99.0.4844.83", "Google Chrome";v="99.0.4844.83"'
+        )
+      ).toEqual({
+        name: "Chrome",
+        version: 99
+      });
+    });
+  });
+
+  describe("browserFromUserAgentOrClientHintUA", () => {
+    it("uses client hints in absense of userAgent", () => {
+      expect(
+        browserFromUserAgentOrClientHintUA("", {
+          browserUAWithFullVersion:
+            '" Not A;Brand";v="99.0.0.0", "Chromium";v="99.0.4844.83", "Google Chrome";v="99.0.4844.83"'
+        })
+      ).toEqual({
+        name: "Chrome",
+        version: 99
+      });
+    });
+
+    it("uses userAgent in absense of client hints", () => {
+      expect(browserFromUserAgentOrClientHintUA(CHROME_MAC)).toEqual({
+        name: "Chrome",
+        version: 83
+      });
+    });
+
+    it("client hints take precedent over userAgent", () => {
+      expect(
+        browserFromUserAgentOrClientHintUA(FIREFOX_MAC, {
+          browserUAWithMajorVersion:
+            '" Not A;Brand";v="99", "Chromium";v="99", "Google Chrome";v="99"'
+        })
+      ).toEqual({
+        name: "Chrome",
+        version: 99
+      });
+    });
   });
 
   describe("operatingSystemFromUserAgent", () => {
@@ -120,6 +228,38 @@ describe("clientInfo", () => {
     it("iPad", () => {
       expect(operatingSystemFromUserAgent(IPAD)).toEqual("iOS");
     });
+
+    it("handles reduced user agent strings", () => {
+      expect(operatingSystemFromUserAgent(REDUCED_DESKTOP_WINDOWS)).toEqual(
+        "Windows"
+      );
+      expect(operatingSystemFromUserAgent(REDUCED_MOBILE_ANDROID)).toEqual(
+        "Android"
+      );
+      expect(operatingSystemFromUserAgent(REDUCED_TABLET_ANDROID)).toEqual(
+        "Android"
+      );
+    });
+  });
+
+  describe("operatingSystemFromUserAgentOrClientHints", () => {
+    it("reads from user agent", () => {
+      expect(operatingSystemFromUserAgentOrClientHints(EDGE_WIN)).toEqual(
+        "Windows"
+      );
+    });
+    it("reads from client hints", () => {
+      expect(
+        operatingSystemFromUserAgentOrClientHints("", { platform: "macOS" })
+      ).toEqual("macOS");
+    });
+    it("prefers client hints over user agent", () => {
+      expect(
+        operatingSystemFromUserAgentOrClientHints(EDGE_WIN, {
+          platform: "macOS"
+        })
+      ).toEqual("macOS");
+    });
   });
 
   describe("deviceTypeFromUserAgent", () => {
@@ -133,6 +273,9 @@ describe("clientInfo", () => {
       expect(deviceTypeFromUserAgent(FIREFOX_MAC)).toEqual("Desktop");
       expect(deviceTypeFromUserAgent(SAFARI_MAC)).toEqual("Desktop");
       expect(deviceTypeFromUserAgent(EDGE_WIN)).toEqual("Desktop");
+      expect(deviceTypeFromUserAgent(REDUCED_DESKTOP_WINDOWS)).toEqual(
+        "Desktop"
+      );
     });
 
     it("iPod", () => {
@@ -141,6 +284,15 @@ describe("clientInfo", () => {
 
     it("iPad", () => {
       expect(deviceTypeFromUserAgent(IPAD)).toEqual("iPad");
+    });
+
+    it("Android", () => {
+      expect(deviceTypeFromUserAgent(REDUCED_MOBILE_ANDROID)).toEqual(
+        "Android"
+      );
+      expect(deviceTypeFromUserAgent(REDUCED_TABLET_ANDROID)).toEqual(
+        "Android"
+      );
     });
   });
 });

@@ -1,0 +1,30 @@
+openapi: "3.0.0"
+ClientHints:
+  type: object
+  description: |
+    Client hints data.  Used in place of userAgent if provided.
+  properties:
+    mobile:
+      type: boolean
+      description: Sec-CH-UA-Mobile (low entropy)
+    model:
+      type: string
+      description: Sec-CH-UA-Model
+    platform:
+      type: string
+      description: Sec-CH-UA-Platform (low entropy)
+    platformVersion:
+      type: string
+      description: Sec-CH-UA-Platform-Version
+    browserUAWithMajorVersion:
+      type: string
+      description: Sec-CH-UA (low entropy)
+    browserUAWithFullVersion:
+      type: string
+      description: Sec-CH-UA-Full-Version-List
+    architecture:
+      type: string
+      description: Sec-CH-UA-Arch
+    bitness:
+      type: string
+      description: Sec-CH-UA-Bitness

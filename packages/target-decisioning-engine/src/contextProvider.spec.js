@@ -131,20 +131,50 @@ describe("contextProvider", () => {
         browserType: "unknown",
         browserVersion: -1,
         locale: "en",
-        platform: "Unknown"
+        platform: "unknown"
       }
     });
   });
 
-  it("has browser context", () => {
+  it("has browser context from userAgent", () => {
     const context = createDecisioningContext(DELIVERY_REQUEST);
 
     expect(context.user).toEqual(
       expect.objectContaining({
         browserType: "firefox",
         locale: "en",
-        platform: "Mac OS",
+        platform: "mac",
         browserVersion: 73
+      })
+    );
+  });
+
+  it("has browser context from clientHints", () => {
+    const context = createDecisioningContext({
+      ...DELIVERY_REQUEST,
+      context: {
+        ...DELIVERY_REQUEST.context,
+        userAgent: undefined,
+        clientHints: {
+          mobile: false,
+          model: "",
+          platform: "macOS",
+          platformVersion: "12.2.1",
+          browserUAWithMajorVersion:
+            '" Not A;Brand";v="99", "Chromium";v="99", "Google Chrome";v="99"',
+          browserUAWithFullVersion:
+            '" Not A;Brand";v="99.0.0.0", "Chromium";v="99.0.4844.83", "Google Chrome";v="99.0.4844.83"',
+          architecture: "x86",
+          bitness: "64"
+        }
+      }
+    });
+    expect(context.user).toEqual(
+      expect.objectContaining({
+        browserType: "chrome",
+        locale: "en",
+        platform: "mac",
+        browserVersion: 99
       })
     );
   });

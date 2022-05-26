@@ -14,7 +14,7 @@ AnalyticsRequest:
       $ref: "./LoggingType.yaml#/LoggingType"
     trackingServer:
       type: string
-      description: tracking server
+      description: tracking server domain (should not include http://)
     trackingServerSecure:
       type: string
-      description: secure tracking server
+      description: secure tracking server domain (should not include https://)

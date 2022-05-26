@@ -132,7 +132,7 @@
                       "current_day": "expect.any(Number)",
                       "user": {
                         "browserType": "chrome",
-                        "platform": "Mac OS",
+                        "platform": "mac",
                         "locale": "en",
                         "browserVersion": 80
                       },
@@ -280,7 +280,7 @@
                       "current_day": "expect.any(Number)",
                       "user": {
                         "browserType": "chrome",
-                        "platform": "Mac OS",
+                        "platform": "mac",
                         "locale": "en",
                         "browserVersion": 80
                       },
@@ -444,7 +444,7 @@
                       "current_day": "expect.any(Number)",
                       "user": {
                         "browserType": "chrome",
-                        "platform": "Mac OS",
+                        "platform": "mac",
                         "locale": "en",
                         "browserVersion": 80
                       },
@@ -650,7 +650,7 @@
                     "current_day": "expect.any(Number)",
                     "user": {
                       "browserType": "chrome",
-                      "platform": "Mac OS",
+                      "platform": "mac",
                       "locale": "en",
                       "browserVersion": 80
                     },
@@ -716,7 +716,7 @@
                     "current_day": "expect.any(Number)",
                     "user": {
                       "browserType": "chrome",
-                      "platform": "Mac OS",
+                      "platform": "mac",
                       "locale": "en",
                       "browserVersion": 80
                     },
@@ -806,7 +806,7 @@
                     "current_day": "expect.any(Number)",
                     "user": {
                       "browserType": "chrome",
-                      "platform": "Mac OS",
+                      "platform": "mac",
                       "locale": "en",
                       "browserVersion": 80
                     },
@@ -1034,7 +1034,7 @@
                       "current_day": "expect.any(Number)",
                       "user": {
                         "browserType": "chrome",
-                        "platform": "Mac OS",
+                        "platform": "mac",
                         "locale": "en",
                         "browserVersion": 80
                       },

@@ -28,6 +28,8 @@ Context:
     userAgent:
       description: User-Agent should be sent only via this property. HTTP header User-Agent is ignored.
       type: string
+    clientHints:
+        $ref: "./ClientHints.yaml#/ClientHints"
     beacon:
       type: boolean
       default: false

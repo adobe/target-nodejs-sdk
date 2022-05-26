@@ -40,9 +40,9 @@
           "telemetry": {
             "entries": [
               {
-                  "requestId": "expect.any(String)",
-                  "timestamp": "expect.any(Number)",
-                  "execution": "expect.any(Number)"
+                "requestId": "expect.any(String)",
+                "timestamp": "expect.any(Number)",
+                "execution": "expect.any(Number)"
               },
               {
                 "requestId": "expect.any(String)",

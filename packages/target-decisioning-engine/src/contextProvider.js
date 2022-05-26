@@ -1,8 +1,9 @@
 import {
-  browserFromUserAgent,
+  browserFromUserAgentOrClientHintUA,
   ChannelType,
+  isDefined,
   isString,
-  operatingSystemFromUserAgent
+  operatingSystemFromUserAgentOrClientHints
 } from "@adobe/target-tools";
 import { parseURL } from "./utils";
 
@@ -25,19 +26,36 @@ function getLowerCaseAttributes(obj) {
   return result;
 }
 
+const BROWSER_PLATFORMS_MAPPING = {
+  "Windows": "windows",
+  "Macintosh": "mac",
+  "Mac OS": "mac",
+  "macOS": "mac",
+  "Linux": "linux"
+};
+
+const toTargetPlatform = platform =>
+  isDefined(BROWSER_PLATFORMS_MAPPING[platform])
+    ? BROWSER_PLATFORMS_MAPPING[platform]
+    : platform;
+
 /**
  * @param { import("@adobe/target-tools/delivery-api-client/models/Context").Context } context
  * @return { import("../types/DecisioningContext").UserContext }
  */
 function createBrowserContext(context) {
-  const { userAgent = "" } = context;
+  const { userAgent = "", clientHints } = context;
 
-  const browser = browserFromUserAgent(userAgent);
-  const platform = operatingSystemFromUserAgent(userAgent);
+  const browser = browserFromUserAgentOrClientHintUA(userAgent, clientHints);
+
+  const platform = operatingSystemFromUserAgentOrClientHints(
+    userAgent,
+    clientHints
+  );
 
   return {
     browserType: browser.name.toLowerCase(),
-    platform,
+    platform: toTargetPlatform(platform),
     locale: "en", // TODO: determine where this comes from
     browserVersion: browser.version
   };
