@@ -15,6 +15,17 @@ describe("TelemetryProvider", () => {
       views: [{}]
     }
   };
+  const DELIVERY_RESPONSE = {
+    status: 200,
+    requestId: "7a568cbfe3f44f0b99d1092c246660c1",
+    client: "targettesting",
+    id: {
+      tntId: "338e3c1e51f7416a8e1ccba4f81acea0.27_0",
+      marketingCloudVisitorId: "07327024324407615852294135870030620007"
+    },
+    edgeHost: "mboxedge28.tt.omtrdc.net",
+    telemetryServerToken: "encryptedtelemetry"
+  };
   const TARGET_NOTIFICATION_REQUEST = {
     notifications: []
   };
@@ -33,9 +44,6 @@ describe("TelemetryProvider", () => {
     ...TARGET_TELEMETRY_ENTRY,
     blob: EDGE_TELEMETRY_BLOB
   };
-  const STATUS_OK = 200;
-  const PARTIAL_CONTENT = 206;
-
   it("adds and executes Delivery request entries", () => {
     const provider = TelemetryProvider();
 
@@ -43,7 +51,7 @@ describe("TelemetryProvider", () => {
       provider.addDeliveryRequestEntry(
         TARGET_REQUEST,
         EDGE_TELEMETRY_ENTRY,
-        STATUS_OK
+        DELIVERY_RESPONSE
       );
     }
 
@@ -111,56 +119,64 @@ describe("TelemetryProvider", () => {
       })
     );
   });
-
-  it("assigns local execution mode", () => {
+  it("assigns edge execution mode for server side", () => {
     const provider = TelemetryProvider();
-
     provider.addDeliveryRequestEntry(
       TARGET_REQUEST,
       TARGET_TELEMETRY_ENTRY,
-      STATUS_OK,
-      DECISIONING_METHOD.ON_DEVICE
-    );
-    provider.addDeliveryRequestEntry(
-      TARGET_REQUEST,
-      TARGET_TELEMETRY_ENTRY,
-      STATUS_OK,
-      DECISIONING_METHOD.HYBRID
-    );
-
-    const entries = provider.getAndClearEntries();
-
-    expect(entries[0].mode).toEqual(EXECUTION_MODE.LOCAL);
-    expect(entries[1].mode).toEqual(EXECUTION_MODE.LOCAL);
-  });
-
-  it("assigns edge execution mode", () => {
-    const provider = TelemetryProvider();
-
-    provider.addDeliveryRequestEntry(
-      TARGET_REQUEST,
-      TARGET_TELEMETRY_ENTRY,
-      STATUS_OK,
+      DELIVERY_RESPONSE,
       DECISIONING_METHOD.SERVER_SIDE
     );
+    const entries = provider.getAndClearEntries();
+    expect(entries[0].mode).toEqual(EXECUTION_MODE.EDGE);
+  });
+
+  it("assigns local execution mode for on device", () => {
+    const provider = TelemetryProvider();
+    const DELIVERY_RESPONSE_ON_DEVICE = Object.assign({}, DELIVERY_RESPONSE, {
+      edgeHost: null
+    });
+
     provider.addDeliveryRequestEntry(
       TARGET_REQUEST,
       TARGET_TELEMETRY_ENTRY,
-      PARTIAL_CONTENT,
+      DELIVERY_RESPONSE_ON_DEVICE,
       DECISIONING_METHOD.ON_DEVICE
     );
+    const entries = provider.getAndClearEntries();
+    expect(entries[0].mode).toEqual(EXECUTION_MODE.LOCAL);
+  });
+
+  it("assigns edge execution mode for hybrid when execution in not all local", () => {
+    const provider = TelemetryProvider();
+
     provider.addDeliveryRequestEntry(
       TARGET_REQUEST,
       TARGET_TELEMETRY_ENTRY,
-      PARTIAL_CONTENT,
+      DELIVERY_RESPONSE,
       DECISIONING_METHOD.HYBRID
     );
-
     const entries = provider.getAndClearEntries();
 
     expect(entries[0].mode).toEqual(EXECUTION_MODE.EDGE);
-    expect(entries[1].mode).toEqual(EXECUTION_MODE.EDGE);
-    expect(entries[2].mode).toEqual(EXECUTION_MODE.EDGE);
+  });
+
+  it("assigns local execution mode for hybrid when execution in  all local", () => {
+    const provider = TelemetryProvider();
+
+    const DELIVERY_RESPONSE_HYBRID_2 = Object.assign({}, DELIVERY_RESPONSE, {
+      edgeHost: null
+    });
+
+    provider.addDeliveryRequestEntry(
+      TARGET_REQUEST,
+      TARGET_TELEMETRY_ENTRY,
+      DELIVERY_RESPONSE_HYBRID_2,
+      DECISIONING_METHOD.HYBRID
+    );
+    const entries = provider.getAndClearEntries();
+
+    expect(entries[0].mode).toEqual(EXECUTION_MODE.LOCAL);
   });
 
   it("disables telemetries", () => {
@@ -232,7 +248,7 @@ describe("TelemetryProvider", () => {
     provider.addDeliveryRequestEntry(
       request,
       TARGET_TELEMETRY_ENTRY,
-      STATUS_OK,
+      DELIVERY_RESPONSE,
       DECISIONING_METHOD.ON_DEVICE
     );
 
