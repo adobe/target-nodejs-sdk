@@ -1,13 +1,14 @@
 import {
-  uuid,
   isDefined,
-  noop,
-  now,
-  MetricType,
   isFunction,
-  NOTIFICATIONS_REQUIRED
+  MetricType,
+  noop,
+  noopPromise,
+  now,
+  uuid
 } from "@adobe/target-tools";
 import { LOG_PREFIX } from "./constants";
+import { SEND_NOTIFICATION_ERROR } from "./events";
 
 const LOG_TAG = `${LOG_PREFIX}.NotificationProvider`;
 
@@ -17,14 +18,17 @@ const LOG_TAG = `${LOG_PREFIX}.NotificationProvider`;
  * @param visitor VisitorId instance, required
  * @param { Object } logger
  * @param {function} sendNotificationFunc function used to send the notification, required
+ * @param telemetryEnabled
+ * @param eventEmitter
  */
 
 function NotificationProvider(
   request,
   visitor,
   logger,
-  sendNotificationFunc = noop,
-  telemetryEnabled = true
+  sendNotificationFunc = noopPromise,
+  telemetryEnabled = true,
+  eventEmitter = noop
 ) {
   const timestamp = now();
   const prevEventKeys = new Set();
@@ -90,13 +94,12 @@ function NotificationProvider(
       }
 
       setTimeout(() => {
-        try {
-          sendNotificationFunc.call(null, notification);
-        } catch (error) {
-          if (error.message !== NOTIFICATIONS_REQUIRED) {
-            throw error;
-          }
-        }
+        sendNotificationFunc.call(null, notification).catch(error => {
+          eventEmitter(SEND_NOTIFICATION_ERROR, {
+            notification,
+            error
+          });
+        });
       }, 0);
       notifications = [];
     }

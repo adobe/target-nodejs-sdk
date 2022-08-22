@@ -1,10 +1,11 @@
 /* eslint-disable jest/no-conditional-expect */
 import * as MockDate from "mockdate";
 import {
+  DECISIONING_METHOD,
   isDefined,
   isUndefined,
-  TelemetryProvider,
-  DECISIONING_METHOD
+  noopPromise,
+  TelemetryProvider
 } from "@adobe/target-tools";
 
 import TargetDecisioningEngine from "../src";
@@ -73,7 +74,7 @@ describe("decisioning engine", () => {
       ]);
 
     test.each(TESTS)("%s", async (testDescription, suiteData, testData) => {
-      const sendNotificationFunc = jest.fn();
+      const sendNotificationFunc = jest.fn(noopPromise);
 
       const { input, output, notificationOutput, mockDate, mockGeo } = testData;
 
@@ -128,10 +129,9 @@ describe("decisioning engine", () => {
         } else {
           expect(sendNotificationFunc.mock.calls.length).toEqual(1);
           const notificationPayload = sendNotificationFunc.mock.calls[0][0];
-          notificationPayload.request =
-            telemetryProvider.addTelemetryToDeliveryRequest(
-              notificationPayload.request
-            );
+          notificationPayload.request = telemetryProvider.addTelemetryToDeliveryRequest(
+            notificationPayload.request
+          );
 
           expectToMatchObject(notificationPayload, notificationOutput);
         }

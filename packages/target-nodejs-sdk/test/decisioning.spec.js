@@ -492,7 +492,7 @@ describe("target on-device decisioning", () => {
               client.getOffers(executeRequestOptions)
             ).resolves.toBeDefined();
 
-            // timeout to waith for notifications to finish
+            // timeout to wait for notifications to finish
             setTimeout(() => {
               expect(fetch.mock.calls.length).toEqual(2);
 
@@ -526,6 +526,67 @@ describe("target on-device decisioning", () => {
             targetLocationHint: "28",
 
             events: { clientReady }
+          });
+        });
+      });
+
+      it("emits errors when there are sendNotification errors", () => {
+        const now = new Date("2020-02-25T01:05:00");
+        MockDate.set(now);
+
+        const sendNotificationError = jest.fn();
+        fetch.mockResponses(
+          [JSON.stringify(ARTIFACT_AB_SIMPLE), { status: HttpStatus.OK }],
+          ["/", { status: HttpStatus.OK }]
+        );
+
+        return new Promise(done => {
+          async function clientReady() {
+            await expect(
+              client.getOffers(executeRequestOptions)
+            ).resolves.toBeDefined();
+
+            // timeout to wait for notifications to finish
+            setTimeout(() => {
+              expect(fetch.mock.calls.length).toEqual(2);
+              expect(sendNotificationError.mock.calls.length).toBe(1);
+
+              const {
+                type,
+                notification,
+                error
+              } = sendNotificationError.mock.calls[0][0];
+
+              expect(type).toEqual("sendNotificationError");
+              expect(notification).toMatchObject({
+                request: {
+                  notifications: [
+                    {
+                      type: "display",
+                      mbox: {
+                        name: "mbox-magician"
+                      }
+                    }
+                  ]
+                }
+              });
+              expect(error).toMatchObject({
+                message:
+                  "invalid json response body at  reason: Unexpected token / in JSON at position 0",
+                type: "invalid-json"
+              });
+
+              done();
+            }, 100);
+          }
+
+          client = TargetClient.create({
+            ...targetClientOptions,
+            decisioningMethod: DECISIONING_METHOD.ON_DEVICE,
+            pollingInterval: 0,
+            targetLocationHint: "28",
+
+            events: { clientReady, sendNotificationError }
           });
         });
       });
