@@ -4,6 +4,7 @@ import {
   getPropertyToken,
   isDefined,
   isUndefined,
+  noop,
   objectWithoutUndefinedValues,
   values
 } from "@adobe/target-tools";
@@ -45,6 +46,8 @@ function DecisionProvider(
   logger,
   traceProvider
 ) {
+  const { eventEmitter = noop } = config;
+
   const { responseTokens, rules } = artifact;
   const globalMboxName = artifact.globalMbox || DEFAULT_GLOBAL_MBOX;
 
@@ -63,7 +66,8 @@ function DecisionProvider(
     visitor,
     logger,
     sendNotificationFunc,
-    telemetryEnabled
+    telemetryEnabled,
+    eventEmitter
   );
 
   /**

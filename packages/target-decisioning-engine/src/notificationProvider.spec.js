@@ -1,14 +1,17 @@
 import {
-  getLogger,
   ChannelType,
+  getLogger,
   MetricType,
-  NOTIFICATIONS_REQUIRED
+  noop,
+  noopPromise
 } from "@adobe/target-tools";
 import NotificationProvider from "./notificationProvider";
 import { validVisitorId } from "./requestProvider";
+import { SEND_NOTIFICATION_ERROR } from "./events";
 
 describe("notificationProvider", () => {
   const logger = getLogger();
+  let mockNotify;
 
   const TARGET_REQUEST = {
     requestId: "request123456",
@@ -35,9 +38,11 @@ describe("notificationProvider", () => {
     jest.useFakeTimers();
   });
 
-  it("adds display notifications", () => {
-    const mockNotify = jest.fn();
+  beforeEach(() => {
+    mockNotify = jest.fn(noopPromise);
+  });
 
+  it("adds display notifications", () => {
     const provider = NotificationProvider(
       TARGET_REQUEST,
       undefined,
@@ -80,8 +85,6 @@ describe("notificationProvider", () => {
   });
 
   it("sends notifications when telemetry enabled", () => {
-    const mockNotify = jest.fn();
-
     const provider = NotificationProvider(
       TARGET_REQUEST,
       undefined,
@@ -95,8 +98,6 @@ describe("notificationProvider", () => {
   });
 
   it("does not duplicate notifications", () => {
-    const mockNotify = jest.fn();
-
     const provider = NotificationProvider(
       TARGET_REQUEST,
       undefined,
@@ -182,8 +183,6 @@ describe("notificationProvider", () => {
   });
 
   it("has distinct notifications per mbox", () => {
-    const mockNotify = jest.fn();
-
     const provider = NotificationProvider(
       TARGET_REQUEST,
       undefined,
@@ -282,37 +281,45 @@ describe("notificationProvider", () => {
     );
   });
 
-  it("disregards notifications missing error", () => {
-    const mockNotify = jest.fn();
+  it("emits error when send notification fails", async () => {
+    const eventEmitter = jest.fn(noop);
+    mockNotify = jest.fn(() => Promise.reject(new Error("chicken says moo")));
 
     const provider = NotificationProvider(
       TARGET_REQUEST,
       undefined,
       logger,
       mockNotify,
-      true
+      true,
+      eventEmitter
     );
 
-    mockNotify.mockImplementationOnce(() => {
-      throw new Error(NOTIFICATIONS_REQUIRED);
+    provider.addNotification({
+      options: [
+        {
+          content: "<h1>it's firefox</h1>",
+          type: "html",
+          eventToken:
+            "B8C2FP2IuBgmeJcDfXHjGpNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+        }
+      ],
+      metrics: [],
+      name: "browser-mbox"
     });
-    expect(() => {
-      provider.notifications = [];
-      provider.sendNotifications();
-      jest.runAllTimers();
-    }).not.toThrowError(NOTIFICATIONS_REQUIRED);
 
-    const errorMessage = "Any other error";
+    provider.sendNotifications();
+    jest.runAllTimers();
 
-    mockNotify.mockImplementationOnce(() => {
-      throw new Error(errorMessage);
+    expect(mockNotify.mock.calls.length).toBe(1);
+
+    await new Promise(process.nextTick);
+
+    expect(eventEmitter.mock.calls.length).toBe(1);
+    expect(eventEmitter.mock.calls[0][0]).toBe(SEND_NOTIFICATION_ERROR);
+    const { notification, error } = eventEmitter.mock.calls[0][1];
+    expect(error).toMatchObject({
+      message: "chicken says moo"
     });
-    expect(() => {
-      provider.notifications = [];
-      provider.sendNotifications();
-      jest.runAllTimers();
-    }).toThrowError(errorMessage);
-
-    expect(mockNotify.mock.calls.length).toBe(2);
+    expect(notification).toBeDefined();
   });
 });
