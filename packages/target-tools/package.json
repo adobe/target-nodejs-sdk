@@ -61,7 +61,7 @@
     "rimraf": "^3.0.2",
     "rollup": "^1.17.0",
     "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-license": "^2.3.0",
+    "rollup-plugin-license": "^2.8.1",
     "rollup-plugin-visualizer": "^3.3.2"
   },
   "author": "",
