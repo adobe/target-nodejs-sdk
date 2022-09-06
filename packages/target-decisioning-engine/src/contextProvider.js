@@ -124,7 +124,6 @@ function createNestedParametersFromDots(context) {
  * @param { import("@adobe/target-tools/delivery-api-client/models/MboxRequest").MboxRequest } mboxRequest
  * @return { import("../types/DecisioningContext").MboxContext }
  */
-// FIXME
 export function createMboxContext(mboxRequest) {
   if (!mboxRequest) {
     return {};
