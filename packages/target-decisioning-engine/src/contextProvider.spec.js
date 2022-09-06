@@ -333,6 +333,39 @@ describe("contextProvider", () => {
     expect(createMboxContext(undefined)).toEqual({});
   });
 
+  it("supports mbox content with dot notation", () => {
+    expect(
+      createMboxContext({
+        index: 10,
+        name: "dot_mbox",
+        parameters: {
+          "favorite.pizza": "PINEAPPLE",
+          "favorite.month": "august",
+          "ignore..notation": true,
+          "support.nested.notation": true,
+          "support.nested.dots": true
+        }
+      })
+    ).toEqual({
+      "favorite": {
+        pizza: "PINEAPPLE",
+        pizza_lc: "pineapple",
+        month: "august",
+        month_lc: "august"
+      },
+      "ignore..notation": true,
+      "ignore..notation_lc": true,
+      "support": {
+        nested: {
+          notation: true,
+          notation_lc: true,
+          dots: true,
+          dots_lc: true
+        }
+      }
+    });
+  });
+
   it("produces geo context", () => {
     expect(
       createGeoContext({

@@ -96,9 +96,35 @@ export function createReferringContext(address) {
 }
 
 /**
+ * @param { import("../types/DecisioningContext").MboxContext }
+ * @return { import("../types/DecisioningContext").MboxContext }
+ */
+function createNestedParametersFromDots(context) {
+  const result = {};
+  Object.keys(context).forEach(key => {
+    // eslint-disable-next-line no-restricted-properties
+    if (key.includes(".") && !key.includes("..")) {
+      const keys = key.split(".");
+      let currentObj = result;
+      for (let i = 0; i < keys.length - 1; i += 1) {
+        if (!(keys[i] in currentObj)) {
+          currentObj[keys[i]] = {};
+        }
+        currentObj = currentObj[keys[i]];
+      }
+      currentObj[keys[keys.length - 1]] = context[key];
+    } else {
+      result[key] = context[key];
+    }
+  });
+  return result;
+}
+
+/**
  * @param { import("@adobe/target-tools/delivery-api-client/models/MboxRequest").MboxRequest } mboxRequest
  * @return { import("../types/DecisioningContext").MboxContext }
  */
+// FIXME
 export function createMboxContext(mboxRequest) {
   if (!mboxRequest) {
     return {};
@@ -106,10 +132,12 @@ export function createMboxContext(mboxRequest) {
 
   const parameters = mboxRequest.parameters || {};
 
-  return {
+  const context = {
     ...parameters,
     ...getLowerCaseAttributes(parameters)
   };
+  const updatedContext = createNestedParametersFromDots(context);
+  return updatedContext;
 }
 
 /**
