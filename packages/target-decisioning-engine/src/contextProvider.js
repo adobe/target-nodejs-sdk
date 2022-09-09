@@ -96,26 +96,40 @@ export function createReferringContext(address) {
 }
 
 /**
- * @param { import("../types/DecisioningContext").MboxContext }
+ * @param @param { import("../types/DecisioningContext").MboxContext } context
+ * @param { string } key
+ * @param { object } value
+ * @return { import("../types/DecisioningContext").MboxContext }
+ */
+function addNestedKeyToParameters(context, key, value) {
+  const result = context;
+  let currentObj = result;
+  const keys = key.split(".");
+  for (let i = 0; i < keys.length - 1; i += 1) {
+    currentObj[keys[i]] = currentObj[keys[i]] || {};
+    currentObj = currentObj[keys[i]];
+  }
+  currentObj[keys[keys.length - 1]] = value;
+  return result;
+}
+
+/**
+ * @param { import("../types/DecisioningContext").MboxContext } context
  * @return { import("../types/DecisioningContext").MboxContext }
  */
 function createNestedParametersFromDots(context) {
-  const result = {};
+  let result = {};
   Object.keys(context).forEach(key => {
-    // eslint-disable-next-line no-restricted-properties
-    if (key.includes(".") && !key.includes("..")) {
-      const keys = key.split(".");
-      let currentObj = result;
-      for (let i = 0; i < keys.length - 1; i += 1) {
-        if (!(keys[i] in currentObj)) {
-          currentObj[keys[i]] = {};
-        }
-        currentObj = currentObj[keys[i]];
-      }
-      currentObj[keys[keys.length - 1]] = context[key];
-    } else {
-      result[key] = context[key];
+    if (
+      key.indexOf(".") > -1 &&
+      key.indexOf("..") === -1 &&
+      key[0] !== "." &&
+      key[key.length - 1] !== "."
+    ) {
+      result = addNestedKeyToParameters(result, key, context[key]);
+      return;
     }
+    result[key] = context[key];
   });
   return result;
 }

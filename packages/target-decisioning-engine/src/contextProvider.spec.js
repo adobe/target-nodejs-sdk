@@ -343,7 +343,9 @@ describe("contextProvider", () => {
           "favorite.month": "august",
           "ignore..notation": true,
           "support.nested.notation": true,
-          "support.nested.dots": true
+          "support.nested.dots": true,
+          ".best.coast": "east",
+          "trailing.dots.": "bad"
         }
       })
     ).toEqual({
@@ -355,6 +357,14 @@ describe("contextProvider", () => {
       },
       "ignore..notation": true,
       "ignore..notation_lc": true,
+      ".best.coast": "east",
+      ".best.coast_lc": "east",
+      "trailing.dots.": "bad",
+      "trailing": {
+        dots: {
+          _lc: "bad"
+        }
+      },
       "support": {
         nested: {
           notation: true,
