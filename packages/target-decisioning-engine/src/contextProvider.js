@@ -1,6 +1,7 @@
 import {
   browserFromUserAgentOrClientHintUA,
   ChannelType,
+  includes,
   isDefined,
   isString,
   operatingSystemFromUserAgentOrClientHints
@@ -121,10 +122,11 @@ function createNestedParametersFromDots(context) {
   let result = {};
   Object.keys(context).forEach(key => {
     if (
-      key.indexOf(".") > -1 &&
-      key.indexOf("..") === -1 &&
+      includes(".", key) &&
+      !includes("..", key) &&
       key[0] !== "." &&
-      key[key.length - 1] !== "."
+      !key.endsWith(".") &&
+      !key.endsWith("._lc")
     ) {
       result = addNestedKeyToParameters(result, key, context[key]);
       return;

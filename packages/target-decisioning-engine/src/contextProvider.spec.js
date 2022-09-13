@@ -360,11 +360,7 @@ describe("contextProvider", () => {
       ".best.coast": "east",
       ".best.coast_lc": "east",
       "trailing.dots.": "bad",
-      "trailing": {
-        dots: {
-          _lc: "bad"
-        }
-      },
+      "trailing.dots._lc": "bad",
       "support": {
         nested: {
           notation: true,
