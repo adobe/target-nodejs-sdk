@@ -142,7 +142,7 @@ function isExpandableKey(key) {
  * @param { import("../types/DecisioningContext").MboxContext } context
  * @return { import("../types/DecisioningContext").MboxContext }
  */
-export function unflatten(context) {
+function unflatten(context) {
   const result = {};
   Object.keys(context).forEach(key => {
     if (isExpandableKey(key)) {
