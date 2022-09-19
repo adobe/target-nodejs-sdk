@@ -1,9 +1,9 @@
 import * as MockDate from "mockdate";
 import {
   createDecisioningContext,
+  createGeoContext,
   createMboxContext,
-  createPageContext,
-  createGeoContext
+  createPageContext
 } from "./contextProvider";
 
 const DELIVERY_REQUEST = {
@@ -320,11 +320,9 @@ describe("contextProvider", () => {
       })
     ).toEqual({
       one: 1,
-      one_lc: 1,
       pizza: "PEPPERONI",
       pizza_lc: "pepperoni",
       truthy: true,
-      truthy_lc: true,
       kitty: "MeoW",
       kitty_lc: "meow"
     });
@@ -334,21 +332,22 @@ describe("contextProvider", () => {
   });
 
   it("supports mbox content with dot notation", () => {
-    expect(
-      createMboxContext({
-        index: 10,
-        name: "dot_mbox",
-        parameters: {
-          "favorite.pizza": "PINEAPPLE",
-          "favorite.month": "august",
-          "ignore..notation": true,
-          "support.nested.notation": true,
-          "support.nested.dots": true,
-          ".best.coast": "east",
-          "trailing.dots.": "bad"
-        }
-      })
-    ).toEqual({
+    const context = createMboxContext({
+      index: 10,
+      name: "dot_mbox",
+      parameters: {
+        "favorite.pizza": "PINEAPPLE",
+        "favorite.month": "august",
+        "ignore..notation": true,
+        "support.nested.notation": "JUST FOR STRINGS",
+        "support.nested.dots": true,
+        ".best.coast": "WEST",
+        "trailing.dots.": "bad",
+        "just..a..string": "Oh HAI!"
+      }
+    });
+
+    expect(context).toEqual({
       "favorite": {
         pizza: "PINEAPPLE",
         pizza_lc: "pineapple",
@@ -356,17 +355,17 @@ describe("contextProvider", () => {
         month_lc: "august"
       },
       "ignore..notation": true,
-      "ignore..notation_lc": true,
-      ".best.coast": "east",
-      ".best.coast_lc": "east",
+      "just..a..string": "Oh HAI!",
+      "just..a..string_lc": "oh hai!",
+      ".best.coast": "WEST",
+      ".best.coast_lc": "west",
       "trailing.dots.": "bad",
       "trailing.dots._lc": "bad",
       "support": {
         nested: {
-          notation: true,
-          notation_lc: true,
-          dots: true,
-          dots_lc: true
+          notation: "JUST FOR STRINGS",
+          notation_lc: "just for strings",
+          dots: true
         }
       }
     });

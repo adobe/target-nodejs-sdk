@@ -3,6 +3,7 @@ import {
   ChannelType,
   includes,
   isDefined,
+  isPlainObject,
   isString,
   operatingSystemFromUserAgentOrClientHints
 } from "@adobe/target-tools";
@@ -22,6 +23,22 @@ function getLowerCaseAttributes(obj) {
     result[`${key}_lc`] = isString(obj[key])
       ? obj[key].toLowerCase()
       : obj[key];
+  });
+
+  return result;
+}
+
+function withLowerCaseStringValues(obj) {
+  const result = { ...obj };
+
+  Object.keys(obj).forEach(key => {
+    if (isString(result[key])) {
+      result[`${key}_lc`] = result[key].toLowerCase();
+    }
+
+    if (isPlainObject(obj[key])) {
+      result[key] = withLowerCaseStringValues(result[key]);
+    }
   });
 
   return result;
@@ -97,41 +114,42 @@ export function createReferringContext(address) {
 }
 
 /**
- * @param @param { import("../types/DecisioningContext").MboxContext } context
- * @param { string } key
+ * @param {object} object
+ * @param { array<string> } keys
  * @param { object } value
- * @return { import("../types/DecisioningContext").MboxContext }
  */
-function addNestedKeyToParameters(context, key, value) {
-  const result = context;
-  let currentObj = result;
-  const keys = key.split(".");
+function setNestedValue(object, keys, value) {
+  let currentObj = object;
   for (let i = 0; i < keys.length - 1; i += 1) {
     currentObj[keys[i]] = currentObj[keys[i]] || {};
     currentObj = currentObj[keys[i]];
   }
   currentObj[keys[keys.length - 1]] = value;
-  return result;
+}
+
+function isExpandableKey(key) {
+  const keyLength = key.length;
+
+  return (
+    includes(".", key) &&
+    !includes("..", key) &&
+    key[0] !== "." &&
+    key[keyLength - 1] !== "."
+  );
 }
 
 /**
  * @param { import("../types/DecisioningContext").MboxContext } context
  * @return { import("../types/DecisioningContext").MboxContext }
  */
-function createNestedParametersFromDots(context) {
-  let result = {};
+export function unflatten(context) {
+  const result = {};
   Object.keys(context).forEach(key => {
-    if (
-      includes(".", key) &&
-      !includes("..", key) &&
-      key[0] !== "." &&
-      !key.endsWith(".") &&
-      !key.endsWith("._lc")
-    ) {
-      result = addNestedKeyToParameters(result, key, context[key]);
-      return;
+    if (isExpandableKey(key)) {
+      setNestedValue(result, key.split("."), context[key]);
+    } else {
+      result[key] = context[key];
     }
-    result[key] = context[key];
   });
   return result;
 }
@@ -147,12 +165,9 @@ export function createMboxContext(mboxRequest) {
 
   const parameters = mboxRequest.parameters || {};
 
-  const context = {
-    ...parameters,
-    ...getLowerCaseAttributes(parameters)
-  };
-  const updatedContext = createNestedParametersFromDots(context);
-  return updatedContext;
+  return withLowerCaseStringValues({
+    ...unflatten(parameters)
+  });
 }
 
 /**
