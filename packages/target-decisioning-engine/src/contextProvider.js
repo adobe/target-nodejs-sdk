@@ -1,13 +1,12 @@
 import {
   browserFromUserAgentOrClientHintUA,
   ChannelType,
-  includes,
   isDefined,
   isPlainObject,
   isString,
   operatingSystemFromUserAgentOrClientHints
 } from "@adobe/target-tools";
-import { parseURL } from "./utils";
+import { parseURL, unflatten } from "./utils";
 
 /**
  * @type { import("@adobe/target-tools/delivery-api-client/models/Context").Context }
@@ -111,47 +110,6 @@ export function createPageContext(address) {
  */
 export function createReferringContext(address) {
   return createUrlContext(address ? address.referringUrl : "");
-}
-
-/**
- * @param {object} object
- * @param { array<string> } keys
- * @param { object } value
- */
-function setNestedValue(object, keys, value) {
-  let currentObj = object;
-  for (let i = 0; i < keys.length - 1; i += 1) {
-    currentObj[keys[i]] = currentObj[keys[i]] || {};
-    currentObj = currentObj[keys[i]];
-  }
-  currentObj[keys[keys.length - 1]] = value;
-}
-
-function isExpandableKey(key) {
-  const keyLength = key.length;
-
-  return (
-    includes(".", key) &&
-    !includes("..", key) &&
-    key[0] !== "." &&
-    key[keyLength - 1] !== "."
-  );
-}
-
-/**
- * @param { import("../types/DecisioningContext").MboxContext } context
- * @return { import("../types/DecisioningContext").MboxContext }
- */
-function unflatten(context) {
-  const result = {};
-  Object.keys(context).forEach(key => {
-    if (isExpandableKey(key)) {
-      setNestedValue(result, key.split("."), context[key]);
-    } else {
-      result[key] = context[key];
-    }
-  });
-  return result;
 }
 
 /**
