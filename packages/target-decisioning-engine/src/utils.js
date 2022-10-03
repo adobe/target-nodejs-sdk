@@ -274,3 +274,48 @@ export function firstMatch(key, searchObjects = [], defaultValue = undefined) {
   }
   return defaultValue;
 }
+
+/**
+ * @param {object} object
+ * @param { array<string> } keys
+ * @param { object } value
+ */
+function setNestedValue(object, keys, value) {
+  let currentObj = object;
+  for (let i = 0; i < keys.length - 1; i += 1) {
+    currentObj[keys[i]] = currentObj[keys[i]] || {};
+    currentObj = currentObj[keys[i]];
+  }
+  currentObj[keys[keys.length - 1]] = value;
+}
+
+/**
+ * @param {string} key
+ * @returns {boolean}
+ */
+function isExpandableKey(key) {
+  const keyLength = key.length;
+
+  return (
+    includes(".", key) &&
+    !includes("..", key) &&
+    key[0] !== "." &&
+    key[keyLength - 1] !== "."
+  );
+}
+
+/**
+ * @param {object} object
+ * @return {object} object
+ */
+export function unflatten(object) {
+  const result = {};
+  Object.keys(object).forEach(key => {
+    if (isExpandableKey(key)) {
+      setNestedValue(result, key.split("."), object[key]);
+    } else {
+      result[key] = object[key];
+    }
+  });
+  return result;
+}
