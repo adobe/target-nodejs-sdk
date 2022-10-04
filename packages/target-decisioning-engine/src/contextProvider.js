@@ -2,10 +2,11 @@ import {
   browserFromUserAgentOrClientHintUA,
   ChannelType,
   isDefined,
+  isPlainObject,
   isString,
   operatingSystemFromUserAgentOrClientHints
 } from "@adobe/target-tools";
-import { parseURL } from "./utils";
+import { parseURL, unflatten } from "./utils";
 
 /**
  * @type { import("@adobe/target-tools/delivery-api-client/models/Context").Context }
@@ -21,6 +22,22 @@ function getLowerCaseAttributes(obj) {
     result[`${key}_lc`] = isString(obj[key])
       ? obj[key].toLowerCase()
       : obj[key];
+  });
+
+  return result;
+}
+
+function withLowerCaseStringValues(obj) {
+  const result = { ...obj };
+
+  Object.keys(obj).forEach(key => {
+    if (isString(result[key])) {
+      result[`${key}_lc`] = result[key].toLowerCase();
+    }
+
+    if (isPlainObject(obj[key])) {
+      result[key] = withLowerCaseStringValues(result[key]);
+    }
   });
 
   return result;
@@ -112,10 +129,9 @@ export function createMboxContext(mboxRequest) {
 
   const parameters = mboxRequest.parameters || {};
 
-  return {
-    ...parameters,
-    ...getLowerCaseAttributes(parameters)
-  };
+  return withLowerCaseStringValues({
+    ...unflatten(parameters)
+  });
 }
 
 /**

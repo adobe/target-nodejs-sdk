@@ -130,6 +130,43 @@
             ],
             "metrics": []
           }
+        },
+        {
+          "ruleKey": "125874",
+          "activityId": 125874,
+          "meta": {
+            "activity.id": 125874,
+            "activity.name": "[unit-test] mbox-params",
+            "activity.type": "ab",
+            "experience.id": 2,
+            "experience.name": "Experience C",
+            "location.name": "mbox-params",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [1821805],
+            "offer.id": 246851,
+            "offer.name": "/_unit-test_mbox-params/experiences/1/pages/0/zones/0/1612386851213",
+            "option.id": 3,
+            "option.name": "Offer3"
+          },
+          "condition": {
+            "and": [
+              { "==": ["racket", { "var": "mbox.first.programming.language" }] },
+              { "==": ["red", { "var": "mbox.favorite.color" }] },
+              { "==": ["the big lebowski", { "var": "mbox.favorite.movie" }] }
+            ]
+          },
+          "consequence": {
+            "name": "mbox-params",
+            "options": [
+              {
+                "type": "json",
+                "eventToken": "gsDuhGuCbuMhKLusIlPUI5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": { "foo": "bar", "fizz": "buzz", "experience": "C" }
+              }
+            ],
+            "metrics": []
+          }
         }
       ]
     },

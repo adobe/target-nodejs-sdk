@@ -2,9 +2,9 @@ import * as MockDate from "mockdate";
 import parseURL from "@adobe/target-tools/src/parsing";
 import {
   createDecisioningContext,
+  createGeoContext,
   createMboxContext,
-  createPageContext,
-  createGeoContext
+  createPageContext
 } from "./contextProvider";
 
 // eslint-disable-next-line import/no-relative-packages
@@ -468,17 +468,55 @@ describe("contextProvider", () => {
       })
     ).toEqual({
       one: 1,
-      one_lc: 1,
       pizza: "PEPPERONI",
       pizza_lc: "pepperoni",
       truthy: true,
-      truthy_lc: true,
       kitty: "MeoW",
       kitty_lc: "meow"
     });
 
     expect(createMboxContext({})).toEqual({});
     expect(createMboxContext(undefined)).toEqual({});
+  });
+
+  it("supports mbox content with dot notation", () => {
+    const context = createMboxContext({
+      index: 10,
+      name: "dot_mbox",
+      parameters: {
+        "favorite.pizza": "PINEAPPLE",
+        "favorite.month": "august",
+        "ignore..notation": true,
+        "support.nested.notation": "JUST FOR STRINGS",
+        "support.nested.dots": true,
+        ".best.coast": "WEST",
+        "trailing.dots.": "bad",
+        "just..a..string": "Oh HAI!"
+      }
+    });
+
+    expect(context).toEqual({
+      "favorite": {
+        pizza: "PINEAPPLE",
+        pizza_lc: "pineapple",
+        month: "august",
+        month_lc: "august"
+      },
+      "ignore..notation": true,
+      "just..a..string": "Oh HAI!",
+      "just..a..string_lc": "oh hai!",
+      ".best.coast": "WEST",
+      ".best.coast_lc": "west",
+      "trailing.dots.": "bad",
+      "trailing.dots._lc": "bad",
+      "support": {
+        nested: {
+          notation: "JUST FOR STRINGS",
+          notation_lc: "just for strings",
+          dots: true
+        }
+      }
+    });
   });
 
   it("produces geo context", () => {
