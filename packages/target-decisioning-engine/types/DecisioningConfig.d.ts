@@ -80,4 +80,9 @@ export interface DecisioningConfig {
    * The maximum amount of time (in ms) to wait for decisioning engine to become ready.  Default is to wait indefinitely.
    */
   maximumWaitReady: Number;
+
+  /**
+   * Function used to parse domains
+   */
+  parseURLImpl?: Function;
 }

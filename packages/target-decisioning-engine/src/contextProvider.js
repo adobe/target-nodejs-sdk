@@ -65,13 +65,19 @@ function createBrowserContext(context) {
  * @param { string } url
  * @return { import("../types/DecisioningContext").PageContext }
  */
-function createUrlContext(url) {
+function createUrlContext(url, parseURLImpl) {
   if (!url || !isString(url)) {
     // eslint-disable-next-line no-param-reassign
     url = "";
   }
 
-  const urlAttributes = parseURL(url);
+  let urlAttributes;
+
+  if (parseURLImpl) {
+    urlAttributes = parseURLImpl(url);
+  } else {
+    urlAttributes = parseURL(url);
+  }
 
   return {
     ...urlAttributes,
@@ -83,16 +89,16 @@ function createUrlContext(url) {
  * @param { import("@adobe/target-tools/delivery-api-client/models/Address").Address } address
  * @return { import("../types/DecisioningContext").PageContext }
  */
-export function createPageContext(address) {
-  return createUrlContext(address ? address.url : "");
+export function createPageContext(address, parseURLImpl) {
+  return createUrlContext(address ? address.url : "", parseURLImpl);
 }
 
 /**
  * @param { import("@adobe/target-tools/delivery-api-client/models/Address").Address } address
  * @return { import("../types/DecisioningContext").PageContext }
  */
-export function createReferringContext(address) {
-  return createUrlContext(address ? address.referringUrl : "");
+export function createReferringContext(address, parseURLImpl) {
+  return createUrlContext(address ? address.referringUrl : "", parseURLImpl);
 }
 
 /**
@@ -148,16 +154,16 @@ function createTimingContext() {
  *
  * The TargetDecisioningEngine initialize method
  * @param { import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
+ * @param parseURLImpl
  * @return { import("../types/DecisioningContext").DecisioningContext }
  */
-export function createDecisioningContext(deliveryRequest) {
+export function createDecisioningContext(deliveryRequest, parseURLImpl) {
   const { context = EMPTY_CONTEXT } = deliveryRequest;
-
   return {
     ...createTimingContext(),
     user: createBrowserContext(context),
-    page: createPageContext(context.address),
-    referring: createReferringContext(context.address),
+    page: createPageContext(context.address, parseURLImpl),
+    referring: createReferringContext(context.address, parseURLImpl),
     geo: createGeoContext(context.geo || {})
   };
 }

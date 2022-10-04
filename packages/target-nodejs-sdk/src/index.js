@@ -24,11 +24,11 @@ import {
 
 import Visitor from "@adobe-mcid/visitor-js-server";
 import TargetDecisioningEngine from "@adobe/target-decisioning-engine";
+import { parseURL } from "@adobe/target-decisioning-engine/src/utils";
 import { createVisitor } from "./utils";
 import { Messages } from "./messages";
 import { LOCATION_HINT_COOKIE, TARGET_COOKIE } from "./cookies";
 import { executeDelivery } from "./target";
-
 import { preserveLocationHint, requestLocationHintCookie } from "./helper";
 
 import {
@@ -83,7 +83,8 @@ export default function bootstrap(fetchApi) {
               fetchApi: fetchImpl,
               eventEmitter,
               sendNotificationFunc: notificationOptions =>
-                this.sendNotifications(notificationOptions)
+                this.sendNotifications(notificationOptions),
+              parseURLImpl: parseURL
             },
             this.telemetryProvider
           )

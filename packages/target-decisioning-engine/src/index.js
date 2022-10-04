@@ -64,7 +64,7 @@ export default function TargetDecisioningEngine(config, telemetryProvider) {
       return DecisionProvider(
         config,
         options,
-        createDecisioningContext(request),
+        createDecisioningContext(request, config.parseURLImpl),
         artifact,
         logger,
         traceProvider
