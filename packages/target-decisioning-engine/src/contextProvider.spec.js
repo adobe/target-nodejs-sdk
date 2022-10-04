@@ -226,8 +226,7 @@ describe("contextProvider", () => {
           channel: "web",
           browser: null,
           address: {
-            url:
-              "https://www.town.ide.kyoto.jp:8080/About?m=1&t=5&name=Jimmy#home",
+            url: "https://www.town.ide.kyoto.jp:8080/About?m=1&t=5&name=Jimmy#home",
             referringUrl: null
           },
           geo: null,
@@ -265,8 +264,7 @@ describe("contextProvider", () => {
         channel: "web",
         browser: null,
         address: {
-          url:
-            "https://www.town.ide.kyoto.jp:8080/About?m=1&t=5&name=Jimmy#home",
+          url: "https://www.town.ide.kyoto.jp:8080/About?m=1&t=5&name=Jimmy#home",
           referringUrl: null
         },
         geo: null,
@@ -297,8 +295,7 @@ describe("contextProvider", () => {
           channel: "web",
           browser: null,
           address: {
-            url:
-              "https://www.a.b.c.d.foo.com/help?Language=Javascript&fiz=buzz#bar",
+            url: "https://www.a.b.c.d.foo.com/help?Language=Javascript&fiz=buzz#bar",
             referringUrl: null
           },
           geo: null,
@@ -312,8 +309,7 @@ describe("contextProvider", () => {
     );
     expect(context.page).toEqual(
       expect.objectContaining({
-        url:
-          "https://www.a.b.c.d.foo.com/help?Language=Javascript&fiz=buzz#bar",
+        url: "https://www.a.b.c.d.foo.com/help?Language=Javascript&fiz=buzz#bar",
         url_lc:
           "https://www.a.b.c.d.foo.com/help?language=javascript&fiz=buzz#bar",
         path: "/help",
@@ -337,8 +333,7 @@ describe("contextProvider", () => {
         channel: "web",
         browser: null,
         address: {
-          url:
-            "https://www.a.b.c.d.foo.com/help?Language=Javascript&fiz=buzz#bar",
+          url: "https://www.a.b.c.d.foo.com/help?Language=Javascript&fiz=buzz#bar",
           referringUrl: null
         },
         geo: null,
@@ -350,8 +345,7 @@ describe("contextProvider", () => {
     });
     expect(context.page).toEqual(
       expect.objectContaining({
-        url:
-          "https://www.a.b.c.d.foo.com/help?Language=Javascript&fiz=buzz#bar",
+        url: "https://www.a.b.c.d.foo.com/help?Language=Javascript&fiz=buzz#bar",
         url_lc:
           "https://www.a.b.c.d.foo.com/help?language=javascript&fiz=buzz#bar",
         path: "/help",
