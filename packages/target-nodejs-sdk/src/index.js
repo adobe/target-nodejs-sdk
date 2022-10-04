@@ -24,7 +24,7 @@ import {
 
 import Visitor from "@adobe-mcid/visitor-js-server";
 import TargetDecisioningEngine from "@adobe/target-decisioning-engine";
-import { parseURL } from "@adobe/target-decisioning-engine/src/utils";
+import parseURL from "@adobe/target-tools/src/parsing";
 import { createVisitor } from "./utils";
 import { Messages } from "./messages";
 import { LOCATION_HINT_COOKIE, TARGET_COOKIE } from "./cookies";

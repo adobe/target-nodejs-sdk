@@ -170,7 +170,7 @@ function createTimingContext() {
  *
  * The TargetDecisioningEngine initialize method
  * @param { import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
- * @param parseURLImpl
+ * @param { import("@adobe/target-tools/src/parsing").default } parseURLImpl
  * @return { import("../types/DecisioningContext").DecisioningContext }
  */
 export function createDecisioningContext(deliveryRequest, parseURLImpl) {
