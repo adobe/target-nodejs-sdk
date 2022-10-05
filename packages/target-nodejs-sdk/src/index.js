@@ -18,13 +18,13 @@ import {
   DECISIONING_METHOD,
   getFetchApi,
   getLogger,
+  parseDomainPsl,
   requiresDecisioningEngine,
   TelemetryProvider
 } from "@adobe/target-tools";
 
 import Visitor from "@adobe-mcid/visitor-js-server";
 import TargetDecisioningEngine from "@adobe/target-decisioning-engine";
-import parseURL from "@adobe/target-tools/src/parsing";
 import { createVisitor } from "./utils";
 import { Messages } from "./messages";
 import { LOCATION_HINT_COOKIE, TARGET_COOKIE } from "./cookies";
@@ -84,7 +84,7 @@ export default function bootstrap(fetchApi) {
               eventEmitter,
               sendNotificationFunc: notificationOptions =>
                 this.sendNotifications(notificationOptions),
-              parseURLImpl: parseURL
+              parseDomainImpl: parseDomainPsl
             },
             this.telemetryProvider
           )

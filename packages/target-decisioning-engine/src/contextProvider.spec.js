@@ -1,14 +1,11 @@
 import * as MockDate from "mockdate";
-import parseURL from "@adobe/target-tools/src/parsing";
+import { parseDomainPsl } from "@adobe/target-tools";
 import {
   createDecisioningContext,
   createGeoContext,
   createMboxContext,
   createPageContext
 } from "./contextProvider";
-
-// eslint-disable-next-line import/no-relative-packages
-// move to target and import, new build
 
 const DELIVERY_REQUEST = {
   context: {
@@ -236,7 +233,7 @@ describe("contextProvider", () => {
           beacon: false
         }
       },
-      parseURL
+      parseDomainPsl
     );
     expect(context.page).toEqual(
       expect.objectContaining({
@@ -305,7 +302,7 @@ describe("contextProvider", () => {
           beacon: false
         }
       },
-      parseURL
+      parseDomainPsl
     );
     expect(context.page).toEqual(
       expect.objectContaining({

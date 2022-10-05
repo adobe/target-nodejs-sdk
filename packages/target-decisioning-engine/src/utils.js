@@ -38,23 +38,12 @@ export function getRuleKey(rule) {
   return rule.ruleKey;
 }
 
-export function parseURL(url) {
-  if (!isString(url)) {
-    // eslint-disable-next-line no-param-reassign
-    url = "";
-  }
-
-  const parsed = parseURI(url) || {};
-
-  const { host = "", path = "", query = "", anchor = "" } = parsed;
-
-  const result = {
-    url,
-    path,
-    query,
-    fragment: anchor
-  };
-
+/**
+ * @param {string} host
+ * @returns {{subdomain?:string, domain?: string, topLevelDomain?: string}}
+ */
+export function parseDomainBasic(host) {
+  const result = {};
   const domainParts = host.split(".");
 
   switch (domainParts.length) {
@@ -81,7 +70,33 @@ export function parseURL(url) {
     default:
       break;
   }
+
   return result;
+}
+
+/**
+ *
+ * @param {string} url
+ * @param { import("../types/DecisioningContext").ParseDomainFunc } parseDomain
+ * @returns {{path: string, fragment: string, topLevelDomain?: string, query: string, domain?: string, subdomain?: string, url: string}}
+ */
+export function parseURL(url, parseDomain = parseDomainBasic) {
+  if (!isString(url)) {
+    // eslint-disable-next-line no-param-reassign
+    url = "";
+  }
+
+  const parsed = parseURI(url) || {};
+
+  const { host = "", path = "", query = "", anchor = "" } = parsed;
+
+  return {
+    url,
+    path,
+    query,
+    fragment: anchor,
+    ...parseDomain(host)
+  };
 }
 
 /**

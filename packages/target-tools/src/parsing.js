@@ -1,23 +1,12 @@
-import { isString } from "./lodash";
-import { parseURI } from "./index";
-
+/* eslint-disable import/prefer-default-export */
 const psl = require("psl");
 
-export default function parseURL(url) {
-  if (!isString(url)) {
-    // eslint-disable-next-line no-param-reassign
-    url = "";
-  }
-  const parsed = parseURI(url) || {};
-
-  const { host = "", path = "", query = "", anchor = "" } = parsed;
-
-  const result = {
-    url,
-    path,
-    query,
-    fragment: anchor
-  };
+/**
+ * @param {string} host
+ * @returns {import("../../target-decisioning-engine/types/DecisioningContext").DomainContext}
+ */
+export function parseDomainPsl(host) {
+  const result = {};
 
   if (typeof host !== "string" || !psl.isValid(host)) {
     return result;
@@ -34,7 +23,7 @@ export default function parseURL(url) {
   }
 
   result.domain = parseResult.domain;
-
   result.topLevelDomain = parseResult.tld;
+
   return result;
 }

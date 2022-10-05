@@ -3,16 +3,21 @@ import jsonLogic from "json-logic-js";
 import { isDefined } from "@adobe/target-tools";
 import { createMboxContext, createPageContext } from "./contextProvider";
 import { computeAllocation, getOrCreateVisitorId } from "./allocationProvider";
-import { cloneDeep } from "./utils";
+import { cloneDeep, parseDomainBasic } from "./utils";
 import { ACTIVITY_ID } from "./constants";
 
 /**
  *
  * @param { String } clientId
  * @param { import("@adobe/target-tools/delivery-api-client/models/VisitorId").VisitorId } visitorId
+ * @param {Function} parseDomainImpl
  * @return { Function }
  */
-export function ruleEvaluator(clientId, visitorId) {
+export function ruleEvaluator(
+  clientId,
+  visitorId,
+  parseDomainImpl = parseDomainBasic
+) {
   const visitorIdString = getOrCreateVisitorId(visitorId);
 
   /**
@@ -35,8 +40,9 @@ export function ruleEvaluator(clientId, visitorId) {
     let { page, referring } = context;
 
     if (isDefined(requestDetail.address)) {
-      page = createPageContext(requestDetail.address) || page;
-      referring = createPageContext(requestDetail.address) || referring;
+      page = createPageContext(requestDetail.address, parseDomainImpl) || page;
+      referring =
+        createPageContext(requestDetail.address, parseDomainImpl) || referring;
     }
 
     const ruleContext = {

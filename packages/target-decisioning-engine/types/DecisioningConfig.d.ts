@@ -84,5 +84,5 @@ export interface DecisioningConfig {
   /**
    * Function used to parse domains
    */
-  parseURLImpl?: Function;
+  parseDomainImpl?: Function;
 }

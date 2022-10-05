@@ -58,7 +58,11 @@ function DecisionProvider(
   const { sendNotificationFunc, telemetryEnabled = true } = config;
 
   const visitorId = request.id;
-  const processRule = ruleEvaluator(clientId, visitorId);
+  const processRule = ruleEvaluator(
+    clientId,
+    visitorId,
+    config.parseDomainImpl
+  );
   const dependency = hasRemoteDependency(artifact, request);
 
   const notificationProvider = NotificationProvider(

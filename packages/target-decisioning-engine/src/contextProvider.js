@@ -6,7 +6,7 @@ import {
   isString,
   operatingSystemFromUserAgentOrClientHints
 } from "@adobe/target-tools";
-import { parseURL, unflatten } from "./utils";
+import { parseDomainBasic, parseURL, unflatten } from "./utils";
 
 /**
  * @type { import("@adobe/target-tools/delivery-api-client/models/Context").Context }
@@ -80,21 +80,16 @@ function createBrowserContext(context) {
 
 /**
  * @param { string } url
+ * @param { import("../types/DecisioningContext").ParseDomainFunc } parseDomainImpl
  * @return { import("../types/DecisioningContext").PageContext }
  */
-function createUrlContext(url, parseURLImpl) {
+function createUrlContext(url, parseDomainImpl) {
   if (!url || !isString(url)) {
     // eslint-disable-next-line no-param-reassign
     url = "";
   }
 
-  let urlAttributes;
-
-  if (parseURLImpl) {
-    urlAttributes = parseURLImpl(url);
-  } else {
-    urlAttributes = parseURL(url);
-  }
+  const urlAttributes = parseURL(url, parseDomainImpl);
 
   return {
     ...urlAttributes,
@@ -104,18 +99,20 @@ function createUrlContext(url, parseURLImpl) {
 
 /**
  * @param { import("@adobe/target-tools/delivery-api-client/models/Address").Address } address
+ * @param { import("../types/DecisioningContext").ParseDomainFunc } parseDomainImpl
  * @return { import("../types/DecisioningContext").PageContext }
  */
-export function createPageContext(address, parseURLImpl) {
-  return createUrlContext(address ? address.url : "", parseURLImpl);
+export function createPageContext(address, parseDomainImpl) {
+  return createUrlContext(address ? address.url : "", parseDomainImpl);
 }
 
 /**
  * @param { import("@adobe/target-tools/delivery-api-client/models/Address").Address } address
+ * @param { import("../types/DecisioningContext").ParseDomainFunc } parseDomainImpl
  * @return { import("../types/DecisioningContext").PageContext }
  */
-export function createReferringContext(address, parseURLImpl) {
-  return createUrlContext(address ? address.referringUrl : "", parseURLImpl);
+export function createReferringContext(address, parseDomainImpl) {
+  return createUrlContext(address ? address.referringUrl : "", parseDomainImpl);
 }
 
 /**
@@ -170,16 +167,19 @@ function createTimingContext() {
  *
  * The TargetDecisioningEngine initialize method
  * @param { import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
- * @param { import("@adobe/target-tools/src/parsing").default } parseURLImpl
+ * @param {Function} parseDomainImpl
  * @return { import("../types/DecisioningContext").DecisioningContext }
  */
-export function createDecisioningContext(deliveryRequest, parseURLImpl) {
+export function createDecisioningContext(
+  deliveryRequest,
+  parseDomainImpl = parseDomainBasic
+) {
   const { context = EMPTY_CONTEXT } = deliveryRequest;
   return {
     ...createTimingContext(),
     user: createBrowserContext(context),
-    page: createPageContext(context.address, parseURLImpl),
-    referring: createReferringContext(context.address, parseURLImpl),
+    page: createPageContext(context.address, parseDomainImpl),
+    referring: createReferringContext(context.address, parseDomainImpl),
     geo: createGeoContext(context.geo || {})
   };
 }
