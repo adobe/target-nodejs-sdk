@@ -107,7 +107,7 @@ describe("fetchWithTelemetry", () => {
 
     mockFetchImpl(url);
 
-    expect(mockRequestImpl).toBeCalledWith(
+    expect(mockRequestImpl).toHaveBeenCalledWith(
       expect.objectContaining({
         method: "GET",
         protocol: "http:",
@@ -129,7 +129,7 @@ describe("fetchWithTelemetry", () => {
 
     mockFetchImpl(url);
 
-    expect(mockRequestImpl).toBeCalledWith(
+    expect(mockRequestImpl).toHaveBeenCalledWith(
       expect.objectContaining({
         method: "GET",
         protocol: "http:",
@@ -157,7 +157,7 @@ describe("fetchWithTelemetry", () => {
 
     mockFetchImpl(url, requestOpts);
 
-    expect(mockRequestImpl).toBeCalledWith(
+    expect(mockRequestImpl).toHaveBeenCalledWith(
       expect.objectContaining({
         method: "GET",
         protocol: "https:",
@@ -185,7 +185,7 @@ describe("fetchWithTelemetry", () => {
 
     mockFetchImpl(url, requestOpts);
 
-    expect(mockRequestImpl).toBeCalledWith(
+    expect(mockRequestImpl).toHaveBeenCalledWith(
       expect.objectContaining({
         method: "POST",
         protocol: "https:",
@@ -197,6 +197,6 @@ describe("fetchWithTelemetry", () => {
       expect.any(Function)
     );
 
-    expect(writeFn).toBeCalledWith(body);
+    expect(writeFn).toHaveBeenCalledWith(body);
   });
 });

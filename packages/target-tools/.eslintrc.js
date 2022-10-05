@@ -8,6 +8,8 @@ module.exports = {
   plugins: ["prettier", "jest", "@lwc/eslint-plugin-lwc"],
   rules: {
     "prettier/prettier": "error",
+    "arrow-body-style": "off",
+    "prefer-arrow-callback": "off",
     "prefer-object-spread": "off",
     "prefer-spread": "off",
     "no-underscore-dangle": "off",

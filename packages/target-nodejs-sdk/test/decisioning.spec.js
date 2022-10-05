@@ -551,11 +551,8 @@ describe("target on-device decisioning", () => {
               expect(fetch.mock.calls.length).toEqual(2);
               expect(sendNotificationError.mock.calls.length).toBe(1);
 
-              const {
-                type,
-                notification,
-                error
-              } = sendNotificationError.mock.calls[0][0];
+              const { type, notification, error } =
+                sendNotificationError.mock.calls[0][0];
 
               expect(type).toEqual("sendNotificationError");
               expect(notification).toMatchObject({
