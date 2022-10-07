@@ -3,21 +3,17 @@ import jsonLogic from "json-logic-js";
 import { isDefined } from "@adobe/target-tools";
 import { createMboxContext, createPageContext } from "./contextProvider";
 import { computeAllocation, getOrCreateVisitorId } from "./allocationProvider";
-import { cloneDeep, parseDomainBasic } from "./utils";
+import { cloneDeep } from "./utils";
 import { ACTIVITY_ID } from "./constants";
 
 /**
  *
  * @param { String } clientId
  * @param { import("@adobe/target-tools/delivery-api-client/models/VisitorId").VisitorId } visitorId
- * @param {Function} parseDomainImpl
+ * @param { import("../types/DecisioningContext").ParseDomainFunc} parseDomainImpl
  * @return { Function }
  */
-export function ruleEvaluator(
-  clientId,
-  visitorId,
-  parseDomainImpl = parseDomainBasic
-) {
+export function ruleEvaluator(clientId, visitorId, parseDomainImpl) {
   const visitorIdString = getOrCreateVisitorId(visitorId);
 
   /**

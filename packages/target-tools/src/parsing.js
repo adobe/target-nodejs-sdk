@@ -8,7 +8,10 @@ const psl = require("psl");
 export function parseDomainPsl(host) {
   const result = {};
 
-  if (typeof host !== "string" || !psl.isValid(host)) {
+  if (!psl.isValid(host)) {
+    result.subdomain = "";
+    result.domain = host;
+    result.topLevelDomain = "";
     return result;
   }
 

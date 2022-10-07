@@ -6,7 +6,7 @@ import {
   isString,
   operatingSystemFromUserAgentOrClientHints
 } from "@adobe/target-tools";
-import { parseDomainBasic, parseURL, unflatten } from "./utils";
+import { parseURL, unflatten } from "./utils";
 
 /**
  * @type { import("@adobe/target-tools/delivery-api-client/models/Context").Context }
@@ -167,13 +167,10 @@ function createTimingContext() {
  *
  * The TargetDecisioningEngine initialize method
  * @param { import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
- * @param {Function} parseDomainImpl
+ * @param { import("../types/DecisioningContext").ParseDomainFunc} parseDomainImpl
  * @return { import("../types/DecisioningContext").DecisioningContext }
  */
-export function createDecisioningContext(
-  deliveryRequest,
-  parseDomainImpl = parseDomainBasic
-) {
+export function createDecisioningContext(deliveryRequest, parseDomainImpl) {
   const { context = EMPTY_CONTEXT } = deliveryRequest;
   return {
     ...createTimingContext(),

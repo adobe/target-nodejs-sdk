@@ -3,7 +3,11 @@ import { createDecisioningContext } from "./contextProvider";
 import DecisionProvider from "./decisionProvider";
 import ArtifactProvider from "./artifactProvider";
 import Messages from "./messages";
-import { hasRemoteDependency, matchMajorVersion } from "./utils";
+import {
+  getParseDomainImpl,
+  hasRemoteDependency,
+  matchMajorVersion
+} from "./utils";
 import { SUPPORTED_ARTIFACT_MAJOR_VERSION } from "./constants";
 import { validDeliveryRequest } from "./requestProvider";
 import { TraceProvider } from "./traceProvider";
@@ -64,7 +68,7 @@ export default function TargetDecisioningEngine(config, telemetryProvider) {
       return DecisionProvider(
         config,
         options,
-        createDecisioningContext(request, config.parseDomainImpl),
+        createDecisioningContext(request, getParseDomainImpl(config)),
         artifact,
         logger,
         traceProvider

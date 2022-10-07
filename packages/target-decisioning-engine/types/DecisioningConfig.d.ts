@@ -1,4 +1,5 @@
 import { DecisioningArtifact } from "./DecisioningArtifact";
+import { ParseDomainFunc } from "./DecisioningContext";
 
 export interface DecisioningConfig {
   /**
@@ -84,5 +85,5 @@ export interface DecisioningConfig {
   /**
    * Function used to parse domains
    */
-  parseDomainImpl?: Function;
+  parseDomainImpl?: ParseDomainFunc;
 }

@@ -9,6 +9,7 @@ import {
   hasRequestedViews,
   includes,
   isDefined,
+  isFunction,
   isObject,
   isPojo,
   isString,
@@ -40,7 +41,7 @@ export function getRuleKey(rule) {
 
 /**
  * @param {string} host
- * @returns {{subdomain?:string, domain?: string, topLevelDomain?: string}}
+ * @returns {import("../types/DecisioningContext").DomainContext}
  */
 export function parseDomainBasic(host) {
   const result = {};
@@ -97,6 +98,17 @@ export function parseURL(url, parseDomain = parseDomainBasic) {
     fragment: anchor,
     ...parseDomain(host)
   };
+}
+
+/**
+ *
+ * @param {import("../types/DecisioningConfig").DecisioningConfig} config
+ * @returns {import("../types/DecisioningContext").ParseDomainFunc}
+ */
+export function getParseDomainImpl(config) {
+  return isFunction(config.parseDomainImpl)
+    ? config.parseDomainImpl
+    : parseDomainBasic;
 }
 
 /**

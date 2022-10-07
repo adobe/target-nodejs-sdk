@@ -5,6 +5,7 @@ import {
   isDefined,
   isUndefined,
   noopPromise,
+  parseDomainPsl,
   TelemetryProvider
 } from "@adobe/target-tools";
 
@@ -103,6 +104,7 @@ describe("decisioning engine", () => {
         {
           ...conf,
           sendNotificationFunc,
+          parseDomainImpl: parseDomainPsl,
           artifactFormat: ARTIFACT_FORMAT_JSON // setting this tells the artifactProvider deobfuscation is not needed
         },
         telemetryProvider
