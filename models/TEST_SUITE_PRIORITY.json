@@ -1,0 +1,100 @@
+{
+  "description": "decisioning outcomes - priority",
+  "artifact": "TEST_ARTIFACT_PRIORITIES",
+  "conf": {
+    "client": "someClientId",
+    "organizationId": "someOrgId",
+    "pollingInterval": 0
+  },
+  "test": {
+    "audience_targeting": {
+      "description": "prefers audience targeted rules and returns one result for the mbox requested",
+      "input": {
+        "request": {
+          "id": {
+            "tntId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
+            "marketingCloudVisitorId": "07327024324407615852294135870030620007"
+          },
+          "context": {
+            "channel": "web",
+            "address": {
+              "url": "http://local-target-test:8080/"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0"
+          },
+          "prefetch": {
+            "mboxes": [
+              {
+                "name": "mbox-prioritized",
+                "index": 7
+              }
+            ]
+          }
+        },
+        "sessionId": "dummy_session"
+      },
+      "output": {
+        "prefetch": {
+          "mboxes": [
+            {
+              "index": 7,
+              "name": "mbox-prioritized",
+              "options": [
+                {
+                  "type": "html",
+                  "content": "<div>prioritized high with targeting: Firefox</div>",
+                  "eventToken": "/pLXAvfJbFlti2W9k7cANWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q=="
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "one_mbox": {
+      "description": "only returns one result for the mbox requested",
+      "input": {
+        "request": {
+          "id": {
+            "tntId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
+            "marketingCloudVisitorId": "07327024324407615852294135870030620007"
+          },
+          "context": {
+            "channel": "web",
+            "address": {
+              "url": "http://local-target-test:8080/"
+            },
+            "userAgent": "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/6.0)"
+          },
+          "prefetch": {
+            "mboxes": [
+              {
+                "name": "mbox-prioritized",
+                "index": 7
+              }
+            ]
+          }
+        },
+        "sessionId": "dummy_session"
+      },
+      "output": {
+        "prefetch": {
+          "mboxes": [
+            {
+              "index": 7,
+              "name": "mbox-prioritized",
+              "options": [
+                {
+                  "type": "html",
+                  "content": "<div>prioritized high B</div>",
+                  "eventToken": "K48CgydFcAttgrFpQ6oMaJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                  "responseTokens": "expect.any(Object)"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}
