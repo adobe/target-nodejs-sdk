@@ -1,0 +1,241 @@
+{
+  "description": "decisioning outcomes - url params",
+  "artifact": "TEST_ARTIFACT_ADDRESS",
+  "conf": {
+    "client": "someClientId",
+    "organizationId": "someOrgId",
+    "pollingInterval": 0
+  },
+  "test": {
+    "request_context": {
+      "description": "keys off of the url provided in the base context",
+      "input": {
+        "request": {
+          "id": {
+            "tntId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
+            "marketingCloudVisitorId": "07327024324407615852294135870030620007"
+          },
+          "context": {
+            "channel": "web",
+            "address": {
+              "url": "http://local-target-test:8080/home?bar=true#hello"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0",
+            "beacon": false
+          },
+          "execute": {
+            "mboxes": [
+              {
+                "name": "mbox-urlcontains",
+                "index": 1
+              }
+            ]
+          }
+        },
+        "sessionId": "dummy_session"
+      },
+      "output": {
+        "execute": {
+          "mboxes": [
+            {
+              "index": 1,
+              "name": "mbox-urlcontains",
+              "options": [
+                {
+                  "type": "json",
+                  "content": {
+                    "baz": 2
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "mbox_context": {
+      "description": "address attributes override context url",
+      "input": {
+        "request": {
+          "id": {
+            "tntId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
+            "marketingCloudVisitorId": "07327024324407615852294135870030620007"
+          },
+          "context": {
+            "channel": "web",
+            "address": {
+              "url": "http://adobe.com"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0",
+            "beacon": false
+          },
+          "execute": {
+            "mboxes": [
+              {
+                "name": "mbox-urlcontains",
+                "address": {
+                  "url": "http://local-target-test:8080/home?bar=true#hello"
+                },
+                "index": 1
+              }
+            ]
+          }
+        },
+        "sessionId": "dummy_session"
+      },
+      "output": {
+        "execute": {
+          "mboxes": [
+            {
+              "index": 1,
+              "name": "mbox-urlcontains",
+              "options": [
+                {
+                  "type": "json",
+                  "content": {
+                    "baz": 2
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "mbox_context_empty": {
+      "description": "address attributes override context url return empty",
+      "input": {
+        "request": {
+          "id": {
+            "tntId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
+            "marketingCloudVisitorId": "07327024324407615852294135870030620007"
+          },
+          "context": {
+            "channel": "web",
+            "address": {
+              "url": "http://adobe.com"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0",
+            "beacon": false
+          },
+          "execute": {
+            "mboxes": [
+              {
+                "name": "mbox-urlcontains",
+                "address": {
+                  "url": "http://local-target-test"
+                },
+                "index": 1
+              }
+            ]
+          }
+        },
+        "sessionId": "dummy_session"
+      },
+      "output": {
+        "execute": {
+          "mboxes": [
+            {
+              "index": 1,
+              "name": "mbox-urlcontains"
+            }
+          ]
+        }
+      }
+    },
+    "long_subdomain_request_context" : {
+      "description": "testing that urls with long subdomains are properly targeted",
+      "input": {
+        "request": {
+          "id": {
+            "tntId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
+            "marketingCloudVisitorId": "07327024324407615852294135870030620007"
+          },
+          "context": {
+            "channel": "web",
+            "address": {
+              "url": "https://pied.piper.decentralized.test.hooli.com/?implementation=psl"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0",
+            "beacon": false
+          },
+          "execute": {
+            "mboxes": [
+              {
+                "name": "mbox-urlcontains",
+                "index": 1
+              }
+            ]
+          }
+        },
+        "sessionId": "dummy_session"
+      },
+      "output": {
+        "execute": {
+          "mboxes": [
+            {
+              "index": 1,
+              "name": "mbox-urlcontains",
+              "options": [
+                {
+                  "type": "json",
+                  "content": {
+                    "fizz": "buzz",
+                    "domain_parsing_issue_fixed": true
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "long_tld_request_context" : {
+      "description": "testing that urls with long tlds are properly targeted",
+      "input": {
+        "request": {
+          "id": {
+            "tntId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0",
+            "marketingCloudVisitorId": "07327024324407615852294135870030620007"
+          },
+          "context": {
+            "channel": "web",
+            "address": {
+              "url": "https://test.wayne-enterprises.us-east-1.elasticbeanstalk.com"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0",
+            "beacon": false
+          },
+          "execute": {
+            "mboxes": [
+              {
+                "name": "mbox-urlcontains",
+                "index": 1
+              }
+            ]
+          }
+        },
+        "sessionId": "dummy_session"
+      },
+      "output": {
+        "execute": {
+          "mboxes": [
+            {
+              "index": 1,
+              "name": "mbox-urlcontains",
+              "options": [
+                {
+                  "type": "json",
+                  "content": {
+                    "domain_parsing_issue_fixed": true,
+                    "fizz": "buzz"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

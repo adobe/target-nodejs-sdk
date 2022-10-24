@@ -1,0 +1,196 @@
+{
+  "targetAdminActivityUrls": [
+    "https://experience.adobe.com/#/@targettesting/target/activities/activitydetails/A-B/_unit-test_mbox-params",
+    "https://experience.adobe.com/#/@targettesting/target/activities/activitydetails/A-B/_unit-test_mbox-params-dots"
+  ],
+  "version": "1.0.0",
+  "meta": { "clientCode": "targettesting", "environment": "production" },
+  "globalMbox": "target-global-mbox",
+  "geoTargetingEnabled": true,
+  "responseTokens": [
+    "activity.id",
+    "activity.name",
+    "experience.id",
+    "experience.name",
+    "geo.city",
+    "geo.country",
+    "geo.state",
+    "offer.id",
+    "offer.name",
+    "option.id",
+    "option.name"
+  ],
+  "remoteMboxes": [],
+  "remoteViews": [],
+  "localMboxes": [
+    "100k",
+    "1MB",
+    "1MB2",
+    "1MB3",
+    "250k",
+    "500k",
+    "allmatches",
+    "browserTest",
+    "mbox-browsers",
+    "mbox-dateranges",
+    "mbox-feature-flags",
+    "mbox-geography",
+    "mbox-macros",
+    "mbox-magician",
+    "mbox-params",
+    "mbox-prioritized",
+    "mbox-salutations",
+    "mbox-urlcontains",
+    "perf-mbox",
+    "super-duper",
+    "target-global-mbox",
+    "testoffer"
+  ],
+  "localViews": ["contact", "home"],
+  "rules": {
+    "mboxes": {
+      "mbox-params": [
+        {
+          "ruleKey": "125874",
+          "activityId": 125874,
+          "meta": {
+            "activity.id": 125874,
+            "activity.name": "[unit-test] mbox-params",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "mbox-params",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [1821805],
+            "offer.id": 246852,
+            "offer.name": "/_unit-test_mbox-params/experiences/0/pages/0/zones/0/1612386851217",
+            "option.id": 2,
+            "option.name": "Offer2"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<=": [0, { "var": "allocation" }] },
+                  { ">=": [50, { "var": "allocation" }] }
+                ]
+              },
+              { "==": ["bar", { "var": "mbox.foo" }] }
+            ]
+          },
+          "consequence": {
+            "name": "mbox-params",
+            "options": [
+              {
+                "type": "json",
+                "eventToken": "gsDuhGuCbuMhKLusIlPUI2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": { "foo": "bar", "isFooBar": true, "experience": "A" }
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "125874",
+          "activityId": 125874,
+          "meta": {
+            "activity.id": 125874,
+            "activity.name": "[unit-test] mbox-params",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "mbox-params",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [1821805],
+            "offer.id": 246851,
+            "offer.name": "/_unit-test_mbox-params/experiences/1/pages/0/zones/0/1612386851213",
+            "option.id": 3,
+            "option.name": "Offer3"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<": [50, { "var": "allocation" }] },
+                  { ">=": [100, { "var": "allocation" }] }
+                ]
+              },
+              { "==": ["bar", { "var": "mbox.foo" }] }
+            ]
+          },
+          "consequence": {
+            "name": "mbox-params",
+            "options": [
+              {
+                "type": "json",
+                "eventToken": "gsDuhGuCbuMhKLusIlPUI5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": { "foo": "bar", "isFooBar": true, "experience": "B" }
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "147386",
+          "activityId": 147386,
+          "meta": {
+            "activity.id": 147386,
+            "activity.name": "[unit-test] mbox-params-dots",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "mbox-params",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [2059251],
+            "offer.id": 320012,
+            "offer.name": "Offer3",
+            "option.id": 2,
+            "option.name": "Offer2"
+          },
+          "condition": {
+            "and": [
+              {
+                "and": [
+                  { "<=": [0, { "var": "allocation" }] },
+                  { ">=": [100, { "var": "allocation" }] }
+                ]
+              },
+              {
+                "and": [
+                  {
+                    "==": [
+                      "racket",
+                      { "var": "mbox.first.programming.language_lc" }
+                    ]
+                  },
+                  { "==": ["red", { "var": "mbox.favorite.color_lc" }] },
+                  {
+                    "==": [
+                      "the big lebowski",
+                      { "var": "mbox.favorite.movie_lc" }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "consequence": {
+            "name": "mbox-params",
+            "options": [
+              {
+                "type": "json",
+                "eventToken": "WCoBzcT7Wkah1KKwsBiOkWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": { "foo": "bar", "fizz": "buzz", "experience": "C" }
+              }
+            ],
+            "metrics": []
+          }
+        }
+      ]
+    },
+    "views": {}
+  }
+}

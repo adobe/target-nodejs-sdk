@@ -1,0 +1,189 @@
+{
+  "targetAdminActivityUrls": [
+    "https://experience.adobe.com/#/@targettesting/target/activities/activitydetails/Experience-Targeting/_unit-test_mbox-dateranges"
+  ],
+  "version": "1.0.0",
+  "meta": { "clientCode": "targettesting", "environment": "production" },
+  "globalMbox": "target-global-mbox",
+  "geoTargetingEnabled": true,
+  "responseTokens": [
+    "activity.id",
+    "activity.name",
+    "experience.id",
+    "experience.name",
+    "geo.city",
+    "geo.country",
+    "geo.state",
+    "offer.id",
+    "offer.name",
+    "option.id",
+    "option.name"
+  ],
+  "remoteMboxes": ["remote-only-mbox-a"],
+  "remoteViews": [],
+  "localMboxes": [
+    "100k",
+    "1MB",
+    "1MB2",
+    "1MB3",
+    "250k",
+    "500k",
+    "allmatches",
+    "browserTest",
+    "mbox-browsers",
+    "mbox-dateranges",
+    "mbox-feature-flags",
+    "mbox-geography",
+    "mbox-macros",
+    "mbox-magician",
+    "mbox-params",
+    "mbox-prioritized",
+    "mbox-salutations",
+    "mbox-urlcontains",
+    "perf-mbox",
+    "super-duper",
+    "target-global-mbox",
+    "testoffer"
+  ],
+  "localViews": ["contact", "home"],
+  "rules": {
+    "mboxes": {
+      "mbox-dateranges": [
+        {
+          "ruleKey": "125879",
+          "activityId": 125879,
+          "meta": {
+            "activity.id": 125879,
+            "activity.name": "[unit-test] mbox-dateranges",
+            "activity.type": "landing",
+            "experience.id": 0,
+            "experience.name": "Experience C",
+            "location.name": "mbox-dateranges",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [1821826],
+            "offer.id": 246860,
+            "offer.name": "/_unit-test_mbox-dateranges/experiences/0/pages/0/zones/0/1612388787483",
+            "option.id": 2,
+            "option.name": "Offer2"
+          },
+          "condition": {
+            "and": [
+              { "or": [{ "==": [{ "var": "current_day" }, "5"] }] },
+              { "<=": ["0000", { "var": "current_time" }, "2359"] }
+            ]
+          },
+          "consequence": {
+            "name": "mbox-dateranges",
+            "options": [
+              {
+                "type": "html",
+                "eventToken": "gUwIlRvXckxF9guX7PpLqGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<strong>it's friday</strong>"
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "125879",
+          "activityId": 125879,
+          "meta": {
+            "activity.id": 125879,
+            "activity.name": "[unit-test] mbox-dateranges",
+            "activity.type": "landing",
+            "experience.id": 1,
+            "experience.name": "Experience D",
+            "location.name": "mbox-dateranges",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [1821824],
+            "offer.id": 246861,
+            "offer.name": "/_unit-test_mbox-dateranges/experiences/1/pages/0/zones/0/1612388787487",
+            "option.id": 3,
+            "option.name": "Offer3"
+          },
+          "condition": {
+            "<=": [1613034000000, { "var": "current_timestamp" }, 1613239200000]
+          },
+          "consequence": {
+            "name": "mbox-dateranges",
+            "options": [
+              {
+                "type": "html",
+                "eventToken": "gUwIlRvXckxF9guX7PpLqJNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<strong>date range 1 (feb 11-13)</strong>"
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "125879",
+          "activityId": 125879,
+          "meta": {
+            "activity.id": 125879,
+            "activity.name": "[unit-test] mbox-dateranges",
+            "activity.type": "landing",
+            "experience.id": 2,
+            "experience.name": "Experience B",
+            "location.name": "mbox-dateranges",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [1821825],
+            "offer.id": 246862,
+            "offer.name": "/_unit-test_mbox-dateranges/experiences/2/pages/0/zones/0/1612388787492",
+            "option.id": 4,
+            "option.name": "Offer4"
+          },
+          "condition": {
+            "<=": [1613389200000, { "var": "current_timestamp" }, 1613734800000]
+          },
+          "consequence": {
+            "name": "mbox-dateranges",
+            "options": [
+              {
+                "type": "html",
+                "eventToken": "gUwIlRvXckxF9guX7PpLqAreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<strong>date range 2 (feb 15 - 19, 2021)</strong>"
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "ruleKey": "125879",
+          "activityId": 125879,
+          "meta": {
+            "activity.id": 125879,
+            "activity.name": "[unit-test] mbox-dateranges",
+            "activity.type": "landing",
+            "experience.id": 3,
+            "experience.name": "Experience A",
+            "location.name": "mbox-dateranges",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [],
+            "offer.id": 246863,
+            "offer.name": "/_unit-test_mbox-dateranges/experiences/3/pages/0/zones/0/1612388842573",
+            "option.id": 5,
+            "option.name": "Offer5"
+          },
+          "condition": true,
+          "consequence": {
+            "name": "mbox-dateranges",
+            "options": [
+              {
+                "type": "html",
+                "eventToken": "gUwIlRvXckxF9guX7PpLqJZBXFCzaoRRABbzIA9EnZOCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<strong>default result</strong>"
+              }
+            ],
+            "metrics": []
+          }
+        }
+      ]
+    },
+    "views": {}
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "description": "properties",
+  "artifact": "TEST_ARTIFACT_PROPERTIES",
+  "conf": {
+    "client": "targettesting",
+    "organizationId": "74F652E95F1B16FE0A495C92@AdobeOrg",
+    "pollingInterval": 0
+  },
+  "test": {
+    "property_x": {
+      "description": "evaluates experiences for property x and not property y",
+      "input": {
+        "request": {
+          "id": {
+            "thirdPartyId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0"
+          },
+          "context": {
+            "channel": "web",
+            "browser": {
+              "host": "local-target-test"
+            },
+            "address": {
+              "url": "http://local-target-test/"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
+          },
+          "prefetch": {
+            "pageLoad": {}
+          },
+          "property": {
+            "token": "f12c912a-792f-6c01-4977-65d39558c82e"
+          }
+        }
+      },
+      "output": {
+        "prefetch": {
+          "pageLoad": {
+            "options": [
+              {
+                "type": "html",
+                "eventToken": "68qcjeWxaSDqrk9hR8MbkWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<div>Chrometastic</div>"
+              },
+              {
+                "type": "json",
+                "eventToken": "/l5QxTHdZNo1fFcpHy6yC5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": {
+                  "mbox": "target-global-mbox",
+                  "experience": "B",
+                  "fruit": "Blueberry",
+                  "property": "property X"
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "property_y": {
+      "description": "evaluates experiences for property y and not property x",
+      "input": {
+        "request": {
+          "id": {
+            "thirdPartyId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0"
+          },
+          "context": {
+            "channel": "web",
+            "browser": {
+              "host": "local-target-test"
+            },
+            "address": {
+              "url": "http://local-target-test/"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
+          },
+          "prefetch": {
+            "pageLoad": {}
+          },
+          "property": {
+            "token": "8ce2d3e9-b299-c0ea-2e0c-2e21255db6bb"
+          }
+        }
+      },
+      "output": {
+        "prefetch": {
+          "pageLoad": {
+            "options": [
+              {
+                "type": "html",
+                "eventToken": "68qcjeWxaSDqrk9hR8MbkWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<div>Chrometastic</div>"
+              },
+              {
+                "type": "json",
+                "eventToken": "icqJv5xu4JjLPZmDiKmdzGqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": {
+                  "mbox": "target-global-mbox",
+                  "experience": "A",
+                  "vegetable": "Asparagus",
+                  "property": "property Y"
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "no_property_designation": {
+      "description": "evaluates only activities without a property designation when no property token is specified",
+      "input": {
+        "request": {
+          "id": {
+            "thirdPartyId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0"
+          },
+          "context": {
+            "channel": "web",
+            "browser": {
+              "host": "local-target-test"
+            },
+            "address": {
+              "url": "http://local-target-test/"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
+          },
+          "prefetch": {
+            "pageLoad": {}
+          }
+        }
+      },
+      "output": {
+        "prefetch": {
+          "pageLoad": {
+            "options": [
+              {
+                "type": "html",
+                "eventToken": "68qcjeWxaSDqrk9hR8MbkWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<div>Chrometastic</div>"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "filter_rules": {
+      "description": "filters out rules with propertyTokens that don't match the one specified",
+      "input": {
+        "request": {
+          "id": {
+            "thirdPartyId": "338e3c1e51f7416a8e1ccba4f81acea0.28_0"
+          },
+          "context": {
+            "channel": "web",
+            "browser": {
+              "host": "local-target-test"
+            },
+            "address": {
+              "url": "http://local-target-test/"
+            },
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
+          },
+          "prefetch": {
+            "pageLoad": {}
+          },
+          "property": {
+            "token": "token_not_in_a_rule"
+          }
+        }
+      },
+      "output": {
+        "prefetch": {
+          "pageLoad": {
+            "options": [
+              {
+                "type": "html",
+                "eventToken": "68qcjeWxaSDqrk9hR8MbkWqipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": "<div>Chrometastic</div>"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
