@@ -10,9 +10,10 @@ import { ACTIVITY_ID } from "./constants";
  *
  * @param { String } clientId
  * @param { import("@adobe/target-tools/delivery-api-client/models/VisitorId").VisitorId } visitorId
+ * @param { import("../types/DecisioningContext").ParseDomainFunc} parseDomainImpl
  * @return { Function }
  */
-export function ruleEvaluator(clientId, visitorId) {
+export function ruleEvaluator(clientId, visitorId, parseDomainImpl) {
   const visitorIdString = getOrCreateVisitorId(visitorId);
 
   /**
@@ -35,8 +36,9 @@ export function ruleEvaluator(clientId, visitorId) {
     let { page, referring } = context;
 
     if (isDefined(requestDetail.address)) {
-      page = createPageContext(requestDetail.address) || page;
-      referring = createPageContext(requestDetail.address) || referring;
+      page = createPageContext(requestDetail.address, parseDomainImpl) || page;
+      referring =
+        createPageContext(requestDetail.address, parseDomainImpl) || referring;
     }
 
     const ruleContext = {

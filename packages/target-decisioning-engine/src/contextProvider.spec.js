@@ -1,4 +1,5 @@
 import * as MockDate from "mockdate";
+import { parseDomainPsl } from "@adobe/target-tools";
 import {
   createDecisioningContext,
   createGeoContext,
@@ -212,6 +213,144 @@ describe("contextProvider", () => {
         query_lc: "m=1&t=5&name=jimmy",
         fragment: "home",
         fragment_lc: "home"
+      })
+    );
+  });
+  it("supports domains with multi-clause TLDs with the psl parsing implementation", () => {
+    const context = createDecisioningContext(
+      {
+        context: {
+          channel: "web",
+          browser: null,
+          address: {
+            url: "https://www.town.ide.kyoto.jp:8080/About?m=1&t=5&name=Jimmy#home",
+            referringUrl: null
+          },
+          geo: null,
+          timeOffsetInMinutes: null,
+          userAgent:
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0",
+          beacon: false
+        }
+      },
+      parseDomainPsl
+    );
+    expect(context.page).toEqual(
+      expect.objectContaining({
+        url: "https://www.town.ide.kyoto.jp:8080/About?m=1&t=5&name=Jimmy#home",
+        url_lc:
+          "https://www.town.ide.kyoto.jp:8080/about?m=1&t=5&name=jimmy#home",
+        path: "/About",
+        path_lc: "/about",
+        domain: "town.ide.kyoto.jp",
+        domain_lc: "town.ide.kyoto.jp",
+        subdomain: "",
+        subdomain_lc: "",
+        topLevelDomain: "ide.kyoto.jp",
+        topLevelDomain_lc: "ide.kyoto.jp",
+        query: "m=1&t=5&name=Jimmy",
+        query_lc: "m=1&t=5&name=jimmy",
+        fragment: "home",
+        fragment_lc: "home"
+      })
+    );
+  });
+  it("does not support domains with multi-clause TLDs with the lightweight implementation", () => {
+    const context = createDecisioningContext({
+      context: {
+        channel: "web",
+        browser: null,
+        address: {
+          url: "https://www.town.ide.kyoto.jp:8080/About?m=1&t=5&name=Jimmy#home",
+          referringUrl: null
+        },
+        geo: null,
+        timeOffsetInMinutes: null,
+        userAgent:
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0",
+        beacon: false
+      }
+    });
+    expect(context.page).toEqual(
+      expect.objectContaining({
+        url: "https://www.town.ide.kyoto.jp:8080/About?m=1&t=5&name=Jimmy#home",
+        url_lc:
+          "https://www.town.ide.kyoto.jp:8080/about?m=1&t=5&name=jimmy#home",
+        path: "/About",
+        path_lc: "/about",
+        query: "m=1&t=5&name=Jimmy",
+        query_lc: "m=1&t=5&name=jimmy",
+        fragment: "home",
+        fragment_lc: "home"
+      })
+    );
+  });
+  it("supports domains with multi-clause subdomains with the psl parsing implementation", () => {
+    const context = createDecisioningContext(
+      {
+        context: {
+          channel: "web",
+          browser: null,
+          address: {
+            url: "https://www.a.b.c.d.foo.com/help?Language=Javascript&fiz=buzz#bar",
+            referringUrl: null
+          },
+          geo: null,
+          timeOffsetInMinutes: null,
+          userAgent:
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0",
+          beacon: false
+        }
+      },
+      parseDomainPsl
+    );
+    expect(context.page).toEqual(
+      expect.objectContaining({
+        url: "https://www.a.b.c.d.foo.com/help?Language=Javascript&fiz=buzz#bar",
+        url_lc:
+          "https://www.a.b.c.d.foo.com/help?language=javascript&fiz=buzz#bar",
+        path: "/help",
+        path_lc: "/help",
+        domain: "foo.com",
+        domain_lc: "foo.com",
+        subdomain: "a.b.c.d",
+        subdomain_lc: "a.b.c.d",
+        topLevelDomain: "com",
+        topLevelDomain_lc: "com",
+        query: "Language=Javascript&fiz=buzz",
+        query_lc: "language=javascript&fiz=buzz",
+        fragment: "bar",
+        fragment_lc: "bar"
+      })
+    );
+  });
+  it("does not support domains with multi-clause subdomains with the lightweight parsing implementation", () => {
+    const context = createDecisioningContext({
+      context: {
+        channel: "web",
+        browser: null,
+        address: {
+          url: "https://www.a.b.c.d.foo.com/help?Language=Javascript&fiz=buzz#bar",
+          referringUrl: null
+        },
+        geo: null,
+        timeOffsetInMinutes: null,
+        userAgent:
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:73.0) Gecko/20100101 Firefox/73.0",
+        beacon: false
+      }
+    });
+    expect(context.page).toEqual(
+      expect.objectContaining({
+        url: "https://www.a.b.c.d.foo.com/help?Language=Javascript&fiz=buzz#bar",
+        url_lc:
+          "https://www.a.b.c.d.foo.com/help?language=javascript&fiz=buzz#bar",
+        path: "/help",
+        path_lc: "/help",
+        query: "Language=Javascript&fiz=buzz",
+        query_lc: "language=javascript&fiz=buzz",
+        fragment: "bar",
+        fragment_lc: "bar"
       })
     );
   });

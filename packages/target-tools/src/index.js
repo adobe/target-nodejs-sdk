@@ -105,6 +105,8 @@ export { perfTool, createPerfToolInstance } from "./perftool";
 
 export { default as parseURI } from "parse-uri";
 
+export { parseDomainPsl } from "./parsing";
+
 export { default as uuid } from "./uuid";
 
 export { default as getFetchWithTelemetry } from "./fetchWithTelemetry";

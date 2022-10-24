@@ -176,90 +176,6 @@
           }
         },
         {
-          "ruleKey": "125888",
-          "activityId": 125888,
-          "meta": {
-            "activity.id": 125888,
-            "activity.name": "[unit-test] target-global-mbox fruits",
-            "activity.type": "ab",
-            "experience.id": 0,
-            "experience.name": "Experience A",
-            "location.name": "target-global-mbox",
-            "location.type": "mbox",
-            "location.id": 0,
-            "audience.ids": [],
-            "offer.id": 246887,
-            "offer.name": "/_unit-test_target-global-mboxfruits/experiences/0/pages/0/zones/0/1612391196949",
-            "option.id": 2,
-            "option.name": "Offer2"
-          },
-          "condition": {
-            "and": [
-              { "<=": [0, { "var": "allocation" }] },
-              { ">=": [50, { "var": "allocation" }] }
-            ]
-          },
-          "consequence": {
-            "name": "target-global-mbox",
-            "options": [
-              {
-                "type": "json",
-                "eventToken": "/l5QxTHdZNo1fFcpHy6yC2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                "content": {
-                  "mbox": "target-global-mbox",
-                  "experience": "A",
-                  "fruit": "Apple",
-                  "property": "property X"
-                }
-              }
-            ],
-            "metrics": []
-          },
-          "propertyTokens": ["f12c912a-792f-6c01-4977-65d39558c82e"]
-        },
-        {
-          "ruleKey": "125888",
-          "activityId": 125888,
-          "meta": {
-            "activity.id": 125888,
-            "activity.name": "[unit-test] target-global-mbox fruits",
-            "activity.type": "ab",
-            "experience.id": 1,
-            "experience.name": "Experience B",
-            "location.name": "target-global-mbox",
-            "location.type": "mbox",
-            "location.id": 0,
-            "audience.ids": [],
-            "offer.id": 246886,
-            "offer.name": "/_unit-test_target-global-mboxfruits/experiences/1/pages/0/zones/0/1612391196945",
-            "option.id": 3,
-            "option.name": "Offer3"
-          },
-          "condition": {
-            "and": [
-              { "<": [50, { "var": "allocation" }] },
-              { ">=": [100, { "var": "allocation" }] }
-            ]
-          },
-          "consequence": {
-            "name": "target-global-mbox",
-            "options": [
-              {
-                "type": "json",
-                "eventToken": "/l5QxTHdZNo1fFcpHy6yC5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
-                "content": {
-                  "mbox": "target-global-mbox",
-                  "experience": "B",
-                  "fruit": "Blueberry",
-                  "property": "property X"
-                }
-              }
-            ],
-            "metrics": []
-          },
-          "propertyTokens": ["f12c912a-792f-6c01-4977-65d39558c82e"]
-        },
-        {
           "ruleKey": "125887",
           "activityId": 125887,
           "meta": {
@@ -342,6 +258,90 @@
             "metrics": []
           },
           "propertyTokens": ["8ce2d3e9-b299-c0ea-2e0c-2e21255db6bb"]
+        },
+        {
+          "ruleKey": "125888",
+          "activityId": 125888,
+          "meta": {
+            "activity.id": 125888,
+            "activity.name": "[unit-test] target-global-mbox fruits",
+            "activity.type": "ab",
+            "experience.id": 0,
+            "experience.name": "Experience A",
+            "location.name": "target-global-mbox",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [],
+            "offer.id": 246887,
+            "offer.name": "/_unit-test_target-global-mboxfruits/experiences/0/pages/0/zones/0/1612391196949",
+            "option.id": 2,
+            "option.name": "Offer2"
+          },
+          "condition": {
+            "and": [
+              { "<=": [0, { "var": "allocation" }] },
+              { ">=": [50, { "var": "allocation" }] }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "json",
+                "eventToken": "/l5QxTHdZNo1fFcpHy6yC2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": {
+                  "mbox": "target-global-mbox",
+                  "experience": "A",
+                  "fruit": "Apple",
+                  "property": "property X"
+                }
+              }
+            ],
+            "metrics": []
+          },
+          "propertyTokens": ["f12c912a-792f-6c01-4977-65d39558c82e"]
+        },
+        {
+          "ruleKey": "125888",
+          "activityId": 125888,
+          "meta": {
+            "activity.id": 125888,
+            "activity.name": "[unit-test] target-global-mbox fruits",
+            "activity.type": "ab",
+            "experience.id": 1,
+            "experience.name": "Experience B",
+            "location.name": "target-global-mbox",
+            "location.type": "mbox",
+            "location.id": 0,
+            "audience.ids": [],
+            "offer.id": 246886,
+            "offer.name": "/_unit-test_target-global-mboxfruits/experiences/1/pages/0/zones/0/1612391196945",
+            "option.id": 3,
+            "option.name": "Offer3"
+          },
+          "condition": {
+            "and": [
+              { "<": [50, { "var": "allocation" }] },
+              { ">=": [100, { "var": "allocation" }] }
+            ]
+          },
+          "consequence": {
+            "name": "target-global-mbox",
+            "options": [
+              {
+                "type": "json",
+                "eventToken": "/l5QxTHdZNo1fFcpHy6yC5NWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+                "content": {
+                  "mbox": "target-global-mbox",
+                  "experience": "B",
+                  "fruit": "Blueberry",
+                  "property": "property X"
+                }
+              }
+            ],
+            "metrics": []
+          },
+          "propertyTokens": ["f12c912a-792f-6c01-4977-65d39558c82e"]
         }
       ]
     },

@@ -45,3 +45,13 @@ export interface DecisioningContext {
   mbox: MboxContext;
   geo: GeoContext;
 }
+
+export interface DomainContext {
+  subdomain?: string;
+  domain?: string;
+  topLevelDomain?: string;
+}
+
+export interface ParseDomainFunc {
+  (host: string): DomainContext;
+}

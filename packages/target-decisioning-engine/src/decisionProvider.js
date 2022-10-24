@@ -8,7 +8,7 @@ import {
   objectWithoutUndefinedValues,
   values
 } from "@adobe/target-tools";
-import { getRuleKey, hasRemoteDependency } from "./utils";
+import { getParseDomainImpl, getRuleKey, hasRemoteDependency } from "./utils";
 import NotificationProvider from "./notificationProvider";
 import { RequestTracer } from "./traceProvider";
 import { RequestType } from "./enums";
@@ -58,7 +58,11 @@ function DecisionProvider(
   const { sendNotificationFunc, telemetryEnabled = true } = config;
 
   const visitorId = request.id;
-  const processRule = ruleEvaluator(clientId, visitorId);
+  const processRule = ruleEvaluator(
+    clientId,
+    visitorId,
+    getParseDomainImpl(config)
+  );
   const dependency = hasRemoteDependency(artifact, request);
 
   const notificationProvider = NotificationProvider(

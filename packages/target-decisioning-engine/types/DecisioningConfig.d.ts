@@ -1,4 +1,5 @@
 import { DecisioningArtifact } from "./DecisioningArtifact";
+import { ParseDomainFunc } from "./DecisioningContext";
 
 export interface DecisioningConfig {
   /**
@@ -80,4 +81,9 @@ export interface DecisioningConfig {
    * The maximum amount of time (in ms) to wait for decisioning engine to become ready.  Default is to wait indefinitely.
    */
   maximumWaitReady: Number;
+
+  /**
+   * Function used to parse domains
+   */
+  parseDomainImpl?: ParseDomainFunc;
 }

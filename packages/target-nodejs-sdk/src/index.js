@@ -18,6 +18,7 @@ import {
   DECISIONING_METHOD,
   getFetchApi,
   getLogger,
+  parseDomainPsl,
   requiresDecisioningEngine,
   TelemetryProvider
 } from "@adobe/target-tools";
@@ -28,7 +29,6 @@ import { createVisitor } from "./utils";
 import { Messages } from "./messages";
 import { LOCATION_HINT_COOKIE, TARGET_COOKIE } from "./cookies";
 import { executeDelivery } from "./target";
-
 import { preserveLocationHint, requestLocationHintCookie } from "./helper";
 
 import {
@@ -83,7 +83,8 @@ export default function bootstrap(fetchApi) {
               fetchApi: fetchImpl,
               eventEmitter,
               sendNotificationFunc: notificationOptions =>
-                this.sendNotifications(notificationOptions)
+                this.sendNotifications(notificationOptions),
+              parseDomainImpl: parseDomainPsl
             },
             this.telemetryProvider
           )

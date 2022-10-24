@@ -80,15 +80,16 @@ function createBrowserContext(context) {
 
 /**
  * @param { string } url
+ * @param { import("../types/DecisioningContext").ParseDomainFunc } parseDomainImpl
  * @return { import("../types/DecisioningContext").PageContext }
  */
-function createUrlContext(url) {
+function createUrlContext(url, parseDomainImpl) {
   if (!url || !isString(url)) {
     // eslint-disable-next-line no-param-reassign
     url = "";
   }
 
-  const urlAttributes = parseURL(url);
+  const urlAttributes = parseURL(url, parseDomainImpl);
 
   return {
     ...urlAttributes,
@@ -98,18 +99,20 @@ function createUrlContext(url) {
 
 /**
  * @param { import("@adobe/target-tools/delivery-api-client/models/Address").Address } address
+ * @param { import("../types/DecisioningContext").ParseDomainFunc } parseDomainImpl
  * @return { import("../types/DecisioningContext").PageContext }
  */
-export function createPageContext(address) {
-  return createUrlContext(address ? address.url : "");
+export function createPageContext(address, parseDomainImpl) {
+  return createUrlContext(address ? address.url : "", parseDomainImpl);
 }
 
 /**
  * @param { import("@adobe/target-tools/delivery-api-client/models/Address").Address } address
+ * @param { import("../types/DecisioningContext").ParseDomainFunc } parseDomainImpl
  * @return { import("../types/DecisioningContext").PageContext }
  */
-export function createReferringContext(address) {
-  return createUrlContext(address ? address.referringUrl : "");
+export function createReferringContext(address, parseDomainImpl) {
+  return createUrlContext(address ? address.referringUrl : "", parseDomainImpl);
 }
 
 /**
@@ -164,16 +167,16 @@ function createTimingContext() {
  *
  * The TargetDecisioningEngine initialize method
  * @param { import("@adobe/target-tools/delivery-api-client/models/DeliveryRequest").DeliveryRequest } deliveryRequest
+ * @param { import("../types/DecisioningContext").ParseDomainFunc} parseDomainImpl
  * @return { import("../types/DecisioningContext").DecisioningContext }
  */
-export function createDecisioningContext(deliveryRequest) {
+export function createDecisioningContext(deliveryRequest, parseDomainImpl) {
   const { context = EMPTY_CONTEXT } = deliveryRequest;
-
   return {
     ...createTimingContext(),
     user: createBrowserContext(context),
-    page: createPageContext(context.address),
-    referring: createReferringContext(context.address),
+    page: createPageContext(context.address, parseDomainImpl),
+    referring: createReferringContext(context.address, parseDomainImpl),
     geo: createGeoContext(context.geo || {})
   };
 }
