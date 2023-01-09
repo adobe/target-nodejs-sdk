@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Removed `version` import from `package.json`
 - Client custom Mbox parameters now correctly support dot notation
 
 ### Security
