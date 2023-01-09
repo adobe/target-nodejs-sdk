@@ -54,7 +54,7 @@ import {
   SESSION_ID_COOKIE
 } from "./cookies";
 
-import { version } from "../package.json";
+import packageInfo from "../package.json";
 
 import {
   executeSendBeacon,
@@ -85,6 +85,7 @@ const HOST = "tt.omtrdc.net";
 const SESSION_ID_MAX_AGE = 1860;
 const DEVICE_ID_MAX_AGE = 63244800;
 const LOCATION_HINT_MAX_AGE = 1860;
+const PACKAGE_VERSION = packageInfo.version;
 
 DeliveryApi.prototype.decisioningMethod = DECISIONING_METHOD.SERVER_SIDE;
 
@@ -156,7 +157,7 @@ export function createHeaders(uuidMethod = uuid) {
   return {
     "Content-Type": "application/json",
     "X-EXC-SDK": "AdobeTargetNode",
-    "X-EXC-SDK-Version": version,
+    "X-EXC-SDK-Version": PACKAGE_VERSION,
     "X-Request-Id": uuidMethod()
   };
 }
