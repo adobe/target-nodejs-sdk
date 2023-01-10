@@ -15,7 +15,11 @@ jobs:
       matrix:
         node-version: [14.x, 16.x, 18.x]
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout repository
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.ADOBE_BOT_GITHUB_TOKEN }}
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@master
         with:
