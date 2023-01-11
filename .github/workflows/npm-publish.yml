@@ -15,7 +15,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          token: ${{ secrets.ADOBE_BOT_GITHUB_TOKEN }}
       - name: Configure git user for release commits
         run: |
           git config user.email "Grp-opensourceoffice@adobe.com"
