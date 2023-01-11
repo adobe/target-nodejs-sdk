@@ -25,6 +25,8 @@ jobs:
           node-version: 14
           registry-url: "https://registry.npmjs.org"
       - name: Publish to registry.npmjs.org
+        with:
+          token: ${{ secrets.ADOBE_BOT_GITHUB_TOKEN }}
         run: |
           npm ci
           npm run publish ${{ github.event.inputs.semverBump }}
