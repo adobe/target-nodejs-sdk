@@ -12,10 +12,12 @@ jobs:
     name: npm-publish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@master
         with:
           fetch-depth: 0
-          persist-credentials: false
+          token: ${{ secrets.ERIC_BOT_TOKEN }}
+
       - name: Configure git user for release commits
         run: |
           git config user.email "Grp-opensourceoffice@adobe.com"
@@ -25,6 +27,7 @@ jobs:
         with:
           node-version: 14
           registry-url: "https://registry.npmjs.org"
+
       - name: Publish to registry.npmjs.org
         run: |
           npm ci
