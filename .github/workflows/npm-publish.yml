@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@master
         with:
           fetch-depth: 0
-          token: ${{ secrets.ERIC_BOT_TOKEN }}
+          token: ${{ secrets.ADOBE_BOT_GITHUB_TOKEN }}
 
       - name: Configure git user for release commits
         run: |
