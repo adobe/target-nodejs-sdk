@@ -1,6 +1,6 @@
 {
   "name": "@adobe/target-decisioning-engine",
-  "version": "1.9.1",
+  "version": "1.9.2",
   "description": "Adobe Target JavaScript decisioning engine",
   "main": "dist/index.js",
   "module": "src/index.js",
@@ -31,7 +31,7 @@
     "directory": "packages/target-decisioning-engine"
   },
   "dependencies": {
-    "@adobe/target-tools": "^1.7.1",
+    "@adobe/target-tools": "^1.7.2",
     "json-logic-js": "^2.0.0"
   },
   "devDependencies": {
