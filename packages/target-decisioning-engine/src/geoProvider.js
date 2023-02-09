@@ -126,9 +126,13 @@ export function GeoProvider(config, artifact) {
         headers[HTTP_HEADER_FORWARDED_FOR] = geoRequestContext.ipAddress;
       }
 
-      return fetchApi(geoLookupPath, {
-        headers
-      })
+      const options = { headers };
+
+      if (config.proxyAgent != null) {
+        options.dispatcher = config.proxyAgent;
+      }
+
+      return fetchApi(geoLookupPath, options)
         .then(geoResponse =>
           geoResponse
             .json()

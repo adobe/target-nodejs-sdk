@@ -63,7 +63,7 @@ export function executeDelivery(options, telemetryProvider, decisioningEngine) {
 
   let { decisioningMethod } = config;
 
-  const fetchWithRetry = getFetchWithRetry(config.fetchApi);
+  const fetchWithRetry = getFetchWithRetry(config.fetchApi, config.proxyAgent);
 
   const targetLocationHint =
     options.targetLocationHint || config.targetLocationHint;

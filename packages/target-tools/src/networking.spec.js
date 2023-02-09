@@ -108,6 +108,7 @@ describe("networking", () => {
     it("errors after 10 retries with custom error", async () => {
       const fetchWithRetry = getFetchWithRetry(
         fetchApi,
+        undefined,
         10,
         errorMessage =>
           `Yo dawg, we tried 10 times but it still failed with this error message: ${errorMessage}`

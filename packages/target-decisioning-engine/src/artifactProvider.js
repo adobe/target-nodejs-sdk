@@ -91,6 +91,7 @@ function ArtifactProvider(config, telemetryProvider) {
 
   const fetchWithRetry = getFetchWithRetry(
     fetchApi,
+    config.proxyAgent,
     NUM_FETCH_RETRIES,
     errorMessage => Messages.ERROR_MAX_RETRY(NUM_FETCH_RETRIES, errorMessage),
     error => eventEmitter(ARTIFACT_DOWNLOAD_FAILED, { artifactLocation, error })
