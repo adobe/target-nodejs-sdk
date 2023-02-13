@@ -84,8 +84,7 @@ export default function bootstrap(fetchApi) {
               eventEmitter,
               sendNotificationFunc: notificationOptions =>
                 this.sendNotifications(notificationOptions),
-              parseDomainImpl: parseDomainPsl,
-              proxyAgent: options.proxyAgent
+              parseDomainImpl: parseDomainPsl
             },
             this.telemetryProvider
           )

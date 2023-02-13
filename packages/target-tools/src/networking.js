@@ -1,5 +1,5 @@
 import { DEFAULT_NUM_FETCH_RETRIES } from "./constants";
-import { isBrowser, isDefined, isNodeJS, noop } from "./utils";
+import { isBrowser, isNodeJS, noop } from "./utils";
 import { isFunction } from "./lodash";
 
 const NOT_MODIFIED = 304;
@@ -27,18 +27,12 @@ export function getFetchApi(fetchApi) {
 
 export function getFetchWithRetry(
   fetchApi,
-  proxyAgent = undefined,
   maxRetries = DEFAULT_NUM_FETCH_RETRIES,
   errorFunc = errorMessage => errorMessage,
   incidentalFailureCallback = noop
 ) {
   return function fetchWithRetry(url, options, numRetries = maxRetries) {
-    const fetchOptions = options || {};
-    if (isDefined(proxyAgent)) {
-      fetchOptions.dispatcher = proxyAgent;
-    }
-
-    return fetchApi(url, fetchOptions)
+    return fetchApi(url, options)
       .then(res => {
         if (!res.ok && res.status !== NOT_MODIFIED) {
           throw Error(res.statusText);

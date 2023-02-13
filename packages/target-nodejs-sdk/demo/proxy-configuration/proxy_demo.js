@@ -1,7 +1,3 @@
-const fetch = require("node-fetch");
-const HttpsProxyAgent = require("https-proxy-agent");
-// eslint-disable-next-line no-unused-vars
-const undici = require("undici");
 const TargetClient = require("../../dist/targetclient.server");
 
 let client;
@@ -51,57 +47,78 @@ function getOffers() {
 }
 
 // proxy test for Node 18.2+ users
-// const proxyAgent = new undici.ProxyAgent("http://localhost:8080");
-// client = TargetClient.create({
-//   client: "targettesting",
-//   organizationId: "74F652E95F1B16FE0A495C92@AdobeOrg",
-//   decisioningMethod: "on-device",
-//   // environment: "staging",
-//   // cdnEnvironment: "staging",
-//   events: { clientReady: getOffers },
-//   logger: {
-//     debug: (...messages) => console.log(...messages),
-//     error: (...messages) => console.log(...messages)
-//   },
-//   proxyAgent
-// });
 
-// proxy test for Node 16.8+ users
-// const proxyAgent = new undici.ProxyAgent("http://localhost:8080");
-// client = TargetClient.create({
-//   client: "targettesting",
-//   fetchApi: undici.fetch,
-//   organizationId: "74F652E95F1B16FE0A495C92@AdobeOrg",
-//   decisioningMethod: "on-device",
-//   // environment: "staging",
-//   // cdnEnvironment: "staging",
-//   events: { clientReady: getOffers },
-//   logger: {
-//     debug: (...messages) => console.log(...messages),
-//     error: (...messages) => console.log(...messages)
-//   },
-//   proxyAgent
-// });
+// eslint-disable-next-line import/order
+const { ProxyAgent } = require("undici");
 
-// proxy test for Node 14 users
-const oldProxy = HttpsProxyAgent("http://localhost:8080");
+const proxyAgent = new ProxyAgent("http://localhost:8080");
 
 const fetchImpl = (url, options) => {
   const fetchOptions = options;
-  fetchOptions.agent = oldProxy;
+  fetchOptions.dispatcher = proxyAgent;
+  // undici fetch
   return fetch(url, fetchOptions);
 };
 
 client = TargetClient.create({
   client: "targettesting",
-  organizationId: "74F652E95F1B16FE0A495C92@AdobeOrg",
   fetchApi: fetchImpl,
+  organizationId: "74F652E95F1B16FE0A495C92@AdobeOrg",
   decisioningMethod: "on-device",
-  // environment: "staging",
-  // cdnEnvironment: "staging",
   events: { clientReady: getOffers },
   logger: {
     debug: (...messages) => console.log(...messages),
     error: (...messages) => console.log(...messages)
   }
 });
+
+// proxy test for Node 16.8+ users
+// eslint-disable-next-line import/order
+// const { ProxyAgent, fetch } = require("undici");
+//
+// const proxyAgent = new ProxyAgent("http://localhost:8080");
+//
+// const fetchImpl = (url, options) => {
+//   const fetchOptions = options;
+//   fetchOptions.dispatcher = proxyAgent;
+//   return fetch(url, fetchOptions);
+// };
+//
+// client = TargetClient.create({
+//   client: "targettesting",
+//   fetchApi: fetchImpl,
+//   organizationId: "74F652E95F1B16FE0A495C92@AdobeOrg",
+//   decisioningMethod: "on-device",
+//   events: { clientReady: getOffers },
+//   logger: {
+//     debug: (...messages) => console.log(...messages),
+//     error: (...messages) => console.log(...messages)
+//   }
+// });
+
+// proxy test for Node 14+ users
+
+// eslint-disable-next-line import/order
+// const ProxyAgent = require("proxy-agent");
+// const fetch = require("node-fetch");
+//
+// const oldProxy = new ProxyAgent("http://localhost:8080");
+//
+// const fetchImpl = (url, options) => {
+//   const fetchOptions = options;
+//   fetchOptions.agent = oldProxy;
+//   // node-fetch
+//   return fetch(url, fetchOptions);
+// };
+//
+// client = TargetClient.create({
+//   client: "targettesting",
+//   organizationId: "74F652E95F1B16FE0A495C92@AdobeOrg",
+//   fetchApi: fetchImpl,
+//   decisioningMethod: "on-device",
+//   events: { clientReady: getOffers },
+//   logger: {
+//     debug: (...messages) => console.log(...messages),
+//     error: (...messages) => console.log(...messages)
+//   }
+// });

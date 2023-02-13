@@ -1,6 +1,5 @@
 import { DecisioningArtifact } from "./DecisioningArtifact";
 import { ParseDomainFunc } from "./DecisioningContext";
-import { ProxyAgent } from "undici";
 
 export interface DecisioningConfig {
   /**
@@ -87,9 +86,4 @@ export interface DecisioningConfig {
    * Function used to parse domains
    */
   parseDomainImpl?: ParseDomainFunc;
-
-  /**
-   * Proxy Agent to specify a proxy for the fetch implementation
-   */
-  proxyAgent: ProxyAgent;
 }
