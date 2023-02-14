@@ -10,7 +10,7 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "proxy-agent": "^5.0.0",
-    "undici": "^5.18.0"
+    "https-proxy-agent": "^5.0.0",
+    "node-fetch": "^2.6.1"
   }
 }
