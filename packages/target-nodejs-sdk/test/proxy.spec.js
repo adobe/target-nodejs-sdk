@@ -1,19 +1,25 @@
-const fetch = require("node-fetch");
+import { Agent } from "https";
+
+const { getFetchWithTelemetry } = require("@adobe/target-tools");
 const TargetClient = require("../src/index.server").default;
 
 describe("Target Client supports proxy configuration", () => {
-  it("By overriding the fetchApi during client initialization", () => {
-    const spy = jest.fn();
+  it("By overriding the fetchApi during client initialization", async () => {
+    const proxyAgentSpy = jest.spyOn(Agent.prototype, "createConnection");
 
     const fetchImpl = (url, options) => {
       const fetchOptions = options || {};
-      fetchOptions.agent = spy;
-      return fetch(url, fetchOptions);
+      fetchOptions.agent = new Agent({
+        keepAlive: true
+      });
+      const telemetryFetch = getFetchWithTelemetry();
+      return telemetryFetch(url, fetchOptions);
     };
 
     const client = TargetClient.create({
-      client: "client",
-      organizationId: "orgId",
+      client: "adobesummit2018",
+      organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
+      decisioningMethod: "server-side",
       fetchApi: fetchImpl
     });
 
@@ -28,24 +34,17 @@ describe("Target Client supports proxy configuration", () => {
       }
     };
 
-    client.getOffers({
+    await client.getOffers({
       request: TARGET_REQUEST,
       sessionId: "dummy_session"
     });
 
-    expect(spy).toHaveBeenCalledWith({
-      auth: null,
-      host: "client.tt.omtrdc.net",
-      hostname: "client.tt.omtrdc.net",
-      href: "https://client.tt.omtrdc.net/rest/v1/delivery?imsOrgId=orgId&sessionId=dummy_session",
-      path: "/rest/v1/delivery?imsOrgId=orgId&sessionId=dummy_session",
-      hash: null,
-      pathname: "/rest/v1/delivery",
-      port: null,
-      protocol: "https:",
-      query: "imsOrgId=orgId&sessionId=dummy_session",
-      search: "?imsOrgId=orgId&sessionId=dummy_session",
-      slashes: true
-    });
+    const proxyAgentSpyCall = proxyAgentSpy.mock.calls[0][0];
+
+    expect(proxyAgentSpyCall.keepAlive).toEqual(true);
+    expect(proxyAgentSpyCall.servername).toEqual(
+      "adobesummit2018.tt.omtrdc.net"
+    );
+    expect(proxyAgentSpyCall.headers["X-EXC-SDK"]).toEqual("AdobeTargetNode");
   });
 });
