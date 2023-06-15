@@ -8,14 +8,15 @@ import {
   UNKNOWN_IP_ADDRESS
 } from "@adobe/target-tools";
 import { GEO_LOCATION_UPDATED } from "./events";
-import { getGeoLookupPath } from "./utils";
 import {
+  CDN_BASE_PATH,
   HTTP_HEADER_FORWARDED_FOR,
   HTTP_HEADER_GEO_CITY,
   HTTP_HEADER_GEO_COUNTRY,
   HTTP_HEADER_GEO_LATITUDE,
   HTTP_HEADER_GEO_LONGITUDE,
-  HTTP_HEADER_GEO_REGION
+  HTTP_HEADER_GEO_REGION,
+  SUPPORTED_ARTIFACT_MAJOR_VERSION
 } from "./constants";
 
 const GEO_MAPPINGS = [
@@ -108,7 +109,7 @@ export function GeoProvider(config, artifact) {
     }
 
     // When ipAddress is the only geo value passed in to getOffers(), do IP-to-Geo lookup.
-    const geoLookupPath = getGeoLookupPath(config);
+    const geoLookupPath = `https://${CDN_BASE_PATH}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/geo`;
 
     if (
       geoTargetingEnabled &&

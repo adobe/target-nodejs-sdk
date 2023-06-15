@@ -1,6 +1,5 @@
 import * as HttpStatus from "http-status-codes";
 import {
-  ENVIRONMENT_PROD,
   ENVIRONMENT_STAGE,
   isDefined,
   TelemetryProvider
@@ -10,8 +9,7 @@ import * as constants from "./constants";
 import {
   ARTIFACT_FORMAT_DEFAULT,
   ARTIFACT_FORMAT_JSON,
-  CDN_BASE_PROD,
-  CDN_BASE_STAGE,
+  CDN_BASE_PATH,
   SUPPORTED_ARTIFACT_MAJOR_VERSION
 } from "./constants";
 import Messages from "./messages";
@@ -400,7 +398,7 @@ describe("determineArtifactLocation", () => {
         cdnEnvironment: "staging"
       })
     ).toEqual(
-      `https://${CDN_BASE_STAGE}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.json`
+      `https://${CDN_BASE_PATH}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.json`
     );
   });
 
@@ -410,7 +408,7 @@ describe("determineArtifactLocation", () => {
         client: "someClientId"
       })
     ).toEqual(
-      `https://${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.json`
+      `https://${CDN_BASE_PATH}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.json`
     );
   });
 
@@ -421,7 +419,7 @@ describe("determineArtifactLocation", () => {
         artifactFormat: "bin"
       })
     ).toEqual(
-      `https://${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.bin`
+      `https://${CDN_BASE_PATH}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.bin`
     );
   });
 
@@ -432,7 +430,7 @@ describe("determineArtifactLocation", () => {
         artifactFormat: "wonk"
       })
     ).toEqual(
-      `https://${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.${ARTIFACT_FORMAT_DEFAULT}`
+      `https://${CDN_BASE_PATH}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.${ARTIFACT_FORMAT_DEFAULT}`
     );
   });
 
@@ -443,26 +441,18 @@ describe("determineArtifactLocation", () => {
         environment: ENVIRONMENT_STAGE
       })
     ).toEqual(
-      `https://${CDN_BASE_PROD}/someClientId/${ENVIRONMENT_STAGE}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.json`
+      `https://${CDN_BASE_PATH}/someClientId/${ENVIRONMENT_STAGE}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.json`
     );
   });
 
-  it("warns on invalid environment name and defaults to prod", done => {
+  it("warns on invalid environment name and defaults to prod", () => {
     expect(
       determineArtifactLocation({
         client: "someClientId",
-        environment: "boohoo",
-        logger: {
-          debug: (prefix, message) => {
-            expect(message).toEqual(
-              Messages.INVALID_ENVIRONMENT("boohoo", ENVIRONMENT_PROD)
-            );
-            done();
-          }
-        }
+        environment: "1-PROD"
       })
     ).toEqual(
-      `https://${CDN_BASE_PROD}/someClientId/${ENVIRONMENT_PROD}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.json`
+      `https://${CDN_BASE_PATH}/someClientId/1-prod/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/rules.json`
     );
   });
 
@@ -473,7 +463,7 @@ describe("determineArtifactLocation", () => {
         propertyToken: "xyz-123-abc"
       })
     ).toEqual(
-      `https://${CDN_BASE_PROD}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/xyz-123-abc/rules.json`
+      `https://${CDN_BASE_PATH}/someClientId/production/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/xyz-123-abc/rules.json`
     );
   });
 });

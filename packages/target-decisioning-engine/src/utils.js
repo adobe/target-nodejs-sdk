@@ -3,7 +3,6 @@
 import {
   DEFAULT_GLOBAL_MBOX,
   ENVIRONMENT_PROD,
-  getLogger,
   getMboxNames,
   getViewNames,
   hasRequestedViews,
@@ -14,8 +13,7 @@ import {
   isPojo,
   isString,
   isUndefined,
-  parseURI,
-  POSSIBLE_ENVIRONMENTS
+  parseURI
 } from "@adobe/target-tools";
 
 import Messages from "./messages";
@@ -25,7 +23,7 @@ import {
   ARTIFACT_FORMAT_DEFAULT,
   ARTIFACT_FORMAT_JSON,
   ARTIFACT_FORMATS,
-  CDN_BASE,
+  CDN_BASE_PATH,
   REGEX_ARTIFACT_FILENAME_BINARY,
   SUPPORTED_ARTIFACT_MAJOR_VERSION
 } from "./constants";
@@ -180,60 +178,6 @@ export function cloneDeep(obj) {
   return undefined;
 }
 
-/**
- *
- * @param {String} environmentName
- * @param logger
- */
-export function getValidEnvironment(environmentName, logger) {
-  const isValid = includes(environmentName, POSSIBLE_ENVIRONMENTS);
-
-  if (!isValid) {
-    getLogger(logger).debug(
-      Messages.INVALID_ENVIRONMENT(environmentName, ENVIRONMENT_PROD)
-    );
-  }
-
-  return isValid ? environmentName : ENVIRONMENT_PROD;
-}
-
-/**
- * @param {import("../types/DecisioningConfig").DecisioningConfig} config
- */
-export function getTargetEnvironment(config) {
-  const { environment = ENVIRONMENT_PROD } = config;
-
-  return getValidEnvironment(environment, config.logger);
-}
-
-/**
- * @param {import("../types/DecisioningConfig").DecisioningConfig} config
- */
-export function getCdnEnvironment(config) {
-  const { cdnEnvironment = ENVIRONMENT_PROD } = config;
-
-  return getValidEnvironment(cdnEnvironment, config.logger);
-}
-
-/**
- * @param {import("../types/DecisioningConfig").DecisioningConfig} config
- * @return {string}
- */
-export function getCdnBasePath(config) {
-  let { cdnBasePath } = config;
-
-  if (!isDefined(cdnBasePath)) {
-    const cdnEnvironment = getCdnEnvironment(config);
-
-    const env = includes(cdnEnvironment, POSSIBLE_ENVIRONMENTS)
-      ? cdnEnvironment
-      : ENVIRONMENT_PROD;
-    cdnBasePath = CDN_BASE[env];
-  }
-
-  return `https://${cdnBasePath}`;
-}
-
 export function getArtifactFileName(artifactFormat = ARTIFACT_FORMAT_DEFAULT) {
   // eslint-disable-next-line no-param-reassign
   artifactFormat = includes(artifactFormat, ARTIFACT_FORMATS)
@@ -242,16 +186,6 @@ export function getArtifactFileName(artifactFormat = ARTIFACT_FORMAT_DEFAULT) {
 
   return ARTIFACT_FILENAME[artifactFormat];
 }
-
-/**
- * @param {import("../types/DecisioningConfig").DecisioningConfig} config
- * @return {string}
- */
-export function getGeoLookupPath(config) {
-  const cdnBasePath = getCdnBasePath(config);
-  return `${cdnBasePath}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/geo`;
-}
-
 /**
  * @param {import("../types/DecisioningConfig").DecisioningConfig} config Options map, required
  * @param {Boolean} addPropertyToken
@@ -262,10 +196,14 @@ export function determineArtifactLocation(config) {
     return artifactLocation;
   }
 
-  const targetEnvironment = getTargetEnvironment(config);
+  const cdnBaseUrl = `https://${CDN_BASE_PATH}`;
+  const targetEnvironment =
+    config.environment != null
+      ? config.environment.toLowerCase()
+      : ENVIRONMENT_PROD;
 
   return [
-    getCdnBasePath(config),
+    cdnBaseUrl,
     client,
     targetEnvironment,
     `v${SUPPORTED_ARTIFACT_MAJOR_VERSION}`,
