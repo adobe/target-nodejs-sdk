@@ -19,6 +19,9 @@ import {
   SUPPORTED_ARTIFACT_MAJOR_VERSION
 } from "./constants";
 
+// When ipAddress is the only geo value passed in to getOffers(), do IP-to-Geo lookup.
+const GEO_LOOKUP_URL = `https://${CDN_BASE_PATH}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/geo`;
+
 const GEO_MAPPINGS = [
   {
     headerName: HTTP_HEADER_FORWARDED_FOR,
@@ -107,10 +110,6 @@ export function GeoProvider(config, artifact) {
     ) {
       delete validatedGeoRequestContext.ipAddress;
     }
-
-    // When ipAddress is the only geo value passed in to getOffers(), do IP-to-Geo lookup.
-    const geoLookupPath = `https://${CDN_BASE_PATH}/v${SUPPORTED_ARTIFACT_MAJOR_VERSION}/geo`;
-
     if (
       geoTargetingEnabled &&
       (geoRequestContext.ipAddress === UNKNOWN_IP_ADDRESS ||
@@ -127,7 +126,7 @@ export function GeoProvider(config, artifact) {
         headers[HTTP_HEADER_FORWARDED_FOR] = geoRequestContext.ipAddress;
       }
 
-      return fetchApi(geoLookupPath, {
+      return fetchApi(GEO_LOOKUP_URL, {
         headers
       })
         .then(geoResponse =>

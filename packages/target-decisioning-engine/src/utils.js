@@ -197,10 +197,10 @@ export function determineArtifactLocation(config) {
   }
 
   const cdnBaseUrl = `https://${CDN_BASE_PATH}`;
-  const targetEnvironment =
-    config.environment != null
-      ? config.environment.toLowerCase()
-      : ENVIRONMENT_PROD;
+
+  const targetEnvironment = config.environment
+    ? config.environment.toLowerCase()
+    : ENVIRONMENT_PROD;
 
   return [
     cdnBaseUrl,
