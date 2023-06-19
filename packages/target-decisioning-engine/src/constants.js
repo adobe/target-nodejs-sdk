@@ -1,9 +1,3 @@
-import {
-  ENVIRONMENT_DEV,
-  ENVIRONMENT_PROD,
-  ENVIRONMENT_STAGE
-} from "@adobe/target-tools";
-
 export const DEFAULT_POLLING_INTERVAL = 300000; // five minutes (in milliseconds)
 export const MINIMUM_POLLING_INTERVAL = 300000; // five minutes (in milliseconds)
 export const NUM_FETCH_RETRIES = 10;
@@ -21,9 +15,7 @@ ARTIFACT_FILENAME[ARTIFACT_FORMAT_JSON] = "rules.json";
 
 export const LOG_PREFIX = "LD";
 
-export const CDN_BASE_PROD = "assets.adobetarget.com";
-export const CDN_BASE_STAGE = "assets.staging.adobetarget.com";
-export const CDN_BASE_DEV = "assets.staging.adobetarget.com";
+export const CDN_BASE_PATH = "assets.adobetarget.com";
 
 export const HTTP_HEADER_FORWARDED_FOR = "x-forwarded-for";
 export const HTTP_HEADER_GEO_LATITUDE = "x-geo-latitude";
@@ -31,14 +23,6 @@ export const HTTP_HEADER_GEO_LONGITUDE = "x-geo-longitude";
 export const HTTP_HEADER_GEO_COUNTRY = "x-geo-country-code";
 export const HTTP_HEADER_GEO_REGION = "x-geo-region-code";
 export const HTTP_HEADER_GEO_CITY = "x-geo-city";
-
-const CDN_BASE = {};
-CDN_BASE[ENVIRONMENT_PROD] = CDN_BASE_PROD;
-CDN_BASE[ENVIRONMENT_STAGE] = CDN_BASE_STAGE;
-CDN_BASE[ENVIRONMENT_DEV] = CDN_BASE_DEV;
-
-export { CDN_BASE };
-
 export const CAMPAIGN_BUCKET_SALT = "0";
 
 // Response token keys
